@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Meeting status</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p th:text="'This is the meeting status page of room ' + ${roomId}" />
+<p th:text="'The topic of this meeting is: ' + ${meetingTopic}" />
+<p th:text="'Minutes left for your meeting: ' + ${minutesLeft}" />
+<p th:text="'Seconds left for your meeting: ' + ${secondsLeft}" />
+
+<form th:action = "${startMeetingUrl}" method = "post">
+    <input type="submit" value="Start Meeting" />
+</form>
+
+<form th:action = "${stopMeetingUrl}" method = "post">
+    <input type="submit" value="Stop Meeting" />
+</form>
+
+<form th:action = "${extendMeetingUrl}" method = "post">
+    <input type="submit" value="Extend Meeting" />
+</form>
+
+</body>
+</html>
