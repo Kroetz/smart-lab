@@ -2,7 +2,6 @@ package de.qaware.smartlabworkgroupconfigprovider.controller;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabworkgroupconfigprovider.service.IWorkgroupConfigProviderMockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ public class WorkgroupConfigProviderMockController {
 
     private final IWorkgroupConfigProviderMockService workgroupConfigProviderService;
 
-    @Autowired
     public WorkgroupConfigProviderMockController(IWorkgroupConfigProviderMockService workgroupConfigProviderService) {
         this.workgroupConfigProviderService = workgroupConfigProviderService;
     }

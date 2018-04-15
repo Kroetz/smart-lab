@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackageClasses = {
+		de.qaware.smartlabcore.trigger.controller.ITriggerApiClient.class,
+		de.qaware.smartlabcore.meeting.controller.IMeetingManagementApiClient.class})
 public class SmartLabMeetingSetUpTriggerMockApplication {
 
 	public static void main(String[] args) {

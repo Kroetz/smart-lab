@@ -1,10 +1,10 @@
 package de.qaware.smartlabmeetingsetuptriggermock;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
+import de.qaware.smartlabcore.meeting.controller.IMeetingManagementApiClient;
+import de.qaware.smartlabcore.trigger.controller.ITriggerApiClient;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -20,24 +20,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MeetingSetUpTrigger implements CommandLineRunner {
 
-    @Autowired
-    @Qualifier("mock")
-    private IMeetingControllerFeignClient meetingController;
-
-
-    @Autowired
-    @Qualifier("mock")
-    private ITriggerControllerFeignClient triggerController;
-
-
+    private final IMeetingManagementApiClient meetingManagementApiClient;
+    private final ITriggerApiClient triggerApiClient;
     private final RestTemplate restTemplate;
-
     private Instant currentCheck = Instant.now();
     private Instant lastCheck = Instant.now().minus(Duration.ofDays(1));
     private boolean active = true;
     private long checkInterval = 5000L;
 
-    public MeetingSetUpTrigger(RestTemplateBuilder restTemplateBuilder) {
+    public MeetingSetUpTrigger(
+            IMeetingManagementApiClient meetingManagementApiClient,
+            ITriggerApiClient triggerApiClient,
+            RestTemplateBuilder restTemplateBuilder) {
+        this.meetingManagementApiClient = meetingManagementApiClient;
+        this.triggerApiClient = triggerApiClient;
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -70,7 +66,7 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
         List<> results = restTemplate.getForObject(url, User.class);*/
 
-        val justStartedMeetings = meetingController.getMeetings().stream()
+        val justStartedMeetings = meetingManagementApiClient.getMeetings().stream()
                 .filter(this::hasJustStarted)
                 .collect(Collectors.toList());
 
@@ -86,7 +82,7 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
 
     private void triggerMeetingSetUp(IMeeting startedMeeting) {
         // String url = TriggerController.MAPPING_BASE + String.format(TriggerController.URL_TEMPLATE_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID, endedMeeting.getRoomId());
-        triggerController.setUpCurrentMeetingByRoomId(startedMeeting.getRoomId());
+        triggerApiClient.setUpCurrentMeetingByRoomId(startedMeeting.getRoomId());
     }
 
     private boolean hasJustStarted(IMeeting meeting) {

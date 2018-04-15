@@ -24,6 +24,9 @@ public interface IWorkgroupManagementApiClient {
     @DeleteMapping(WorkgroupManagementController.MAPPING_BASE + WorkgroupManagementController.MAPPING_DELETE_WORKGROUP)
     void deleteWorkgroup(@PathVariable("workgroupId") long workgroupId);
 
+    @GetMapping(WorkgroupManagementController.MAPPING_BASE + WorkgroupManagementController.MAPPING_GET_MEETINGS_OF_WORKGROUP)
+    List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
+
     @GetMapping(WorkgroupManagementController.MAPPING_BASE + WorkgroupManagementController.MAPPING_GET_CURRENT_MEETING)
     Optional<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId);
 

@@ -1,33 +1,31 @@
 package de.qaware.smartlabcore.workgroup.service.mock;
 
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
+import de.qaware.smartlabcore.entity.meeting.IMeeting;
+import de.qaware.smartlabcore.meeting.controller.IMeetingManagementApiClient;
 import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Qualifier("mock")
 @Slf4j
 public class WorkgroupManagementService implements IWorkgroupManagementService {
 
-    @Autowired
-    @Qualifier("mock")
-    private IMeetingManagementService meetingService;
-
     private final IWorkgroupConfigProviderMock workgroupConfigProvider;
+    private final IMeetingManagementApiClient meetingManagementApiClient;
 
-    @Autowired
     public WorkgroupManagementService(
-            @Qualifier("mock") IWorkgroupConfigProviderMock workgroupConfigProvider) {
+            @Qualifier("mock") IWorkgroupConfigProviderMock workgroupConfigProvider,
+            IMeetingManagementApiClient meetingManagementApiClient) {
         this.workgroupConfigProvider = workgroupConfigProvider;
+        this.meetingManagementApiClient = meetingManagementApiClient;
     }
 
     @Override
@@ -41,10 +39,17 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
+    public List<IMeeting> getMeetingsOfWorkgroup(long workgroupId) {
+        return meetingManagementApiClient.getMeetings().stream()
+                .filter(meeting -> meeting.getWorkgroupId() == workgroupId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<IMeeting> getCurrentMeeting(long workgroupId) {
-        return getWorkgroup(workgroupId)
-                .map(meetingService::getCurrentMeeting)
-                .orElse(Optional.empty());
+        return getMeetingsOfWorkgroup(workgroupId).stream()
+                .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
+                .findFirst();
     }
 
     @Override
@@ -59,10 +64,8 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
 
     @Override
     public boolean extendCurrentMeeting(long workgroupId, long extensionInMinutes) {
-        return getWorkgroup(workgroupId)
-                .map(workgroup -> {
-                    return meetingService.extendCurrentMeeting(workgroup, Duration.ofMinutes(extensionInMinutes));
-                })
+        return getCurrentMeeting(workgroupId)
+                .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extensionInMinutes))
                 .orElse(false);
     }
 }

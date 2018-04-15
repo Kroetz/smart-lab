@@ -12,8 +12,7 @@ class SpockTest extends Specification{
 
     @Autowired
     @Qualifier("mock")
-    IMeetingManagementService meetingService
-
+    private final IMeetingManagementService meetingManagementService
 
     def setup() {
         customerService.dropCustomerCollection()
@@ -26,10 +25,10 @@ class SpockTest extends Specification{
         def coastGuardMeeting = MeetingFactory.getCoastGuardMeeting()
 
         when:
-        meetingService.createMeeting(coastGuardMeeting)
+        meetingManagementService.createMeeting(coastGuardMeeting)
 
         then:
-        meetingService.getMeeting(coastGuardMeeting.getId()) == coastGuardMeeting
+        meetingManagementService.getMeeting(coastGuardMeeting.getId()) == coastGuardMeeting
     }
 
 }

@@ -2,8 +2,6 @@ package de.qaware.smartlabdeviceconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
 import de.qaware.smartlabdeviceconfigprovidermock.service.IDeviceConfigProviderMockService;
-import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +14,6 @@ public class DeviceConfigProviderMockController {
 
     private final IDeviceConfigProviderMockService deviceConfigProviderService;
 
-    @Autowired
     public DeviceConfigProviderMockController(IDeviceConfigProviderMockService deviceConfigProviderService) {
         this.deviceConfigProviderService = deviceConfigProviderService;
     }

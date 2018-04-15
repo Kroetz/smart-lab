@@ -17,7 +17,9 @@ public interface IRoomManagementService {
 
     void deleteRoom(long roomId);
 
+    List<IMeeting> getMeetingsInRoom(long roomId);
+
     String getCurrentMeetingStatusPage(long roomId, Model model);
 
-    void extendCurrentMeeting(long roomId, long extensionInMinutes);
+    boolean extendCurrentMeeting(long roomId, long extensionInMinutes);
 }

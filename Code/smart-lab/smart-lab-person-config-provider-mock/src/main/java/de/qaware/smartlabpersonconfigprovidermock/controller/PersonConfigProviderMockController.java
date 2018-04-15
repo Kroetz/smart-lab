@@ -2,7 +2,6 @@ package de.qaware.smartlabpersonconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabpersonconfigprovidermock.service.IPersonConfigProviderMockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ public class PersonConfigProviderMockController {
 
     private final IPersonConfigProviderMockService personConfigProviderService;
 
-    @Autowired
     public PersonConfigProviderMockController(IPersonConfigProviderMockService personConfigProviderService) {
         this.personConfigProviderService = personConfigProviderService;
     }

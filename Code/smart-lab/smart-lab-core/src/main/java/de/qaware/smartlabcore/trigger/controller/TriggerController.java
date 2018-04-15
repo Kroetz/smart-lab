@@ -2,7 +2,6 @@ package de.qaware.smartlabcore.trigger.controller;
 
 import de.qaware.smartlabcore.trigger.service.ITriggerService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ public class TriggerController {
 
     private final ITriggerService triggerService;
 
-    @Autowired
     public TriggerController(ITriggerService triggerService) {
         this.triggerService = triggerService;
     }

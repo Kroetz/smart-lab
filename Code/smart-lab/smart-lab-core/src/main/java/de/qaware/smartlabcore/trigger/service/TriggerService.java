@@ -1,38 +1,32 @@
 package de.qaware.smartlabcore.trigger.service;
 
-
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
-import de.qaware.smartlabcore.room.service.IRoomManagementService;
-import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
+import de.qaware.smartlabcore.room.controller.IRoomManagementApiClient;
+import de.qaware.smartlabcore.workgroup.controller.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class TriggerService implements ITriggerService {
 
-    @Autowired
-    @Qualifier("mock")
-    private IRoomManagementService roomService;
+    private final IRoomManagementApiClient roomManagementApiClient;
+    private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
-    @Autowired
-    @Qualifier("mock")
-    private IMeetingManagementService meetingService;
-
-    @Autowired
-    @Qualifier("mock")
-    private IWorkgroupManagementService workgroupService;
+    public TriggerService(
+            IRoomManagementApiClient roomManagementApiClient,
+            IWorkgroupManagementApiClient workgroupManagementApiClient) {
+        this.roomManagementApiClient = roomManagementApiClient;
+        this.workgroupManagementApiClient = workgroupManagementApiClient;
+    }
 
     @Override
     public void setUpMeeting(IMeeting meeting) {
-        val room = roomService.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
+        val room = roomManagementApiClient.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
+        val workgroup = workgroupManagementApiClient.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
         room.setUpMeeting(meeting, workgroup);
         log.info(String.format("Set up room \"%s\" (id: %d) for meeting (id: %d) of workgroup \"%s\" (id: %d)",
                 room.getName(),
@@ -44,29 +38,29 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public void setUpCurrentMeetingByRoomId(long roomId) {
-        roomService.getRoom(roomId).ifPresent(this::setUpCurrentMeeting);
+        roomManagementApiClient.getCurrentMeeting(roomId).ifPresent(this::setUpMeeting);
     }
 
     @Override
     public void setUpCurrentMeeting(Room room) {
-        meetingService.getCurrentMeeting(room).ifPresent(this::setUpMeeting);
+        setUpCurrentMeetingByRoomId(room.getId());
     }
 
     @Override
     public void setUpCurrentMeetingByWorkgroupId(long workgroupId) {
-        workgroupService.getWorkgroup(workgroupId).ifPresent(this::setUpCurrentMeeting);
+        workgroupManagementApiClient.getCurrentMeeting(workgroupId).ifPresent(this::setUpMeeting);
     }
 
     @Override
     public void setUpCurrentMeeting(Workgroup workgroup) {
-        meetingService.getCurrentMeeting(workgroup).ifPresent(this::setUpMeeting);
+        setUpCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
     @Override
     public void cleanUpMeeting(IMeeting meeting) {
         // meeting.triggerAssistances(new TriggerMeetingCleanUp());
-        val room = roomService.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
+        val room = roomManagementApiClient.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
+        val workgroup = workgroupManagementApiClient.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
         room.cleanUpMeeting(meeting, workgroup);
         log.info(String.format("Clean up room \"%s\" (id: %d) for meeting (id: %d) of workgroup \"%s\" (id: %d)",
                 room.getName(),
@@ -78,30 +72,30 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public void cleanUpCurrentMeetingByRoomId(long roomId) {
-        roomService.getRoom(roomId).ifPresent(this::cleanUpCurrentMeeting);
+        roomManagementApiClient.getCurrentMeeting(roomId).ifPresent(this::cleanUpMeeting);
     }
 
     @Override
     public void cleanUpCurrentMeeting(Room room) {
-        meetingService.getCurrentMeeting(room).ifPresent(this::cleanUpMeeting);
+        cleanUpCurrentMeetingByRoomId(room.getId());
     }
 
     // TODO: Clean up LAST meeting einführen, da kein current meeting vorhanden nach dem Ende!!!
 
     @Override
     public void cleanUpCurrentMeetingByWorkgroupId(long workgroupId) {
-        workgroupService.getWorkgroup(workgroupId).ifPresent(this::cleanUpCurrentMeeting);
+        workgroupManagementApiClient.getCurrentMeeting(workgroupId).ifPresent(this::cleanUpMeeting);
     }
 
     @Override
     public void cleanUpCurrentMeeting(Workgroup workgroup) {
-        meetingService.getCurrentMeeting(workgroup).ifPresent(this::cleanUpMeeting);
+        cleanUpCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
     @Override
     public void startMeeting(IMeeting meeting) {
-        val room = roomService.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
+        val room = roomManagementApiClient.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
+        val workgroup = workgroupManagementApiClient.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
         room.startMeeting(meeting, workgroup);
         log.info(String.format("Started meeting (id: %d) of workgroup \"%s\" (id: %d) in room \"%s\" (id: %d)",
                 meeting.getId(),
@@ -113,28 +107,28 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public void startCurrentMeetingByRoomId(long roomId){
-        roomService.getRoom(roomId).ifPresent(this::startCurrentMeeting);
+        roomManagementApiClient.getCurrentMeeting(roomId).ifPresent(this::startMeeting);
     }
 
     @Override
     public void startCurrentMeeting(Room room) {
-        meetingService.getCurrentMeeting(room).ifPresent(this::startMeeting);
+        startCurrentMeetingByRoomId(room.getId());
     }
 
     @Override
     public void startCurrentMeetingByWorkgroupId(long workgroupId) {
-        workgroupService.getWorkgroup(workgroupId).ifPresent(this::startCurrentMeeting);
+        workgroupManagementApiClient.getCurrentMeeting(workgroupId).ifPresent(this::startMeeting);
     }
 
     @Override
     public void startCurrentMeeting(Workgroup workgroup) {
-        meetingService.getCurrentMeeting(workgroup).ifPresent(this::startMeeting);
+        startCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
     @Override
     public void stopMeeting(IMeeting meeting) {
-        val room = roomService.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
+        val room = roomManagementApiClient.getRoom(meeting.getRoomId()).orElseThrow(IllegalStateException::new);
+        val workgroup = workgroupManagementApiClient.getWorkgroup(meeting.getWorkgroupId()).orElseThrow(IllegalStateException::new);
         room.stopMeeting(meeting, workgroup);
         log.info(String.format("Stopped meeting (id: %d) of workgroup \"%s\" (id: %d) in room \"%s\" (id: %d)",
                 meeting.getId(),
@@ -146,21 +140,21 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public void stopCurrentMeetingByRoomId(long roomId) {
-        roomService.getRoom(roomId).ifPresent(this::stopCurrentMeeting);
+        roomManagementApiClient.getCurrentMeeting(roomId).ifPresent(this::stopMeeting);
     }
 
     @Override
     public void stopCurrentMeeting(Room room) {
-        meetingService.getCurrentMeeting(room).ifPresent(this::stopMeeting);
+        stopCurrentMeetingByRoomId(room.getId());
     }
 
     @Override
     public void stopCurrentMeetingByWorkgroupId(long workgroupId) {
-        workgroupService.getWorkgroup(workgroupId).ifPresent(this::stopCurrentMeeting);
+        workgroupManagementApiClient.getCurrentMeeting(workgroupId).ifPresent(this::stopMeeting);
     }
 
     @Override
     public void stopCurrentMeeting(Workgroup workgroup) {
-        meetingService.getCurrentMeeting(workgroup).ifPresent(this::stopMeeting);
+        stopCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 }

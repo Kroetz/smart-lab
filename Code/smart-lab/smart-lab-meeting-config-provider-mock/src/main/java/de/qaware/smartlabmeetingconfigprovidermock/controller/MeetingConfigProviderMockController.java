@@ -2,7 +2,6 @@ package de.qaware.smartlabmeetingconfigprovidermock.controller;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabmeetingconfigprovidermock.service.IMeetingConfigProviderMockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ public class MeetingConfigProviderMockController {
 
     private final IMeetingConfigProviderMockService meetingConfigProviderService;
 
-    @Autowired
     public MeetingConfigProviderMockController(IMeetingConfigProviderMockService meetingConfigProviderService) {
         this.meetingConfigProviderService = meetingConfigProviderService;
     }

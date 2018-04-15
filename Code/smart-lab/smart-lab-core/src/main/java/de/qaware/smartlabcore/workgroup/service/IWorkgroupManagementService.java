@@ -10,6 +10,7 @@ public interface IWorkgroupManagementService {
 
     List<Workgroup> getWorkgroups();
     Optional<Workgroup> getWorkgroup(long workgroupId);
+    List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
     Optional<IMeeting> getCurrentMeeting(long workgroupId);
 
     boolean createWorkgroup(Workgroup workgroup);

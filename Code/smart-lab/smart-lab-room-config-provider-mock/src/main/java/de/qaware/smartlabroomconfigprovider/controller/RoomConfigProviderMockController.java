@@ -2,7 +2,6 @@ package de.qaware.smartlabroomconfigprovider.controller;
 
 import de.qaware.smartlabcore.entity.room.Room;
 import de.qaware.smartlabroomconfigprovider.service.IRoomConfigProviderMockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ public class RoomConfigProviderMockController {
 
     private final IRoomConfigProviderMockService roomConfigProviderService;
 
-    @Autowired
     public RoomConfigProviderMockController(IRoomConfigProviderMockService roomConfigProviderService) {
         this.roomConfigProviderService = roomConfigProviderService;
     }

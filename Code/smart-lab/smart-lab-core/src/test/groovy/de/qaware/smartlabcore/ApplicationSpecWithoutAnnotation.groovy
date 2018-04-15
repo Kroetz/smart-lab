@@ -9,7 +9,7 @@ import spock.lang.Specification
 class ApplicationSpecWithoutAnnotation extends Specification {
 
     @Autowired
-    WebApplicationContext context
+    private final WebApplicationContext context
 
     def "should boot up without errors"() {
         expect: "web application context exists"

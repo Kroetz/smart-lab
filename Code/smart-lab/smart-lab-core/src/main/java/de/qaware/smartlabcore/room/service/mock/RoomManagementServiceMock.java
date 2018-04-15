@@ -2,11 +2,10 @@ package de.qaware.smartlabcore.room.service.mock;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
+import de.qaware.smartlabcore.meeting.controller.IMeetingManagementApiClient;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,22 +14,21 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Qualifier("mock")
 @Slf4j
 public class RoomManagementServiceMock implements IRoomManagementService {
 
-    @Autowired
-    @Qualifier("mock")
-    private IMeetingManagementService meetingService;
-
     private final IRoomConfigProviderMock roomConfigProvider;
+    private final IMeetingManagementApiClient meetingManagementApiClient;
 
-    @Autowired
     public RoomManagementServiceMock(
-            @Qualifier("mock") IRoomConfigProviderMock roomConfigProvider) {
+            @Qualifier("mock") IRoomConfigProviderMock roomConfigProvider,
+            IMeetingManagementApiClient meetingManagementApiClient) {
         this.roomConfigProvider = roomConfigProvider;
+        this.meetingManagementApiClient = meetingManagementApiClient;
     }
 
     public List<Room> getRooms() {
@@ -46,10 +44,17 @@ public class RoomManagementServiceMock implements IRoomManagementService {
     }
 
     @Override
+    public List<IMeeting> getMeetingsInRoom(long roomId) {
+        return meetingManagementApiClient.getMeetings().stream()
+                .filter(meeting -> meeting.getRoomId() == roomId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<IMeeting> getCurrentMeeting(long roomId) {
-        return getRoom(roomId)
-                .map(meetingService::getCurrentMeeting)
-                .orElse(Optional.empty());
+        return getMeetingsInRoom(roomId).stream()
+                .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
+                .findFirst();
     }
 
     @Override
@@ -63,16 +68,15 @@ public class RoomManagementServiceMock implements IRoomManagementService {
     }
 
     @Override
-    public void extendCurrentMeeting(long roomId, long extensionInMinutes) {
-        getRoom(roomId).ifPresent(room -> meetingService.extendCurrentMeeting(room, Duration.ofMinutes(extensionInMinutes)));
+    public boolean extendCurrentMeeting(long roomId, long extensionInMinutes) {
+        return getCurrentMeeting(roomId)
+                .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extensionInMinutes))
+                .orElse(false);
     }
 
     @Override
     public String getCurrentMeetingStatusPage(long roomId, Model model) {
-        val currentMeeting = getRoom(roomId)
-                .map(room -> meetingService.getCurrentMeeting(room))
-                .orElse(Optional.empty());
-        val statusPage = currentMeeting
+        val statusPage = getCurrentMeeting(roomId)
                 .map(meeting -> {
                     model.addAttribute("roomId", roomId);
                     model.addAttribute("meetingTopic", meeting.getTitle());

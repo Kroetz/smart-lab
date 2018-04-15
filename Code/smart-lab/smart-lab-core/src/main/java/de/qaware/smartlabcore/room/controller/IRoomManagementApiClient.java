@@ -29,13 +29,16 @@ public interface IRoomManagementApiClient {
     @ResponseBody
     void deleteRoom(@PathVariable("roomId") long roomId);
 
+    @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_MEETINGS_IN_ROOM)
+    List<IMeeting> getMeetingsInRoom(@PathVariable("roomId") long roomId);
+
     @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
     Optional<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId);
 
     @PostMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody
-    void extendCurrentMeeting(
+    boolean extendCurrentMeeting(
             @PathVariable("roomId") long roomId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes);
 

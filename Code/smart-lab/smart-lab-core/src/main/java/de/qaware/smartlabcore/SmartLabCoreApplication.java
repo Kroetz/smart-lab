@@ -1,7 +1,6 @@
 package de.qaware.smartlabcore;
 
 import com.fasterxml.classmate.TypeResolver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -31,13 +30,15 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @EnableSwagger2
 public class SmartLabCoreApplication {
 
+	private final TypeResolver typeResolver;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SmartLabCoreApplication.class, args);
 	}
 
-
-
-
+	public SmartLabCoreApplication(TypeResolver typeResolver) {
+		this.typeResolver = typeResolver;
+	}
 
 	@Bean
 	public Docket petApi() {
@@ -77,8 +78,7 @@ public class SmartLabCoreApplication {
 				;
 	}
 
-	@Autowired
-	private TypeResolver typeResolver;
+
 
 	private ApiKey apiKey() {
 		return new ApiKey("mykey", "api_key", "header");
