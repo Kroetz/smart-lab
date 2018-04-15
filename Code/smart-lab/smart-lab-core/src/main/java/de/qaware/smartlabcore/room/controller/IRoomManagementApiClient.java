@@ -10,35 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(value = "room-controller", url = "http://localhost:8080")
-public interface IRoomControllerClient {
+@FeignClient(value = "room-management", url = "http://localhost:8080")
+public interface IRoomManagementApiClient {
 
-    @GetMapping("/smart-lab/api/room")
+    @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_ROOMS)
     @ResponseBody
     List<Room> getRooms();
 
-    @GetMapping("/smart-lab/api/room/{roomId}")
+    @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_ROOM)
     @ResponseBody
     Optional<Room> getRoom(@PathVariable("roomId") long roomId);
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_CREATE_ROOM, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     boolean createRoom(@RequestBody Room room);
 
-    @DeleteMapping("/smart-lab/api/room/{roomId}")
+    @DeleteMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_DELETE_ROOM)
     @ResponseBody
     void deleteRoom(@PathVariable("roomId") long roomId);
 
-    @GetMapping("/smart-lab/api/room/{roomId}/current-meeting")
+    @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
     Optional<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId);
 
-    @PostMapping("/smart-lab/api/room/{roomId}/extend-current-meeting")
+    @PostMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody
     void extendCurrentMeeting(
             @PathVariable("roomId") long roomId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes);
 
-    @GetMapping(value = "/smart-lab/api/room/{roomId}/current-meeting-status-page")
+    @GetMapping(RoomManagementController.MAPPING_BASE + RoomManagementController.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
     String getCurrentMeetingStatusPage(@PathVariable("roomId") long roomId, Model model);
 }

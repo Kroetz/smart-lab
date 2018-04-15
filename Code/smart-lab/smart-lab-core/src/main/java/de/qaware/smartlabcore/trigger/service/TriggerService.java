@@ -4,9 +4,9 @@ package de.qaware.smartlabcore.trigger.service;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.meeting.service.IMeetingService;
-import de.qaware.smartlabcore.room.service.IRoomService;
-import de.qaware.smartlabcore.workgroup.service.IWorkgroupService;
+import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
+import de.qaware.smartlabcore.room.service.IRoomManagementService;
+import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +19,15 @@ public class TriggerService implements ITriggerService {
 
     @Autowired
     @Qualifier("mock")
-    private IRoomService roomService;
+    private IRoomManagementService roomService;
 
     @Autowired
     @Qualifier("mock")
-    private IMeetingService meetingService;
+    private IMeetingManagementService meetingService;
 
     @Autowired
     @Qualifier("mock")
-    private IWorkgroupService workgroupService;
+    private IWorkgroupManagementService workgroupService;
 
     @Override
     public void setUpMeeting(IMeeting meeting) {

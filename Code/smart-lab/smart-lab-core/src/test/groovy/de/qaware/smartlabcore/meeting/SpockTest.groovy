@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.meeting
 
-import de.qaware.smartlabcore.meeting.service.IMeetingService
+import de.qaware.smartlabcore.meeting.service.IMeetingManagementService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.test.context.ContextConfiguration
@@ -12,7 +12,7 @@ class SpockTest extends Specification{
 
     @Autowired
     @Qualifier("mock")
-    IMeetingService meetingService
+    IMeetingManagementService meetingService
 
 
     def setup() {

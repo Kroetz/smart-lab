@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.room.controller;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.room.service.IRoomService;
+import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,48 +15,57 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/smart-lab/api/room")
+@RequestMapping(RoomManagementController.MAPPING_BASE)
 @Slf4j
-public class RoomController {
+public class RoomManagementController {
 
-    private final IRoomService roomService;
+    public static final String MAPPING_BASE = "/smart-lab/api/room";
+    public static final String MAPPING_GET_ROOMS = "";
+    public static final String MAPPING_GET_ROOM = "/{roomId}";
+    public static final String MAPPING_CREATE_ROOM = "";
+    public static final String MAPPING_DELETE_ROOM = "/{roomId}";
+    public static final String MAPPING_GET_CURRENT_MEETING = "/{roomId}/current-meeting";
+    public static final String MAPPING_EXTEND_CURRENT_MEETING = "/{roomId}/extend-current-meeting";
+    public static final String MAPPING_GET_CURRENT_MEETING_STATUS_PAGE = "/{roomId}/current-meeting-status-page";
+
+    private final IRoomManagementService roomService;
 
     @Autowired
-    public RoomController(@Qualifier("mock") IRoomService roomService) {
+    public RoomManagementController(@Qualifier("mock") IRoomManagementService roomService) {
         this.roomService = roomService;
     }
 
-    @GetMapping
+    @GetMapping(MAPPING_GET_ROOMS)
     @ResponseBody
     public List<Room> getRooms() {
         return roomService.getRooms();
     }
 
-    @GetMapping("/{roomId}")
+    @GetMapping(MAPPING_GET_ROOM)
     @ResponseBody
     public Optional<Room> getRoom(@PathVariable("roomId") long roomId) {
         return roomService.getRoom(roomId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MAPPING_CREATE_ROOM,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public boolean createRoom(@RequestBody Room room) {
         return roomService.createRoom(room);
     }
 
-    @DeleteMapping("/{roomId}")
+    @DeleteMapping(MAPPING_DELETE_ROOM)
     @ResponseBody
     public void deleteRoom(@PathVariable("roomId") long roomId) {
         roomService.deleteRoom(roomId);
     }
 
-    @GetMapping("/{roomId}/current-meeting")
+    @GetMapping(MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
     public Optional<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId) {
         return roomService.getCurrentMeeting(roomId);
     }
 
-    @PostMapping("/{roomId}/extend-current-meeting")
+    @PostMapping(MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody
     public void extendCurrentMeeting(
             @PathVariable("roomId") long roomId,
@@ -64,7 +73,7 @@ public class RoomController {
         roomService.extendCurrentMeeting(roomId, extensionInMinutes);
     }
 
-    @GetMapping(value = "/{roomId}/current-meeting-status-page")
+    @GetMapping(MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
     public String getCurrentMeetingStatusPage(@PathVariable("roomId") long roomId, Model model) {
         return roomService.getCurrentMeetingStatusPage(roomId, model);
     }

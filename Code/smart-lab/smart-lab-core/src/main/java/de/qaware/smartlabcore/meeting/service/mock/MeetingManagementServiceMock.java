@@ -3,9 +3,9 @@ package de.qaware.smartlabcore.meeting.service.mock;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.meeting.service.IMeetingService;
-import de.qaware.smartlabcore.room.controller.RoomController;
-import de.qaware.smartlabcore.workgroup.service.IWorkgroupService;
+import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
+import de.qaware.smartlabcore.room.controller.RoomManagementController;
+import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +20,19 @@ import java.util.Optional;
 @Service
 @Qualifier("mock")
 @Slf4j
-public class MeetingServiceMock implements IMeetingService {
+public class MeetingManagementServiceMock implements IMeetingManagementService {
 
     private final IMeetingConfigProviderMock meetingConfigProvider;
 
     @Autowired
-    private RoomController roomController;
+    private RoomManagementController roomManagementController;
 
     @Autowired
     @Qualifier("mock")
-    private IWorkgroupService workgroupService;
+    private IWorkgroupManagementService workgroupService;
 
     @Autowired
-    public MeetingServiceMock(
+    public MeetingManagementServiceMock(
             @Qualifier("mock") IMeetingConfigProviderMock meetingConfigProvider) {
         this.meetingConfigProvider = meetingConfigProvider;
     }

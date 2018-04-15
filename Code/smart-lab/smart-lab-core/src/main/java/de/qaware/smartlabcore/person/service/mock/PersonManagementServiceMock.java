@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.person.service.mock;
 
 import de.qaware.smartlabcommons.data.person.Person;
-import de.qaware.smartlabcore.person.service.IPersonService;
+import de.qaware.smartlabcore.person.service.IPersonManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,12 +13,12 @@ import java.util.Optional;
 @Service
 @Qualifier("mock")
 @Slf4j
-public class PersonServiceMock implements IPersonService {
+public class PersonManagementServiceMock implements IPersonManagementService {
 
     private final IPersonConfigProviderMock personConfigProvider;
 
     @Autowired
-    public PersonServiceMock(@Qualifier("mock") IPersonConfigProviderMock personConfigProvider) {
+    public PersonManagementServiceMock(@Qualifier("mock") IPersonConfigProviderMock personConfigProvider) {
         this.personConfigProvider = personConfigProvider;
     }
 

@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.device.service.mock;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcore.device.service.IDeviceService;
+import de.qaware.smartlabcore.device.service.IDeviceManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,12 +13,12 @@ import java.util.Optional;
 @Service
 @Qualifier("mock")
 @Slf4j
-public class DeviceServiceMock implements IDeviceService {
+public class DeviceManagementServiceMock implements IDeviceManagementService {
 
     private final IDeviceConfigProviderMock deviceConfigProvider;
 
     @Autowired
-    public DeviceServiceMock(@Qualifier("mock") IDeviceConfigProviderMock deviceConfigProvider) {
+    public DeviceManagementServiceMock(@Qualifier("mock") IDeviceConfigProviderMock deviceConfigProvider) {
         this.deviceConfigProvider = deviceConfigProvider;
     }
 

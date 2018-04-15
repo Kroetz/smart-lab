@@ -2,8 +2,8 @@ package de.qaware.smartlabcore.workgroup.service.mock;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.meeting.service.IMeetingService;
-import de.qaware.smartlabcore.workgroup.service.IWorkgroupService;
+import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
+import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,16 +16,16 @@ import java.util.Optional;
 @Service
 @Qualifier("mock")
 @Slf4j
-public class WorkgroupService implements IWorkgroupService {
+public class WorkgroupManagementService implements IWorkgroupManagementService {
 
     @Autowired
     @Qualifier("mock")
-    private IMeetingService meetingService;
+    private IMeetingManagementService meetingService;
 
     private final IWorkgroupConfigProviderMock workgroupConfigProvider;
 
     @Autowired
-    public WorkgroupService(
+    public WorkgroupManagementService(
             @Qualifier("mock") IWorkgroupConfigProviderMock workgroupConfigProvider) {
         this.workgroupConfigProvider = workgroupConfigProvider;
     }

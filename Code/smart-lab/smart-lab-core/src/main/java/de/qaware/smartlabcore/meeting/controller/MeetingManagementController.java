@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.meeting.controller;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.meeting.service.IMeetingService;
+import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,19 +13,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(MeetingController.MAPPING_BASE)
+@RequestMapping(MeetingManagementController.MAPPING_BASE)
 @Slf4j
-public class MeetingController {
+public class MeetingManagementController {
 
     public static final String MAPPING_BASE = "/smart-lab/api/meeting";
-
     public static final String MAPPING_GET_MEETINGS = "";
-    public static final String URL_TEMPLATE_GET_MEETINGS = "";
+    public static final String MAPPING_GET_MEETING = "/{meetingId}";
+    public static final String MAPPING_CREATE_MEETING = "";
+    public static final String MAPPING_SHORTEN_MEETING = "/{meetingId}/shorten";
+    public static final String MAPPING_EXTEND_MEETING = "/{meetingId}/extend";
+    public static final String MAPPING_SHIFT_MEETING = "/{meetingId}/shift";
+    public static final String MAPPING_DELETE_MEETING = "/{meetingId}";
 
-    private final IMeetingService meetingService;
+    private final IMeetingManagementService meetingService;
 
     @Autowired
-    public MeetingController(@Qualifier("mock") IMeetingService meetingService) {
+    public MeetingManagementController(@Qualifier("mock") IMeetingManagementService meetingService) {
         this.meetingService = meetingService;
     }
 
@@ -34,40 +38,40 @@ public class MeetingController {
         return meetingService.getMeetings();
     }
 
-    @GetMapping("/{meetingId}")
+    @GetMapping(MAPPING_GET_MEETING)
     public Optional<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
         // TODO: Use response entities instead of return null or an empty optional (see the following line)
         // return ResponseEntity.notFound().build();
         return meetingService.getMeeting(meetingId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean createMeeting(@RequestBody IMeeting meeting) {
         return meetingService.createMeeting(meeting);
     }
 
-    @PutMapping("/{meetingId}/shorten")
+    @PutMapping(MAPPING_SHORTEN_MEETING)
     public void shortenMeeting(
             @PathVariable("meetingId") long meetingId,
             @RequestParam(value = "shortening-in-minutes") long shorteningInMinutes) {
         meetingService.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes));
     }
 
-    @PutMapping("/{meetingId}/extend")
+    @PutMapping(MAPPING_EXTEND_MEETING)
     public boolean extendMeeting(
             @PathVariable("meetingId") long meetingId,
             @RequestParam(value = "extension-in-minutes") long extensionInMinutes) {
         return meetingService.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes));
     }
 
-    @PutMapping("/{meetingId}/shift")
+    @PutMapping(MAPPING_SHIFT_MEETING)
     public boolean shiftMeeting(
             @PathVariable("meetingId") long meetingId,
             @RequestParam(value = "shift-in-minutes") long shiftInMinutes) {
         return meetingService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes));
     }
 
-    @DeleteMapping("/{meetingId}")
+    @DeleteMapping(MAPPING_DELETE_MEETING)
     public void deleteMeeting(@PathVariable("meetingId") long meetingId) {
         meetingService.deleteMeeting(meetingId);
     }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface IMeetingService {
+public interface IMeetingManagementService {
 
     List<IMeeting> getMeetings();
     Optional<IMeeting> getMeeting(long meetingId);

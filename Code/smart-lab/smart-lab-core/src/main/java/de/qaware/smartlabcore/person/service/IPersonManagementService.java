@@ -5,7 +5,7 @@ import de.qaware.smartlabcommons.data.person.Person;
 import java.util.List;
 import java.util.Optional;
 
-public interface IPersonService {
+public interface IPersonManagementService {
 
     List<Person> getPersons();
     Optional<Person> getPerson(long personId);

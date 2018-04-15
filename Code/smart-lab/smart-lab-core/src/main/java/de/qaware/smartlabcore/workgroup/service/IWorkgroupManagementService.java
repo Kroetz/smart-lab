@@ -6,7 +6,7 @@ import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import java.util.List;
 import java.util.Optional;
 
-public interface IWorkgroupService {
+public interface IWorkgroupManagementService {
 
     List<Workgroup> getWorkgroups();
     Optional<Workgroup> getWorkgroup(long workgroupId);

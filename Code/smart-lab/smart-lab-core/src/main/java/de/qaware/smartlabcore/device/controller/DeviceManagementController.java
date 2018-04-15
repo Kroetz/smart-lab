@@ -1,9 +1,8 @@
 package de.qaware.smartlabcore.device.controller;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcore.device.service.IDeviceService;
+import de.qaware.smartlabcore.device.service.IDeviceManagementService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -13,33 +12,39 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/smart-lab/api/device")
+@RequestMapping(DeviceManagementController.MAPPING_BASE)
 @Slf4j
-public class DeviceController {
+public class DeviceManagementController {
 
-    private final IDeviceService deviceService;
+    public static final String MAPPING_BASE = "/smart-lab/api/device";
+    public static final String MAPPING_GET_DEVICES = "";
+    public static final String MAPPING_GET_DEVICE = "/{deviceId}";
+    public static final String MAPPING_CREATE_DEVICE = "";
+    public static final String MAPPING_DELETE_DEVICE = "/{deviceId}";
+
+    private final IDeviceManagementService deviceService;
 
     @Autowired
-    public DeviceController(@Qualifier("mock") IDeviceService deviceService) {
+    public DeviceManagementController(@Qualifier("mock") IDeviceManagementService deviceService) {
         this.deviceService = deviceService;
     }
 
-    @GetMapping
+    @GetMapping(MAPPING_GET_DEVICES)
     public List<IDevice> getDevices() {
         return deviceService.getDevices();
     }
 
-    @GetMapping("/{deviceId}")
+    @GetMapping(MAPPING_GET_DEVICE)
     public Optional<IDevice> getDevice(@PathVariable("deviceId") long deviceId) {
         return deviceService.getDevice(deviceId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MAPPING_CREATE_DEVICE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean createDevice(@RequestBody IDevice device) {
         return deviceService.createDevice(device);
     }
 
-    @DeleteMapping("/{deviceId}")
+    @DeleteMapping(MAPPING_DELETE_DEVICE)
     public void deleteDevice(@PathVariable("deviceId") long deviceId) {
         deviceService.deleteDevice(deviceId);
     }

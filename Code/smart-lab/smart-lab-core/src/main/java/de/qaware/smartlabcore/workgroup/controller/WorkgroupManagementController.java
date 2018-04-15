@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.workgroup.controller;
 
 import de.qaware.smartlabcore.entity.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.workgroup.service.IWorkgroupService;
+import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,43 +13,51 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/smart-lab/api/workgroup")
+@RequestMapping(WorkgroupManagementController.MAPPING_BASE)
 @Slf4j
-public class WorkgroupController {
+public class WorkgroupManagementController {
 
-    private final IWorkgroupService workgroupService;
+    public static final String MAPPING_BASE = "/smart-lab/api/workgroup";
+    public static final String MAPPING_GET_WORKGROUPS = "";
+    public static final String MAPPING_GET_WORKGROUP = "/{workgroupId}";
+    public static final String MAPPING_CREATE_WORKGROUP = "";
+    public static final String MAPPING_DELETE_WORKGROUP = "/{workgroupId}";
+    public static final String MAPPING_GET_CURRENT_MEETING = "/{workgroupId}/current-meeting";
+    public static final String MAPPING_EXTEND_CURRENT_MEETING = "/{workgroupId}/extend-current-meeting";
+
+    private final IWorkgroupManagementService workgroupService;
 
     @Autowired
-    public WorkgroupController(@Qualifier("mock") IWorkgroupService workgroupService) {
+    public WorkgroupManagementController(@Qualifier("mock") IWorkgroupManagementService workgroupService) {
         this.workgroupService = workgroupService;
     }
 
-    @GetMapping
+    @GetMapping(MAPPING_GET_WORKGROUPS)
     public List<Workgroup> getWorkgroups() {
         return workgroupService.getWorkgroups();
     }
 
-    @GetMapping("/{workgroupId}")
+    @GetMapping(MAPPING_GET_WORKGROUP)
     public Optional<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
         return workgroupService.getWorkgroup(workgroupId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean createWorkgroup(@RequestBody Workgroup workgroup) {
         return workgroupService.createWorkgroup(workgroup);
     }
 
-    @DeleteMapping("/{workgroupId}")
+    @DeleteMapping(MAPPING_DELETE_WORKGROUP)
     public void deleteWorkgroup(@PathVariable("workgroupId") long workgroupId) {
         workgroupService.deleteWorkgroup(workgroupId);
     }
 
-    @GetMapping(value = "/{workgroupId}/current-meeting")
+    @GetMapping(MAPPING_GET_CURRENT_MEETING)
     public Optional<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId) {
         return workgroupService.getCurrentMeeting(workgroupId);
     }
 
-    @PostMapping(value = "/{workgroupId}/extend-current-meeting")
+    @PostMapping(MAPPING_EXTEND_CURRENT_MEETING)
     public boolean extendCurrentMeeting(
             @PathVariable("workgroupId") long workgroupId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {

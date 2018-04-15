@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 import java.util.Optional;
 
-public interface IRoomService {
+public interface IRoomManagementService {
 
     List<Room> getRooms();
     Optional<Room> getRoom(long roomId);
