@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.meeting.service;
 
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.room.Room;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import org.springframework.stereotype.Service;
 

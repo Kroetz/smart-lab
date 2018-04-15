@@ -14,9 +14,9 @@ import java.util.Optional;
 @Slf4j
 public class DeviceManagementServiceMock implements IDeviceManagementService {
 
-    private final IDeviceConfigProviderMock deviceConfigProvider;
+    private final IDeviceConfigProviderMockClient deviceConfigProvider;
 
-    public DeviceManagementServiceMock(@Qualifier("mock") IDeviceConfigProviderMock deviceConfigProvider) {
+    public DeviceManagementServiceMock(@Qualifier("mock") IDeviceConfigProviderMockClient deviceConfigProvider) {
         this.deviceConfigProvider = deviceConfigProvider;
     }
 

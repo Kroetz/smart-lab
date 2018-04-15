@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.room.service.mock;
 
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.meeting.controller.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoomManagementServiceMock implements IRoomManagementService {
 
-    private final IRoomConfigProviderMock roomConfigProvider;
+    private final IRoomConfigProviderMockClient roomConfigProvider;
     private final IMeetingManagementApiClient meetingManagementApiClient;
 
     public RoomManagementServiceMock(
-            @Qualifier("mock") IRoomConfigProviderMock roomConfigProvider,
+            @Qualifier("mock") IRoomConfigProviderMockClient roomConfigProvider,
             IMeetingManagementApiClient meetingManagementApiClient) {
         this.roomConfigProvider = roomConfigProvider;
         this.meetingManagementApiClient = meetingManagementApiClient;

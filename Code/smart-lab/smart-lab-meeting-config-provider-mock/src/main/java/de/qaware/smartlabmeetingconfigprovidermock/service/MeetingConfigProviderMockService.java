@@ -1,12 +1,12 @@
 package de.qaware.smartlabmeetingconfigprovidermock.service;
 
-import de.qaware.smartlabcore.entity.meeting.AgendaItem;
-import de.qaware.smartlabcore.entity.meeting.IAgendaItem;
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.meeting.Meeting;
-import de.qaware.smartlabcore.entity.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcore.entity.meeting.assistance.IAssistanceDao;
-import de.qaware.smartlabcore.miscellaneous.Constants;
+import de.qaware.smartlabcommons.data.meeting.AgendaItem;
+import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.meeting.Meeting;
+import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
+import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
+import de.qaware.smartlabcommons.Constants;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcore.entity.meeting.Meeting")
+                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(0)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(0)
@@ -51,7 +51,7 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcore.entity.meeting.Meeting")
+                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(1)
                 .title("Meeting about the danger of the bark beetle")
                 .workgroupId(1)
@@ -69,7 +69,7 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcore.entity.meeting.Meeting")
+                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(2)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(2)

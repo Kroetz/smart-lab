@@ -1,6 +1,6 @@
 package de.qaware.smartlabroomconfigprovider.service;
 
-import de.qaware.smartlabcore.entity.room.Room;
+import de.qaware.smartlabcommons.data.room.Room;
 import lombok.val;
 import org.springframework.stereotype.Service;
 

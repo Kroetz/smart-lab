@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.room.service;
 
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.room.Room;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.Room;
 import org.springframework.ui.Model;
 
 import java.util.List;

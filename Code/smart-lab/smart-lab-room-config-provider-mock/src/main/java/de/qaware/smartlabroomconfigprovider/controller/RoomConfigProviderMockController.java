@@ -1,6 +1,6 @@
 package de.qaware.smartlabroomconfigprovider.controller;
 
-import de.qaware.smartlabcore.entity.room.Room;
+import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabroomconfigprovider.service.IRoomConfigProviderMockService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

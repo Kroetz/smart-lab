@@ -1,6 +1,6 @@
 package de.qaware.smartlabmeetingconfigprovidermock.service;
 
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
 
 import java.util.List;
 import java.util.Optional;

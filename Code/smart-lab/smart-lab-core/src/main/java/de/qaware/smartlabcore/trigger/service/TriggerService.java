@@ -1,10 +1,10 @@
 package de.qaware.smartlabcore.trigger.service;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.room.Room;
-import de.qaware.smartlabcore.room.controller.IRoomManagementApiClient;
-import de.qaware.smartlabcore.workgroup.controller.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.api.client.IRoomManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Service;

@@ -26,7 +26,14 @@ import static com.google.common.collect.Lists.newArrayList;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(
+		basePackages = "de.qaware.smartlabcommons.api.client",
+		basePackageClasses = {
+				de.qaware.smartlabcore.device.service.mock.IDeviceConfigProviderMockClient.class,
+				de.qaware.smartlabcore.meeting.service.mock.IMeetingConfigProviderMockClient.class,
+				de.qaware.smartlabcore.person.service.mock.IPersonConfigProviderMockClient.class,
+				de.qaware.smartlabcore.room.service.mock.IRoomConfigProviderMockClient.class,
+				de.qaware.smartlabcore.workgroup.service.mock.IWorkgroupConfigProviderMockClient.class})
 @EnableSwagger2
 public class SmartLabCoreApplication {
 

@@ -14,9 +14,9 @@ import java.util.Optional;
 @Slf4j
 public class PersonManagementServiceMock implements IPersonManagementService {
 
-    private final IPersonConfigProviderMock personConfigProvider;
+    private final IPersonConfigProviderMockClient personConfigProvider;
 
-    public PersonManagementServiceMock(@Qualifier("mock") IPersonConfigProviderMock personConfigProvider) {
+    public PersonManagementServiceMock(@Qualifier("mock") IPersonConfigProviderMockClient personConfigProvider) {
         this.personConfigProvider = personConfigProvider;
     }
 

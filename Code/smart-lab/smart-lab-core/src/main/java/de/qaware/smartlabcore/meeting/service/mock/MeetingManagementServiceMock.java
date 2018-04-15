@@ -1,10 +1,10 @@
 package de.qaware.smartlabcore.meeting.service.mock;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.entity.meeting.IMeeting;
-import de.qaware.smartlabcore.entity.room.Room;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
-import de.qaware.smartlabcore.workgroup.controller.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +20,11 @@ import java.util.Optional;
 @Slf4j
 public class MeetingManagementServiceMock implements IMeetingManagementService {
 
-    private final IMeetingConfigProviderMock meetingConfigProvider;
+    private final IMeetingConfigProviderMockClient meetingConfigProvider;
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
     public MeetingManagementServiceMock(
-            @Qualifier("mock") IMeetingConfigProviderMock meetingConfigProvider,
+            @Qualifier("mock") IMeetingConfigProviderMockClient meetingConfigProvider,
             IWorkgroupManagementApiClient workgroupManagementApiClient) {
         this.meetingConfigProvider = meetingConfigProvider;
         this.workgroupManagementApiClient = workgroupManagementApiClient;
