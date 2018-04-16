@@ -2,16 +2,17 @@ package de.qaware.smartlabroomconfigprovider.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.RoomConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabroomconfigprovider.service.IRoomConfigProviderMockService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE)
-public class RoomConfigProviderMockController {
+public class RoomConfigProviderMockController extends AbstractSmartLabController {
 
     private final IRoomConfigProviderMockService roomConfigProviderService;
 
@@ -25,8 +26,8 @@ public class RoomConfigProviderMockController {
     }
 
     @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_GET_ROOM)
-    Optional<Room> getRoom(@PathVariable("roomId") long roomId) {
-        return roomConfigProviderService.getRoom(roomId);
+    ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId) {
+        return responseFromOptional(roomConfigProviderService.getRoom(roomId));
     }
 
     @PostMapping(

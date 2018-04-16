@@ -25,7 +25,7 @@ public class IPersonManagementRepositoryMock implements IPersonManagementReposit
 
     @Override
     public Optional<Person> getPerson(long personId) {
-        return personConfigProviderMockClient.getPerson(personId);
+        return Optional.ofNullable(personConfigProviderMockClient.getPerson(personId).getBody());
     }
 
     @Override

@@ -2,16 +2,17 @@ package de.qaware.smartlabdeviceconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.DeviceConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabdeviceconfigprovidermock.service.IDeviceConfigProviderMockService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(DeviceConfigProviderMockApiConstants.MAPPING_BASE)
-public class DeviceConfigProviderMockController {
+public class DeviceConfigProviderMockController extends AbstractSmartLabController {
 
     private final IDeviceConfigProviderMockService deviceConfigProviderService;
 
@@ -25,8 +26,8 @@ public class DeviceConfigProviderMockController {
     }
 
     @GetMapping(DeviceConfigProviderMockApiConstants.MAPPING_GET_DEVICE)
-    public Optional<IDevice> getDevice(@PathVariable("deviceId") long deviceId) {
-        return deviceConfigProviderService.getDevice(deviceId);
+    public ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") long deviceId) {
+        return responseFromOptional(deviceConfigProviderService.getDevice(deviceId));
     }
 
     @PostMapping(

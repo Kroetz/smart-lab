@@ -4,10 +4,10 @@ import de.qaware.smartlabcommons.api.management.MeetingManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "meeting-management", url = "http://localhost:8080")
 public interface IMeetingManagementApiClient {
@@ -16,7 +16,7 @@ public interface IMeetingManagementApiClient {
     List<IMeeting> getMeetings();
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    Optional<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId);
+    ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId);
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createMeeting(@RequestBody IMeeting meeting);

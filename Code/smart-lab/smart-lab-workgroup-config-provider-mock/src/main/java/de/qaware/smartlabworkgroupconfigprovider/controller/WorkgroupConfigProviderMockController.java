@@ -2,16 +2,17 @@ package de.qaware.smartlabworkgroupconfigprovider.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.WorkgroupConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabworkgroupconfigprovider.service.IWorkgroupConfigProviderMockService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_BASE)
-public class WorkgroupConfigProviderMockController {
+public class WorkgroupConfigProviderMockController extends AbstractSmartLabController {
 
     private final IWorkgroupConfigProviderMockService workgroupConfigProviderService;
 
@@ -25,8 +26,8 @@ public class WorkgroupConfigProviderMockController {
     }
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUP)
-    public Optional<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
-        return workgroupConfigProviderService.getWorkgroup(workgroupId);
+    public ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+        return responseFromOptional(workgroupConfigProviderService.getWorkgroup(workgroupId));
     }
 
     @PostMapping(

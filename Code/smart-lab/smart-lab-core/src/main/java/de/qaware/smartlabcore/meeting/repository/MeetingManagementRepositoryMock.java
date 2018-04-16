@@ -26,7 +26,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
 
     @Override
     public Optional<IMeeting> getMeeting(long meetingId) {
-        return meetingConfigProviderMockClient.getMeeting(meetingId);
+        return Optional.ofNullable(meetingConfigProviderMockClient.getMeeting(meetingId).getBody());
     }
 
     @Override

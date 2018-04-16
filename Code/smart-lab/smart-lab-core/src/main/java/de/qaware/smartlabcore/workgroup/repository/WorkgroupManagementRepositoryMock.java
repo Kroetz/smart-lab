@@ -34,7 +34,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
 
     @Override
     public Optional<Workgroup> getWorkgroup(long workgroupId) {
-        return workgroupConfigProviderMockClient.getWorkgroup(workgroupId);
+        return Optional.ofNullable(workgroupConfigProviderMockClient.getWorkgroup(workgroupId).getBody());
     }
 
     @Override

@@ -2,18 +2,19 @@ package de.qaware.smartlabcore.person.controller;
 
 import de.qaware.smartlabcommons.api.management.PersonManagementApiConstants;
 import de.qaware.smartlabcommons.data.person.Person;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.person.service.IPersonManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class PersonManagementController {
+public class PersonManagementController extends AbstractSmartLabController {
 
 
 
@@ -29,8 +30,8 @@ public class PersonManagementController {
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSON)
-    public Optional<Person> getPerson(@PathVariable("personId") long personId) {
-        return personManagementService.getPerson(personId);
+    public ResponseEntity<Person> getPerson(@PathVariable("personId") long personId) {
+        return responseFromOptional(personManagementService.getPerson(personId));
     }
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)

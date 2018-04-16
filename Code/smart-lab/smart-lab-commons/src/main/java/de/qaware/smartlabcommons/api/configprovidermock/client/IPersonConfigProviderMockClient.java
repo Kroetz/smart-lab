@@ -4,10 +4,10 @@ import de.qaware.smartlabcommons.api.configprovidermock.PersonConfigProviderMock
 import de.qaware.smartlabcommons.data.person.Person;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "person-config-provider", url = "http://localhost:8084")
 public interface IPersonConfigProviderMockClient {
@@ -16,7 +16,7 @@ public interface IPersonConfigProviderMockClient {
     List<Person> getPersons();
 
     @GetMapping(PersonConfigProviderMockApiConstants.MAPPING_BASE + PersonConfigProviderMockApiConstants.MAPPING_GET_PERSON)
-    Optional<Person> getPerson(@PathVariable("personId") long personId);
+    ResponseEntity<Person> getPerson(@PathVariable("personId") long personId);
 
     @PostMapping(
             value = PersonConfigProviderMockApiConstants.MAPPING_BASE + PersonConfigProviderMockApiConstants.MAPPING_CREATE_PERSON,

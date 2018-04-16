@@ -25,7 +25,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
 
     @Override
     public Optional<IDevice> getDevice(long deviceId) {
-        return deviceConfigProviderMockClient.getDevice(deviceId);
+        return Optional.ofNullable(deviceConfigProviderMockClient.getDevice(deviceId).getBody());
     }
 
     @Override

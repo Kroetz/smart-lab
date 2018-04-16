@@ -2,19 +2,20 @@ package de.qaware.smartlabcore.meeting.controller;
 
 import de.qaware.smartlabcommons.api.management.MeetingManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class MeetingManagementController {
+public class MeetingManagementController extends AbstractSmartLabController {
 
 
 
@@ -30,10 +31,8 @@ public class MeetingManagementController {
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    public Optional<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
-        // TODO: Use response entities instead of return null or an empty optional (see the following line)
-        // return ResponseEntity.notFound().build();
-        return meetingManagementService.getMeeting(meetingId);
+    public ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
+        return responseFromOptional(meetingManagementService.getMeeting(meetingId));
     }
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)

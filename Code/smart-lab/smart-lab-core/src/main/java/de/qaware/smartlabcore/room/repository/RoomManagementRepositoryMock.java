@@ -34,7 +34,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     @Override
     public Optional<Room> getRoom(long roomId) {
-        return roomConfigProviderMockClient.getRoom(roomId);
+        return Optional.ofNullable(roomConfigProviderMockClient.getRoom(roomId).getBody());
     }
 
     @Override

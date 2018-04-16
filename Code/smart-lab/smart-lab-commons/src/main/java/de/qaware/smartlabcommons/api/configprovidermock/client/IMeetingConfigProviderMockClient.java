@@ -4,10 +4,10 @@ import de.qaware.smartlabcommons.api.configprovidermock.MeetingConfigProviderMoc
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "meeting-config-provider", url = "http://localhost:8083")
 public interface IMeetingConfigProviderMockClient {
@@ -16,7 +16,7 @@ public interface IMeetingConfigProviderMockClient {
     List<IMeeting> getMeetings();
 
     @GetMapping(MeetingConfigProviderMockApiConstants.MAPPING_BASE + MeetingConfigProviderMockApiConstants.MAPPING_GET_MEETING)
-    Optional<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId);
+    ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId);
 
     @PostMapping(
             value = MeetingConfigProviderMockApiConstants.MAPPING_BASE + MeetingConfigProviderMockApiConstants.MAPPING_CREATE_MEETING,

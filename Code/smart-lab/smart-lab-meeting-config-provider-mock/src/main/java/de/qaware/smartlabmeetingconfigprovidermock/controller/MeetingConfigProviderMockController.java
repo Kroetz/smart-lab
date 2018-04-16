@@ -2,17 +2,18 @@ package de.qaware.smartlabmeetingconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.MeetingConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabmeetingconfigprovidermock.service.IMeetingConfigProviderMockService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(MeetingConfigProviderMockApiConstants.MAPPING_BASE)
-public class MeetingConfigProviderMockController {
+public class MeetingConfigProviderMockController extends AbstractSmartLabController {
 
     private final IMeetingConfigProviderMockService meetingConfigProviderService;
 
@@ -26,8 +27,8 @@ public class MeetingConfigProviderMockController {
     }
 
     @GetMapping(MeetingConfigProviderMockApiConstants.MAPPING_GET_MEETING)
-    public Optional<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
-        return meetingConfigProviderService.getMeeting(meetingId);
+    public ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
+        return responseFromOptional(meetingConfigProviderService.getMeeting(meetingId));
     }
 
     @PostMapping(

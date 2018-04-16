@@ -3,19 +3,20 @@ package de.qaware.smartlabcore.workgroup.controller;
 import de.qaware.smartlabcommons.api.management.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class WorkgroupManagementController {
+public class WorkgroupManagementController extends AbstractSmartLabController {
 
     private final IWorkgroupManagementService workgroupManagementService;
 
@@ -29,8 +30,8 @@ public class WorkgroupManagementController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    public Optional<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
-        return workgroupManagementService.getWorkgroup(workgroupId);
+    public ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+        return responseFromOptional(workgroupManagementService.getWorkgroup(workgroupId));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -49,8 +50,8 @@ public class WorkgroupManagementController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    public Optional<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId) {
-        return workgroupManagementService.getCurrentMeeting(workgroupId);
+    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId) {
+        return responseFromOptional(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)

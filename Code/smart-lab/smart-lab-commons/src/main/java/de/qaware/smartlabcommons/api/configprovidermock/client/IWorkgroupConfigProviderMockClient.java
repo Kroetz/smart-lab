@@ -4,10 +4,10 @@ import de.qaware.smartlabcommons.api.configprovidermock.WorkgroupConfigProviderM
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "workgroup-config-provider", url = "http://localhost:8081")
 public interface IWorkgroupConfigProviderMockClient {
@@ -16,7 +16,7 @@ public interface IWorkgroupConfigProviderMockClient {
     List<Workgroup> getWorkgroups();
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUP)
-    Optional<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
 
     @PostMapping(
             value = WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_CREATE_WORKGROUP,

@@ -2,16 +2,17 @@ package de.qaware.smartlabpersonconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.PersonConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.person.Person;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabpersonconfigprovidermock.service.IPersonConfigProviderMockService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(PersonConfigProviderMockApiConstants.MAPPING_BASE)
-public class PersonConfigProviderMockController {
+public class PersonConfigProviderMockController extends AbstractSmartLabController {
 
     private final IPersonConfigProviderMockService personConfigProviderService;
 
@@ -25,8 +26,8 @@ public class PersonConfigProviderMockController {
     }
 
     @GetMapping(PersonConfigProviderMockApiConstants.MAPPING_GET_PERSON)
-    public Optional<Person> getPerson(@PathVariable("personId") long personId) {
-        return personConfigProviderService.getPerson(personId);
+    public ResponseEntity<Person> getPerson(@PathVariable("personId") long personId) {
+        return responseFromOptional(personConfigProviderService.getPerson(personId));
     }
 
     @PostMapping(

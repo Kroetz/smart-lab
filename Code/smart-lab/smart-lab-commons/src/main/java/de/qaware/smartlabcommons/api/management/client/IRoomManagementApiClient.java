@@ -5,11 +5,11 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "room-management", url = "http://localhost:8080")
 public interface IRoomManagementApiClient {
@@ -20,7 +20,7 @@ public interface IRoomManagementApiClient {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    Optional<Room> getRoom(@PathVariable("roomId") long roomId);
+    ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId);
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_CREATE_ROOM, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -35,7 +35,7 @@ public interface IRoomManagementApiClient {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
-    Optional<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId);
+    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId);
 
     @PostMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody

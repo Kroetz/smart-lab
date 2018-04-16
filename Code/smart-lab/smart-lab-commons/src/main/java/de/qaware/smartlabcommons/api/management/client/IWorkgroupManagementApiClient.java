@@ -1,14 +1,14 @@
 package de.qaware.smartlabcommons.api.management.client;
 
 import de.qaware.smartlabcommons.api.management.WorkgroupManagementApiConstants;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "workgroup-management", url = "http://localhost:8080")
 public interface IWorkgroupManagementApiClient {
@@ -17,7 +17,7 @@ public interface IWorkgroupManagementApiClient {
     List<Workgroup> getWorkgroups();
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    Optional<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createWorkgroup(@RequestBody Workgroup workgroup);
@@ -29,7 +29,7 @@ public interface IWorkgroupManagementApiClient {
     List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    Optional<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId);
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     boolean extendCurrentMeeting(

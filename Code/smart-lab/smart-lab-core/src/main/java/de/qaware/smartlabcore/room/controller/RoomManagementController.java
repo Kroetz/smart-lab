@@ -3,21 +3,22 @@ package de.qaware.smartlabcore.room.controller;
 import de.qaware.smartlabcommons.api.management.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class RoomManagementController {
+public class RoomManagementController extends AbstractSmartLabController {
 
     private final IRoomManagementService roomManagementService;
 
@@ -33,8 +34,8 @@ public class RoomManagementController {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    public Optional<Room> getRoom(@PathVariable("roomId") long roomId) {
-        return roomManagementService.getRoom(roomId);
+    public ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId) {
+        return responseFromOptional(roomManagementService.getRoom(roomId));
     }
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_ROOM,consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -56,8 +57,8 @@ public class RoomManagementController {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
-    public Optional<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId) {
-        return roomManagementService.getCurrentMeeting(roomId);
+    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId) {
+        return responseFromOptional(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @PostMapping(RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)

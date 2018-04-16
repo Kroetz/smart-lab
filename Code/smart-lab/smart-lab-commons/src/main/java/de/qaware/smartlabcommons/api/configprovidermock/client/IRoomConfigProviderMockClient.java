@@ -4,10 +4,10 @@ import de.qaware.smartlabcommons.api.configprovidermock.RoomConfigProviderMockAp
 import de.qaware.smartlabcommons.data.room.Room;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @FeignClient(value = "room-config-provider", url = "http://localhost:8082")
 public interface IRoomConfigProviderMockClient {
@@ -16,7 +16,7 @@ public interface IRoomConfigProviderMockClient {
     List<Room> getRooms();
 
     @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_GET_ROOM)
-    Optional<Room> getRoom(@PathVariable("roomId") long roomId);
+    ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId);
 
     @PostMapping(
             value = RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_CREATE_ROOM,
