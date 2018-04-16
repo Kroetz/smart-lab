@@ -2,10 +2,12 @@ package de.qaware.smartlabcommons.api.trigger.client;
 
 import de.qaware.smartlabcommons.api.trigger.TriggerApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(value = "trigger", url = "http://localhost:8080")
+@Component
 public interface ITriggerApiClient {
 
     @PostMapping(TriggerApiConstants.MAPPING_BASE + TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)

@@ -6,12 +6,14 @@ import de.qaware.smartlabcommons.data.room.Room;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "room-management", url = "http://localhost:8080")
+@Component
 public interface IRoomManagementApiClient {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOMS)

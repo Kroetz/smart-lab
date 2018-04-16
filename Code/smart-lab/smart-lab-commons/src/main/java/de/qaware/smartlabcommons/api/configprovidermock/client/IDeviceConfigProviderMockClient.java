@@ -5,11 +5,13 @@ import de.qaware.smartlabcommons.data.device.IDevice;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "device-config-provider", url = "http://localhost:8085")
+@Component
 public interface IDeviceConfigProviderMockClient {
 
     @GetMapping(DeviceConfigProviderMockApiConstants.MAPPING_BASE + DeviceConfigProviderMockApiConstants.MAPPING_GET_DEVICES)

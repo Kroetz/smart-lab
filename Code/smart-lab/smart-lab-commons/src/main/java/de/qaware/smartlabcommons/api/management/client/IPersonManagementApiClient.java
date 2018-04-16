@@ -5,11 +5,13 @@ import de.qaware.smartlabcommons.data.person.Person;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "person-management", url = "http://localhost:8080")
+@Component
 public interface IPersonManagementApiClient {
 
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSONS)

@@ -5,11 +5,13 @@ import de.qaware.smartlabcommons.data.person.Person;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "person-config-provider", url = "http://localhost:8084")
+@Component
 public interface IPersonConfigProviderMockClient {
 
     @GetMapping(PersonConfigProviderMockApiConstants.MAPPING_BASE + PersonConfigProviderMockApiConstants.MAPPING_GET_PERSONS)
