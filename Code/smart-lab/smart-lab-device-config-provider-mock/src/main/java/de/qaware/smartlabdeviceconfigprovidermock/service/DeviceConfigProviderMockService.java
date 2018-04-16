@@ -43,8 +43,7 @@ public class DeviceConfigProviderMockService implements IDeviceConfigProviderMoc
         sortDevicesById();
     }
 
-    @Override
-    public boolean exists(long deviceId) {
+    private boolean exists(long deviceId) {
         return devices.stream()
                 .anyMatch(device -> device.getId() == deviceId);
     }

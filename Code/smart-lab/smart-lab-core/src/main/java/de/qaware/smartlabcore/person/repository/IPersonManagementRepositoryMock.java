@@ -1,7 +1,7 @@
-package de.qaware.smartlabcore.person.repository.mock;
+package de.qaware.smartlabcore.person.repository;
 
 import de.qaware.smartlabcommons.data.person.Person;
-import de.qaware.smartlabcore.person.repository.IPersonManagementRepository;
+import de.qaware.smartlabcommons.api.configprovidermock.client.IPersonConfigProviderMockClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

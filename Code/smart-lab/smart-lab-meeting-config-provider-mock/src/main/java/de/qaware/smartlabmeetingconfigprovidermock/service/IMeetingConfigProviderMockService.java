@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface IMeetingConfigProviderMockService {
 
-    boolean exists(long meetingId);
     List<IMeeting> getMeetings();
     Optional<IMeeting> getMeeting(long meetingId);
     boolean createMeeting(IMeeting meeting);

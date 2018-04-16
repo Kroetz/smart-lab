@@ -1,9 +1,9 @@
-package de.qaware.smartlabcore.room.repository.mock;
+package de.qaware.smartlabcore.room.repository;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
+import de.qaware.smartlabcommons.api.configprovidermock.client.IRoomConfigProviderMockClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

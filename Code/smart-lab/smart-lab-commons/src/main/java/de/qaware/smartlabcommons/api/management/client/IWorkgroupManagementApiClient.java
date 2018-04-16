@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.client;
+package de.qaware.smartlabcommons.api.management.client;
 
-import de.qaware.smartlabcommons.api.WorkgroupManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;

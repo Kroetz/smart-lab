@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.client;
+package de.qaware.smartlabcommons.api.trigger.client;
 
-import de.qaware.smartlabcommons.api.TriggerApiConstants;
+import de.qaware.smartlabcommons.api.trigger.TriggerApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

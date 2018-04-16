@@ -59,8 +59,7 @@ public class WorkgroupConfigProviderMockService implements IWorkgroupConfigProvi
         sortWorkgroupsById();
     }
 
-    @Override
-    public boolean exists(long workgroupId) {
+    private boolean exists(long workgroupId) {
         return workgroups.stream()
                 .anyMatch(workgroup -> workgroup.getId() == workgroupId);
     }

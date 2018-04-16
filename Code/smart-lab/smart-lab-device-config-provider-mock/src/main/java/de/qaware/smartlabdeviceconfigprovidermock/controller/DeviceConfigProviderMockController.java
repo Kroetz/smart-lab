@@ -1,5 +1,6 @@
 package de.qaware.smartlabdeviceconfigprovidermock.controller;
 
+import de.qaware.smartlabcommons.api.configprovidermock.DeviceConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.device.IDevice;
 import de.qaware.smartlabdeviceconfigprovidermock.service.IDeviceConfigProviderMockService;
 import org.springframework.http.MediaType;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/smart-lab/device-config-provider")
+@RequestMapping(DeviceConfigProviderMockApiConstants.MAPPING_BASE)
 public class DeviceConfigProviderMockController {
 
     private final IDeviceConfigProviderMockService deviceConfigProviderService;
@@ -18,27 +19,24 @@ public class DeviceConfigProviderMockController {
         this.deviceConfigProviderService = deviceConfigProviderService;
     }
 
-    @PostMapping("/{deviceId}/exists")
-    public boolean exists(@PathVariable("deviceId") long deviceId) {
-        return deviceConfigProviderService.exists(deviceId);
-    }
-
-    @GetMapping
+    @GetMapping(DeviceConfigProviderMockApiConstants.MAPPING_GET_DEVICES)
     public List<IDevice> getDevices() {
         return deviceConfigProviderService.getDevices();
     }
 
-    @GetMapping("/{deviceId}")
+    @GetMapping(DeviceConfigProviderMockApiConstants.MAPPING_GET_DEVICE)
     public Optional<IDevice> getDevice(@PathVariable("deviceId") long deviceId) {
         return deviceConfigProviderService.getDevice(deviceId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            value = DeviceConfigProviderMockApiConstants.MAPPING_CREATE_DEVICE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean createDevice(@RequestBody IDevice device) {
         return deviceConfigProviderService.createDevice(device);
     }
 
-    @DeleteMapping("/{deviceId}")
+    @DeleteMapping(DeviceConfigProviderMockApiConstants.MAPPING_DELETE_DEVICE)
     public boolean deleteDevice(@PathVariable("deviceId") long deviceId) {
         return deviceConfigProviderService.deleteDevice(deviceId);
     }

@@ -1,8 +1,8 @@
-package de.qaware.smartlabcommons.api;
+package de.qaware.smartlabcommons.api.configprovidermock;
 
-public class DeviceManagementApiConstants {
+public class DeviceConfigProviderMockApiConstants {
 
-    public static final String MAPPING_BASE = "/smart-lab/api/device";
+    public static final String MAPPING_BASE = "/smart-lab/device-config-provider/api/device";
     public static final String MAPPING_GET_DEVICES = "";
     public static final String MAPPING_GET_DEVICE = "/{deviceId}";
     public static final String MAPPING_CREATE_DEVICE = "";

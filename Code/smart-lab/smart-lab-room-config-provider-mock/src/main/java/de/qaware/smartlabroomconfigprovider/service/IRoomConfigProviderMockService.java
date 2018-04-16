@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface IRoomConfigProviderMockService {
 
-    boolean exists(long roomId);
     List<Room> getRooms();
     Optional<Room> getRoom(long roomId);
     boolean createRoom(Room room);

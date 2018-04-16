@@ -1,11 +1,6 @@
 package de.qaware.smartlabcore;
 
 import com.fasterxml.classmate.TypeResolver;
-import de.qaware.smartlabcore.device.repository.mock.IDeviceConfigProviderMockClient;
-import de.qaware.smartlabcore.meeting.repository.mock.IMeetingConfigProviderMockClient;
-import de.qaware.smartlabcore.person.repository.mock.IPersonConfigProviderMockClient;
-import de.qaware.smartlabcore.room.repository.mock.IRoomConfigProviderMockClient;
-import de.qaware.smartlabcore.workgroup.repository.mock.IWorkgroupConfigProviderMockClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -31,14 +26,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @SpringBootApplication
-@EnableFeignClients(
-		basePackages = "de.qaware.smartlabcommons.api.client",
-		basePackageClasses = {
-				IDeviceConfigProviderMockClient.class,
-				IMeetingConfigProviderMockClient.class,
-				IPersonConfigProviderMockClient.class,
-				IRoomConfigProviderMockClient.class,
-				IWorkgroupConfigProviderMockClient.class})
+@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api")
 @EnableSwagger2
 public class SmartLabCoreApplication {
 

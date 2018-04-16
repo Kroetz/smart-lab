@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface IPersonConfigProviderMockService {
 
-    boolean exists(long personId);
     List<Person> getPersons();
     Optional<Person> getPerson(long personId);
     boolean createPerson(Person person);

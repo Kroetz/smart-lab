@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api;
+package de.qaware.smartlabcommons.api.management;
 
 public class RoomManagementApiConstants {
 

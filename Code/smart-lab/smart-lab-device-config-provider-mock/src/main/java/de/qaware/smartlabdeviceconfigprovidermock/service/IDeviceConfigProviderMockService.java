@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface IDeviceConfigProviderMockService {
 
-    boolean exists(long deviceId);
     List<IDevice> getDevices();
     Optional<IDevice> getDevice(long deviceId);
     boolean createDevice(IDevice device);

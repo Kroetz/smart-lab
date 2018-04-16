@@ -1,9 +1,9 @@
-package de.qaware.smartlabcore.workgroup.repository.mock;
+package de.qaware.smartlabcore.workgroup.repository;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.workgroup.repository.IWorkgroupManagementRepository;
+import de.qaware.smartlabcommons.api.configprovidermock.client.IWorkgroupConfigProviderMockClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

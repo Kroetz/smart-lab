@@ -1,7 +1,7 @@
-package de.qaware.smartlabcore.device.repository.mock;
+package de.qaware.smartlabcore.device.repository;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcore.device.repository.IDeviceManagementRepository;
+import de.qaware.smartlabcommons.api.configprovidermock.client.IDeviceConfigProviderMockClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

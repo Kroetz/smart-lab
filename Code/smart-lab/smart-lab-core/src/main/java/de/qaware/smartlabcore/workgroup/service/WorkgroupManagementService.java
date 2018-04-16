@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.workgroup.service;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.workgroup.repository.IWorkgroupManagementRepository;
@@ -8,10 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

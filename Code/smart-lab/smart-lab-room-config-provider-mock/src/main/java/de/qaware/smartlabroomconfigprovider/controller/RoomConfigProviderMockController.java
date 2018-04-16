@@ -1,5 +1,6 @@
 package de.qaware.smartlabroomconfigprovider.controller;
 
+import de.qaware.smartlabcommons.api.configprovidermock.RoomConfigProviderMockApiConstants;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabroomconfigprovider.service.IRoomConfigProviderMockService;
 import org.springframework.http.MediaType;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/smart-lab/room-config-provider")
+@RequestMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE)
 public class RoomConfigProviderMockController {
 
     private final IRoomConfigProviderMockService roomConfigProviderService;
@@ -18,31 +19,24 @@ public class RoomConfigProviderMockController {
         this.roomConfigProviderService = roomConfigProviderService;
     }
 
-    @PostMapping("/{roomId}/exists")
-    boolean exists(@PathVariable("roomId") long roomId) {
-        return roomConfigProviderService.exists(roomId);
-    }
-
-    @GetMapping
+    @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_GET_ROOMS)
     List<Room> getRooms() {
         return roomConfigProviderService.getRooms();
     }
 
-    @GetMapping("/{roomId}")
+    @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_GET_ROOM)
     Optional<Room> getRoom(@PathVariable("roomId") long roomId) {
-        Optional<Room> r =  roomConfigProviderService.getRoom(roomId);
-        return r;
-
-
-        //return roomConfigProviderService.getRoom(roomId);
+        return roomConfigProviderService.getRoom(roomId);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            value = RoomConfigProviderMockApiConstants.MAPPING_CREATE_ROOM,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createRoom(@RequestBody Room room) {
         return roomConfigProviderService.createRoom(room);
     }
 
-    @DeleteMapping("/{roomId}")
+    @DeleteMapping(RoomConfigProviderMockApiConstants.MAPPING_DELETE_ROOM)
     boolean deleteRoom(@PathVariable("roomId") long roomId) {
         return roomConfigProviderService.deleteRoom(roomId);
     }

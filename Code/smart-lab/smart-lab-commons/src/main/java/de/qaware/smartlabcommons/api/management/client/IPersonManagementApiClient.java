@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.client;
+package de.qaware.smartlabcommons.api.management.client;
 
-import de.qaware.smartlabcommons.api.PersonManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.PersonManagementApiConstants;
 import de.qaware.smartlabcommons.data.person.Person;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

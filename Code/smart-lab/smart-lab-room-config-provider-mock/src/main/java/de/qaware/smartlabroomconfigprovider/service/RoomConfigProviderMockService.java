@@ -46,8 +46,7 @@ public class RoomConfigProviderMockService implements IRoomConfigProviderMockSer
         sortRoomsById();
     }
 
-    @Override
-    public boolean exists(long roomId) {
+    private boolean exists(long roomId) {
         return rooms.stream()
                 .anyMatch(room -> room.getId() == roomId);
     }

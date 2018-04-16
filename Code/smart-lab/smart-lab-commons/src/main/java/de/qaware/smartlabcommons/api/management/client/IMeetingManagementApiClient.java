@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.client;
+package de.qaware.smartlabcommons.api.management.client;
 
-import de.qaware.smartlabcommons.api.MeetingManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.MeetingManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

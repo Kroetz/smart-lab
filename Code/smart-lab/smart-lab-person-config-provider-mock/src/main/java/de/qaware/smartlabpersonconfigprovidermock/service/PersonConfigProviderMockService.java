@@ -1,12 +1,9 @@
 package de.qaware.smartlabpersonconfigprovidermock.service;
 
 import de.qaware.smartlabcommons.data.person.Person;
-import de.qaware.smartlabcommons.data.person.Person;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -70,8 +67,7 @@ public class PersonConfigProviderMockService implements IPersonConfigProviderMoc
         sortPersonsById();
     }
 
-    @Override
-    public boolean exists(long personId) {
+    private boolean exists(long personId) {
         return persons.stream()
                 .anyMatch(person -> person.getId() == personId);
     }

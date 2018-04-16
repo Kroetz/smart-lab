@@ -83,8 +83,7 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
         sortMeetingsByStart();
     }
 
-    @Override
-    public boolean exists(long meetingId) {
+    private boolean exists(long meetingId) {
         return meetings.stream().anyMatch(m -> m.getId() == meetingId);
     }
 

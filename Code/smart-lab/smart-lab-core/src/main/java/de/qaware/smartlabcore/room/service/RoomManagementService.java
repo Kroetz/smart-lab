@@ -2,13 +2,10 @@ package de.qaware.smartlabcore.room.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
-import de.qaware.smartlabcore.room.repository.mock.IRoomConfigProviderMockClient;
-import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -16,7 +13,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.person.controller;
 
-import de.qaware.smartlabcommons.api.PersonManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.PersonManagementApiConstants;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcore.person.service.IPersonManagementService;
 import lombok.extern.slf4j.Slf4j;

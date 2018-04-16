@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.room.controller;
 
-import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;

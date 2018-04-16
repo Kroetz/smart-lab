@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface IWorkgroupConfigProviderMockService {
 
-    boolean exists(long workgroupId);
     List<Workgroup> getWorkgroups();
     Optional<Workgroup> getWorkgroup(long workgroupId);
     boolean createWorkgroup(Workgroup workgroup);

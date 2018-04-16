@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.client;
+package de.qaware.smartlabcommons.api.management.client;
 
-import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
+import de.qaware.smartlabcommons.api.management.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
 import org.springframework.cloud.openfeign.FeignClient;

@@ -1,19 +1,12 @@
 package de.qaware.smartlabcore.meeting.service;
 
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
-import de.qaware.smartlabcore.meeting.repository.mock.IMeetingConfigProviderMockClient;
-import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
-import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.api.management.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
