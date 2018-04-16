@@ -1,14 +1,13 @@
-package de.qaware.smartlabcore.room.service;
+package de.qaware.smartlabcore.room.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
-import org.springframework.ui.Model;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
-public interface IRoomManagementService {
+public interface IRoomManagementRepository {
 
     List<Room> getRooms();
     Optional<Room> getRoom(long roomId);
@@ -22,6 +21,4 @@ public interface IRoomManagementService {
     Optional<IMeeting> getCurrentMeeting(long roomId);
 
     boolean extendCurrentMeeting(long roomId, Duration extension);
-
-    String getCurrentMeetingStatusPage(long roomId, Model model);
 }

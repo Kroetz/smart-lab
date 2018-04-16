@@ -1,7 +1,6 @@
-package de.qaware.smartlabcore.meeting.service.mock;
+package de.qaware.smartlabcore.meeting.repository.mock;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import java.util.Optional;
 @ApiIgnore
 @RestController
 @RequestMapping("/smart-lab/meeting-config-provider")
-@Qualifier("mock")
 public interface IMeetingConfigProviderMockClient {
 
     @PostMapping(value = "/{meetingId}/exists")
@@ -31,4 +29,19 @@ public interface IMeetingConfigProviderMockClient {
 
     @DeleteMapping("/{meetingId}")
     boolean deleteMeeting(@PathVariable("meetingId") long meetingId);
+
+    @PutMapping("/{meetingId}/shorten")
+    public void shortenMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "shortening-in-minutes") long shorteningInMinutes);
+
+    @PutMapping("/{meetingId}/extend")
+    public boolean extendMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "extension-in-minutes") long extensionInMinutes);
+
+    @PutMapping("/{meetingId}/shift")
+    public boolean shiftMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "shift-in-minutes") long shiftInMinutes);
 }

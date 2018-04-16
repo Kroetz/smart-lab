@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.workgroup.service;
+package de.qaware.smartlabcore.workgroup.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
-public interface IWorkgroupManagementService {
+public interface IWorkgroupManagementRepository {
 
     List<Workgroup> getWorkgroups();
     Optional<Workgroup> getWorkgroup(long workgroupId);

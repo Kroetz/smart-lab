@@ -1,14 +1,14 @@
 package de.qaware.smartlabcore.workgroup.controller;
 
 import de.qaware.smartlabcommons.api.WorkgroupManagementApiConstants;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +19,7 @@ public class WorkgroupManagementController {
 
     private final IWorkgroupManagementService workgroupManagementService;
 
-    public WorkgroupManagementController(@Qualifier("mock") IWorkgroupManagementService workgroupManagementService) {
+    public WorkgroupManagementController(IWorkgroupManagementService workgroupManagementService) {
         this.workgroupManagementService = workgroupManagementService;
     }
 
@@ -57,6 +57,6 @@ public class WorkgroupManagementController {
     public boolean extendCurrentMeeting(
             @PathVariable("workgroupId") long workgroupId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {
-        return workgroupManagementService.extendCurrentMeeting(workgroupId, extensionInMinutes);
+        return workgroupManagementService.extendCurrentMeeting(workgroupId, Duration.ofMinutes(extensionInMinutes));
     }
 }

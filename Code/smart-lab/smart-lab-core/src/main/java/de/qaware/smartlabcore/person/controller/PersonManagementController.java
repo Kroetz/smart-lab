@@ -4,7 +4,6 @@ import de.qaware.smartlabcommons.api.PersonManagementApiConstants;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcore.person.service.IPersonManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class PersonManagementController {
 
     private final IPersonManagementService personManagementService;
 
-    public PersonManagementController(@Qualifier("mock") IPersonManagementService personManagementService) {
+    public PersonManagementController(IPersonManagementService personManagementService) {
         this.personManagementService = personManagementService;
     }
 

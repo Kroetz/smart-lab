@@ -1,7 +1,6 @@
-package de.qaware.smartlabcore.workgroup.service.mock;
+package de.qaware.smartlabcore.workgroup.repository.mock;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import java.util.Optional;
 @ApiIgnore
 @RestController
 @RequestMapping("/smart-lab/workgroup-config-provider")
-@Qualifier("mock")
 public interface IWorkgroupConfigProviderMockClient {
 
     @PostMapping(value = "/{workgroupId}/exists")

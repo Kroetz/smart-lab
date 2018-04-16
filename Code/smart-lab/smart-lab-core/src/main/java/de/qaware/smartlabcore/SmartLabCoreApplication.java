@@ -1,6 +1,11 @@
 package de.qaware.smartlabcore;
 
 import com.fasterxml.classmate.TypeResolver;
+import de.qaware.smartlabcore.device.repository.mock.IDeviceConfigProviderMockClient;
+import de.qaware.smartlabcore.meeting.repository.mock.IMeetingConfigProviderMockClient;
+import de.qaware.smartlabcore.person.repository.mock.IPersonConfigProviderMockClient;
+import de.qaware.smartlabcore.room.repository.mock.IRoomConfigProviderMockClient;
+import de.qaware.smartlabcore.workgroup.repository.mock.IWorkgroupConfigProviderMockClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -29,11 +34,11 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @EnableFeignClients(
 		basePackages = "de.qaware.smartlabcommons.api.client",
 		basePackageClasses = {
-				de.qaware.smartlabcore.device.service.mock.IDeviceConfigProviderMockClient.class,
-				de.qaware.smartlabcore.meeting.service.mock.IMeetingConfigProviderMockClient.class,
-				de.qaware.smartlabcore.person.service.mock.IPersonConfigProviderMockClient.class,
-				de.qaware.smartlabcore.room.service.mock.IRoomConfigProviderMockClient.class,
-				de.qaware.smartlabcore.workgroup.service.mock.IWorkgroupConfigProviderMockClient.class})
+				IDeviceConfigProviderMockClient.class,
+				IMeetingConfigProviderMockClient.class,
+				IPersonConfigProviderMockClient.class,
+				IRoomConfigProviderMockClient.class,
+				IWorkgroupConfigProviderMockClient.class})
 @EnableSwagger2
 public class SmartLabCoreApplication {
 

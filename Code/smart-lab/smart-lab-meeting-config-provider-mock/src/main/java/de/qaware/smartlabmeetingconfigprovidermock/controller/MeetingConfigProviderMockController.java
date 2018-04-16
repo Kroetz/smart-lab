@@ -5,6 +5,7 @@ import de.qaware.smartlabmeetingconfigprovidermock.service.IMeetingConfigProvide
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +42,26 @@ public class MeetingConfigProviderMockController {
     @DeleteMapping("/{meetingId}")
     public boolean deleteMeeting(@PathVariable("meetingId") long meetingId) {
         return meetingConfigProviderService.deleteMeeting(meetingId);
+    }
+
+    @PutMapping("/{meetingId}/shorten")
+    public void shortenMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "shortening-in-minutes") long shorteningInMinutes) {
+        meetingConfigProviderService.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes));
+    }
+
+    @PutMapping("/{meetingId}/extend")
+    public boolean extendMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "extension-in-minutes") long extensionInMinutes) {
+        return meetingConfigProviderService.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes));
+    }
+
+    @PutMapping("/{meetingId}/shift")
+    public boolean shiftMeeting(
+            @PathVariable("meetingId") long meetingId,
+            @RequestParam(value = "shift-in-minutes") long shiftInMinutes) {
+        return meetingConfigProviderService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes));
     }
 }

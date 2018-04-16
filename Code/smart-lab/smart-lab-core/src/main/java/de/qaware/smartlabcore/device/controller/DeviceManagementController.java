@@ -4,7 +4,6 @@ import de.qaware.smartlabcommons.api.DeviceManagementApiConstants;
 import de.qaware.smartlabcommons.data.device.IDevice;
 import de.qaware.smartlabcore.device.service.IDeviceManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class DeviceManagementController {
 
     private final IDeviceManagementService deviceManagementService;
 
-    public DeviceManagementController(@Qualifier("mock") IDeviceManagementService deviceManagementService) {
+    public DeviceManagementController(IDeviceManagementService deviceManagementService) {
         this.deviceManagementService = deviceManagementService;
     }
 

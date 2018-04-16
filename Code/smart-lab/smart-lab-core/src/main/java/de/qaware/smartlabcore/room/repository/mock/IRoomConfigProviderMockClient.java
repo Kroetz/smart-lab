@@ -1,7 +1,6 @@
-package de.qaware.smartlabcore.room.service.mock;
+package de.qaware.smartlabcore.room.repository.mock;
 
 import de.qaware.smartlabcommons.data.room.Room;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import java.util.Optional;
 @ApiIgnore
 @RestController
 @RequestMapping("/smart-lab/room-config-provider")
-@Qualifier("mock")
 public interface IRoomConfigProviderMockClient {
 
     @PostMapping(value = "/{roomId}/exists")

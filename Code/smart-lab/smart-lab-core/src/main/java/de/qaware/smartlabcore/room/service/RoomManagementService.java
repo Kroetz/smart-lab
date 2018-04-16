@@ -1,8 +1,10 @@
-package de.qaware.smartlabcore.room.service.mock;
+package de.qaware.smartlabcore.room.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
+import de.qaware.smartlabcore.room.repository.mock.IRoomConfigProviderMockClient;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -17,61 +19,51 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Qualifier("mock")
 @Slf4j
-public class RoomManagementServiceMock implements IRoomManagementService {
+public class RoomManagementService implements IRoomManagementService {
 
-    private final IRoomConfigProviderMockClient roomConfigProvider;
+    private final IRoomManagementRepository roomManagementRepository;
     private final IMeetingManagementApiClient meetingManagementApiClient;
 
-    public RoomManagementServiceMock(
-            @Qualifier("mock") IRoomConfigProviderMockClient roomConfigProvider,
+    public RoomManagementService(
+            IRoomManagementRepository roomManagementRepository,
             IMeetingManagementApiClient meetingManagementApiClient) {
-        this.roomConfigProvider = roomConfigProvider;
+        this.roomManagementRepository = roomManagementRepository;
         this.meetingManagementApiClient = meetingManagementApiClient;
     }
 
     public List<Room> getRooms() {
-        return roomConfigProvider.getRooms();
+        return roomManagementRepository.getRooms();
     }
 
     @Override
     public Optional<Room> getRoom(long roomId) {
-        Optional<Room> r = roomConfigProvider.getRoom(roomId);
-        return r;
-
-        //return roomConfigProvider.getRoom(roomId);
-    }
-
-    @Override
-    public List<IMeeting> getMeetingsInRoom(long roomId) {
-        return meetingManagementApiClient.getMeetings().stream()
-                .filter(meeting -> meeting.getRoomId() == roomId)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Optional<IMeeting> getCurrentMeeting(long roomId) {
-        return getMeetingsInRoom(roomId).stream()
-                .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
-                .findFirst();
+        return roomManagementRepository.getRoom(roomId);
     }
 
     @Override
     public boolean createRoom(Room room) {
-        return roomConfigProvider.createRoom(room);
+        return roomManagementRepository.createRoom(room);
     }
 
     @Override
     public void deleteRoom(long roomId) {
-        roomConfigProvider.deleteRoom(roomId);
+        roomManagementRepository.deleteRoom(roomId);
     }
 
     @Override
-    public boolean extendCurrentMeeting(long roomId, long extensionInMinutes) {
-        return getCurrentMeeting(roomId)
-                .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extensionInMinutes))
-                .orElse(false);
+    public List<IMeeting> getMeetingsInRoom(long roomId) {
+        return roomManagementRepository.getMeetingsInRoom(roomId);
+    }
+
+    @Override
+    public Optional<IMeeting> getCurrentMeeting(long roomId) {
+        return roomManagementRepository.getCurrentMeeting(roomId);
+    }
+
+    @Override
+    public boolean extendCurrentMeeting(long roomId, Duration extension) {
+        return roomManagementRepository.extendCurrentMeeting(roomId, extension);
     }
 
     @Override

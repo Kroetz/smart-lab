@@ -5,12 +5,12 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public class RoomManagementController {
 
     private final IRoomManagementService roomManagementService;
 
-    public RoomManagementController(@Qualifier("mock") IRoomManagementService roomManagementService) {
+    public RoomManagementController(IRoomManagementService roomManagementService) {
         this.roomManagementService = roomManagementService;
     }
 
@@ -65,7 +65,7 @@ public class RoomManagementController {
     public boolean extendCurrentMeeting(
             @PathVariable("roomId") long roomId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {
-        return roomManagementService.extendCurrentMeeting(roomId, extensionInMinutes);
+        return roomManagementService.extendCurrentMeeting(roomId, Duration.ofMinutes(extensionInMinutes));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)

@@ -4,7 +4,6 @@ import de.qaware.smartlabcommons.api.MeetingManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.meeting.service.IMeetingManagementService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class MeetingManagementController {
 
     private final IMeetingManagementService meetingManagementService;
 
-    public MeetingManagementController(@Qualifier("mock") IMeetingManagementService meetingManagementService) {
+    public MeetingManagementController(IMeetingManagementService meetingManagementService) {
         this.meetingManagementService = meetingManagementService;
     }
 
@@ -40,6 +39,11 @@ public class MeetingManagementController {
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean createMeeting(@RequestBody IMeeting meeting) {
         return meetingManagementService.createMeeting(meeting);
+    }
+
+    @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
+    public void deleteMeeting(@PathVariable("meetingId") long meetingId) {
+        meetingManagementService.deleteMeeting(meetingId);
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
@@ -61,10 +65,5 @@ public class MeetingManagementController {
             @PathVariable("meetingId") long meetingId,
             @RequestParam(value = "shift-in-minutes") long shiftInMinutes) {
         return meetingManagementService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes));
-    }
-
-    @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    public void deleteMeeting(@PathVariable("meetingId") long meetingId) {
-        meetingManagementService.deleteMeeting(meetingId);
     }
 }

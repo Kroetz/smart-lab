@@ -10,6 +10,7 @@ import de.qaware.smartlabcommons.Constants;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -115,6 +116,53 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
         return meetings.removeAll(meetings.stream()
                 .filter(meeting -> meeting.getId() == meetingId)
                 .collect(Collectors.toList()));
+    }
+
+    @Override
+    public void shortenMeeting(long meetingId, Duration shortening) {
+        val meeting = getMeeting(meetingId);
+        if(meeting.isPresent()) {
+            if(deleteMeeting(meetingId)) {
+                val shortenedMeeting = meeting.get().copy();
+                shortenedMeeting.setEnd(meeting.get().getEnd().minus(shortening));
+                createMeeting(shortenedMeeting);
+            }
+        }
+    }
+
+    @Override
+    public boolean extendMeeting(long meetingId, Duration extension) {
+        val meeting = getMeeting(meetingId);
+        if(meeting.isPresent()) {
+            val extendedMeeting = meeting.get().copy();
+            extendedMeeting.setEnd(meeting.get().getEnd().plus(extension));
+            deleteMeeting(meetingId);
+            if(createMeeting(extendedMeeting)) {
+                return true;
+            }
+            else {
+                createMeeting(meeting.get());
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean shiftMeeting(long meetingId, Duration shift) {
+        val meeting = getMeeting(meetingId);
+        if(meeting.isPresent()) {
+            val shiftedMeeting = meeting.get().copy();
+            shiftedMeeting.setStart(meeting.get().getStart().plus(shift));
+            shiftedMeeting.setEnd(meeting.get().getEnd().plus(shift));
+            deleteMeeting(meetingId);
+            if(createMeeting(shiftedMeeting)) {
+                return true;
+            }
+            else {
+                createMeeting(meeting.get());
+            }
+        }
+        return false;
     }
 
     private void sortMeetingsByStart() {

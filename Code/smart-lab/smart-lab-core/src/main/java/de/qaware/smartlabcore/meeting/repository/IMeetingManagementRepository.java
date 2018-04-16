@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.meeting.service;
+package de.qaware.smartlabcore.meeting.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 
@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
-public interface IMeetingManagementService {
+public interface IMeetingManagementRepository {
 
     List<IMeeting> getMeetings();
     Optional<IMeeting> getMeeting(long meetingId);
