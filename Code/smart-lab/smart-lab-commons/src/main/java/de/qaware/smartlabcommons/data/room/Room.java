@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.data.room;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import lombok.*;
 
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
+public class Room implements IRoom {
 
     private long id;
     private String name;
@@ -20,25 +20,25 @@ public class Room {
 
     private Optional<IDevice> minuteTakingDevice;
 
-    public void setUpMeeting(IMeeting meeting, Workgroup workgroup) {
+    public void setUpMeeting(IMeeting meeting, IWorkgroup workgroup) {
         for(val assistance : meeting.getAssistances()) {
             assistance.toAssistance().ifPresent(a -> a.setUp(this, meeting, workgroup));
         }
     }
 
-    public void cleanUpMeeting(IMeeting meeting, Workgroup workgroup) {
+    public void cleanUpMeeting(IMeeting meeting, IWorkgroup workgroup) {
         for(val assistance : meeting.getAssistances()) {
             assistance.toAssistance().ifPresent(a -> a.cleanUp(this, meeting, workgroup));
         }
     }
 
-    public void startMeeting(IMeeting meeting, Workgroup workgroup) {
+    public void startMeeting(IMeeting meeting, IWorkgroup workgroup) {
         for(val assistance : meeting.getAssistances()) {
             assistance.toAssistance().ifPresent(a -> a.start(this, meeting, workgroup));
         }
     }
 
-    public void stopMeeting(IMeeting meeting, Workgroup workgroup) {
+    public void stopMeeting(IMeeting meeting, IWorkgroup workgroup) {
         for(val assistance : meeting.getAssistances()) {
             assistance.toAssistance().ifPresent(a -> a.stop(this, meeting, workgroup));
         }

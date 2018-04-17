@@ -25,7 +25,6 @@ public class MeetingFactory {
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         return Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(0)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(0)
@@ -45,7 +44,6 @@ public class MeetingFactory {
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         return Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(1)
                 .title("Meeting about the danger of the bark beetle")
                 .workgroupId(1)
@@ -65,7 +63,6 @@ public class MeetingFactory {
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         return Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
                 .id(2)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(2)

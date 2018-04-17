@@ -1,9 +1,9 @@
 package de.qaware.smartlabcore.workgroup.repository;
 
+import de.qaware.smartlabcommons.api.configprovidermock.client.IWorkgroupConfigProviderMockClient;
 import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcommons.api.configprovidermock.client.IWorkgroupConfigProviderMockClient;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -28,17 +28,17 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public List<Workgroup> getWorkgroups() {
+    public List<IWorkgroup> getWorkgroups() {
         return workgroupConfigProviderMockClient.getWorkgroups();
     }
 
     @Override
-    public Optional<Workgroup> getWorkgroup(long workgroupId) {
+    public Optional<IWorkgroup> getWorkgroup(long workgroupId) {
         return Optional.ofNullable(workgroupConfigProviderMockClient.getWorkgroup(workgroupId).getBody());
     }
 
     @Override
-    public boolean createWorkgroup(Workgroup workgroup) {
+    public boolean createWorkgroup(IWorkgroup workgroup) {
         return workgroupConfigProviderMockClient.createWorkgroup(workgroup);
     }
 

@@ -2,7 +2,7 @@ package de.qaware.smartlabcommons.api.management.client;
 
 import de.qaware.smartlabcommons.api.management.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.List;
 public interface IWorkgroupManagementApiClient {
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
-    List<Workgroup> getWorkgroups();
+    List<IWorkgroup> getWorkgroups();
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createWorkgroup(@RequestBody Workgroup workgroup);
+    boolean createWorkgroup(@RequestBody IWorkgroup workgroup);
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
     void deleteWorkgroup(@PathVariable("workgroupId") long workgroupId);

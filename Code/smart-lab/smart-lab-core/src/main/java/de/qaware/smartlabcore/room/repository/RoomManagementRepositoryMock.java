@@ -1,9 +1,9 @@
 package de.qaware.smartlabcore.room.repository;
 
+import de.qaware.smartlabcommons.api.configprovidermock.client.IRoomConfigProviderMockClient;
 import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcommons.api.configprovidermock.client.IRoomConfigProviderMockClient;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -28,17 +28,17 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public List<Room> getRooms() {
+    public List<IRoom> getRooms() {
         return roomConfigProviderMockClient.getRooms();
     }
 
     @Override
-    public Optional<Room> getRoom(long roomId) {
+    public Optional<IRoom> getRoom(long roomId) {
         return Optional.ofNullable(roomConfigProviderMockClient.getRoom(roomId).getBody());
     }
 
     @Override
-    public boolean createRoom(Room room) {
+    public boolean createRoom(IRoom room) {
         return roomConfigProviderMockClient.createRoom(room);
     }
 

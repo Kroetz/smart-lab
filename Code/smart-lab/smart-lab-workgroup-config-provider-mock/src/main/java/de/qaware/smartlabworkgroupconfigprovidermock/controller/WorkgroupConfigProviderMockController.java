@@ -1,9 +1,9 @@
-package de.qaware.smartlabworkgroupconfigprovider.controller;
+package de.qaware.smartlabworkgroupconfigprovidermock.controller;
 
 import de.qaware.smartlabcommons.api.configprovidermock.WorkgroupConfigProviderMockApiConstants;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabworkgroupconfigprovider.service.IWorkgroupConfigProviderMockService;
+import de.qaware.smartlabworkgroupconfigprovidermock.service.IWorkgroupConfigProviderMockService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +21,19 @@ public class WorkgroupConfigProviderMockController extends AbstractSmartLabContr
     }
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUPS)
-    public List<Workgroup> getWorkgroups() {
+    public List<IWorkgroup> getWorkgroups() {
         return workgroupConfigProviderService.getWorkgroups();
     }
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUP)
-    public ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
         return responseFromOptional(workgroupConfigProviderService.getWorkgroup(workgroupId));
     }
 
     @PostMapping(
             value = WorkgroupConfigProviderMockApiConstants.MAPPING_CREATE_WORKGROUP,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean createWorkgroup(@RequestBody Workgroup workgroup) {
+    public boolean createWorkgroup(@RequestBody IWorkgroup workgroup) {
         return workgroupConfigProviderService.createWorkgroup(workgroup);
     }
 

@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.room.service;
 
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -28,17 +28,17 @@ public class RoomManagementService implements IRoomManagementService {
         this.meetingManagementApiClient = meetingManagementApiClient;
     }
 
-    public List<Room> getRooms() {
+    public List<IRoom> getRooms() {
         return roomManagementRepository.getRooms();
     }
 
     @Override
-    public Optional<Room> getRoom(long roomId) {
+    public Optional<IRoom> getRoom(long roomId) {
         return roomManagementRepository.getRoom(roomId);
     }
 
     @Override
-    public boolean createRoom(Room room) {
+    public boolean createRoom(IRoom room) {
         return roomManagementRepository.createRoom(room);
     }
 

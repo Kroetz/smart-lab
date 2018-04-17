@@ -1,6 +1,5 @@
 package de.qaware.smartlabcommons.data.workgroup;
 
-import de.qaware.smartlabcommons.data.person.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.util.Collection;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Workgroup {
+public class Workgroup implements IWorkgroup {
 
     private long id;
     private String name;

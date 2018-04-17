@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.workgroup.service;
 
 import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.workgroup.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,17 +26,17 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public List<Workgroup> getWorkgroups() {
+    public List<IWorkgroup> getWorkgroups() {
         return workgroupManagementRepository.getWorkgroups();
     }
 
     @Override
-    public Optional<Workgroup> getWorkgroup(long workgroupId) {
+    public Optional<IWorkgroup> getWorkgroup(long workgroupId) {
         return workgroupManagementRepository.getWorkgroup(workgroupId);
     }
 
     @Override
-    public boolean createWorkgroup(Workgroup workgroup) {
+    public boolean createWorkgroup(IWorkgroup workgroup) {
         return workgroupManagementRepository.createWorkgroup(workgroup);
     }
 

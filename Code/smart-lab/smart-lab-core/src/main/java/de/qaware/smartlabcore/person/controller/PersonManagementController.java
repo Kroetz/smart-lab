@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.person.controller;
 
 import de.qaware.smartlabcommons.api.management.PersonManagementApiConstants;
-import de.qaware.smartlabcommons.data.person.Person;
+import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.person.service.IPersonManagementService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +16,6 @@ import java.util.List;
 @Slf4j
 public class PersonManagementController extends AbstractSmartLabController {
 
-
-
     private final IPersonManagementService personManagementService;
 
     public PersonManagementController(IPersonManagementService personManagementService) {
@@ -25,17 +23,17 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSONS)
-    public List<Person> getPersons() {
+    public List<IPerson> getPersons() {
         return personManagementService.getPersons();
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSON)
-    public ResponseEntity<Person> getPerson(@PathVariable("personId") long personId) {
+    public ResponseEntity<IPerson> getPerson(@PathVariable("personId") long personId) {
         return responseFromOptional(personManagementService.getPerson(personId));
     }
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean createPerson(@RequestBody Person person) {
+    public boolean createPerson(@RequestBody IPerson person) {
         return personManagementService.createPerson(person);
     }
 

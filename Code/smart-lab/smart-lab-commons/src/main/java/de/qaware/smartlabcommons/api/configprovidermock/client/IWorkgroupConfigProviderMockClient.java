@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.configprovidermock.client;
 
 import de.qaware.smartlabcommons.api.configprovidermock.WorkgroupConfigProviderMockApiConstants;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import java.util.List;
 public interface IWorkgroupConfigProviderMockClient {
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUPS)
-    List<Workgroup> getWorkgroups();
+    List<IWorkgroup> getWorkgroups();
 
     @GetMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_GET_WORKGROUP)
-    ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
 
     @PostMapping(
             value = WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_CREATE_WORKGROUP,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createWorkgroup(@RequestBody Workgroup workgroup);
+    boolean createWorkgroup(@RequestBody IWorkgroup workgroup);
 
     @DeleteMapping(WorkgroupConfigProviderMockApiConstants.MAPPING_BASE + WorkgroupConfigProviderMockApiConstants.MAPPING_DELETE_WORKGROUP)
     boolean deleteWorkgroup(@PathVariable("workgroupId") long workgroupId);

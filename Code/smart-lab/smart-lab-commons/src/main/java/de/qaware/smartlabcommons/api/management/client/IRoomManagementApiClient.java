@@ -2,7 +2,7 @@ package de.qaware.smartlabcommons.api.management.client;
 
 import de.qaware.smartlabcommons.api.management.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,15 @@ public interface IRoomManagementApiClient {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOMS)
     @ResponseBody
-    List<Room> getRooms();
+    List<IRoom> getRooms();
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId);
+    ResponseEntity<IRoom> getRoom(@PathVariable("roomId") long roomId);
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_CREATE_ROOM, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    boolean createRoom(@RequestBody Room room);
+    boolean createRoom(@RequestBody IRoom room);
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_DELETE_ROOM)
     @ResponseBody

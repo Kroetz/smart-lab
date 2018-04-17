@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.person.service;
 
-import de.qaware.smartlabcommons.data.person.Person;
+import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcore.person.repository.IPersonManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ public class PersonManagementService implements IPersonManagementService {
     }
 
     @Override
-    public List<Person> getPersons() {
+    public List<IPerson> getPersons() {
         return personManagementRepository.getPersons();
     }
 
     @Override
-    public Optional<Person> getPerson(long personId) {
+    public Optional<IPerson> getPerson(long personId) {
         return personManagementRepository.getPerson(personId);
     }
 
     @Override
-    public boolean createPerson(Person person) {
+    public boolean createPerson(IPerson person) {
         return personManagementRepository.createPerson(person);
     }
 

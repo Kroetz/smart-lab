@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.person.repository;
 
-import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.api.configprovidermock.client.IPersonConfigProviderMockClient;
+import de.qaware.smartlabcommons.data.person.IPerson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -19,17 +19,17 @@ public class IPersonManagementRepositoryMock implements IPersonManagementReposit
     }
 
     @Override
-    public List<Person> getPersons() {
+    public List<IPerson> getPersons() {
         return personConfigProviderMockClient.getPersons();
     }
 
     @Override
-    public Optional<Person> getPerson(long personId) {
+    public Optional<IPerson> getPerson(long personId) {
         return Optional.ofNullable(personConfigProviderMockClient.getPerson(personId).getBody());
     }
 
     @Override
-    public boolean createPerson(Person person) {
+    public boolean createPerson(IPerson person) {
         return personConfigProviderMockClient.createPerson(person);
     }
 

@@ -1,8 +1,7 @@
 package de.qaware.smartlabdeviceconfigprovidermock.service;
 
-import de.qaware.smartlabcommons.data.device.AcmeDisplay;
-import de.qaware.smartlabcommons.data.device.AcmeMicrophone;
 import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,30 +15,14 @@ public class DeviceConfigProviderMockService implements IDeviceConfigProviderMoc
 
     private List<IDevice> devices;
 
-    public DeviceConfigProviderMockService() {
+    public DeviceConfigProviderMockService(
+            ISampleDataFactory coastGuardDataFactory,
+            ISampleDataFactory forestRangersDataFactory,
+            ISampleDataFactory fireFightersDataFactory) {
         this.devices = new ArrayList<>();
-
-        this.devices.add(AcmeDisplay.builder()
-                .id(0)
-                .name("Display in Room Blue")
-                .dummyDisplayProperty("Dummy property of Display in Room Blue")
-                .build());
-        this.devices.add(AcmeMicrophone.builder()
-                .id(1)
-                .name("Microphone in Room Green")
-                .dummyMicrophoneProperty("Dummy property of Microphone in Room Green")
-                .build());
-        this.devices.add(AcmeDisplay.builder()
-                .id(2)
-                .name("Display in Room Red")
-                .dummyDisplayProperty("Dummy property of Display in Room Red")
-                .build());
-        this.devices.add(AcmeMicrophone.builder()
-                .id(3)
-                .name("Microphone in Room Red")
-                .dummyMicrophoneProperty("Dummy property of Microphone in Room Red")
-                .build());
-
+        this.devices.addAll(coastGuardDataFactory.createDevices());
+        this.devices.addAll(forestRangersDataFactory.createDevices());
+        this.devices.addAll(fireFightersDataFactory.createDevices());
         sortDevicesById();
     }
 

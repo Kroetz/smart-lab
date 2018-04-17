@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.management.client;
 
 import de.qaware.smartlabcommons.api.management.PersonManagementApiConstants;
-import de.qaware.smartlabcommons.data.person.Person;
+import de.qaware.smartlabcommons.data.person.IPerson;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +15,13 @@ import java.util.List;
 public interface IPersonManagementApiClient {
 
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSONS)
-    List<Person> getPersons();
+    List<IPerson> getPersons();
 
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSON)
-    ResponseEntity<Person> getPerson(@PathVariable("personId") long personId);
+    ResponseEntity<IPerson> getPerson(@PathVariable("personId") long personId);
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createPerson(@RequestBody Person person);
+    boolean createPerson(@RequestBody IPerson person);
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_DELETE_PERSON)
     void deletePerson(@PathVariable("personId") long personId);

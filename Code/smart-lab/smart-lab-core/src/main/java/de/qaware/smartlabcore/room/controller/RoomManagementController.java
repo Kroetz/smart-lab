@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.room.controller;
 
 import de.qaware.smartlabcommons.api.management.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.room.service.IRoomManagementService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +28,19 @@ public class RoomManagementController extends AbstractSmartLabController {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOMS)
     @ResponseBody
-    public List<Room> getRooms() {
+    public List<IRoom> getRooms() {
         return roomManagementService.getRooms();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    public ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId) {
+    public ResponseEntity<IRoom> getRoom(@PathVariable("roomId") long roomId) {
         return responseFromOptional(roomManagementService.getRoom(roomId));
     }
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_ROOM,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public boolean createRoom(@RequestBody Room room) {
+    public boolean createRoom(@RequestBody IRoom room) {
         return roomManagementService.createRoom(room);
     }
 

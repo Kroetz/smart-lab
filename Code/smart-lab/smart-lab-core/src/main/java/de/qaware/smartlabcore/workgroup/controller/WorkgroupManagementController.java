@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.workgroup.controller;
 
 import de.qaware.smartlabcommons.api.management.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.workgroup.service.IWorkgroupManagementService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +25,17 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
-    public List<Workgroup> getWorkgroups() {
+    public List<IWorkgroup> getWorkgroups() {
         return workgroupManagementService.getWorkgroups();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    public ResponseEntity<Workgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
         return responseFromOptional(workgroupManagementService.getWorkgroup(workgroupId));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean createWorkgroup(@RequestBody Workgroup workgroup) {
+    public boolean createWorkgroup(@RequestBody IWorkgroup workgroup) {
         return workgroupManagementService.createWorkgroup(workgroup);
     }
 

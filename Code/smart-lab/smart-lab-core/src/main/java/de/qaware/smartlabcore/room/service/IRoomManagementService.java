@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.room.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import org.springframework.ui.Model;
 
 import java.time.Duration;
@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public interface IRoomManagementService {
 
-    List<Room> getRooms();
-    Optional<Room> getRoom(long roomId);
+    List<IRoom> getRooms();
+    Optional<IRoom> getRoom(long roomId);
 
-    boolean createRoom(Room room);
+    boolean createRoom(IRoom room);
 
     void deleteRoom(long roomId);
 

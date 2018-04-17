@@ -1,19 +1,12 @@
 package de.qaware.smartlabmeetingconfigprovidermock.service;
 
-import de.qaware.smartlabcommons.data.meeting.AgendaItem;
-import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.meeting.Meeting;
-import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
-import de.qaware.smartlabcommons.Constants;
+import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,63 +16,14 @@ public class MeetingConfigProviderMockService implements IMeetingConfigProviderM
 
     private List<IMeeting> meetings;
 
-    public MeetingConfigProviderMockService() {
+    public MeetingConfigProviderMockService(
+            ISampleDataFactory coastGuardDataFactory,
+            ISampleDataFactory forestRangersDataFactory,
+            ISampleDataFactory fireFightersDataFactory) {
         this.meetings = new ArrayList<>();
-
-        val coastGuardMeetingAgenda = new ArrayList<IAgendaItem>();
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
-        val coastGuardMeetingAssistances = new HashSet<IAssistanceDao>();
-        coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
-                .id(0)
-                .title("Meeting about preventing illegal whale hunting")
-                .workgroupId(0)
-                .roomId(0)
-                .agenda(coastGuardMeetingAgenda)
-                .assistances(coastGuardMeetingAssistances)
-                .start(Instant.now().plusSeconds(0))
-                .end(Instant.now().plusSeconds(300)).build());
-
-        val forestRangersMeetingAgenda = new ArrayList<IAgendaItem>();
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
-        val forestRangersMeetingAssistances = new HashSet<IAssistanceDao>();
-        forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
-                .id(1)
-                .title("Meeting about the danger of the bark beetle")
-                .workgroupId(1)
-                .roomId(1)
-                .agenda(forestRangersMeetingAgenda)
-                .assistances(forestRangersMeetingAssistances)
-                .start(Instant.now().plusSeconds(60))
-                .end(Instant.now().plusSeconds(360)).build());
-
-        val fireFightersMeetingAgenda = new ArrayList<IAgendaItem>();
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
-        val fireFightersMeetingAssistances = new HashSet<IAssistanceDao>();
-        fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.add(Meeting.builder()
-                .type("de.qaware.smartlabcommons.data.meeting.Meeting")
-                .id(2)
-                .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
-                .workgroupId(2)
-                .roomId(2)
-                .agenda(fireFightersMeetingAgenda)
-                .assistances(fireFightersMeetingAssistances)
-                .start(Instant.now().plusSeconds(120))
-                .end(Instant.now().plusSeconds(420)).build());
-
+        this.meetings.addAll(coastGuardDataFactory.createMeetings());
+        this.meetings.addAll(forestRangersDataFactory.createMeetings());
+        this.meetings.addAll(fireFightersDataFactory.createMeetings());
         sortMeetingsByStart();
     }
 

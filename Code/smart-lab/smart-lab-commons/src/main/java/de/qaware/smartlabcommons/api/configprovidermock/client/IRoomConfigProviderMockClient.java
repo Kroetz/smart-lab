@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.configprovidermock.client;
 
 import de.qaware.smartlabcommons.api.configprovidermock.RoomConfigProviderMockApiConstants;
-import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import java.util.List;
 public interface IRoomConfigProviderMockClient {
 
     @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_GET_ROOMS)
-    List<Room> getRooms();
+    List<IRoom> getRooms();
 
     @GetMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_GET_ROOM)
-    ResponseEntity<Room> getRoom(@PathVariable("roomId") long roomId);
+    ResponseEntity<IRoom> getRoom(@PathVariable("roomId") long roomId);
 
     @PostMapping(
             value = RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_CREATE_ROOM,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createRoom(@RequestBody Room room);
+    boolean createRoom(@RequestBody IRoom room);
 
     @DeleteMapping(RoomConfigProviderMockApiConstants.MAPPING_BASE + RoomConfigProviderMockApiConstants.MAPPING_DELETE_ROOM)
     boolean deleteRoom(@PathVariable("roomId") long roomId);
