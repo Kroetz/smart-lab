@@ -1,14 +1,16 @@
 package de.qaware.smartlabcore.room.repository;
 
-import de.qaware.smartlabcommons.api.configprovidermock.client.IRoomConfigProviderMockClient;
-import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,34 +19,49 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
-    private final IRoomConfigProviderMockClient roomConfigProviderMockClient;
     private final IMeetingManagementApiClient meetingManagementApiClient;
+    private List<IRoom> rooms;
 
     public RoomManagementRepositoryMock(
-            IRoomConfigProviderMockClient roomConfigProviderMockClient,
-            IMeetingManagementApiClient meetingManagementApiClient) {
-        this.roomConfigProviderMockClient = roomConfigProviderMockClient;
+            IMeetingManagementApiClient meetingManagementApiClient,
+            ISampleDataFactory coastGuardDataFactory,
+            ISampleDataFactory forestRangersDataFactory,
+            ISampleDataFactory fireFightersDataFactory) {
         this.meetingManagementApiClient = meetingManagementApiClient;
+        this.rooms = new ArrayList<>();
+        this.rooms.addAll(coastGuardDataFactory.createRooms());
+        this.rooms.addAll(forestRangersDataFactory.createRooms());
+        this.rooms.addAll(fireFightersDataFactory.createRooms());
+        sortRoomsById();
+    }
+
+    private boolean exists(long roomId) {
+        return rooms.stream()
+                .anyMatch(room -> room.getId() == roomId);
     }
 
     @Override
     public List<IRoom> getRooms() {
-        return roomConfigProviderMockClient.getRooms();
+        return this.rooms;
     }
 
     @Override
     public Optional<IRoom> getRoom(long roomId) {
-        return Optional.ofNullable(roomConfigProviderMockClient.getRoom(roomId).getBody());
+        return rooms.stream()
+                .filter(room -> room.getId() == roomId)
+                .findFirst();
     }
 
     @Override
     public boolean createRoom(IRoom room) {
-        return roomConfigProviderMockClient.createRoom(room);
+        return !exists(room.getId()) && rooms.add(room);
     }
 
     @Override
-    public void deleteRoom(long roomId) {
-        roomConfigProviderMockClient.deleteRoom(roomId);
+    public boolean deleteRoom(long roomId) {
+        return rooms.removeAll(rooms.stream()
+                .filter(room -> room.getId() == roomId)
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -66,5 +83,9 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
         return getCurrentMeeting(roomId)
                 .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
                 .orElse(false);
+    }
+
+    private void sortRoomsById() {
+        rooms.sort(Comparator.comparingLong(IRoom::getId));
     }
 }

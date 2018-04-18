@@ -26,7 +26,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @SpringBootApplication(scanBasePackages={"de.qaware.smartlabcore", "de.qaware.smartlabcommons"})
-@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api")
+@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.client")
 @EnableSwagger2
 public class SmartLabCoreApplication {
 

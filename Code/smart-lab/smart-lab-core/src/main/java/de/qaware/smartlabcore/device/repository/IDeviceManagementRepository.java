@@ -12,5 +12,5 @@ public interface IDeviceManagementRepository {
 
     boolean createDevice(IDevice device);
 
-    void deleteDevice(long deviceId);
+    boolean deleteDevice(long deviceId);
 }

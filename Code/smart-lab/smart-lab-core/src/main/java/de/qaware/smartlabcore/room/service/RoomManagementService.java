@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.room.service;
 
-import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;

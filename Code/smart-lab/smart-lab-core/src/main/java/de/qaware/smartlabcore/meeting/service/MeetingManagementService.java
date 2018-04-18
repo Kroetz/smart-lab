@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.meeting.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
-import de.qaware.smartlabcommons.api.management.client.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

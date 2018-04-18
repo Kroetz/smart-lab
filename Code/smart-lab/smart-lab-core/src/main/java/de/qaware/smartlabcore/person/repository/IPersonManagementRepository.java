@@ -12,5 +12,5 @@ public interface IPersonManagementRepository {
 
     boolean createPerson(IPerson person);
 
-    void deletePerson(long personId);
+    boolean deletePerson(long personId);
 }

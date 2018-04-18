@@ -1,14 +1,17 @@
 package de.qaware.smartlabcore.workgroup.repository;
 
-import de.qaware.smartlabcommons.api.configprovidermock.client.IWorkgroupConfigProviderMockClient;
-import de.qaware.smartlabcommons.api.management.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,34 +20,50 @@ import java.util.stream.Collectors;
 @Slf4j
 public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRepository {
 
-    private final IWorkgroupConfigProviderMockClient workgroupConfigProviderMockClient;
     private final IMeetingManagementApiClient meetingManagementApiClient;
+    private List<IWorkgroup> workgroups;
 
     public WorkgroupManagementRepositoryMock(
-            IWorkgroupConfigProviderMockClient workgroupConfigProviderMockClient,
-            IMeetingManagementApiClient meetingManagementApiClient) {
-        this.workgroupConfigProviderMockClient = workgroupConfigProviderMockClient;
+            IMeetingManagementApiClient meetingManagementApiClient,
+            ISampleDataFactory coastGuardDataFactory,
+            ISampleDataFactory forestRangersDataFactory,
+            ISampleDataFactory fireFightersDataFactory
+    ) throws MalformedURLException {
         this.meetingManagementApiClient = meetingManagementApiClient;
+        this.workgroups = new ArrayList<>();
+        this.workgroups.addAll(coastGuardDataFactory.createWorkgroups());
+        this.workgroups.addAll(forestRangersDataFactory.createWorkgroups());
+        this.workgroups.addAll(fireFightersDataFactory.createWorkgroups());
+        sortWorkgroupsById();
+    }
+
+    private boolean exists(long workgroupId) {
+        return workgroups.stream()
+                .anyMatch(workgroup -> workgroup.getId() == workgroupId);
     }
 
     @Override
     public List<IWorkgroup> getWorkgroups() {
-        return workgroupConfigProviderMockClient.getWorkgroups();
+        return this.workgroups;
     }
 
     @Override
     public Optional<IWorkgroup> getWorkgroup(long workgroupId) {
-        return Optional.ofNullable(workgroupConfigProviderMockClient.getWorkgroup(workgroupId).getBody());
+        return workgroups.stream()
+                .filter(workgroup -> workgroup.getId() == workgroupId)
+                .findFirst();
     }
 
     @Override
     public boolean createWorkgroup(IWorkgroup workgroup) {
-        return workgroupConfigProviderMockClient.createWorkgroup(workgroup);
+        return !exists(workgroup.getId()) && workgroups.add(workgroup);
     }
 
     @Override
-    public void deleteWorkgroup(long workgroupId) {
-        workgroupConfigProviderMockClient.deleteWorkgroup(workgroupId);
+    public boolean deleteWorkgroup(long workgroupId) {
+        return workgroups.removeAll(workgroups.stream()
+                .filter(workgroup -> workgroup.getId() == workgroupId)
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -66,5 +85,9 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
         return getCurrentMeeting(workgroupId)
                 .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
                 .orElse(false);
+    }
+
+    private void sortWorkgroupsById() {
+        workgroups.sort(Comparator.comparingLong(IWorkgroup::getId));
     }
 }
