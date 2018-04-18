@@ -22,9 +22,9 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
             ISampleDataFactory forestRangersDataFactory,
             ISampleDataFactory fireFightersDataFactory) {
         this.persons = new ArrayList<>();
-        this.persons.addAll(coastGuardDataFactory.createWorkgroupMembers());
-        this.persons.addAll(forestRangersDataFactory.createWorkgroupMembers());
-        this.persons.addAll(fireFightersDataFactory.createWorkgroupMembers());
+        this.persons.addAll(new ArrayList<>(coastGuardDataFactory.createWorkgroupMembers().values()));
+        this.persons.addAll(new ArrayList<>(forestRangersDataFactory.createWorkgroupMembers().values()));
+        this.persons.addAll(new ArrayList<>(fireFightersDataFactory.createWorkgroupMembers().values()));
         sortPersonsById();
     }
 

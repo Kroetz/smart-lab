@@ -21,24 +21,28 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 
 @Component
 @Slf4j
 public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
+    public CoastGuardDataFactory() {
+        super();
+    }
+
     @Override
-    public List<IWorkgroup> createWorkgroups() throws MalformedURLException {
-        val workgroups = new ArrayList<IWorkgroup>();
+    public Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException {
+        val workgroups = new HashMap<Long, IWorkgroup>();
         val coastGuardMembers = new ArrayList<Long>();
         coastGuardMembers.add(0L);
         coastGuardMembers.add(1L);
         coastGuardMembers.add(2L);
-        workgroups.add(Workgroup.builder()
-                .id(0)
+        workgroups.put(0L, Workgroup.builder()
+                .id(0L)
                 .name("Coast Guard")
                 .memberIds(coastGuardMembers)
                 .knowledgeBase(new URL("http", "coast-guard.com", 80, "/wiki"))
@@ -48,20 +52,20 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IPerson> createWorkgroupMembers() {
-        val workgroupMembers = new ArrayList<IPerson>();
-        workgroupMembers.add(Person.builder()
-                .id(0)
+    public Map<Long, IPerson> createWorkgroupMembers() {
+        val workgroupMembers = new HashMap<Long, IPerson>();
+        workgroupMembers.put(0L, Person.builder()
+                .id(0L)
                 .name("Coast Guard Alice")
                 .email("alice@coast-guard.com")
                 .build());
-        workgroupMembers.add(Person.builder()
-                .id(1)
+        workgroupMembers.put(1L, Person.builder()
+                .id(1L)
                 .name("Coast Guard Ben")
                 .email("ben@coast-guard.com")
                 .build());
-        workgroupMembers.add(Person.builder()
-                .id(2)
+        workgroupMembers.put(2L, Person.builder()
+                .id(2L)
                 .name("Coast Guard Charlie")
                 .email("charlie@coast-guard.com")
                 .build());
@@ -69,8 +73,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IMeeting> createMeetings() {
-        val meetings = new ArrayList<IMeeting>();
+    public Map<Long, IMeeting> createMeetings() {
+        val meetings = new HashMap<Long, IMeeting>();
         val coastGuardMeetingAgenda = new ArrayList<IAgendaItem>();
         coastGuardMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         coastGuardMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
@@ -78,25 +82,25 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         val coastGuardMeetingAssistances = new HashSet<IAssistanceDao>();
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.add(Meeting.builder()
-                .id(0)
+        meetings.put(0L, Meeting.builder()
+                .id(0L)
                 .title("Meeting about preventing illegal whale hunting")
-                .workgroupId(0)
-                .roomId(0)
+                .workgroupId(0L)
+                .roomId(0L)
                 .agenda(coastGuardMeetingAgenda)
                 .assistances(coastGuardMeetingAssistances)
-                .start(Instant.now().plusSeconds(0))
-                .end(Instant.now().plusSeconds(300)).build());
+                .start(timeBase.plusSeconds(0))
+                .end(timeBase.plusSeconds(300)).build());
         return meetings;
     }
 
     @Override
-    public List<IRoom> createRooms() {
-        val rooms = new ArrayList<IRoom>();
+    public Map<Long, IRoom> createRooms() {
+        val rooms = new HashMap<Long, IRoom>();
         val blueRoomDevices = new ArrayList<Long>();
         blueRoomDevices.add(0L);
-        rooms.add(Room.builder()
-                .id(0)
+        rooms.put(0L, Room.builder()
+                .id(0L)
                 .name("Room Blue")
                 .deviceIds(blueRoomDevices)
                 .build());
@@ -104,10 +108,10 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IDevice> createDevices() {
-        val devices = new ArrayList<IDevice>();
-        devices.add(AcmeDisplay.builder()
-                .id(0)
+    public Map<Long, IDevice> createDevices() {
+        val devices = new HashMap<Long, IDevice>();
+        devices.put(0L, AcmeDisplay.builder()
+                .id(0L)
                 .name("Display in Room Blue")
                 .dummyDisplayProperty("Dummy property of Display in Room Blue")
                 .build());

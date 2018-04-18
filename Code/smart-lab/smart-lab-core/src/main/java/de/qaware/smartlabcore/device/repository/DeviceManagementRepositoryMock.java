@@ -22,9 +22,9 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
             ISampleDataFactory forestRangersDataFactory,
             ISampleDataFactory fireFightersDataFactory) {
         this.devices = new ArrayList<>();
-        this.devices.addAll(coastGuardDataFactory.createDevices());
-        this.devices.addAll(forestRangersDataFactory.createDevices());
-        this.devices.addAll(fireFightersDataFactory.createDevices());
+        this.devices.addAll(new ArrayList<>(coastGuardDataFactory.createDevices().values()));
+        this.devices.addAll(new ArrayList<>(forestRangersDataFactory.createDevices().values()));
+        this.devices.addAll(new ArrayList<>(fireFightersDataFactory.createDevices().values()));
         sortDevicesById();
     }
 

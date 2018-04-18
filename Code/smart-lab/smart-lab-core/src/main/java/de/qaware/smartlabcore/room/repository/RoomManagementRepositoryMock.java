@@ -29,9 +29,9 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
             ISampleDataFactory fireFightersDataFactory) {
         this.meetingManagementApiClient = meetingManagementApiClient;
         this.rooms = new ArrayList<>();
-        this.rooms.addAll(coastGuardDataFactory.createRooms());
-        this.rooms.addAll(forestRangersDataFactory.createRooms());
-        this.rooms.addAll(fireFightersDataFactory.createRooms());
+        this.rooms.addAll(new ArrayList<>(coastGuardDataFactory.createRooms().values()));
+        this.rooms.addAll(new ArrayList<>(forestRangersDataFactory.createRooms().values()));
+        this.rooms.addAll(new ArrayList<>(fireFightersDataFactory.createRooms().values()));
         sortRoomsById();
     }
 

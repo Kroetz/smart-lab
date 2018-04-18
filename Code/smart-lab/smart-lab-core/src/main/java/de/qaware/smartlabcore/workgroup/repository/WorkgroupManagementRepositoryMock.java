@@ -31,9 +31,9 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     ) throws MalformedURLException {
         this.meetingManagementApiClient = meetingManagementApiClient;
         this.workgroups = new ArrayList<>();
-        this.workgroups.addAll(coastGuardDataFactory.createWorkgroups());
-        this.workgroups.addAll(forestRangersDataFactory.createWorkgroups());
-        this.workgroups.addAll(fireFightersDataFactory.createWorkgroups());
+        this.workgroups.addAll(new ArrayList<>(coastGuardDataFactory.createWorkgroups().values()));
+        this.workgroups.addAll(new ArrayList<>(forestRangersDataFactory.createWorkgroups().values()));
+        this.workgroups.addAll(new ArrayList<>(fireFightersDataFactory.createWorkgroups().values()));
         sortWorkgroupsById();
     }
 

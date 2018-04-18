@@ -7,13 +7,13 @@ import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 
 import java.net.MalformedURLException;
-import java.util.List;
+import java.util.Map;
 
 public interface ISampleDataFactory {
 
-    List<IWorkgroup> createWorkgroups() throws MalformedURLException;
-    List<IPerson> createWorkgroupMembers();
-    List<IMeeting> createMeetings();
-    List<IRoom> createRooms();
-    List<IDevice> createDevices();
+    Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException;
+    Map<Long, IPerson> createWorkgroupMembers();
+    Map<Long, IMeeting> createMeetings();
+    Map<Long, IRoom> createRooms();
+    Map<Long, IDevice> createDevices();
 }

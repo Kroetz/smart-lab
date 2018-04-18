@@ -23,9 +23,9 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
             ISampleDataFactory forestRangersDataFactory,
             ISampleDataFactory fireFightersDataFactory) {
         this.meetings = new ArrayList<>();
-        this.meetings.addAll(coastGuardDataFactory.createMeetings());
-        this.meetings.addAll(forestRangersDataFactory.createMeetings());
-        this.meetings.addAll(fireFightersDataFactory.createMeetings());
+        this.meetings.addAll(new ArrayList<>(coastGuardDataFactory.createMeetings().values()));
+        this.meetings.addAll(new ArrayList<>(forestRangersDataFactory.createMeetings().values()));
+        this.meetings.addAll(new ArrayList<>(fireFightersDataFactory.createMeetings().values()));
         sortMeetingsByStart();
     }
 

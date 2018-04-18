@@ -7,22 +7,29 @@ import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 
 import java.net.MalformedURLException;
-import java.util.List;
+import java.time.Instant;
+import java.util.Map;
 
 public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
-    @Override
-    public abstract List<IWorkgroup> createWorkgroups() throws MalformedURLException;
+    protected Instant timeBase;
+
+    public AbstractSampleDataFactory() {
+        this.timeBase = Instant.now();
+    }
 
     @Override
-    public abstract List<IPerson> createWorkgroupMembers();
+    public abstract Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException;
 
     @Override
-    public abstract List<IMeeting> createMeetings();
+    public abstract Map<Long, IPerson> createWorkgroupMembers();
 
     @Override
-    public abstract List<IRoom> createRooms();
+    public abstract Map<Long, IMeeting> createMeetings();
 
     @Override
-    public abstract List<IDevice> createDevices();
+    public abstract Map<Long, IRoom> createRooms();
+
+    @Override
+    public abstract Map<Long, IDevice> createDevices();
 }
