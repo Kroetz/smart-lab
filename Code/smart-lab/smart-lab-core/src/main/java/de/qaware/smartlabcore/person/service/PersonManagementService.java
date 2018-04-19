@@ -34,7 +34,7 @@ public class PersonManagementService implements IPersonManagementService {
     }
 
     @Override
-    public void deletePerson(long personId) {
-        personManagementRepository.deletePerson(personId);
+    public boolean deletePerson(long personId) {
+        return personManagementRepository.deletePerson(personId);
     }
 }

@@ -14,7 +14,7 @@ public interface IWorkgroupManagementService {
 
     boolean createWorkgroup(IWorkgroup workgroup);
 
-    void deleteWorkgroup(long workgroupId);
+    boolean deleteWorkgroup(long workgroupId);
 
     List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
 

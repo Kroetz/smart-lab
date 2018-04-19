@@ -41,8 +41,8 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public void deleteWorkgroup(long workgroupId) {
-        workgroupManagementRepository.deleteWorkgroup(workgroupId);
+    public boolean deleteWorkgroup(long workgroupId) {
+        return workgroupManagementRepository.deleteWorkgroup(workgroupId);
     }
 
     @Override

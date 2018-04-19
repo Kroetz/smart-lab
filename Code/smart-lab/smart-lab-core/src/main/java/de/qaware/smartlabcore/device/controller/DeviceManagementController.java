@@ -38,7 +38,7 @@ public class DeviceManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    public void deleteDevice(@PathVariable("deviceId") long deviceId) {
-        deviceManagementService.deleteDevice(deviceId);
+    public boolean deleteDevice(@PathVariable("deviceId") long deviceId) {
+        return deviceManagementService.deleteDevice(deviceId);
     }
 }

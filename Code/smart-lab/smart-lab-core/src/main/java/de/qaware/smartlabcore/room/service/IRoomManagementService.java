@@ -15,7 +15,7 @@ public interface IRoomManagementService {
 
     boolean createRoom(IRoom room);
 
-    void deleteRoom(long roomId);
+    boolean deleteRoom(long roomId);
 
     List<IMeeting> getMeetingsInRoom(long roomId);
 

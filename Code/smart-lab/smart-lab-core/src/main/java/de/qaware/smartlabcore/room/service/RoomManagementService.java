@@ -43,8 +43,8 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public void deleteRoom(long roomId) {
-        roomManagementRepository.deleteRoom(roomId);
+    public boolean deleteRoom(long roomId) {
+        return roomManagementRepository.deleteRoom(roomId);
     }
 
     @Override

@@ -46,8 +46,8 @@ public class RoomManagementController extends AbstractSmartLabController {
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE_ROOM)
     @ResponseBody
-    public void deleteRoom(@PathVariable("roomId") long roomId) {
-        roomManagementService.deleteRoom(roomId);
+    public boolean deleteRoom(@PathVariable("roomId") long roomId) {
+        return roomManagementService.deleteRoom(roomId);
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)

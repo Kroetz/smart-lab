@@ -38,7 +38,7 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE_PERSON)
-    public void deletePerson(@PathVariable("personId") long personId) {
-        personManagementService.deletePerson(personId);
+    public boolean deletePerson(@PathVariable("personId") long personId) {
+        return personManagementService.deletePerson(personId);
     }
 }

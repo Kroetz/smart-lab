@@ -40,8 +40,8 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    public void deleteWorkgroup(@PathVariable("workgroupId") long workgroupId) {
-        workgroupManagementService.deleteWorkgroup(workgroupId);
+    public boolean deleteWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+        return workgroupManagementService.deleteWorkgroup(workgroupId);
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)

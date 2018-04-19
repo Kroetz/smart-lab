@@ -34,7 +34,7 @@ public class DeviceManagementService implements IDeviceManagementService {
     }
 
     @Override
-    public void deleteDevice(long deviceId) {
-        deviceManagementRepository.deleteDevice(deviceId);
+    public boolean deleteDevice(long deviceId) {
+        return deviceManagementRepository.deleteDevice(deviceId);
     }
 }

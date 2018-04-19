@@ -41,8 +41,8 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    public void deleteMeeting(@PathVariable("meetingId") long meetingId) {
-        meetingManagementService.deleteMeeting(meetingId);
+    public boolean deleteMeeting(@PathVariable("meetingId") long meetingId) {
+        return meetingManagementService.deleteMeeting(meetingId);
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
