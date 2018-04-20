@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class AbstractDevice implements IDevice {
 
-    private long id;
+    private String id;
     private String name;
     private DeviceRole role;
 
-    public AbstractDevice(long id, String name, DeviceRole role) {
+    public AbstractDevice(String id, String name, DeviceRole role) {
         this.id = id;
         this.name = name;
         this.role = role;

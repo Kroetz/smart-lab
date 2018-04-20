@@ -14,9 +14,9 @@ import java.util.Collection;
 @AllArgsConstructor
 public class Workgroup implements IWorkgroup {
 
-    private long id;
+    private String id;
     private String name;
-    private Collection<Long> memberIds;
+    private Collection<String> memberIds;
     private URL knowledgeBase;
     private URL codeRepository;
 }

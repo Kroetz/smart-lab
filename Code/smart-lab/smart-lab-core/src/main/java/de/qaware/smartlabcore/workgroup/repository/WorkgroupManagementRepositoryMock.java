@@ -37,9 +37,9 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
         sortWorkgroupsById();
     }
 
-    private boolean exists(long workgroupId) {
+    private boolean exists(String workgroupId) {
         return workgroups.stream()
-                .anyMatch(workgroup -> workgroup.getId() == workgroupId);
+                .anyMatch(workgroup -> workgroup.getId().equals(workgroupId));
     }
 
     @Override
@@ -48,9 +48,9 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public Optional<IWorkgroup> getWorkgroup(long workgroupId) {
+    public Optional<IWorkgroup> getWorkgroup(String workgroupId) {
         return workgroups.stream()
-                .filter(workgroup -> workgroup.getId() == workgroupId)
+                .filter(workgroup -> workgroup.getId().equals(workgroupId))
                 .findFirst();
     }
 
@@ -60,34 +60,34 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public boolean deleteWorkgroup(long workgroupId) {
+    public boolean deleteWorkgroup(String workgroupId) {
         return workgroups.removeAll(workgroups.stream()
-                .filter(workgroup -> workgroup.getId() == workgroupId)
+                .filter(workgroup -> workgroup.getId().equals(workgroupId))
                 .collect(Collectors.toList()));
     }
 
     @Override
-    public List<IMeeting> getMeetingsOfWorkgroup(long workgroupId) {
+    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return meetingManagementApiClient.getMeetings().stream()
-                .filter(meeting -> meeting.getWorkgroupId() == workgroupId)
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(long workgroupId) {
+    public Optional<IMeeting> getCurrentMeeting(String workgroupId) {
         return getMeetingsOfWorkgroup(workgroupId).stream()
                 .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
                 .findFirst();
     }
 
     @Override
-    public boolean extendCurrentMeeting(long workgroupId, Duration extension) {
+    public boolean extendCurrentMeeting(String workgroupId, Duration extension) {
         return getCurrentMeeting(workgroupId)
                 .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
                 .orElse(false);
     }
 
     private void sortWorkgroupsById() {
-        workgroups.sort(Comparator.comparingLong(IWorkgroup::getId));
+        workgroups.sort(Comparator.comparing(IWorkgroup::getId));
     }
 }

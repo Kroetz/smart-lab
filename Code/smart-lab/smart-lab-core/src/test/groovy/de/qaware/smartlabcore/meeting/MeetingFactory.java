@@ -1,21 +1,8 @@
 package de.qaware.smartlabcore.meeting;
 
-import de.qaware.smartlabcommons.data.meeting.AgendaItem;
-import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.meeting.Meeting;
-import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
-import de.qaware.smartlabcommons.Constants;
-import lombok.val;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 public class MeetingFactory {
 
-    public static IMeeting getCoastGuardMeeting() {
+    /*public static IMeeting getCoastGuardMeeting() {
 
         val coastGuardMeetingAgenda = new ArrayList<IAgendaItem>();
         coastGuardMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
@@ -71,5 +58,5 @@ public class MeetingFactory {
                 .assistances(fireFightersMeetingAssistances)
                 .start(Instant.now().plusSeconds(120))
                 .end(Instant.now().plusSeconds(420)).build();
-    }
+    }*/
 }

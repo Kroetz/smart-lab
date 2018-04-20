@@ -24,7 +24,7 @@ public class DeviceManagementService implements IDeviceManagementService {
     }
 
     @Override
-    public Optional<IDevice> getDevice(long deviceId) {
+    public Optional<IDevice> getDevice(String deviceId) {
         return deviceManagementRepository.getDevice(deviceId);
     }
 
@@ -34,7 +34,7 @@ public class DeviceManagementService implements IDeviceManagementService {
     }
 
     @Override
-    public boolean deleteDevice(long deviceId) {
+    public boolean deleteDevice(String deviceId) {
         return deviceManagementRepository.deleteDevice(deviceId);
     }
 }

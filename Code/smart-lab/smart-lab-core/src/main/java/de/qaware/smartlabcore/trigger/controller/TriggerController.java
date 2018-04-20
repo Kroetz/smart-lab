@@ -20,42 +20,42 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public void setUpCurrentMeetingByRoomId(@PathVariable("roomId") long roomId) {
+    public void setUpCurrentMeetingByRoomId(@PathVariable("roomId") String roomId) {
         triggerService.setUpCurrentMeetingByRoomId(roomId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public void setUpCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") long workgroupId) {
+    public void setUpCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") String workgroupId) {
         triggerService.setUpCurrentMeetingByWorkgroupId(workgroupId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public void cleanUpCurrentMeetingByRoomId(@PathVariable("roomId") long roomId) {
+    public void cleanUpCurrentMeetingByRoomId(@PathVariable("roomId") String roomId) {
         triggerService.cleanUpCurrentMeetingByRoomId(roomId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public void cleanUpCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") long workgroupId) {
+    public void cleanUpCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") String workgroupId) {
         triggerService.cleanUpCurrentMeetingByWorkgroupId(workgroupId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_ROOM_ID)
-    public void startCurrentMeetingByRoomId(@PathVariable("roomId") long roomId) {
+    public void startCurrentMeetingByRoomId(@PathVariable("roomId") String roomId) {
         triggerService.startCurrentMeetingByRoomId(roomId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public void startCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") long workgroupId) {
+    public void startCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") String workgroupId) {
         triggerService.startCurrentMeetingByWorkgroupId(workgroupId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID)
-    public void stopCurrentMeetingByRoomId(@PathVariable("roomId") long roomId) {
+    public void stopCurrentMeetingByRoomId(@PathVariable("roomId") String roomId) {
         triggerService.stopCurrentMeetingByRoomId(roomId);
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public void stopCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") long workgroupId) {
+    public void stopCurrentMeetingByWorkgroupId(@PathVariable("workgroupId") String workgroupId) {
         triggerService.stopCurrentMeetingByWorkgroupId(workgroupId);
     }
 }

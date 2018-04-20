@@ -37,7 +37,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByRoomId(long roomId) {
+    public void setUpCurrentMeetingByRoomId(String roomId) {
         setUpMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
     }
 
@@ -47,7 +47,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByWorkgroupId(long workgroupId) {
+    public void setUpCurrentMeetingByWorkgroupId(String workgroupId) {
         setUpMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
     }
 
@@ -71,7 +71,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void cleanUpCurrentMeetingByRoomId(long roomId) {
+    public void cleanUpCurrentMeetingByRoomId(String roomId) {
         cleanUpMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
     }
 
@@ -83,7 +83,7 @@ public class TriggerService implements ITriggerService {
     // TODO: Clean up LAST meeting einführen, da kein current meeting vorhanden nach dem Ende!!!
 
     @Override
-    public void cleanUpCurrentMeetingByWorkgroupId(long workgroupId) {
+    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
         cleanUpMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
     }
 
@@ -106,7 +106,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByRoomId(long roomId){
+    public void startCurrentMeetingByRoomId(String roomId){
         startMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
     }
 
@@ -116,7 +116,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByWorkgroupId(long workgroupId) {
+    public void startCurrentMeetingByWorkgroupId(String workgroupId) {
         startMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
     }
 
@@ -139,7 +139,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByRoomId(long roomId) {
+    public void stopCurrentMeetingByRoomId(String roomId) {
         stopMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
     }
 
@@ -149,7 +149,7 @@ public class TriggerService implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByWorkgroupId(long workgroupId) {
+    public void stopCurrentMeetingByWorkgroupId(String workgroupId) {
         stopMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
     }
 

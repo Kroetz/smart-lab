@@ -6,27 +6,27 @@ import de.qaware.smartlabcommons.data.room.Room;
 
 public interface ITriggerService {
 
-    void setUpCurrentMeetingByRoomId(long roomId);
+    void setUpCurrentMeetingByRoomId(String roomId);
     void setUpMeeting(IMeeting meeting);
     void setUpCurrentMeeting(Room room);
-    void setUpCurrentMeetingByWorkgroupId(long workgroupId);
+    void setUpCurrentMeetingByWorkgroupId(String workgroupId);
     void setUpCurrentMeeting(Workgroup workgroup);
 
-    void cleanUpCurrentMeetingByRoomId(long roomId);
+    void cleanUpCurrentMeetingByRoomId(String roomId);
     void cleanUpMeeting(IMeeting meeting);
     void cleanUpCurrentMeeting(Room room);
-    void cleanUpCurrentMeetingByWorkgroupId(long workgroupId);
+    void cleanUpCurrentMeetingByWorkgroupId(String workgroupId);
     void cleanUpCurrentMeeting(Workgroup workgroup);
 
-    void startCurrentMeetingByRoomId(long roomId);
+    void startCurrentMeetingByRoomId(String roomId);
     void startMeeting(IMeeting meeting);
     void startCurrentMeeting(Room room);
-    void startCurrentMeetingByWorkgroupId(long workgroupId);
+    void startCurrentMeetingByWorkgroupId(String workgroupId);
     void startCurrentMeeting(Workgroup workgroup);
 
-    void stopCurrentMeetingByRoomId(long roomId);
+    void stopCurrentMeetingByRoomId(String roomId);
     void stopMeeting(IMeeting meeting);
     void stopCurrentMeeting(Room room);
-    void stopCurrentMeetingByWorkgroupId(long workgroupId);
+    void stopCurrentMeetingByWorkgroupId(String workgroupId);
     void stopCurrentMeeting(Workgroup workgroup);
 }

@@ -14,9 +14,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class Room implements IRoom {
 
-    private long id;
+    private String id;
     private String name;
-    private Collection<Long> deviceIds;
+    private Collection<String> deviceIds;
 
     private Optional<IDevice> minuteTakingDevice;
 

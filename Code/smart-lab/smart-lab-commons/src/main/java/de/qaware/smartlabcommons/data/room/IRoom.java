@@ -17,9 +17,9 @@ import java.util.Optional;
 })
 public interface IRoom {
 
-    long getId();
+    String getId();
     String getName();
-    Collection<Long> getDeviceIds();
+    Collection<String> getDeviceIds();
 
     void setUpMeeting(IMeeting meeting, IWorkgroup workgroup);
     void cleanUpMeeting(IMeeting meeting, IWorkgroup workgroup);

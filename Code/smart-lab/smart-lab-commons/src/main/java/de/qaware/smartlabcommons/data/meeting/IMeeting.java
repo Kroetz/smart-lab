@@ -17,10 +17,10 @@ import java.util.List;
 })
 public interface IMeeting {
 
-    long getId();
+    String getId();
     String getTitle();
-    long getWorkgroupId();
-    long getRoomId();
+    String getWorkgroupId();
+    String getRoomId();
     List<IAgendaItem> getAgenda();
     Collection<IAssistanceDao> getAssistances();
     void setStart(Instant start);

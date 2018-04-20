@@ -22,7 +22,7 @@ public interface IRoomManagementApiClient {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    ResponseEntity<IRoom> getRoom(@PathVariable("roomId") long roomId);
+    ResponseEntity<IRoom> getRoom(@PathVariable("roomId") String roomId);
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_CREATE_ROOM, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -30,21 +30,21 @@ public interface IRoomManagementApiClient {
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_DELETE_ROOM)
     @ResponseBody
-    boolean deleteRoom(@PathVariable("roomId") long roomId);
+    boolean deleteRoom(@PathVariable("roomId") String roomId);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
-    List<IMeeting> getMeetingsInRoom(@PathVariable("roomId") long roomId);
+    List<IMeeting> getMeetingsInRoom(@PathVariable("roomId") String roomId);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
-    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("roomId") long roomId);
+    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("roomId") String roomId);
 
     @PostMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody
     boolean extendCurrentMeeting(
-            @PathVariable("roomId") long roomId,
+            @PathVariable("roomId") String roomId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    String getCurrentMeetingStatusPage(@PathVariable("roomId") long roomId, Model model);
+    String getCurrentMeetingStatusPage(@PathVariable("roomId") String roomId, Model model);
 }

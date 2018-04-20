@@ -12,7 +12,7 @@ public class AcmeMicrophone extends AbstractDevice implements IMicrophone {
 
     @Builder
     @JsonCreator
-    public AcmeMicrophone(@JsonProperty("id") long id, @JsonProperty("name") String name, @JsonProperty("role") DeviceRole role, @JsonProperty("dummyMicrophoneProperty") String dummyMicrophoneProperty){
+    public AcmeMicrophone(@JsonProperty("id") String id, @JsonProperty("name") String name, @JsonProperty("role") DeviceRole role, @JsonProperty("dummyMicrophoneProperty") String dummyMicrophoneProperty){
         super(id, name, role);
         this.dummyMicrophoneProperty = dummyMicrophoneProperty;
     }

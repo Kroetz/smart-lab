@@ -19,22 +19,22 @@ public interface IWorkgroupManagementApiClient {
     List<IWorkgroup> getWorkgroups();
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") String workgroupId);
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createWorkgroup(@RequestBody IWorkgroup workgroup);
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    boolean deleteWorkgroup(@PathVariable("workgroupId") long workgroupId);
+    boolean deleteWorkgroup(@PathVariable("workgroupId") String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
-    List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
+    List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId);
+    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") String workgroupId);
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     boolean extendCurrentMeeting(
-            @PathVariable("workgroupId") long workgroupId,
+            @PathVariable("workgroupId") String workgroupId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes);
 }

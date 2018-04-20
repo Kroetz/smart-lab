@@ -28,7 +28,7 @@ public class DeviceManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_GET_DEVICE)
-    public ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") long deviceId) {
+    public ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") String deviceId) {
         return responseFromOptional(deviceManagementService.getDevice(deviceId));
     }
 
@@ -38,7 +38,7 @@ public class DeviceManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    public boolean deleteDevice(@PathVariable("deviceId") long deviceId) {
+    public boolean deleteDevice(@PathVariable("deviceId") String deviceId) {
         return deviceManagementService.deleteDevice(deviceId);
     }
 }

@@ -24,7 +24,7 @@ public class PersonManagementService implements IPersonManagementService {
     }
 
     @Override
-    public Optional<IPerson> getPerson(long personId) {
+    public Optional<IPerson> getPerson(String personId) {
         return personManagementRepository.getPerson(personId);
     }
 
@@ -34,7 +34,7 @@ public class PersonManagementService implements IPersonManagementService {
     }
 
     @Override
-    public boolean deletePerson(long personId) {
+    public boolean deletePerson(String personId) {
         return personManagementRepository.deletePerson(personId);
     }
 }

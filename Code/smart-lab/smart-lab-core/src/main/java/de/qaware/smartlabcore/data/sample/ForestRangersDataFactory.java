@@ -30,19 +30,27 @@ import java.util.Map;
 @Slf4j
 public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
+    public static final String WORKGROUP_ID_FOREST_RANGERS = "forest-rangers";
+    public static final String MEMBER_ID_ANNA = "forest-ranger-anna";
+    public static final String MEMBER_ID_BARRY = "forest-ranger-barry";
+    public static final String MEMBER_ID_CAROLINE = "forest-ranger-caroline";
+    public static final String MEETING_ID_BARK_BEETLE = "bark-beetle";
+    public static final String ROOM_ID_GREEN = "green";
+    public static final String DEVICE_ID_GREEN_MICROPHONE = "green-microphone";
+
     public ForestRangersDataFactory() {
         super();
     }
 
     @Override
-    public Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException {
-        val workgroups = new HashMap<Long, IWorkgroup>();
-        val forestRangerMembers = new ArrayList<Long>();
-        forestRangerMembers.add(3L);
-        forestRangerMembers.add(4L);
-        forestRangerMembers.add(5L);
-        workgroups.put(1L, Workgroup.builder()
-                .id(1L)
+    public Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException {
+        val workgroups = new HashMap<String, IWorkgroup>();
+        val forestRangerMembers = new ArrayList<String>();
+        forestRangerMembers.add(MEMBER_ID_ANNA);
+        forestRangerMembers.add(MEMBER_ID_BARRY);
+        forestRangerMembers.add(MEMBER_ID_CAROLINE);
+        workgroups.put(WORKGROUP_ID_FOREST_RANGERS, Workgroup.builder()
+                .id(WORKGROUP_ID_FOREST_RANGERS)
                 .name("Forest Rangers")
                 .memberIds(forestRangerMembers)
                 .knowledgeBase(new URL("http", "forest-rangers.com", 80, "/wiki"))
@@ -52,20 +60,20 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IPerson> createWorkgroupMembers() {
-        val workgroupMembers = new HashMap<Long, IPerson>();
-        workgroupMembers.put(3L, Person.builder()
-                .id(3L)
+    public Map<String, IPerson> createWorkgroupMembers() {
+        val workgroupMembers = new HashMap<String, IPerson>();
+        workgroupMembers.put(MEMBER_ID_ANNA, Person.builder()
+                .id(MEMBER_ID_ANNA)
                 .name("Forest Ranger Anna")
                 .email("anna@forest-rangers.com")
                 .build());
-        workgroupMembers.put(4L, Person.builder()
-                .id(4L)
+        workgroupMembers.put(MEMBER_ID_BARRY, Person.builder()
+                .id(MEMBER_ID_BARRY)
                 .name("Forest Ranger Barry")
                 .email("barry@forest-rangers.com")
                 .build());
-        workgroupMembers.put(5L, Person.builder()
-                .id(5L)
+        workgroupMembers.put(MEMBER_ID_CAROLINE, Person.builder()
+                .id(MEMBER_ID_CAROLINE)
                 .name("Forest Ranger Caroline")
                 .email("caroline@forest-rangers.com")
                 .build());
@@ -73,8 +81,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IMeeting> createMeetings() {
-        val meetings = new HashMap<Long, IMeeting>();
+    public Map<String, IMeeting> createMeetings() {
+        val meetings = new HashMap<String, IMeeting>();
         val forestRangersMeetingAgenda = new ArrayList<IAgendaItem>();
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
@@ -82,11 +90,11 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         val forestRangersMeetingAssistances = new HashSet<IAssistanceDao>();
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.put(1L, Meeting.builder()
-                .id(1L)
+        meetings.put(MEETING_ID_BARK_BEETLE, Meeting.builder()
+                .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
-                .workgroupId(1L)
-                .roomId(1L)
+                .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
+                .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
                 .assistances(forestRangersMeetingAssistances)
                 .start(timeBase.plusSeconds(60))
@@ -95,12 +103,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IRoom> createRooms() {
-        val rooms = new HashMap<Long, IRoom>();
-        val greenRoomDevices = new ArrayList<Long>();
-        greenRoomDevices.add(1L);
-        rooms.put(1L, Room.builder()
-                .id(1L)
+    public Map<String, IRoom> createRooms() {
+        val rooms = new HashMap<String, IRoom>();
+        val greenRoomDevices = new ArrayList<String>();
+        greenRoomDevices.add(DEVICE_ID_GREEN_MICROPHONE);
+        rooms.put(ROOM_ID_GREEN, Room.builder()
+                .id(ROOM_ID_GREEN)
                 .name("Room Green")
                 .deviceIds(greenRoomDevices)
                 .build());
@@ -108,10 +116,10 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IDevice> createDevices() {
-        val devices = new HashMap<Long, IDevice>();
-        devices.put(1L, AcmeMicrophone.builder()
-                .id(1L)
+    public Map<String, IDevice> createDevices() {
+        val devices = new HashMap<String, IDevice>();
+        devices.put(DEVICE_ID_GREEN_MICROPHONE, AcmeMicrophone.builder()
+                .id(DEVICE_ID_GREEN_MICROPHONE)
                 .name("Microphone in Room Green")
                 .dummyMicrophoneProperty("Dummy property of Microphone in Room Green")
                 .build());

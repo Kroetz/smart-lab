@@ -18,11 +18,11 @@ public interface IDeviceManagementApiClient {
     List<IDevice> getDevices();
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICE)
-    ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") long deviceId);
+    ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") String deviceId);
 
     @PostMapping(value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE_DEVICE, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createDevice(@RequestBody IDevice device);
 
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    boolean deleteDevice(@PathVariable("deviceId") long deviceId);
+    boolean deleteDevice(@PathVariable("deviceId") String deviceId);
 }

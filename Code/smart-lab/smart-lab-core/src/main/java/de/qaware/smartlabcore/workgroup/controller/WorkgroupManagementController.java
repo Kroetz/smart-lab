@@ -30,7 +30,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") String workgroupId) {
         return responseFromOptional(workgroupManagementService.getWorkgroup(workgroupId));
     }
 
@@ -40,23 +40,23 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    public boolean deleteWorkgroup(@PathVariable("workgroupId") long workgroupId) {
+    public boolean deleteWorkgroup(@PathVariable("workgroupId") String workgroupId) {
         return workgroupManagementService.deleteWorkgroup(workgroupId);
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
-    public List<IMeeting> getMeetingsOfWorkgroup(long workgroupId) {
+    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return workgroupManagementService.getMeetingsOfWorkgroup(workgroupId);
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") long workgroupId) {
+    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") String workgroupId) {
         return responseFromOptional(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     public boolean extendCurrentMeeting(
-            @PathVariable("workgroupId") long workgroupId,
+            @PathVariable("workgroupId") String workgroupId,
             @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {
         return workgroupManagementService.extendCurrentMeeting(workgroupId, Duration.ofMinutes(extensionInMinutes));
     }

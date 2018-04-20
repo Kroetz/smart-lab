@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface IDevice {
 
-    long getId();
+    String getId();
     String getName();
     DeviceRole getRole();
 }

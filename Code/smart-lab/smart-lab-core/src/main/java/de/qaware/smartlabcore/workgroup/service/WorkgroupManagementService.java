@@ -31,7 +31,7 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public Optional<IWorkgroup> getWorkgroup(long workgroupId) {
+    public Optional<IWorkgroup> getWorkgroup(String workgroupId) {
         return workgroupManagementRepository.getWorkgroup(workgroupId);
     }
 
@@ -41,22 +41,22 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public boolean deleteWorkgroup(long workgroupId) {
+    public boolean deleteWorkgroup(String workgroupId) {
         return workgroupManagementRepository.deleteWorkgroup(workgroupId);
     }
 
     @Override
-    public List<IMeeting> getMeetingsOfWorkgroup(long workgroupId) {
+    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return workgroupManagementRepository.getMeetingsOfWorkgroup(workgroupId);
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(long workgroupId) {
+    public Optional<IMeeting> getCurrentMeeting(String workgroupId) {
         return workgroupManagementRepository.getCurrentMeeting(workgroupId);
     }
 
     @Override
-    public boolean extendCurrentMeeting(long workgroupId, Duration extension) {
+    public boolean extendCurrentMeeting(String workgroupId, Duration extension) {
         return workgroupManagementRepository.extendCurrentMeeting(workgroupId, extension);
     }
 }

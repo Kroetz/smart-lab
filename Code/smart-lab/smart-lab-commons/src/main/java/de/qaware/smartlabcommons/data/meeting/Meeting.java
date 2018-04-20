@@ -18,10 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Meeting implements IMeeting {
 
-    private long id;
+    private String id;
     private String title;
-    private long workgroupId;
-    private long roomId;
+    private String workgroupId;
+    private String roomId;
     private List<IAgendaItem> agenda;
     private Collection<IAssistanceDao> assistances;
     private Instant start;

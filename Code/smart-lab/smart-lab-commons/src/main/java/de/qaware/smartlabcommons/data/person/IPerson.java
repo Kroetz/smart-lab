@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface IPerson {
 
-    long getId();
+    String getId();
     String getName();
     String getEmail();
     PersonRole getRole();

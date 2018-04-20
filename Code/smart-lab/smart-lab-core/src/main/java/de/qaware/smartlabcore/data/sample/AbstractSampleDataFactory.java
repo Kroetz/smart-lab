@@ -19,17 +19,17 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     }
 
     @Override
-    public abstract Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException;
+    public abstract Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException;
 
     @Override
-    public abstract Map<Long, IPerson> createWorkgroupMembers();
+    public abstract Map<String, IPerson> createWorkgroupMembers();
 
     @Override
-    public abstract Map<Long, IMeeting> createMeetings();
+    public abstract Map<String, IMeeting> createMeetings();
 
     @Override
-    public abstract Map<Long, IRoom> createRooms();
+    public abstract Map<String, IRoom> createRooms();
 
     @Override
-    public abstract Map<Long, IDevice> createDevices();
+    public abstract Map<String, IDevice> createDevices();
 }

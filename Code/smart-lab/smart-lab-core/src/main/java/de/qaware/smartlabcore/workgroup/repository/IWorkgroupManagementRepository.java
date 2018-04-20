@@ -10,15 +10,15 @@ import java.util.Optional;
 public interface IWorkgroupManagementRepository {
 
     List<IWorkgroup> getWorkgroups();
-    Optional<IWorkgroup> getWorkgroup(long workgroupId);
+    Optional<IWorkgroup> getWorkgroup(String workgroupId);
 
     boolean createWorkgroup(IWorkgroup workgroup);
 
-    boolean deleteWorkgroup(long workgroupId);
+    boolean deleteWorkgroup(String workgroupId);
 
-    List<IMeeting> getMeetingsOfWorkgroup(long workgroupId);
+    List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
-    Optional<IMeeting> getCurrentMeeting(long workgroupId);
+    Optional<IMeeting> getCurrentMeeting(String workgroupId);
 
-    boolean extendCurrentMeeting(long workgroupId, Duration extension);
+    boolean extendCurrentMeeting(String workgroupId, Duration extension);
 }

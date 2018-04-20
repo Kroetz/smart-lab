@@ -10,15 +10,15 @@ import java.util.Optional;
 public interface IRoomManagementRepository {
 
     List<IRoom> getRooms();
-    Optional<IRoom> getRoom(long roomId);
+    Optional<IRoom> getRoom(String roomId);
 
     boolean createRoom(IRoom room);
 
-    boolean deleteRoom(long roomId);
+    boolean deleteRoom(String roomId);
 
-    List<IMeeting> getMeetingsInRoom(long roomId);
+    List<IMeeting> getMeetingsInRoom(String roomId);
 
-    Optional<IMeeting> getCurrentMeeting(long roomId);
+    Optional<IMeeting> getCurrentMeeting(String roomId);
 
-    boolean extendCurrentMeeting(long roomId, Duration extension);
+    boolean extendCurrentMeeting(String roomId, Duration extension);
 }

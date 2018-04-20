@@ -33,7 +33,7 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public Optional<IRoom> getRoom(long roomId) {
+    public Optional<IRoom> getRoom(String roomId) {
         return roomManagementRepository.getRoom(roomId);
     }
 
@@ -43,27 +43,27 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public boolean deleteRoom(long roomId) {
+    public boolean deleteRoom(String roomId) {
         return roomManagementRepository.deleteRoom(roomId);
     }
 
     @Override
-    public List<IMeeting> getMeetingsInRoom(long roomId) {
+    public List<IMeeting> getMeetingsInRoom(String roomId) {
         return roomManagementRepository.getMeetingsInRoom(roomId);
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(long roomId) {
+    public Optional<IMeeting> getCurrentMeeting(String roomId) {
         return roomManagementRepository.getCurrentMeeting(roomId);
     }
 
     @Override
-    public boolean extendCurrentMeeting(long roomId, Duration extension) {
+    public boolean extendCurrentMeeting(String roomId, Duration extension) {
         return roomManagementRepository.extendCurrentMeeting(roomId, extension);
     }
 
     @Override
-    public String getCurrentMeetingStatusPage(long roomId, Model model) {
+    public String getCurrentMeetingStatusPage(String roomId, Model model) {
         val statusPage = getCurrentMeeting(roomId)
                 .map(meeting -> {
                     model.addAttribute("roomId", roomId);

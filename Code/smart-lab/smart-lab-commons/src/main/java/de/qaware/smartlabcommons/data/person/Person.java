@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Person implements IPerson {
 
-    private long id;
+    private String id;
     private String name;
     private String email;
     private PersonRole role;

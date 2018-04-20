@@ -14,9 +14,9 @@ import java.util.Collection;
 })
 public interface IWorkgroup {
 
-    long getId();
+    String getId();
     String getName();
-    Collection<Long> getMemberIds();
+    Collection<String> getMemberIds();
     URL getKnowledgeBase();
     URL getCodeRepository();
 }

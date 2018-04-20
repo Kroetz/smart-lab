@@ -35,7 +35,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
         sortRoomsById();
     }
 
-    private boolean exists(long roomId) {
+    private boolean exists(String roomId) {
         return rooms.stream()
                 .anyMatch(room -> room.getId() == roomId);
     }
@@ -46,7 +46,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public Optional<IRoom> getRoom(long roomId) {
+    public Optional<IRoom> getRoom(String roomId) {
         return rooms.stream()
                 .filter(room -> room.getId() == roomId)
                 .findFirst();
@@ -58,34 +58,34 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public boolean deleteRoom(long roomId) {
+    public boolean deleteRoom(String roomId) {
         return rooms.removeAll(rooms.stream()
                 .filter(room -> room.getId() == roomId)
                 .collect(Collectors.toList()));
     }
 
     @Override
-    public List<IMeeting> getMeetingsInRoom(long roomId) {
+    public List<IMeeting> getMeetingsInRoom(String roomId) {
         return meetingManagementApiClient.getMeetings().stream()
                 .filter(meeting -> meeting.getRoomId() == roomId)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(long roomId) {
+    public Optional<IMeeting> getCurrentMeeting(String roomId) {
         return getMeetingsInRoom(roomId).stream()
                 .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
                 .findFirst();
     }
 
     @Override
-    public boolean extendCurrentMeeting(long roomId, Duration extension) {
+    public boolean extendCurrentMeeting(String roomId, Duration extension) {
         return getCurrentMeeting(roomId)
                 .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
                 .orElse(false);
     }
 
     private void sortRoomsById() {
-        rooms.sort(Comparator.comparingLong(IRoom::getId));
+        rooms.sort(Comparator.comparing(IRoom::getId));
     }
 }

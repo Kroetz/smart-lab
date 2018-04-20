@@ -28,7 +28,7 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSON)
-    public ResponseEntity<IPerson> getPerson(@PathVariable("personId") long personId) {
+    public ResponseEntity<IPerson> getPerson(@PathVariable("personId") String personId) {
         return responseFromOptional(personManagementService.getPerson(personId));
     }
 
@@ -38,7 +38,7 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE_PERSON)
-    public boolean deletePerson(@PathVariable("personId") long personId) {
+    public boolean deletePerson(@PathVariable("personId") String personId) {
         return personManagementService.deletePerson(personId);
     }
 }

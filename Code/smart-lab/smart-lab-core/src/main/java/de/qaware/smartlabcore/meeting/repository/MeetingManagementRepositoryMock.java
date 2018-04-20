@@ -29,7 +29,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         sortMeetingsByStart();
     }
 
-    private boolean exists(long meetingId) {
+    private boolean exists(String meetingId) {
         return meetings.stream().anyMatch(m -> m.getId() == meetingId);
     }
 
@@ -39,7 +39,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public Optional<IMeeting> getMeeting(long meetingId) {
+    public Optional<IMeeting> getMeeting(String meetingId) {
         return meetings.stream()
                 .filter(m -> m.getId() == meetingId)
                 .findFirst();
@@ -57,14 +57,14 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public boolean deleteMeeting(long meetingId) {
+    public boolean deleteMeeting(String meetingId) {
         return meetings.removeAll(meetings.stream()
                 .filter(meeting -> meeting.getId() == meetingId)
                 .collect(Collectors.toList()));
     }
 
     @Override
-    public void shortenMeeting(long meetingId, Duration shortening) {
+    public void shortenMeeting(String meetingId, Duration shortening) {
         val meeting = getMeeting(meetingId);
         if(meeting.isPresent()) {
             if(deleteMeeting(meetingId)) {
@@ -76,7 +76,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public boolean extendMeeting(long meetingId, Duration extension) {
+    public boolean extendMeeting(String meetingId, Duration extension) {
         val meeting = getMeeting(meetingId);
         if(meeting.isPresent()) {
             val extendedMeeting = meeting.get().copy();
@@ -93,7 +93,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public boolean shiftMeeting(long meetingId, Duration shift) {
+    public boolean shiftMeeting(String meetingId, Duration shift) {
         val meeting = getMeeting(meetingId);
         if(meeting.isPresent()) {
             val shiftedMeeting = meeting.get().copy();

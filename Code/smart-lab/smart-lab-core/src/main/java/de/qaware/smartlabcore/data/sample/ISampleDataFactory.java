@@ -11,9 +11,9 @@ import java.util.Map;
 
 public interface ISampleDataFactory {
 
-    Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException;
-    Map<Long, IPerson> createWorkgroupMembers();
-    Map<Long, IMeeting> createMeetings();
-    Map<Long, IRoom> createRooms();
-    Map<Long, IDevice> createDevices();
+    Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException;
+    Map<String, IPerson> createWorkgroupMembers();
+    Map<String, IMeeting> createMeetings();
+    Map<String, IRoom> createRooms();
+    Map<String, IDevice> createDevices();
 }

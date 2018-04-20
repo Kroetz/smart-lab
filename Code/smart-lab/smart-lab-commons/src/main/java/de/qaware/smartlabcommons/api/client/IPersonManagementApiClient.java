@@ -18,11 +18,11 @@ public interface IPersonManagementApiClient {
     List<IPerson> getPersons();
 
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSON)
-    ResponseEntity<IPerson> getPerson(@PathVariable("personId") long personId);
+    ResponseEntity<IPerson> getPerson(@PathVariable("personId") String personId);
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
     boolean createPerson(@RequestBody IPerson person);
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_DELETE_PERSON)
-    boolean deletePerson(@PathVariable("personId") long personId);
+    boolean deletePerson(@PathVariable("personId") String personId);
 }

@@ -12,7 +12,7 @@ public class AcmeDisplay extends AbstractDevice implements IDisplay {
 
     @Builder
     @JsonCreator
-    public AcmeDisplay(@JsonProperty("id") long id, @JsonProperty("name") String name, @JsonProperty("role") DeviceRole role, @JsonProperty("dummyDisplayProperty") String dummyDisplayProperty){
+    public AcmeDisplay(@JsonProperty("id") String id, @JsonProperty("name") String name, @JsonProperty("role") DeviceRole role, @JsonProperty("dummyDisplayProperty") String dummyDisplayProperty){
         super(id, name, role);
         this.dummyDisplayProperty = dummyDisplayProperty;
     }

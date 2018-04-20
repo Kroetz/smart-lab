@@ -30,19 +30,27 @@ import java.util.Map;
 @Slf4j
 public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
+    public static final String WORKGROUP_ID_ASTRONAUTS = "astronauts";
+    public static final String MEMBER_ID_ALEX = "alex";
+    public static final String MEMBER_ID_BEVERLY = "beverly";
+    public static final String MEMBER_ID_CHARLOTTE = "charlotte";
+    public static final String MEETING_ID_MARS = "mars";
+    public static final String ROOM_ID_BLACK = "black";
+    public static final String DEVICE_ID_BLACK_DISPLAY = "black-display";
+
     public AstronautsDataFactory() {
         super();
     }
 
     @Override
-    public Map<Long, IWorkgroup> createWorkgroups() throws MalformedURLException {
-        val workgroups = new HashMap<Long, IWorkgroup>();
-        val astronautsMembers = new ArrayList<Long>();
-        astronautsMembers.add(9L);
-        astronautsMembers.add(10L);
-        astronautsMembers.add(11L);
-        workgroups.put(3L, Workgroup.builder()
-                .id(3L)
+    public Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException {
+        val workgroups = new HashMap<String, IWorkgroup>();
+        val astronautsMembers = new ArrayList<String>();
+        astronautsMembers.add(MEMBER_ID_ALEX);
+        astronautsMembers.add(MEMBER_ID_BEVERLY);
+        astronautsMembers.add(MEMBER_ID_CHARLOTTE);
+        workgroups.put(WORKGROUP_ID_ASTRONAUTS, Workgroup.builder()
+                .id(WORKGROUP_ID_ASTRONAUTS)
                 .name("Astronauts")
                 .memberIds(astronautsMembers)
                 .knowledgeBase(new URL("http", "astronauts.com", 80, "/wiki"))
@@ -52,20 +60,20 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IPerson> createWorkgroupMembers() {
-        val workgroupMembers = new HashMap<Long, IPerson>();
-        workgroupMembers.put(9L, Person.builder()
-                .id(9L)
+    public Map<String, IPerson> createWorkgroupMembers() {
+        val workgroupMembers = new HashMap<String, IPerson>();
+        workgroupMembers.put(MEMBER_ID_ALEX, Person.builder()
+                .id(MEMBER_ID_ALEX)
                 .name("Astronaut Alex")
                 .email("alex@astronauts.com")
                 .build());
-        workgroupMembers.put(10L, Person.builder()
-                .id(10L)
+        workgroupMembers.put(MEMBER_ID_BEVERLY, Person.builder()
+                .id(MEMBER_ID_BEVERLY)
                 .name("Austronaut Beverly")
                 .email("beverly@astronauts.com")
                 .build());
-        workgroupMembers.put(11L, Person.builder()
-                .id(11L)
+        workgroupMembers.put(MEMBER_ID_CHARLOTTE, Person.builder()
+                .id(MEMBER_ID_CHARLOTTE)
                 .name("Astronaut Charlotte")
                 .email("charlotte@astronauts.com")
                 .build());
@@ -73,8 +81,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IMeeting> createMeetings() {
-        val meetings = new HashMap<Long, IMeeting>();
+    public Map<String, IMeeting> createMeetings() {
+        val meetings = new HashMap<String, IMeeting>();
         val astronautsMeetingAgenda = new ArrayList<IAgendaItem>();
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
@@ -82,11 +90,11 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         val astronautsMeetingAssistances = new HashSet<IAssistanceDao>();
         astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.put(3L, Meeting.builder()
-                .id(3L)
+        meetings.put(MEETING_ID_MARS, Meeting.builder()
+                .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
-                .workgroupId(3L)
-                .roomId(3L)
+                .workgroupId(WORKGROUP_ID_ASTRONAUTS)
+                .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
                 .assistances(astronautsMeetingAssistances)
                 .start(timeBase.plusSeconds(0))
@@ -95,12 +103,12 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IRoom> createRooms() {
-        val rooms = new HashMap<Long, IRoom>();
-        val blackRoomDevices = new ArrayList<Long>();
-        blackRoomDevices.add(4L);
-        rooms.put(3L, Room.builder()
-                .id(3L)
+    public Map<String, IRoom> createRooms() {
+        val rooms = new HashMap<String, IRoom>();
+        val blackRoomDevices = new ArrayList<String>();
+        blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY);
+        rooms.put(ROOM_ID_BLACK, Room.builder()
+                .id(ROOM_ID_BLACK)
                 .name("Room Black")
                 .deviceIds(blackRoomDevices)
                 .build());
@@ -108,10 +116,10 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<Long, IDevice> createDevices() {
-        val devices = new HashMap<Long, IDevice>();
-        devices.put(4L, AcmeDisplay.builder()
-                .id(4L)
+    public Map<String, IDevice> createDevices() {
+        val devices = new HashMap<String, IDevice>();
+        devices.put(DEVICE_ID_BLACK_DISPLAY, AcmeDisplay.builder()
+                .id(DEVICE_ID_BLACK_DISPLAY)
                 .name("Display in Room Black")
                 .dummyDisplayProperty("Dummy property of Display in Room Black")
                 .build());

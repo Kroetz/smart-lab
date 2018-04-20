@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface IDeviceManagementRepository {
 
     List<IDevice> getDevices();
-    Optional<IDevice> getDevice(long deviceId);
+    Optional<IDevice> getDevice(String deviceId);
 
     boolean createDevice(IDevice device);
 
-    boolean deleteDevice(long deviceId);
+    boolean deleteDevice(String deviceId);
 }

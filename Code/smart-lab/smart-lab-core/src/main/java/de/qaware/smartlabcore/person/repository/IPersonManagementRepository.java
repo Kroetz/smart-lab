@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface IPersonManagementRepository {
 
     List<IPerson> getPersons();
-    Optional<IPerson> getPerson(long personId);
+    Optional<IPerson> getPerson(String personId);
 
     boolean createPerson(IPerson person);
 
-    boolean deletePerson(long personId);
+    boolean deletePerson(String personId);
 }

@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface IMeetingManagementService {
 
     List<IMeeting> getMeetings();
-    Optional<IMeeting> getMeeting(long meetingId);
+    Optional<IMeeting> getMeeting(String meetingId);
 
     boolean createMeeting(IMeeting meeting);
 
-    boolean deleteMeeting(long meetingId);
+    boolean deleteMeeting(String meetingId);
 
-    void shortenMeeting(long meetingId, Duration shortening);
-    boolean extendMeeting(long meetingId, Duration extension);
-    boolean shiftMeeting(long meetingId, Duration shift);
+    void shortenMeeting(String meetingId, Duration shortening);
+    boolean extendMeeting(String meetingId, Duration extension);
+    boolean shiftMeeting(String meetingId, Duration shift);
 }

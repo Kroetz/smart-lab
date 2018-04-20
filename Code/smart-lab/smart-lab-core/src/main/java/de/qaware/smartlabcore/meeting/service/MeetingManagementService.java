@@ -30,7 +30,7 @@ public class MeetingManagementService implements IMeetingManagementService {
     }
 
     @Override
-    public Optional<IMeeting> getMeeting(long meetingId) {
+    public Optional<IMeeting> getMeeting(String meetingId) {
         return meetingManagementRepository.getMeeting(meetingId);
     }
 
@@ -40,22 +40,22 @@ public class MeetingManagementService implements IMeetingManagementService {
     }
 
     @Override
-    public boolean deleteMeeting(long meetingId) {
+    public boolean deleteMeeting(String meetingId) {
         return meetingManagementRepository.deleteMeeting(meetingId);
     }
 
     @Override
-    public void shortenMeeting(long meetingId, Duration shortening) {
+    public void shortenMeeting(String meetingId, Duration shortening) {
         meetingManagementRepository.shortenMeeting(meetingId, shortening);
     }
 
     @Override
-    public boolean extendMeeting(long meetingId, Duration extension) {
+    public boolean extendMeeting(String meetingId, Duration extension) {
         return meetingManagementRepository.extendMeeting(meetingId, extension);
     }
 
     @Override
-    public boolean shiftMeeting(long meetingId, Duration shift) {
+    public boolean shiftMeeting(String meetingId, Duration shift) {
         return meetingManagementRepository.shiftMeeting(meetingId, shift);
     }
 }

@@ -17,8 +17,6 @@ import java.util.List;
 @Slf4j
 public class MeetingManagementController extends AbstractSmartLabController {
 
-
-
     private final IMeetingManagementService meetingManagementService;
 
     public MeetingManagementController(IMeetingManagementService meetingManagementService) {
@@ -31,7 +29,7 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    public ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") long meetingId) {
+    public ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") String meetingId) {
         return responseFromOptional(meetingManagementService.getMeeting(meetingId));
     }
 
@@ -41,27 +39,27 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    public boolean deleteMeeting(@PathVariable("meetingId") long meetingId) {
+    public boolean deleteMeeting(@PathVariable("meetingId") String meetingId) {
         return meetingManagementService.deleteMeeting(meetingId);
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
     public void shortenMeeting(
-            @PathVariable("meetingId") long meetingId,
+            @PathVariable("meetingId") String meetingId,
             @RequestParam(value = "shortening-in-minutes") long shorteningInMinutes) {
         meetingManagementService.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes));
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_EXTEND_MEETING)
     public boolean extendMeeting(
-            @PathVariable("meetingId") long meetingId,
+            @PathVariable("meetingId") String meetingId,
             @RequestParam(value = "extension-in-minutes") long extensionInMinutes) {
         return meetingManagementService.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes));
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHIFT_MEETING)
     public boolean shiftMeeting(
-            @PathVariable("meetingId") long meetingId,
+            @PathVariable("meetingId") String meetingId,
             @RequestParam(value = "shift-in-minutes") long shiftInMinutes) {
         return meetingManagementService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes));
     }
