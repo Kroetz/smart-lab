@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.device.repository;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
+import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +17,8 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
 
     private List<IDevice> devices;
 
-    public DeviceManagementRepositoryMock(
-            ISampleDataFactory coastGuardDataFactory,
-            ISampleDataFactory forestRangersDataFactory,
-            ISampleDataFactory fireFightersDataFactory) {
-        this.devices = new ArrayList<>();
-        this.devices.addAll(new ArrayList<>(coastGuardDataFactory.createDevices().values()));
-        this.devices.addAll(new ArrayList<>(forestRangersDataFactory.createDevices().values()));
-        this.devices.addAll(new ArrayList<>(fireFightersDataFactory.createDevices().values()));
+    public DeviceManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
+        this.devices = new ArrayList<>(sampleDataProvider.getDevices());
         sortDevicesById();
     }
 

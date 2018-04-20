@@ -3,7 +3,7 @@ package de.qaware.smartlabcore.workgroup.repository;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
+import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -25,15 +25,10 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
 
     public WorkgroupManagementRepositoryMock(
             IMeetingManagementApiClient meetingManagementApiClient,
-            ISampleDataFactory coastGuardDataFactory,
-            ISampleDataFactory forestRangersDataFactory,
-            ISampleDataFactory fireFightersDataFactory
+            ISampleDataProvider sampleDataProvider
     ) throws MalformedURLException {
         this.meetingManagementApiClient = meetingManagementApiClient;
-        this.workgroups = new ArrayList<>();
-        this.workgroups.addAll(new ArrayList<>(coastGuardDataFactory.createWorkgroups().values()));
-        this.workgroups.addAll(new ArrayList<>(forestRangersDataFactory.createWorkgroups().values()));
-        this.workgroups.addAll(new ArrayList<>(fireFightersDataFactory.createWorkgroups().values()));
+        this.workgroups = new ArrayList<>(sampleDataProvider.getWorkgroups());
         sortWorkgroupsById();
     }
 

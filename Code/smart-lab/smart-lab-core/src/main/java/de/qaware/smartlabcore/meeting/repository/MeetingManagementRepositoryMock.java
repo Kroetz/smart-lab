@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.meeting.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
+import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Repository;
@@ -18,14 +18,8 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
 
     private List<IMeeting> meetings;
 
-    public MeetingManagementRepositoryMock(
-            ISampleDataFactory coastGuardDataFactory,
-            ISampleDataFactory forestRangersDataFactory,
-            ISampleDataFactory fireFightersDataFactory) {
-        this.meetings = new ArrayList<>();
-        this.meetings.addAll(new ArrayList<>(coastGuardDataFactory.createMeetings().values()));
-        this.meetings.addAll(new ArrayList<>(forestRangersDataFactory.createMeetings().values()));
-        this.meetings.addAll(new ArrayList<>(fireFightersDataFactory.createMeetings().values()));
+    public MeetingManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
+        this.meetings = new ArrayList<>(sampleDataProvider.getMeetings());
         sortMeetingsByStart();
     }
 

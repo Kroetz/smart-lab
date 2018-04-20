@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.sample;
+package de.qaware.smartlabcore.data.sample.factory;
 
 import de.qaware.smartlabcommons.Constants;
 import de.qaware.smartlabcommons.data.device.AcmeDisplay;
@@ -22,9 +22,8 @@ import org.springframework.stereotype.Component;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -43,36 +42,41 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException {
-        val workgroups = new HashMap<String, IWorkgroup>();
+    public List<IWorkgroup> createWorkgroupList() {
+        val workgroups = new ArrayList<IWorkgroup>();
         val coastGuardMembers = new ArrayList<String>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
         coastGuardMembers.add(MEMBER_ID_CHARLIE);
-        workgroups.put(WORKGROUP_ID_COAST_GUARD, Workgroup.builder()
-                .id(WORKGROUP_ID_COAST_GUARD)
-                .name("Coast Guard")
-                .memberIds(coastGuardMembers)
-                .knowledgeBase(new URL("http", "coast-guard.com", 80, "/wiki"))
-                .codeRepository(new URL("http", "coast-guard.com", 80, "/git"))
-                .build());
+        try {
+            workgroups.add(Workgroup.builder()
+                    .id(WORKGROUP_ID_COAST_GUARD)
+                    .name("Coast Guard")
+                    .memberIds(coastGuardMembers)
+                    .knowledgeBase(new URL("http", "coast-guard.com", 80, "/wiki"))
+                    .codeRepository(new URL("http", "coast-guard.com", 80, "/git"))
+                    .build());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            assert false;
+        }
         return workgroups;
     }
 
     @Override
-    public Map<String, IPerson> createWorkgroupMembers() {
-        val workgroupMembers = new HashMap<String, IPerson>();
-        workgroupMembers.put(MEMBER_ID_ALICE, Person.builder()
+    public List<IPerson> createWorkgroupMemberList() {
+        val workgroupMembers = new ArrayList<IPerson>();
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALICE)
                 .name("Coast Guard Alice")
                 .email("alice@coast-guard.com")
                 .build());
-        workgroupMembers.put(MEMBER_ID_BEN, Person.builder()
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_BEN)
                 .name("Coast Guard Ben")
                 .email("ben@coast-guard.com")
                 .build());
-        workgroupMembers.put(MEMBER_ID_CHARLIE, Person.builder()
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_CHARLIE)
                 .name("Coast Guard Charlie")
                 .email("charlie@coast-guard.com")
@@ -81,8 +85,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IMeeting> createMeetings() {
-        val meetings = new HashMap<String, IMeeting>();
+    public List<IMeeting> createMeetingList() {
+        val meetings = new ArrayList<IMeeting>();
         val coastGuardMeetingAgenda = new ArrayList<IAgendaItem>();
         coastGuardMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         coastGuardMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
@@ -90,7 +94,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         val coastGuardMeetingAssistances = new HashSet<IAssistanceDao>();
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.put(MEETING_ID_WHALES, Meeting.builder()
+        meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
@@ -103,11 +107,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IRoom> createRooms() {
-        val rooms = new HashMap<String, IRoom>();
+    public List<IRoom> createRoomList() {
+        val rooms = new ArrayList<IRoom>();
         val blueRoomDevices = new ArrayList<String>();
         blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
-        rooms.put(ROOM_ID_BLUE, Room.builder()
+        rooms.add(Room.builder()
                 .id(ROOM_ID_BLUE)
                 .name("Room Blue")
                 .deviceIds(blueRoomDevices)
@@ -116,9 +120,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IDevice> createDevices() {
-        val devices = new HashMap<String, IDevice>();
-        devices.put(DEVICE_ID_BLUE_DISPLAY, AcmeDisplay.builder()
+    public List<IDevice> createDeviceList() {
+        val devices = new ArrayList<IDevice>();
+        devices.add(AcmeDisplay.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY)
                 .name("Display in Room Blue")
                 .dummyDisplayProperty("Dummy property of Display in Room Blue")

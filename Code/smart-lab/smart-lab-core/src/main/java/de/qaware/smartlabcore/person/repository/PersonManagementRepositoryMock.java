@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.person.repository;
 
 import de.qaware.smartlabcommons.data.person.IPerson;
-import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
+import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +17,8 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
 
     private List<IPerson> persons;
 
-    public PersonManagementRepositoryMock(
-            ISampleDataFactory coastGuardDataFactory,
-            ISampleDataFactory forestRangersDataFactory,
-            ISampleDataFactory fireFightersDataFactory) {
-        this.persons = new ArrayList<>();
-        this.persons.addAll(new ArrayList<>(coastGuardDataFactory.createWorkgroupMembers().values()));
-        this.persons.addAll(new ArrayList<>(forestRangersDataFactory.createWorkgroupMembers().values()));
-        this.persons.addAll(new ArrayList<>(fireFightersDataFactory.createWorkgroupMembers().values()));
+    public PersonManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
+        this.persons = new ArrayList<>(sampleDataProvider.getWorkgroupMembers());
         sortPersonsById();
     }
 

@@ -3,7 +3,7 @@ package de.qaware.smartlabcore.room.repository;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcore.data.sample.ISampleDataFactory;
+import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -24,14 +24,9 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     public RoomManagementRepositoryMock(
             IMeetingManagementApiClient meetingManagementApiClient,
-            ISampleDataFactory coastGuardDataFactory,
-            ISampleDataFactory forestRangersDataFactory,
-            ISampleDataFactory fireFightersDataFactory) {
+            ISampleDataProvider sampleDataProvider) {
         this.meetingManagementApiClient = meetingManagementApiClient;
-        this.rooms = new ArrayList<>();
-        this.rooms.addAll(new ArrayList<>(coastGuardDataFactory.createRooms().values()));
-        this.rooms.addAll(new ArrayList<>(forestRangersDataFactory.createRooms().values()));
-        this.rooms.addAll(new ArrayList<>(fireFightersDataFactory.createRooms().values()));
+        this.rooms = new ArrayList<>(sampleDataProvider.getRooms());
         sortRoomsById();
     }
 

@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.sample;
+package de.qaware.smartlabcore.data.sample.factory;
 
 import de.qaware.smartlabcommons.Constants;
 import de.qaware.smartlabcommons.data.device.AcmeDisplay;
@@ -23,9 +23,8 @@ import org.springframework.stereotype.Component;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -45,36 +44,41 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IWorkgroup> createWorkgroups() throws MalformedURLException {
-        val workgroups = new HashMap<String, IWorkgroup>();
+    public List<IWorkgroup> createWorkgroupList() {
+        val workgroups = new ArrayList<IWorkgroup>();
         val fireFighterMembers = new ArrayList<String>();
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
         fireFighterMembers.add(MEMBER_ID_CARLOS);
-        workgroups.put(WORKGROUP_ID_FIRE_FIGHTERS, Workgroup.builder()
-                .id(WORKGROUP_ID_FIRE_FIGHTERS)
-                .name("Fire Fighters")
-                .memberIds(fireFighterMembers)
-                .knowledgeBase(new URL("http", "fire-fighters.com", 80, "/wiki"))
-                .codeRepository(new URL("http", "fire-fighters.com", 80, "/git"))
-                .build());
+        try {
+            workgroups.add(Workgroup.builder()
+                    .id(WORKGROUP_ID_FIRE_FIGHTERS)
+                    .name("Fire Fighters")
+                    .memberIds(fireFighterMembers)
+                    .knowledgeBase(new URL("http", "fire-fighters.com", 80, "/wiki"))
+                    .codeRepository(new URL("http", "fire-fighters.com", 80, "/git"))
+                    .build());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            assert false;
+        }
         return workgroups;
     }
 
     @Override
-    public Map<String, IPerson> createWorkgroupMembers() {
-        val workgroupMembers = new HashMap<String, IPerson>();
-        workgroupMembers.put(MEMBER_ID_ANTHONY, Person.builder()
+    public List<IPerson> createWorkgroupMemberList() {
+        val workgroupMembers = new ArrayList<IPerson>();
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANTHONY)
                 .name("Fire Fighter Anthony")
                 .email("anthony@fire-fighters.com")
                 .build());
-        workgroupMembers.put(MEMBER_ID_BRUCE, Person.builder()
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_BRUCE)
                 .name("Fire Fighter Bruce")
                 .email("bruce@fire-fighters.com")
                 .build());
-        workgroupMembers.put(MEMBER_ID_CARLOS, Person.builder()
+        workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_CARLOS)
                 .name("Fire Fighter Carlos")
                 .email("carlos@fire-fighters.com")
@@ -83,8 +87,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IMeeting> createMeetings() {
-        val meetings = new HashMap<String, IMeeting>();
+    public List<IMeeting> createMeetingList() {
+        val meetings = new ArrayList<IMeeting>();
         val fireFightersMeetingAgenda = new ArrayList<IAgendaItem>();
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
@@ -92,7 +96,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         val fireFightersMeetingAssistances = new HashSet<IAssistanceDao>();
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
-        meetings.put(MEETING_ID_TRUCK, Meeting.builder()
+        meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
@@ -105,12 +109,12 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IRoom> createRooms() {
-        val rooms = new HashMap<String, IRoom>();
+    public List<IRoom> createRoomList() {
+        val rooms = new ArrayList<IRoom>();
         val redRoomDevices = new ArrayList<String>();
         redRoomDevices.add(DEVICE_ID_RED_DISPLAY);
         redRoomDevices.add(DEVICE_ID_RED_MICROPHONE);
-        rooms.put(ROOM_ID_RED, Room.builder()
+        rooms.add(Room.builder()
                 .id(ROOM_ID_RED)
                 .name("Room Red")
                 .deviceIds(redRoomDevices)
@@ -119,14 +123,14 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Map<String, IDevice> createDevices() {
-        val devices = new HashMap<String, IDevice>();
-        devices.put(DEVICE_ID_RED_DISPLAY, AcmeDisplay.builder()
+    public List<IDevice> createDeviceList() {
+        val devices = new ArrayList<IDevice>();
+        devices.add(AcmeDisplay.builder()
                 .id(DEVICE_ID_RED_DISPLAY)
                 .name("Display in Room Red")
                 .dummyDisplayProperty("Dummy property of Display in Room Red")
                 .build());
-        devices.put(DEVICE_ID_RED_MICROPHONE, AcmeMicrophone.builder()
+        devices.add(AcmeMicrophone.builder()
                 .id(DEVICE_ID_RED_MICROPHONE)
                 .name("Microphone in Room Red")
                 .dummyMicrophoneProperty("Dummy property of Microphone in Room Red")
