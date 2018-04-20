@@ -30,7 +30,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
 
     private boolean exists(String deviceId) {
         return devices.stream()
-                .anyMatch(device -> device.getId() == deviceId);
+                .anyMatch(device -> device.getId().equals(deviceId));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
     @Override
     public Optional<IDevice> getDevice(String deviceId) {
         return devices.stream()
-                .filter(device -> device.getId() == deviceId)
+                .filter(device -> device.getId().equals(deviceId))
                 .findFirst();
     }
 
@@ -53,7 +53,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
     @Override
     public boolean deleteDevice(String deviceId) {
         return devices.removeAll(devices.stream()
-                .filter(device -> device.getId() == deviceId)
+                .filter(device -> device.getId().equals(deviceId))
                 .collect(Collectors.toList()));
     }
 

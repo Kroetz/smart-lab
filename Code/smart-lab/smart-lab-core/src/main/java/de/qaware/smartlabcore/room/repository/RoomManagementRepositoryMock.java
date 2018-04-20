@@ -37,7 +37,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     private boolean exists(String roomId) {
         return rooms.stream()
-                .anyMatch(room -> room.getId() == roomId);
+                .anyMatch(room -> room.getId().equals(roomId));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     @Override
     public Optional<IRoom> getRoom(String roomId) {
         return rooms.stream()
-                .filter(room -> room.getId() == roomId)
+                .filter(room -> room.getId().equals(roomId))
                 .findFirst();
     }
 
@@ -60,14 +60,14 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     @Override
     public boolean deleteRoom(String roomId) {
         return rooms.removeAll(rooms.stream()
-                .filter(room -> room.getId() == roomId)
+                .filter(room -> room.getId().equals(roomId))
                 .collect(Collectors.toList()));
     }
 
     @Override
     public List<IMeeting> getMeetingsInRoom(String roomId) {
         return meetingManagementApiClient.getMeetings().stream()
-                .filter(meeting -> meeting.getRoomId() == roomId)
+                .filter(meeting -> meeting.getRoomId().equals(roomId))
                 .collect(Collectors.toList());
     }
 

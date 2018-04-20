@@ -30,7 +30,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     private boolean exists(String meetingId) {
-        return meetings.stream().anyMatch(m -> m.getId() == meetingId);
+        return meetings.stream().anyMatch(m -> m.getId().equals(meetingId));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     @Override
     public Optional<IMeeting> getMeeting(String meetingId) {
         return meetings.stream()
-                .filter(m -> m.getId() == meetingId)
+                .filter(m -> m.getId().equals(meetingId))
                 .findFirst();
     }
 
@@ -59,7 +59,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     @Override
     public boolean deleteMeeting(String meetingId) {
         return meetings.removeAll(meetings.stream()
-                .filter(meeting -> meeting.getId() == meetingId)
+                .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(Collectors.toList()));
     }
 
@@ -123,7 +123,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     private boolean areMeetingsColliding(IMeeting m1, IMeeting m2) {
-        return (m1.getRoomId() == m2.getRoomId()
+        return (m1.getRoomId().equals(m2.getRoomId())
                 && (m1.getStart().equals(m2.getStart()) && m1.getEnd().equals(m2.getEnd())
                 || m1.getStart().isAfter(m2.getStart()) && m1.getStart().isBefore(m2.getEnd())
                 || m1.getEnd().isAfter(m2.getStart()) && m1.getEnd().isBefore(m2.getEnd())

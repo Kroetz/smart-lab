@@ -30,7 +30,7 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
 
     private boolean exists(String personId) {
         return persons.stream()
-                .anyMatch(person -> person.getId() == personId);
+                .anyMatch(person -> person.getId().equals(personId));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
     @Override
     public Optional<IPerson> getPerson(String personId) {
         return persons.stream()
-                .filter(person -> person.getId() == personId)
+                .filter(person -> person.getId().equals(personId))
                 .findFirst();
     }
 
@@ -53,7 +53,7 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
     @Override
     public boolean deletePerson(String personId) {
         return persons.removeAll(persons.stream()
-                .filter(person -> person.getId() == personId)
+                .filter(person -> person.getId().equals(personId))
                 .collect(Collectors.toList()));
     }
 
