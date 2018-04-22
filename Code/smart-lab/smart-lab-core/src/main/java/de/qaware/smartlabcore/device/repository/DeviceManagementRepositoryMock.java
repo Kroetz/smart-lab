@@ -2,7 +2,10 @@ package de.qaware.smartlabcore.device.repository;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -40,15 +43,25 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
     }
 
     @Override
-    public boolean createDevice(IDevice device) {
-        return !exists(device.getId()) && devices.add(device);
+    public CreationResult createDevice(IDevice device) {
+        if (exists(device.getId())) {
+            return CreationResult.CONFLICT;
+        }
+        if(devices.add(device)) {
+            return CreationResult.SUCCESS;
+        }
+        return CreationResult.ERROR;
     }
 
     @Override
-    public boolean deleteDevice(String deviceId) {
-        return devices.removeAll(devices.stream()
+    public DeletionResult deleteDevice(String deviceId) {
+        val deleted =  devices.removeAll(devices.stream()
                 .filter(device -> device.getId().equals(deviceId))
                 .collect(Collectors.toList()));
+        if(deleted) {
+            return DeletionResult.SUCCESS;
+        }
+        return DeletionResult.ERROR;
     }
 
     private void sortDevicesById() {

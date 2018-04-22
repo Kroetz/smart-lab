@@ -1,6 +1,7 @@
 package de.qaware.smartlabcore.meeting.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcore.generic.result.*;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
 import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
@@ -35,27 +36,27 @@ public class MeetingManagementService implements IMeetingManagementService {
     }
 
     @Override
-    public boolean createMeeting(IMeeting meeting) {
+    public CreationResult createMeeting(IMeeting meeting) {
         return meetingManagementRepository.createMeeting(meeting);
     }
 
     @Override
-    public boolean deleteMeeting(String meetingId) {
+    public DeletionResult deleteMeeting(String meetingId) {
         return meetingManagementRepository.deleteMeeting(meetingId);
     }
 
     @Override
-    public void shortenMeeting(String meetingId, Duration shortening) {
-        meetingManagementRepository.shortenMeeting(meetingId, shortening);
+    public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
+        return meetingManagementRepository.shortenMeeting(meetingId, shortening);
     }
 
     @Override
-    public boolean extendMeeting(String meetingId, Duration extension) {
+    public ExtensionResult extendMeeting(String meetingId, Duration extension) {
         return meetingManagementRepository.extendMeeting(meetingId, extension);
     }
 
     @Override
-    public boolean shiftMeeting(String meetingId, Duration shift) {
+    public ShiftResult shiftMeeting(String meetingId, Duration shift) {
         return meetingManagementRepository.shiftMeeting(meetingId, shift);
     }
 }

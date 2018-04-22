@@ -29,38 +29,38 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    public ResponseEntity<IMeeting> getMeeting(@PathVariable("meetingId") String meetingId) {
+    public ResponseEntity<IMeeting> getMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return responseFromOptional(meetingManagementService.getMeeting(meetingId));
     }
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean createMeeting(@RequestBody IMeeting meeting) {
-        return meetingManagementService.createMeeting(meeting);
+    public ResponseEntity<Void> createMeeting(@RequestBody IMeeting meeting) {
+        return meetingManagementService.createMeeting(meeting).toResponseEntity();
     }
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    public boolean deleteMeeting(@PathVariable("meetingId") String meetingId) {
-        return meetingManagementService.deleteMeeting(meetingId);
+    public ResponseEntity<Void> deleteMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
+        return meetingManagementService.deleteMeeting(meetingId).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
-    public void shortenMeeting(
-            @PathVariable("meetingId") String meetingId,
-            @RequestParam(value = "shortening-in-minutes") long shorteningInMinutes) {
-        meetingManagementService.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes));
+    public ResponseEntity<Void> shortenMeeting(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
+            @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHORTENING_IN_MINUTES) long shorteningInMinutes) {
+        return meetingManagementService.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes)).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_EXTEND_MEETING)
-    public boolean extendMeeting(
-            @PathVariable("meetingId") String meetingId,
-            @RequestParam(value = "extension-in-minutes") long extensionInMinutes) {
-        return meetingManagementService.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes));
+    public ResponseEntity<Void> extendMeeting(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
+            @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
+        return meetingManagementService.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHIFT_MEETING)
-    public boolean shiftMeeting(
-            @PathVariable("meetingId") String meetingId,
-            @RequestParam(value = "shift-in-minutes") long shiftInMinutes) {
-        return meetingManagementService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes));
+    public ResponseEntity<Void> shiftMeeting(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
+            @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHIFT_IN_MINUTES) long shiftInMinutes) {
+        return meetingManagementService.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes)).toResponseEntity();
     }
 }

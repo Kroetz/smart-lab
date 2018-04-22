@@ -3,6 +3,9 @@ package de.qaware.smartlabcore.room.service;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -38,12 +41,12 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public boolean createRoom(IRoom room) {
+    public CreationResult createRoom(IRoom room) {
         return roomManagementRepository.createRoom(room);
     }
 
     @Override
-    public boolean deleteRoom(String roomId) {
+    public DeletionResult deleteRoom(String roomId) {
         return roomManagementRepository.deleteRoom(roomId);
     }
 
@@ -58,7 +61,7 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public boolean extendCurrentMeeting(String roomId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
         return roomManagementRepository.extendCurrentMeeting(roomId, extension);
     }
 

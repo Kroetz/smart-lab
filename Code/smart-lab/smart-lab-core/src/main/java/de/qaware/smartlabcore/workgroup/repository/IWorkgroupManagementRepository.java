@@ -2,6 +2,9 @@ package de.qaware.smartlabcore.workgroup.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
 
 import java.time.Duration;
 import java.util.List;
@@ -12,13 +15,13 @@ public interface IWorkgroupManagementRepository {
     List<IWorkgroup> getWorkgroups();
     Optional<IWorkgroup> getWorkgroup(String workgroupId);
 
-    boolean createWorkgroup(IWorkgroup workgroup);
+    CreationResult createWorkgroup(IWorkgroup workgroup);
 
-    boolean deleteWorkgroup(String workgroupId);
+    DeletionResult deleteWorkgroup(String workgroupId);
 
     List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
     Optional<IMeeting> getCurrentMeeting(String workgroupId);
 
-    boolean extendCurrentMeeting(String workgroupId, Duration extension);
+    ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension);
 }

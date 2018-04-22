@@ -4,7 +4,11 @@ import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -48,15 +52,25 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public boolean createRoom(IRoom room) {
-        return !exists(room.getId()) && rooms.add(room);
+    public CreationResult createRoom(IRoom room) {
+        if (exists(room.getId())) {
+            return CreationResult.CONFLICT;
+        }
+        if(rooms.add(room)) {
+            return CreationResult.SUCCESS;
+        }
+        return CreationResult.ERROR;
     }
 
     @Override
-    public boolean deleteRoom(String roomId) {
-        return rooms.removeAll(rooms.stream()
+    public DeletionResult deleteRoom(String roomId) {
+        val deleted = rooms.removeAll(rooms.stream()
                 .filter(room -> room.getId().equals(roomId))
                 .collect(Collectors.toList()));
+        if(deleted) {
+            return DeletionResult.SUCCESS;
+        }
+        return DeletionResult.ERROR;
     }
 
     @Override
@@ -74,10 +88,10 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public boolean extendCurrentMeeting(String roomId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
         return getCurrentMeeting(roomId)
-                .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
-                .orElse(false);
+                .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                .orElse(ExtensionResult.NOT_FOUND);
     }
 
     private void sortRoomsById() {

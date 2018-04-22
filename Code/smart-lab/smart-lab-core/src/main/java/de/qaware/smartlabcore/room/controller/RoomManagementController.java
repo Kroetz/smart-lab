@@ -34,43 +34,43 @@ public class RoomManagementController extends AbstractSmartLabController {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    public ResponseEntity<IRoom> getRoom(@PathVariable("roomId") String roomId) {
+    public ResponseEntity<IRoom> getRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(roomManagementService.getRoom(roomId));
     }
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_ROOM,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public boolean createRoom(@RequestBody IRoom room) {
-        return roomManagementService.createRoom(room);
+    public ResponseEntity<Void> createRoom(@RequestBody IRoom room) {
+        return roomManagementService.createRoom(room).toResponseEntity();
     }
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE_ROOM)
     @ResponseBody
-    public boolean deleteRoom(@PathVariable("roomId") String roomId) {
-        return roomManagementService.deleteRoom(roomId);
+    public ResponseEntity<Void> deleteRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
+        return roomManagementService.deleteRoom(roomId).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
-    List<IMeeting> getMeetingsInRoom(@PathVariable("roomId") String roomId) {
+    List<IMeeting> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return roomManagementService.getMeetingsInRoom(roomId);
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
-    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("roomId") String roomId) {
+    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @PostMapping(RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     @ResponseBody
-    public boolean extendCurrentMeeting(
-            @PathVariable("roomId") String roomId,
-            @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {
-        return roomManagementService.extendCurrentMeeting(roomId, Duration.ofMinutes(extensionInMinutes));
+    public ResponseEntity<Void> extendCurrentMeeting(
+            @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+            @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
+        return roomManagementService.extendCurrentMeeting(roomId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    public String getCurrentMeetingStatusPage(@PathVariable("roomId") String roomId, Model model) {
+    public String getCurrentMeetingStatusPage(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
         return roomManagementService.getCurrentMeetingStatusPage(roomId, model);
     }
 }

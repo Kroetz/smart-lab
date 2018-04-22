@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "person-management", url = "http://localhost:8080")
+@FeignClient(
+        value = PersonManagementApiConstants.FEIGN_CLIENT_VALUE,
+        url = PersonManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
 public interface IPersonManagementApiClient {
 
@@ -18,11 +20,11 @@ public interface IPersonManagementApiClient {
     List<IPerson> getPersons();
 
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSON)
-    ResponseEntity<IPerson> getPerson(@PathVariable("personId") String personId);
+    ResponseEntity<IPerson> getPerson(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createPerson(@RequestBody IPerson person);
+    ResponseEntity<Void> createPerson(@RequestBody IPerson person);
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_DELETE_PERSON)
-    boolean deletePerson(@PathVariable("personId") String personId);
+    ResponseEntity<Void> deletePerson(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 }

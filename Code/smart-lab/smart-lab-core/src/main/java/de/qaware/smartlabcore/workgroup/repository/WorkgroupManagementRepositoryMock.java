@@ -4,10 +4,13 @@ import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Repository;
 
-import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -25,8 +28,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
 
     public WorkgroupManagementRepositoryMock(
             IMeetingManagementApiClient meetingManagementApiClient,
-            ISampleDataProvider sampleDataProvider
-    ) throws MalformedURLException {
+            ISampleDataProvider sampleDataProvider) {
         this.meetingManagementApiClient = meetingManagementApiClient;
         this.workgroups = new ArrayList<>(sampleDataProvider.getWorkgroups());
         sortWorkgroupsById();
@@ -50,15 +52,25 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public boolean createWorkgroup(IWorkgroup workgroup) {
-        return !exists(workgroup.getId()) && workgroups.add(workgroup);
+    public CreationResult createWorkgroup(IWorkgroup workgroup) {
+        if (exists(workgroup.getId())) {
+            return CreationResult.CONFLICT;
+        }
+        if(workgroups.add(workgroup)) {
+            return CreationResult.SUCCESS;
+        }
+        return CreationResult.ERROR;
     }
 
     @Override
-    public boolean deleteWorkgroup(String workgroupId) {
-        return workgroups.removeAll(workgroups.stream()
+    public DeletionResult deleteWorkgroup(String workgroupId) {
+        val deleted = workgroups.removeAll(workgroups.stream()
                 .filter(workgroup -> workgroup.getId().equals(workgroupId))
                 .collect(Collectors.toList()));
+        if(deleted) {
+            return DeletionResult.SUCCESS;
+        }
+        return DeletionResult.ERROR;
     }
 
     @Override
@@ -76,10 +88,10 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public boolean extendCurrentMeeting(String workgroupId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension) {
         return getCurrentMeeting(workgroupId)
-                .map(meeting -> meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()))
-                .orElse(false);
+                .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                .orElse(ExtensionResult.NOT_FOUND);
     }
 
     private void sortWorkgroupsById() {

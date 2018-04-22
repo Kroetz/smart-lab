@@ -2,6 +2,8 @@ package de.qaware.smartlabcore.device.service;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
 import de.qaware.smartlabcore.device.repository.IDeviceManagementRepository;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +31,12 @@ public class DeviceManagementService implements IDeviceManagementService {
     }
 
     @Override
-    public boolean createDevice(IDevice device) {
+    public CreationResult createDevice(IDevice device) {
         return deviceManagementRepository.createDevice(device);
     }
 
     @Override
-    public boolean deleteDevice(String deviceId) {
+    public DeletionResult deleteDevice(String deviceId) {
         return deviceManagementRepository.deleteDevice(deviceId);
     }
 }

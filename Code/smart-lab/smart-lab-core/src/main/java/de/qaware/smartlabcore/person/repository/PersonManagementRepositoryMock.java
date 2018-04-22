@@ -2,7 +2,10 @@ package de.qaware.smartlabcore.person.repository;
 
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -40,15 +43,25 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
     }
 
     @Override
-    public boolean createPerson(IPerson person) {
-        return !exists(person.getId()) && persons.add(person);
+    public CreationResult createPerson(IPerson person) {
+        if (exists(person.getId())) {
+            return CreationResult.CONFLICT;
+        }
+        if(persons.add(person)) {
+            return CreationResult.SUCCESS;
+        }
+        return CreationResult.ERROR;
     }
 
     @Override
-    public boolean deletePerson(String personId) {
-        return persons.removeAll(persons.stream()
+    public DeletionResult deletePerson(String personId) {
+        val deleted = persons.removeAll(persons.stream()
                 .filter(person -> person.getId().equals(personId))
                 .collect(Collectors.toList()));
+        if(deleted) {
+            return DeletionResult.SUCCESS;
+        }
+        return DeletionResult.ERROR;
     }
 
     private void sortPersonsById() {

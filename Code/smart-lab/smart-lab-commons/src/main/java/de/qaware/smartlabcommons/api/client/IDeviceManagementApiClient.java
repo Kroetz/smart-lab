@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "device-management", url = "http://localhost:8080")
+@FeignClient(
+        value = DeviceManagementApiConstants.FEIGN_CLIENT_VALUE,
+        url = DeviceManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
 public interface IDeviceManagementApiClient {
 
@@ -18,11 +20,13 @@ public interface IDeviceManagementApiClient {
     List<IDevice> getDevices();
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICE)
-    ResponseEntity<IDevice> getDevice(@PathVariable("deviceId") String deviceId);
+    ResponseEntity<IDevice> getDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
-    @PostMapping(value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE_DEVICE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createDevice(@RequestBody IDevice device);
+    @PostMapping(
+            value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE_DEVICE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Void> createDevice(@RequestBody IDevice device);
 
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    boolean deleteDevice(@PathVariable("deviceId") String deviceId);
+    ResponseEntity<Void> deleteDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 }

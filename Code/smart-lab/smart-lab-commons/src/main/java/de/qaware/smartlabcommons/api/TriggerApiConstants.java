@@ -2,13 +2,17 @@ package de.qaware.smartlabcommons.api;
 
 public class TriggerApiConstants {
 
+    public static final String FEIGN_CLIENT_VALUE = "trigger";
+    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
+    public static final String PARAMETER_NAME_ROOM_ID = "roomId";
+    public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";
     public static final String MAPPING_BASE = "/smart-lab/api/trigger";
-    public static final String MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID = "/set-up-current-meeting/room/{roomId}";
-    public static final String MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID = "/set-up-current-meeting/workgroup/{workgroupId}";
-    public static final String MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID = "/clean-up-current-meeting/room/{roomId}";
-    public static final String MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID = "/clean-up-current-meeting/workgroup/{workgroupId}/";
-    public static final String MAPPING_START_CURRENT_MEETING_BY_ROOM_ID = "/start-current-meeting/room/{roomId}";
-    public static final String MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID = "/start-current-meeting/workgroup/{workgroupId}";
-    public static final String MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID = "/stop-current-meeting/room/{roomId}";
-    public static final String MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID = "/stop-current-meeting/workgroup/{workgroupId}";
+    public static final String MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID = "/set-up-current-meeting/room/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID = "/set-up-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
+    public static final String MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID = "/clean-up-current-meeting/room/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID = "/clean-up-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}/";
+    public static final String MAPPING_START_CURRENT_MEETING_BY_ROOM_ID = "/start-current-meeting/room/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID = "/start-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
+    public static final String MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID = "/stop-current-meeting/room/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID = "/stop-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
 }

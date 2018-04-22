@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "workgroup-management", url = "http://localhost:8080")
+@FeignClient(
+        value = WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE,
+        url = WorkgroupManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
 public interface IWorkgroupManagementApiClient {
 
@@ -19,22 +21,22 @@ public interface IWorkgroupManagementApiClient {
     List<IWorkgroup> getWorkgroups();
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") String workgroupId);
+    ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
-    boolean createWorkgroup(@RequestBody IWorkgroup workgroup);
+    ResponseEntity<Void> createWorkgroup(@RequestBody IWorkgroup workgroup);
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    boolean deleteWorkgroup(@PathVariable("workgroupId") String workgroupId);
+    ResponseEntity<Void> deleteWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
     List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") String workgroupId);
+    ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
-    boolean extendCurrentMeeting(
-            @PathVariable("workgroupId") String workgroupId,
-            @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes);
+    ResponseEntity<Void> extendCurrentMeeting(
+            @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
+            @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
 }

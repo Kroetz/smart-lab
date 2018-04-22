@@ -30,18 +30,18 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable("workgroupId") String workgroupId) {
+    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(workgroupManagementService.getWorkgroup(workgroupId));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean createWorkgroup(@RequestBody IWorkgroup workgroup) {
-        return workgroupManagementService.createWorkgroup(workgroup);
+    public ResponseEntity<Void> createWorkgroup(@RequestBody IWorkgroup workgroup) {
+        return workgroupManagementService.createWorkgroup(workgroup).toResponseEntity();
     }
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    public boolean deleteWorkgroup(@PathVariable("workgroupId") String workgroupId) {
-        return workgroupManagementService.deleteWorkgroup(workgroupId);
+    public ResponseEntity<Void> deleteWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+        return workgroupManagementService.deleteWorkgroup(workgroupId).toResponseEntity();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
@@ -50,14 +50,14 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
-    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable("workgroupId") String workgroupId) {
+    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
-    public boolean extendCurrentMeeting(
-            @PathVariable("workgroupId") String workgroupId,
-            @RequestParam(value = "extension-in-minutes", defaultValue = "10") long extensionInMinutes) {
-        return workgroupManagementService.extendCurrentMeeting(workgroupId, Duration.ofMinutes(extensionInMinutes));
+    public ResponseEntity<Void> extendCurrentMeeting(
+            @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
+            @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
+        return workgroupManagementService.extendCurrentMeeting(workgroupId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 }

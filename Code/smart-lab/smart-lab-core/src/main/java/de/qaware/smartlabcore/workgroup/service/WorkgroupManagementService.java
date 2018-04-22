@@ -3,6 +3,9 @@ package de.qaware.smartlabcore.workgroup.service;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.generic.result.CreationResult;
+import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import de.qaware.smartlabcore.workgroup.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,12 +39,12 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public boolean createWorkgroup(IWorkgroup workgroup) {
+    public CreationResult createWorkgroup(IWorkgroup workgroup) {
         return workgroupManagementRepository.createWorkgroup(workgroup);
     }
 
     @Override
-    public boolean deleteWorkgroup(String workgroupId) {
+    public DeletionResult deleteWorkgroup(String workgroupId) {
         return workgroupManagementRepository.deleteWorkgroup(workgroupId);
     }
 
@@ -56,7 +59,7 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public boolean extendCurrentMeeting(String workgroupId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension) {
         return workgroupManagementRepository.extendCurrentMeeting(workgroupId, extension);
     }
 }

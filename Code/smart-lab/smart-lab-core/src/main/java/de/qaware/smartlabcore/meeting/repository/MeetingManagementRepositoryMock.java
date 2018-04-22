@@ -2,6 +2,7 @@ package de.qaware.smartlabcore.meeting.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.generic.result.*;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Repository;
@@ -40,68 +41,87 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public boolean createMeeting(IMeeting meeting) {
+    public CreationResult createMeeting(IMeeting meeting) {
         val meetingCollision = getMeetings().stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {
-            return false;
+            return CreationResult.CONFLICT;
         }
-        meetings.add(meeting);
-        sortMeetingsByStart();
-        return true;
+        if(meetings.add(meeting)) {
+            sortMeetingsByStart();
+            return CreationResult.SUCCESS;
+        }
+        return CreationResult.ERROR;
     }
 
     @Override
-    public boolean deleteMeeting(String meetingId) {
-        return meetings.removeAll(meetings.stream()
+    public DeletionResult deleteMeeting(String meetingId) {
+        val deleted = meetings.removeAll(meetings.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(Collectors.toList()));
-    }
-
-    @Override
-    public void shortenMeeting(String meetingId, Duration shortening) {
-        val meeting = getMeeting(meetingId);
-        if(meeting.isPresent()) {
-            if(deleteMeeting(meetingId)) {
-                val shortenedMeeting = meeting.get().copy();
-                shortenedMeeting.setEnd(meeting.get().getEnd().minus(shortening));
-                createMeeting(shortenedMeeting);
-            }
+        if(deleted) {
+            return DeletionResult.SUCCESS;
         }
+        return DeletionResult.ERROR;
     }
 
     @Override
-    public boolean extendMeeting(String meetingId, Duration extension) {
+    public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
         val meeting = getMeeting(meetingId);
-        if(meeting.isPresent()) {
-            val extendedMeeting = meeting.get().copy();
-            extendedMeeting.setEnd(meeting.get().getEnd().plus(extension));
-            deleteMeeting(meetingId);
-            if(createMeeting(extendedMeeting)) {
-                return true;
+        if(!meeting.isPresent()) {
+            return ShorteningResult.NOT_FOUND;
+        }
+        if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
+            val shortenedMeeting = meeting.get().copy();
+            shortenedMeeting.setEnd(meeting.get().getEnd().minus(shortening));
+            createMeeting(shortenedMeeting);
+            return ShorteningResult.SUCCESS;
+        }
+        return ShorteningResult.ERROR;
+    }
+
+    @Override
+    public ExtensionResult extendMeeting(String meetingId, Duration extension) {
+        val meeting = getMeeting(meetingId);
+        if(!meeting.isPresent()) {
+            return ExtensionResult.NOT_FOUND;
+        }
+        val extendedMeeting = meeting.get().copy();
+        extendedMeeting.setEnd(meeting.get().getEnd().plus(extension));
+        if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
+            if(createMeeting(extendedMeeting) == CreationResult.CONFLICT) {
+                return ExtensionResult.CONFLICT;
+            }
+            else if(createMeeting(extendedMeeting) == CreationResult.SUCCESS) {
+                return ExtensionResult.SUCCESS;
             }
             else {
                 createMeeting(meeting.get());
             }
         }
-        return false;
+        return ExtensionResult.ERROR;
     }
 
     @Override
-    public boolean shiftMeeting(String meetingId, Duration shift) {
+    public ShiftResult shiftMeeting(String meetingId, Duration shift) {
         val meeting = getMeeting(meetingId);
-        if(meeting.isPresent()) {
-            val shiftedMeeting = meeting.get().copy();
-            shiftedMeeting.setStart(meeting.get().getStart().plus(shift));
-            shiftedMeeting.setEnd(meeting.get().getEnd().plus(shift));
-            deleteMeeting(meetingId);
-            if(createMeeting(shiftedMeeting)) {
-                return true;
+        if(!meeting.isPresent()) {
+            return ShiftResult.NOT_FOUND;
+        }
+        val shiftedMeeting = meeting.get().copy();
+        shiftedMeeting.setStart(meeting.get().getStart().plus(shift));
+        shiftedMeeting.setEnd(meeting.get().getEnd().plus(shift));
+        if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
+            if(createMeeting(shiftedMeeting) == CreationResult.CONFLICT) {
+                return ShiftResult.CONFLICT;
+            }
+            else if(createMeeting(shiftedMeeting) == CreationResult.SUCCESS) {
+                return ShiftResult.SUCCESS;
             }
             else {
                 createMeeting(meeting.get());
             }
         }
-        return false;
+        return ShiftResult.ERROR;
     }
 
     private void sortMeetingsByStart() {
