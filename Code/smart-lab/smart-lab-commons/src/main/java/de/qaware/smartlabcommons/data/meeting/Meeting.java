@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
@@ -35,6 +36,11 @@ public class Meeting implements IMeeting {
         for (val assistance : getAssistances()) {
 
         }*/
+    }
+
+    @Override
+    public Duration getDuration() {
+        return Duration.between(getStart(), getEnd());
     }
 
     @Override
