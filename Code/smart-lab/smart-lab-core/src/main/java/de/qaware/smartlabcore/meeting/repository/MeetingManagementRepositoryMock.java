@@ -76,8 +76,10 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
             if(shortenedMeeting.getDuration().isNegative()) {
                 return ShorteningResult.MINIMUM_REACHED;
             }
-            createMeeting(shortenedMeeting);
-            return ShorteningResult.SUCCESS;
+            val shortenedMeetingCreated =createMeeting(shortenedMeeting);
+            if(shortenedMeetingCreated == CreationResult.SUCCESS) {
+                return ShorteningResult.SUCCESS;
+            }
         }
         return ShorteningResult.ERROR;
     }
@@ -91,10 +93,11 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         val extendedMeeting = meeting.get().copy();
         extendedMeeting.setEnd(meeting.get().getEnd().plus(extension));
         if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
-            if(createMeeting(extendedMeeting) == CreationResult.CONFLICT) {
+            val extendedMeetingCreated = createMeeting(extendedMeeting);
+            if(extendedMeetingCreated == CreationResult.CONFLICT) {
                 return ExtensionResult.CONFLICT;
             }
-            else if(createMeeting(extendedMeeting) == CreationResult.SUCCESS) {
+            else if(extendedMeetingCreated == CreationResult.SUCCESS) {
                 return ExtensionResult.SUCCESS;
             }
             else {
@@ -114,10 +117,11 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         shiftedMeeting.setStart(meeting.get().getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.get().getEnd().plus(shift));
         if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
-            if(createMeeting(shiftedMeeting) == CreationResult.CONFLICT) {
+            val shiftedMeetingCreated = createMeeting(shiftedMeeting);
+            if(shiftedMeetingCreated == CreationResult.CONFLICT) {
                 return ShiftResult.CONFLICT;
             }
-            else if(createMeeting(shiftedMeeting) == CreationResult.SUCCESS) {
+            else if(shiftedMeetingCreated == CreationResult.SUCCESS) {
                 return ShiftResult.SUCCESS;
             }
             else {
