@@ -73,6 +73,9 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
             val shortenedMeeting = meeting.get().copy();
             shortenedMeeting.setEnd(meeting.get().getEnd().minus(shortening));
+            if(shortenedMeeting.getDuration().isNegative()) {
+                return ShorteningResult.MINIMUM_REACHED;
+            }
             createMeeting(shortenedMeeting);
             return ShorteningResult.SUCCESS;
         }

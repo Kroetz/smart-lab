@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.generic.result.*;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
 import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -15,6 +16,10 @@ import java.util.Optional;
 @Slf4j
 public class MeetingManagementService implements IMeetingManagementService {
 
+    public static final String APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES = "meeting.max.duration.in.minutes";
+    @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}")
+    private long MAXINMAL_MEETING_DURATION_IN_MINUTES;
+    private Duration MAXIMAL_MEETING_DURATION = Duration.ofMinutes(MAXINMAL_MEETING_DURATION_IN_MINUTES);
     private final IMeetingManagementRepository meetingManagementRepository;
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
@@ -47,16 +52,28 @@ public class MeetingManagementService implements IMeetingManagementService {
 
     @Override
     public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
-        return meetingManagementRepository.shortenMeeting(meetingId, shortening);
+        return getMeeting(meetingId).map(meeting -> {
+            if(meeting.getDuration().minus(shortening).isNegative()) {
+                return ShorteningResult.MINIMUM_REACHED;
+            }
+            return meetingManagementRepository.shortenMeeting(meetingId, shortening);
+        }).orElse(ShorteningResult.NOT_FOUND);
     }
 
     @Override
     public ExtensionResult extendMeeting(String meetingId, Duration extension) {
-        return meetingManagementRepository.extendMeeting(meetingId, extension);
+        return getMeeting(meetingId).map(meeting -> {
+            if(meeting.getDuration().plus(extension).compareTo(MAXIMAL_MEETING_DURATION) > 0) {
+                return ExtensionResult.MAXIMUM_REACHED_REACHED;
+            }
+            return meetingManagementRepository.extendMeeting(meetingId, extension);
+        }).orElse(ExtensionResult.NOT_FOUND);
     }
 
     @Override
     public ShiftResult shiftMeeting(String meetingId, Duration shift) {
-        return meetingManagementRepository.shiftMeeting(meetingId, shift);
+        return getMeeting(meetingId).map(meeting -> {
+            return meetingManagementRepository.shiftMeeting(meetingId, shift);
+        }).orElse(ShiftResult.NOT_FOUND);
     }
 }
