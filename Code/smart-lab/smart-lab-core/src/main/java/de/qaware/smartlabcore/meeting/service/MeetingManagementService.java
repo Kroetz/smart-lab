@@ -1,10 +1,11 @@
 package de.qaware.smartlabcore.meeting.service;
 
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.generic.result.*;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
-import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,8 @@ public class MeetingManagementService implements IMeetingManagementService {
     @Override
     public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
         return getMeeting(meetingId).map(meeting -> {
-            if(meeting.getDuration().minus(shortening).isNegative()) {
+            val shortenedDuration = meeting.getDuration().minus(shortening);
+            if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
                 return ShorteningResult.MINIMUM_REACHED;
             }
             return meetingManagementRepository.shortenMeeting(meetingId, shortening);
