@@ -12,7 +12,7 @@ public enum ExtensionResult {
     SUCCESS(ResponseEntity.ok().build()),
     NOT_FOUND(ResponseEntity.notFound().build()),
     CONFLICT(ResponseEntity.status(HttpStatus.CONFLICT).build()),
-    MAXIMUM_REACHED_REACHED(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()),
+    MAXIMUM_REACHED_REACHED(ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build()),
     ERROR(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
 
     private static final Map<HttpStatus, ExtensionResult> EXTENSION_RESULTS_BY_HTTP_STATUS;

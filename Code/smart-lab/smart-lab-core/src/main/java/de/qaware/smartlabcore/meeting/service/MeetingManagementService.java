@@ -18,15 +18,15 @@ import java.util.Optional;
 public class MeetingManagementService implements IMeetingManagementService {
 
     public static final String APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES = "meeting.max.duration.in.minutes";
-    @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}")
-    private long MAXINMAL_MEETING_DURATION_IN_MINUTES;
-    private Duration MAXIMAL_MEETING_DURATION = Duration.ofMinutes(MAXINMAL_MEETING_DURATION_IN_MINUTES);
+    private final Duration MAXIMAL_MEETING_DURATION;
     private final IMeetingManagementRepository meetingManagementRepository;
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
     public MeetingManagementService(
+            @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}") long maximalMeetingDurationInMinutes,
             IMeetingManagementRepository meetingManagementRepository,
             IWorkgroupManagementApiClient workgroupManagementApiClient) {
+        this.MAXIMAL_MEETING_DURATION = Duration.ofMinutes(maximalMeetingDurationInMinutes);
         this.meetingManagementRepository = meetingManagementRepository;
         this.workgroupManagementApiClient = workgroupManagementApiClient;
     }
