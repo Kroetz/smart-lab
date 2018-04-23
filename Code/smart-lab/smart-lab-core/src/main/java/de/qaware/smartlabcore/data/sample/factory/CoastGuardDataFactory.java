@@ -34,6 +34,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final String MEMBER_ID_BEN = "coast-guard-ben";
     public static final String MEMBER_ID_CHARLIE = "coast-guard-charlie";
     public static final String MEETING_ID_WHALES = "whales";
+    public static final String MEETING_ID_WHIRLPOOLS = "whirlpools";
     public static final String ROOM_ID_BLUE = "blue";
     public static final String DEVICE_ID_BLUE_DISPLAY = "blue-display";
 
@@ -87,22 +88,40 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IMeeting> createMeetingList() {
         val meetings = new ArrayList<IMeeting>();
-        val coastGuardMeetingAgenda = new ArrayList<IAgendaItem>();
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
-        coastGuardMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
-        val coastGuardMeetingAssistances = new HashSet<IAssistanceDao>();
-        coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        coastGuardMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
+        val whaleMeetingAgenda = new ArrayList<IAgendaItem>();
+        whaleMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
+        whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
+        whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
+        val whaleMeetingAssistances = new HashSet<IAssistanceDao>();
+        whaleMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
+        whaleMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
                 .roomId(ROOM_ID_BLUE)
-                .agenda(coastGuardMeetingAgenda)
-                .assistances(coastGuardMeetingAssistances)
+                .agenda(whaleMeetingAgenda)
+                .assistances(whaleMeetingAssistances)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
+
+        val whirlpoolMeetingAgenda = new ArrayList<IAgendaItem>();
+        whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Explain how whirlpools develop").build());
+        whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
+        whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
+        val whirlpoolMeetingAssistances = new HashSet<IAssistanceDao>();
+        whirlpoolMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
+        whirlpoolMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
+        meetings.add(Meeting.builder()
+                .id(MEETING_ID_WHIRLPOOLS)
+                .title("Meeting about dangers of whirlpools")
+                .workgroupId(WORKGROUP_ID_COAST_GUARD)
+                .roomId(ROOM_ID_BLUE)
+                .agenda(whirlpoolMeetingAgenda)
+                .assistances(whirlpoolMeetingAssistances)
+                .start(timeBase.plusSeconds(360))
+                .end(timeBase.plusSeconds(660)).build());
+
         return meetings;
     }
 
