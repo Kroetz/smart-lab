@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@Profile("blueGreenRedBlackSampleData")
+@Profile(BlueGreenRedBlackSampleDataProvider.PROFILE_NAME)
 public class BlueGreenRedBlackSampleDataProvider extends AbstractSampleDataProvider {
+
+    public static final String PROFILE_NAME = "blueGreenRedBlackSampleData";
 
     public BlueGreenRedBlackSampleDataProvider(
             ISampleDataFactory coastGuardDataFactory,

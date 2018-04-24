@@ -55,9 +55,13 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
 
     @Override
     public DeletionResult deletePerson(String personId) {
-        val deleted = persons.removeAll(persons.stream()
+        val personsToDelete = persons.stream()
                 .filter(person -> person.getId().equals(personId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(personsToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        val deleted = persons.removeAll(personsToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }

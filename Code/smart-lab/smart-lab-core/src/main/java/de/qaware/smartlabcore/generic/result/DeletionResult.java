@@ -10,6 +10,7 @@ import java.util.Map;
 public enum DeletionResult {
 
     SUCCESS(ResponseEntity.ok().build()),
+    NOT_FOUND(ResponseEntity.notFound().build()),
     ERROR(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
 
     private static final Map<HttpStatus, DeletionResult> DELETION_RESULTS_BY_HTTP_STATUS;
@@ -17,6 +18,7 @@ public enum DeletionResult {
     {
         DELETION_RESULTS_BY_HTTP_STATUS = new HashMap<>();
         DELETION_RESULTS_BY_HTTP_STATUS.put(HttpStatus.OK, DeletionResult.SUCCESS);
+        DELETION_RESULTS_BY_HTTP_STATUS.put(HttpStatus.NOT_FOUND, DeletionResult.NOT_FOUND);
         DELETION_RESULTS_BY_HTTP_STATUS.put(HttpStatus.INTERNAL_SERVER_ERROR, DeletionResult.ERROR);
     }
 

@@ -7,8 +7,8 @@ import de.qaware.smartlabcommons.data.trigger.ITrigger;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
@@ -23,7 +23,7 @@ public interface IMeeting {
     String getWorkgroupId();
     String getRoomId();
     List<IAgendaItem> getAgenda();
-    Collection<IAssistanceDao> getAssistances();
+    Set<IAssistanceDao> getAssistances();
     void setStart(Instant start);
     Instant getStart();
     void setEnd(Instant end);

@@ -55,9 +55,13 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
 
     @Override
     public DeletionResult deleteDevice(String deviceId) {
-        val deleted =  devices.removeAll(devices.stream()
+        val devicesToDelete = devices.stream()
                 .filter(device -> device.getId().equals(deviceId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(devicesToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        val deleted =  devices.removeAll(devicesToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }

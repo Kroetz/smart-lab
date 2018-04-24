@@ -55,9 +55,13 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
 
     @Override
     public DeletionResult deleteMeeting(String meetingId) {
-        val deleted = meetings.removeAll(meetings.stream()
+        val meetingsToDelete = meetings.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(meetingsToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        val deleted = meetings.removeAll(meetingsToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }
@@ -95,6 +99,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
             val extendedMeetingCreated = createMeeting(extendedMeeting);
             if(extendedMeetingCreated == CreationResult.CONFLICT) {
+                createMeeting(meeting.get());
                 return ExtensionResult.CONFLICT;
             }
             else if(extendedMeetingCreated == CreationResult.SUCCESS) {
@@ -119,6 +124,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         if(deleteMeeting(meetingId) == DeletionResult.SUCCESS) {
             val shiftedMeetingCreated = createMeeting(shiftedMeeting);
             if(shiftedMeetingCreated == CreationResult.CONFLICT) {
+                createMeeting(meeting.get());
                 return ShiftResult.CONFLICT;
             }
             else if(shiftedMeetingCreated == CreationResult.SUCCESS) {

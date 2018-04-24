@@ -3,15 +3,12 @@ package de.qaware.smartlabcommons.data.meeting;
 
 import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
 import de.qaware.smartlabcommons.data.trigger.ITrigger;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
@@ -24,7 +21,7 @@ public class Meeting implements IMeeting {
     private String workgroupId;
     private String roomId;
     private List<IAgendaItem> agenda;
-    private Collection<IAssistanceDao> assistances;
+    private Set<IAssistanceDao> assistances;
     private Instant start;
     private Instant end;
 

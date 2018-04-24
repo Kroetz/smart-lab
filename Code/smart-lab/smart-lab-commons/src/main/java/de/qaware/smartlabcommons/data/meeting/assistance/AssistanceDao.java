@@ -1,10 +1,10 @@
 package de.qaware.smartlabcommons.data.meeting.assistance;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
@@ -12,11 +12,8 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class AssistanceDao implements IAssistanceDao {
-
-    // Setting this field manually is needed due to a Jackson bug with Java Optionals (see https://stackoverflow.com/questions/49071166/jackson-java-util-optional-serialization-does-not-include-type-id)
-    @JsonProperty
-    private String type = this.getClass().getName();
 
     private String assistance;
 

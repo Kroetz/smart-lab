@@ -64,9 +64,13 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     @Override
     public DeletionResult deleteRoom(String roomId) {
-        val deleted = rooms.removeAll(rooms.stream()
+        val roomsToDelete = rooms.stream()
                 .filter(room -> room.getId().equals(roomId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(roomsToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        val deleted = rooms.removeAll(roomsToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }

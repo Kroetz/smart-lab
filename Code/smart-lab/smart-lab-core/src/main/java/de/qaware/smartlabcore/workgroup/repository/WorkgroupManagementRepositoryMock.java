@@ -64,9 +64,13 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
 
     @Override
     public DeletionResult deleteWorkgroup(String workgroupId) {
-        val deleted = workgroups.removeAll(workgroups.stream()
+        val workgroupsToDelete = workgroups.stream()
                 .filter(workgroup -> workgroup.getId().equals(workgroupId))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(workgroupsToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        val deleted = workgroups.removeAll(workgroupsToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }
