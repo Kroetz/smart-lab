@@ -7,8 +7,10 @@ import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.result.CreationResult;
 import de.qaware.smartlabcore.generic.result.DeletionResult;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -98,9 +100,14 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     @Override
     public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
-        return getCurrentMeeting(roomId)
-                .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
-                .orElse(ExtensionResult.NOT_FOUND);
+        try {
+            return getCurrentMeeting(roomId)
+                    .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                    .orElse(ExtensionResult.NOT_FOUND);
+        }
+        catch(FeignException e) {
+            return ExtensionResult.fromHttpStatus(HttpStatus.valueOf(e.status()));
+        }
     }
 
     private void sortRoomsById() {

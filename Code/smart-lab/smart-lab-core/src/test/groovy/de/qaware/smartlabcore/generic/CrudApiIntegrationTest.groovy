@@ -53,7 +53,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         when: "The list of entities is requested"
         def response = crudApiClient.findAll()
 
-        then: "The returned list equals the one that was used to populate the repository"
+        then: "The returned list is empty"
         response == entities
     }
 

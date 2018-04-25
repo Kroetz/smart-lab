@@ -17,7 +17,6 @@ public class Room implements IRoom {
     private String id;
     private String name;
     private Collection<String> deviceIds;
-
     private Optional<IDevice> minuteTakingDevice;
 
     public void setUpMeeting(IMeeting meeting, IWorkgroup workgroup) {
@@ -46,5 +45,10 @@ public class Room implements IRoom {
 
     public Optional<IDevice> getMinuteTakingDevice() {
         return minuteTakingDevice;
+    }
+
+    // This small piece of a builder is needed to tell Lombok about default values (see https://reinhard.codes/2016/07/13/using-lomboks-builder-annotation-with-default-values/)
+    public static class RoomBuilder {
+        private Optional<IDevice> minuteTakingDevice = Optional.empty();
     }
 }
