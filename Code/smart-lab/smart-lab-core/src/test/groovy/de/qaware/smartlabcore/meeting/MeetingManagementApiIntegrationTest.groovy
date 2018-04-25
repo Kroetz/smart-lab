@@ -2,6 +2,7 @@ package de.qaware.smartlabcore.meeting
 
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient
 import de.qaware.smartlabcommons.data.meeting.IMeeting
+import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
 import de.qaware.smartlabcore.data.sample.factory.FireFightersDataFactory
 import de.qaware.smartlabcore.data.sample.factory.ForestRangersDataFactory
@@ -31,6 +32,9 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
 
     @Autowired
     private FireFightersDataFactory fireFightersDataFactory
+
+    @Autowired
+    private AstronautsDataFactory astronautsDataFactory
 
     @Override
     def setupDataForFindAll_withExisting() {
