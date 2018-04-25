@@ -66,7 +66,7 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
         String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
         List<> results = restTemplate.getForObject(url, User.class);*/
 
-        val meetingsAboutToEnd = meetingManagementApiClient.getMeetings().stream()
+        val meetingsAboutToEnd = meetingManagementApiClient.findAll().stream()
                 .filter(this::isAboutToEnd)
                 .collect(Collectors.toList());
 

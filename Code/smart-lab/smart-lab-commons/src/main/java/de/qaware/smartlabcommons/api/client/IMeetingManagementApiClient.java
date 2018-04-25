@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.MeetingManagementApiConstants;
+import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -14,16 +15,23 @@ import java.util.List;
         value = MeetingManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = MeetingManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IMeetingManagementApiClient {
+public interface IMeetingManagementApiClient extends ICrudApiClient<IMeeting> {
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_GET_MEETINGS)
-    List<IMeeting> getMeetings();
+    List<IMeeting> findAll();
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    ResponseEntity<IMeeting> getMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
+    ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
 
+    @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> createMeeting(@RequestBody IMeeting meeting);
+    ResponseEntity<Void> create(@RequestBody IMeeting meeting);
+
+    @Override
+    @DeleteMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
+    ResponseEntity<Void> delete(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
     ResponseEntity<Void> shortenMeeting(
@@ -39,7 +47,4 @@ public interface IMeetingManagementApiClient {
     ResponseEntity<Void> shiftMeeting(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHIFT_IN_MINUTES) long shiftInMinutes);
-
-    @DeleteMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    ResponseEntity<Void> deleteMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
 }

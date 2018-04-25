@@ -2,24 +2,23 @@ package de.qaware.smartlabcore.meeting
 
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient
 import de.qaware.smartlabcommons.data.meeting.IMeeting
-import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
 import de.qaware.smartlabcore.data.sample.factory.FireFightersDataFactory
 import de.qaware.smartlabcore.data.sample.factory.ForestRangersDataFactory
 import de.qaware.smartlabcore.data.sample.provider.EmptySampleDataProvider
+import de.qaware.smartlabcore.generic.CrudApiIntegrationTest
 import de.qaware.smartlabcore.meeting.service.MeetingManagementService
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
-import spock.lang.Specification
 
 import java.time.Duration
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
-class MeetingManagementApiIntegrationTest extends Specification {
+class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeeting> {
 
     @Autowired
     private IMeetingManagementApiClient meetingManagementApiClient
@@ -33,161 +32,49 @@ class MeetingManagementApiIntegrationTest extends Specification {
     @Autowired
     private FireFightersDataFactory fireFightersDataFactory
 
-    @Autowired
-    private AstronautsDataFactory astronautsDataFactory
-
-    def "Get a list of all existing meetings when there are meetings"() {
-
-        given: "There are 3 meetings available in the repository"
-        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingId2 = forestRangersDataFactory.MEETING_ID_BARK_BEETLE
-        def meetingId3 = fireFightersDataFactory.MEETING_ID_TRUCK
-        def meetings = new ArrayList<IMeeting>()
-        meetings.add(coastGuardDataFactory.createMeetingMap().get(meetingId1))
-        meetings.add(forestRangersDataFactory.createMeetingMap().get(meetingId2))
-        meetings.add(fireFightersDataFactory.createMeetingMap().get(meetingId3))
-        for(def meeting : meetings) {
-            meetingManagementApiClient.createMeeting(meeting)
-        }
-
-        when: "The list of meetings is requested"
-        def meetingsResponse = meetingManagementApiClient.getMeetings()
-
-        then: "The returned list equals the one that was used to populate the repository"
-        meetingsResponse == meetings
-
-        cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId1)
-        meetingManagementApiClient.deleteMeeting(meetingId2)
-        meetingManagementApiClient.deleteMeeting(meetingId3)
+    @Override
+    def setupDataForFindAll_withExisting() {
+        crudApiClient = meetingManagementApiClient
+        entitiesForFindAll_withExisting = Arrays.asList(
+                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
+                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
+                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK))
     }
 
-    def "Get a list of all existing meetings when there are no meetings"() {
-
-        given: "There are no meetings available in the repository"
-        def meetings = new ArrayList<IMeeting>()
-
-        when: "The list of meetings is requested"
-        def meetingsResponse = meetingManagementApiClient.getMeetings()
-
-        then: "The returned list equals the one that was used to populate the repository"
-        meetingsResponse == meetings
+    @Override
+    def setupDataForFindOne_withExisting() {
+        crudApiClient = meetingManagementApiClient
+        entityForFindOne_withExisting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
-    def "Get an existing meeting"() {
-
-        given: "A meeting with the requested meeting ID does exist"
-        def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
-
-        when: "The meeting is requested"
-        def response = meetingManagementApiClient.getMeeting(meetingId)
-
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The received meeting equals the one that was initially put into the repository"
-        response.getBody() == meeting
-
-        cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+    @Override
+    def setupDataForFindOne_withoutExisting() {
+        crudApiClient = meetingManagementApiClient
+        entityIdForFindOne_withoutExisting = coastGuardDataFactory.MEETING_ID_WHALES
     }
 
-    def "Get a non existing meeting"() {
-
-        given: "Requested meeting ID does not exist"
-        def meetingId = AstronautsDataFactory.MEETING_ID_MARS
-
-        when: "The meeting is requested"
-        meetingManagementApiClient.getMeeting(meetingId)
-
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+    @Override
+    def setupDataForCreate_withoutConflict() {
+        crudApiClient = meetingManagementApiClient
+        entityForCreate_withoutConflict = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
-    def "Create a meeting with an ID that does not yet exist"() {
-
-        given: "The ID of the meeting to create is not yet taken"
-        def meetingId = AstronautsDataFactory.MEETING_ID_MARS
-        def meetingToCreate = astronautsDataFactory.createMeetingMap().get(meetingId)
-
-        when: "The meeting is created"
-        def creationResponse = meetingManagementApiClient.createMeeting(meetingToCreate)
-
-        then: "The returned HTTP status code is 200 (OK)"
-        creationResponse.statusCode == HttpStatus.OK
-
-        when: "The created meeting is requested"
-        def getResponse = meetingManagementApiClient.getMeeting(meetingId)
-
-        then: "The meeting from the response equals the one that was initially passed during the creation"
-        getResponse.statusCodeValue == HttpStatus.OK.value()
-        meetingToCreate == getResponse.getBody()
-
-        cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+    @Override
+    def setupDataForCreate_withConflict() {
+        crudApiClient = meetingManagementApiClient
+        entityForCreate_withConflict = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
-    def "Create a meeting with an ID that does already exist"() {
-
-        given: "The ID of the meeting to create is already taken"
-        def meetingId = CoastGuardDataFactory.MEETING_ID_WHALES
-        def meetingToCreate = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meetingToCreate)
-
-        when: "The meeting is created"
-        meetingManagementApiClient.createMeeting(meetingToCreate)
-
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 409 (Conflict)"
-        e.status() == HttpStatus.CONFLICT.value()
-
-        cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+    @Override
+    def setupDataForDelete_withExisting() {
+        crudApiClient = meetingManagementApiClient
+        entityForDelete_withExisting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
-    def "Delete a meeting with an ID that does exist"() {
-
-        given: "The ID of the meeting to delete is taken"
-        def meetingId = CoastGuardDataFactory.MEETING_ID_WHALES
-        def meetingToDelete = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meetingToDelete)
-
-        when: "The meeting is deleted"
-        def deletionResponse = meetingManagementApiClient.deleteMeeting(meetingId)
-
-        then: "The returned HTTP status code is 200 (OK)"
-        deletionResponse.statusCode == HttpStatus.OK
-
-        when: "The deleted meeting is requested"
-        meetingManagementApiClient.getMeeting(meetingId)
-
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
-    }
-
-    def "Delete a meeting with an ID that does not exist"() {
-
-        given: "The ID of the meeting to delete is not taken"
-        def meetingId = AstronautsDataFactory.MEETING_ID_MARS
-
-        when: "The meeting is deleted"
-        meetingManagementApiClient.deleteMeeting(meetingId)
-
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+    @Override
+    def setupDataForDelete_withoutExisting() {
+        crudApiClient = meetingManagementApiClient
+        entityIdForDelete_withoutExisting = coastGuardDataFactory.MEETING_ID_WHALES
     }
 
     def "Shorten an existing meeting by a valid duration"() {
@@ -195,7 +82,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         given: "A meeting with the requested meeting ID does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
+        meetingManagementApiClient.create(meeting)
         def shorteningInMinutes = (meeting.getDuration() - Duration.ofMinutes(1)).toMinutes()
 
         when: "The meeting is shortened"
@@ -205,11 +92,11 @@ class MeetingManagementApiIntegrationTest extends Specification {
         response.statusCodeValue == HttpStatus.OK.value()
 
         and: "The meeting is now shorter than it was originally"
-        def shortenedMeeting = meetingManagementApiClient.getMeeting(meetingId).getBody()
+        def shortenedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
         shortenedMeeting.getEnd() == meeting.getEnd() - Duration.ofMinutes(shorteningInMinutes)
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+        meetingManagementApiClient.delete(meetingId)
     }
 
     def "Shorten an existing meeting so that it would be shorter than the minimal duration"() {
@@ -217,7 +104,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         given: "The meeting to shorten does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
+        meetingManagementApiClient.create(meeting)
         def shorteningInMinutes = meeting.getDuration().toMinutes()
 
         when: "The meeting is shortened beyond the minimum"
@@ -230,7 +117,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+        meetingManagementApiClient.delete(meetingId)
     }
 
     def "Shorten a meeting with an ID that does not exist"() {
@@ -255,7 +142,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         given: "The meeting to shorten does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
+        meetingManagementApiClient.create(meeting)
         def extensionInMinutes = 1
 
         when: "The meeting is extended"
@@ -265,11 +152,11 @@ class MeetingManagementApiIntegrationTest extends Specification {
         response.statusCodeValue == HttpStatus.OK.value()
 
         and: "The meeting is now longer than it was originally"
-        def extendedMeeting = meetingManagementApiClient.getMeeting(meetingId).getBody()
+        def extendedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
         extendedMeeting.getEnd() == meeting.getEnd() + Duration.ofMinutes(extensionInMinutes)
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+        meetingManagementApiClient.delete(meetingId)
     }
 
     def "Extend an existing meeting so that it would be longer than the maximal duration"() {
@@ -277,7 +164,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         given: "The meeting to extend does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
+        meetingManagementApiClient.create(meeting)
         def extensionInMinutes = MeetingManagementService.MAXIMAL_MEETING_DURATION.toMinutes()
 
         when: "The meeting is extended beyond the maximum"
@@ -290,7 +177,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+        meetingManagementApiClient.delete(meetingId)
     }
 
     def "Extend an existing meeting so that it would conflict with another meeting"() {
@@ -300,8 +187,8 @@ class MeetingManagementApiIntegrationTest extends Specification {
         def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
         def meetingToExtend = coastGuardDataFactory.createMeetingMap().get(meetingToExtendId)
         def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementApiClient.createMeeting(meetingToExtend)
-        meetingManagementApiClient.createMeeting(followUpMeeting)
+        meetingManagementApiClient.create(meetingToExtend)
+        meetingManagementApiClient.create(followUpMeeting)
         def extensionInMinutes = Duration.between(meetingToExtend.getEnd(), followUpMeeting.getEnd()).toMinutes()
 
         when: "The meeting is extended"
@@ -314,8 +201,8 @@ class MeetingManagementApiIntegrationTest extends Specification {
         e.status() == HttpStatus.CONFLICT.value()
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingToExtendId)
-        meetingManagementApiClient.deleteMeeting(followUpMeetingId)
+        meetingManagementApiClient.delete(meetingToExtendId)
+        meetingManagementApiClient.delete(followUpMeetingId)
     }
 
     def "Extend a meeting with an ID that does not exist"() {
@@ -339,7 +226,7 @@ class MeetingManagementApiIntegrationTest extends Specification {
         given: "The meeting to shift does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.createMeeting(meeting)
+        meetingManagementApiClient.create(meeting)
         def shiftInMinutes = 1
 
         when: "The meeting is shifted"
@@ -349,12 +236,12 @@ class MeetingManagementApiIntegrationTest extends Specification {
         response.statusCodeValue == HttpStatus.OK.value()
 
         and: "The meeting is now longer than it was originally"
-        def shiftedMeeting = meetingManagementApiClient.getMeeting(meetingId).getBody()
+        def shiftedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
         shiftedMeeting.getStart() == meeting.getStart() + Duration.ofMinutes(shiftInMinutes)
         shiftedMeeting.getEnd() == meeting.getEnd() + Duration.ofMinutes(shiftInMinutes)
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingId)
+        meetingManagementApiClient.delete(meetingId)
     }
 
     def "Shift an existing meeting so that it would conflict with another meeting"() {
@@ -364,8 +251,8 @@ class MeetingManagementApiIntegrationTest extends Specification {
         def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
         def meetingToShift = coastGuardDataFactory.createMeetingMap().get(meetingToShiftId)
         def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementApiClient.createMeeting(meetingToShift)
-        meetingManagementApiClient.createMeeting(followUpMeeting)
+        meetingManagementApiClient.create(meetingToShift)
+        meetingManagementApiClient.create(followUpMeeting)
         def shiftInMinutes = Duration.between(meetingToShift.getEnd(), followUpMeeting.getEnd()).toMinutes()
 
         when: "The meeting is shifted"
@@ -378,8 +265,8 @@ class MeetingManagementApiIntegrationTest extends Specification {
         e.status() == HttpStatus.CONFLICT.value()
 
         cleanup:
-        meetingManagementApiClient.deleteMeeting(meetingToShiftId)
-        meetingManagementApiClient.deleteMeeting(followUpMeetingId)
+        meetingManagementApiClient.delete(meetingToShiftId)
+        meetingManagementApiClient.delete(followUpMeetingId)
     }
 
     def "Shift a meeting with an ID that does not exist"() {

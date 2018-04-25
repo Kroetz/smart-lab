@@ -79,7 +79,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     @Override
     public List<IMeeting> getMeetingsInRoom(String roomId) {
-        return meetingManagementApiClient.getMeetings().stream()
+        return meetingManagementApiClient.findAll().stream()
                 .filter(meeting -> meeting.getRoomId().equals(roomId))
                 .collect(Collectors.toList());
     }

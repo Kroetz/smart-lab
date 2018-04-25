@@ -66,7 +66,7 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
         List<> results = restTemplate.getForObject(url, User.class);*/
 
-        val justStartedMeetings = meetingManagementApiClient.getMeetings().stream()
+        val justStartedMeetings = meetingManagementApiClient.findAll().stream()
                 .filter(this::hasJustStarted)
                 .collect(Collectors.toList());
 

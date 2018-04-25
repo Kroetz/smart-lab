@@ -27,8 +27,8 @@ public class Meeting implements IMeeting {
 
     @Override
     public void triggerAssistances(ITrigger trigger) {
-        /*val room = roomService.getRoom(getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.getWorkgroup(getWorkgroupId()).orElseThrow(IllegalStateException::new);
+        /*val room = roomService.findOne(getRoomId()).orElseThrow(IllegalStateException::new);
+        val workgroup = workgroupService.findOne(getWorkgroupId()).orElseThrow(IllegalStateException::new);
 
         for (val assistance : getAssistances()) {
 

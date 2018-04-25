@@ -2,6 +2,7 @@ package de.qaware.smartlabcommons.data.device;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.data.IEntity;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
@@ -10,9 +11,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = AcmeDisplay.class),
         @JsonSubTypes.Type(value = AcmeMicrophone.class),
 })
-public interface IDevice {
+public interface IDevice extends IEntity {
 
-    String getId();
     String getName();
     DeviceRole getRole();
 }

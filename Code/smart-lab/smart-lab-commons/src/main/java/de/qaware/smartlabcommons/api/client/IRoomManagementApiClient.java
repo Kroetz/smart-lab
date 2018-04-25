@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
+import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,23 +17,27 @@ import java.util.List;
         value = RoomManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = RoomManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IRoomManagementApiClient {
+public interface IRoomManagementApiClient extends ICrudApiClient<IRoom> {
 
+    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOMS)
     @ResponseBody
-    List<IRoom> getRooms();
+    List<IRoom> findAll();
 
+    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_ROOM)
     @ResponseBody
-    ResponseEntity<IRoom> getRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
+    ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
 
+    @Override
     @PostMapping(value = RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_CREATE_ROOM, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<Void> createRoom(@RequestBody IRoom room);
+    ResponseEntity<Void> create(@RequestBody IRoom room);
 
+    @Override
     @DeleteMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_DELETE_ROOM)
     @ResponseBody
-    ResponseEntity<Void> deleteRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
+    ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
     List<IMeeting> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);

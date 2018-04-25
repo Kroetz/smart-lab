@@ -2,6 +2,7 @@ package de.qaware.smartlabcommons.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.data.IEntity;
 import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
 import de.qaware.smartlabcommons.data.trigger.ITrigger;
 
@@ -16,9 +17,8 @@ import java.util.Set;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Meeting.class)
 })
-public interface IMeeting {
+public interface IMeeting extends IEntity {
 
-    String getId();
     String getTitle();
     String getWorkgroupId();
     String getRoomId();

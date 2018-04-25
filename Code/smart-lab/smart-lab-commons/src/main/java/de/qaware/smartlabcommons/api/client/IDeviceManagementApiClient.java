@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.DeviceManagementApiConstants;
+import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
 import de.qaware.smartlabcommons.data.device.IDevice;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -14,19 +15,23 @@ import java.util.List;
         value = DeviceManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = DeviceManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IDeviceManagementApiClient {
+public interface IDeviceManagementApiClient extends ICrudApiClient<IDevice> {
 
+    @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICES)
-    List<IDevice> getDevices();
+    List<IDevice> findAll();
 
+    @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICE)
-    ResponseEntity<IDevice> getDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
+    ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
+    @Override
     @PostMapping(
             value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE_DEVICE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> createDevice(@RequestBody IDevice device);
+    ResponseEntity<Void> create(@RequestBody IDevice device);
 
+    @Override
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    ResponseEntity<Void> deleteDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
+    ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 }

@@ -79,7 +79,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
 
     @Override
     public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
-        return meetingManagementApiClient.getMeetings().stream()
+        return meetingManagementApiClient.findAll().stream()
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
                 .collect(Collectors.toList());
     }

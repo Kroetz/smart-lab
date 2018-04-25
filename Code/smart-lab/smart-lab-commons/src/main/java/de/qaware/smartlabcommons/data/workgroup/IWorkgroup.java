@@ -2,6 +2,7 @@ package de.qaware.smartlabcommons.data.workgroup;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.data.IEntity;
 
 import java.net.URL;
 import java.util.Collection;
@@ -12,9 +13,8 @@ import java.util.Collection;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Workgroup.class)
 })
-public interface IWorkgroup {
+public interface IWorkgroup extends IEntity {
 
-    String getId();
     String getName();
     Collection<String> getMemberIds();
     URL getKnowledgeBase();
