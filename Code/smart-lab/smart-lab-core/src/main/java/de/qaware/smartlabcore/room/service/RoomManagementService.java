@@ -51,7 +51,7 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public List<IMeeting> getMeetingsInRoom(String roomId) {
+    public Optional<List<IMeeting>> getMeetingsInRoom(String roomId) {
         return roomManagementRepository.getMeetingsInRoom(roomId);
     }
 

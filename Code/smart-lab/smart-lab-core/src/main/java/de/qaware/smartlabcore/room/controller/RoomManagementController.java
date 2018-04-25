@@ -51,8 +51,8 @@ public class RoomManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
-    List<IMeeting> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return roomManagementService.getMeetingsInRoom(roomId);
+    public ResponseEntity<List<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
+        return responseFromOptional(roomManagementService.getMeetingsInRoom(roomId));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)

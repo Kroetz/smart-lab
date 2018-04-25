@@ -20,7 +20,7 @@ public interface IRoomManagementService {
 
     DeletionResult deleteRoom(String roomId);
 
-    List<IMeeting> getMeetingsInRoom(String roomId);
+    Optional<List<IMeeting>> getMeetingsInRoom(String roomId);
 
     Optional<IMeeting> getCurrentMeeting(String roomId);
 

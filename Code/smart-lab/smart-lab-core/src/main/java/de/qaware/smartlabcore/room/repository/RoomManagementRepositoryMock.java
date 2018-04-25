@@ -78,17 +78,22 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public List<IMeeting> getMeetingsInRoom(String roomId) {
-        return meetingManagementApiClient.findAll().stream()
-                .filter(meeting -> meeting.getRoomId().equals(roomId))
-                .collect(Collectors.toList());
+    public Optional<List<IMeeting>> getMeetingsInRoom(String roomId) {
+        if(exists(roomId)) {
+            return Optional.of(meetingManagementApiClient.findAll().stream()
+                    .filter(meeting -> meeting.getRoomId().equals(roomId))
+                    .collect(Collectors.toList()));
+        }
+        return Optional.empty();
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(String roomId) {
-        return getMeetingsInRoom(roomId).stream()
-                .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
-                .findFirst();
+        return getMeetingsInRoom(roomId)
+                .map(meetings -> meetings.stream()
+                    .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
+                    .findFirst())
+                .orElse(Optional.empty());
     }
 
     @Override
