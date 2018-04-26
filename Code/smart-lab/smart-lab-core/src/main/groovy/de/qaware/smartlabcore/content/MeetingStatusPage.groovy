@@ -4,6 +4,8 @@ import geb.Page
 
 class MeetingStatusPage extends Page {
 
+    // TODO
+
     static url = "/meeting-status_page"
 
     static at = { title == "Meeting status" }
