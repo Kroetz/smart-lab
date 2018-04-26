@@ -23,22 +23,22 @@ public class DeviceManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_GET_DEVICES)
-    public Set<IDevice> getDevices() {
-        return deviceManagementService.getDevices();
+    public Set<IDevice> findAll() {
+        return deviceManagementService.findAll();
     }
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_GET_DEVICE)
-    public ResponseEntity<IDevice> getDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return responseFromOptional(deviceManagementService.getDevice(deviceId));
+    public ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
+        return responseFromOptional(deviceManagementService.findOne(deviceId));
     }
 
     @PostMapping(value = DeviceManagementApiConstants.MAPPING_CREATE_DEVICE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createDevice(@RequestBody IDevice device) {
-        return deviceManagementService.createDevice(device).toResponseEntity();
+    public ResponseEntity<Void> create(@RequestBody IDevice device) {
+        return deviceManagementService.create(device).toResponseEntity();
     }
 
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
-    public ResponseEntity<Void> deleteDevice(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return deviceManagementService.deleteDevice(deviceId).toResponseEntity();
+    public ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
+        return deviceManagementService.delete(deviceId).toResponseEntity();
     }
 }

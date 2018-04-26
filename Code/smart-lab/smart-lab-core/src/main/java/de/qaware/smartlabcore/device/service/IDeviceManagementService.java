@@ -1,18 +1,8 @@
 package de.qaware.smartlabcore.device.service;
 
 import de.qaware.smartlabcommons.data.device.IDevice;
-import de.qaware.smartlabcore.generic.result.CreationResult;
-import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcore.generic.service.IEntityManagementService;
 
-import java.util.Optional;
-import java.util.Set;
+public interface IDeviceManagementService extends IEntityManagementService<IDevice> {
 
-public interface IDeviceManagementService {
-
-    Set<IDevice> getDevices();
-    Optional<IDevice> getDevice(String deviceId);
-
-    CreationResult createDevice(IDevice device);
-
-    DeletionResult deleteDevice(String deviceId);
 }

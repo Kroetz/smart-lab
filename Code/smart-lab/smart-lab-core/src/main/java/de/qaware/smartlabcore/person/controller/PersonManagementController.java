@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -24,22 +23,22 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSONS)
-    public Set<IPerson> getPersons() {
-        return personManagementService.getPersons();
+    public Set<IPerson> findAll() {
+        return personManagementService.findAll();
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSON)
-    public ResponseEntity<IPerson> getPerson(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
-        return responseFromOptional(personManagementService.getPerson(personId));
+    public ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
+        return responseFromOptional(personManagementService.findOne(personId));
     }
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createPerson(@RequestBody IPerson person) {
-        return personManagementService.createPerson(person).toResponseEntity();
+    public ResponseEntity<Void> create(@RequestBody IPerson person) {
+        return personManagementService.create(person).toResponseEntity();
     }
 
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE_PERSON)
-    public ResponseEntity<Void> deletePerson(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
-        return personManagementService.deletePerson(personId).toResponseEntity();
+    public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
+        return personManagementService.delete(personId).toResponseEntity();
     }
 }

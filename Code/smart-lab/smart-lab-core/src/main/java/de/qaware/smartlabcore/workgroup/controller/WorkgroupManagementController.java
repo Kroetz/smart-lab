@@ -25,23 +25,23 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
-    public Set<IWorkgroup> getWorkgroups() {
-        return workgroupManagementService.getWorkgroups();
+    public Set<IWorkgroup> findAll() {
+        return workgroupManagementService.findAll();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
-    public ResponseEntity<IWorkgroup> getWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementService.getWorkgroup(workgroupId));
+    public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+        return responseFromOptional(workgroupManagementService.findOne(workgroupId));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createWorkgroup(@RequestBody IWorkgroup workgroup) {
-        return workgroupManagementService.createWorkgroup(workgroup).toResponseEntity();
+    public ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup) {
+        return workgroupManagementService.create(workgroup).toResponseEntity();
     }
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
-    public ResponseEntity<Void> deleteWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return workgroupManagementService.deleteWorkgroup(workgroupId).toResponseEntity();
+    public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+        return workgroupManagementService.delete(workgroupId).toResponseEntity();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)

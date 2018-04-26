@@ -24,23 +24,23 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETINGS)
-    public Set<IMeeting> getMeetings() {
-        return meetingManagementService.getMeetings();
+    public Set<IMeeting> findAll() {
+        return meetingManagementService.findAll();
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETING)
-    public ResponseEntity<IMeeting> getMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
-        return responseFromOptional(meetingManagementService.getMeeting(meetingId));
+    public ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
+        return responseFromOptional(meetingManagementService.findOne(meetingId));
     }
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createMeeting(@RequestBody IMeeting meeting) {
-        return meetingManagementService.createMeeting(meeting).toResponseEntity();
+    public ResponseEntity<Void> create(@RequestBody IMeeting meeting) {
+        return meetingManagementService.create(meeting).toResponseEntity();
     }
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
-    public ResponseEntity<Void> deleteMeeting(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
-        return meetingManagementService.deleteMeeting(meetingId).toResponseEntity();
+    public ResponseEntity<Void> delete(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
+        return meetingManagementService.delete(meetingId).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)

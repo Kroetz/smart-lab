@@ -1,11 +1,9 @@
 package de.qaware.smartlabcore.room.service;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcore.generic.result.CreationResult;
-import de.qaware.smartlabcore.generic.result.DeletionResult;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import de.qaware.smartlabcore.generic.service.AbstractEntityManagementService;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -19,35 +17,14 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class RoomManagementService implements IRoomManagementService {
+public class RoomManagementService extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
 
     private final IRoomManagementRepository roomManagementRepository;
-    private final IMeetingManagementApiClient meetingManagementApiClient;
 
     public RoomManagementService(
-            IRoomManagementRepository roomManagementRepository,
-            IMeetingManagementApiClient meetingManagementApiClient) {
+            IRoomManagementRepository roomManagementRepository) {
+        super(roomManagementRepository);
         this.roomManagementRepository = roomManagementRepository;
-        this.meetingManagementApiClient = meetingManagementApiClient;
-    }
-
-    public Set<IRoom> getRooms() {
-        return roomManagementRepository.findAll();
-    }
-
-    @Override
-    public Optional<IRoom> getRoom(String roomId) {
-        return roomManagementRepository.findOne(roomId);
-    }
-
-    @Override
-    public CreationResult createRoom(IRoom room) {
-        return roomManagementRepository.create(room);
-    }
-
-    @Override
-    public DeletionResult deleteRoom(String roomId) {
-        return roomManagementRepository.delete(roomId);
     }
 
     @Override

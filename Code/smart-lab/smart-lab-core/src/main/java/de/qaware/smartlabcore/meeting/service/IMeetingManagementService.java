@@ -1,20 +1,14 @@
 package de.qaware.smartlabcore.meeting.service;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcore.generic.result.*;
+import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import de.qaware.smartlabcore.generic.result.ShiftResult;
+import de.qaware.smartlabcore.generic.result.ShorteningResult;
+import de.qaware.smartlabcore.generic.service.IEntityManagementService;
 
 import java.time.Duration;
-import java.util.Optional;
-import java.util.Set;
 
-public interface IMeetingManagementService {
-
-    Set<IMeeting> getMeetings();
-    Optional<IMeeting> getMeeting(String meetingId);
-
-    CreationResult createMeeting(IMeeting meeting);
-
-    DeletionResult deleteMeeting(String meetingId);
+public interface IMeetingManagementService extends IEntityManagementService<IMeeting> {
 
     ShorteningResult shortenMeeting(String meetingId, Duration shortening);
     ExtensionResult extendMeeting(String meetingId, Duration extension);
