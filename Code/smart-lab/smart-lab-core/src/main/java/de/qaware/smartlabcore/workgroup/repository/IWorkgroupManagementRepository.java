@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import lombok.NonNull;
 
 import java.time.Duration;
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public interface IWorkgroupManagementRepository extends IEntityManagementRepository<IWorkgroup> {
 
-    Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
-    Optional<IMeeting> getCurrentMeeting(String workgroupId);
-    ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension);
+    Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup);
+    Optional<IMeeting> getCurrentMeeting(@NonNull IWorkgroup workgroup);
+    ExtensionResult extendCurrentMeeting(@NonNull IWorkgroup workgroup, Duration extension);
 }

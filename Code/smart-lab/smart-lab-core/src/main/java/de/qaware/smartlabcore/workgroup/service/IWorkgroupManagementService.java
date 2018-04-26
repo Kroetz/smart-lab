@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface IWorkgroupManagementService extends IEntityManagementService<IWorkgroup> {
 
-    Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
+    Optional<Set<IMeeting>> getMeetingsOfWorkgroup(String workgroupId);
     Optional<IMeeting> getCurrentMeeting(String workgroupId);
     ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension);
 }

@@ -5,12 +5,13 @@ import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.result.ShiftResult;
 import de.qaware.smartlabcore.generic.result.ShorteningResult;
+import lombok.NonNull;
 
 import java.time.Duration;
 
 public interface IMeetingManagementRepository extends IEntityManagementRepository<IMeeting> {
 
-    ShorteningResult shortenMeeting(String meetingId, Duration shortening);
-    ExtensionResult extendMeeting(String meetingId, Duration extension);
-    ShiftResult shiftMeeting(String meetingId, Duration shift);
+    ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening);
+    ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension);
+    ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift);
 }

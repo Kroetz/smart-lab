@@ -29,17 +29,23 @@ public class RoomManagementService extends AbstractEntityManagementService<IRoom
 
     @Override
     public Optional<Set<IMeeting>> getMeetingsInRoom(String roomId) {
-        return roomManagementRepository.getMeetingsInRoom(roomId);
+        return roomManagementRepository.findOne(roomId)
+                .map(room -> Optional.of(roomManagementRepository.getMeetingsInRoom(room)))
+                .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(String roomId) {
-        return roomManagementRepository.getCurrentMeeting(roomId);
+        return roomManagementRepository.findOne(roomId)
+                .map(roomManagementRepository::getCurrentMeeting)
+                .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
-        return roomManagementRepository.extendCurrentMeeting(roomId, extension);
+        return roomManagementRepository.findOne(roomId)
+                .map(room -> roomManagementRepository.extendCurrentMeeting(room, extension))
+                .orElse(ExtensionResult.NOT_FOUND);
     }
 
     @Override

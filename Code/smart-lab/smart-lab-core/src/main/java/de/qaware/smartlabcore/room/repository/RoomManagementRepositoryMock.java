@@ -7,6 +7,7 @@ import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import feign.FeignException;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -32,28 +33,23 @@ public class RoomManagementRepositoryMock extends AbstractEntityManagementReposi
     }
 
     @Override
-    public Optional<Set<IMeeting>> getMeetingsInRoom(String roomId) {
-        if(exists(roomId)) {
-            return Optional.of(meetingManagementApiClient.findAll().stream()
-                    .filter(meeting -> meeting.getRoomId().equals(roomId))
-                    .collect(Collectors.toSet()));
-        }
-        return Optional.empty();
+    public Set<IMeeting> getMeetingsInRoom(@NonNull IRoom room) {
+        return meetingManagementApiClient.findAll().stream()
+                .filter(meeting -> meeting.getRoomId().equals(room.getId()))
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(String roomId) {
-        return getMeetingsInRoom(roomId)
-                .map(meetings -> meetings.stream()
-                    .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
-                    .findFirst())
-                .orElse(Optional.empty());
+    public Optional<IMeeting> getCurrentMeeting(@NonNull IRoom room) {
+        return getMeetingsInRoom(room).stream()
+                .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
+                .findFirst();
     }
 
     @Override
-    public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(@NonNull IRoom room, Duration extension) {
         try {
-            return getCurrentMeeting(roomId)
+            return getCurrentMeeting(room)
                     .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
                     .orElse(ExtensionResult.NOT_FOUND);
         }

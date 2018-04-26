@@ -6,6 +6,7 @@ import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -28,22 +29,22 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
         return meetingManagementApiClient.findAll().stream()
-                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroup))
                 .collect(Collectors.toSet());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(String workgroupId) {
-        return getMeetingsOfWorkgroup(workgroupId).stream()
+    public Optional<IMeeting> getCurrentMeeting(@NonNull IWorkgroup workgroup) {
+        return getMeetingsOfWorkgroup(workgroup).stream()
                 .filter(meeting -> meeting.getStart().isBefore(Instant.now()) && meeting.getEnd().isAfter(Instant.now()))
                 .findFirst();
     }
 
     @Override
-    public ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension) {
-        return getCurrentMeeting(workgroupId)
+    public ExtensionResult extendCurrentMeeting(@NonNull IWorkgroup workgroup, Duration extension) {
+        return getCurrentMeeting(workgroup)
                 .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
                 .orElse(ExtensionResult.NOT_FOUND);
     }

@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabcore.generic.result.*;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Repository;
@@ -33,18 +34,11 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
     }
 
     @Override
-    public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
-        val meeting = findOne(meetingId);
-        if(!meeting.isPresent()) {
-            return ShorteningResult.NOT_FOUND;
-        }
-        if(delete(meetingId) == DeletionResult.SUCCESS) {
-            val shortenedMeeting = meeting.get().copy();
-            shortenedMeeting.setEnd(meeting.get().getEnd().minus(shortening));
-            if(shortenedMeeting.getDuration().isNegative()) {
-                return ShorteningResult.MINIMUM_REACHED;
-            }
-            val shortenedMeetingCreated =create(shortenedMeeting);
+    public ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
+            val shortenedMeeting = meeting.copy();
+            shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
+            val shortenedMeetingCreated = create(shortenedMeeting);
             if(shortenedMeetingCreated == CreationResult.SUCCESS) {
                 return ShorteningResult.SUCCESS;
             }
@@ -53,49 +47,41 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
     }
 
     @Override
-    public ExtensionResult extendMeeting(String meetingId, Duration extension) {
-        val meeting = findOne(meetingId);
-        if(!meeting.isPresent()) {
-            return ExtensionResult.NOT_FOUND;
-        }
-        val extendedMeeting = meeting.get().copy();
-        extendedMeeting.setEnd(meeting.get().getEnd().plus(extension));
-        if(delete(meetingId) == DeletionResult.SUCCESS) {
+    public ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
+        val extendedMeeting = meeting.copy();
+        extendedMeeting.setEnd(meeting.getEnd().plus(extension));
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             val extendedMeetingCreated = create(extendedMeeting);
             if(extendedMeetingCreated == CreationResult.CONFLICT) {
-                create(meeting.get());
+                create(meeting);
                 return ExtensionResult.CONFLICT;
             }
             else if(extendedMeetingCreated == CreationResult.SUCCESS) {
                 return ExtensionResult.SUCCESS;
             }
             else {
-                create(meeting.get());
+                create(meeting);
             }
         }
         return ExtensionResult.ERROR;
     }
 
     @Override
-    public ShiftResult shiftMeeting(String meetingId, Duration shift) {
-        val meeting = findOne(meetingId);
-        if(!meeting.isPresent()) {
-            return ShiftResult.NOT_FOUND;
-        }
-        val shiftedMeeting = meeting.get().copy();
-        shiftedMeeting.setStart(meeting.get().getStart().plus(shift));
-        shiftedMeeting.setEnd(meeting.get().getEnd().plus(shift));
-        if(delete(meetingId) == DeletionResult.SUCCESS) {
+    public ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift) {
+        val shiftedMeeting = meeting.copy();
+        shiftedMeeting.setStart(meeting.getStart().plus(shift));
+        shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             val shiftedMeetingCreated = create(shiftedMeeting);
             if(shiftedMeetingCreated == CreationResult.CONFLICT) {
-                create(meeting.get());
+                create(meeting);
                 return ShiftResult.CONFLICT;
             }
             else if(shiftedMeetingCreated == CreationResult.SUCCESS) {
                 return ShiftResult.SUCCESS;
             }
             else {
-                create(meeting.get());
+                create(meeting);
             }
         }
         return ShiftResult.ERROR;

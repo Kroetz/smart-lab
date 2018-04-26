@@ -36,7 +36,7 @@ public class MeetingManagementService extends AbstractEntityManagementService<IM
             if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
                 return ShorteningResult.MINIMUM_REACHED;
             }
-            return meetingManagementRepository.shortenMeeting(meetingId, shortening);
+            return meetingManagementRepository.shortenMeeting(meeting, shortening);
         }).orElse(ShorteningResult.NOT_FOUND);
     }
 
@@ -46,14 +46,14 @@ public class MeetingManagementService extends AbstractEntityManagementService<IM
             if(meeting.getDuration().plus(extension).compareTo(MAXIMAL_MEETING_DURATION) > 0) {
                 return ExtensionResult.MAXIMUM_REACHED_REACHED;
             }
-            return meetingManagementRepository.extendMeeting(meetingId, extension);
+            return meetingManagementRepository.extendMeeting(meeting, extension);
         }).orElse(ExtensionResult.NOT_FOUND);
     }
 
     @Override
     public ShiftResult shiftMeeting(String meetingId, Duration shift) {
         return findOne(meetingId)
-                .map(meeting -> meetingManagementRepository.shiftMeeting(meetingId, shift))
+                .map(meeting -> meetingManagementRepository.shiftMeeting(meeting, shift))
                 .orElse(ShiftResult.NOT_FOUND);
     }
 }

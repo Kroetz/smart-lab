@@ -25,17 +25,24 @@ public class WorkgroupManagementService extends AbstractEntityManagementService<
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
-        return workgroupManagementRepository.getMeetingsOfWorkgroup(workgroupId);
+    public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(String workgroupId) {
+
+        return workgroupManagementRepository.findOne(workgroupId)
+                .map(workgroup -> Optional.of(workgroupManagementRepository.getMeetingsOfWorkgroup(workgroup)))
+                .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(String workgroupId) {
-        return workgroupManagementRepository.getCurrentMeeting(workgroupId);
+        return workgroupManagementRepository.findOne(workgroupId)
+                .map(workgroupManagementRepository::getCurrentMeeting)
+                .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension) {
-        return workgroupManagementRepository.extendCurrentMeeting(workgroupId, extension);
+        return workgroupManagementRepository.findOne(workgroupId)
+                .map(workgroup -> workgroupManagementRepository.extendCurrentMeeting(workgroup, extension))
+                .orElse(ExtensionResult.NOT_FOUND);
     }
 }
