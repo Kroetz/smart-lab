@@ -34,10 +34,10 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
     @Override
     def setupDataForFindAll_withExisting() {
         crudApiClient = deviceManagementApiClient
-        entitiesForFindAll_withExisting = Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY),
                 forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE),
-                fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_DISPLAY))
+                fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_DISPLAY)))
     }
 
     @Override

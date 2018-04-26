@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(DeviceManagementApiConstants.MAPPING_BASE)
@@ -23,7 +23,7 @@ public class DeviceManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(DeviceManagementApiConstants.MAPPING_GET_DEVICES)
-    public List<IDevice> getDevices() {
+    public Set<IDevice> getDevices() {
         return deviceManagementService.getDevices();
     }
 

@@ -4,12 +4,12 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.generic.result.*;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface IMeetingManagementService {
 
-    List<IMeeting> getMeetings();
+    Set<IMeeting> getMeetings();
     Optional<IMeeting> getMeeting(String meetingId);
 
     CreationResult createMeeting(IMeeting meeting);

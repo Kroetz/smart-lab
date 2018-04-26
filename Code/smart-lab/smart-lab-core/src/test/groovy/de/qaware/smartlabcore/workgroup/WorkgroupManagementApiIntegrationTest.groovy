@@ -34,10 +34,10 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWork
     @Override
     def setupDataForFindAll_withExisting() {
         crudApiClient = workgroupManagementApiClient
-        entitiesForFindAll_withExisting = Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createWorkgroupMap().get(coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD),
                 forestRangersDataFactory.createWorkgroupMap().get(forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS),
-                fireFightersDataFactory.createWorkgroupMap().get(fireFightersDataFactory.WORKGROUP_ID_FIRE_FIGHTERS))
+                fireFightersDataFactory.createWorkgroupMap().get(fireFightersDataFactory.WORKGROUP_ID_FIRE_FIGHTERS)))
     }
 
     @Override

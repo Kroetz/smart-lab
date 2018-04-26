@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @FeignClient(
         value = MeetingManagementApiConstants.FEIGN_CLIENT_VALUE,
@@ -19,7 +19,7 @@ public interface IMeetingManagementApiClient extends ICrudApiClient<IMeeting> {
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_GET_MEETINGS)
-    List<IMeeting> findAll();
+    Set<IMeeting> findAll();
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_GET_MEETING)

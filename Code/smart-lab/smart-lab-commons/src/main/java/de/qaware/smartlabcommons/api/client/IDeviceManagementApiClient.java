@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @FeignClient(
         value = DeviceManagementApiConstants.FEIGN_CLIENT_VALUE,
@@ -19,7 +19,7 @@ public interface IDeviceManagementApiClient extends ICrudApiClient<IDevice> {
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICES)
-    List<IDevice> findAll();
+    Set<IDevice> findAll();
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICE)

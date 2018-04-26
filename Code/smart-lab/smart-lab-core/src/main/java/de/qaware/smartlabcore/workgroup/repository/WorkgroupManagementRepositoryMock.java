@@ -13,10 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -24,14 +21,13 @@ import java.util.stream.Collectors;
 public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRepository {
 
     private final IMeetingManagementApiClient meetingManagementApiClient;
-    private List<IWorkgroup> workgroups;
+    private Set<IWorkgroup> workgroups;
 
     public WorkgroupManagementRepositoryMock(
             IMeetingManagementApiClient meetingManagementApiClient,
             ISampleDataProvider sampleDataProvider) {
         this.meetingManagementApiClient = meetingManagementApiClient;
-        this.workgroups = new ArrayList<>(sampleDataProvider.getWorkgroups());
-        sortWorkgroupsById();
+        this.workgroups = new HashSet<>(sampleDataProvider.getWorkgroups());
     }
 
     private boolean exists(String workgroupId) {
@@ -40,7 +36,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public List<IWorkgroup> getWorkgroups() {
+    public Set<IWorkgroup> getWorkgroups() {
         return this.workgroups;
     }
 
@@ -66,7 +62,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     public DeletionResult deleteWorkgroup(String workgroupId) {
         val workgroupsToDelete = workgroups.stream()
                 .filter(workgroup -> workgroup.getId().equals(workgroupId))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         if(workgroupsToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }
@@ -78,10 +74,10 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
     }
 
     @Override
-    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return meetingManagementApiClient.findAll().stream()
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -98,7 +94,7 @@ public class WorkgroupManagementRepositoryMock implements IWorkgroupManagementRe
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 
-    private void sortWorkgroupsById() {
+    private void sortWorkgroupsById(List<IWorkgroup> workgroups) {
         workgroups.sort(Comparator.comparing(IWorkgroup::getId));
     }
 }

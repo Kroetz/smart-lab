@@ -34,10 +34,10 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
     @Override
     def setupDataForFindAll_withExisting() {
         crudApiClient = personManagementApiClient
-        entitiesForFindAll_withExisting = Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE),
                 forestRangersDataFactory.createWorkgroupMemberMap().get(forestRangersDataFactory.MEMBER_ID_ANNA),
-                fireFightersDataFactory.createWorkgroupMemberMap().get(fireFightersDataFactory.MEMBER_ID_ANTHONY))
+                fireFightersDataFactory.createWorkgroupMemberMap().get(fireFightersDataFactory.MEMBER_ID_ANTHONY)))
     }
 
     @Override

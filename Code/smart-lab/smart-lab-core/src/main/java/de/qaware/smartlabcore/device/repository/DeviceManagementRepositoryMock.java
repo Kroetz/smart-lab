@@ -8,21 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 public class DeviceManagementRepositoryMock implements IDeviceManagementRepository {
 
-    private List<IDevice> devices;
+    private Set<IDevice> devices;
 
     public DeviceManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
-        this.devices = new ArrayList<>(sampleDataProvider.getDevices());
-        sortDevicesById();
+        this.devices = new HashSet<>(sampleDataProvider.getDevices());
     }
 
     private boolean exists(String deviceId) {
@@ -31,7 +27,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
     }
 
     @Override
-    public List<IDevice> getDevices() {
+    public Set<IDevice> getDevices() {
         return this.devices;
     }
 
@@ -68,7 +64,7 @@ public class DeviceManagementRepositoryMock implements IDeviceManagementReposito
         return DeletionResult.ERROR;
     }
 
-    private void sortDevicesById() {
+    private void sortDevicesById(List<IDevice> devices) {
         devices.sort(Comparator.comparing(IDevice::getId));
     }
 }

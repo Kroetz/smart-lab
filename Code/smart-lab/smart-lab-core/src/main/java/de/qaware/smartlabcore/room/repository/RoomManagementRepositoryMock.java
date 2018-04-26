@@ -15,10 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -26,14 +23,13 @@ import java.util.stream.Collectors;
 public class RoomManagementRepositoryMock implements IRoomManagementRepository {
 
     private final IMeetingManagementApiClient meetingManagementApiClient;
-    private List<IRoom> rooms;
+    private Set<IRoom> rooms;
 
     public RoomManagementRepositoryMock(
             IMeetingManagementApiClient meetingManagementApiClient,
             ISampleDataProvider sampleDataProvider) {
         this.meetingManagementApiClient = meetingManagementApiClient;
-        this.rooms = new ArrayList<>(sampleDataProvider.getRooms());
-        sortRoomsById();
+        this.rooms = new HashSet<>(sampleDataProvider.getRooms());
     }
 
     private boolean exists(String roomId) {
@@ -42,7 +38,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public List<IRoom> getRooms() {
+    public Set<IRoom> getRooms() {
         return this.rooms;
     }
 
@@ -80,11 +76,11 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
     }
 
     @Override
-    public Optional<List<IMeeting>> getMeetingsInRoom(String roomId) {
+    public Optional<Set<IMeeting>> getMeetingsInRoom(String roomId) {
         if(exists(roomId)) {
             return Optional.of(meetingManagementApiClient.findAll().stream()
                     .filter(meeting -> meeting.getRoomId().equals(roomId))
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toSet()));
         }
         return Optional.empty();
     }
@@ -110,7 +106,7 @@ public class RoomManagementRepositoryMock implements IRoomManagementRepository {
         }
     }
 
-    private void sortRoomsById() {
+    private void sortRoomsById(List<IRoom> rooms) {
         rooms.sort(Comparator.comparing(IRoom::getId));
     }
 }

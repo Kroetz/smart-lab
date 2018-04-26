@@ -2,6 +2,7 @@ package de.qaware.smartlabcore.room
 
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient
 import de.qaware.smartlabcommons.api.client.IRoomManagementApiClient
+import de.qaware.smartlabcommons.data.meeting.IMeeting
 import de.qaware.smartlabcommons.data.room.IRoom
 import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
@@ -43,10 +44,10 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
     @Override
     def setupDataForFindAll_withExisting() {
         crudApiClient = roomManagementApiClient
-        entitiesForFindAll_withExisting = Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createRoomMap().get(coastGuardDataFactory.ROOM_ID_BLUE),
                 forestRangersDataFactory.createRoomMap().get(forestRangersDataFactory.ROOM_ID_GREEN),
-                fireFightersDataFactory.createRoomMap().get(fireFightersDataFactory.ROOM_ID_RED))
+                fireFightersDataFactory.createRoomMap().get(fireFightersDataFactory.ROOM_ID_RED)))
     }
 
     @Override
@@ -85,7 +86,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         entityIdForDelete_withoutExisting = coastGuardDataFactory.ROOM_ID_BLUE
     }
 
-    def "Get a list of all meetings in a specific room when there are meetings"() {
+    def "Get a set of all meetings in a specific room when there are meetings"() {
 
         given: "A room with the requested room ID does exist"
         def roomId = coastGuardDataFactory.ROOM_ID_BLUE
@@ -93,25 +94,25 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         roomManagementApiClient.create(room)
 
         and: "There are meetings in the requested room and other rooms"
-        def meetings = Arrays.asList(
+        def meetings = new HashSet<IMeeting>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK))
-        def meetingsInRoom = Arrays.asList(
+                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
+        def meetingsInRoom = new HashSet<IMeeting>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS))
+                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS)))
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
         }
 
-        when: "The list of meetings in the room is requested"
+        when: "The set of meetings in the room is requested"
         def response = roomManagementApiClient.getMeetingsInRoom(roomId)
 
         then: "The returned HTTP status code is 200 (OK)"
         response.statusCodeValue == HttpStatus.OK.value()
 
-        and: "The returned list equals the appropriate part of that one that was used to populate the repository"
+        and: "The returned set equals the appropriate part of that one that was used to populate the repository"
         response.getBody() == meetingsInRoom
 
         cleanup:
@@ -121,7 +122,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         }
     }
 
-    def "Get a list of all meetings in a specific room when there are no meetings"() {
+    def "Get a set of all meetings in a specific room when there are no meetings"() {
 
         given: "A room with the requested room ID does exist"
         def roomId = coastGuardDataFactory.ROOM_ID_BLUE
@@ -129,21 +130,21 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         roomManagementApiClient.create(room)
 
         and: "There are only meetings in other rooms than the requested one"
-        def meetings = Arrays.asList(
+        def meetings = new HashSet<IMeeting>(Arrays.asList(
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK))
-        def meetingsInRoom = new ArrayList<IRoom>()
+                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
+        def meetingsInRoom = new HashSet<IRoom>()
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
         }
 
-        when: "The list of meetings in the room is requested"
+        when: "The set of meetings in the room is requested"
         def response = roomManagementApiClient.getMeetingsInRoom(roomId)
 
         then: "The returned HTTP status code is 200 (OK)"
         response.statusCodeValue == HttpStatus.OK.value()
 
-        and: "The returned list is empty"
+        and: "The returned set is empty"
         response.getBody() == meetingsInRoom
 
         cleanup:
@@ -153,22 +154,22 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         }
     }
 
-    def "Get a list of all meetings in a specific room when a room with that ID does not exist"() {
+    def "Get a set of all meetings in a specific room when a room with that ID does not exist"() {
 
         given: "A room with the requested room ID does not exist"
         def roomId = coastGuardDataFactory.ROOM_ID_BLUE
 
         and: "There are meetings in several rooms"
-        def meetings = Arrays.asList(
+        def meetings = new HashSet<IMeeting>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK))
+                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
         }
 
-        when: "The list of meetings in the room is requested"
+        when: "The set of meetings in the room is requested"
         roomManagementApiClient.getMeetingsInRoom(roomId)
 
         then: "A feign exception is thrown"
@@ -191,9 +192,9 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         roomManagementApiClient.create(room)
 
         and: "There is currently a meeting in the requested room and another room"
-        def meetings = Arrays.asList(
+        def meetings = new HashSet<IMeeting>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS))
+                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
@@ -247,9 +248,9 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         def roomId = forestRangersDataFactory.ROOM_ID_GREEN
 
         and: "There are currently meetings in several room"
-        def meetings = Arrays.asList(
+        def meetings = new HashSet<IMeeting>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS))
+                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
         }

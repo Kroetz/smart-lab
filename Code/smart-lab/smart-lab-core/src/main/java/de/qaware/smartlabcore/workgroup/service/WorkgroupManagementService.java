@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -29,7 +29,7 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public List<IWorkgroup> getWorkgroups() {
+    public Set<IWorkgroup> getWorkgroups() {
         return workgroupManagementRepository.getWorkgroups();
     }
 
@@ -49,7 +49,7 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
     }
 
     @Override
-    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return workgroupManagementRepository.getMeetingsOfWorkgroup(workgroupId);
     }
 

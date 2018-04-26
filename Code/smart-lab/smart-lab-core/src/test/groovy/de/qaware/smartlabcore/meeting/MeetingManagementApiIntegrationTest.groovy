@@ -39,10 +39,10 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
     @Override
     def setupDataForFindAll_withExisting() {
         crudApiClient = meetingManagementApiClient
-        entitiesForFindAll_withExisting = Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK))
+                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
     }
 
     @Override

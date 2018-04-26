@@ -8,21 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 public class PersonManagementRepositoryMock implements IPersonManagementRepository {
 
-    private List<IPerson> persons;
+    private Set<IPerson> persons;
 
     public PersonManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
-        this.persons = new ArrayList<>(sampleDataProvider.getWorkgroupMembers());
-        sortPersonsById();
+        this.persons = new HashSet<>(sampleDataProvider.getWorkgroupMembers());
     }
 
     private boolean exists(String personId) {
@@ -31,7 +27,7 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
     }
 
     @Override
-    public List<IPerson> getPersons() {
+    public Set<IPerson> getPersons() {
         return this.persons;
     }
 
@@ -68,7 +64,7 @@ public class PersonManagementRepositoryMock implements IPersonManagementReposito
         return DeletionResult.ERROR;
     }
 
-    private void sortPersonsById() {
+    private void sortPersonsById(List<IPerson> persons) {
         persons.sort(Comparator.comparing(IPerson::getId));
     }
 }

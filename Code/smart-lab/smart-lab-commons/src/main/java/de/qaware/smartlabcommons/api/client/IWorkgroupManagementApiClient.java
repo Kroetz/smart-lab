@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @FeignClient(
         value = WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE,
@@ -20,7 +20,7 @@ public interface IWorkgroupManagementApiClient extends ICrudApiClient<IWorkgroup
 
     @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
-    List<IWorkgroup> findAll();
+    Set<IWorkgroup> findAll();
 
     @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
@@ -35,7 +35,7 @@ public interface IWorkgroupManagementApiClient extends ICrudApiClient<IWorkgroup
     ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
-    List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
+    Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);

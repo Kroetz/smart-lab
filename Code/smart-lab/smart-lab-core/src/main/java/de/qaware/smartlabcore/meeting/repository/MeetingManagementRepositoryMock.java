@@ -8,20 +8,20 @@ import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 public class MeetingManagementRepositoryMock implements IMeetingManagementRepository {
 
-    private List<IMeeting> meetings;
+    private Set<IMeeting> meetings;
 
     public MeetingManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
-        this.meetings = new ArrayList<>(sampleDataProvider.getMeetings());
-        sortMeetingsByStart();
+        this.meetings = new HashSet<>(sampleDataProvider.getMeetings());
     }
 
     private boolean exists(String meetingId) {
@@ -29,7 +29,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
     }
 
     @Override
-    public List<IMeeting> getMeetings() {
+    public Set<IMeeting> getMeetings() {
         return meetings;
     }
 
@@ -47,7 +47,6 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
             return CreationResult.CONFLICT;
         }
         if(meetings.add(meeting)) {
-            sortMeetingsByStart();
             return CreationResult.SUCCESS;
         }
         return CreationResult.ERROR;
@@ -137,7 +136,7 @@ public class MeetingManagementRepositoryMock implements IMeetingManagementReposi
         return ShiftResult.ERROR;
     }
 
-    private void sortMeetingsByStart() {
+    private void sortMeetingsByStart(List<IMeeting> meetings) {
         meetings.sort((m1, m2) -> {
             if(m1.getStart().isBefore(m2.getStart())) {
                 return -1;

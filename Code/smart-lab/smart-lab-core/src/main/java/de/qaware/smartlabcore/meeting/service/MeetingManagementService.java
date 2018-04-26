@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -32,7 +32,7 @@ public class MeetingManagementService implements IMeetingManagementService {
     }
 
     @Override
-    public List<IMeeting> getMeetings() {
+    public Set<IMeeting> getMeetings() {
         return meetingManagementRepository.getMeetings();
     }
 

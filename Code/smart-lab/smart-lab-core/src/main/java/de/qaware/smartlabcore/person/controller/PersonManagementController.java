@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
@@ -23,7 +24,7 @@ public class PersonManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSONS)
-    public List<IPerson> getPersons() {
+    public Set<IPerson> getPersons() {
         return personManagementService.getPersons();
     }
 

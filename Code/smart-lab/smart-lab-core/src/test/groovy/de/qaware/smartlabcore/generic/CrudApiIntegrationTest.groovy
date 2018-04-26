@@ -9,7 +9,7 @@ import spock.lang.Specification
 abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
 
     protected ICrudApiClient<T> crudApiClient
-    protected List<T> entitiesForFindAll_withExisting
+    protected Set<T> entitiesForFindAll_withExisting
     protected T entityForFindOne_withExisting
     protected String entityIdForFindOne_withoutExisting
     protected T entityForCreate_withoutConflict
@@ -25,7 +25,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
     def abstract setupDataForDelete_withExisting()
     def abstract setupDataForDelete_withoutExisting()
 
-    def "Get a list of all existing entities when there are entities (aka findAll_withExisting)"() {
+    def "Get a set of all existing entities when there are entities (aka findAll_withExisting)"() {
 
         given: "There are entities available in the repository"
         setupDataForFindAll_withExisting()
@@ -33,10 +33,10 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
             crudApiClient.create(entity)
         }
 
-        when: "The list of entities is requested"
-        def response = crudApiClient.findAll()
+        when: "The set of entities is requested"
+        Set<T> response = crudApiClient.findAll()
 
-        then: "The returned list equals the one that was used to populate the repository"
+        then: "The returned set equals the one that was used to populate the repository"
         response == entitiesForFindAll_withExisting
 
         cleanup:
@@ -45,15 +45,15 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         }
     }
 
-    def "Get a list of all existing entities when there are no entities (aka findAll_withoutExisting)"() {
+    def "Get a set of all existing entities when there are no entities (aka findAll_withoutExisting)"() {
 
         given: "There are no entities available in the repository"
-        def entities = new ArrayList<IEntity>()
+        def entities = new HashSet<IEntity>()
 
-        when: "The list of entities is requested"
-        def response = crudApiClient.findAll()
+        when: "The set of entities is requested"
+        Set<T> response = crudApiClient.findAll()
 
-        then: "The returned list is empty"
+        then: "The returned set is empty"
         response == entities
     }
 

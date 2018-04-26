@@ -14,8 +14,8 @@ import org.springframework.ui.Model;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -31,7 +31,7 @@ public class RoomManagementService implements IRoomManagementService {
         this.meetingManagementApiClient = meetingManagementApiClient;
     }
 
-    public List<IRoom> getRooms() {
+    public Set<IRoom> getRooms() {
         return roomManagementRepository.getRooms();
     }
 
@@ -51,7 +51,7 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     @Override
-    public Optional<List<IMeeting>> getMeetingsInRoom(String roomId) {
+    public Optional<Set<IMeeting>> getMeetingsInRoom(String roomId) {
         return roomManagementRepository.getMeetingsInRoom(roomId);
     }
 

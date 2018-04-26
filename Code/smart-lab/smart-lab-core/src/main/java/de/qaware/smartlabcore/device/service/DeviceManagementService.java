@@ -7,8 +7,8 @@ import de.qaware.smartlabcore.generic.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -21,7 +21,7 @@ public class DeviceManagementService implements IDeviceManagementService {
     }
 
     @Override
-    public List<IDevice> getDevices() {
+    public Set<IDevice> getDevices() {
         return deviceManagementRepository.getDevices();
     }
 

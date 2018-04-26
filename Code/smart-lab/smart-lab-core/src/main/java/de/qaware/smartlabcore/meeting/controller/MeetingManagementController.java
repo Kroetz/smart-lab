@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
@@ -24,7 +24,7 @@ public class MeetingManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETINGS)
-    public List<IMeeting> getMeetings() {
+    public Set<IMeeting> getMeetings() {
         return meetingManagementService.getMeetings();
     }
 

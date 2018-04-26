@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @FeignClient(
         value = PersonManagementApiConstants.FEIGN_CLIENT_VALUE,
@@ -19,7 +19,7 @@ public interface IPersonManagementApiClient extends ICrudApiClient<IPerson> {
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSONS)
-    List<IPerson> findAll();
+    Set<IPerson> findAll();
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_GET_PERSON)

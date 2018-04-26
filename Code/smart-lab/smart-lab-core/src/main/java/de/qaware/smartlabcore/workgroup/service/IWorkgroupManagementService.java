@@ -7,19 +7,19 @@ import de.qaware.smartlabcore.generic.result.DeletionResult;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface IWorkgroupManagementService {
 
-    List<IWorkgroup> getWorkgroups();
+    Set<IWorkgroup> getWorkgroups();
     Optional<IWorkgroup> getWorkgroup(String workgroupId);
 
     CreationResult createWorkgroup(IWorkgroup workgroup);
 
     DeletionResult deleteWorkgroup(String workgroupId);
 
-    List<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
+    Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId);
 
     Optional<IMeeting> getCurrentMeeting(String workgroupId);
 

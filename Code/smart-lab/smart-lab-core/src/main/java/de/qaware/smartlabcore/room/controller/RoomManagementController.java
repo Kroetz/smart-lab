@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
@@ -28,7 +28,7 @@ public class RoomManagementController extends AbstractSmartLabController {
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOMS)
     @ResponseBody
-    public List<IRoom> getRooms() {
+    public Set<IRoom> getRooms() {
         return roomManagementService.getRooms();
     }
 
@@ -51,7 +51,7 @@ public class RoomManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
-    public ResponseEntity<List<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
+    public ResponseEntity<Set<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(roomManagementService.getMeetingsInRoom(roomId));
     }
 

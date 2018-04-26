@@ -3,11 +3,11 @@ package de.qaware.smartlabcommons.api.client.generic;
 import de.qaware.smartlabcommons.data.IEntity;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.Set;
 
 public interface ICrudApiClient<T extends IEntity> {
 
-    List<T> findAll();
+    Set<T> findAll();
 
     ResponseEntity<T> findOne(String entityId);
 

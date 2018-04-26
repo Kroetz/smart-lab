@@ -7,19 +7,19 @@ import de.qaware.smartlabcore.generic.result.DeletionResult;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface IRoomManagementRepository {
 
-    List<IRoom> getRooms();
+    Set<IRoom> getRooms();
     Optional<IRoom> getRoom(String roomId);
 
     CreationResult createRoom(IRoom room);
 
     DeletionResult deleteRoom(String roomId);
 
-    Optional<List<IMeeting>> getMeetingsInRoom(String roomId);
+    Optional<Set<IMeeting>> getMeetingsInRoom(String roomId);
 
     Optional<IMeeting> getCurrentMeeting(String roomId);
 

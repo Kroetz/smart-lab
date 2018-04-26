@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
@@ -25,7 +25,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
-    public List<IWorkgroup> getWorkgroups() {
+    public Set<IWorkgroup> getWorkgroups() {
         return workgroupManagementService.getWorkgroups();
     }
 
@@ -45,7 +45,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
-    public List<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         return workgroupManagementService.getMeetingsOfWorkgroup(workgroupId);
     }
 
