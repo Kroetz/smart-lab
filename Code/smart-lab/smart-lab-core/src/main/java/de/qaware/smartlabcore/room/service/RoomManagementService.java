@@ -32,22 +32,22 @@ public class RoomManagementService implements IRoomManagementService {
     }
 
     public Set<IRoom> getRooms() {
-        return roomManagementRepository.getRooms();
+        return roomManagementRepository.findAll();
     }
 
     @Override
     public Optional<IRoom> getRoom(String roomId) {
-        return roomManagementRepository.getRoom(roomId);
+        return roomManagementRepository.findOne(roomId);
     }
 
     @Override
     public CreationResult createRoom(IRoom room) {
-        return roomManagementRepository.createRoom(room);
+        return roomManagementRepository.create(room);
     }
 
     @Override
     public DeletionResult deleteRoom(String roomId) {
-        return roomManagementRepository.deleteRoom(roomId);
+        return roomManagementRepository.delete(roomId);
     }
 
     @Override

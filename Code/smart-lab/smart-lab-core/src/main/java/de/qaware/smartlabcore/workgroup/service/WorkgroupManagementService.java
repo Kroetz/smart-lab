@@ -30,22 +30,22 @@ public class WorkgroupManagementService implements IWorkgroupManagementService {
 
     @Override
     public Set<IWorkgroup> getWorkgroups() {
-        return workgroupManagementRepository.getWorkgroups();
+        return workgroupManagementRepository.findAll();
     }
 
     @Override
     public Optional<IWorkgroup> getWorkgroup(String workgroupId) {
-        return workgroupManagementRepository.getWorkgroup(workgroupId);
+        return workgroupManagementRepository.findOne(workgroupId);
     }
 
     @Override
     public CreationResult createWorkgroup(IWorkgroup workgroup) {
-        return workgroupManagementRepository.createWorkgroup(workgroup);
+        return workgroupManagementRepository.create(workgroup);
     }
 
     @Override
     public DeletionResult deleteWorkgroup(String workgroupId) {
-        return workgroupManagementRepository.deleteWorkgroup(workgroupId);
+        return workgroupManagementRepository.delete(workgroupId);
     }
 
     @Override

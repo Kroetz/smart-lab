@@ -22,21 +22,21 @@ public class DeviceManagementService implements IDeviceManagementService {
 
     @Override
     public Set<IDevice> getDevices() {
-        return deviceManagementRepository.getDevices();
+        return deviceManagementRepository.findAll();
     }
 
     @Override
     public Optional<IDevice> getDevice(String deviceId) {
-        return deviceManagementRepository.getDevice(deviceId);
+        return deviceManagementRepository.findOne(deviceId);
     }
 
     @Override
     public CreationResult createDevice(IDevice device) {
-        return deviceManagementRepository.createDevice(device);
+        return deviceManagementRepository.create(device);
     }
 
     @Override
     public DeletionResult deleteDevice(String deviceId) {
-        return deviceManagementRepository.deleteDevice(deviceId);
+        return deviceManagementRepository.delete(deviceId);
     }
 }

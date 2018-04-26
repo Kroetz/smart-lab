@@ -7,7 +7,6 @@ import de.qaware.smartlabcore.person.repository.IPersonManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,21 +22,21 @@ public class PersonManagementService implements IPersonManagementService {
 
     @Override
     public Set<IPerson> getPersons() {
-        return personManagementRepository.getPersons();
+        return personManagementRepository.findAll();
     }
 
     @Override
     public Optional<IPerson> getPerson(String personId) {
-        return personManagementRepository.getPerson(personId);
+        return personManagementRepository.findOne(personId);
     }
 
     @Override
     public CreationResult createPerson(IPerson person) {
-        return personManagementRepository.createPerson(person);
+        return personManagementRepository.create(person);
     }
 
     @Override
     public DeletionResult deletePerson(String personId) {
-        return personManagementRepository.deletePerson(personId);
+        return personManagementRepository.delete(personId);
     }
 }

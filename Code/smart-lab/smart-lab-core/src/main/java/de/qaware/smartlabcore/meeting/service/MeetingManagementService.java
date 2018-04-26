@@ -33,22 +33,22 @@ public class MeetingManagementService implements IMeetingManagementService {
 
     @Override
     public Set<IMeeting> getMeetings() {
-        return meetingManagementRepository.getMeetings();
+        return meetingManagementRepository.findAll();
     }
 
     @Override
     public Optional<IMeeting> getMeeting(String meetingId) {
-        return meetingManagementRepository.getMeeting(meetingId);
+        return meetingManagementRepository.findOne(meetingId);
     }
 
     @Override
     public CreationResult createMeeting(IMeeting meeting) {
-        return meetingManagementRepository.createMeeting(meeting);
+        return meetingManagementRepository.create(meeting);
     }
 
     @Override
     public DeletionResult deleteMeeting(String meetingId) {
-        return meetingManagementRepository.deleteMeeting(meetingId);
+        return meetingManagementRepository.delete(meetingId);
     }
 
     @Override
