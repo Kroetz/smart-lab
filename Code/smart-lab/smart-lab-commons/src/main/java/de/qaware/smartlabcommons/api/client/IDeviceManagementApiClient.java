@@ -18,20 +18,20 @@ import java.util.Set;
 public interface IDeviceManagementApiClient extends ICrudApiClient<IDevice> {
 
     @Override
-    @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICES)
+    @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_FIND_ALL)
     Set<IDevice> findAll();
 
     @Override
-    @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_GET_DEVICE)
+    @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_FIND_ONE)
     ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
     @Override
     @PostMapping(
-            value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE_DEVICE,
+            value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> create(@RequestBody IDevice device);
 
     @Override
-    @DeleteMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_DELETE_DEVICE)
+    @DeleteMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_DELETE)
     ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 }

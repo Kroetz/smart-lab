@@ -23,22 +23,22 @@ public class MeetingManagementController extends AbstractSmartLabController {
         this.meetingManagementService = meetingManagementService;
     }
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETINGS)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IMeeting> findAll() {
         return meetingManagementService.findAll();
     }
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_GET_MEETING)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return responseFromOptional(meetingManagementService.findOne(meetingId));
     }
 
-    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MEETING, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IMeeting meeting) {
         return meetingManagementService.create(meeting).toResponseEntity();
     }
 
-    @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE_MEETING)
+    @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return meetingManagementService.delete(meetingId).toResponseEntity();
     }

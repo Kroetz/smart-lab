@@ -7,10 +7,10 @@ public class RoomManagementApiConstants {
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
     public static final String PARAMETER_NAME_EXTENSION_IN_MINUTES = "extension-in-minutes";
     public static final String MAPPING_BASE = "/smart-lab/api/room";
-    public static final String MAPPING_GET_ROOMS = "";
-    public static final String MAPPING_GET_ROOM = "/{" + PARAMETER_NAME_ROOM_ID + "}";
-    public static final String MAPPING_CREATE_ROOM = "";
-    public static final String MAPPING_DELETE_ROOM = "/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_FIND_ALL = "";
+    public static final String MAPPING_FIND_ONE = "/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_CREATE = "";
+    public static final String MAPPING_DELETE = "/{" + PARAMETER_NAME_ROOM_ID + "}";
     public static final String MAPPING_GET_MEETINGS_IN_ROOM = "/{" + PARAMETER_NAME_ROOM_ID + "}/meetings";
     public static final String MAPPING_GET_CURRENT_MEETING = "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting";
     public static final String MAPPING_EXTEND_CURRENT_MEETING = "/{" + PARAMETER_NAME_ROOM_ID + "}/" + PARAMETER_NAME_EXTENSION_IN_MINUTES;

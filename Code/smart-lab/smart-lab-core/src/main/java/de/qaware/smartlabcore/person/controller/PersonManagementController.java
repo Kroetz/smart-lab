@@ -22,22 +22,22 @@ public class PersonManagementController extends AbstractSmartLabController {
         this.personManagementService = personManagementService;
     }
 
-    @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSONS)
+    @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IPerson> findAll() {
         return personManagementService.findAll();
     }
 
-    @GetMapping(PersonManagementApiConstants.MAPPING_GET_PERSON)
+    @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return responseFromOptional(personManagementService.findOne(personId));
     }
 
-    @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_PERSON, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IPerson person) {
         return personManagementService.create(person).toResponseEntity();
     }
 
-    @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE_PERSON)
+    @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return personManagementService.delete(personId).toResponseEntity();
     }

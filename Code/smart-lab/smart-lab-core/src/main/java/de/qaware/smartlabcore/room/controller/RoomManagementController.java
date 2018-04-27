@@ -26,25 +26,25 @@ public class RoomManagementController extends AbstractSmartLabController {
         this.roomManagementService = roomManagementService;
     }
 
-    @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOMS)
+    @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
     public Set<IRoom> findAll() {
         return roomManagementService.findAll();
     }
 
-    @GetMapping(RoomManagementApiConstants.MAPPING_GET_ROOM)
+    @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
     public ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(roomManagementService.findOne(roomId));
     }
 
-    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_ROOM,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Void> create(@RequestBody IRoom room) {
         return roomManagementService.create(room).toResponseEntity();
     }
 
-    @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE_ROOM)
+    @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return roomManagementService.delete(roomId).toResponseEntity();

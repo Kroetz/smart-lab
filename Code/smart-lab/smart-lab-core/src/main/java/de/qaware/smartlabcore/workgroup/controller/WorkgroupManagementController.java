@@ -24,22 +24,22 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
         this.workgroupManagementService = workgroupManagementService;
     }
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUPS)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IWorkgroup> findAll() {
         return workgroupManagementService.findAll();
     }
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_WORKGROUP)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(workgroupManagementService.findOne(workgroupId));
     }
 
-    @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_WORKGROUP, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup) {
         return workgroupManagementService.create(workgroup).toResponseEntity();
     }
 
-    @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE_WORKGROUP)
+    @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return workgroupManagementService.delete(workgroupId).toResponseEntity();
     }
