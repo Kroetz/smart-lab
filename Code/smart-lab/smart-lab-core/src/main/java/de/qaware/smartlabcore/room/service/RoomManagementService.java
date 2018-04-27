@@ -1,5 +1,7 @@
 package de.qaware.smartlabcore.room.service;
 
+import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
+import de.qaware.smartlabcommons.api.TriggerApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
@@ -7,6 +9,7 @@ import de.qaware.smartlabcore.generic.service.AbstractEntityManagementService;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -19,11 +22,15 @@ import java.util.Set;
 @Slf4j
 public class RoomManagementService extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
 
+    private static final String APP_PROPERTY_DEFAULT_MEETING_EXTENSION_IN_MINUTES = "default.meeting.extension.in.minutes";
+    public static Duration DEFAULT_MEETING_EXTENSION;
     private final IRoomManagementRepository roomManagementRepository;
 
     public RoomManagementService(
+            @Value("${" + APP_PROPERTY_DEFAULT_MEETING_EXTENSION_IN_MINUTES + "}") long defaultMeetingExtensionInMinutes,
             IRoomManagementRepository roomManagementRepository) {
         super(roomManagementRepository);
+        DEFAULT_MEETING_EXTENSION = Duration.ofMinutes(defaultMeetingExtensionInMinutes);
         this.roomManagementRepository = roomManagementRepository;
     }
 
@@ -56,9 +63,9 @@ public class RoomManagementService extends AbstractEntityManagementService<IRoom
                     model.addAttribute("meetingTopic", meeting.getTitle());
                     model.addAttribute("minutesLeft", Duration.between(Instant.now(), meeting.getEnd()).toMinutes());
                     model.addAttribute("secondsLeft", Duration.between(Instant.now(), meeting.getEnd()).toMillis() / 1000);
-                    model.addAttribute("startMeetingUrl", "http://localhost:8080/smart-lab/api/trigger/room/" + roomId + "/start-current-meeting");
-                    model.addAttribute("stopMeetingUrl", "http://localhost:8080/smart-lab/api/trigger/room/" + roomId + "/stop-current-meeting");
-                    model.addAttribute("extendMeetingUrl", "http://localhost:8080/smart-lab/api/room/" + roomId + "/extend-current-meeting?extension-in-minutes=1");
+                    model.addAttribute("startMeetingUrl", "http://localhost:8080" + String.format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("stopMeetingUrl", "http://localhost:8080" + String.format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("extendMeetingUrl", "http://localhost:8080" + String.format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, DEFAULT_MEETING_EXTENSION.toMinutes()));
                     // TODO: Incorporate meeting details in page.
                     return "meeting-status";
                 })

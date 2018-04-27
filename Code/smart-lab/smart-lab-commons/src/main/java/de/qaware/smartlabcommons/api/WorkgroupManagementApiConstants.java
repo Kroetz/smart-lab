@@ -13,5 +13,5 @@ public class WorkgroupManagementApiConstants {
     public static final String MAPPING_DELETE = "/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_GET_MEETINGS_OF_WORKGROUP = "/{" + PARAMETER_NAME_WORKGROUP_ID + "}/meetings";
     public static final String MAPPING_GET_CURRENT_MEETING = "/{" + PARAMETER_NAME_WORKGROUP_ID + "}/current-meeting";
-    public static final String MAPPING_EXTEND_CURRENT_MEETING = "/{" + PARAMETER_NAME_WORKGROUP_ID + "}/" + PARAMETER_NAME_EXTENSION_IN_MINUTES;
+    public static final String MAPPING_EXTEND_CURRENT_MEETING = "/{" + PARAMETER_NAME_WORKGROUP_ID + "}/extend-current-meeting";
 }
