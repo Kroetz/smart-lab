@@ -45,7 +45,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
-    public ResponseEntity<Set<IMeeting>> getMeetingsOfWorkgroup(String workgroupId) {
+    public ResponseEntity<Set<IMeeting>> getMeetingsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(workgroupManagementService.getMeetingsOfWorkgroup(workgroupId));
     }
 

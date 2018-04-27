@@ -133,7 +133,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         def meetings = new HashSet<IMeeting>(Arrays.asList(
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsInRoom = new HashSet<IRoom>()
+        def meetingsInRoom = new HashSet<IMeeting>()
         for(def meeting : meetings) {
             meetingManagementApiClient.create(meeting)
         }

@@ -6,8 +6,10 @@ import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import feign.FeignException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -31,7 +33,7 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
         return meetingManagementApiClient.findAll().stream()
-                .filter(meeting -> meeting.getWorkgroupId().equals(workgroup))
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroup.getId()))
                 .collect(Collectors.toSet());
     }
 
@@ -44,8 +46,13 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
 
     @Override
     public ExtensionResult extendCurrentMeeting(@NonNull IWorkgroup workgroup, Duration extension) {
-        return getCurrentMeeting(workgroup)
-                .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
-                .orElse(ExtensionResult.NOT_FOUND);
+        try {
+            return getCurrentMeeting(workgroup)
+                    .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                    .orElse(ExtensionResult.NOT_FOUND);
+        }
+        catch(FeignException e) {
+            return ExtensionResult.fromHttpStatus(HttpStatus.valueOf(e.status()));
+        }
     }
 }
