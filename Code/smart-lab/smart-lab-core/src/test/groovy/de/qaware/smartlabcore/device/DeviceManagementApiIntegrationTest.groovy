@@ -53,6 +53,32 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
     }
 
     @Override
+    def setupDataForFindMultiple_withExisting() {
+        crudApiClient = deviceManagementApiClient
+        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
+        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
+        def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
+        def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
+        def device3 = fireFightersDataFactory.createDeviceMap().get(deviceId3)
+        allEntitiesForFindMultiple_withExisting = [device1, device2, device3]
+        requestedEntitiesForFindMultiple_withExisting = [device1, device2]
+    }
+
+    @Override
+    def setupDataForFindMultiple_withoutExisting() {
+        crudApiClient = deviceManagementApiClient
+        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
+        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
+        def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
+        def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
+        def device3 = fireFightersDataFactory.createDeviceMap().get(deviceId3)
+        allEntitiesForFindMultiple_withoutExisting = [device1, device2]
+        requestedEntitiesForFindMultiple_withoutExisting = [device2, device3]
+    }
+
+    @Override
     def setupDataForCreate_withoutConflict() {
         crudApiClient = deviceManagementApiClient
         entityForCreate_withoutConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)

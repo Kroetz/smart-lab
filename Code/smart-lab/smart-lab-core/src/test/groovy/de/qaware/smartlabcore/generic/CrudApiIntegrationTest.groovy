@@ -6,12 +6,18 @@ import feign.FeignException
 import org.springframework.http.HttpStatus
 import spock.lang.Specification
 
+import java.util.stream.Collectors
+
 abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
 
     protected ICrudApiClient<T> crudApiClient
     protected Set<T> entitiesForFindAll_withExisting
     protected T entityForFindOne_withExisting
     protected String entityIdForFindOne_withoutExisting
+    protected Set<T> allEntitiesForFindMultiple_withExisting
+    protected Set<T> requestedEntitiesForFindMultiple_withExisting
+    protected Set<T> allEntitiesForFindMultiple_withoutExisting
+    protected Set<T> requestedEntitiesForFindMultiple_withoutExisting
     protected T entityForCreate_withoutConflict
     protected T entityForCreate_withConflict
     protected T entityForDelete_withExisting
@@ -20,10 +26,14 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
     def abstract setupDataForFindAll_withExisting()
     def abstract setupDataForFindOne_withExisting()
     def abstract setupDataForFindOne_withoutExisting()
+    def abstract setupDataForFindMultiple_withExisting()
+    def abstract setupDataForFindMultiple_withoutExisting()
     def abstract setupDataForCreate_withoutConflict()
     def abstract setupDataForCreate_withConflict()
     def abstract setupDataForDelete_withExisting()
     def abstract setupDataForDelete_withoutExisting()
+
+    def mapEntityId = { entity -> entity.getId() }
 
     def "Get a set of all existing entities when there are entities (aka findAll_withExisting)"() {
 
@@ -89,6 +99,60 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
 
         and: "The returned HTTP status code is 404 (Not found)"
         e.status() == HttpStatus.NOT_FOUND.value()
+    }
+
+    def "Get a set of specific entities when the entities exist (aka findMultiple_withExisting)"() {
+
+        given: "The entities with the requested entity IDs do exist"
+        setupDataForFindMultiple_withExisting()
+        for (def entity : allEntitiesForFindMultiple_withExisting) {
+            crudApiClient.create(entity)
+        }
+        String[] requestedEntityIds = requestedEntitiesForFindMultiple_withExisting.stream()
+                .map(mapEntityId)
+                .collect(Collectors.toList())
+                .toArray()
+
+        when: "The entities are requested"
+        def response = crudApiClient.findMultiple(requestedEntityIds)
+
+        then: "The returned HTTP status code is 200 (OK)"
+        response.statusCodeValue == HttpStatus.OK.value()
+
+        and: "The received set of entities equals the one that was initially put into the repository"
+        response.getBody() == requestedEntitiesForFindMultiple_withExisting
+
+        cleanup:
+        for (def entity : allEntitiesForFindMultiple_withExisting) {
+            crudApiClient.delete(entity.getId())
+        }
+    }
+
+    def "Get a set of specific entities when the entities do not exist (aka findMultiple_withoutExisting)"() {
+
+        given: "At least one of the entities with the requested entity IDs does not exist"
+        setupDataForFindMultiple_withoutExisting()
+        for (def entity : allEntitiesForFindMultiple_withoutExisting) {
+            crudApiClient.create(entity)
+        }
+        String[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
+                .map(mapEntityId)
+                .collect(Collectors.toList())
+                .toArray()
+
+        when: "The entities are requested"
+        crudApiClient.findMultiple(requestedEntityIds)
+
+        then: "A feign exception is thrown"
+        def e = thrown(FeignException)
+
+        and: "The returned HTTP status code is 404 (Not found)"
+        e.status() == HttpStatus.NOT_FOUND.value()
+
+        cleanup:
+        for (def entity : allEntitiesForFindMultiple_withoutExisting) {
+            crudApiClient.delete(entity.getId())
+        }
     }
 
     def "Create an entity with an ID that does not yet exist (aka create_withoutConflict)"() {

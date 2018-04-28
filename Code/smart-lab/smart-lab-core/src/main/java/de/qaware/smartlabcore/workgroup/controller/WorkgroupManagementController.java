@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -32,6 +34,11 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(workgroupManagementService.findOne(workgroupId));
+    }
+
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
+        return responseFromOptionals(workgroupManagementService.findMultiple(new HashSet<>(Arrays.asList(workgroupIds))));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)

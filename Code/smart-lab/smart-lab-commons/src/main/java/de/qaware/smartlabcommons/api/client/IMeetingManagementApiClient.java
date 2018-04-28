@@ -26,6 +26,10 @@ public interface IMeetingManagementApiClient extends ICrudApiClient<IMeeting> {
     ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
 
     @Override
+    @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IMeeting>> findMultiple(@RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
+
+    @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> create(@RequestBody IMeeting meeting);
 

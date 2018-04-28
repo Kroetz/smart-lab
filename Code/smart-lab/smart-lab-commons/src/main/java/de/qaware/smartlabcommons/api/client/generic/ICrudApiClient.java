@@ -11,6 +11,8 @@ public interface ICrudApiClient<T extends IEntity> {
 
     ResponseEntity<T> findOne(String entityId);
 
+    ResponseEntity<Set<T>> findMultiple(String[] entityIds);
+
     ResponseEntity<Void> create(T entity);
 
     ResponseEntity<Void> delete(String entityId);

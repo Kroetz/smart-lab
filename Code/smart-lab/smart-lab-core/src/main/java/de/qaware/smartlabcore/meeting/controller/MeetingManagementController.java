@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -31,6 +33,11 @@ public class MeetingManagementController extends AbstractSmartLabController {
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return responseFromOptional(meetingManagementService.findOne(meetingId));
+    }
+
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IMeeting>> findMultiple(@RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
+        return responseFromOptionals(meetingManagementService.findMultiple(new HashSet<>(Arrays.asList(meetingIds))));
     }
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -30,6 +32,11 @@ public class PersonManagementController extends AbstractSmartLabController {
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return responseFromOptional(personManagementService.findOne(personId));
+    }
+
+    @GetMapping(PersonManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds) {
+        return responseFromOptionals(personManagementService.findMultiple(new HashSet<>(Arrays.asList(personIds))));
     }
 
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)

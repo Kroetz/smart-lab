@@ -63,6 +63,32 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
     }
 
     @Override
+    def setupDataForFindMultiple_withExisting() {
+        crudApiClient = roomManagementApiClient
+        def roomId1 = coastGuardDataFactory.ROOM_ID_BLUE
+        def roomId2 = forestRangersDataFactory.ROOM_ID_GREEN
+        def roomId3 = fireFightersDataFactory.ROOM_ID_RED
+        def room1 = coastGuardDataFactory.createRoomMap().get(roomId1)
+        def room2 = forestRangersDataFactory.createRoomMap().get(roomId2)
+        def room3 = fireFightersDataFactory.createRoomMap().get(roomId3)
+        allEntitiesForFindMultiple_withExisting = [room1, room2, room3]
+        requestedEntitiesForFindMultiple_withExisting = [room1, room2]
+    }
+
+    @Override
+    def setupDataForFindMultiple_withoutExisting() {
+        crudApiClient = roomManagementApiClient
+        def roomId1 = coastGuardDataFactory.ROOM_ID_BLUE
+        def roomId2 = forestRangersDataFactory.ROOM_ID_GREEN
+        def roomId3 = fireFightersDataFactory.ROOM_ID_RED
+        def room1 = coastGuardDataFactory.createRoomMap().get(roomId1)
+        def room2 = forestRangersDataFactory.createRoomMap().get(roomId2)
+        def room3 = fireFightersDataFactory.createRoomMap().get(roomId3)
+        allEntitiesForFindMultiple_withoutExisting = [room1, room2]
+        requestedEntitiesForFindMultiple_withoutExisting = [room2, room3]
+    }
+
+    @Override
     def setupDataForCreate_withoutConflict() {
         crudApiClient = roomManagementApiClient
         entityForCreate_withoutConflict = coastGuardDataFactory.createRoomMap().get(coastGuardDataFactory.ROOM_ID_BLUE)

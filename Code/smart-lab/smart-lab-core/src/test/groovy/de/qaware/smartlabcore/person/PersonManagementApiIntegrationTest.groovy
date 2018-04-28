@@ -53,6 +53,32 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
     }
 
     @Override
+    def setupDataForFindMultiple_withExisting() {
+        crudApiClient = personManagementApiClient
+        def personId1 = coastGuardDataFactory.MEMBER_ID_ALICE
+        def personId2 = forestRangersDataFactory.MEMBER_ID_ANNA
+        def personId3 = fireFightersDataFactory.MEMBER_ID_ANTHONY
+        def person1 = coastGuardDataFactory.createWorkgroupMemberMap().get(personId1)
+        def person2 = forestRangersDataFactory.createWorkgroupMemberMap().get(personId2)
+        def person3 = fireFightersDataFactory.createWorkgroupMemberMap().get(personId3)
+        allEntitiesForFindMultiple_withExisting = [person1, person2, person3]
+        requestedEntitiesForFindMultiple_withExisting = [person1, person2]
+    }
+
+    @Override
+    def setupDataForFindMultiple_withoutExisting() {
+        crudApiClient = personManagementApiClient
+        def personId1 = coastGuardDataFactory.MEMBER_ID_ALICE
+        def personId2 = forestRangersDataFactory.MEMBER_ID_ANNA
+        def personId3 = fireFightersDataFactory.MEMBER_ID_ANTHONY
+        def person1 = coastGuardDataFactory.createWorkgroupMemberMap().get(personId1)
+        def person2 = forestRangersDataFactory.createWorkgroupMemberMap().get(personId2)
+        def person3 = fireFightersDataFactory.createWorkgroupMemberMap().get(personId3)
+        allEntitiesForFindMultiple_withoutExisting = [person1, person2]
+        requestedEntitiesForFindMultiple_withoutExisting = [person2, person3]
+    }
+
+    @Override
     def setupDataForCreate_withoutConflict() {
         crudApiClient = personManagementApiClient
         entityForCreate_withoutConflict = coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE)

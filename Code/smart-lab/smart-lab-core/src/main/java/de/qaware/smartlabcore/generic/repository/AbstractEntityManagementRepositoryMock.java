@@ -6,10 +6,7 @@ import de.qaware.smartlabcore.generic.result.DeletionResult;
 import lombok.val;
 import org.springframework.stereotype.Repository;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -32,6 +29,13 @@ public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> 
         return this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .findFirst();
+    }
+
+    @Override
+    public Map<String, Optional<T>> findMultiple(Set<String> entityIds) {
+        val entitiesById = new HashMap<String, Optional<T>>();
+        entityIds.forEach(entityId -> entitiesById.put(entityId, findOne(entityId)));
+        return entitiesById;
     }
 
     @Override

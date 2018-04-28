@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
 import de.qaware.smartlabcore.generic.result.CreationResult;
 import de.qaware.smartlabcore.generic.result.DeletionResult;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,6 +25,11 @@ public abstract class AbstractEntityManagementService<T extends IEntity> impleme
     @Override
     public Optional<T> findOne(String entityId) {
         return entityManagementRepository.findOne(entityId);
+    }
+
+    @Override
+    public Map<String, Optional<T>> findMultiple(Set<String> entityIds) {
+        return entityManagementRepository.findMultiple(entityIds);
     }
 
     @Override

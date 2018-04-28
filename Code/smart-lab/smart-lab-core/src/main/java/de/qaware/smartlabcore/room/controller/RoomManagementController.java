@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @Controller
@@ -36,6 +38,11 @@ public class RoomManagementController extends AbstractSmartLabController {
     @ResponseBody
     public ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(roomManagementService.findOne(roomId));
+    }
+
+    @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
+        return responseFromOptionals(roomManagementService.findMultiple(new HashSet<>(Arrays.asList(roomIds))));
     }
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)

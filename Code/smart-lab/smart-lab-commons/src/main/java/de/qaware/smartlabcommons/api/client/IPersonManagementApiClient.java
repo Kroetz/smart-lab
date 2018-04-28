@@ -26,6 +26,10 @@ public interface IPersonManagementApiClient extends ICrudApiClient<IPerson> {
     ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 
     @Override
+    @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds);
+
+    @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> create(@RequestBody IPerson person);
 

@@ -63,6 +63,32 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWork
     }
 
     @Override
+    def setupDataForFindMultiple_withExisting() {
+        crudApiClient = workgroupManagementApiClient
+        def workgroupId1 = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
+        def workgroupId2 = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
+        def workgroupId3 = fireFightersDataFactory.WORKGROUP_ID_FIRE_FIGHTERS
+        def workgroup1 = coastGuardDataFactory.createWorkgroupMap().get(workgroupId1)
+        def workgroup2 = forestRangersDataFactory.createWorkgroupMap().get(workgroupId2)
+        def workgroup3 = fireFightersDataFactory.createWorkgroupMap().get(workgroupId3)
+        allEntitiesForFindMultiple_withExisting = [workgroup1, workgroup2, workgroup3]
+        requestedEntitiesForFindMultiple_withExisting = [workgroup1, workgroup2]
+    }
+
+    @Override
+    def setupDataForFindMultiple_withoutExisting() {
+        crudApiClient = workgroupManagementApiClient
+        def workgroupId1 = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
+        def workgroupId2 = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
+        def workgroupId3 = fireFightersDataFactory.WORKGROUP_ID_FIRE_FIGHTERS
+        def workgroup1 = coastGuardDataFactory.createWorkgroupMap().get(workgroupId1)
+        def workgroup2 = forestRangersDataFactory.createWorkgroupMap().get(workgroupId2)
+        def workgroup3 = fireFightersDataFactory.createWorkgroupMap().get(workgroupId3)
+        allEntitiesForFindMultiple_withoutExisting = [workgroup1, workgroup2]
+        requestedEntitiesForFindMultiple_withoutExisting = [workgroup2, workgroup3]
+    }
+
+    @Override
     def setupDataForCreate_withoutConflict() {
         crudApiClient = workgroupManagementApiClient
         entityForCreate_withoutConflict = coastGuardDataFactory.createWorkgroupMap().get(coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD)

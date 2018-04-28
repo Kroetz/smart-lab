@@ -58,6 +58,32 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
     }
 
     @Override
+    def setupDataForFindMultiple_withExisting() {
+        crudApiClient = meetingManagementApiClient
+        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
+        def meetingId2 = forestRangersDataFactory.MEETING_ID_BARK_BEETLE
+        def meetingId3 = fireFightersDataFactory.MEETING_ID_TRUCK
+        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
+        def meeting2 = forestRangersDataFactory.createMeetingMap().get(meetingId2)
+        def meeting3 = fireFightersDataFactory.createMeetingMap().get(meetingId3)
+        allEntitiesForFindMultiple_withExisting = [meeting1, meeting2, meeting3]
+        requestedEntitiesForFindMultiple_withExisting = [meeting1, meeting2]
+    }
+
+    @Override
+    def setupDataForFindMultiple_withoutExisting() {
+        crudApiClient = meetingManagementApiClient
+        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
+        def meetingId2 = forestRangersDataFactory.MEETING_ID_BARK_BEETLE
+        def meetingId3 = fireFightersDataFactory.MEETING_ID_TRUCK
+        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
+        def meeting2 = forestRangersDataFactory.createMeetingMap().get(meetingId2)
+        def meeting3 = fireFightersDataFactory.createMeetingMap().get(meetingId3)
+        allEntitiesForFindMultiple_withoutExisting = [meeting1, meeting2]
+        requestedEntitiesForFindMultiple_withoutExisting = [meeting2, meeting3]
+    }
+
+    @Override
     def setupDataForCreate_withoutConflict() {
         crudApiClient = meetingManagementApiClient
         entityForCreate_withoutConflict = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)

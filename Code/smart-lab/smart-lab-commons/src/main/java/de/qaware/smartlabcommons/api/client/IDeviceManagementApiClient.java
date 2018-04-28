@@ -26,6 +26,10 @@ public interface IDeviceManagementApiClient extends ICrudApiClient<IDevice> {
     ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
     @Override
+    @GetMapping(DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    ResponseEntity<Set<IDevice>> findMultiple(@RequestParam(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_IDS) String[] deviceIds);
+
+    @Override
     @PostMapping(
             value = DeviceManagementApiConstants.MAPPING_BASE + DeviceManagementApiConstants.MAPPING_CREATE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
