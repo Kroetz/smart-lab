@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Slf4j
 public abstract class AbstractSampleDataProvider implements ISampleDataProvider {
@@ -20,48 +21,36 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
         this.sampleDataFactories = sampleDataFactories;
     }
 
+    private <T> List<T> getEntities(Function<ISampleDataFactory, List<T>> createEntities) {
+        List<T> entities = new ArrayList<>();
+        for(ISampleDataFactory factory : sampleDataFactories) {
+            entities.addAll(createEntities.apply(factory));
+        }
+        return entities;
+    }
+
     @Override
     public List<IWorkgroup> getWorkgroups() {
-        List<IWorkgroup> workgroups = new ArrayList<>();
-        for(ISampleDataFactory factory : sampleDataFactories) {
-            workgroups.addAll(factory.createWorkgroupList());
-        }
-        return workgroups;
+        return getEntities(factory -> factory.createWorkgroupList());
     }
 
     @Override
     public List<IPerson> getWorkgroupMembers() {
-        List<IPerson> workgroupMembers = new ArrayList<>();
-        for(ISampleDataFactory factory : sampleDataFactories) {
-            workgroupMembers.addAll(factory.createWorkgroupMemberList());
-        }
-        return workgroupMembers;
+        return getEntities(factory -> factory.createWorkgroupMemberList());
     }
 
     @Override
     public List<IMeeting> getMeetings() {
-        List<IMeeting> meetings = new ArrayList<>();
-        for(ISampleDataFactory factory : sampleDataFactories) {
-            meetings.addAll(factory.createMeetingList());
-        }
-        return meetings;
+        return getEntities(factory -> factory.createMeetingList());
     }
 
     @Override
     public List<IRoom> getRooms() {
-        List<IRoom> rooms = new ArrayList<>();
-        for(ISampleDataFactory factory : sampleDataFactories) {
-            rooms.addAll(factory.createRoomList());
-        }
-        return rooms;
+        return getEntities(factory -> factory.createRoomList());
     }
 
     @Override
     public List<IDevice> getDevices() {
-        List<IDevice> devices = new ArrayList<>();
-        for(ISampleDataFactory factory : sampleDataFactories) {
-            devices.addAll(factory.createDeviceList());
-        }
-        return devices;
+        return getEntities(factory -> factory.createDeviceList());
     }
 }
