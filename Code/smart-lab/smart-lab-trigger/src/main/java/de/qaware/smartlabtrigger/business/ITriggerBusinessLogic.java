@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.trigger.service;
+package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.generic.result.SetUpMeetingResult;
 import de.qaware.smartlabcore.generic.result.StartMeetingResult;
 import de.qaware.smartlabcore.generic.result.StopMeetingResult;
 
-public interface ITriggerService {
+public interface ITriggerBusinessLogic {
 
     SetUpMeetingResult setUpCurrentMeetingByRoomId(String roomId);
     SetUpMeetingResult setUpMeeting(IMeeting meeting);

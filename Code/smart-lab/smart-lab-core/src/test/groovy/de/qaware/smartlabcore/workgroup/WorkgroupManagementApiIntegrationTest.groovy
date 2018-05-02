@@ -10,7 +10,7 @@ import de.qaware.smartlabcore.data.sample.factory.FireFightersDataFactory
 import de.qaware.smartlabcore.data.sample.factory.ForestRangersDataFactory
 import de.qaware.smartlabcore.data.sample.provider.EmptySampleDataProvider
 import de.qaware.smartlabcore.generic.CrudApiIntegrationTest
-import de.qaware.smartlabcore.meeting.service.MeetingManagementService
+import de.qaware.smartlabcore.meeting.business.MeetingManagementBusinessLogic
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -347,7 +347,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWork
         meetingManagementApiClient.create(meeting)
 
         and: "The extension of the meeting is invalid"
-        def extensionInMinutes = MeetingManagementService.MAXIMAL_MEETING_DURATION.toMinutes()
+        def extensionInMinutes = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION.toMinutes()
 
         when: "The current meeting of the workgroup is extended"
         workgroupManagementApiClient.extendCurrentMeeting(workgroupId, extensionInMinutes)

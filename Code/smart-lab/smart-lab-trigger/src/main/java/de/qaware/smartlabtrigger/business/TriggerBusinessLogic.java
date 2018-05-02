@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.trigger.service;
+package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class TriggerService implements ITriggerService {
+public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private final IRoomManagementService roomManagementService;
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
-    public TriggerService(
+    public TriggerBusinessLogic(
             IRoomManagementService roomManagementService,
             IWorkgroupManagementApiClient workgroupManagementApiClient) {
         this.roomManagementService = roomManagementService;

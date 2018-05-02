@@ -1,9 +1,9 @@
-package de.qaware.smartlabcore.workgroup.service;
+package de.qaware.smartlabcore.workgroup.business;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
-import de.qaware.smartlabcore.generic.service.AbstractEntityManagementService;
+import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.workgroup.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class WorkgroupManagementService extends AbstractEntityManagementService<IWorkgroup> implements IWorkgroupManagementService {
+public class WorkgroupManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IWorkgroup> implements IWorkgroupManagementBusinessLogic {
 
     private final IWorkgroupManagementRepository workgroupManagementRepository;
 
-    public WorkgroupManagementService(
+    public WorkgroupManagementBusinessLogic(
             IWorkgroupManagementRepository workgroupManagementRepository) {
         super(workgroupManagementRepository);
         this.workgroupManagementRepository = workgroupManagementRepository;

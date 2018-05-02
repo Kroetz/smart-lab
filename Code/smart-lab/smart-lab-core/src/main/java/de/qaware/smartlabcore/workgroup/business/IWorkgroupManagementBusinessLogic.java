@@ -1,15 +1,15 @@
-package de.qaware.smartlabcore.workgroup.service;
+package de.qaware.smartlabcore.workgroup.business;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
-import de.qaware.smartlabcore.generic.service.IEntityManagementService;
+import de.qaware.smartlabcore.generic.business.IEntityManagementBusinessLogic;
 
 import java.time.Duration;
 import java.util.Optional;
 import java.util.Set;
 
-public interface IWorkgroupManagementService extends IEntityManagementService<IWorkgroup> {
+public interface IWorkgroupManagementBusinessLogic extends IEntityManagementBusinessLogic<IWorkgroup> {
 
     Optional<Set<IMeeting>> getMeetingsOfWorkgroup(String workgroupId);
     Optional<IMeeting> getCurrentMeeting(String workgroupId);

@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.data.sample.factory.FireFightersDataFactory
 import de.qaware.smartlabcore.data.sample.factory.ForestRangersDataFactory
 import de.qaware.smartlabcore.data.sample.provider.EmptySampleDataProvider
 import de.qaware.smartlabcore.generic.CrudApiIntegrationTest
-import de.qaware.smartlabcore.meeting.service.MeetingManagementService
+import de.qaware.smartlabcore.meeting.business.MeetingManagementBusinessLogic
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -195,7 +195,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
         meetingManagementApiClient.create(meeting)
-        def extensionInMinutes = MeetingManagementService.MAXIMAL_MEETING_DURATION.toMinutes()
+        def extensionInMinutes = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION.toMinutes()
 
         when: "The meeting is extended beyond the maximum"
         meetingManagementApiClient.extendMeeting(meetingId, extensionInMinutes)

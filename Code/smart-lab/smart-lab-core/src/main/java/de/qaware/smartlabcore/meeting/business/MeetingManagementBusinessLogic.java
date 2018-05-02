@@ -1,10 +1,10 @@
-package de.qaware.smartlabcore.meeting.service;
+package de.qaware.smartlabcore.meeting.business;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.result.ShiftResult;
 import de.qaware.smartlabcore.generic.result.ShorteningResult;
-import de.qaware.smartlabcore.generic.service.AbstractEntityManagementService;
+import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -15,13 +15,13 @@ import java.time.Duration;
 
 @Service
 @Slf4j
-public class MeetingManagementService extends AbstractEntityManagementService<IMeeting> implements IMeetingManagementService {
+public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IMeeting> implements IMeetingManagementBusinessLogic {
 
     private static final String APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES = "meeting.max.duration.in.minutes";
     public static Duration MAXIMAL_MEETING_DURATION;
     private final IMeetingManagementRepository meetingManagementRepository;
 
-    public MeetingManagementService(
+    public MeetingManagementBusinessLogic(
             @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}") long maximalMeetingDurationInMinutes,
             IMeetingManagementRepository meetingManagementRepository) {
         super(meetingManagementRepository);

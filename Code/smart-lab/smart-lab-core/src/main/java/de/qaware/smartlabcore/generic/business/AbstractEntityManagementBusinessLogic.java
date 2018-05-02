@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.generic.service;
+package de.qaware.smartlabcore.generic.business;
 
 import de.qaware.smartlabcommons.data.IEntity;
 import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class AbstractEntityManagementService<T extends IEntity> implements IEntityManagementService<T> {
+public abstract class AbstractEntityManagementBusinessLogic<T extends IEntity> implements IEntityManagementBusinessLogic<T> {
 
     protected final IEntityManagementRepository<T> entityManagementRepository;
 
-    public AbstractEntityManagementService(IEntityManagementRepository<T> entityManagementRepository) {
+    public AbstractEntityManagementBusinessLogic(IEntityManagementRepository<T> entityManagementRepository) {
         this.entityManagementRepository = entityManagementRepository;
     }
 
