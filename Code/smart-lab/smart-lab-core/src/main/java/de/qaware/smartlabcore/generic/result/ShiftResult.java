@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -35,7 +34,7 @@ public enum ShiftResult {
     }
 
     public static ShiftResult fromHttpStatus(HttpStatus httpStatus) {
-        val ShiftResult = SHIFT_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        ShiftResult ShiftResult = SHIFT_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(ShiftResult == null) {
             throw new IllegalArgumentException("ShiftResult cannot be created from the passed HTTP status");
         }

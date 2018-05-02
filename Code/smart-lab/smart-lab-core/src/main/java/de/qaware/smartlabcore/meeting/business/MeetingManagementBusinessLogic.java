@@ -7,7 +7,6 @@ import de.qaware.smartlabcore.generic.result.ShorteningResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.meeting.repository.IMeetingManagementRepository;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusi
     @Override
     public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
         return findOne(meetingId).map(meeting -> {
-            val shortenedDuration = meeting.getDuration().minus(shortening);
+            Duration shortenedDuration = meeting.getDuration().minus(shortening);
             if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
                 return ShorteningResult.MINIMUM_REACHED;
             }

@@ -16,7 +16,6 @@ import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
@@ -24,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -43,8 +43,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IWorkgroup> createWorkgroupList() {
-        val workgroups = new ArrayList<IWorkgroup>();
-        val astronautsMembers = new ArrayList<String>();
+        List<IWorkgroup> workgroups = new ArrayList<>();
+        List<String> astronautsMembers = new ArrayList<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
         astronautsMembers.add(MEMBER_ID_CHARLOTTE);
@@ -65,7 +65,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IPerson> createWorkgroupMemberList() {
-        val workgroupMembers = new ArrayList<IPerson>();
+        List<IPerson> workgroupMembers = new ArrayList<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALEX)
                 .name("Astronaut Alex")
@@ -86,12 +86,12 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IMeeting> createMeetingList() {
-        val meetings = new ArrayList<IMeeting>();
-        val astronautsMeetingAgenda = new ArrayList<IAgendaItem>();
+        List<IMeeting> meetings = new ArrayList<>();
+        List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
-        val astronautsMeetingAssistances = new HashSet<IAssistanceDao>();
+        Set<IAssistanceDao> astronautsMeetingAssistances = new HashSet<>();
         astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
@@ -108,8 +108,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IRoom> createRoomList() {
-        val rooms = new ArrayList<IRoom>();
-        val blackRoomDevices = new ArrayList<String>();
+        List<IRoom> rooms = new ArrayList<>();
+        List<String> blackRoomDevices = new ArrayList<>();
         blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLACK)
@@ -121,7 +121,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IDevice> createDeviceList() {
-        val devices = new ArrayList<IDevice>();
+        List<IDevice> devices = new ArrayList<>();
         devices.add(AcmeDisplay.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY)
                 .name("Display in Room Black")

@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +28,7 @@ public enum CleanUpMeetingResult {
     }
 
     public static CleanUpMeetingResult fromHttpStatus(HttpStatus httpStatus) {
-        val cleanUpMeetingResult = CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        CleanUpMeetingResult cleanUpMeetingResult = CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(cleanUpMeetingResult == null) {
             throw new IllegalArgumentException("CleanUpMeetingResult cannot be created from the passed HTTP status");
         }

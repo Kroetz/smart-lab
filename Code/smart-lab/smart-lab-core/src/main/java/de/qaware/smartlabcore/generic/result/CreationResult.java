@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +32,7 @@ public enum CreationResult {
     }
 
     public static CreationResult fromHttpStatus(HttpStatus httpStatus) {
-        val creationResult = CREATION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        CreationResult creationResult = CREATION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(creationResult == null) {
             throw new IllegalArgumentException("CreationResult cannot be created from the passed HTTP status");
         }

@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -37,7 +36,7 @@ public enum ExtensionResult {
     }
 
     public static ExtensionResult fromHttpStatus(HttpStatus httpStatus) {
-        val extensionResult = EXTENSION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        ExtensionResult extensionResult = EXTENSION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(extensionResult == null) {
             throw new IllegalArgumentException("ExtensionResult cannot be created from the passed HTTP status");
         }

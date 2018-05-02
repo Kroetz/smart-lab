@@ -1,10 +1,9 @@
 package de.qaware.smartlabmeetingsetuptriggermock;
 
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.api.client.ITriggerApiClient;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -66,11 +66,11 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
         List<> results = restTemplate.getForObject(url, User.class);*/
 
-        val justStartedMeetings = meetingManagementApiClient.findAll().stream()
+        List<IMeeting> justStartedMeetings = meetingManagementApiClient.findAll().stream()
                 .filter(this::hasJustStarted)
                 .collect(Collectors.toList());
 
-        for(val startedMeeting : justStartedMeetings) {
+        for(IMeeting startedMeeting : justStartedMeetings) {
             triggerMeetingSetUp(startedMeeting);
         }
 

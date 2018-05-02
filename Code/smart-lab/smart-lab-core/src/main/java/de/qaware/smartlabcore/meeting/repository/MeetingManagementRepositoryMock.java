@@ -6,7 +6,6 @@ import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementReposit
 import de.qaware.smartlabcore.generic.result.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -23,7 +22,7 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
     
     @Override
     public CreationResult create(IMeeting meeting) {
-        val meetingCollision = findAll().stream().anyMatch(m -> areMeetingsColliding(meeting, m));
+        boolean meetingCollision = findAll().stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {
             return CreationResult.CONFLICT;
         }
@@ -36,9 +35,9 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
     @Override
     public ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            val shortenedMeeting = meeting.copy();
+            IMeeting shortenedMeeting = meeting.copy();
             shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
-            val shortenedMeetingCreated = create(shortenedMeeting);
+            CreationResult shortenedMeetingCreated = create(shortenedMeeting);
             if(shortenedMeetingCreated == CreationResult.SUCCESS) {
                 return ShorteningResult.SUCCESS;
             }
@@ -48,10 +47,10 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
 
     @Override
     public ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
-        val extendedMeeting = meeting.copy();
+        IMeeting extendedMeeting = meeting.copy();
         extendedMeeting.setEnd(meeting.getEnd().plus(extension));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            val extendedMeetingCreated = create(extendedMeeting);
+            CreationResult extendedMeetingCreated = create(extendedMeeting);
             if(extendedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);
                 return ExtensionResult.CONFLICT;
@@ -68,11 +67,11 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
 
     @Override
     public ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift) {
-        val shiftedMeeting = meeting.copy();
+        IMeeting shiftedMeeting = meeting.copy();
         shiftedMeeting.setStart(meeting.getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            val shiftedMeetingCreated = create(shiftedMeeting);
+            CreationResult shiftedMeetingCreated = create(shiftedMeeting);
             if(shiftedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);
                 return ShiftResult.CONFLICT;

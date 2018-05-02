@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +28,7 @@ public enum SetUpMeetingResult {
     }
 
     public static SetUpMeetingResult fromHttpStatus(HttpStatus httpStatus) {
-        val setUpMeetingResult = SET_UP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        SetUpMeetingResult setUpMeetingResult = SET_UP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(setUpMeetingResult == null) {
             throw new IllegalArgumentException("SetUpMeetingResult cannot be created from the passed HTTP status");
         }

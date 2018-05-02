@@ -17,7 +17,6 @@ import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
@@ -25,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -45,8 +45,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IWorkgroup> createWorkgroupList() {
-        val workgroups = new ArrayList<IWorkgroup>();
-        val fireFighterMembers = new ArrayList<String>();
+        List<IWorkgroup> workgroups = new ArrayList<>();
+        List<String> fireFighterMembers = new ArrayList<>();
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
         fireFighterMembers.add(MEMBER_ID_CARLOS);
@@ -67,7 +67,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IPerson> createWorkgroupMemberList() {
-        val workgroupMembers = new ArrayList<IPerson>();
+        List<IPerson> workgroupMembers = new ArrayList<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANTHONY)
                 .name("Fire Fighter Anthony")
@@ -88,12 +88,12 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IMeeting> createMeetingList() {
-        val meetings = new ArrayList<IMeeting>();
-        val fireFightersMeetingAgenda = new ArrayList<IAgendaItem>();
+        List<IMeeting> meetings = new ArrayList<>();
+        List<IAgendaItem> fireFightersMeetingAgenda = new ArrayList<>();
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
-        val fireFightersMeetingAssistances = new HashSet<IAssistanceDao>();
+        Set<IAssistanceDao> fireFightersMeetingAssistances = new HashSet<>();
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
@@ -110,8 +110,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IRoom> createRoomList() {
-        val rooms = new ArrayList<IRoom>();
-        val redRoomDevices = new ArrayList<String>();
+        List<IRoom> rooms = new ArrayList<>();
+        List<String> redRoomDevices = new ArrayList<>();
         redRoomDevices.add(DEVICE_ID_RED_DISPLAY);
         redRoomDevices.add(DEVICE_ID_RED_MICROPHONE);
         rooms.add(Room.builder()
@@ -124,7 +124,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IDevice> createDeviceList() {
-        val devices = new ArrayList<IDevice>();
+        List<IDevice> devices = new ArrayList<>();
         devices.add(AcmeDisplay.builder()
                 .id(DEVICE_ID_RED_DISPLAY)
                 .name("Display in Room Red")

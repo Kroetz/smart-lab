@@ -7,7 +7,6 @@ import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.sample.factory.ISampleDataFactory;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public List<IWorkgroup> getWorkgroups() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        for(val factory : sampleDataFactories) {
+        for(ISampleDataFactory factory : sampleDataFactories) {
             workgroups.addAll(factory.createWorkgroupList());
         }
         return workgroups;
@@ -33,7 +32,7 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public List<IPerson> getWorkgroupMembers() {
         List<IPerson> workgroupMembers = new ArrayList<>();
-        for(val factory : sampleDataFactories) {
+        for(ISampleDataFactory factory : sampleDataFactories) {
             workgroupMembers.addAll(factory.createWorkgroupMemberList());
         }
         return workgroupMembers;
@@ -42,7 +41,7 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public List<IMeeting> getMeetings() {
         List<IMeeting> meetings = new ArrayList<>();
-        for(val factory : sampleDataFactories) {
+        for(ISampleDataFactory factory : sampleDataFactories) {
             meetings.addAll(factory.createMeetingList());
         }
         return meetings;
@@ -51,7 +50,7 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public List<IRoom> getRooms() {
         List<IRoom> rooms = new ArrayList<>();
-        for(val factory : sampleDataFactories) {
+        for(ISampleDataFactory factory : sampleDataFactories) {
             rooms.addAll(factory.createRoomList());
         }
         return rooms;
@@ -60,7 +59,7 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public List<IDevice> getDevices() {
         List<IDevice> devices = new ArrayList<>();
-        for(val factory : sampleDataFactories) {
+        for(ISampleDataFactory factory : sampleDataFactories) {
             devices.addAll(factory.createDeviceList());
         }
         return devices;

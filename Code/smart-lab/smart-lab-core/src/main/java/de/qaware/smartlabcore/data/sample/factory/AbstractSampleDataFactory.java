@@ -5,7 +5,6 @@ import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
-import lombok.val;
 
 import java.time.Instant;
 import java.util.List;
@@ -25,7 +24,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
     @Override
     public Map<String, IWorkgroup> createWorkgroupMap() {
-        val workgroups = createWorkgroupList();
+        List<IWorkgroup> workgroups = createWorkgroupList();
         return workgroups.stream()
                 .collect(Collectors.toMap(IWorkgroup::getId, workgroup -> workgroup));
     }
@@ -35,7 +34,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
     @Override
     public Map<String, IPerson> createWorkgroupMemberMap() {
-        val workgroupMembers = createWorkgroupMemberList();
+        List<IPerson> workgroupMembers = createWorkgroupMemberList();
         return workgroupMembers.stream()
                 .collect(Collectors.toMap(IPerson::getId, workgroupMember -> workgroupMember));
     }
@@ -45,7 +44,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
     @Override
     public Map<String, IMeeting> createMeetingMap() {
-        val meetings = createMeetingList();
+        List<IMeeting> meetings = createMeetingList();
         return meetings.stream()
                 .collect(Collectors.toMap(IMeeting::getId, meeting -> meeting));
     }
@@ -55,7 +54,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
     @Override
     public Map<String, IRoom> createRoomMap() {
-        val rooms = createRoomList();
+        List<IRoom> rooms = createRoomList();
         return rooms.stream()
                 .collect(Collectors.toMap(IRoom::getId, room -> room));
     }
@@ -65,7 +64,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
     @Override
     public Map<String, IDevice> createDeviceMap() {
-        val devices = createDeviceList();
+        List<IDevice> devices = createDeviceList();
         return devices.stream()
                 .collect(Collectors.toMap(IDevice::getId, device -> device));
     }

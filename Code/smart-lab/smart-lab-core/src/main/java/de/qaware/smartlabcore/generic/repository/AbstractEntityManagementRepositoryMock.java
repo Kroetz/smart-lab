@@ -3,7 +3,6 @@ package de.qaware.smartlabcore.generic.repository;
 import de.qaware.smartlabcommons.data.IEntity;
 import de.qaware.smartlabcore.generic.result.CreationResult;
 import de.qaware.smartlabcore.generic.result.DeletionResult;
-import lombok.val;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -33,7 +32,7 @@ public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> 
 
     @Override
     public Map<String, Optional<T>> findMultiple(Set<String> entityIds) {
-        val entitiesById = new HashMap<String, Optional<T>>();
+        Map<String, Optional<T>> entitiesById = new HashMap<>();
         entityIds.forEach(entityId -> entitiesById.put(entityId, findOne(entityId)));
         return entitiesById;
     }
@@ -51,13 +50,13 @@ public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> 
 
     @Override
     public DeletionResult delete(String entityId) {
-        val entitiesToDelete = this.entities.stream()
+        List<IEntity> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .collect(Collectors.toList());
         if(entitiesToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }
-        val deleted =  this.entities.removeAll(entitiesToDelete);
+        boolean deleted =  this.entities.removeAll(entitiesToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }

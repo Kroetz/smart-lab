@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -33,7 +32,7 @@ public enum DeletionResult {
     }
 
     public static DeletionResult fromHttpStatus(HttpStatus httpStatus) {
-        val deletionResult = DELETION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        DeletionResult deletionResult = DELETION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(deletionResult == null) {
             throw new IllegalArgumentException("DeletionResult cannot be created from the passed HTTP status");
         }

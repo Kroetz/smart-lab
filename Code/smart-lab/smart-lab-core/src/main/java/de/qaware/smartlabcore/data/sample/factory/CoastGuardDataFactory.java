@@ -16,7 +16,6 @@ import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
@@ -24,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -44,8 +44,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IWorkgroup> createWorkgroupList() {
-        val workgroups = new ArrayList<IWorkgroup>();
-        val coastGuardMembers = new ArrayList<String>();
+        List<IWorkgroup> workgroups = new ArrayList<>();
+        List<String> coastGuardMembers = new ArrayList<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
         coastGuardMembers.add(MEMBER_ID_CHARLIE);
@@ -66,7 +66,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IPerson> createWorkgroupMemberList() {
-        val workgroupMembers = new ArrayList<IPerson>();
+        List<IPerson> workgroupMembers = new ArrayList<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALICE)
                 .name("Coast Guard Alice")
@@ -87,12 +87,12 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IMeeting> createMeetingList() {
-        val meetings = new ArrayList<IMeeting>();
-        val whaleMeetingAgenda = new ArrayList<IAgendaItem>();
+        List<IMeeting> meetings = new ArrayList<>();
+        List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
         whaleMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
-        val whaleMeetingAssistances = new HashSet<IAssistanceDao>();
+        Set<IAssistanceDao> whaleMeetingAssistances = new HashSet<>();
         whaleMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         whaleMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
@@ -105,11 +105,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
 
-        val whirlpoolMeetingAgenda = new ArrayList<IAgendaItem>();
+        List<IAgendaItem> whirlpoolMeetingAgenda = new ArrayList<>();
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Explain how whirlpools develop").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
-        val whirlpoolMeetingAssistances = new HashSet<IAssistanceDao>();
+        Set<IAssistanceDao> whirlpoolMeetingAssistances = new HashSet<>();
         whirlpoolMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         whirlpoolMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
@@ -127,8 +127,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IRoom> createRoomList() {
-        val rooms = new ArrayList<IRoom>();
-        val blueRoomDevices = new ArrayList<String>();
+        List<IRoom> rooms = new ArrayList<>();
+        List<String> blueRoomDevices = new ArrayList<>();
         blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLUE)
@@ -140,7 +140,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IDevice> createDeviceList() {
-        val devices = new ArrayList<IDevice>();
+        List<IDevice> devices = new ArrayList<>();
         devices.add(AcmeDisplay.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY)
                 .name("Display in Room Blue")

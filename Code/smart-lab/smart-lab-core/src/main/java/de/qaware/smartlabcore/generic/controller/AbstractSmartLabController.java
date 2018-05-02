@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.generic.controller;
 
-import lombok.val;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -18,7 +18,7 @@ public abstract class AbstractSmartLabController {
     }
 
     protected <T> ResponseEntity<Set<T>> responseFromOptionals(Map<String, Optional<T>> entityOptionalsById) {
-        val entityOptionals = entityOptionalsById.values();
+        Collection<Optional<T>> entityOptionals = entityOptionalsById.values();
         if(entityOptionals.stream().anyMatch(o -> !o.isPresent())) {
             return ResponseEntity.notFound().build();
         }

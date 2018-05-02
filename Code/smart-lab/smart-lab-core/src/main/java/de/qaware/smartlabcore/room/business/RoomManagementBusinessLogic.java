@@ -8,7 +8,6 @@ import de.qaware.smartlabcore.generic.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -57,7 +56,7 @@ public class RoomManagementBusinessLogic extends AbstractEntityManagementBusines
 
     @Override
     public String getCurrentMeetingStatusPage(String roomId, Model model) {
-        val statusPage = getCurrentMeeting(roomId)
+        String statusPage = getCurrentMeeting(roomId)
                 .map(meeting -> {
                     model.addAttribute("roomId", roomId);
                     model.addAttribute("meetingTopic", meeting.getTitle());

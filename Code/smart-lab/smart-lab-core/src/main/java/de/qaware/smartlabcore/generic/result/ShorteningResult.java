@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -35,7 +34,7 @@ public enum ShorteningResult {
     }
 
     public static ShorteningResult fromHttpStatus(HttpStatus httpStatus) {
-        val shorteningResult = SHORTENING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        ShorteningResult shorteningResult = SHORTENING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(shorteningResult == null) {
             throw new IllegalArgumentException("ShorteningResult cannot be created from the passed HTTP status");
         }

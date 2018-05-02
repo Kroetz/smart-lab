@@ -1,6 +1,5 @@
 package de.qaware.smartlabcore.generic.result;
 
-import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +28,7 @@ public enum StopMeetingResult {
     }
 
     public static StopMeetingResult fromHttpStatus(HttpStatus httpStatus) {
-        val stopMeetingResult = STOP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        StopMeetingResult stopMeetingResult = STOP_MEETING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
         if(stopMeetingResult == null) {
             throw new IllegalArgumentException("StopMeetingResult cannot be created from the passed HTTP status");
         }

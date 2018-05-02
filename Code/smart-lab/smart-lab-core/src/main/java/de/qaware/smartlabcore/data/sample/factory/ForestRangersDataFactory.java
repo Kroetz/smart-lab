@@ -16,7 +16,6 @@ import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
@@ -24,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -43,8 +43,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IWorkgroup> createWorkgroupList() {
-        val workgroups = new ArrayList<IWorkgroup>();
-        val forestRangerMembers = new ArrayList<String>();
+        List<IWorkgroup> workgroups = new ArrayList<>();
+        List<String> forestRangerMembers = new ArrayList<>();
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
         forestRangerMembers.add(MEMBER_ID_CAROLINE);
@@ -65,7 +65,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IPerson> createWorkgroupMemberList() {
-        val workgroupMembers = new ArrayList<IPerson>();
+        List<IPerson> workgroupMembers = new ArrayList<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANNA)
                 .name("Forest Ranger Anna")
@@ -86,12 +86,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IMeeting> createMeetingList() {
-        val meetings = new ArrayList<IMeeting>();
-        val forestRangersMeetingAgenda = new ArrayList<IAgendaItem>();
+        List<IMeeting> meetings = new ArrayList<>();
+        List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
-        val forestRangersMeetingAssistances = new HashSet<IAssistanceDao>();
+        Set<IAssistanceDao> forestRangersMeetingAssistances = new HashSet<>();
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
         forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
         meetings.add(Meeting.builder()
@@ -108,8 +108,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IRoom> createRoomList() {
-        val rooms = new ArrayList<IRoom>();
-        val greenRoomDevices = new ArrayList<String>();
+        List<IRoom> rooms = new ArrayList<>();
+        List<String> greenRoomDevices = new ArrayList<>();
         greenRoomDevices.add(DEVICE_ID_GREEN_MICROPHONE);
         rooms.add(Room.builder()
                 .id(ROOM_ID_GREEN)
@@ -121,7 +121,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
     @Override
     public List<IDevice> createDeviceList() {
-        val devices = new ArrayList<IDevice>();
+        List<IDevice> devices = new ArrayList<>();
         devices.add(AcmeMicrophone.builder()
                 .id(DEVICE_ID_GREEN_MICROPHONE)
                 .name("Microphone in Room Green")
