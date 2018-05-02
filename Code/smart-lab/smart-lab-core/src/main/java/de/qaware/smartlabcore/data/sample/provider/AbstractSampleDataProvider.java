@@ -31,26 +31,26 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
 
     @Override
     public List<IWorkgroup> getWorkgroups() {
-        return getEntities(factory -> factory.createWorkgroupList());
+        return getEntities(ISampleDataFactory::createWorkgroupList);
     }
 
     @Override
     public List<IPerson> getWorkgroupMembers() {
-        return getEntities(factory -> factory.createWorkgroupMemberList());
+        return getEntities(ISampleDataFactory::createWorkgroupMemberList);
     }
 
     @Override
     public List<IMeeting> getMeetings() {
-        return getEntities(factory -> factory.createMeetingList());
+        return getEntities(ISampleDataFactory::createMeetingList);
     }
 
     @Override
     public List<IRoom> getRooms() {
-        return getEntities(factory -> factory.createRoomList());
+        return getEntities(ISampleDataFactory::createRoomList);
     }
 
     @Override
     public List<IDevice> getDevices() {
-        return getEntities(factory -> factory.createDeviceList());
+        return getEntities(ISampleDataFactory::createDeviceList);
     }
 }
