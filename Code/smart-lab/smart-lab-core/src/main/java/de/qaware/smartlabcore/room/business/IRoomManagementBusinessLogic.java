@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.room.service;
+package de.qaware.smartlabcore.room.business;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Optional;
 import java.util.Set;
 
-public interface IRoomManagementService extends IEntityManagementService<IRoom> {
+public interface IRoomManagementBusinessLogic extends IEntityManagementService<IRoom> {
 
     Optional<Set<IMeeting>> getMeetingsInRoom(String roomId);
     Optional<IMeeting> getCurrentMeeting(String roomId);

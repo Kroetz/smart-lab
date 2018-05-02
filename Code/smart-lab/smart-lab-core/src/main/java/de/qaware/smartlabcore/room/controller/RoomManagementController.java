@@ -4,7 +4,7 @@ import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.room.service.IRoomManagementService;
+import de.qaware.smartlabcore.room.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,50 +22,50 @@ import java.util.Set;
 @Slf4j
 public class RoomManagementController extends AbstractSmartLabController {
 
-    private final IRoomManagementService roomManagementService;
+    private final IRoomManagementBusinessLogic roomManagementBusinessLogic;
 
-    public RoomManagementController(IRoomManagementService roomManagementService) {
-        this.roomManagementService = roomManagementService;
+    public RoomManagementController(IRoomManagementBusinessLogic roomManagementBusinessLogic) {
+        this.roomManagementBusinessLogic = roomManagementBusinessLogic;
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
     public Set<IRoom> findAll() {
-        return roomManagementService.findAll();
+        return roomManagementBusinessLogic.findAll();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
     public ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementService.findOne(roomId));
+        return responseFromOptional(roomManagementBusinessLogic.findOne(roomId));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
     ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
-        return responseFromOptionals(roomManagementService.findMultiple(new HashSet<>(Arrays.asList(roomIds))));
+        return responseFromOptionals(roomManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(roomIds))));
     }
 
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Void> create(@RequestBody IRoom room) {
-        return roomManagementService.create(room).toResponseEntity();
+        return roomManagementBusinessLogic.create(room).toResponseEntity();
     }
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return roomManagementService.delete(roomId).toResponseEntity();
+        return roomManagementBusinessLogic.delete(roomId).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
     public ResponseEntity<Set<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementService.getMeetingsInRoom(roomId));
+        return responseFromOptional(roomManagementBusinessLogic.getMeetingsInRoom(roomId));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
     public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementService.getCurrentMeeting(roomId));
+        return responseFromOptional(roomManagementBusinessLogic.getCurrentMeeting(roomId));
     }
 
     @PostMapping(RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
@@ -73,11 +73,11 @@ public class RoomManagementController extends AbstractSmartLabController {
     public ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return roomManagementService.extendCurrentMeeting(roomId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return roomManagementBusinessLogic.extendCurrentMeeting(roomId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
     public String getCurrentMeetingStatusPage(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
-        return roomManagementService.getCurrentMeetingStatusPage(roomId, model);
+        return roomManagementBusinessLogic.getCurrentMeetingStatusPage(roomId, model);
     }
 }

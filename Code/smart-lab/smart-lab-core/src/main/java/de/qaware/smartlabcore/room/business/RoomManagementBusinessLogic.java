@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.room.service;
+package de.qaware.smartlabcore.room.business;
 
 import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.api.TriggerApiConstants;
@@ -20,13 +20,13 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class RoomManagementService extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
+public class RoomManagementBusinessLogic extends AbstractEntityManagementService<IRoom> implements IRoomManagementBusinessLogic {
 
     private static final String APP_PROPERTY_DEFAULT_MEETING_EXTENSION_IN_MINUTES = "default.meeting.extension.in.minutes";
     public static Duration DEFAULT_MEETING_EXTENSION;
     private final IRoomManagementRepository roomManagementRepository;
 
-    public RoomManagementService(
+    public RoomManagementBusinessLogic(
             @Value("${" + APP_PROPERTY_DEFAULT_MEETING_EXTENSION_IN_MINUTES + "}") long defaultMeetingExtensionInMinutes,
             IRoomManagementRepository roomManagementRepository) {
         super(roomManagementRepository);

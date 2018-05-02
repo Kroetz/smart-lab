@@ -1,7 +1,7 @@
-package de.qaware.smartlabcore.trigger.controller;
+package de.qaware.smartlabtrigger.trigger.controller;
 
 import de.qaware.smartlabcommons.api.TriggerApiConstants;
-import de.qaware.smartlabcore.trigger.service.ITriggerService;
+import de.qaware.smartlabtrigger.trigger.service.ITriggerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

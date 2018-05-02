@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.trigger.service;
+package de.qaware.smartlabtrigger.trigger.service;
 
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;

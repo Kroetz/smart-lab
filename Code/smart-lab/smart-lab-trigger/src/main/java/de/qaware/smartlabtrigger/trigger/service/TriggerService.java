@@ -1,10 +1,10 @@
-package de.qaware.smartlabcore.trigger.service;
+package de.qaware.smartlabtrigger.trigger.service;
 
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcommons.api.client.IRoomManagementApiClient;
-import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
+import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.generic.result.CleanUpMeetingResult;
 import de.qaware.smartlabcore.generic.result.SetUpMeetingResult;
 import de.qaware.smartlabcore.generic.result.StartMeetingResult;
@@ -17,19 +17,19 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TriggerService implements ITriggerService {
 
-    private final IRoomManagementApiClient roomManagementApiClient;
+    private final IRoomManagementService roomManagementService;
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
     public TriggerService(
-            IRoomManagementApiClient roomManagementApiClient,
+            IRoomManagementService roomManagementService,
             IWorkgroupManagementApiClient workgroupManagementApiClient) {
-        this.roomManagementApiClient = roomManagementApiClient;
+        this.roomManagementService = roomManagementService;
         this.workgroupManagementApiClient = workgroupManagementApiClient;
     }
 
     @Override
     public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
-        val room = roomManagementApiClient.findOne(meeting.getRoomId()).getBody();
+        val room = roomManagementService.findOne(meeting.getRoomId()).getBody();
         val workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
         room.setUpMeeting(meeting, workgroup);
         log.info(String.format("Set up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
@@ -43,7 +43,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public SetUpMeetingResult setUpCurrentMeetingByRoomId(String roomId) {
-        return setUpMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
+        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TriggerService implements ITriggerService {
     @Override
     public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting) {
         // meeting.triggerAssistances(new TriggerMeetingCleanUp());
-        val room = roomManagementApiClient.findOne(meeting.getRoomId()).getBody();
+        val room = roomManagementService.findOne(meeting.getRoomId()).getBody();
         val workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
         room.cleanUpMeeting(meeting, workgroup);
         log.info(String.format("Clean up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
@@ -78,7 +78,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public CleanUpMeetingResult cleanUpCurrentMeetingByRoomId(String roomId) {
-        return cleanUpMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
+        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
     }
 
     @Override
@@ -100,7 +100,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public StartMeetingResult startMeeting(IMeeting meeting) {
-        val room = roomManagementApiClient.findOne(meeting.getRoomId()).getBody();
+        val room = roomManagementService.findOne(meeting.getRoomId()).getBody();
         val workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
         room.startMeeting(meeting, workgroup);
         log.info(String.format("Started meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
@@ -114,7 +114,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public StartMeetingResult startCurrentMeetingByRoomId(String roomId){
-        return startMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
+        return startMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
     }
 
     @Override
@@ -134,7 +134,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public StopMeetingResult stopMeeting(IMeeting meeting) {
-        val room = roomManagementApiClient.findOne(meeting.getRoomId()).getBody();
+        val room = roomManagementService.findOne(meeting.getRoomId()).getBody();
         val workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
         room.stopMeeting(meeting, workgroup);
         log.info(String.format("Stopped meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
@@ -148,7 +148,7 @@ public class TriggerService implements ITriggerService {
 
     @Override
     public StopMeetingResult stopCurrentMeetingByRoomId(String roomId) {
-        return stopMeeting(roomManagementApiClient.getCurrentMeeting(roomId).getBody());
+        return stopMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
     }
 
     @Override

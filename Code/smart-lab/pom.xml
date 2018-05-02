@@ -25,6 +25,7 @@
 		<module>smart-lab-spring-dependencies</module>
 		<module>smart-lab-test-dependencies</module>
 		<module>smart-lab-core</module>
+		<module>smart-lab-trigger</module>
 		<module>smart-lab-meeting-set-up-trigger-mock</module>
 		<module>smart-lab-meeting-clean-up-trigger-mock</module>
 	</modules>
