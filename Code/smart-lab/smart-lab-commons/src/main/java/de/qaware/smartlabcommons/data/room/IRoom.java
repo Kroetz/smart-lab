@@ -1,15 +1,17 @@
 package de.qaware.smartlabcommons.data.room;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.Constants;
 import de.qaware.smartlabcommons.data.IEntity;
 import de.qaware.smartlabcommons.data.device.IDevice;
 
 import java.util.Collection;
 import java.util.Optional;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+        property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IRoom extends IEntity {
 
     String getName();

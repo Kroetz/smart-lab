@@ -1,10 +1,12 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.Constants;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+        property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IAgendaItem {
 
     String getText();

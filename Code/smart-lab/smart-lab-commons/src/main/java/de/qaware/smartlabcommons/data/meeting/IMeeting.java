@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.Constants;
 import de.qaware.smartlabcommons.data.IEntity;
 
 import java.time.Duration;
@@ -8,9 +9,10 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+        property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IMeeting extends IEntity {
 
     String getTitle();
