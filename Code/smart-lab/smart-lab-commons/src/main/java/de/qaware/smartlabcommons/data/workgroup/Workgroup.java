@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.net.URL;
-import java.util.Collection;
+import java.util.Set;
 
 @Data
 @Builder
@@ -16,7 +16,7 @@ public class Workgroup implements IWorkgroup {
 
     private String id;
     private String name;
-    private Collection<String> memberIds;
+    private Set<String> memberIds;
     private URL knowledgeBase;
     private URL codeRepository;
 }

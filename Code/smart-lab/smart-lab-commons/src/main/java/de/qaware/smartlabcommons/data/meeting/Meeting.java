@@ -1,9 +1,10 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
-import de.qaware.smartlabcommons.data.trigger.ITrigger;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -21,19 +22,9 @@ public class Meeting implements IMeeting {
     private String workgroupId;
     private String roomId;
     private List<IAgendaItem> agenda;
-    private Set<IAssistanceDao> assistances;
+    private Set<String> assistanceIds;
     private Instant start;
     private Instant end;
-
-    @Override
-    public void triggerAssistances(ITrigger trigger) {
-        /*val room = roomService.findOne(getRoomId()).orElseThrow(IllegalStateException::new);
-        val workgroup = workgroupService.findOne(getWorkgroupId()).orElseThrow(IllegalStateException::new);
-
-        for (val assistance : getAssistances()) {
-
-        }*/
-    }
 
     @Override
     public Duration getDuration() {

@@ -7,8 +7,6 @@ import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.meeting.Meeting;
-import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
@@ -44,7 +42,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IWorkgroup> createWorkgroupList() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        List<String> astronautsMembers = new ArrayList<>();
+        Set<String> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
         astronautsMembers.add(MEMBER_ID_CHARLOTTE);
@@ -91,16 +89,16 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
-        Set<IAssistanceDao> astronautsMeetingAssistances = new HashSet<>();
-        astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        astronautsMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
+        Set<String> astronautsMeetingAssistances = new HashSet<>();
+        astronautsMeetingAssistances.add(Constants.MINUTE_TAKING);
+        astronautsMeetingAssistances.add(Constants.ROOM_UNLOCKING);
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
                 .workgroupId(WORKGROUP_ID_ASTRONAUTS)
                 .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
-                .assistances(astronautsMeetingAssistances)
+                .assistanceIds(astronautsMeetingAssistances)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
         return meetings;

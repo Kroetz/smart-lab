@@ -7,8 +7,6 @@ import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.meeting.Meeting;
-import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
@@ -44,7 +42,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IWorkgroup> createWorkgroupList() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        List<String> forestRangerMembers = new ArrayList<>();
+        Set<String> forestRangerMembers = new HashSet<>();
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
         forestRangerMembers.add(MEMBER_ID_CAROLINE);
@@ -91,16 +89,16 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
-        Set<IAssistanceDao> forestRangersMeetingAssistances = new HashSet<>();
-        forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        forestRangersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
+        Set<String> forestRangersMeetingAssistances = new HashSet<>();
+        forestRangersMeetingAssistances.add(Constants.MINUTE_TAKING);
+        forestRangersMeetingAssistances.add(Constants.ROOM_UNLOCKING);
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
                 .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
                 .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
-                .assistances(forestRangersMeetingAssistances)
+                .assistanceIds(forestRangersMeetingAssistances)
                 .start(timeBase.plusSeconds(60))
                 .end(timeBase.plusSeconds(360)).build());
         return meetings;

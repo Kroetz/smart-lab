@@ -2,6 +2,10 @@ package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabcommons.data.assistance.IAssistance;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceResolver;
+import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
@@ -14,31 +18,49 @@ import de.qaware.smartlabcommons.result.StopMeetingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.function.Consumer;
+
 @Service
 @Slf4j
 public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private final IRoomManagementService roomManagementService;
     private final IWorkgroupManagementService workgroupManagementService;
+    private final IContextFactory contextFactory;
+    private final IAssistanceResolver assistanceResolver;
 
     public TriggerBusinessLogic(
             IRoomManagementService roomManagementService,
-            IWorkgroupManagementService workgroupManagementService) {
+            IWorkgroupManagementService workgroupManagementService,
+            IContextFactory contextFactory,
+            IAssistanceResolver assistanceResolver) {
         this.roomManagementService = roomManagementService;
         this.workgroupManagementService = workgroupManagementService;
+        this.contextFactory = contextFactory;
+        this.assistanceResolver = assistanceResolver;
+    }
+
+    private void triggerAssistance(IContext context, Consumer<IAssistance> triggerFunction) {
+        // TODO: Exception?.
+        Set<String> assistanceIds = context.getMeeting().map(IMeeting::getAssistanceIds).orElseThrow(IllegalStateException::new);
+        for(String assistanceId : assistanceIds) {
+            // TODO: Simpler with Java 9 "ifPresentOrElse" (see https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+            this.assistanceResolver.resolveAssistanceId(assistanceId).ifPresent(triggerFunction); // Inhalt der Methode muss spezifisch sein für Assistance (Mapping auf Assistance-API Feign-Call und übergeben des Assistance Namens als Param)
+        }
+        // TODO: Return type
     }
 
     @Override
     public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId());
-        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-        room.setUpMeeting(meeting, workgroup);
-        log.info(String.format("Set up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
-                room.getName(),
-                room.getId(),
+        IContext context = this.contextFactory.ofMeeting(meeting);
+        triggerAssistance(context, assistance -> assistance.triggerSetUpMeeting(context));
+        log.info("Set up room \"{}\" (id: {}) for meeting (id: {}) of workgroup \"{}\" (id: {})",
+                context.getRoom().map(IRoom::getName).orElse("Default room name"),
+                context.getRoom().map(IRoom::getId).orElse("Default room ID"),
                 meeting.getId(),
-                workgroup.getName(),
-                workgroup.getId()));
+                context.getWorkgroup().map(IWorkgroup::getName).orElse("Default workgroup name"),
+                context.getWorkgroup().map(IWorkgroup::getId).orElse("Default workgroup ID"));
         return SetUpMeetingResult.SUCCESS;
     }
 
@@ -64,16 +86,14 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting) {
-        // meeting.triggerAssistances(new TriggerMeetingCleanUp());
-        IRoom room = roomManagementService.findOne(meeting.getRoomId());
-        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-        room.cleanUpMeeting(meeting, workgroup);
-        log.info(String.format("Clean up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
-                room.getName(),
-                room.getId(),
+        IContext context = this.contextFactory.ofMeeting(meeting);
+        triggerAssistance(context, assistance -> assistance.triggerCleanUpMeeting(context));
+        log.info("Clean up room \"{}\" (id: {}) for meeting (id: {}) of workgroup \"{}\" (id: {})",
+                context.getRoom().map(IRoom::getName).orElse("Default room name"),
+                context.getRoom().map(IRoom::getId).orElse("Default room ID"),
                 meeting.getId(),
-                workgroup.getName(),
-                workgroup.getId()));
+                context.getWorkgroup().map(IWorkgroup::getName).orElse("Default workgroup name"),
+                context.getWorkgroup().map(IWorkgroup::getId).orElse("Default workgroup ID"));
         return CleanUpMeetingResult.SUCCESS;
     }
 
@@ -87,7 +107,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
         return cleanUpCurrentMeetingByRoomId(room.getId());
     }
 
-    // TODO: Clean up LAST meeting einführen, da kein current meeting vorhanden nach dem Ende!!!
+    // TODO: Introduce "Clean up LAST meeting" since there is no "current meeting" after a meeting has ended
 
     @Override
     public CleanUpMeetingResult cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
@@ -101,15 +121,14 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StartMeetingResult startMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId());
-        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-        room.startMeeting(meeting, workgroup);
-        log.info(String.format("Started meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
+        IContext context = this.contextFactory.ofMeeting(meeting);
+        triggerAssistance(context, assistance -> assistance.triggerStartMeeting(context));
+        log.info("Started meeting (id: {}) of workgroup \"{}\" (id: {}) in room \"{}\" (id: {})",
+                context.getRoom().map(IRoom::getName).orElse("Default room name"),
+                context.getRoom().map(IRoom::getId).orElse("Default room ID"),
                 meeting.getId(),
-                workgroup.getName(),
-                workgroup.getId(),
-                room.getName(),
-                room.getId()));
+                context.getWorkgroup().map(IWorkgroup::getName).orElse("Default workgroup name"),
+                context.getWorkgroup().map(IWorkgroup::getId).orElse("Default workgroup ID"));
         return StartMeetingResult.SUCCESS;
     }
 
@@ -135,15 +154,14 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StopMeetingResult stopMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId());
-        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-        room.stopMeeting(meeting, workgroup);
-        log.info(String.format("Stopped meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
+        IContext context = this.contextFactory.ofMeeting(meeting);
+        triggerAssistance(context, assistance -> assistance.triggerStopMeeting(context));
+        log.info("Stopped meeting (id: {}) of workgroup \"{}\" (id: {}) in room \"{}\" (id: {})",
+                context.getRoom().map(IRoom::getName).orElse("Default room name"),
+                context.getRoom().map(IRoom::getId).orElse("Default room ID"),
                 meeting.getId(),
-                workgroup.getName(),
-                workgroup.getId(),
-                room.getName(),
-                room.getId()));
+                context.getWorkgroup().map(IWorkgroup::getName).orElse("Default workgroup name"),
+                context.getWorkgroup().map(IWorkgroup::getId).orElse("Default workgroup ID"));
         return StopMeetingResult.SUCCESS;
     }
 

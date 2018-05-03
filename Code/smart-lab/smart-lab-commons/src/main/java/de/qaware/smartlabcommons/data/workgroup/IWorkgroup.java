@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcommons.data.IEntity;
 
 import java.net.URL;
-import java.util.Collection;
+import java.util.Set;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
@@ -16,7 +16,7 @@ import java.util.Collection;
 public interface IWorkgroup extends IEntity {
 
     String getName();
-    Collection<String> getMemberIds();
+    Set<String> getMemberIds();
     URL getKnowledgeBase();
     URL getCodeRepository();
 }

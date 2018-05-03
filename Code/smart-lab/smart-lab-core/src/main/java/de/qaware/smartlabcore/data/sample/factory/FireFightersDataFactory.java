@@ -8,8 +8,6 @@ import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.meeting.Meeting;
-import de.qaware.smartlabcommons.data.meeting.assistance.AssistanceDao;
-import de.qaware.smartlabcommons.data.meeting.assistance.IAssistanceDao;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
@@ -46,7 +44,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IWorkgroup> createWorkgroupList() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        List<String> fireFighterMembers = new ArrayList<>();
+        Set<String> fireFighterMembers = new HashSet<>();
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
         fireFighterMembers.add(MEMBER_ID_CARLOS);
@@ -93,16 +91,16 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
-        Set<IAssistanceDao> fireFightersMeetingAssistances = new HashSet<>();
-        fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.MINUTE_TAKING).build());
-        fireFightersMeetingAssistances.add(AssistanceDao.builder().assistance(Constants.ROOM_UNLOCKING).build());
+        Set<String> fireFightersMeetingAssistances = new HashSet<>();
+        fireFightersMeetingAssistances.add(Constants.MINUTE_TAKING);
+        fireFightersMeetingAssistances.add(Constants.ROOM_UNLOCKING);
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
                 .roomId(ROOM_ID_RED)
                 .agenda(fireFightersMeetingAgenda)
-                .assistances(fireFightersMeetingAssistances)
+                .assistanceIds(fireFightersMeetingAssistances)
                 .start(timeBase.plusSeconds(120))
                 .end(timeBase.plusSeconds(420)).build());
         return meetings;
