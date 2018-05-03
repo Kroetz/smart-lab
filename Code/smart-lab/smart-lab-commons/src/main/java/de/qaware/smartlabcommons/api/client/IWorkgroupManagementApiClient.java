@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.WorkgroupManagementApiConstants;
-import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
+import de.qaware.smartlabcommons.api.client.generic.IEntityManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,7 +16,7 @@ import java.util.Set;
         value = WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = WorkgroupManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IWorkgroupManagementApiClient extends ICrudApiClient<IWorkgroup> {
+public interface IWorkgroupManagementApiClient extends IEntityManagementApiClient<IWorkgroup> {
 
     @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_BASE + WorkgroupManagementApiConstants.MAPPING_FIND_ALL)

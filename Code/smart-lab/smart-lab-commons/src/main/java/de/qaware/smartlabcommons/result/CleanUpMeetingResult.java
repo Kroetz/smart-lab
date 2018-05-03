@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.generic.result;
+package de.qaware.smartlabcommons.result;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +33,9 @@ public enum CleanUpMeetingResult {
             throw new IllegalArgumentException("CleanUpMeetingResult cannot be created from the passed HTTP status");
         }
         return cleanUpMeetingResult;
+    }
+
+    public static CleanUpMeetingResult fromException(Exception e) {
+        return SUCCESS;
     }
 }

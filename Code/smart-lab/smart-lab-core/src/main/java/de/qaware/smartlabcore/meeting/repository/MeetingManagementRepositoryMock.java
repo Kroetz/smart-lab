@@ -1,9 +1,9 @@
 package de.qaware.smartlabcore.meeting.repository;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.result.*;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
-import de.qaware.smartlabcore.generic.result.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

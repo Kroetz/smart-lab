@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.MeetingManagementApiConstants;
-import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
+import de.qaware.smartlabcommons.api.client.generic.IEntityManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import java.util.Set;
         value = MeetingManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = MeetingManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IMeetingManagementApiClient extends ICrudApiClient<IMeeting> {
+public interface IMeetingManagementApiClient extends IEntityManagementApiClient<IMeeting> {
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_BASE + MeetingManagementApiConstants.MAPPING_FIND_ALL)

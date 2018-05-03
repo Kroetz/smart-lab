@@ -1,5 +1,7 @@
-package de.qaware.smartlabcore.generic.result;
+package de.qaware.smartlabcommons.result;
 
+import de.qaware.smartlabcommons.exception.EntityNotFoundException;
+import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -37,5 +39,15 @@ public enum DeletionResult {
             throw new IllegalArgumentException("DeletionResult cannot be created from the passed HTTP status");
         }
         return deletionResult;
+    }
+
+    public static DeletionResult fromException(Exception e) {
+        if(e instanceof EntityNotFoundException) {
+            return NOT_FOUND;
+        }
+        if(e instanceof UnknownErrorException) {
+            return ERROR;
+        }
+        return SUCCESS;
     }
 }

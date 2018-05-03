@@ -1,9 +1,9 @@
-package de.qaware.smartlabcommons.api.service.room;
+package de.qaware.smartlabcommons.api.service.workgroup;
 
-import de.qaware.smartlabcommons.api.client.IRoomManagementApiClient;
+import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import de.qaware.smartlabcommons.api.service.generic.AbstractEntityManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.exception.EntityNotFoundException;
 import de.qaware.smartlabcommons.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcommons.exception.MeetingConflictException;
@@ -16,19 +16,19 @@ import java.time.Duration;
 import java.util.Set;
 
 @Component
-public class RoomManagementService extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
+public class WorkgroupManagementService extends AbstractEntityManagementService<IWorkgroup> implements IWorkgroupManagementService {
 
-    private final IRoomManagementApiClient roomManagementApiClient;
+    private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
-    public RoomManagementService(IRoomManagementApiClient roomManagementApiClient) {
-        super(roomManagementApiClient);
-        this.roomManagementApiClient = roomManagementApiClient;
+    public WorkgroupManagementService(IWorkgroupManagementApiClient workgroupManagementApiClient) {
+        super(workgroupManagementApiClient);
+        this.workgroupManagementApiClient = workgroupManagementApiClient;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsInRoom(String roomId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
         try {
-            return this.roomManagementApiClient.getMeetingsInRoom(roomId).getBody();
+            return this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -39,9 +39,9 @@ public class RoomManagementService extends AbstractEntityManagementService<IRoom
     }
 
     @Override
-    public IMeeting getCurrentMeeting(String roomId) {
+    public IMeeting getCurrentMeeting(String workgroupId) {
         try {
-            return this.roomManagementApiClient.getCurrentMeeting(roomId).getBody();
+            return this.workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -52,9 +52,9 @@ public class RoomManagementService extends AbstractEntityManagementService<IRoom
     }
 
     @Override
-    public void extendCurrentMeeting(String roomId, Duration extension) {
+    public void extendCurrentMeeting(String workgroupId, Duration extension) {
         try {
-            this.roomManagementApiClient.extendCurrentMeeting(roomId, extension.toMinutes());
+            this.workgroupManagementApiClient.extendCurrentMeeting(workgroupId, extension.toMinutes());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

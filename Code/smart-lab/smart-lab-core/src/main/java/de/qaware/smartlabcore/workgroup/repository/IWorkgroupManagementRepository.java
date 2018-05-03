@@ -3,7 +3,7 @@ package de.qaware.smartlabcore.workgroup.repository;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
-import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import de.qaware.smartlabcommons.result.ExtensionResult;
 import lombok.NonNull;
 
 import java.time.Duration;

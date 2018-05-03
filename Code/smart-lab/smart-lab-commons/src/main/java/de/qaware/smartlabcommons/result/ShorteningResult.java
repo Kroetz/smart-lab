@@ -1,5 +1,8 @@
-package de.qaware.smartlabcore.generic.result;
+package de.qaware.smartlabcommons.result;
 
+import de.qaware.smartlabcommons.exception.EntityNotFoundException;
+import de.qaware.smartlabcommons.exception.MinimalDurationReachedException;
+import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -39,5 +42,18 @@ public enum ShorteningResult {
             throw new IllegalArgumentException("ShorteningResult cannot be created from the passed HTTP status");
         }
         return shorteningResult;
+    }
+
+    public static ShorteningResult fromException(Exception e) {
+        if(e instanceof EntityNotFoundException) {
+            return NOT_FOUND;
+        }
+        if(e instanceof MinimalDurationReachedException) {
+            return MINIMUM_REACHED;
+        }
+        if(e instanceof UnknownErrorException) {
+            return ERROR;
+        }
+        return SUCCESS;
     }
 }

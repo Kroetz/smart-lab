@@ -1,16 +1,16 @@
 package de.qaware.smartlabcore.generic
 
-import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient
+import de.qaware.smartlabcommons.api.service.generic.IEntityManagementService
 import de.qaware.smartlabcommons.data.IEntity
-import feign.FeignException
-import org.springframework.http.HttpStatus
+import de.qaware.smartlabcommons.exception.EntityNotFoundException
+import de.qaware.smartlabcommons.exception.MeetingConflictException
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
 abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
 
-    protected ICrudApiClient<T> crudApiClient
+    protected IEntityManagementService<T> crudService
     protected Set<T> entitiesForFindAll_withExisting
     protected T entityForFindOne_withExisting
     protected String entityIdForFindOne_withoutExisting
@@ -40,50 +40,47 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         given: "There are entities available in the repository"
         setupDataForFindAll_withExisting()
         for (def entity : entitiesForFindAll_withExisting) {
-            crudApiClient.create(entity)
+            crudService.create(entity)
         }
 
         when: "The set of entities is requested"
-        Set<T> response = crudApiClient.findAll()
+        Set<T> foundEntities = crudService.findAll()
 
         then: "The returned set equals the one that was used to populate the repository"
-        response == entitiesForFindAll_withExisting
+        foundEntities == entitiesForFindAll_withExisting
 
         cleanup:
         for (def entity : entitiesForFindAll_withExisting) {
-            crudApiClient.delete(entity.getId())
+            crudService.delete(entity.getId())
         }
     }
 
     def "Get a set of all existing entities when there are no entities (aka findAll_withoutExisting)"() {
 
         given: "There are no entities available in the repository"
-        def entities = new HashSet<IEntity>()
+        Set<T> entities = new HashSet<T>()
 
         when: "The set of entities is requested"
-        Set<T> response = crudApiClient.findAll()
+        Set<T> foundEntities = crudService.findAll()
 
         then: "The returned set is empty"
-        response == entities
+        foundEntities == entities
     }
 
     def "Get a specific entity when the entity exists (aka findOne_withExisting)"() {
 
         given: "An entity with the requested entity ID does exist"
         setupDataForFindOne_withExisting()
-        crudApiClient.create(entityForFindOne_withExisting)
+        crudService.create(entityForFindOne_withExisting)
 
         when: "The entity is requested"
-        def response = crudApiClient.findOne(entityForFindOne_withExisting.getId())
+        def foundEntity = crudService.findOne(entityForFindOne_withExisting.getId())
 
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The received entity equals the one that was initially put into the repository"
-        response.getBody() == entityForFindOne_withExisting
+        then: "The received entity equals the one that was initially put into the repository"
+        foundEntity == entityForFindOne_withExisting
 
         cleanup:
-        crudApiClient.delete(entityForFindOne_withExisting.getId())
+        crudService.delete(entityForFindOne_withExisting.getId())
     }
 
     def "Get a specific entity when the entity does not exist (aka findOne_withoutExisting)"() {
@@ -92,13 +89,10 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         setupDataForFindOne_withoutExisting()
 
         when: "The entity is requested"
-        crudApiClient.findOne(entityIdForFindOne_withoutExisting)
+        crudService.findOne(entityIdForFindOne_withoutExisting)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 
     def "Get a set of specific entities when the entities exist (aka findMultiple_withExisting)"() {
@@ -106,7 +100,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         given: "The entities with the requested entity IDs do exist"
         setupDataForFindMultiple_withExisting()
         for (def entity : allEntitiesForFindMultiple_withExisting) {
-            crudApiClient.create(entity)
+            crudService.create(entity)
         }
         String[] requestedEntityIds = requestedEntitiesForFindMultiple_withExisting.stream()
                 .map(mapEntityId)
@@ -114,17 +108,14 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
                 .toArray()
 
         when: "The entities are requested"
-        def response = crudApiClient.findMultiple(requestedEntityIds)
+        def foundEntities = crudService.findMultiple(requestedEntityIds)
 
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The received set of entities equals the one that was initially put into the repository"
-        response.getBody() == requestedEntitiesForFindMultiple_withExisting
+        then: "The received set of entities equals the one that was initially put into the repository"
+        foundEntities == requestedEntitiesForFindMultiple_withExisting
 
         cleanup:
         for (def entity : allEntitiesForFindMultiple_withExisting) {
-            crudApiClient.delete(entity.getId())
+            crudService.delete(entity.getId())
         }
     }
 
@@ -133,7 +124,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         given: "At least one of the entities with the requested entity IDs does not exist"
         setupDataForFindMultiple_withoutExisting()
         for (def entity : allEntitiesForFindMultiple_withoutExisting) {
-            crudApiClient.create(entity)
+            crudService.create(entity)
         }
         String[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
                 .map(mapEntityId)
@@ -141,17 +132,14 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
                 .toArray()
 
         when: "The entities are requested"
-        crudApiClient.findMultiple(requestedEntityIds)
+        crudService.findMultiple(requestedEntityIds)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
 
         cleanup:
         for (def entity : allEntitiesForFindMultiple_withoutExisting) {
-            crudApiClient.delete(entity.getId())
+            crudService.delete(entity.getId())
         }
     }
 
@@ -161,61 +149,54 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         setupDataForCreate_withoutConflict()
 
         when: "The entity is created"
-        def creationResponse = crudApiClient.create(entityForCreate_withoutConflict)
+        crudService.create(entityForCreate_withoutConflict)
 
-        then: "The returned HTTP status code is 200 (OK)"
-        creationResponse.statusCode == HttpStatus.OK
+        then: "The creation is successful and no exception is thrown"
+        noExceptionThrown()
 
         when: "The created entity is requested"
-        def findResponse = crudApiClient.findOne(entityForCreate_withoutConflict.getId())
+        def foundEntity = crudService.findOne(entityForCreate_withoutConflict.getId())
 
-        then: "The entity from the response equals the one that was initially passed during the creation"
-        findResponse.statusCodeValue == HttpStatus.OK.value()
-        entityForCreate_withoutConflict == findResponse.getBody()
+        then: "The found entity equals the one that was initially passed during the creation"
+        entityForCreate_withoutConflict == foundEntity
 
         cleanup:
-        crudApiClient.delete(entityForCreate_withoutConflict.getId())
+        crudService.delete(entityForCreate_withoutConflict.getId())
     }
 
     def "Create an entity with an ID that does already exist (aka create_withConflict)"() {
 
         given: "The ID of the entity to create is already taken"
         setupDataForCreate_withConflict()
-        crudApiClient.create(entityForCreate_withConflict)
+        crudService.create(entityForCreate_withConflict)
 
         when: "The entity is created"
-        crudApiClient.create(entityForCreate_withConflict)
+        crudService.create(entityForCreate_withConflict)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 409 (Conflict)"
-        e.status() == HttpStatus.CONFLICT.value()
+        then: "An exception is thrown"
+        thrown(MeetingConflictException)
 
         cleanup:
-        crudApiClient.delete(entityForCreate_withConflict.getId())
+        crudService.delete(entityForCreate_withConflict.getId())
     }
 
     def "Delete an entity with an ID that does exist (aka delete_withExisting)"() {
 
         given: "The ID of the entity to delete is taken"
         setupDataForDelete_withExisting()
-        crudApiClient.create(entityForDelete_withExisting)
+        crudService.create(entityForDelete_withExisting)
 
         when: "The entity is deleted"
-        def deletionResponse = crudApiClient.delete(entityForDelete_withExisting.getId())
+        crudService.delete(entityForDelete_withExisting.getId())
 
-        then: "The returned HTTP status code is 200 (OK)"
-        deletionResponse.statusCode == HttpStatus.OK
+        then: "The deletion is successful and no exception is thrown"
+        noExceptionThrown()
 
         when: "The deleted entity is requested"
-        crudApiClient.findOne(entityForDelete_withExisting.getId())
+        crudService.findOne(entityForDelete_withExisting.getId())
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 
     def "Delete an entity with an ID that does not exist (aka delete_withoutExisting)"() {
@@ -224,12 +205,9 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         setupDataForDelete_withoutExisting()
 
         when: "The entity is deleted"
-        crudApiClient.delete(entityIdForDelete_withoutExisting)
+        crudService.delete(entityIdForDelete_withoutExisting)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 }

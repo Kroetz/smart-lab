@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.PersonManagementApiConstants;
-import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
+import de.qaware.smartlabcommons.api.client.generic.IEntityManagementApiClient;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import java.util.Set;
         value = PersonManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = PersonManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IPersonManagementApiClient extends ICrudApiClient<IPerson> {
+public interface IPersonManagementApiClient extends IEntityManagementApiClient<IPerson> {
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_BASE + PersonManagementApiConstants.MAPPING_FIND_ALL)

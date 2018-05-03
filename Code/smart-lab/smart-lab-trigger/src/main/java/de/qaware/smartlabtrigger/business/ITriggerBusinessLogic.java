@@ -3,10 +3,10 @@ package de.qaware.smartlabtrigger.business;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcore.generic.result.CleanUpMeetingResult;
-import de.qaware.smartlabcore.generic.result.SetUpMeetingResult;
-import de.qaware.smartlabcore.generic.result.StartMeetingResult;
-import de.qaware.smartlabcore.generic.result.StopMeetingResult;
+import de.qaware.smartlabcommons.result.CleanUpMeetingResult;
+import de.qaware.smartlabcommons.result.SetUpMeetingResult;
+import de.qaware.smartlabcommons.result.StartMeetingResult;
+import de.qaware.smartlabcommons.result.StopMeetingResult;
 
 public interface ITriggerBusinessLogic {
 

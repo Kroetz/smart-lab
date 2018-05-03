@@ -1,7 +1,11 @@
 package de.qaware.smartlabcore.meeting
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient
+import de.qaware.smartlabcommons.api.service.meeting.IMeetingManagementService
 import de.qaware.smartlabcommons.data.meeting.IMeeting
+import de.qaware.smartlabcommons.exception.EntityNotFoundException
+import de.qaware.smartlabcommons.exception.MaximalDurationReachedException
+import de.qaware.smartlabcommons.exception.MeetingConflictException
+import de.qaware.smartlabcommons.exception.MinimalDurationReachedException
 import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
 import de.qaware.smartlabcore.data.sample.factory.FireFightersDataFactory
@@ -9,10 +13,8 @@ import de.qaware.smartlabcore.data.sample.factory.ForestRangersDataFactory
 import de.qaware.smartlabcore.data.sample.provider.EmptySampleDataProvider
 import de.qaware.smartlabcore.generic.CrudApiIntegrationTest
 import de.qaware.smartlabcore.meeting.business.MeetingManagementBusinessLogic
-import feign.FeignException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 
 import java.time.Duration
@@ -22,7 +24,7 @@ import java.time.Duration
 class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeeting> {
 
     @Autowired
-    private IMeetingManagementApiClient meetingManagementApiClient
+    private IMeetingManagementService meetingManagementService
 
     @Autowired
     private CoastGuardDataFactory coastGuardDataFactory
@@ -38,7 +40,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
 
     @Override
     def setupDataForFindAll_withExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
@@ -47,19 +49,19 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
 
     @Override
     def setupDataForFindOne_withExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityForFindOne_withExisting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
     @Override
     def setupDataForFindOne_withoutExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityIdForFindOne_withoutExisting = coastGuardDataFactory.MEETING_ID_WHALES
     }
 
     @Override
     def setupDataForFindMultiple_withExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
         def meetingId2 = forestRangersDataFactory.MEETING_ID_BARK_BEETLE
         def meetingId3 = fireFightersDataFactory.MEETING_ID_TRUCK
@@ -72,7 +74,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
 
     @Override
     def setupDataForFindMultiple_withoutExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
         def meetingId2 = forestRangersDataFactory.MEETING_ID_BARK_BEETLE
         def meetingId3 = fireFightersDataFactory.MEETING_ID_TRUCK
@@ -85,25 +87,25 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
 
     @Override
     def setupDataForCreate_withoutConflict() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityForCreate_withoutConflict = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
     @Override
     def setupDataForCreate_withConflict() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityForCreate_withConflict = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
     @Override
     def setupDataForDelete_withExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityForDelete_withExisting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
     }
 
     @Override
     def setupDataForDelete_withoutExisting() {
-        crudApiClient = meetingManagementApiClient
+        crudService = meetingManagementService
         entityIdForDelete_withoutExisting = coastGuardDataFactory.MEETING_ID_WHALES
     }
 
@@ -112,21 +114,18 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "A meeting with the requested meeting ID does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.create(meeting)
-        def shorteningInMinutes = (meeting.getDuration() - Duration.ofMinutes(1)).toMinutes()
+        meetingManagementService.create(meeting)
+        def shortening = (meeting.getDuration() - Duration.ofMinutes(1))
 
         when: "The meeting is shortened"
-        def response = meetingManagementApiClient.shortenMeeting(meetingId, shorteningInMinutes)
+        meetingManagementService.shortenMeeting(meetingId, shortening)
 
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The meeting is now shorter than it was originally"
-        def shortenedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
-        shortenedMeeting.getEnd() == meeting.getEnd() - Duration.ofMinutes(shorteningInMinutes)
+        then: "The meeting is now shorter than it was originally"
+        def shortenedMeeting = meetingManagementService.findOne(meetingId)
+        shortenedMeeting.getEnd() == meeting.getEnd() - shortening
 
         cleanup:
-        meetingManagementApiClient.delete(meetingId)
+        meetingManagementService.delete(meetingId)
     }
 
     def "Shorten an existing meeting so that it would be shorter than the minimal duration"() {
@@ -134,20 +133,17 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "The meeting to shorten does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.create(meeting)
-        def shorteningInMinutes = meeting.getDuration().toMinutes()
+        meetingManagementService.create(meeting)
+        def shortening = meeting.getDuration()
 
         when: "The meeting is shortened beyond the minimum"
-        meetingManagementApiClient.shortenMeeting(meetingId, shorteningInMinutes)
+        meetingManagementService.shortenMeeting(meetingId, shortening)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 422 (Unprocessable entity)"
-        e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()
+        then: "An exception is thrown"
+        thrown(MinimalDurationReachedException)
 
         cleanup:
-        meetingManagementApiClient.delete(meetingId)
+        meetingManagementService.delete(meetingId)
     }
 
     def "Shorten a meeting with an ID that does not exist"() {
@@ -155,16 +151,13 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "The meeting to shorten does not exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        def shorteningInMinutes = (meeting.getDuration() - Duration.ofMinutes(1)).toMinutes()
+        def shortening = (meeting.getDuration() - Duration.ofMinutes(1))
 
         when: "The meeting is shortened"
-        meetingManagementApiClient.shortenMeeting(meetingId, shorteningInMinutes)
+        meetingManagementService.shortenMeeting(meetingId, shortening)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 
     def "Extend an existing meeting by a valid duration"() {
@@ -172,21 +165,18 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "The meeting to shorten does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.create(meeting)
-        def extensionInMinutes = 1
+        meetingManagementService.create(meeting)
+        def extension = Duration.ofMinutes(1)
 
         when: "The meeting is extended"
-        def response = meetingManagementApiClient.extendMeeting(meetingId, extensionInMinutes)
+        meetingManagementService.extendMeeting(meetingId, extension)
 
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The meeting is now longer than it was originally"
-        def extendedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
-        extendedMeeting.getEnd() == meeting.getEnd() + Duration.ofMinutes(extensionInMinutes)
+        then: "The meeting is now longer than it was originally"
+        def extendedMeeting = meetingManagementService.findOne(meetingId)
+        extendedMeeting.getEnd() == meeting.getEnd() + extension
 
         cleanup:
-        meetingManagementApiClient.delete(meetingId)
+        meetingManagementService.delete(meetingId)
     }
 
     def "Extend an existing meeting so that it would be longer than the maximal duration"() {
@@ -194,20 +184,17 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "The meeting to extend does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.create(meeting)
-        def extensionInMinutes = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION.toMinutes()
+        meetingManagementService.create(meeting)
+        def extension = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION
 
         when: "The meeting is extended beyond the maximum"
-        meetingManagementApiClient.extendMeeting(meetingId, extensionInMinutes)
+        meetingManagementService.extendMeeting(meetingId, extension)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 422 (Unprocessable entity)"
-        e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()
+        then: "An exception is thrown"
+        thrown(MaximalDurationReachedException)
 
         cleanup:
-        meetingManagementApiClient.delete(meetingId)
+        meetingManagementService.delete(meetingId)
     }
 
     def "Extend an existing meeting so that it would conflict with another meeting"() {
@@ -217,38 +204,32 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
         def meetingToExtend = coastGuardDataFactory.createMeetingMap().get(meetingToExtendId)
         def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementApiClient.create(meetingToExtend)
-        meetingManagementApiClient.create(followUpMeeting)
-        def extensionInMinutes = Duration.between(meetingToExtend.getEnd(), followUpMeeting.getEnd()).toMinutes()
+        meetingManagementService.create(meetingToExtend)
+        meetingManagementService.create(followUpMeeting)
+        def extension = Duration.between(meetingToExtend.getEnd(), followUpMeeting.getEnd())
 
         when: "The meeting is extended"
-        meetingManagementApiClient.extendMeeting(meetingToExtendId, extensionInMinutes)
+        meetingManagementService.extendMeeting(meetingToExtendId, extension)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 409 (Conflict)"
-        e.status() == HttpStatus.CONFLICT.value()
+        then: "An exception is thrown"
+        thrown(MeetingConflictException)
 
         cleanup:
-        meetingManagementApiClient.delete(meetingToExtendId)
-        meetingManagementApiClient.delete(followUpMeetingId)
+        meetingManagementService.delete(meetingToExtendId)
+        meetingManagementService.delete(followUpMeetingId)
     }
 
     def "Extend a meeting with an ID that does not exist"() {
 
         given: "The meeting to extend does not exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def extensionInMinutes = 1
+        def extension = Duration.ofMinutes(1)
 
         when: "The meeting is extended"
-        meetingManagementApiClient.extendMeeting(meetingId, extensionInMinutes)
+        meetingManagementService.extendMeeting(meetingId, extension)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 
     def "Shift an existing meeting by a valid duration"() {
@@ -256,22 +237,19 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         given: "The meeting to shift does exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementApiClient.create(meeting)
-        def shiftInMinutes = 1
+        meetingManagementService.create(meeting)
+        def shift = Duration.ofMinutes(1)
 
         when: "The meeting is shifted"
-        def response = meetingManagementApiClient.shiftMeeting(meetingId, shiftInMinutes)
+        meetingManagementService.shiftMeeting(meetingId, shift)
 
-        then: "The returned HTTP status code is 200 (OK)"
-        response.statusCodeValue == HttpStatus.OK.value()
-
-        and: "The meeting is now longer than it was originally"
-        def shiftedMeeting = meetingManagementApiClient.findOne(meetingId).getBody()
-        shiftedMeeting.getStart() == meeting.getStart() + Duration.ofMinutes(shiftInMinutes)
-        shiftedMeeting.getEnd() == meeting.getEnd() + Duration.ofMinutes(shiftInMinutes)
+        then: "The meeting is now longer than it was originally"
+        def shiftedMeeting = meetingManagementService.findOne(meetingId)
+        shiftedMeeting.getStart() == meeting.getStart() + shift
+        shiftedMeeting.getEnd() == meeting.getEnd() + shift
 
         cleanup:
-        meetingManagementApiClient.delete(meetingId)
+        meetingManagementService.delete(meetingId)
     }
 
     def "Shift an existing meeting so that it would conflict with another meeting"() {
@@ -281,37 +259,31 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
         def meetingToShift = coastGuardDataFactory.createMeetingMap().get(meetingToShiftId)
         def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementApiClient.create(meetingToShift)
-        meetingManagementApiClient.create(followUpMeeting)
-        def shiftInMinutes = Duration.between(meetingToShift.getEnd(), followUpMeeting.getEnd()).toMinutes()
+        meetingManagementService.create(meetingToShift)
+        meetingManagementService.create(followUpMeeting)
+        def shift = Duration.between(meetingToShift.getEnd(), followUpMeeting.getEnd())
 
         when: "The meeting is shifted"
-        meetingManagementApiClient.shiftMeeting(meetingToShiftId, shiftInMinutes)
+        meetingManagementService.shiftMeeting(meetingToShiftId, shift)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 409 (Conflict)"
-        e.status() == HttpStatus.CONFLICT.value()
+        then: "An exception is thrown"
+        thrown(MeetingConflictException)
 
         cleanup:
-        meetingManagementApiClient.delete(meetingToShiftId)
-        meetingManagementApiClient.delete(followUpMeetingId)
+        meetingManagementService.delete(meetingToShiftId)
+        meetingManagementService.delete(followUpMeetingId)
     }
 
     def "Shift a meeting with an ID that does not exist"() {
 
         given: "The meeting to shift does not exist"
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def shiftInMinutes = 1
+        def shift = Duration.ofMinutes(1)
 
         when: "The meeting is shifted"
-        meetingManagementApiClient.shiftMeeting(meetingId, shiftInMinutes)
+        meetingManagementService.shiftMeeting(meetingId, shift)
 
-        then: "A feign exception is thrown"
-        def e = thrown(FeignException)
-
-        and: "The returned HTTP status code is 404 (Not found)"
-        e.status() == HttpStatus.NOT_FOUND.value()
+        then: "An exception is thrown"
+        thrown(EntityNotFoundException)
     }
 }

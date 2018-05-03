@@ -1,15 +1,13 @@
 package de.qaware.smartlabcore.room.repository;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcommons.result.ExtensionResult;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
-import de.qaware.smartlabcore.generic.result.ExtensionResult;
-import feign.FeignException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -23,18 +21,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoomManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IRoom> implements IRoomManagementRepository {
 
-    private final IMeetingManagementApiClient meetingManagementApiClient;
+    private final IMeetingManagementService meetingManagementService;
 
     public RoomManagementRepositoryMock(
-            IMeetingManagementApiClient meetingManagementApiClient,
+            IMeetingManagementService meetingManagementService,
             ISampleDataProvider sampleDataProvider) {
-        this.meetingManagementApiClient = meetingManagementApiClient;
+        this.meetingManagementService = meetingManagementService;
         this.entities = new HashSet<>(sampleDataProvider.getRooms());
     }
 
     @Override
     public Set<IMeeting> getMeetingsInRoom(@NonNull IRoom room) {
-        return meetingManagementApiClient.findAll().stream()
+        return meetingManagementService.findAll().stream()
                 .filter(meeting -> meeting.getRoomId().equals(room.getId()))
                 .collect(Collectors.toSet());
     }
@@ -50,11 +48,13 @@ public class RoomManagementRepositoryMock extends AbstractEntityManagementReposi
     public ExtensionResult extendCurrentMeeting(@NonNull IRoom room, Duration extension) {
         try {
             return getCurrentMeeting(room)
-                    .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                    .map(meeting -> {
+                        meetingManagementService.extendMeeting(meeting.getId(), extension);
+                        return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }
-        catch(FeignException e) {
-            return ExtensionResult.fromHttpStatus(HttpStatus.valueOf(e.status()));
+        catch(Exception e) {
+            return ExtensionResult.fromException(e);
         }
     }
 }

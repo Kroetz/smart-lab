@@ -1,38 +1,38 @@
 package de.qaware.smartlabcore.workgroup.repository;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
+import de.qaware.smartlabcommons.api.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcommons.result.ExtensionResult;
 import de.qaware.smartlabcore.data.sample.provider.ISampleDataProvider;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
-import de.qaware.smartlabcore.generic.result.ExtensionResult;
-import feign.FeignException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IWorkgroup> implements IWorkgroupManagementRepository {
 
-    private final IMeetingManagementApiClient meetingManagementApiClient;
+    private final IMeetingManagementService meetingManagementService;
 
     public WorkgroupManagementRepositoryMock(
-            IMeetingManagementApiClient meetingManagementApiClient,
+            IMeetingManagementService meetingManagementService,
             ISampleDataProvider sampleDataProvider) {
-        this.meetingManagementApiClient = meetingManagementApiClient;
+        this.meetingManagementService = meetingManagementService;
         this.entities = new HashSet<>(sampleDataProvider.getWorkgroups());
     }
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
-        return meetingManagementApiClient.findAll().stream()
+        return meetingManagementService.findAll().stream()
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroup.getId()))
                 .collect(Collectors.toSet());
     }
@@ -48,11 +48,13 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
     public ExtensionResult extendCurrentMeeting(@NonNull IWorkgroup workgroup, Duration extension) {
         try {
             return getCurrentMeeting(workgroup)
-                    .map(meeting -> ExtensionResult.fromHttpStatus(meetingManagementApiClient.extendMeeting(meeting.getId(), extension.toMinutes()).getStatusCode()))
+                    .map(meeting -> {
+                        meetingManagementService.extendMeeting(meeting.getId(), extension);
+                        return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }
-        catch(FeignException e) {
-            return ExtensionResult.fromHttpStatus(HttpStatus.valueOf(e.status()));
+        catch(Exception e) {
+            return ExtensionResult.fromException(e);
         }
     }
 }

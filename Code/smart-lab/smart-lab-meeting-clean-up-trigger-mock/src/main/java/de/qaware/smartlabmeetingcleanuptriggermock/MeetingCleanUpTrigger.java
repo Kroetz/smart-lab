@@ -1,7 +1,7 @@
 package de.qaware.smartlabmeetingcleanuptriggermock;
 
-import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
-import de.qaware.smartlabcommons.api.client.ITriggerApiClient;
+import de.qaware.smartlabcommons.api.service.meeting.IMeetingManagementService;
+import de.qaware.smartlabcommons.api.service.trigger.ITriggerService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MeetingCleanUpTrigger implements CommandLineRunner {
 
-    private final IMeetingManagementApiClient meetingManagementApiClient;
-    private final ITriggerApiClient triggerApiClient;
+    private final IMeetingManagementService meetingManagementService;
+    private final ITriggerService triggerService;
     private final RestTemplate restTemplate;
     private Instant currentCheck = Instant.now();
     private Instant lastCheck = Instant.now().minus(Duration.ofDays(1));
@@ -29,11 +29,11 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
     private long checkInterval = 5000L;
 
     public MeetingCleanUpTrigger(
-            IMeetingManagementApiClient meetingManagementApiClient,
-            ITriggerApiClient triggerApiClient,
+            IMeetingManagementService meetingManagementService,
+            ITriggerService triggerService,
             RestTemplateBuilder restTemplateBuilder) {
-        this.meetingManagementApiClient = meetingManagementApiClient;
-        this.triggerApiClient = triggerApiClient;
+        this.meetingManagementService = meetingManagementService;
+        this.triggerService = triggerService;
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -66,7 +66,7 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
         String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
         List<> results = restTemplate.getForObject(url, User.class);*/
 
-        List<IMeeting> meetingsAboutToEnd = meetingManagementApiClient.findAll().stream()
+        List<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().stream()
                 .filter(this::isAboutToEnd)
                 .collect(Collectors.toList());
 
@@ -82,7 +82,7 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
 
     private void triggerMeetingCleanUp(IMeeting endedMeeting) {
         // String url = TriggerController.MAPPING_BASE + String.format(TriggerController.URL_TEMPLATE_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID, endedMeeting.getRoomId());
-        triggerApiClient.cleanUpCurrentMeetingByRoomId(endedMeeting.getRoomId());
+        triggerService.cleanUpCurrentMeetingByRoomId(endedMeeting.getRoomId());
     }
 
     private boolean isAboutToEnd(IMeeting meeting) {

@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
-import de.qaware.smartlabcommons.api.client.generic.ICrudApiClient;
+import de.qaware.smartlabcommons.api.client.generic.IEntityManagementApiClient;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,7 +17,7 @@ import java.util.Set;
         value = RoomManagementApiConstants.FEIGN_CLIENT_VALUE,
         url = RoomManagementApiConstants.FEIGN_CLIENT_URL)
 @Component
-public interface IRoomManagementApiClient extends ICrudApiClient<IRoom> {
+public interface IRoomManagementApiClient extends IEntityManagementApiClient<IRoom> {
 
     @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_BASE + RoomManagementApiConstants.MAPPING_FIND_ALL)

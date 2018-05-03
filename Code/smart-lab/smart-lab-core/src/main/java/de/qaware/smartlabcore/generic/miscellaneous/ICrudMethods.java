@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.generic.miscellaneous;
 
 import de.qaware.smartlabcommons.data.IEntity;
-import de.qaware.smartlabcore.generic.result.CreationResult;
-import de.qaware.smartlabcore.generic.result.DeletionResult;
+import de.qaware.smartlabcommons.result.CreationResult;
+import de.qaware.smartlabcommons.result.DeletionResult;
 
 import java.util.Map;
 import java.util.Optional;

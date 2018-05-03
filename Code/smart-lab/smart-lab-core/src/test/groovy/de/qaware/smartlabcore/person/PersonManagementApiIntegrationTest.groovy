@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.person
 
-import de.qaware.smartlabcommons.api.client.IPersonManagementApiClient
+import de.qaware.smartlabcommons.api.service.person.IPersonManagementService
 import de.qaware.smartlabcommons.data.person.IPerson
 import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles
 class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson> {
 
     @Autowired
-    private IPersonManagementApiClient personManagementApiClient
+    private IPersonManagementService personManagementService
 
     @Autowired
     private CoastGuardDataFactory coastGuardDataFactory
@@ -33,7 +33,7 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
 
     @Override
     def setupDataForFindAll_withExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE),
                 forestRangersDataFactory.createWorkgroupMemberMap().get(forestRangersDataFactory.MEMBER_ID_ANNA),
@@ -42,19 +42,19 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
 
     @Override
     def setupDataForFindOne_withExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityForFindOne_withExisting = coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE)
     }
 
     @Override
     def setupDataForFindOne_withoutExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityIdForFindOne_withoutExisting = coastGuardDataFactory.MEMBER_ID_ALICE
     }
 
     @Override
     def setupDataForFindMultiple_withExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         def personId1 = coastGuardDataFactory.MEMBER_ID_ALICE
         def personId2 = forestRangersDataFactory.MEMBER_ID_ANNA
         def personId3 = fireFightersDataFactory.MEMBER_ID_ANTHONY
@@ -67,7 +67,7 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
 
     @Override
     def setupDataForFindMultiple_withoutExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         def personId1 = coastGuardDataFactory.MEMBER_ID_ALICE
         def personId2 = forestRangersDataFactory.MEMBER_ID_ANNA
         def personId3 = fireFightersDataFactory.MEMBER_ID_ANTHONY
@@ -80,25 +80,25 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson>
 
     @Override
     def setupDataForCreate_withoutConflict() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityForCreate_withoutConflict = coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE)
     }
 
     @Override
     def setupDataForCreate_withConflict() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityForCreate_withConflict = coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE)
     }
 
     @Override
     def setupDataForDelete_withExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityForDelete_withExisting = coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE)
     }
 
     @Override
     def setupDataForDelete_withoutExisting() {
-        crudApiClient = personManagementApiClient
+        crudService = personManagementService
         entityIdForDelete_withoutExisting = coastGuardDataFactory.MEMBER_ID_ALICE
     }
 }

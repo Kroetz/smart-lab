@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.device
 
-import de.qaware.smartlabcommons.api.client.IDeviceManagementApiClient
+import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService
 import de.qaware.smartlabcommons.data.device.IDevice
 import de.qaware.smartlabcore.data.sample.factory.AstronautsDataFactory
 import de.qaware.smartlabcore.data.sample.factory.CoastGuardDataFactory
@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles
 class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice> {
 
     @Autowired
-    private IDeviceManagementApiClient deviceManagementApiClient
+    private IDeviceManagementService deviceManagementService
 
     @Autowired
     private CoastGuardDataFactory coastGuardDataFactory
@@ -33,7 +33,7 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
 
     @Override
     def setupDataForFindAll_withExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY),
                 forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE),
@@ -42,19 +42,19 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
 
     @Override
     def setupDataForFindOne_withExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityForFindOne_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
     }
 
     @Override
     def setupDataForFindOne_withoutExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityIdForFindOne_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
     }
 
     @Override
     def setupDataForFindMultiple_withExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
         def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
         def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
@@ -67,7 +67,7 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
 
     @Override
     def setupDataForFindMultiple_withoutExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
         def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
         def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
@@ -80,25 +80,25 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
 
     @Override
     def setupDataForCreate_withoutConflict() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityForCreate_withoutConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
     }
 
     @Override
     def setupDataForCreate_withConflict() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityForCreate_withConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
     }
 
     @Override
     def setupDataForDelete_withExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityForDelete_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
     }
 
     @Override
     def setupDataForDelete_withoutExisting() {
-        crudApiClient = deviceManagementApiClient
+        crudService = deviceManagementService
         entityIdForDelete_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
     }
 }

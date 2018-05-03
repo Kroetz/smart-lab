@@ -1,5 +1,7 @@
-package de.qaware.smartlabcore.generic.result;
+package de.qaware.smartlabcommons.result;
 
+import de.qaware.smartlabcommons.exception.MeetingConflictException;
+import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -37,5 +39,15 @@ public enum CreationResult {
             throw new IllegalArgumentException("CreationResult cannot be created from the passed HTTP status");
         }
         return creationResult;
+    }
+
+    public static CreationResult fromException(Exception e) {
+        if(e instanceof MeetingConflictException) {
+            return CONFLICT;
+        }
+        if(e instanceof UnknownErrorException) {
+            return ERROR;
+        }
+        return SUCCESS;
     }
 }

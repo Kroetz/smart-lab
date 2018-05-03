@@ -4,7 +4,7 @@ import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.api.TriggerApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcore.generic.result.ExtensionResult;
+import de.qaware.smartlabcommons.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.room.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;

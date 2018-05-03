@@ -1,16 +1,16 @@
 package de.qaware.smartlabtrigger.business;
 
-import de.qaware.smartlabcommons.api.client.IWorkgroupManagementApiClient;
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
+import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcore.generic.result.CleanUpMeetingResult;
-import de.qaware.smartlabcore.generic.result.SetUpMeetingResult;
-import de.qaware.smartlabcore.generic.result.StartMeetingResult;
-import de.qaware.smartlabcore.generic.result.StopMeetingResult;
+import de.qaware.smartlabcommons.result.CleanUpMeetingResult;
+import de.qaware.smartlabcommons.result.SetUpMeetingResult;
+import de.qaware.smartlabcommons.result.StartMeetingResult;
+import de.qaware.smartlabcommons.result.StopMeetingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +19,19 @@ import org.springframework.stereotype.Service;
 public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private final IRoomManagementService roomManagementService;
-    private final IWorkgroupManagementApiClient workgroupManagementApiClient;
+    private final IWorkgroupManagementService workgroupManagementService;
 
     public TriggerBusinessLogic(
             IRoomManagementService roomManagementService,
-            IWorkgroupManagementApiClient workgroupManagementApiClient) {
+            IWorkgroupManagementService workgroupManagementService) {
         this.roomManagementService = roomManagementService;
-        this.workgroupManagementApiClient = workgroupManagementApiClient;
+        this.workgroupManagementService = workgroupManagementService;
     }
 
     @Override
     public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId()).getBody();
-        IWorkgroup workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
+        IRoom room = roomManagementService.findOne(meeting.getRoomId());
+        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
         room.setUpMeeting(meeting, workgroup);
         log.info(String.format("Set up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
                 room.getName(),
@@ -44,7 +44,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public SetUpMeetingResult setUpCurrentMeetingByRoomId(String roomId) {
-        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
+        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public SetUpMeetingResult setUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        return setUpMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
+        return setUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @Override
@@ -65,8 +65,8 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     @Override
     public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting) {
         // meeting.triggerAssistances(new TriggerMeetingCleanUp());
-        IRoom room = roomManagementService.findOne(meeting.getRoomId()).getBody();
-        IWorkgroup workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
+        IRoom room = roomManagementService.findOne(meeting.getRoomId());
+        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
         room.cleanUpMeeting(meeting, workgroup);
         log.info(String.format("Clean up room \"%s\" (id: %s) for meeting (id: %s) of workgroup \"%s\" (id: %s)",
                 room.getName(),
@@ -79,7 +79,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public CleanUpMeetingResult cleanUpCurrentMeetingByRoomId(String roomId) {
-        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
+        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public CleanUpMeetingResult cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        return cleanUpMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
+        return cleanUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @Override
@@ -101,8 +101,8 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StartMeetingResult startMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId()).getBody();
-        IWorkgroup workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
+        IRoom room = roomManagementService.findOne(meeting.getRoomId());
+        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
         room.startMeeting(meeting, workgroup);
         log.info(String.format("Started meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
                 meeting.getId(),
@@ -115,7 +115,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StartMeetingResult startCurrentMeetingByRoomId(String roomId){
-        return startMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
+        return startMeeting(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StartMeetingResult startCurrentMeetingByWorkgroupId(String workgroupId) {
-        return startMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
+        return startMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @Override
@@ -135,8 +135,8 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StopMeetingResult stopMeeting(IMeeting meeting) {
-        IRoom room = roomManagementService.findOne(meeting.getRoomId()).getBody();
-        IWorkgroup workgroup = workgroupManagementApiClient.findOne(meeting.getWorkgroupId()).getBody();
+        IRoom room = roomManagementService.findOne(meeting.getRoomId());
+        IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
         room.stopMeeting(meeting, workgroup);
         log.info(String.format("Stopped meeting (id: %s) of workgroup \"%s\" (id: %s) in room \"%s\" (id: %s)",
                 meeting.getId(),
@@ -149,7 +149,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StopMeetingResult stopCurrentMeetingByRoomId(String roomId) {
-        return stopMeeting(roomManagementService.getCurrentMeeting(roomId).getBody());
+        return stopMeeting(roomManagementService.getCurrentMeeting(roomId));
     }
 
     @Override
@@ -159,7 +159,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public StopMeetingResult stopCurrentMeetingByWorkgroupId(String workgroupId) {
-        return stopMeeting(workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody());
+        return stopMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
     }
 
     @Override
