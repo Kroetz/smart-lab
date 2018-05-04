@@ -2,12 +2,12 @@ package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabcommons.data.assistance.IAssistanceResolver;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.result.BeginAssistanceResult;
 import de.qaware.smartlabcommons.result.EndAssistanceResult;
 import de.qaware.smartlabcommons.result.UpdateAssistanceResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 @Slf4j
@@ -21,8 +21,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
 
     public BeginAssistanceResult beginAssistance(String assistanceId, IContext context) {
 
-        // TODO
-        throw new NotImplementedException();
+        log.info("Started assistance (ID: \"{}\") in room with ID \"{}\"", assistanceId, context.getRoom().map(IRoom::getName).orElse("fail"));
 
         /*Optional<IAssistance> assistance = this.assistanceResolver.resolveAssistanceId(assistanceId);
 
@@ -37,19 +36,22 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         // TODO: Call assistance and pass the device
 
         // TODO: In assistance: Call the appropriate device functions that encapsulate REST-calls oder local API calls.
+        */
 
-        return BeginAssistanceResult.SUCCESS;*/
+        return BeginAssistanceResult.SUCCESS;
     }
 
     public EndAssistanceResult endAssistance(String assistanceId, IContext context) {
 
+        log.info("Stopped assistance (ID: \"{}\") in room with ID \"{}\"", assistanceId, context.getRoom().map(IRoom::getName).orElse("fail"));
+
         // TODO
-        throw new NotImplementedException();
+        return EndAssistanceResult.SUCCESS;
     }
 
     public UpdateAssistanceResult updateAssistance(String assistanceId, IContext context) {
 
         // TODO
-        throw new NotImplementedException();
+        return UpdateAssistanceResult.SUCCESS;
     }
 }

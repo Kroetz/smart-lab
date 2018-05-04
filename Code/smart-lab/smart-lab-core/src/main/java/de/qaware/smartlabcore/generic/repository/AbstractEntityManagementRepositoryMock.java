@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.generic.repository;
 
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 import de.qaware.smartlabcommons.result.CreationResult;
 import de.qaware.smartlabcommons.result.DeletionResult;
 import org.springframework.stereotype.Repository;

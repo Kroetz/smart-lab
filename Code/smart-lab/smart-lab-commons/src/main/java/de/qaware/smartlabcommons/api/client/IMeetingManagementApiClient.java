@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(
-        value = MeetingManagementApiConstants.FEIGN_CLIENT_VALUE,
-        url = MeetingManagementApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(MeetingManagementApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface IMeetingManagementApiClient extends IEntityManagementApiClient<IMeeting> {
 

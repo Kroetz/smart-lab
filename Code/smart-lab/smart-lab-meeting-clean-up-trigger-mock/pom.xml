@@ -13,7 +13,6 @@
 
 	<properties>
 		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
-		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
 	</properties>
 
 	<parent>
@@ -29,12 +28,6 @@
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-commons</artifactId>
 			<version>${smart-lab-commons.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-core</artifactId>
-			<version>${smart-lab-core.version}</version>
 		</dependency>
 
 	</dependencies>

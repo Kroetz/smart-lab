@@ -25,10 +25,18 @@
 		<module>smart-lab-spring-dependencies</module>
 		<module>smart-lab-test-dependencies</module>
 		<module>smart-lab-core</module>
+		<module>smart-lab-discovery-service</module>
+		<module>smart-lab-sample-data</module>
+		<module>smart-lab-meeting</module>
+		<module>smart-lab-room</module>
+		<module>smart-lab-device</module>
+		<module>smart-lab-workgroup</module>
+		<module>smart-lab-person</module>
 		<module>smart-lab-trigger</module>
 		<module>smart-lab-assistance</module>
 		<module>smart-lab-meeting-set-up-trigger-mock</module>
 		<module>smart-lab-meeting-clean-up-trigger-mock</module>
-	</modules>
+		<module>smart-lab-test</module>
+    </modules>
 
 </project>

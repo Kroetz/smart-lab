@@ -3,6 +3,7 @@ package de.qaware.smartlabcommons.api.service.trigger;
 import de.qaware.smartlabcommons.api.client.ITriggerApiClient;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import feign.FeignException;
+import feign.RetryableException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,15 +20,26 @@ public class TriggerService implements ITriggerService {
         try {
             this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId);
         }
+        catch(Exception e) {
+            throw e;
+        }
+
+
+        /*catch(RetryableException e) {
+            throw e;
+        }
         catch(FeignException e) {
             throw new UnknownErrorException();
-        }
+        }*/
     }
 
     @Override
     public void setUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
             this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId);
+        }
+        catch(RetryableException e) {
+            throw e;
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
@@ -39,6 +51,9 @@ public class TriggerService implements ITriggerService {
         try {
             this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId);
         }
+        catch(RetryableException e) {
+            throw e;
+        }
         catch(FeignException e) {
             throw new UnknownErrorException();
         }
@@ -48,6 +63,9 @@ public class TriggerService implements ITriggerService {
     public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
             this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId);
+        }
+        catch(RetryableException e) {
+            throw e;
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
@@ -59,6 +77,9 @@ public class TriggerService implements ITriggerService {
         try {
             this.triggerApiClient.startCurrentMeetingByRoomId(roomId);
         }
+        catch(RetryableException e) {
+            throw e;
+        }
         catch(FeignException e) {
             throw new UnknownErrorException();
         }
@@ -68,6 +89,9 @@ public class TriggerService implements ITriggerService {
     public void startCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
             this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId);
+        }
+        catch(RetryableException e) {
+            throw e;
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
@@ -79,6 +103,9 @@ public class TriggerService implements ITriggerService {
         try {
             this.triggerApiClient.stopCurrentMeetingByRoomId(roomId);
         }
+        catch(RetryableException e) {
+            throw e;
+        }
         catch(FeignException e) {
             throw new UnknownErrorException();
         }
@@ -88,6 +115,9 @@ public class TriggerService implements ITriggerService {
     public void stopCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
             this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId);
+        }
+        catch(RetryableException e) {
+            throw e;
         }
         catch(FeignException e) {
             throw new UnknownErrorException();

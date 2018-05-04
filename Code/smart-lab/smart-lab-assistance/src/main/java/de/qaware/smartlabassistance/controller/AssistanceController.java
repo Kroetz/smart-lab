@@ -3,6 +3,7 @@ package de.qaware.smartlabassistance.controller;
 import de.qaware.smartlabcommons.api.AssistanceApiConstants;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
+import de.qaware.smartlabcommons.data.room.IRoom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +21,23 @@ public class AssistanceController {
     }
 
     @PostMapping(
-            value = AssistanceApiConstants.MAPPING_BASE + AssistanceApiConstants.MAPPING_BEGIN,
+            value = AssistanceApiConstants.MAPPING_BEGIN,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> beginAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IContext context) {
+        log.info("Received call to begin assistance with ID \"{}\" in the room with ID \"{}\"",
+                assistanceId,
+                context.getRoom().map(IRoom::getId).orElse("Default ID"));
         this.assistanceBusinessLogic.beginAssistance(assistanceId, context);
+        ResponseEntity<Void> response = ResponseEntity.ok().build();
+        log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO
-        return ResponseEntity.ok().build();
+        return response;
     }
 
     @PostMapping(
-            value = AssistanceApiConstants.MAPPING_BASE + AssistanceApiConstants.MAPPING_END,
+            value = AssistanceApiConstants.MAPPING_END,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> endAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
@@ -42,7 +48,7 @@ public class AssistanceController {
     }
 
     @PostMapping(
-            value = AssistanceApiConstants.MAPPING_BASE + AssistanceApiConstants.MAPPING_UPDATE,
+            value = AssistanceApiConstants.MAPPING_UPDATE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,

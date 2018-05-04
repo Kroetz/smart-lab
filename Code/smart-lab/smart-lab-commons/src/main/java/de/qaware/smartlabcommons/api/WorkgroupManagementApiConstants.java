@@ -3,7 +3,6 @@ package de.qaware.smartlabcommons.api;
 public class WorkgroupManagementApiConstants {
 
     public static final String FEIGN_CLIENT_VALUE = "workgroup-management";
-    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
 
     public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";
     public static final String PARAMETER_NAME_WORKGROUP_IDS = "workgroupIds";

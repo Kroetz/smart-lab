@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(
-        value = RoomManagementApiConstants.FEIGN_CLIENT_VALUE,
-        url = RoomManagementApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(RoomManagementApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface IRoomManagementApiClient extends IEntityManagementApiClient<IRoom> {
 

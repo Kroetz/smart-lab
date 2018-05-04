@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.data.context;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcommons.Constants;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.room.IRoom;

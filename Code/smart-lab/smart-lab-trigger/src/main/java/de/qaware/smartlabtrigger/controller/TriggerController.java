@@ -22,7 +22,10 @@ public class TriggerController {
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
     public ResponseEntity<Void> setUpCurrentMeetingByRoomId(@PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return triggerBusinessLogic.setUpCurrentMeetingByRoomId(roomId).toResponseEntity();
+        log.info("Received call to set up the current meeting in the room with ID \"{}\"", roomId);
+        ResponseEntity<Void> response = triggerBusinessLogic.setUpCurrentMeetingByRoomId(roomId).toResponseEntity();
+        log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
+        return response;
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID)

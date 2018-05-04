@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(
-        value = WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE,
-        url = WorkgroupManagementApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface IWorkgroupManagementApiClient extends IEntityManagementApiClient<IWorkgroup> {
 

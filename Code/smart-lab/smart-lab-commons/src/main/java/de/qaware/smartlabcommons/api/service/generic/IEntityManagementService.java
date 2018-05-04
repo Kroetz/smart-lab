@@ -1,6 +1,6 @@
 package de.qaware.smartlabcommons.api.service.generic;
 
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 
 import java.util.Set;
 

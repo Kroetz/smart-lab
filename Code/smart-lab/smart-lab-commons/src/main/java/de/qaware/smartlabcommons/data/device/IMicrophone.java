@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.data.device;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcommons.Constants;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,

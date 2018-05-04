@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.data.room;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcommons.Constants;
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 import de.qaware.smartlabcommons.data.device.IDevice;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.service.generic;
 
 import de.qaware.smartlabcommons.api.client.generic.IEntityManagementApiClient;
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 import de.qaware.smartlabcommons.exception.EntityNotFoundException;
 import de.qaware.smartlabcommons.exception.MeetingConflictException;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;

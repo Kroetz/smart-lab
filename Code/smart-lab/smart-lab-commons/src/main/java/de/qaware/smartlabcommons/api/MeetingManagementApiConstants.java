@@ -3,7 +3,6 @@ package de.qaware.smartlabcommons.api;
 public class MeetingManagementApiConstants {
 
     public static final String FEIGN_CLIENT_VALUE = "meeting-management";
-    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
 
     public static final String PARAMETER_NAME_MEETING_ID = "meetingId";
     public static final String PARAMETER_NAME_MEETING_IDS = "meetingIds";

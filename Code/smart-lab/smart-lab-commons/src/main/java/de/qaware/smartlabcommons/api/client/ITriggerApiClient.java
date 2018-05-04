@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(
-        value = TriggerApiConstants.FEIGN_CLIENT_VALUE,
-        url = TriggerApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(TriggerApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface ITriggerApiClient {
 

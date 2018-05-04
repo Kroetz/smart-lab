@@ -8,9 +8,7 @@ import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.result.CleanUpMeetingResult;
 import de.qaware.smartlabcommons.result.SetUpMeetingResult;
 import de.qaware.smartlabcommons.result.StartMeetingResult;
@@ -45,6 +43,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
         // TODO: Exception?.
         Set<String> assistanceIds = context.getMeeting().map(IMeeting::getAssistanceIds).orElseThrow(IllegalStateException::new);
         for(String assistanceId : assistanceIds) {
+            log.info("Processing assistance with ID \"{}\"", assistanceId);
             // TODO: Simpler with Java 9 "ifPresentOrElse" (see https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
             this.assistanceResolver.resolveAssistanceId(assistanceId).ifPresent(triggerFunction); // Inhalt der Methode muss spezifisch sein für Assistance (Mapping auf Assistance-API Feign-Call und übergeben des Assistance Namens als Param)
         }
@@ -53,14 +52,12 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
+        log.info("Processing call to set up the meeting with ID \"{}\"", meeting.getId());
         IContext context = this.contextFactory.ofMeeting(meeting);
         triggerAssistance(context, assistance -> assistance.triggerSetUpMeeting(context));
-        log.info("Set up room \"{}\" (id: {}) for meeting (id: {}) of workgroup \"{}\" (id: {})",
-                context.getRoom().map(IRoom::getName).orElse("Default room name"),
+        log.info("Room (ID: \"{}\") was set up for meeting with ID \"{}\"",
                 context.getRoom().map(IRoom::getId).orElse("Default room ID"),
-                meeting.getId(),
-                context.getWorkgroup().map(IWorkgroup::getName).orElse("Default workgroup name"),
-                context.getWorkgroup().map(IWorkgroup::getId).orElse("Default workgroup ID"));
+                meeting.getId());
         return SetUpMeetingResult.SUCCESS;
     }
 
@@ -70,7 +67,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeeting(Room room) {
+    public SetUpMeetingResult setUpCurrentMeeting(IRoom room) {
         return setUpCurrentMeetingByRoomId(room.getId());
     }
 
@@ -80,7 +77,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeeting(Workgroup workgroup) {
+    public SetUpMeetingResult setUpCurrentMeeting(IWorkgroup workgroup) {
         return setUpCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
@@ -103,7 +100,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeeting(Room room) {
+    public CleanUpMeetingResult cleanUpCurrentMeeting(IRoom room) {
         return cleanUpCurrentMeetingByRoomId(room.getId());
     }
 
@@ -115,7 +112,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeeting(Workgroup workgroup) {
+    public CleanUpMeetingResult cleanUpCurrentMeeting(IWorkgroup workgroup) {
         return cleanUpCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
@@ -138,7 +135,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public StartMeetingResult startCurrentMeeting(Room room) {
+    public StartMeetingResult startCurrentMeeting(IRoom room) {
         return startCurrentMeetingByRoomId(room.getId());
     }
 
@@ -148,7 +145,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public StartMeetingResult startCurrentMeeting(Workgroup workgroup) {
+    public StartMeetingResult startCurrentMeeting(IWorkgroup workgroup) {
         return startCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 
@@ -171,7 +168,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeeting(Room room) {
+    public StopMeetingResult stopCurrentMeeting(IRoom room) {
         return stopCurrentMeetingByRoomId(room.getId());
     }
 
@@ -181,7 +178,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeeting(Workgroup workgroup) {
+    public StopMeetingResult stopCurrentMeeting(IWorkgroup workgroup) {
         return stopCurrentMeetingByWorkgroupId(workgroup.getId());
     }
 }

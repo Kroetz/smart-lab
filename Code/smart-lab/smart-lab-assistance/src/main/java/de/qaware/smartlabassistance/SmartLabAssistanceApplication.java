@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabassistance",
 		"de.qaware.smartlabcommons",
-		"de.qaware.smartlabcore.generic"})
+        "de.qaware.smartlabcore.generic"})
 public class SmartLabAssistanceApplication {
 
 	public static void main(String[] args) {

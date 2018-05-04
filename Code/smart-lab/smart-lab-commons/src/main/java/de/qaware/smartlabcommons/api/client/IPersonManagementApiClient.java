@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(
-        value = PersonManagementApiConstants.FEIGN_CLIENT_VALUE,
-        url = PersonManagementApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(PersonManagementApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface IPersonManagementApiClient extends IEntityManagementApiClient<IPerson> {
 

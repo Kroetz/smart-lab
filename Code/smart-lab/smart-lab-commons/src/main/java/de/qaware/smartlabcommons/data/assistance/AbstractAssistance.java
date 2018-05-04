@@ -2,6 +2,7 @@ package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,21 +27,29 @@ public abstract class AbstractAssistance implements IAssistance {
 
     @Override
     public void triggerSetUpMeeting(IContext context) {
-
+        log.info("Ignoring set-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
     }
 
     @Override
     public void triggerCleanUpMeeting(IContext context) {
-
+        log.info("Ignoring clean-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
     }
 
     @Override
     public void triggerStartMeeting(IContext context) {
-
+        log.info("Ignoring start-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
     }
 
     @Override
     public void triggerStopMeeting(IContext context) {
-
+        log.info("Ignoring stop-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
     }
 }

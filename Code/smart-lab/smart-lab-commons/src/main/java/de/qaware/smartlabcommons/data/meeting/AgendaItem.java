@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

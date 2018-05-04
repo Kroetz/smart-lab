@@ -56,32 +56,34 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
         this.active = false;
     }
 
-    public void triggerMeetingCleanUps() {
-
-        log.info("Triggering possible meeting clean ups");
-
+    public synchronized void triggerMeetingCleanUps() {
+        Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
-
-        /*// TODO: Alle meetings durchgehen und schauen, ob eines, das zum Zeitpunkt des letzten checks nockh lief, jetzt vorbei ist
-        String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
-        List<> results = restTemplate.getForObject(url, User.class);*/
-
-        List<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().stream()
-                .filter(this::isAboutToEnd)
-                .collect(Collectors.toList());
-
-        for(IMeeting meetingAboutToEnd : meetingsAboutToEnd) {
-            triggerMeetingCleanUp(meetingAboutToEnd);
+        try {
+            List<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().stream()
+                    .filter(this::isAboutToEnd)
+                    .collect(Collectors.toList());
+            for(IMeeting meetingAboutToEnd : meetingsAboutToEnd) {
+                try {
+                    log.info("Triggering clean up of meeting: " + meetingAboutToEnd.getId());
+                    triggerMeetingCleanUp(meetingAboutToEnd);
+                    log.info("Successfully triggered clean up of meeting: " + meetingAboutToEnd.getId());
+                }
+                catch(Exception e) {
+                    log.error("Triggering clean up of meeting {} failed", meetingAboutToEnd.getId(), e);
+                    throw e;
+                }
+            }
+            lastCheck = currentCheck;
+            log.info("Triggered possible meeting clean ups");
         }
-
-        // User results = restTemplate.getForObject(url, User.class);
-        // return CompletableFuture.completedFuture(results);
-
-        lastCheck = currentCheck;
+        catch(Exception e) {
+            currentCheck = currentCheckBackup;
+            log.error("Triggering of possible meeting clean ups failed");
+        }
     }
 
     private void triggerMeetingCleanUp(IMeeting endedMeeting) {
-        // String url = TriggerController.MAPPING_BASE + String.format(TriggerController.URL_TEMPLATE_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID, endedMeeting.getRoomId());
         triggerService.cleanUpCurrentMeetingByRoomId(endedMeeting.getRoomId());
     }
 

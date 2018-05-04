@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 public class AgendaShowing extends AbstractAssistance {
 
     public static final String AGENDA_SHOWING_ID = "agenda showing";
+    // TODO: Easier with Java 9
     public static final Set<String> AGENDA_SHOWING_ALIASES = Stream.of(
             "agenda-showing",
             "agendaShowing").collect(Collectors.toSet());
@@ -25,14 +26,12 @@ public class AgendaShowing extends AbstractAssistance {
 
     @Override
     public void triggerSetUpMeeting(IContext context) {
-        super.triggerSetUpMeeting(context);
         this.assistanceService.beginAssistance(this.assistanceId, context);
         log.info("Started agenda showing in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
     }
 
     @Override
     public void triggerCleanUpMeeting(IContext context) {
-        super.triggerCleanUpMeeting(context);
         this.assistanceService.endAssistance(this.assistanceId, context);
         log.info("Stopped agenda showing in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
     }

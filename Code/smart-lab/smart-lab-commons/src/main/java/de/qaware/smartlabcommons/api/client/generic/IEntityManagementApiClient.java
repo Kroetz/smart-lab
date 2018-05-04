@@ -1,6 +1,6 @@
 package de.qaware.smartlabcommons.api.client.generic;
 
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Set;

@@ -2,6 +2,8 @@ package de.qaware.smartlabcommons.data.device;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.qaware.smartlabcommons.data.device.DeviceRole;
+import de.qaware.smartlabcommons.data.device.IDisplay;
 import lombok.Builder;
 import lombok.Data;
 

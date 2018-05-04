@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(
-        value = AssistanceApiConstants.FEIGN_CLIENT_VALUE,
-        url = AssistanceApiConstants.FEIGN_CLIENT_URL)
+@FeignClient(AssistanceApiConstants.FEIGN_CLIENT_VALUE)
 @Component
 public interface IAssistanceApiClient {
 

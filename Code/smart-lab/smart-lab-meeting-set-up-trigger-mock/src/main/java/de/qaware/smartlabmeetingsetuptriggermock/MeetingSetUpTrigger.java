@@ -56,32 +56,35 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         this.active = false;
     }
 
-    public void triggerMeetingSetUps() {
-
+    public synchronized void triggerMeetingSetUps() {
         log.info("Triggering possible meeting set ups");
-
+        Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
-
-        /*// TODO: Alle meetings durchgehen und schauen, ob eines, das zum Zeitpunkt des letzten checks nockh lief, jetzt vorbei ist
-        String getMeetingsUrl = MeetingController.URL_TEMPLATE_GET_MEETINGS;
-        List<> results = restTemplate.getForObject(url, User.class);*/
-
-        List<IMeeting> justStartedMeetings = meetingManagementService.findAll().stream()
-                .filter(this::hasJustStarted)
-                .collect(Collectors.toList());
-
-        for(IMeeting startedMeeting : justStartedMeetings) {
-            triggerMeetingSetUp(startedMeeting);
+        try {
+            List<IMeeting> justStartedMeetings = meetingManagementService.findAll().stream()
+                    .filter(this::hasJustStarted)
+                    .collect(Collectors.toList());
+            for(IMeeting startedMeeting : justStartedMeetings) {
+                try {
+                    log.info("Triggering set up of meeting: " + startedMeeting.getId());
+                    triggerMeetingSetUp(startedMeeting);
+                    log.info("Successfully triggered set up of meeting: " + startedMeeting.getId());
+                }
+                catch(Exception e) {
+                    log.error("Triggering set up of meeting {} failed", startedMeeting.getId(), e);
+                    throw e;
+                }
+            }
+            lastCheck = currentCheck;
+            log.info("Triggered possible meeting set ups");
         }
-
-        // User results = restTemplate.getForObject(url, User.class);
-        // return CompletableFuture.completedFuture(results);
-
-        lastCheck = currentCheck;
+        catch(Exception e) {
+            currentCheck = currentCheckBackup;
+            log.error("Triggering of possible meeting set ups failed");
+        }
     }
 
     private void triggerMeetingSetUp(IMeeting startedMeeting) {
-        // String url = TriggerController.MAPPING_BASE + String.format(TriggerController.URL_TEMPLATE_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID, endedMeeting.getRoomId());
         triggerService.setUpCurrentMeetingByRoomId(startedMeeting.getRoomId());
     }
 

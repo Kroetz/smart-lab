@@ -3,7 +3,6 @@ package de.qaware.smartlabcommons.api;
 public class DeviceManagementApiConstants {
 
     public static final String FEIGN_CLIENT_VALUE = "device-management";
-    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
 
     public static final String PARAMETER_NAME_DEVICE_ID = "deviceId";
     public static final String PARAMETER_NAME_DEVICE_IDS = "deviceIds";

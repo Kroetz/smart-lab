@@ -3,7 +3,6 @@ package de.qaware.smartlabcommons.api;
 public class AssistanceApiConstants {
 
     public static final String FEIGN_CLIENT_VALUE = "assistance";
-    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
 
     public static final String PARAMETER_NAME_ASSISTANCE_ID = "assistanceId";
 

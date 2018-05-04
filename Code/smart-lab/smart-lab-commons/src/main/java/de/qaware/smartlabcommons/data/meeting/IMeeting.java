@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcommons.Constants;
-import de.qaware.smartlabcommons.data.IEntity;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.data.generic.IEntity;
 
 import java.time.Duration;
 import java.time.Instant;

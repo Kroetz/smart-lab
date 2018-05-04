@@ -3,7 +3,6 @@ package de.qaware.smartlabcommons.api;
 public class TriggerApiConstants {
 
     public static final String FEIGN_CLIENT_VALUE = "trigger";
-    public static final String FEIGN_CLIENT_URL = "http://localhost:8080";
 
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
     public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";

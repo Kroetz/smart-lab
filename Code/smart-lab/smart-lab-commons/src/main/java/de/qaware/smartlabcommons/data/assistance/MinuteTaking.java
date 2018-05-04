@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 public class MinuteTaking extends AbstractAssistance {
 
     public static final String MINUTE_TAKING_ID = "minute taking";
+    // TODO: Easier with Java 9
     public static final Set<String> MINUTE_TAKING_ALIASES = Stream.of(
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
@@ -25,15 +26,23 @@ public class MinuteTaking extends AbstractAssistance {
 
     @Override
     public void triggerStartMeeting(IContext context) {
-        super.triggerStartMeeting(context);
+        log.info("Calling assistance service to start assistance \"{}\" in room with ID \"{}\"",
+                MINUTE_TAKING_ID,
+                context.getRoom().map(IRoom::getId).orElse("Default ID"));
         this.assistanceService.beginAssistance(this.assistanceId, context);
-        log.info("Started minute taking in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
+        log.info("Called assistance service to start assistance \"{}\" in room with ID \"{}\"",
+                MINUTE_TAKING_ID,
+                context.getRoom().map(IRoom::getId).orElse("Default ID"));
     }
 
     @Override
     public void triggerStopMeeting(IContext context) {
-        super.triggerStopMeeting(context);
+        log.info("Calling assistance service to stop assistance \"{}\" in room with ID \"{}\"",
+                MINUTE_TAKING_ID,
+                context.getRoom().map(IRoom::getId).orElse("Default ID"));
         this.assistanceService.endAssistance(this.assistanceId, context);
-        log.info("Stopped minute taking in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
+        log.info("Called assistance service to stop assistance \"{}\" in room with ID \"{}\"",
+                MINUTE_TAKING_ID,
+                context.getRoom().map(IRoom::getId).orElse("Default ID"));
     }
 }

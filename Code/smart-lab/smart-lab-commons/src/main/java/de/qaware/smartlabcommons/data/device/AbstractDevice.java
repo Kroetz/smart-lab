@@ -1,5 +1,7 @@
 package de.qaware.smartlabcommons.data.device;
 
+import de.qaware.smartlabcommons.data.device.DeviceRole;
+import de.qaware.smartlabcommons.data.device.IDevice;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
