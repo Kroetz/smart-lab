@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest
 @ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
 class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson> {
 

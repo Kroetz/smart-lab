@@ -8,7 +8,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest
 @ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
 class SpringBootLoadContextTest extends Specification {
 
@@ -17,6 +17,11 @@ class SpringBootLoadContextTest extends Specification {
 
     @Autowired
     private final WebApplicationContext webApplicationContext
+
+    def setupSpec() {
+        // Wait some time until system is up and the discovery service has connected all modules.
+        Thread.sleep(60000)
+    }
 
     def "Load Spring Boot application context"() {
         expect: "That the application context is loaded"

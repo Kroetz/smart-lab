@@ -7,6 +7,7 @@ import de.qaware.smartlabcommons.data.room.IRoom
 import de.qaware.smartlabcommons.exception.EntityNotFoundException
 import de.qaware.smartlabcommons.exception.MaximalDurationReachedException
 import de.qaware.smartlabcommons.exception.MeetingConflictException
+import de.qaware.smartlabmeeting.business.MeetingManagementBusinessLogic
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
@@ -19,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles
 
 import java.time.Duration
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest
 @ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
 class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
 

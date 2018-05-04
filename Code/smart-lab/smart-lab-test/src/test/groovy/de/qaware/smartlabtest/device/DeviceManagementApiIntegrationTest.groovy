@@ -2,25 +2,17 @@ package de.qaware.smartlabtest.device
 
 import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService
 import de.qaware.smartlabcommons.data.device.IDevice
-import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
 import de.qaware.smartlabsampledata.factory.ForestRangersDataFactory
 import de.qaware.smartlabsampledata.provider.EmptySampleDataProvider
+import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ComponentScan(basePackages = [
-    "de.qaware.smart-lab-commons.api.service",
-    "de.qaware.smartlabmeeting",
-    "de.qaware.smartlabroom",
-    "de.qaware.smartlabdevice",
-    "de.qaware.smartlabworkgroup",
-    "de.qaware.smartlabperson"])
+@SpringBootTest
 @ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
 class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice> {
 

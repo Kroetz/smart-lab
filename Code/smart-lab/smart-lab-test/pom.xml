@@ -13,6 +13,7 @@
 
 	<properties>
 		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
+		<smart-lab-meeting.version>0.0.1-SNAPSHOT</smart-lab-meeting.version>
 		<smart-lab-sample-data.version>0.0.1-SNAPSHOT</smart-lab-sample-data.version>
 		<smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
 	</properties>
@@ -36,6 +37,12 @@
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-sample-data</artifactId>
 			<version>${smart-lab-sample-data.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-meeting</artifactId>
+			<version>${smart-lab-meeting.version}</version>
 		</dependency>
 
 		<dependency>
