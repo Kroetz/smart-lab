@@ -99,8 +99,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_RED)
                 .agenda(fireFightersMeetingAgenda)
                 .assistanceIds(fireFightersMeetingAssistances)
-                .start(timeBase.plusSeconds(180))
-                .end(timeBase.plusSeconds(480)).build());
+                .start(timeBase.plusSeconds(240))
+                .end(timeBase.plusSeconds(540)).build());
         return meetings;
     }
 

@@ -20,7 +20,7 @@ class SpringBootLoadContextTest extends Specification {
 
     def setupSpec() {
         // Wait some time until system is up and the discovery service has connected all modules.
-        Thread.sleep(60000)
+        Thread.sleep(90000)
     }
 
     def "Load Spring Boot application context"() {

@@ -97,8 +97,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
                 .assistanceIds(astronautsMeetingAssistances)
-                .start(timeBase.plusSeconds(60))
-                .end(timeBase.plusSeconds(360)).build());
+                .start(timeBase.plusSeconds(0))
+                .end(timeBase.plusSeconds(300)).build());
         return meetings;
     }
 

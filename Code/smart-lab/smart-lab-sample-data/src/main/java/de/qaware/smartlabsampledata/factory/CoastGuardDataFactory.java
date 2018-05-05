@@ -98,8 +98,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whaleMeetingAgenda)
                 .assistanceIds(whaleMeetingAssistances)
-                .start(timeBase.plusSeconds(60))
-                .end(timeBase.plusSeconds(360)).build());
+                .start(timeBase.plusSeconds(0))
+                .end(timeBase.plusSeconds(300)).build());
 
         List<IAgendaItem> whirlpoolMeetingAgenda = new ArrayList<>();
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Explain how whirlpools develop").build());
@@ -115,8 +115,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whirlpoolMeetingAgenda)
                 .assistanceIds(whirlpoolMeetingAssistances)
-                .start(timeBase.plusSeconds(420))
-                .end(timeBase.plusSeconds(720)).build());
+                .start(timeBase.plusSeconds(360))
+                .end(timeBase.plusSeconds(660)).build());
 
         return meetings;
     }

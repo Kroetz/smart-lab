@@ -97,8 +97,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
                 .assistanceIds(forestRangersMeetingAssistances)
-                .start(timeBase.plusSeconds(120))
-                .end(timeBase.plusSeconds(420)).build());
+                .start(timeBase.plusSeconds(180))
+                .end(timeBase.plusSeconds(480)).build());
         return meetings;
     }
 
