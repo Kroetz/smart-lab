@@ -21,6 +21,7 @@ public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusi
     private final IMeetingManagementRepository meetingManagementRepository;
 
     public MeetingManagementBusinessLogic(
+            // TODO: Introduce default value? (e.g. @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + ":4800}"))
             @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}") long maximalMeetingDurationInMinutes,
             IMeetingManagementRepository meetingManagementRepository) {
         super(meetingManagementRepository);

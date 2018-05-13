@@ -1,6 +1,6 @@
 package de.qaware.smartlabsampledata.factory;
 
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.room.IRoom;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
-    protected Instant timeBase;
+    Instant timeBase;
 
     public AbstractSampleDataFactory() {
         this.timeBase = Instant.now();

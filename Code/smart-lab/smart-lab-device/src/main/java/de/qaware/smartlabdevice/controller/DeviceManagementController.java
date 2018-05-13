@@ -1,7 +1,7 @@
 package de.qaware.smartlabdevice.controller;
 
 import de.qaware.smartlabcommons.api.DeviceManagementApiConstants;
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabdevice.business.IDeviceManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;

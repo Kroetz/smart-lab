@@ -1,7 +1,10 @@
 package de.qaware.smartlabsampledata.factory;
 
-import de.qaware.smartlabcommons.data.device.AcmeDisplay;
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
+import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
+import de.qaware.smartlabcommons.data.device.entity.Device;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -12,15 +15,11 @@ import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class AstronautsDataFactory extends AbstractSampleDataFactory {
@@ -32,6 +31,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final String MEETING_ID_MARS = "mars";
     public static final String ROOM_ID_BLACK = "black";
     public static final String DEVICE_ID_BLACK_DISPLAY = "black-display";
+    public static final String DELEGATE_ID_BLACK = "black-delegate";
 
     public AstronautsDataFactory() {
         super();
@@ -88,8 +88,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
         Set<String> astronautsMeetingAssistances = new HashSet<>();
-        astronautsMeetingAssistances.add(Constants.MINUTE_TAKING);
-        astronautsMeetingAssistances.add(Constants.ROOM_UNLOCKING);
+        astronautsMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        Map<String, IAssistanceConfiguration> astronautsMeetingAssistanceConfigurations = new HashMap<>();
+        astronautsMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
@@ -97,6 +98,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
                 .assistanceIds(astronautsMeetingAssistances)
+                .assistanceConfigurationsById(astronautsMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
         return meetings;
@@ -118,10 +120,11 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IDevice> createDeviceList() {
         List<IDevice> devices = new ArrayList<>();
-        devices.add(AcmeDisplay.builder()
+        devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY)
+                .type(DummyDisplay.DEVICE_TYPE)
                 .name("Display in Room Black")
-                .dummyDisplayProperty("Dummy property of Display in Room Black")
+                .responsibleDelegate(DELEGATE_ID_BLACK)
                 .build());
         return devices;
     }

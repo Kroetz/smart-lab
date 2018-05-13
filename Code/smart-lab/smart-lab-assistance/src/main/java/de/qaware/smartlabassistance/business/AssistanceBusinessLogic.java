@@ -1,11 +1,11 @@
 package de.qaware.smartlabassistance.business;
 
-import de.qaware.smartlabcommons.data.assistance.IAssistanceResolver;
+import de.qaware.smartlabcommons.data.assistance.IAssistance;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.result.BeginAssistanceResult;
-import de.qaware.smartlabcommons.result.EndAssistanceResult;
-import de.qaware.smartlabcommons.result.UpdateAssistanceResult;
+import de.qaware.smartlabcommons.exception.InsufficientContextException;
+import de.qaware.smartlabcommons.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,45 +13,32 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
 
-    private final IAssistanceResolver assistanceResolver;
+    private final IResolver<String, IAssistance> assistanceResolver;
 
-    public AssistanceBusinessLogic(IAssistanceResolver assistanceResolver) {
+    public AssistanceBusinessLogic(IResolver<String, IAssistance> assistanceResolver) {
         this.assistanceResolver = assistanceResolver;
     }
 
-    public BeginAssistanceResult beginAssistance(String assistanceId, IContext context) {
-
-        log.info("Started assistance (ID: \"{}\") in room with ID \"{}\"", assistanceId, context.getRoom().map(IRoom::getName).orElse("fail"));
-
-        /*Optional<IAssistance> assistance = this.assistanceResolver.resolveAssistanceId(assistanceId);
-
-        //room.getMinuteTakingDevice().ifPresent(device -> device.start());
-
-
-        // TODO: Resolve which "device" is responsible in the room (from context) for the given assistance. This can be:
-        // * a web service
-        // * a REST-compatible device
-        // * a Smart-Lab-Satellite
-
-        // TODO: Call assistance and pass the device
-
-        // TODO: In assistance: Call the appropriate device functions that encapsulate REST-calls oder local API calls.
-        */
-
-        return BeginAssistanceResult.SUCCESS;
+    public void beginAssistance(String assistanceId, IContext context) {
+        log.info("Starting assistance (ID: \"{}\") in room with ID \"{}\"",
+                assistanceId,
+                context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
+        IAssistance assistance = this.assistanceResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
+        assistance.begin(context);
+        log.info("Started assistance (ID: \"{}\") in room with ID \"{}\"",
+                assistanceId,
+                context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public EndAssistanceResult endAssistance(String assistanceId, IContext context) {
+    public void endAssistance(String assistanceId, IContext context) {
 
         log.info("Stopped assistance (ID: \"{}\") in room with ID \"{}\"", assistanceId, context.getRoom().map(IRoom::getName).orElse("fail"));
 
         // TODO
-        return EndAssistanceResult.SUCCESS;
     }
 
-    public UpdateAssistanceResult updateAssistance(String assistanceId, IContext context) {
+    public void updateAssistance(String assistanceId, IContext context) {
 
         // TODO
-        return UpdateAssistanceResult.SUCCESS;
     }
 }

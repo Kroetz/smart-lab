@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.data.device;
+package de.qaware.smartlabcommons.data.device.entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
@@ -10,6 +10,7 @@ import de.qaware.smartlabcommons.data.generic.IEntity;
         property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IDevice extends IEntity {
 
+    String getType();
     String getName();
-    DeviceRole getRole();
+    String getResponsibleDelegate();
 }

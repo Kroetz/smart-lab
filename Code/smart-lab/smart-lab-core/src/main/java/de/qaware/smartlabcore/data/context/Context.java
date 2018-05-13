@@ -4,6 +4,8 @@ import de.qaware.smartlabcommons.api.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcommons.api.service.person.IPersonManagementService;
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabcommons.data.assistance.IAssistance;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -23,27 +25,33 @@ public class Context implements IContext {
     private IWorkgroup workgroup;
     private Set<IPerson> persons;
     private IRoom room;
+    private IAssistanceConfiguration assistanceConfiguration;
 
     private Context() { }
 
     @Override
     public Optional<IMeeting> getMeeting() {
-        return Optional.ofNullable(meeting);
+        return Optional.ofNullable(this.meeting);
     }
 
     @Override
     public Optional<IWorkgroup> getWorkgroup() {
-        return Optional.ofNullable(workgroup);
+        return Optional.ofNullable(this.workgroup);
     }
 
     @Override
     public Optional<Set<IPerson>> getPersons() {
-        return Optional.ofNullable(persons);
+        return Optional.ofNullable(this.persons);
     }
 
     @Override
     public Optional<IRoom> getRoom() {
-        return Optional.ofNullable(room);
+        return Optional.ofNullable(this.room);
+    }
+
+    @Override
+    public Optional<IAssistanceConfiguration> getAssistanceConfiguration() {
+        return Optional.ofNullable(this.assistanceConfiguration);
     }
 
     @Component
@@ -69,6 +77,10 @@ public class Context implements IContext {
             return addBasedOnMeeting(new Context(), meeting);
         }
 
+        public IContext ofMeetingAssistance(IMeeting meeting, IAssistance assistance) {
+            return addBasedOnMeetingAssistance(new Context(), meeting, assistance);
+        }
+
         public IContext ofWorkgroup(IWorkgroup workgroup) {
             return addBasedOnWorkgroup(new Context(), workgroup);
         }
@@ -79,6 +91,13 @@ public class Context implements IContext {
 
         public IContext ofRoom(IRoom room) {
             return addBasedOnRoom(new Context(), room);
+        }
+
+        // TODO: better would be "addBasedOnAssistance" but this would require the assistance to know which meeting it belongs to --> assistance would also hold data and not only function
+        private Context addBasedOnMeetingAssistance(Context context, IMeeting meeting, IAssistance assistance) {
+            // TODO. More specific exception
+            context.assistanceConfiguration = meeting.getAssistanceConfiguration(assistance.getAssistanceId()).orElseThrow(RuntimeException::new);
+            return addBasedOnMeeting(context, meeting);
         }
 
         private Context addBasedOnMeeting(Context context, IMeeting meeting) {

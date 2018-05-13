@@ -14,8 +14,13 @@ public interface IAssistance {
 
     String getAssistanceId();
     Set<String> getAssistanceAliases();
+
     void triggerSetUpMeeting(IContext context);
     void triggerCleanUpMeeting(IContext context);
     void triggerStartMeeting(IContext context);
     void triggerStopMeeting(IContext context);
+
+    void begin(IContext context);
+    void end(IContext context);
+    void update(IContext context);
 }

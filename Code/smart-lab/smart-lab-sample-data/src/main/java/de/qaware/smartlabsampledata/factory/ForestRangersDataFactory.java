@@ -1,7 +1,10 @@
 package de.qaware.smartlabsampledata.factory;
 
-import de.qaware.smartlabcommons.data.device.AcmeMicrophone;
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
+import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
+import de.qaware.smartlabcommons.data.device.entity.Device;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -17,10 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class ForestRangersDataFactory extends AbstractSampleDataFactory {
@@ -31,7 +31,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final String MEMBER_ID_CAROLINE = "forest-ranger-caroline";
     public static final String MEETING_ID_BARK_BEETLE = "bark-beetle";
     public static final String ROOM_ID_GREEN = "green";
-    public static final String DEVICE_ID_GREEN_MICROPHONE = "green-microphone";
+    public static final String DEVICE_ID_GREEN_DISPLAY = "green-display";
+    public static final String DELEGATE_ID_GREEN = "green-delegate";
 
     public ForestRangersDataFactory() {
         super();
@@ -88,8 +89,9 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
         Set<String> forestRangersMeetingAssistances = new HashSet<>();
-        forestRangersMeetingAssistances.add(Constants.MINUTE_TAKING);
         forestRangersMeetingAssistances.add(Constants.ROOM_UNLOCKING);
+        Map<String, IAssistanceConfiguration> forestRangersMeetingAssistanceConfigurations = new HashMap<>();
+        forestRangersMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
@@ -97,6 +99,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
                 .assistanceIds(forestRangersMeetingAssistances)
+                .assistanceConfigurationsById(forestRangersMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(180))
                 .end(timeBase.plusSeconds(480)).build());
         return meetings;
@@ -106,7 +109,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public List<IRoom> createRoomList() {
         List<IRoom> rooms = new ArrayList<>();
         List<String> greenRoomDevices = new ArrayList<>();
-        greenRoomDevices.add(DEVICE_ID_GREEN_MICROPHONE);
+        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_GREEN)
                 .name("Room Green")
@@ -118,10 +121,11 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IDevice> createDeviceList() {
         List<IDevice> devices = new ArrayList<>();
-        devices.add(AcmeMicrophone.builder()
-                .id(DEVICE_ID_GREEN_MICROPHONE)
-                .name("Microphone in Room Green")
-                .dummyMicrophoneProperty("Dummy property of Microphone in Room Green")
+        devices.add(Device.builder()
+                .id(DEVICE_ID_GREEN_DISPLAY)
+                .type(DummyDisplay.DEVICE_TYPE)
+                .name("Display in Room Green")
+                .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         return devices;
     }

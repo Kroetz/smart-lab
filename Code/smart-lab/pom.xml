@@ -34,6 +34,7 @@
 		<module>smart-lab-person</module>
 		<module>smart-lab-trigger</module>
 		<module>smart-lab-assistance</module>
+		<module>smart-lab-action</module>
 		<module>smart-lab-meeting-set-up-trigger-mock</module>
 		<module>smart-lab-meeting-clean-up-trigger-mock</module>
 		<module>smart-lab-test</module>

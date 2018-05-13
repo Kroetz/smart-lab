@@ -1,8 +1,12 @@
 package de.qaware.smartlabcommons.data.assistance;
 
+import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.room.IRoom;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,14 +18,16 @@ import java.util.stream.Stream;
 @Slf4j
 public class AgendaShowing extends AbstractAssistance {
 
-    public static final String AGENDA_SHOWING_ID = "agenda showing";
-    // TODO: Easier with Java 9
-    public static final Set<String> AGENDA_SHOWING_ALIASES = Stream.of(
+    public static final String ASSISTANCE_ID = "agenda showing";
+    // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
+    public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
             "agenda-showing",
             "agendaShowing").collect(Collectors.toSet());
 
-    public AgendaShowing(IAssistanceService assistanceService) {
-        super(AGENDA_SHOWING_ID, AGENDA_SHOWING_ALIASES, assistanceService);
+    public AgendaShowing(
+            IAssistanceService assistanceService,
+            IActionService actionService) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, assistanceService, actionService);
     }
 
     @Override
@@ -34,5 +40,30 @@ public class AgendaShowing extends AbstractAssistance {
     public void triggerCleanUpMeeting(IContext context) {
         this.assistanceService.endAssistance(this.assistanceId, context);
         log.info("Stopped agenda showing in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
+    }
+
+    @Override
+    public void begin(IContext context) {
+        // TODO: Implementation
+    }
+
+    @Override
+    public void end(IContext context) {
+        // TODO: Implementation
+    }
+
+    @Override
+    public void update(IContext context) {
+        // TODO: Implementation
+    }
+
+    // TODO: Which annotation can be removed?
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Slf4j
+    public static class Configuration implements IAssistanceConfiguration {
+
+        private String deviceId;
     }
 }

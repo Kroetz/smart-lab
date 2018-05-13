@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.device
 
 import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService
-import de.qaware.smartlabcommons.data.device.IDevice
+import de.qaware.smartlabcommons.data.device.entity.IDevice
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
@@ -36,8 +36,8 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
         crudService = deviceManagementService
         entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
                 coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY),
-                forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE),
-                fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_DISPLAY)))
+                forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY),
+                fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE)))
     }
 
     @Override
@@ -56,8 +56,8 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
     def setupDataForFindMultiple_withExisting() {
         crudService = deviceManagementService
         def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
-        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
-        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY
+        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE
         def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
         def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
         def device3 = fireFightersDataFactory.createDeviceMap().get(deviceId3)
@@ -69,8 +69,8 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice>
     def setupDataForFindMultiple_withoutExisting() {
         crudService = deviceManagementService
         def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
-        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_MICROPHONE
-        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_DISPLAY
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY
+        def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE
         def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
         def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
         def device3 = fireFightersDataFactory.createDeviceMap().get(deviceId3)

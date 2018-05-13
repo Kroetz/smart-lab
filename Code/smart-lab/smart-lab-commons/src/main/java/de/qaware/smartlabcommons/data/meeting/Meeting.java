@@ -1,15 +1,12 @@
 package de.qaware.smartlabcommons.data.meeting;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import lombok.*;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder(toBuilder = true)
@@ -23,12 +20,18 @@ public class Meeting implements IMeeting {
     private String roomId;
     private List<IAgendaItem> agenda;
     private Set<String> assistanceIds;
+    private Map<String, IAssistanceConfiguration> assistanceConfigurationsById;
     private Instant start;
     private Instant end;
 
     @Override
     public Duration getDuration() {
         return Duration.between(getStart(), getEnd());
+    }
+
+    @Override
+    public Optional<IAssistanceConfiguration> getAssistanceConfiguration(String assistanceId) {
+        return Optional.ofNullable(assistanceConfigurationsById.get(assistanceId));
     }
 
     @Override

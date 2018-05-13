@@ -1,7 +1,12 @@
 package de.qaware.smartlabsampledata.factory;
 
-import de.qaware.smartlabcommons.data.device.AcmeDisplay;
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcommons.data.assistance.MinuteTaking;
+import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
+import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
+import de.qaware.smartlabcommons.data.device.entity.Device;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
+import de.qaware.smartlabcommons.data.device.microphone.ThinkpadP50InternalMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.meeting.AgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IAgendaItem;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -12,15 +17,11 @@ import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class CoastGuardDataFactory extends AbstractSampleDataFactory {
@@ -33,6 +34,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final String MEETING_ID_WHIRLPOOLS = "whirlpools";
     public static final String ROOM_ID_BLUE = "blue";
     public static final String DEVICE_ID_BLUE_DISPLAY = "blue-display";
+    public static final String DEVICE_ID_BLUE_MICROPHONE = "blue-microphone";
+    public static final String DELEGATE_ID_BLUE = "blue-delegate";
 
     public CoastGuardDataFactory() {
         super();
@@ -89,8 +92,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
         Set<String> whaleMeetingAssistances = new HashSet<>();
-        whaleMeetingAssistances.add(Constants.MINUTE_TAKING);
-        whaleMeetingAssistances.add(Constants.ROOM_UNLOCKING);
+        whaleMeetingAssistances.add(MinuteTaking.ASSISTANCE_ID);
+        whaleMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        Map<String, IAssistanceConfiguration> whaleMeetingAssistanceConfigurations = new HashMap<>();
+        whaleMeetingAssistanceConfigurations.put(MinuteTaking.ASSISTANCE_ID, new MinuteTaking.Configuration(DEVICE_ID_BLUE_MICROPHONE));
+        whaleMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
@@ -98,6 +104,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whaleMeetingAgenda)
                 .assistanceIds(whaleMeetingAssistances)
+                .assistanceConfigurationsById(whaleMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
 
@@ -106,8 +113,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
         Set<String> whirlpoolMeetingAssistances = new HashSet<>();
-        whirlpoolMeetingAssistances.add(Constants.MINUTE_TAKING);
-        whirlpoolMeetingAssistances.add(Constants.ROOM_UNLOCKING);
+        whirlpoolMeetingAssistances.add(MinuteTaking.ASSISTANCE_ID);
+        whirlpoolMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        Map<String, IAssistanceConfiguration> whirlpoolMeetingAssistanceConfigurations = new HashMap<>();
+        whirlpoolMeetingAssistanceConfigurations.put(MinuteTaking.ASSISTANCE_ID, new MinuteTaking.Configuration(DEVICE_ID_BLUE_MICROPHONE));
+        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHIRLPOOLS)
                 .title("Meeting about dangers of whirlpools")
@@ -115,6 +125,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whirlpoolMeetingAgenda)
                 .assistanceIds(whirlpoolMeetingAssistances)
+                .assistanceConfigurationsById(whirlpoolMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(360))
                 .end(timeBase.plusSeconds(660)).build());
 
@@ -126,6 +137,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         List<IRoom> rooms = new ArrayList<>();
         List<String> blueRoomDevices = new ArrayList<>();
         blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
+        blueRoomDevices.add(DEVICE_ID_BLUE_MICROPHONE);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLUE)
                 .name("Room Blue")
@@ -137,10 +149,17 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IDevice> createDeviceList() {
         List<IDevice> devices = new ArrayList<>();
-        devices.add(AcmeDisplay.builder()
+        devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY)
+                .type(DummyDisplay.DEVICE_TYPE)
                 .name("Display in Room Blue")
-                .dummyDisplayProperty("Dummy property of Display in Room Blue")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_BLUE_MICROPHONE)
+                .type(ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE)
+                .name("Microphone in Room Blue")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         return devices;
     }

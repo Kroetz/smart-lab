@@ -1,5 +1,6 @@
 package de.qaware.smartlabcommons.data.assistance;
 
+import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -15,14 +16,17 @@ public abstract class AbstractAssistance implements IAssistance {
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;
     protected final IAssistanceService assistanceService;
+    protected final IActionService actionService;
 
     public AbstractAssistance(
             String assistanceId,
             Set<String> assistanceAliases,
-            IAssistanceService assistanceService) {
+            IAssistanceService assistanceService,
+            IActionService actionService) {
         this.assistanceId = assistanceId;
         this.assistanceAliases = assistanceAliases;
         this.assistanceService = assistanceService;
+        this.actionService = actionService;
     }
 
     @Override
@@ -52,4 +56,6 @@ public abstract class AbstractAssistance implements IAssistance {
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
     }
+
+    // TODO: Possible to force inner class for configuration?
 }

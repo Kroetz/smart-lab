@@ -2,7 +2,7 @@ package de.qaware.smartlabcommons.api.service.device;
 
 import de.qaware.smartlabcommons.api.client.IDeviceManagementApiClient;
 import de.qaware.smartlabcommons.api.service.generic.AbstractEntityManagementService;
-import de.qaware.smartlabcommons.data.device.IDevice;
+import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import org.springframework.stereotype.Component;
 
 @Component
