@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.api.AssistanceApiConstants;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AssistanceController {
             @RequestBody IContext context) {
         log.info("Received call to begin assistance with ID \"{}\" in the room with ID \"{}\"",
                 assistanceId,
-                context.getRoom().map(IRoom::getId).orElse("Default ID"));
+                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.beginAssistance(assistanceId, context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());

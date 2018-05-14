@@ -11,6 +11,7 @@ import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import de.qaware.smartlabcommons.exception.UnknownAssistanceException;
 import de.qaware.smartlabcommons.result.CleanUpMeetingResult;
 import de.qaware.smartlabcommons.result.SetUpMeetingResult;
@@ -56,11 +57,11 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
             ITriggerEffect triggerEffect = triggerEffectGetter.apply(context, assistance);
             log.info("Calling assistance service for the effect of the trigger on assistance \"{}\" in room with ID \"{}\"",
                     assistance.getAssistanceId(),
-                    context.getRoom().map(IRoom::getId).orElse("Default ID"));
+                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
             triggerEffect.accept(this.assistanceService);
             log.info("Called assistance service for the effect of the trigger on assistance \"{}\" in room with ID \"{}\"",
                     assistance.getAssistanceId(),
-                    context.getRoom().map(IRoom::getId).orElse("Default ID"));
+                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
         }
         // TODO: Return type necessary?
     }

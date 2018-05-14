@@ -32,13 +32,11 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
 
     public void endAssistance(String assistanceId, IContext context) {
 
-        log.info("Stopped assistance (ID: \"{}\") in room with ID \"{}\"", assistanceId, context.getRoom().map(IRoom::getName).orElse("fail"));
-
-        // TODO
+        // TODO: Implementation
     }
 
     public void updateAssistance(String assistanceId, IContext context) {
 
-        // TODO
+        // TODO: Implementation
     }
 }

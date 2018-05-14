@@ -34,7 +34,7 @@ public abstract class AbstractAssistance implements IAssistance {
         return (assistanceService) -> {
             log.info("Ignoring set-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
                     this.assistanceId,
-                    context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
+                    context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         };
     }
 
@@ -46,7 +46,7 @@ public abstract class AbstractAssistance implements IAssistance {
         return (assistanceService) -> {
             log.info("Ignoring clean-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
                     this.assistanceId,
-                    context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
+                    context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         };
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractAssistance implements IAssistance {
         return (assistanceService) -> {
             log.info("Ignoring start-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
                     this.assistanceId,
-                    context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
+                    context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         };
     }
 
@@ -70,7 +70,7 @@ public abstract class AbstractAssistance implements IAssistance {
         return (assistanceService) -> {
             log.info("Ignoring stop-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
                     this.assistanceId,
-                    context.getMeeting().map(IMeeting::getId).orElse("Default ID"));
+                    context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         };
     }
 
