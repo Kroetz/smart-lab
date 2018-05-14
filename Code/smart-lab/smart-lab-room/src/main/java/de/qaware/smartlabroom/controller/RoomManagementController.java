@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.api.RoomManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabroom.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ import java.util.Set;
 @Controller
 @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class RoomManagementController extends AbstractSmartLabController {
+public class RoomManagementController extends AbstractSmartLabController implements IEntityManagementController<IRoom> {
 
     private final IRoomManagementBusinessLogic roomManagementBusinessLogic;
 
@@ -41,7 +42,7 @@ public class RoomManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
-    ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
+    public ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
         return responseFromOptionals(roomManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(roomIds))));
     }
 

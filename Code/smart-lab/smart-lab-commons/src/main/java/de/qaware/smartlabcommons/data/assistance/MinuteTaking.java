@@ -1,10 +1,10 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.action.IActionService;
-import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.AllArgsConstructor;
@@ -27,32 +27,24 @@ public class MinuteTaking extends AbstractAssistance {
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
 
-    public MinuteTaking(
-            IAssistanceService assistanceService,
-            IActionService actionService) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, assistanceService, actionService);
+    public MinuteTaking(IActionService actionService) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService);
     }
 
     @Override
-    public void triggerStartMeeting(IContext context) {
-        log.info("Calling assistance service to start assistance \"{}\" in room with ID \"{}\"",
-                ASSISTANCE_ID,
-                context.getRoom().map(IRoom::getId).orElse("Default ID"));
-        this.assistanceService.beginAssistance(this.assistanceId, context);
-        log.info("Called assistance service to start assistance \"{}\" in room with ID \"{}\"",
-                ASSISTANCE_ID,
-                context.getRoom().map(IRoom::getId).orElse("Default ID"));
+    public ITriggerEffect effectOfTriggerStartMeeting(final IContext context) {
+        log.info("Effect of start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+        return (assistanceService) -> assistanceService.beginAssistance(this.assistanceId, context);
     }
 
     @Override
-    public void triggerStopMeeting(IContext context) {
-        log.info("Calling assistance service to stop assistance \"{}\" in room with ID \"{}\"",
-                ASSISTANCE_ID,
-                context.getRoom().map(IRoom::getId).orElse("Default ID"));
-        this.assistanceService.endAssistance(this.assistanceId, context);
-        log.info("Called assistance service to stop assistance \"{}\" in room with ID \"{}\"",
-                ASSISTANCE_ID,
-                context.getRoom().map(IRoom::getId).orElse("Default ID"));
+    public ITriggerEffect effectOfTriggerStopMeeting(final IContext context) {
+        log.info("Effect of stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+        return (assistanceService) -> assistanceService.endAssistance(this.assistanceId, context);
     }
 
     @Override

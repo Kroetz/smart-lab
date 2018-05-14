@@ -8,7 +8,9 @@ import de.qaware.smartlabcommons.exception.EntityNotFoundException;
 import de.qaware.smartlabcommons.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcommons.exception.MeetingConflictException;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
 import feign.FeignException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +18,12 @@ import java.time.Duration;
 import java.util.Set;
 
 @Component
-public class RoomManagementService extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
+@Profile(Constants.PROFILE_NAME_MICROSERVICE)
+public class RoomManagementMicroservice extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
 
     private final IRoomManagementApiClient roomManagementApiClient;
 
-    public RoomManagementService(IRoomManagementApiClient roomManagementApiClient) {
+    public RoomManagementMicroservice(IRoomManagementApiClient roomManagementApiClient) {
         super(roomManagementApiClient);
         this.roomManagementApiClient = roomManagementApiClient;
     }

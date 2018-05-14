@@ -3,6 +3,7 @@ package de.qaware.smartlabcommons.api.service.delegate;
 import de.qaware.smartlabcommons.api.client.IDelegateApiClient;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
 import feign.Client;
 import feign.Contract;
 import feign.Feign;
@@ -11,21 +12,23 @@ import feign.codec.Decoder;
 import feign.codec.Encoder;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@Profile(Constants.PROFILE_NAME_MICROSERVICE)
 @Import(FeignClientsConfiguration.class)
-public class DelegateService implements IDelegateService {
+public class DelegateMicroservice implements IDelegateService {
 
     private final Map<String, IDelegateApiClient> clientsByServiceName;
     private final Client client;
     private final Encoder feignEncoder;
     private final Decoder feignDecoder;
 
-    public DelegateService(
+    public DelegateMicroservice(
             Client client,
             Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
             Decoder feignDecoder) {

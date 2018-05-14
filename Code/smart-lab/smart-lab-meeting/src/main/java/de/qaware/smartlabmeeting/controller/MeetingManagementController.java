@@ -3,6 +3,7 @@ package de.qaware.smartlabmeeting.controller;
 import de.qaware.smartlabcommons.api.MeetingManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabmeeting.business.IMeetingManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -17,7 +18,7 @@ import java.util.Set;
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class MeetingManagementController extends AbstractSmartLabController {
+public class MeetingManagementController extends AbstractSmartLabController implements IEntityManagementController<IMeeting> {
 
     private final IMeetingManagementBusinessLogic meetingManagementBusinessLogic;
 
@@ -25,26 +26,31 @@ public class MeetingManagementController extends AbstractSmartLabController {
         this.meetingManagementBusinessLogic = meetingManagementBusinessLogic;
     }
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IMeeting> findAll() {
         return meetingManagementBusinessLogic.findAll();
     }
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return responseFromOptional(meetingManagementBusinessLogic.findOne(meetingId));
     }
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
-    ResponseEntity<Set<IMeeting>> findMultiple(@RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
+    public ResponseEntity<Set<IMeeting>> findMultiple(@RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
         return responseFromOptionals(meetingManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(meetingIds))));
     }
 
+    @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IMeeting meeting) {
         return meetingManagementBusinessLogic.create(meeting).toResponseEntity();
     }
 
+    @Override
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
         return meetingManagementBusinessLogic.delete(meetingId).toResponseEntity();

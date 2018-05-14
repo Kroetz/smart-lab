@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.api.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabworkgroup.business.IWorkgroupManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -18,7 +19,7 @@ import java.util.Set;
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class WorkgroupManagementController extends AbstractSmartLabController {
+public class WorkgroupManagementController extends AbstractSmartLabController implements IEntityManagementController<IWorkgroup> {
 
     private final IWorkgroupManagementBusinessLogic workgroupManagementBusinessLogic;
 
@@ -37,7 +38,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController {
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_MULTIPLE)
-    ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
+    public ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
         return responseFromOptionals(workgroupManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(workgroupIds))));
     }
 

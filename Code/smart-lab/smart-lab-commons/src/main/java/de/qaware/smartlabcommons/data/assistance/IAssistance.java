@@ -15,10 +15,10 @@ public interface IAssistance {
     String getAssistanceId();
     Set<String> getAssistanceAliases();
 
-    void triggerSetUpMeeting(IContext context);
-    void triggerCleanUpMeeting(IContext context);
-    void triggerStartMeeting(IContext context);
-    void triggerStopMeeting(IContext context);
+    ITriggerEffect effectOfTriggerSetUpMeeting(final IContext context);
+    ITriggerEffect effectOfTriggerCleanUpMeeting(final IContext context);
+    ITriggerEffect effectOfTriggerStartMeeting(final IContext context);
+    ITriggerEffect effectOfTriggerStopMeeting(final IContext context);
 
     void begin(IContext context);
     void end(IContext context);

@@ -2,11 +2,14 @@ package de.qaware.smartlabcommons.api.service.trigger;
 
 import de.qaware.smartlabcommons.api.client.ITriggerApiClient;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
+import de.qaware.smartlabcommons.miscellaneous.Constants;
 import feign.FeignException;
 import feign.RetryableException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile(Constants.PROFILE_NAME_MICROSERVICE)
 public class TriggerService implements ITriggerService {
 
     private final ITriggerApiClient triggerApiClient;

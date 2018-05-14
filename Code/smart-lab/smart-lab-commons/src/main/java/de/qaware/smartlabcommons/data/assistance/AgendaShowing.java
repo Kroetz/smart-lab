@@ -1,9 +1,9 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.action.IActionService;
-import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,22 +24,24 @@ public class AgendaShowing extends AbstractAssistance {
             "agenda-showing",
             "agendaShowing").collect(Collectors.toSet());
 
-    public AgendaShowing(
-            IAssistanceService assistanceService,
-            IActionService actionService) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, assistanceService, actionService);
+    public AgendaShowing(IActionService actionService) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService);
     }
 
     @Override
-    public void triggerSetUpMeeting(IContext context) {
-        this.assistanceService.beginAssistance(this.assistanceId, context);
-        log.info("Started agenda showing in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
+    public ITriggerEffect effectOfTriggerSetUpMeeting(IContext context) {
+        log.info("Effect of set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+        return (assistanceService) -> assistanceService.beginAssistance(this.assistanceId, context);
     }
 
     @Override
-    public void triggerCleanUpMeeting(IContext context) {
-        this.assistanceService.endAssistance(this.assistanceId, context);
-        log.info("Stopped agenda showing in room \"{}\"", context.getRoom().map(IRoom::getName).orElse("fail"));
+    public ITriggerEffect effectOfTriggerCleanUpMeeting(IContext context) {
+        log.info("Effect of clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
+                this.assistanceId,
+                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+        return (assistanceService) -> assistanceService.endAssistance(this.assistanceId, context);
     }
 
     @Override
