@@ -24,6 +24,7 @@
 		<module>bom-modules/smart-lab-spring-dependencies</module>
 		<module>bom-modules/smart-lab-test-dependencies</module>
 
+		<module>app-modules/smart-lab-discovery-microservice</module>
 		<module>app-modules/smart-lab-action-microservice</module>
 		<module>app-modules/smart-lab-assistance-microservice</module>
 		<module>app-modules/smart-lab-delegate-microservice</module>
@@ -36,7 +37,7 @@
 
 		<module>lib-modules/smart-lab-commons</module>
 		<module>lib-modules/smart-lab-core</module>
-		<module>app-modules/smart-lab-discovery-service</module>
+
 		<module>lib-modules/smart-lab-sample-data</module>
 		<module>app-modules/smart-lab-meeting</module>
 		<module>app-modules/smart-lab-room</module>

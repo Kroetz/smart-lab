@@ -5,11 +5,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-discovery-service</artifactId>
+	<artifactId>smart-lab-discovery-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>smart-lab-discovery-service</name>
-	<description>Discovery Service for the Smart-Lab project</description>
+	<name>smart-lab-discovery-microservice</name>
+	<description>Discovery service for the Smart-Lab project</description>
 
 	<parent>
 		<artifactId>smart-lab-spring-dependencies</artifactId>

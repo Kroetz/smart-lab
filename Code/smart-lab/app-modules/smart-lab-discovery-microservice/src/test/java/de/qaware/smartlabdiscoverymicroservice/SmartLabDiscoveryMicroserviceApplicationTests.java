@@ -1,4 +1,4 @@
-package de.qaware.smartlabdiscoveryservice;
+package de.qaware.smartlabdiscoverymicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SmartLabDiscoveryServiceApplicationTests {
+public class SmartLabDiscoveryMicroserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {
