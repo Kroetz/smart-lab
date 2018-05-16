@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting;
+package de.qaware.smartlabmeetingmicroservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +10,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabmeeting",
 		"de.qaware.smartlabcommons",
-        "de.qaware.smartlabcore.generic",
+		"de.qaware.smartlabcore.generic",
 		"de.qaware.smartlabsampledata"})
-public class SmartLabMeetingApplication {
+public class SmartLabMeetingMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabMeetingApplication.class, args);
+		SpringApplication.run(SmartLabMeetingMicroserviceApplication.class, args);
 	}
 }

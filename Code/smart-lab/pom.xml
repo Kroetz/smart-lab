@@ -29,19 +29,18 @@
 		<module>app-modules/smart-lab-assistance-microservice</module>
 		<module>app-modules/smart-lab-delegate-microservice</module>
 		<module>app-modules/smart-lab-device-microservice</module>
+		<module>app-modules/smart-lab-meeting-microservice</module>
 
 		<module>lib-modules/smart-lab-action</module>
 		<module>lib-modules/smart-lab-assistance</module>
 		<module>lib-modules/smart-lab-delegate</module>
 		<module>lib-modules/smart-lab-device</module>
+		<module>lib-modules/smart-lab-meeting</module>
 
 		<module>lib-modules/smart-lab-commons</module>
 		<module>lib-modules/smart-lab-core</module>
-
 		<module>lib-modules/smart-lab-sample-data</module>
-		<module>app-modules/smart-lab-meeting</module>
 		<module>app-modules/smart-lab-room</module>
-
 		<module>app-modules/smart-lab-workgroup</module>
 		<module>app-modules/smart-lab-person</module>
 		<module>app-modules/smart-lab-trigger</module>
