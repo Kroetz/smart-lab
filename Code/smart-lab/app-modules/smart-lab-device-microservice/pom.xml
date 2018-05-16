@@ -5,15 +5,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-device</artifactId>
+	<artifactId>smart-lab-device-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>smart-lab-device</name>
-	<description>Module of the Smart-Lab project that manages devices</description>
+	<name>smart-lab-device-microservice</name>
+	<description>Module of the Smart-Lab project that runs the device microservice</description>
 
 	<properties>
 		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
 		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
+		<smart-lab-device.version>0.0.1-SNAPSHOT</smart-lab-device.version>
 		<smart-lab-sample-data.version>0.0.1-SNAPSHOT</smart-lab-sample-data.version>
 		<smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
 		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
@@ -39,6 +40,12 @@
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-core</artifactId>
 			<version>${smart-lab-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-device</artifactId>
+			<version>${smart-lab-device.version}</version>
 		</dependency>
 
 		<dependency>
