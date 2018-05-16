@@ -33,6 +33,7 @@
 		<module>app-modules/smart-lab-person-microservice</module>
 		<module>app-modules/smart-lab-room-microservice</module>
 		<module>app-modules/smart-lab-trigger-microservice</module>
+		<module>app-modules/smart-lab-workgroup-microservice</module>
 
 		<module>lib-modules/smart-lab-action</module>
 		<module>lib-modules/smart-lab-assistance</module>
@@ -42,11 +43,11 @@
 		<module>lib-modules/smart-lab-person</module>
 		<module>lib-modules/smart-lab-room</module>
 		<module>lib-modules/smart-lab-trigger</module>
+		<module>lib-modules/smart-lab-workgroup</module>
 
 		<module>lib-modules/smart-lab-commons</module>
 		<module>lib-modules/smart-lab-core</module>
 		<module>lib-modules/smart-lab-sample-data</module>
-		<module>app-modules/smart-lab-workgroup</module>
 		<module>app-modules/smart-lab-monolith</module>
 		<module>app-modules/smart-lab-meeting-set-up-trigger-mock</module>
 		<module>app-modules/smart-lab-meeting-clean-up-trigger-mock</module>

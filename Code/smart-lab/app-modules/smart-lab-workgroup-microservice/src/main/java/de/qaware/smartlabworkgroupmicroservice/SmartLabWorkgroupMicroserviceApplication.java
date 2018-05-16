@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroup;
+package de.qaware.smartlabworkgroupmicroservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +10,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabworkgroup",
 		"de.qaware.smartlabcommons",
-        "de.qaware.smartlabcore.generic",
+		"de.qaware.smartlabcore.generic",
 		"de.qaware.smartlabsampledata"})
-public class SmartLabWorkgroupApplication {
+public class SmartLabWorkgroupMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabWorkgroupApplication.class, args);
+		SpringApplication.run(SmartLabWorkgroupMicroserviceApplication.class, args);
 	}
 }
