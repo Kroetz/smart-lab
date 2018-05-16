@@ -3,13 +3,13 @@ package de.qaware.smartlabcommons.api.service.assistance;
 import de.qaware.smartlabcommons.api.client.IAssistanceApiClient;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.FeignException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MICROSERVICE)
+@Profile(ProfileNames.MICROSERVICE)
 public class AssistanceMicroservice implements IAssistanceService {
 
     private final IAssistanceApiClient assistanceApiClient;

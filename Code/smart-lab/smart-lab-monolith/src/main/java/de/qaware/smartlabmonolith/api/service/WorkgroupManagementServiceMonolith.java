@@ -1,9 +1,10 @@
-package de.qaware.smartlabmonolith.service;
+package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import de.qaware.smartlabworkgroup.controller.WorkgroupManagementController;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import java.time.Duration;
 import java.util.Set;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MONOLITH)
+@Profile(ProfileNames.MONOLITH)
 public class WorkgroupManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IWorkgroup> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;

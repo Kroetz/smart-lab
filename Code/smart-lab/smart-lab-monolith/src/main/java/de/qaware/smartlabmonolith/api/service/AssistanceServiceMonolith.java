@@ -1,14 +1,14 @@
-package de.qaware.smartlabmonolith.service;
+package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MONOLITH)
+@Profile(ProfileNames.MONOLITH)
 public class AssistanceServiceMonolith implements IAssistanceService {
 
     private final AssistanceController assistanceController;

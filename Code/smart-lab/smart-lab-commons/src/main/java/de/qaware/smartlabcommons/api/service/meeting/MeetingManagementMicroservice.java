@@ -4,7 +4,7 @@ import de.qaware.smartlabcommons.api.client.IMeetingManagementApiClient;
 import de.qaware.smartlabcommons.api.service.generic.AbstractEntityManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.exception.*;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.FeignException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MICROSERVICE)
+@Profile(ProfileNames.MICROSERVICE)
 public class MeetingManagementMicroservice extends AbstractEntityManagementService<IMeeting> implements IMeetingManagementService {
 
     private final IMeetingManagementApiClient meetingManagementApiClient;

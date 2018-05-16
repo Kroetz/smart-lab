@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 		"de.qaware.smartlabtrigger",
 		"de.qaware.smartlabassistance",
 		"de.qaware.smartlabaction",
-		"de.qaware.smartlabdelegate",
 		"de.qaware.smartlabsampledata"})
 public class SmartLabMonolithApplication {
 

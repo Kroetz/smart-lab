@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.service;
+package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabcommons.api.service.generic.IEntityManagementService;
 import de.qaware.smartlabcommons.data.generic.IEntity;

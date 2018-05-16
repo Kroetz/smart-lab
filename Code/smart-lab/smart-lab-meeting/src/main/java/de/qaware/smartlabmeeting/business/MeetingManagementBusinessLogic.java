@@ -1,6 +1,7 @@
 package de.qaware.smartlabmeeting.business;
 
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
+import de.qaware.smartlabcommons.miscellaneous.ApplicationPropertyNames;
 import de.qaware.smartlabcommons.result.ExtensionResult;
 import de.qaware.smartlabcommons.result.ShiftResult;
 import de.qaware.smartlabcommons.result.ShorteningResult;
@@ -16,13 +17,12 @@ import java.time.Duration;
 @Slf4j
 public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IMeeting> implements IMeetingManagementBusinessLogic {
 
-    private static final String APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES = "meeting.max.duration.in.minutes";
     public static Duration MAXIMAL_MEETING_DURATION;
     private final IMeetingManagementRepository meetingManagementRepository;
 
     public MeetingManagementBusinessLogic(
             // TODO: Introduce default value? (e.g. @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + ":4800}"))
-            @Value("${" + APP_PROPERTY_MAX_MEETING_DURATION_IN_MINUTES + "}") long maximalMeetingDurationInMinutes,
+            @Value("${" + ApplicationPropertyNames.MAX_MEETING_DURATION_IN_MINUTES + "}") long maximalMeetingDurationInMinutes,
             IMeetingManagementRepository meetingManagementRepository) {
         super(meetingManagementRepository);
         MAXIMAL_MEETING_DURATION = Duration.ofMinutes(maximalMeetingDurationInMinutes);

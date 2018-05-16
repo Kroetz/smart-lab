@@ -13,6 +13,8 @@
 
     <properties>
         <jackson-annotations.verison>2.9.4</jackson-annotations.verison>
+        <commons-validator.version>1.6</commons-validator.version>
+        <feign-okhttp.version>9.6.0</feign-okhttp.version>
     </properties>
 
     <parent>
@@ -29,6 +31,20 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson-annotations.verison}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>${commons-validator.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>${feign-okhttp.version}</version>
         </dependency>
 
     </dependencies>

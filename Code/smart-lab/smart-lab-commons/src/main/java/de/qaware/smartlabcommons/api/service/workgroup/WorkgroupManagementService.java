@@ -9,6 +9,7 @@ import de.qaware.smartlabcommons.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcommons.exception.MeetingConflictException;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.FeignException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.time.Duration;
 import java.util.Set;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MICROSERVICE)
+@Profile(ProfileNames.MICROSERVICE)
 public class WorkgroupManagementService extends AbstractEntityManagementService<IWorkgroup> implements IWorkgroupManagementService {
 
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;

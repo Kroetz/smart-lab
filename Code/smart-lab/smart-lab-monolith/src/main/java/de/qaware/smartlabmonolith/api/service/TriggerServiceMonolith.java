@@ -1,13 +1,13 @@
-package de.qaware.smartlabmonolith.service;
+package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabcommons.api.service.trigger.ITriggerService;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(Constants.PROFILE_NAME_MONOLITH)
+@Profile(ProfileNames.MONOLITH)
 public class TriggerServiceMonolith implements ITriggerService {
 
     private final TriggerController triggerController;
