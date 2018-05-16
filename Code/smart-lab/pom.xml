@@ -22,6 +22,7 @@
 
 	<modules>
 		<module>bom-modules/smart-lab-spring-dependencies</module>
+		<module>bom-modules/smart-lab-microservice-dependencies</module>
 		<module>bom-modules/smart-lab-test-dependencies</module>
 
 		<module>app-modules/smart-lab-discovery-microservice</module>

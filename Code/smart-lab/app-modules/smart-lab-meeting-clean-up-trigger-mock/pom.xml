@@ -16,7 +16,7 @@
 	</properties>
 
 	<parent>
-		<artifactId>smart-lab-spring-dependencies</artifactId>
+		<artifactId>smart-lab-microservice-dependencies</artifactId>
 		<groupId>de.qaware</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../../bom-modules/smart-lab-spring-dependencies</relativePath>
