@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction;
+package de.qaware.smartlabactionmicroservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,9 +11,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 		"de.qaware.smartlabaction",
 		"de.qaware.smartlabcommons",
 		"de.qaware.smartlabcore.generic"})
-public class SmartLabActionApplication {
+public class SmartLabActionMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabActionApplication.class, args);
+		SpringApplication.run(SmartLabActionMicroserviceApplication.class, args);
 	}
 }

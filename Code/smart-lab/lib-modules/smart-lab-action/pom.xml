@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>smart-lab-action</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>smart-lab-action</name>
+    <description>Module of the Smart-Lab project that executes the actions assistances are composed of</description>
+
+    <properties>
+        <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
+        <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
+        <smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
+    </properties>
+
+    <parent>
+        <artifactId>smart-lab-spring-dependencies</artifactId>
+        <groupId>de.qaware</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../bom-modules/smart-lab-spring-dependencies</relativePath>
+    </parent>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-commons</artifactId>
+            <version>${smart-lab-commons.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-core</artifactId>
+            <version>${smart-lab-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-test-dependencies</artifactId>
+            <version>${smart-lab-test-dependencies.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

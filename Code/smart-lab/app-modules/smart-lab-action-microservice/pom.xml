@@ -5,15 +5,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-action</artifactId>
+	<artifactId>smart-lab-action-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>smart-lab-action</name>
-	<description>Module of the Smart-Lab project that executes the actions assistances are composed of</description>
+	<name>smart-lab-action-microservice</name>
+	<description>Module of the Smart-Lab project that runs the action microservice</description>
 
 	<properties>
 		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
 		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
+		<smart-lab-action.version>0.0.1-SNAPSHOT</smart-lab-action.version>
 		<smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
 		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.8.0</springfox-swagger-ui.version>
@@ -38,6 +39,12 @@
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-core</artifactId>
 			<version>${smart-lab-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-action</artifactId>
+			<version>${smart-lab-action.version}</version>
 		</dependency>
 
 		<dependency>

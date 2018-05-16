@@ -21,9 +21,14 @@
 	</properties>
 
 	<modules>
-		<module>lib-modules/smart-lab-commons</module>
 		<module>bom-modules/smart-lab-spring-dependencies</module>
 		<module>bom-modules/smart-lab-test-dependencies</module>
+
+		<module>app-modules/smart-lab-action-microservice</module>
+
+		<module>lib-modules/smart-lab-action</module>
+
+		<module>lib-modules/smart-lab-commons</module>
 		<module>lib-modules/smart-lab-core</module>
 		<module>app-modules/smart-lab-discovery-service</module>
 		<module>lib-modules/smart-lab-sample-data</module>
