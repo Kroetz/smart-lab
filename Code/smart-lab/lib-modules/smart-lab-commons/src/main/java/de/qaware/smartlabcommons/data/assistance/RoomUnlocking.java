@@ -1,6 +1,5 @@
 package de.qaware.smartlabcommons.data.assistance;
 
-import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -25,8 +24,8 @@ public class RoomUnlocking extends AbstractAssistance {
             "room-unlocking",
             "roomUnlocking").collect(Collectors.toSet());
 
-    public RoomUnlocking(IActionService actionService) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService);
+    public RoomUnlocking() {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
     }
 
     @Override

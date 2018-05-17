@@ -1,6 +1,5 @@
 package de.qaware.smartlabcommons.data.assistance;
 
-import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
@@ -28,8 +27,8 @@ public class MinuteTaking extends AbstractAssistance {
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
 
-    public MinuteTaking(IActionService actionService) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService);
+    public MinuteTaking() {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
     }
 
     @Override
