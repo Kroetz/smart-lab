@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.data.action;
+package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.action.IActionService;
 

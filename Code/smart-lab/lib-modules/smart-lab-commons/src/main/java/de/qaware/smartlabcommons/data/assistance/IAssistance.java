@@ -1,7 +1,6 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
 

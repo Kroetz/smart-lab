@@ -1,7 +1,6 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
