@@ -15,7 +15,6 @@ public abstract class AbstractAssistance implements IAssistance {
 
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;
-    protected final IActionService actionService;
 
     public AbstractAssistance(
             String assistanceId,
@@ -23,7 +22,6 @@ public abstract class AbstractAssistance implements IAssistance {
             IActionService actionService) {
         this.assistanceId = assistanceId;
         this.assistanceAliases = assistanceAliases;
-        this.actionService = actionService;
     }
 
     @Override

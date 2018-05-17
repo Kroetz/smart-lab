@@ -2,6 +2,7 @@ package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -48,22 +49,24 @@ public class MinuteTaking extends AbstractAssistance {
     }
 
     @Override
-    public void begin(IContext context) {
+    public IAssistanceStage actionsOfBeginStage(IContext context) {
         IActionArgs actionArgs = ActivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new),
                 false);     // TODO: Get rid of "executeLocally" since assistance should not decide that.
-        this.actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
+        return (actionService) -> actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
     }
 
     @Override
-    public void end(IContext context) {
+    public IAssistanceStage actionsOfEndStage(IContext context) {
         // TODO: Implementation
+        return (actionService) -> {};
     }
 
     @Override
-    public void update(IContext context) {
+    public IAssistanceStage actionsOfUpdateStage(IContext context) {
         // TODO: Implementation
+        return (actionService) -> {};
     }
 
     // TODO: Which annotation can be removed?

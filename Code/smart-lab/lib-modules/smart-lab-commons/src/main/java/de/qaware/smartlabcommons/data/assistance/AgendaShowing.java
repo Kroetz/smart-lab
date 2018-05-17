@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import de.qaware.smartlabcommons.api.service.action.IActionService;
+import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
@@ -45,18 +46,21 @@ public class AgendaShowing extends AbstractAssistance {
     }
 
     @Override
-    public void begin(IContext context) {
+    public IAssistanceStage actionsOfBeginStage(IContext context) {
         // TODO: Implementation
+        return (actionService) -> {};
     }
 
     @Override
-    public void end(IContext context) {
+    public IAssistanceStage actionsOfEndStage(IContext context) {
         // TODO: Implementation
+        return (actionService) -> {};
     }
 
     @Override
-    public void update(IContext context) {
+    public IAssistanceStage actionsOfUpdateStage(IContext context) {
         // TODO: Implementation
+        return (actionService) -> {};
     }
 
     // TODO: Which annotation can be removed?

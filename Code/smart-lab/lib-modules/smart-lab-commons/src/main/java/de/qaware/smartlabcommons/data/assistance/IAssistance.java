@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.assistance;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.data.action.IAssistanceStage;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
 
@@ -20,7 +21,7 @@ public interface IAssistance {
     ITriggerEffect effectOfTriggerStartMeeting(final IContext context);
     ITriggerEffect effectOfTriggerStopMeeting(final IContext context);
 
-    void begin(IContext context);
-    void end(IContext context);
-    void update(IContext context);
+    IAssistanceStage actionsOfBeginStage(IContext context);
+    IAssistanceStage actionsOfEndStage(IContext context);
+    IAssistanceStage actionsOfUpdateStage(IContext context);
 }
