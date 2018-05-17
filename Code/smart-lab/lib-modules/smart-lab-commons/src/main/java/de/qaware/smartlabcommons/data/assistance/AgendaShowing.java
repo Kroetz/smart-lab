@@ -29,16 +29,16 @@ public class AgendaShowing extends AbstractAssistance {
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerSetUpMeeting(IContext context) {
-        log.info("Effect of set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
+    public ITriggerReaction reactionOnTriggerSetUpMeeting(IContext context) {
+        log.info("Reaction on set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> assistanceService.beginAssistance(this.assistanceId, context);
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerCleanUpMeeting(IContext context) {
-        log.info("Effect of clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
+    public ITriggerReaction reactionOnTriggerCleanUpMeeting(IContext context) {
+        log.info("Reaction on clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> assistanceService.endAssistance(this.assistanceId, context);

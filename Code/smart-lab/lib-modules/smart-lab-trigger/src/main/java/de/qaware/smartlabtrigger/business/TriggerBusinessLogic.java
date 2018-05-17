@@ -4,7 +4,7 @@ import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.assistance.IAssistance;
-import de.qaware.smartlabcommons.data.assistance.ITriggerEffect;
+import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.generic.IResolver;
@@ -46,30 +46,36 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
         this.assistanceResolver = assistanceResolver;
     }
 
-    private void triggerAssistance(
+    private void triggerAssistances(
             IMeeting meeting,
-            BiFunction<IContext, IAssistance, ITriggerEffect> triggerEffectGetter) {
+            BiFunction<IContext, IAssistance, ITriggerReaction> triggerReactionGetter) {
         Set<String> assistanceIds = meeting.getAssistanceIds();
         for(String assistanceId : assistanceIds) {
-            log.info("Processing assistance with ID \"{}\"", assistanceId);
-            IAssistance assistance = this.assistanceResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-            IContext context = this.contextFactory.ofMeetingAssistance(meeting, assistance);
-            ITriggerEffect triggerEffect = triggerEffectGetter.apply(context, assistance);
-            log.info("Calling assistance service for the effect of the trigger on assistance \"{}\" in room with ID \"{}\"",
-                    assistance.getAssistanceId(),
-                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
-            triggerEffect.accept(this.assistanceService);
-            log.info("Called assistance service for the effect of the trigger on assistance \"{}\" in room with ID \"{}\"",
-                    assistance.getAssistanceId(),
-                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+            triggerAssistance(assistanceId, meeting, triggerReactionGetter);
         }
-        // TODO: Return type necessary?
+    }
+
+    private void triggerAssistance(
+            String assistanceId,
+            IMeeting meeting,
+            BiFunction<IContext, IAssistance, ITriggerReaction> triggerReactionGetter) {
+        log.info("Processing assistance with ID \"{}\"", assistanceId);
+        IAssistance assistance = this.assistanceResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
+        IContext context = this.contextFactory.ofMeetingAssistance(meeting, assistance);
+        ITriggerReaction triggerReaction = triggerReactionGetter.apply(context, assistance);
+        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
+                assistance.getAssistanceId(),
+                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+        triggerReaction.react(this.assistanceService);
+        log.info("Called assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
+                assistance.getAssistanceId(),
+                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
         log.info("Processing trigger to set up meeting {}", meeting.toString());
-        triggerAssistance(meeting, (context, assistance) -> assistance.effectOfTriggerSetUpMeeting(context));
+        triggerAssistances(meeting, (context, assistance) -> assistance.reactionOnTriggerSetUpMeeting(context));
         log.info("Processed trigger to set up meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return SetUpMeetingResult.SUCCESS;
@@ -98,7 +104,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     @Override
     public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting) {
         log.info("Processing trigger to clean up meeting {}", meeting.toString());
-        triggerAssistance(meeting, (context, assistance) -> assistance.effectOfTriggerCleanUpMeeting(context));
+        triggerAssistances(meeting, (context, assistance) -> assistance.reactionOnTriggerCleanUpMeeting(context));
         log.info("Processed trigger to clean up meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return CleanUpMeetingResult.SUCCESS;
@@ -129,7 +135,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     @Override
     public StartMeetingResult startMeeting(IMeeting meeting) {
         log.info("Processing trigger to start meeting {}", meeting.toString());
-        triggerAssistance(meeting, (context, assistance) -> assistance.effectOfTriggerStartMeeting(context));
+        triggerAssistances(meeting, (context, assistance) -> assistance.reactionOnTriggerStartMeeting(context));
         log.info("Processed trigger to start meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return StartMeetingResult.SUCCESS;
@@ -158,7 +164,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     @Override
     public StopMeetingResult stopMeeting(IMeeting meeting) {
         log.info("Processing trigger to stop meeting {}", meeting.toString());
-        triggerAssistance(meeting, (context, assistance) -> assistance.effectOfTriggerStopMeeting(context));
+        triggerAssistances(meeting, (context, assistance) -> assistance.reactionOnTriggerStopMeeting(context));
         log.info("Processed trigger to stop meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return StopMeetingResult.SUCCESS;

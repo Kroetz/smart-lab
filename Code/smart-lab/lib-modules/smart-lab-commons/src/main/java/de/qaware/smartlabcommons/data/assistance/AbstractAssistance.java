@@ -23,8 +23,8 @@ public abstract class AbstractAssistance implements IAssistance {
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerSetUpMeeting(final IContext context) {
-        log.info("Effect of set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
+    public ITriggerReaction reactionOnTriggerSetUpMeeting(final IContext context) {
+        log.info("Reaction on set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> log.info("Ignoring set-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
@@ -33,8 +33,8 @@ public abstract class AbstractAssistance implements IAssistance {
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerCleanUpMeeting(final IContext context) {
-        log.info("Effect of clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
+    public ITriggerReaction reactionOnTriggerCleanUpMeeting(final IContext context) {
+        log.info("Reaction on clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> log.info("Ignoring clean-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
@@ -43,8 +43,8 @@ public abstract class AbstractAssistance implements IAssistance {
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerStartMeeting(final IContext context) {
-        log.info("Effect of start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
+    public ITriggerReaction reactionOnTriggerStartMeeting(final IContext context) {
+        log.info("Reaction on start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> log.info("Ignoring start-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
@@ -53,8 +53,8 @@ public abstract class AbstractAssistance implements IAssistance {
     }
 
     @Override
-    public ITriggerEffect effectOfTriggerStopMeeting(final IContext context) {
-        log.info("Effect of stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
+    public ITriggerReaction reactionOnTriggerStopMeeting(final IContext context) {
+        log.info("Reaction on stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to do nothing",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
         return (assistanceService) -> log.info("Ignoring stop-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
