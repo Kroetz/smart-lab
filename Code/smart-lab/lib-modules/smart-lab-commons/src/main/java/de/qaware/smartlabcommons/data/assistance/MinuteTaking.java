@@ -3,6 +3,7 @@ package de.qaware.smartlabcommons.data.assistance;
 import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.action.IActionExecution;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
+import de.qaware.smartlabcommons.data.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -13,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,10 +30,15 @@ public class MinuteTaking extends AbstractAssistance {
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
     private final ActivateMicrophone activateMicrophone;
+    private final DeactivateMicrophone deactivateMicrophone;
 
-    public MinuteTaking(IResolver<String, IAction> actionResolver, ActivateMicrophone activateMicrophone) {
+    public MinuteTaking(
+            IResolver<String, IAction> actionResolver,
+            ActivateMicrophone activateMicrophone,
+            DeactivateMicrophone deactivateMicrophone) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
+        this.deactivateMicrophone = deactivateMicrophone;
     }
 
     @Override
@@ -52,12 +59,12 @@ public class MinuteTaking extends AbstractAssistance {
 
     @Override
     public IAssistanceStageExecution executionOfBeginStage(IContext context) {
-        final ActivateMicrophone.ActionArgs actionArgs = ActivateMicrophone.ActionArgs.of(
+        final ActivateMicrophone.ActionArgs microphoneActivationArgs = ActivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
         return (actionService) -> {
-            IActionExecution<Void> actionExecution = activateMicrophone.execution(actionArgs);
-            actionExecution.execute(actionService);
+            IActionExecution<Void> microphoneActivation = activateMicrophone.execution(microphoneActivationArgs);
+            microphoneActivation.execute(actionService);
         };
     }
 
@@ -65,13 +72,13 @@ public class MinuteTaking extends AbstractAssistance {
     public IAssistanceStageExecution executionOfEndStage(IContext context) {
         // TODO: Implementation
         return (actionService) -> {
-
-            /*
-            IActionArgs actionArgs1 = DeactivateMicrophone.ActionArgs.of(
+            final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
                     context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-            IActionResult recordedAudio = actionService.executeAction(DeactivateMicrophone.ACTION_ID, actionArgs1);
+            IActionExecution<MultipartFile> microphoneDeactivation = deactivateMicrophone.execution(microphoneDeactivationArgs);
+            MultipartFile recordedAudio = microphoneDeactivation.execute(actionService);
 
+            /*
             IActionArgs actionArgs2 = SpeechToText.ActionArgs.of(
                     recordedAudio,
                     context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),

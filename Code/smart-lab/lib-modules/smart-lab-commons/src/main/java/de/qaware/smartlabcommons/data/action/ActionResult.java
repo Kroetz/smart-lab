@@ -3,6 +3,7 @@ package de.qaware.smartlabcommons.data.action;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -42,5 +43,10 @@ public class ActionResult<T> implements IActionResult {
     @Override
     public Optional<String> getStringValue() {
         return getCastedValue(String.class);
+    }
+
+    @Override
+    public Optional<MultipartFile> getMultipartFileValue() {
+        return getCastedValue(MultipartFile.class);
     }
 }

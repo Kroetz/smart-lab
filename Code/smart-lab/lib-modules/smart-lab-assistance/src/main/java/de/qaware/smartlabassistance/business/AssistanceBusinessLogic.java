@@ -34,18 +34,23 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
     }
 
     public void beginAssistance(String assistanceId, final IContext context) {
-        log.info("Executing begin phase of assistance (ID: \"{}\") in room with ID \"{}\"",
+        log.info("Executing begin stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
         executeAssistanceStage(assistanceId, assistance -> assistance.executionOfBeginStage(context));
-        log.info("Executed begin phase of assistance (ID: \"{}\") in room with ID \"{}\"",
+        log.info("Executed begin stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
     }
 
     public void endAssistance(String assistanceId, IContext context) {
-
-        // TODO: Implementation
+        log.info("Executing end stage of assistance (ID: \"{}\") in room with ID \"{}\"",
+                assistanceId,
+                context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
+        executeAssistanceStage(assistanceId, assistance -> assistance.executionOfEndStage(context));
+        log.info("Executed end stage of assistance (ID: \"{}\") in room with ID \"{}\"",
+                assistanceId,
+                context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
     }
 
     public void updateAssistance(String assistanceId, IContext context) {

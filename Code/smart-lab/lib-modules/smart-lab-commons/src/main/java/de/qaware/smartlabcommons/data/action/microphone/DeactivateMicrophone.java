@@ -3,14 +3,17 @@ package de.qaware.smartlabcommons.data.action.microphone;
 import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService;
 import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
-import de.qaware.smartlabcommons.data.action.AbstractAction;
-import de.qaware.smartlabcommons.data.action.ActionResult;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionDispatching;
+import de.qaware.smartlabcommons.data.action.*;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
+import de.qaware.smartlabcommons.exception.InvalidActionResultException;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @Slf4j
@@ -31,6 +34,13 @@ public class DeactivateMicrophone extends AbstractAction {
         this.deviceManagementService = deviceManagementService;
     }
 
+    public IActionExecution<MultipartFile> execution(DeactivateMicrophone.ActionArgs actionArgs) {
+        return (actionService) -> {
+            IActionResult actionResult = actionService.executeAction(DeactivateMicrophone.ACTION_ID, actionArgs);
+            return actionResult.getMultipartFileValue().orElseThrow(InvalidActionResultException::new);
+        };
+    }
+
     @Override
     public IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs) {
         // TODO: Implementation
@@ -43,5 +53,15 @@ public class DeactivateMicrophone extends AbstractAction {
         return () -> ActionResult.of(null);
     }
 
-    // TODO: ActionArgs definition
+    @Data
+    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    public static class ActionArgs implements IActionArgs {
+
+        @NonNull
+        private String roomId;
+
+        @NonNull
+        private String deviceId;
+    }
 }
