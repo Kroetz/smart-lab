@@ -1,8 +1,9 @@
 package de.qaware.smartlabdelegate.business;
 
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionResult;
 
 public interface IDelegateBusinessLogic {
 
-    void executeAction(String actionId, IActionArgs actionArgs);
+    IActionResult executeAction(String actionId, String deviceType, IActionArgs actionArgs);
 }

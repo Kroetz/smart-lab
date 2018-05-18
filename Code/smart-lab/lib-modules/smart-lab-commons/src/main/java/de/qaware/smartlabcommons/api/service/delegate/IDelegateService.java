@@ -1,8 +1,9 @@
 package de.qaware.smartlabcommons.api.service.delegate;
 
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionResult;
 
 public interface IDelegateService {
 
-    void executeAction(String delegateId, String actionId, IActionArgs actionArgs);
+    IActionResult executeAction(String delegateId, String actionId, String deviceType, IActionArgs actionArgs);
 }

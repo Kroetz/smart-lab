@@ -1,6 +1,8 @@
 package de.qaware.smartlabcommons.data.assistance;
 
+import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.AllArgsConstructor;
@@ -23,8 +25,8 @@ public class RoomUnlocking extends AbstractAssistance {
             "room-unlocking",
             "roomUnlocking").collect(Collectors.toSet());
 
-    public RoomUnlocking() {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
+    public RoomUnlocking(IResolver<String, IAction> actionResolver) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
     }
 
     @Override
@@ -44,19 +46,19 @@ public class RoomUnlocking extends AbstractAssistance {
     }
 
     @Override
-    public IAssistanceStage actionsOfBeginStage(IContext context) {
+    public IAssistanceStageExecution executionOfBeginStage(IContext context) {
         // TODO: Implementation
         return (actionService) -> {};
     }
 
     @Override
-    public IAssistanceStage actionsOfEndStage(IContext context) {
+    public IAssistanceStageExecution executionOfEndStage(IContext context) {
         // TODO: Implementation
         return (actionService) -> {};
     }
 
     @Override
-    public IAssistanceStage actionsOfUpdateStage(IContext context) {
+    public IAssistanceStageExecution executionOfUpdateStage(IContext context) {
         // TODO: Implementation
         return (actionService) -> {};
     }

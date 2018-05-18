@@ -1,7 +1,10 @@
 package de.qaware.smartlabcommons.data.action.web;
 
+import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.data.action.AbstractAction;
+import de.qaware.smartlabcommons.data.action.ActionResult;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionDispatching;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +19,15 @@ public class SpeechToText extends AbstractAction {
     }
 
     @Override
-    public void executeAction(IActionArgs actionArgs) {
+    public IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs) {
         // TODO: Implementation
+        return () -> ActionResult.of(null);
+    }
+
+    @Override
+    public IActionDispatching dispatching(IActionArgs actionArgs, IDelegateService delegateService) {
+        // TODO: Implementation
+        return () -> ActionResult.of(null);
     }
 
     // TODO: ActionArgs definition

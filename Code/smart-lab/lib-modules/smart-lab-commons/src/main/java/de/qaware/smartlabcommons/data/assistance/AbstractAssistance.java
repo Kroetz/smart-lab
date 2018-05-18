@@ -1,6 +1,8 @@
 package de.qaware.smartlabcommons.data.assistance;
 
+import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.Data;
@@ -14,12 +16,15 @@ public abstract class AbstractAssistance implements IAssistance {
 
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;
+    protected final IResolver<String, IAction> actionResolver;
 
     public AbstractAssistance(
             String assistanceId,
-            Set<String> assistanceAliases) {
+            Set<String> assistanceAliases,
+            IResolver<String, IAction> actionResolver) {
         this.assistanceId = assistanceId;
         this.assistanceAliases = assistanceAliases;
+        this.actionResolver = actionResolver;
     }
 
     @Override

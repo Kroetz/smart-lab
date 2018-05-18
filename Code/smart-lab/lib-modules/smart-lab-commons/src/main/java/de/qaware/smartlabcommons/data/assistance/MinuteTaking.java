@@ -1,8 +1,10 @@
 package de.qaware.smartlabcommons.data.assistance;
 
-import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IAction;
+import de.qaware.smartlabcommons.data.action.IActionExecution;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
@@ -25,9 +27,11 @@ public class MinuteTaking extends AbstractAssistance {
     public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
+    private final ActivateMicrophone activateMicrophone;
 
-    public MinuteTaking() {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
+    public MinuteTaking(IResolver<String, IAction> actionResolver, ActivateMicrophone activateMicrophone) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
+        this.activateMicrophone = activateMicrophone;
     }
 
     @Override
@@ -47,22 +51,45 @@ public class MinuteTaking extends AbstractAssistance {
     }
 
     @Override
-    public IAssistanceStage actionsOfBeginStage(IContext context) {
-        IActionArgs actionArgs = ActivateMicrophone.ActionArgs.of(
+    public IAssistanceStageExecution executionOfBeginStage(IContext context) {
+        final ActivateMicrophone.ActionArgs actionArgs = ActivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
-                context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new),
-                false);     // TODO: Get rid of "executeLocally" since assistance should not decide that.
-        return (actionService) -> actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
+                context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
+        return (actionService) -> {
+            IActionExecution<Void> actionExecution = activateMicrophone.execution(actionArgs);
+            actionExecution.execute(actionService);
+        };
     }
 
     @Override
-    public IAssistanceStage actionsOfEndStage(IContext context) {
+    public IAssistanceStageExecution executionOfEndStage(IContext context) {
         // TODO: Implementation
-        return (actionService) -> {};
+        return (actionService) -> {
+
+            /*
+            IActionArgs actionArgs1 = DeactivateMicrophone.ActionArgs.of(
+                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
+                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
+            IActionResult recordedAudio = actionService.executeAction(DeactivateMicrophone.ACTION_ID, actionArgs1);
+
+            IActionArgs actionArgs2 = SpeechToText.ActionArgs.of(
+                    recordedAudio,
+                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
+                    // Get webservice Name (or get from applicaiton properties?)
+                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceIdServiceName).orElseThrow(InsufficientContextException::new));
+            IActionResult<String> convertedAudio = actionService.executeAction(SpeechToText.ACTION_ID, actionArgs2);
+
+            IActionArgs actionArgs3 = UploadFile.ActionArgs.of(
+                    convertedAudio,
+                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getFileName).orElseThrow(InsufficientContextException::new),
+                    // Get webservice Name (or get from applicaiton properties?)
+                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceIdServiceName).orElseThrow(InsufficientContextException::new));
+            IActionResult<Void> result = actionService.executeAction(UploadFile.ACTION_ID, actionArgs3);*/
+        };
     }
 
     @Override
-    public IAssistanceStage actionsOfUpdateStage(IContext context) {
+    public IAssistanceStageExecution executionOfUpdateStage(IContext context) {
         // TODO: Implementation
         return (actionService) -> {};
     }

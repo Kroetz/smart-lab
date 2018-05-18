@@ -1,8 +1,9 @@
 package de.qaware.smartlabaction.business;
 
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionResult;
 
 public interface IActionBusinessLogic {
 
-    void executeAction(String actionId, IActionArgs actionArgs);
+    IActionResult executeAction(String actionId, IActionArgs actionArgs);
 }

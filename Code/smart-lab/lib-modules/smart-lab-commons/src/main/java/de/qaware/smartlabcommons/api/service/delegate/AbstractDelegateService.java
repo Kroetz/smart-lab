@@ -1,12 +1,15 @@
 package de.qaware.smartlabcommons.api.service.delegate;
 
 import de.qaware.smartlabcommons.api.client.IDelegateApiClient;
+import de.qaware.smartlabcommons.data.action.ActionResult;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionResult;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import feign.Client;
 import feign.FeignException;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,11 +32,12 @@ public abstract class AbstractDelegateService implements IDelegateService {
     }
 
     @Override
-    public void executeAction(String serviceName, String actionId, IActionArgs actionArgs) {
+    public IActionResult executeAction(String serviceName, String actionId, String deviceType, IActionArgs actionArgs) {
         IDelegateApiClient delegateApiClient = this.clientsByServiceName.get(serviceName);
         if(delegateApiClient == null) delegateApiClient = createNewClient(serviceName);
         try {
-            delegateApiClient.executeAction(actionId, actionArgs);
+            ResponseEntity<ActionResult> response = delegateApiClient.executeAction(actionId, deviceType, actionArgs);
+            return response.getBody();
         }
         catch(FeignException e) {
             throw new UnknownErrorException();

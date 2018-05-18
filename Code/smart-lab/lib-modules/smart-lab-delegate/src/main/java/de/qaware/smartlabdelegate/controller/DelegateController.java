@@ -2,6 +2,7 @@ package de.qaware.smartlabdelegate.controller;
 
 import de.qaware.smartlabcommons.api.DelegateApiConstants;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.IActionResult;
 import de.qaware.smartlabdelegate.business.IDelegateBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,12 +23,13 @@ public class DelegateController {
     @PostMapping(
             value = DelegateApiConstants.MAPPING_EXECUTE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> executeAction(
+    public ResponseEntity<IActionResult> executeAction(
             @PathVariable(DelegateApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
+            @PathVariable(DelegateApiConstants.PARAMETER_NAME_DEVICE_TYPE) String deviceType,
             @RequestBody IActionArgs actionArgs) {
         log.info("Received call to execute action with ID \"{}\"", actionId);
-        this.delegateBusinessLogic.executeAction(actionId, actionArgs);
-        ResponseEntity<Void> response = ResponseEntity.ok().build();
+        IActionResult actionResult = this.delegateBusinessLogic.executeAction(actionId, deviceType, actionArgs);
+        ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO: Proper response
         return response;

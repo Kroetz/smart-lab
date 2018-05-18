@@ -1,15 +1,12 @@
 package de.qaware.smartlabcommons.data.action.microphone;
 
+import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService;
-import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
-import de.qaware.smartlabcommons.data.action.AbstractAction;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.*;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
-import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.exception.UnknownDeviceAdapterException;
-import de.qaware.smartlabcommons.exception.UnmatchingActionArgsTypeException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -23,33 +20,53 @@ public class ActivateMicrophone extends AbstractAction {
 
     public static final String ACTION_ID = "activate microphone";
     private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private IRoomManagementService roomManagementService;
     private IDeviceManagementService deviceManagementService;
 
     public ActivateMicrophone(
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
-            IRoomManagementService roomManagementService,
             IDeviceManagementService deviceManagementService) {
         super(ACTION_ID);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
-        this.roomManagementService = roomManagementService;
         this.deviceManagementService = deviceManagementService;
     }
 
-    public void executeAction(IActionArgs genericActionArgs) {
-        ActionArgs actionArgs;
-        try {
-            // Every action can only handle its own specific argument type.
-            // TODO: since this is common to all actions, move it to abstract base class
-            actionArgs = ActionArgs.class.cast(genericActionArgs);
-        }
-        catch(ClassCastException e) {
-            throw new UnmatchingActionArgsTypeException(e);
-        }
-        IRoom room = this.roomManagementService.findOne(actionArgs.getRoomId());
+    public IActionExecution<Void> execution(ActionArgs actionArgs) {
+        return (actionService) -> {
+            IActionResult actionResult = actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
+            return actionResult.getVoidValue();
+        };
+    }
+
+    // TODO: too much code duplicates
+    public IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs) {
+        // Every action can only handle its own specific argument type.
+        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
+        ActionArgs actionArgs = convertToSpecific(ActivateMicrophone.ActionArgs.class, genericActionArgs);
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType).orElseThrow(UnknownDeviceAdapterException::new);
+        if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
+        return () -> {
+            microphoneAdapter.activate();
+            return ActionResult.empty();
+        };
+    }
+
+    public IActionDispatching dispatching(IActionArgs genericActionArgs, IDelegateService delegateService) {
+        // Every action can only handle its own specific argument type.
+        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
+        ActionArgs actionArgs = convertToSpecific(ActivateMicrophone.ActionArgs.class, genericActionArgs);
         IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(device.getType()).orElseThrow(UnknownDeviceAdapterException::new);
-        microphoneAdapter.activate(room, device, actionArgs.isExecuteLocally());
+        String deviceType = device.getType();
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType).orElseThrow(UnknownDeviceAdapterException::new);
+        if(microphoneAdapter.hasLocalApi()) return forwardingToDelegate(
+                delegateService,
+                device.getResponsibleDelegate(),
+                ACTION_ID,
+                deviceType,
+                actionArgs);
+        return () -> {
+            microphoneAdapter.activate();
+            return ActionResult.empty();
+        };
     }
 
     @Data
@@ -62,8 +79,5 @@ public class ActivateMicrophone extends AbstractAction {
 
         @NonNull
         private String deviceId;
-
-        @NonNull    // Eliminate compiler warning that primitives shall not annotated with @NonNull
-        private boolean executeLocally;
     }
 }

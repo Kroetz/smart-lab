@@ -20,7 +20,7 @@ public interface IAssistance {
     ITriggerReaction reactionOnTriggerStartMeeting(final IContext context);
     ITriggerReaction reactionOnTriggerStopMeeting(final IContext context);
 
-    IAssistanceStage actionsOfBeginStage(IContext context);
-    IAssistanceStage actionsOfEndStage(IContext context);
-    IAssistanceStage actionsOfUpdateStage(IContext context);
+    IAssistanceStageExecution executionOfBeginStage(IContext context);
+    IAssistanceStageExecution executionOfEndStage(IContext context);
+    IAssistanceStageExecution executionOfUpdateStage(IContext context);
 }

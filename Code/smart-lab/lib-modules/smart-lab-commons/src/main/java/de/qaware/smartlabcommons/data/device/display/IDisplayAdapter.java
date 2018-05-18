@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.device.display;
 
-public interface IDisplayAdapter {
+import de.qaware.smartlabcommons.data.device.IDeviceAdapter;
 
-    String getDeviceType();
+public interface IDisplayAdapter extends IDeviceAdapter {
+
 }
