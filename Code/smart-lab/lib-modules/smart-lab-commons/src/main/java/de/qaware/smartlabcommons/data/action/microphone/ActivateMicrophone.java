@@ -8,13 +8,18 @@ import de.qaware.smartlabcommons.data.action.result.VoidActionResult;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
+import de.qaware.smartlabcommons.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcommons.exception.UnknownDeviceAdapterException;
+import de.qaware.smartlabcommons.persistence.IFileSystemManager;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 @Component
 @Slf4j
@@ -23,13 +28,19 @@ public class ActivateMicrophone extends AbstractAction {
     public static final String ACTION_ID = "activate microphone";
     private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
     private IDeviceManagementService deviceManagementService;
+    private final IFileSystemManager fileSystemManager;
+    private final Path recordedAudioTempFileSubDir;
 
     public ActivateMicrophone(
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
-            IDeviceManagementService deviceManagementService) {
+            IDeviceManagementService deviceManagementService,
+            IFileSystemManager fileSystemManager,
+            Path recordedAudioTempFileSubDir) {
         super(ACTION_ID);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
         this.deviceManagementService = deviceManagementService;
+        this.fileSystemManager = fileSystemManager;
+        this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
     }
 
     public IActionExecution<Void> execution(ActionArgs actionArgs) {
@@ -47,7 +58,13 @@ public class ActivateMicrophone extends AbstractAction {
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType).orElseThrow(UnknownDeviceAdapterException::new);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         return () -> {
-            microphoneAdapter.activate();
+            Path recordingTargetFile;
+            try {
+                recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            } catch (IOException e) {
+                throw new ActionExecutionFailedException(e);
+            }
+            microphoneAdapter.activate(recordingTargetFile);
             return VoidActionResult.instance();
         };
     }
@@ -66,7 +83,13 @@ public class ActivateMicrophone extends AbstractAction {
                 deviceType,
                 actionArgs);
         return () -> {
-            microphoneAdapter.activate();
+            Path recordingTargetFile;
+            try {
+                recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            } catch (IOException e) {
+                throw new ActionExecutionFailedException(e);
+            }
+            microphoneAdapter.activate(recordingTargetFile);
             return VoidActionResult.instance();
         };
     }

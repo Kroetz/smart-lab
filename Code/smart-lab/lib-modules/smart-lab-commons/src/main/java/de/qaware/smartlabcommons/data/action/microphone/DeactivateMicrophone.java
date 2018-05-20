@@ -69,11 +69,14 @@ public class DeactivateMicrophone extends AbstractAction {
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         return () -> {
             Path recordedAudio = microphoneAdapter.deactivate();
+            IActionResult actionResult;
             try {
-                return ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
+                actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
+                Files.deleteIfExists(recordedAudio);
             } catch (IOException e) {
                 throw new ActionExecutionFailedException(e);
             }
+            return actionResult;
         };
     }
 
@@ -93,11 +96,14 @@ public class DeactivateMicrophone extends AbstractAction {
                 actionArgs);
         return () -> {
             Path recordedAudio = microphoneAdapter.deactivate();
+            IActionResult actionResult;
             try {
-                return ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
+                actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
+                Files.deleteIfExists(recordedAudio);
             } catch (IOException e) {
                 throw new ActionExecutionFailedException(e);
             }
+            return actionResult;
         };
     }
 

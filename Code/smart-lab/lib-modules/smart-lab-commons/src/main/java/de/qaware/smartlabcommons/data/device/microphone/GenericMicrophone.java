@@ -82,7 +82,8 @@ public class GenericMicrophone implements AutoCloseable {
         return null;
     }
 
-    public Path stopRecording() {
+    public Optional<Path> stopRecording() {
+        if(this.lastRecordedFile == null) return Optional.empty();
         /*
         Create copy of the path object because just returning it might return the false path if another recording job
         is started right after closing the target data line.
@@ -91,7 +92,7 @@ public class GenericMicrophone implements AutoCloseable {
         this.targetDataLine.stop();
         this.targetDataLine.close();
         log.info("Stopped recording");
-        return recordedFile;
+        return Optional.of(recordedFile);
     }
 
     public synchronized static Optional<GenericMicrophone> getMicrophone() {

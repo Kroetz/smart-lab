@@ -1,7 +1,12 @@
 package de.qaware.smartlabcommons.data.action.result;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Optional;
 
+@Data
+@NoArgsConstructor
 public abstract class AbstractActionResult<T> implements IActionResult {
 
     private T value;

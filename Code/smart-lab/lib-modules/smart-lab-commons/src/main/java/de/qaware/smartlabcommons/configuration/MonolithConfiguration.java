@@ -5,6 +5,7 @@ import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ class MonolithConfiguration {
     }
 
     @Bean
+    @Qualifier("urlsByDelegateName")
     public Map<String, String> urlsByDelegateName() {
         return this.monolithProperties.getUrls();
     }

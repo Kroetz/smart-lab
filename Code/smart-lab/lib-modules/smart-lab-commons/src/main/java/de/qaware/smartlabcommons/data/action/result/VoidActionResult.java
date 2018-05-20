@@ -1,7 +1,10 @@
 package de.qaware.smartlabcommons.data.action.result;
 
+import lombok.Data;
+
 import java.util.Optional;
 
+@Data
 public class VoidActionResult extends AbstractActionResult {
 
     private VoidActionResult() {

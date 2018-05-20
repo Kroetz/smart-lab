@@ -8,6 +8,7 @@ import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
@@ -23,7 +24,7 @@ public class DelegateServiceMonolith extends AbstractDelegateService {
     private final Map<String, String> urlsByDelegateName;
 
     public DelegateServiceMonolith(
-            Map<String, String> urlsByDelegateName,
+            @Qualifier("urlsByDelegateName") Map<String, String> urlsByDelegateName,
             Client client,
             Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
             Decoder feignDecoder) {
@@ -40,6 +41,6 @@ public class DelegateServiceMonolith extends AbstractDelegateService {
                     .decoder(this.feignDecoder)
                     .target(IDelegateApiClient.class, this.urlsByDelegateName.get(serviceName));
         }
-        throw new UnknownDelegateException(String.format("There was no URL configured for the delegate with the name \"%s\""));
+        throw new UnknownDelegateException(String.format("There was no URL configured for the delegate with the name \"%s\"", serviceName));
     }
 }

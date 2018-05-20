@@ -22,13 +22,18 @@ public class FileSystemManager implements IFileSystemManager {
     }
 
     @Override
-    public Path saveToTempFile(Path subDirectory, byte[] bytes) throws IOException {
+    public Path createEmptyTempFile(Path subDirectory) throws IOException {
         Path tempDir = tempFileBaseDir.resolve(subDirectory);
-        if(Files.notExists(tempDir)) Files.createTempDirectory(tempDir, this.tempFileNamePrefix);
-        Path tempFile = Files.createTempFile(
+        Files.createDirectories(tempDir);
+        return Files.createTempFile(
                 tempDir,
                 this.tempFileNamePrefix,
                 this.tempFileNameSuffix);
+    }
+
+    @Override
+    public Path saveToTempFile(Path subDirectory, byte[] bytes) throws IOException {
+        Path tempFile = createEmptyTempFile(subDirectory);
         Files.write(tempFile, bytes);
         return tempFile;
     }

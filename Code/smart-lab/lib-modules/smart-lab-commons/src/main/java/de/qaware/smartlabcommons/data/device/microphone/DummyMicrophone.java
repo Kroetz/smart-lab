@@ -17,7 +17,7 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     }
 
     @Override
-    public void activate() {
+    public void activate(Path recordingTargetFile) {
         log.info("Dummy microphone activated");
     }
 

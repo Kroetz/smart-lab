@@ -92,6 +92,8 @@ public class MinuteTaking extends AbstractAssistance {
                     // Get webservice Name (or get from applicaiton properties?)
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceIdServiceName).orElseThrow(InsufficientContextException::new));
             IActionResult<Void> result = actionService.executeAction(UploadFile.ACTION_ID, actionArgs3);*/
+
+            //Files.deleteIfExists(recordedAudio);
         };
     }
 
