@@ -1,9 +1,8 @@
 package de.qaware.smartlabcommons.api.service.delegate;
 
 import de.qaware.smartlabcommons.api.client.IDelegateApiClient;
-import de.qaware.smartlabcommons.data.action.ActionResult;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionResult;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import feign.Client;
 import feign.FeignException;
@@ -36,7 +35,7 @@ public abstract class AbstractDelegateService implements IDelegateService {
         IDelegateApiClient delegateApiClient = this.clientsByServiceName.get(serviceName);
         if(delegateApiClient == null) delegateApiClient = createNewClient(serviceName);
         try {
-            ResponseEntity<ActionResult> response = delegateApiClient.executeAction(actionId, deviceType, actionArgs);
+            ResponseEntity<IActionResult> response = delegateApiClient.executeAction(actionId, deviceType, actionArgs);
             return response.getBody();
         }
         catch(FeignException e) {

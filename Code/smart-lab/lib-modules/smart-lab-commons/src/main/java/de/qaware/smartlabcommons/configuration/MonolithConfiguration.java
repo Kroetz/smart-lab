@@ -1,5 +1,6 @@
 package de.qaware.smartlabcommons.configuration;
 
+import de.qaware.smartlabcommons.exception.ConfigurationException;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,13 +50,13 @@ class MonolithConfiguration {
         private Map<String, String> urls = new HashMap<>();
 
         public Map<String, String> getUrls() {
-            return urls;
+            return this.urls;
         }
 
-        public void setUrls(Map<String, String> urls) throws MalformedURLException {
+        public void setUrls(Map<String, String> urls) {
             final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
             if(urls.values().stream().anyMatch(url -> !urlValidator.isValid(url))) {
-                throw new MalformedURLException("The configured delegate URLs must be valid");
+                throw new ConfigurationException("The configured delegate URLs must be valid");
             }
             this.urls = urls;
         }

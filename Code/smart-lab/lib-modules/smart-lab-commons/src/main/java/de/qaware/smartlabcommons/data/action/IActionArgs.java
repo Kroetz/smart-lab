@@ -7,5 +7,4 @@ import de.qaware.smartlabcommons.miscellaneous.Constants;
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = Constants.JSON_TYPE_PROPERTY_NAME)
-public interface IActionArgs {
-}
+public interface IActionArgs { }

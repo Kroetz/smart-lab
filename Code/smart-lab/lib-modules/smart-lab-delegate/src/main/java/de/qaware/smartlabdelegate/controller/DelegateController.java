@@ -2,7 +2,7 @@ package de.qaware.smartlabdelegate.controller;
 
 import de.qaware.smartlabcommons.api.DelegateApiConstants;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionResult;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabdelegate.business.IDelegateBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

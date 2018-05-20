@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.api.client;
 
 import de.qaware.smartlabcommons.api.ActionApiConstants;
-import de.qaware.smartlabcommons.data.action.ActionResult;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public interface IActionApiClient {
     @PostMapping(
             value = ActionApiConstants.MAPPING_BASE + ActionApiConstants.MAPPING_EXECUTE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ActionResult> executeAction(
+    ResponseEntity<IActionResult> executeAction(
             @PathVariable(ActionApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
             @RequestBody IActionArgs actionArgs);
 }

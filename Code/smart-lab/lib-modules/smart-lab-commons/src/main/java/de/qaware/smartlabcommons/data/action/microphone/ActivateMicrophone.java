@@ -3,6 +3,8 @@ package de.qaware.smartlabcommons.data.action.microphone;
 import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.api.service.device.IDeviceManagementService;
 import de.qaware.smartlabcommons.data.action.*;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabcommons.data.action.result.VoidActionResult;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
@@ -46,7 +48,7 @@ public class ActivateMicrophone extends AbstractAction {
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         return () -> {
             microphoneAdapter.activate();
-            return ActionResult.empty();
+            return VoidActionResult.instance();
         };
     }
 
@@ -65,7 +67,7 @@ public class ActivateMicrophone extends AbstractAction {
                 actionArgs);
         return () -> {
             microphoneAdapter.activate();
-            return ActionResult.empty();
+            return VoidActionResult.instance();
         };
     }
 

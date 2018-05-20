@@ -3,7 +3,7 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabaction.controller.ActionController;
 import de.qaware.smartlabcommons.api.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionResult;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;

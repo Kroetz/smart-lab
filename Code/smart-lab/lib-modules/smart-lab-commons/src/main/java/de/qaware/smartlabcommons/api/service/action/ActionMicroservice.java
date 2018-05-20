@@ -1,9 +1,8 @@
 package de.qaware.smartlabcommons.api.service.action;
 
 import de.qaware.smartlabcommons.api.client.IActionApiClient;
-import de.qaware.smartlabcommons.data.action.ActionResult;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionResult;
+import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import feign.FeignException;
@@ -24,7 +23,7 @@ public class ActionMicroservice implements IActionService {
     @Override
     public IActionResult executeAction(String actionId, IActionArgs actionArgs) {
         try {
-            ResponseEntity<ActionResult> response = this.actionApiClient.executeAction(actionId, actionArgs);
+            ResponseEntity<IActionResult> response = this.actionApiClient.executeAction(actionId, actionArgs);
             return response.getBody();
         } catch (FeignException e) {
             throw new UnknownErrorException();

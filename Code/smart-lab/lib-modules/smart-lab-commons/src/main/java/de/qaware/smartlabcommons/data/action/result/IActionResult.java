@@ -1,8 +1,7 @@
-package de.qaware.smartlabcommons.data.action;
+package de.qaware.smartlabcommons.data.action.result;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -12,8 +11,6 @@ import java.util.Optional;
         property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IActionResult {
 
-    Object getValue();
     Void getVoidValue();
-    Optional<String> getStringValue();
-    Optional<MultipartFile> getMultipartFileValue();
+    Optional<byte[]> getByteArrayValue();
 }

@@ -14,8 +14,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -75,8 +75,8 @@ public class MinuteTaking extends AbstractAssistance {
             final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
                     context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-            IActionExecution<MultipartFile> microphoneDeactivation = deactivateMicrophone.execution(microphoneDeactivationArgs);
-            MultipartFile recordedAudio = microphoneDeactivation.execute(actionService);
+            IActionExecution<Path> microphoneDeactivation = deactivateMicrophone.execution(microphoneDeactivationArgs);
+            Path recordedAudio = microphoneDeactivation.execute(actionService);
 
             /*
             IActionArgs actionArgs2 = SpeechToText.ActionArgs.of(

@@ -2,7 +2,8 @@ package de.qaware.smartlabcommons.data.device.microphone;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.nio.file.Path;
 
 @Component
 @Slf4j
@@ -21,7 +22,8 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
     }
 
     @Override
-    public void deactivate() {
-        throw new NotImplementedException();
+    public Path deactivate() {
+        // throw new NotImplementedException();
+        return null;
     }
 }

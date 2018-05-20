@@ -3,6 +3,8 @@ package de.qaware.smartlabcommons.data.device.microphone;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
+
 @Component
 @Slf4j
 public class DummyMicrophone extends AbstractMicrophoneAdapter {
@@ -20,7 +22,8 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     }
 
     @Override
-    public void deactivate() {
+    public Path deactivate() {
         log.info("Dummy microphone deactivated");
+        return null;        // TODO: Do not return null but rather the path to a predefined audio sample
     }
 }
