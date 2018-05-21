@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.client")
+@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.internal.client")
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabworkgroup",
 		"de.qaware.smartlabcommons",

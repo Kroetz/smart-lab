@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabaction.controller.ActionController;
-import de.qaware.smartlabcommons.api.service.action.IActionService;
+import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;

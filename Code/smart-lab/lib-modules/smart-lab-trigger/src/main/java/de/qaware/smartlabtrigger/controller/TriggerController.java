@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.controller;
 
-import de.qaware.smartlabcommons.api.TriggerApiConstants;
+import de.qaware.smartlabcommons.api.internal.TriggerApiConstants;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

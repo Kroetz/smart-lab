@@ -1,6 +1,6 @@
 package de.qaware.smartlabcommons.data.action;
 
-import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
+import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 
 public interface IAction {
 

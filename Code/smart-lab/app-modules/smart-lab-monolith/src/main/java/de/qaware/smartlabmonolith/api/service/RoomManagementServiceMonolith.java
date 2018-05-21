@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.service.room.IRoomManagementService;
+import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.miscellaneous.Constants;

@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
         "de.qaware.smartlabsampledata",
     	"de.qaware.smartlabmeeting.business",
 		"de.qaware.smartlabmeeting.repository"})
-@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.client")
+@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.internal.client")
 public class SmartLabTestApplication {
 
 	public static void main(String[] args) {

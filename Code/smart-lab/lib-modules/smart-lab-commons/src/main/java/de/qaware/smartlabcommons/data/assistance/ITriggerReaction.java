@@ -1,6 +1,6 @@
 package de.qaware.smartlabcommons.data.assistance;
 
-import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
+import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
 
 import java.util.function.Consumer;
 

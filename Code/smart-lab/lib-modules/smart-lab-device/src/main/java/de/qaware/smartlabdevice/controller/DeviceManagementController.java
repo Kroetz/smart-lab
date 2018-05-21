@@ -1,6 +1,6 @@
 package de.qaware.smartlabdevice.controller;
 
-import de.qaware.smartlabcommons.api.DeviceManagementApiConstants;
+import de.qaware.smartlabcommons.api.internal.DeviceManagementApiConstants;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;

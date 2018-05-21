@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.business;
 
-import de.qaware.smartlabcommons.api.service.delegate.IDelegateService;
+import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.IActionDispatching;

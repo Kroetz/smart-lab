@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabassistance.controller.AssistanceController;
-import de.qaware.smartlabcommons.api.service.assistance.IAssistanceService;
+import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import org.springframework.context.annotation.Profile;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.service.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabcommons.api.internal.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.miscellaneous.Constants;

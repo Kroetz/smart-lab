@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.service.trigger.ITriggerService;
+import de.qaware.smartlabcommons.api.internal.service.trigger.ITriggerService;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.context.annotation.Profile;
