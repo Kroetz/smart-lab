@@ -1,6 +1,7 @@
 package de.qaware.smartlabcommons.data.action.result;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.qaware.smartlabcommons.data.action.web.ITranscript;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
 
 import java.util.Optional;
@@ -13,4 +14,5 @@ public interface IActionResult {
 
     Void getVoidValue();
     Optional<byte[]> getByteArrayValue();
+    Optional<ITranscript> getTranscriptValue();
 }

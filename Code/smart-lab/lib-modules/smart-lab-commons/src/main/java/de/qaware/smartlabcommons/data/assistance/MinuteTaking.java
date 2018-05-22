@@ -4,6 +4,8 @@ import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.action.IActionExecution;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.action.microphone.DeactivateMicrophone;
+import de.qaware.smartlabcommons.data.action.web.ITranscript;
+import de.qaware.smartlabcommons.data.action.web.SpeechToText;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -31,14 +33,17 @@ public class MinuteTaking extends AbstractAssistance {
             "minuteTaking").collect(Collectors.toSet());
     private final ActivateMicrophone activateMicrophone;
     private final DeactivateMicrophone deactivateMicrophone;
+    private final SpeechToText speechToText;
 
     public MinuteTaking(
             IResolver<String, IAction> actionResolver,
             ActivateMicrophone activateMicrophone,
-            DeactivateMicrophone deactivateMicrophone) {
+            DeactivateMicrophone deactivateMicrophone,
+            SpeechToText speechToText) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
+        this.speechToText = speechToText;
     }
 
     @Override
@@ -78,14 +83,11 @@ public class MinuteTaking extends AbstractAssistance {
             IActionExecution<Path> microphoneDeactivation = deactivateMicrophone.execution(microphoneDeactivationArgs);
             Path recordedAudio = microphoneDeactivation.execute(actionService);
 
-            /*
-            IActionArgs actionArgs2 = SpeechToText.ActionArgs.of(
-                    recordedAudio,
-                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
-                    // Get webservice Name (or get from applicaiton properties?)
-                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceIdServiceName).orElseThrow(InsufficientContextException::new));
-            IActionResult<String> convertedAudio = actionService.executeAction(SpeechToText.ACTION_ID, actionArgs2);
+            final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
+            IActionExecution<ITranscript> speechToTextConversion = speechToText.execution(speechToTextArgs);
+            ITranscript transcript = speechToTextConversion.execute(actionService);
 
+            /*
             IActionArgs actionArgs3 = UploadFile.ActionArgs.of(
                     convertedAudio,
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getFileName).orElseThrow(InsufficientContextException::new),

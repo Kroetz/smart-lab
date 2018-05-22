@@ -1,5 +1,6 @@
 package de.qaware.smartlabcommons.data.action.result;
 
+import de.qaware.smartlabcommons.data.action.web.ITranscript;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,5 +33,10 @@ public abstract class AbstractActionResult<T> implements IActionResult {
     @Override
     public Optional<byte[]> getByteArrayValue() {
         return getCastedValue(byte[].class);
+    }
+
+    @Override
+    public Optional<ITranscript> getTranscriptValue() {
+        return getCastedValue(ITranscript.class);
     }
 }
