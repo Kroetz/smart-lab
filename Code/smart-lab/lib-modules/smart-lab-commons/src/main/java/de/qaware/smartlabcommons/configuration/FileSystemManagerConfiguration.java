@@ -33,6 +33,7 @@ public class FileSystemManagerConfiguration {
         return this.tempFileProperties.getFileNameSuffix();
     }
 
+    // TODO: String literal
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
 

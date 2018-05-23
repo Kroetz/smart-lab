@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external.service;
+package de.qaware.smartlabcommons.api.external.remeeting.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlabcommons.data.action.web.ITranscript;
@@ -28,6 +28,12 @@ public class QueryResultResponse implements ITranscript {
 
     @JsonProperty("status")
     private String status;
+
+    @Override
+    public String toHumanReadable() {
+        // TODO: Build a readable string
+        return results.toString();
+    }
 
     @Data
     @NoArgsConstructor

@@ -1,5 +1,6 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.jcabi.github.Coordinates;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
 import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
@@ -13,13 +14,12 @@ import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.workgroup.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 @Component
@@ -45,18 +45,14 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
         forestRangerMembers.add(MEMBER_ID_CAROLINE);
-        try {
-            workgroups.add(Workgroup.builder()
-                    .id(WORKGROUP_ID_FOREST_RANGERS)
-                    .name("Forest Rangers")
-                    .memberIds(forestRangerMembers)
-                    .knowledgeBase(new URL("http", "forest-rangers.com", 80, "/wiki"))
-                    .codeRepository(new URL("http", "forest-rangers.com", 80, "/git"))
-                    .build());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            assert false;
-        }
+        workgroups.add(Workgroup.builder()
+                .id(WORKGROUP_ID_FOREST_RANGERS)
+                .name("Forest Rangers")
+                .memberIds(forestRangerMembers)
+                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
+                        "Kroetz",
+                        "forestRangersRepo")).build())
+                .build());
         return workgroups;
     }
 

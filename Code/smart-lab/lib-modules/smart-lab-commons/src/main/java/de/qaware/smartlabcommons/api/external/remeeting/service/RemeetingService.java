@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.api.external.service;
+package de.qaware.smartlabcommons.api.external.remeeting.service;
 
-import de.qaware.smartlabcommons.api.external.client.IRemeetingApiClient;
+import de.qaware.smartlabcommons.api.external.remeeting.client.IRemeetingApiClient;
 import de.qaware.smartlabcommons.data.action.web.ITranscript;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;
 import lombok.extern.slf4j.Slf4j;

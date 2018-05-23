@@ -23,6 +23,7 @@ public class DeactivateMicrophoneConfiguration {
         return this.tempFileProperties.getSubDir();
     }
 
+    // TODO: String literal
     @ConfigurationProperties(prefix = "temp.audio")
     public static class TempFileProperties {
 

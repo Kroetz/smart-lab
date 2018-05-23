@@ -4,6 +4,7 @@ import de.qaware.smartlabcommons.data.action.IAction;
 import de.qaware.smartlabcommons.data.action.IActionExecution;
 import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.action.microphone.DeactivateMicrophone;
+import de.qaware.smartlabcommons.data.action.uploaddata.UploadData;
 import de.qaware.smartlabcommons.data.action.web.ITranscript;
 import de.qaware.smartlabcommons.data.action.web.SpeechToText;
 import de.qaware.smartlabcommons.data.context.IContext;
@@ -34,16 +35,19 @@ public class MinuteTaking extends AbstractAssistance {
     private final ActivateMicrophone activateMicrophone;
     private final DeactivateMicrophone deactivateMicrophone;
     private final SpeechToText speechToText;
+    private final UploadData uploadData;
 
     public MinuteTaking(
             IResolver<String, IAction> actionResolver,
             ActivateMicrophone activateMicrophone,
             DeactivateMicrophone deactivateMicrophone,
-            SpeechToText speechToText) {
+            SpeechToText speechToText,
+            UploadData uploadData) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
+        this.uploadData = uploadData;
     }
 
     @Override
@@ -68,33 +72,31 @@ public class MinuteTaking extends AbstractAssistance {
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
         return (actionService) -> {
-            IActionExecution<Void> microphoneActivation = activateMicrophone.execution(microphoneActivationArgs);
+            IActionExecution<Void> microphoneActivation = this.activateMicrophone.execution(microphoneActivationArgs);
             microphoneActivation.execute(actionService);
         };
     }
 
     @Override
     public IAssistanceStageExecution executionOfEndStage(IContext context) {
-        // TODO: Implementation
         return (actionService) -> {
             final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
                     context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-            IActionExecution<Path> microphoneDeactivation = deactivateMicrophone.execution(microphoneDeactivationArgs);
+            IActionExecution<Path> microphoneDeactivation = this.deactivateMicrophone.execution(microphoneDeactivationArgs);
             Path recordedAudio = microphoneDeactivation.execute(actionService);
 
             final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
-            IActionExecution<ITranscript> speechToTextConversion = speechToText.execution(speechToTextArgs);
+            IActionExecution<ITranscript> speechToTextConversion = this.speechToText.execution(speechToTextArgs);
             ITranscript transcript = speechToTextConversion.execute(actionService);
 
-            /*
-            IActionArgs actionArgs3 = UploadFile.ActionArgs.of(
-                    convertedAudio,
-                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getFileName).orElseThrow(InsufficientContextException::new),
-                    // Get webservice Name (or get from applicaiton properties?)
-                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceIdServiceName).orElseThrow(InsufficientContextException::new));
-            IActionResult<Void> result = actionService.executeAction(UploadFile.ACTION_ID, actionArgs3);*/
+            final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
+                    context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
+                    transcript.toHumanReadable());
+            IActionExecution<Void> dataUploading = this.uploadData.execution(uploadDataArgs);
+            dataUploading.execute(actionService);
 
+            // TODO: Delete temp file
             //Files.deleteIfExists(recordedAudio);
         };
     }

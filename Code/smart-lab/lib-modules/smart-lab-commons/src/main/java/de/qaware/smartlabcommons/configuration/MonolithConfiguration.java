@@ -46,6 +46,7 @@ class MonolithConfiguration {
         return new OkHttpClient();
     }
 
+    // TODO: String literal
     @ConfigurationProperties(prefix = "delegate")
     public static class MonolithProperties {
 

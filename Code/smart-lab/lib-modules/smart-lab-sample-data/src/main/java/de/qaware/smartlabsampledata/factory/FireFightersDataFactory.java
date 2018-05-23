@@ -1,5 +1,6 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.jcabi.github.Coordinates;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.assistance.MinuteTaking;
 import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
@@ -14,12 +15,11 @@ import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.workgroup.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 @Component
@@ -45,18 +45,14 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
         fireFighterMembers.add(MEMBER_ID_CARLOS);
-        try {
-            workgroups.add(Workgroup.builder()
-                    .id(WORKGROUP_ID_FIRE_FIGHTERS)
-                    .name("Fire Fighters")
-                    .memberIds(fireFighterMembers)
-                    .knowledgeBase(new URL("http", "fire-fighters.com", 80, "/wiki"))
-                    .codeRepository(new URL("http", "fire-fighters.com", 80, "/git"))
-                    .build());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            assert false;
-        }
+        workgroups.add(Workgroup.builder()
+                .id(WORKGROUP_ID_FIRE_FIGHTERS)
+                .name("Fire Fighters")
+                .memberIds(fireFighterMembers)
+                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
+                        "Kroetz",
+                        "fireFightersRepo")).build())
+                .build());
         return workgroups;
     }
 

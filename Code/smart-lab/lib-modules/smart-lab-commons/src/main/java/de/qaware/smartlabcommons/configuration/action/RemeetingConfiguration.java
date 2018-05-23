@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.configuration.action;
 
-import de.qaware.smartlabcommons.api.external.client.IRemeetingApiClient;
-import de.qaware.smartlabcommons.api.external.service.RemeetingService;
+import de.qaware.smartlabcommons.api.external.remeeting.client.IRemeetingApiClient;
+import de.qaware.smartlabcommons.api.external.remeeting.service.RemeetingService;
 import de.qaware.smartlabcommons.data.action.web.ISpeechToTextService;
 import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,6 +35,7 @@ public class RemeetingConfiguration {
         return this.remeetingProperties.getApiKey();
     }
 
+    // TODO: String literal
     @ConfigurationProperties(prefix = "remeeting")
     public static class RemeetingProperties {
 

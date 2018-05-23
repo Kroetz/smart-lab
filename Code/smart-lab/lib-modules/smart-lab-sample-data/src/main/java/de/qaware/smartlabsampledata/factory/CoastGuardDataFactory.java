@@ -1,5 +1,6 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.jcabi.github.Coordinates;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.assistance.MinuteTaking;
 import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
@@ -15,12 +16,11 @@ import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
+import de.qaware.smartlabcommons.data.workgroup.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 @Component
@@ -48,18 +48,14 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
         coastGuardMembers.add(MEMBER_ID_CHARLIE);
-        try {
-            workgroups.add(Workgroup.builder()
-                    .id(WORKGROUP_ID_COAST_GUARD)
-                    .name("Coast Guard")
-                    .memberIds(coastGuardMembers)
-                    .knowledgeBase(new URL("http", "coast-guard.com", 80, "/wiki"))
-                    .codeRepository(new URL("http", "coast-guard.com", 80, "/git"))
-                    .build());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            assert false;
-        }
+        workgroups.add(Workgroup.builder()
+                .id(WORKGROUP_ID_COAST_GUARD)
+                .name("Coast Guard")
+                .memberIds(coastGuardMembers)
+                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
+                        "Kroetz",
+                        "coastGuardRepo")).build())
+                .build());
         return workgroups;
     }
 
