@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.data.action.result;
+package de.qaware.smartlabaction.action.result;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

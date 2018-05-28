@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.external.watson.speechtotext;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import de.qaware.smartlabcommons.data.action.web.*;
+import de.qaware.smartlabaction.action.web.*;
 import de.qaware.smartlabcommons.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
 

@@ -2,8 +2,8 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabaction.controller.ActionController;
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabaction.action.IActionArgs;
+import de.qaware.smartlabaction.action.result.IActionResult;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;

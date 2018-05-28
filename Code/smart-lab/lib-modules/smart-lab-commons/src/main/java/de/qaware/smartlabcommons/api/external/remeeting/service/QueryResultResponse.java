@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.api.external.remeeting.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlabcommons.data.action.web.ITranscript;
-import de.qaware.smartlabcommons.data.action.web.ITranscriptTextBuilder;
+import de.qaware.smartlabaction.action.web.ITranscript;
+import de.qaware.smartlabaction.action.web.ITranscriptTextBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

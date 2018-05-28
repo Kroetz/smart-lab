@@ -1,8 +1,8 @@
 package de.qaware.smartlabcommons.api.internal.service.action;
 
 import de.qaware.smartlabcommons.api.internal.client.IActionApiClient;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabaction.action.IActionArgs;
+import de.qaware.smartlabaction.action.result.IActionResult;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.FeignException;

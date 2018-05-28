@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.data.action;
+package de.qaware.smartlabaction.action;
 
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabaction.action.result.IActionResult;
 import org.apache.logging.log4j.util.Supplier;
 
 public interface IActionDispatching extends Supplier<IActionResult> {

@@ -1,13 +1,13 @@
 package de.qaware.smartlabcommons.data.assistance;
 
-import de.qaware.smartlabcommons.data.action.IAction;
-import de.qaware.smartlabcommons.data.action.IActionExecution;
-import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
-import de.qaware.smartlabcommons.data.action.microphone.DeactivateMicrophone;
-import de.qaware.smartlabcommons.data.action.uploaddata.UploadData;
-import de.qaware.smartlabcommons.data.action.web.ITranscript;
-import de.qaware.smartlabcommons.data.action.web.ITranscriptTextBuilder;
-import de.qaware.smartlabcommons.data.action.web.SpeechToText;
+import de.qaware.smartlabaction.action.IAction;
+import de.qaware.smartlabaction.action.IActionExecution;
+import de.qaware.smartlabaction.action.microphone.ActivateMicrophone;
+import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
+import de.qaware.smartlabaction.action.uploaddata.UploadData;
+import de.qaware.smartlabaction.action.web.ITranscript;
+import de.qaware.smartlabaction.action.web.ITranscriptTextBuilder;
+import de.qaware.smartlabaction.action.web.SpeechToText;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;

@@ -4,7 +4,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import de.qaware.smartlabcommons.data.action.web.ITranscript;
+import de.qaware.smartlabaction.action.web.ITranscript;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;

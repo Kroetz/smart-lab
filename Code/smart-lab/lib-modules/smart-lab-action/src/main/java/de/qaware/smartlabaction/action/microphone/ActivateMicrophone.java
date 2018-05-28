@@ -1,18 +1,14 @@
-package de.qaware.smartlabcommons.data.action.microphone;
+package de.qaware.smartlabaction.action.microphone;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.api.internal.service.device.IDeviceManagementService;
-import de.qaware.smartlabcommons.data.action.AbstractAction;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionDispatching;
-import de.qaware.smartlabcommons.data.action.IActionExecution;
-import de.qaware.smartlabcommons.data.action.result.ByteArrayActionResult;
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabaction.action.*;
+import de.qaware.smartlabaction.action.result.IActionResult;
+import de.qaware.smartlabaction.action.result.VoidActionResult;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.exception.ActionExecutionFailedException;
-import de.qaware.smartlabcommons.exception.InvalidActionResultException;
 import de.qaware.smartlabcommons.exception.UnknownDeviceAdapterException;
 import de.qaware.smartlabcommons.filesystem.IFileSystemManager;
 import lombok.Data;
@@ -23,20 +19,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class DeactivateMicrophone extends AbstractAction {
+public class ActivateMicrophone extends AbstractAction {
 
-    public static final String ACTION_ID = "deactivate microphone";
-    private final IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private final IDeviceManagementService deviceManagementService;
+    public static final String ACTION_ID = "activate microphone";
+    private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
+    private IDeviceManagementService deviceManagementService;
     private final IFileSystemManager fileSystemManager;
     private final Path recordedAudioTempFileSubDir;
 
-    public DeactivateMicrophone(
+    public ActivateMicrophone(
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
             IDeviceManagementService deviceManagementService,
             IFileSystemManager fileSystemManager,
@@ -48,43 +43,36 @@ public class DeactivateMicrophone extends AbstractAction {
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
     }
 
-    public IActionExecution<Path> execution(DeactivateMicrophone.ActionArgs actionArgs) {
+    public IActionExecution<Void> execution(ActionArgs actionArgs) {
         return (actionService) -> {
-            IActionResult actionResult = actionService.executeAction(DeactivateMicrophone.ACTION_ID, actionArgs);
-            byte[] recordedAudio = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
-            try {
-                return this.fileSystemManager.saveToTempFile(recordedAudioTempFileSubDir, recordedAudio);
-            } catch (IOException e) {
-                throw new ActionExecutionFailedException(e);
-            }
+            IActionResult actionResult = actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
+            return actionResult.getVoidValue();
         };
     }
 
-    @Override
+    // TODO: too much code duplicates
     public IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        ActionArgs actionArgs = convertToSpecific(DeactivateMicrophone.ActionArgs.class, genericActionArgs);
+        ActionArgs actionArgs = convertToSpecific(ActivateMicrophone.ActionArgs.class, genericActionArgs);
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType).orElseThrow(UnknownDeviceAdapterException::new);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         return () -> {
-            Path recordedAudio = microphoneAdapter.deactivate();
-            IActionResult actionResult;
+            Path recordingTargetFile;
             try {
-                actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
-                Files.deleteIfExists(recordedAudio);
+                recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
             } catch (IOException e) {
                 throw new ActionExecutionFailedException(e);
             }
-            return actionResult;
+            microphoneAdapter.activate(recordingTargetFile);
+            return VoidActionResult.instance();
         };
     }
 
-    @Override
     public IActionDispatching dispatching(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        ActionArgs actionArgs = convertToSpecific(DeactivateMicrophone.ActionArgs.class, genericActionArgs);
+        ActionArgs actionArgs = convertToSpecific(ActivateMicrophone.ActionArgs.class, genericActionArgs);
         IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
         String deviceType = device.getType();
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType).orElseThrow(UnknownDeviceAdapterException::new);
@@ -95,15 +83,14 @@ public class DeactivateMicrophone extends AbstractAction {
                 deviceType,
                 actionArgs);
         return () -> {
-            Path recordedAudio = microphoneAdapter.deactivate();
-            IActionResult actionResult;
+            Path recordingTargetFile;
             try {
-                actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
-                Files.deleteIfExists(recordedAudio);
+                recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
             } catch (IOException e) {
                 throw new ActionExecutionFailedException(e);
             }
-            return actionResult;
+            microphoneAdapter.activate(recordingTargetFile);
+            return VoidActionResult.instance();
         };
     }
 

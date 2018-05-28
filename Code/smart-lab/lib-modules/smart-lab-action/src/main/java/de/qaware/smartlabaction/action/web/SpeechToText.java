@@ -1,13 +1,13 @@
-package de.qaware.smartlabcommons.data.action.web;
+package de.qaware.smartlabaction.action.web;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
-import de.qaware.smartlabcommons.data.action.AbstractAction;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionDispatching;
-import de.qaware.smartlabcommons.data.action.IActionExecution;
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
-import de.qaware.smartlabcommons.data.action.result.TranscriptActionResult;
-import de.qaware.smartlabcommons.data.action.result.VoidActionResult;
+import de.qaware.smartlabaction.action.AbstractAction;
+import de.qaware.smartlabaction.action.IActionArgs;
+import de.qaware.smartlabaction.action.IActionDispatching;
+import de.qaware.smartlabaction.action.IActionExecution;
+import de.qaware.smartlabaction.action.result.IActionResult;
+import de.qaware.smartlabaction.action.result.TranscriptActionResult;
+import de.qaware.smartlabaction.action.result.VoidActionResult;
 import de.qaware.smartlabcommons.exception.InvalidActionResultException;
 import lombok.Data;
 import lombok.NoArgsConstructor;

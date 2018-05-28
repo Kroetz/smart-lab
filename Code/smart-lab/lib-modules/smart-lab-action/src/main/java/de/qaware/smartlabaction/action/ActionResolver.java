@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.data.action;
+package de.qaware.smartlabaction.action;
 
 import de.qaware.smartlabcommons.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,9 @@
 package de.qaware.smartlabdelegate.business;
 
-import de.qaware.smartlabcommons.data.action.IAction;
-import de.qaware.smartlabcommons.data.action.IActionArgs;
-import de.qaware.smartlabcommons.data.action.IActionDispatching;
-import de.qaware.smartlabcommons.data.action.result.IActionResult;
+import de.qaware.smartlabaction.action.IAction;
+import de.qaware.smartlabaction.action.IActionArgs;
+import de.qaware.smartlabaction.action.IActionDispatching;
+import de.qaware.smartlabaction.action.result.IActionResult;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.exception.UnknownActionException;
 import lombok.extern.slf4j.Slf4j;

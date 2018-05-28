@@ -1,6 +1,6 @@
-package de.qaware.smartlabcommons.data.action.result;
+package de.qaware.smartlabaction.action.result;
 
-import de.qaware.smartlabcommons.data.action.web.ITranscript;
+import de.qaware.smartlabaction.action.web.ITranscript;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
