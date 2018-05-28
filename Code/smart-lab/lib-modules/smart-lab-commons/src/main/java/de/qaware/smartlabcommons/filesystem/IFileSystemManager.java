@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.persistence;
+package de.qaware.smartlabcommons.filesystem;
 
 import java.io.IOException;
 import java.nio.file.Path;

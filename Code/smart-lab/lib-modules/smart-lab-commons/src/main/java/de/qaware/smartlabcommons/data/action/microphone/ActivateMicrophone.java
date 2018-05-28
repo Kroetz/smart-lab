@@ -10,7 +10,7 @@ import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcommons.exception.UnknownDeviceAdapterException;
-import de.qaware.smartlabcommons.persistence.IFileSystemManager;
+import de.qaware.smartlabcommons.filesystem.IFileSystemManager;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
