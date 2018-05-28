@@ -3,21 +3,24 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabcommons.api.internal.client.IDelegateApiClient;
 import de.qaware.smartlabcommons.api.internal.service.delegate.AbstractDelegateService;
 import de.qaware.smartlabcommons.exception.UnknownDelegateException;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 @Import(FeignClientsConfiguration.class)
 public class DelegateServiceMonolith extends AbstractDelegateService {
 

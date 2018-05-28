@@ -1,22 +1,25 @@
 package de.qaware.smartlabcommons.configuration;
 
 import de.qaware.smartlabcommons.exception.ConfigurationException;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 @EnableConfigurationProperties(MonolithConfiguration.MonolithProperties.class)
 class MonolithConfiguration {
 
@@ -27,6 +30,7 @@ class MonolithConfiguration {
     }
 
     @Bean
+    // TODO: String literal
     @Qualifier("urlsByDelegateName")
     public Map<String, String> urlsByDelegateName() {
         return this.monolithProperties.getUrls();

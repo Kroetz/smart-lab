@@ -8,10 +8,9 @@ import de.qaware.smartlabcommons.exception.EntityNotFoundException;
 import de.qaware.smartlabcommons.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcommons.exception.MeetingConflictException;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.FeignException;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,10 @@ import java.time.Duration;
 import java.util.Set;
 
 @Component
-@Profile(ProfileNames.MICROSERVICE)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MICROSERVICE)
 public class RoomManagementMicroservice extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
 
     private final IRoomManagementApiClient roomManagementApiClient;

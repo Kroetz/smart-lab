@@ -1,18 +1,21 @@
 package de.qaware.smartlabcommons.api.internal.service.delegate;
 
 import de.qaware.smartlabcommons.api.internal.client.IDelegateApiClient;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(ProfileNames.MICROSERVICE)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MICROSERVICE)
 @Import(FeignClientsConfiguration.class)
 public class DelegateMicroservice extends AbstractDelegateService {
 

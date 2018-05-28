@@ -1,13 +1,15 @@
 package de.qaware.smartlabsampledata.provider;
 
-import org.springframework.context.annotation.Profile;
+import de.qaware.smartlabcommons.miscellaneous.Property;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(EmptySampleDataProvider.PROFILE_NAME)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.SAMPLE_DATA,
+        name = Property.Name.SAMPLE_DATA,
+        havingValue = Property.Value.SampleData.NO_SAMPLE_DATA)
 public class EmptySampleDataProvider extends AbstractSampleDataProvider {
-
-    public static final String PROFILE_NAME = "noSampleData";
 
     public EmptySampleDataProvider() {
         super();

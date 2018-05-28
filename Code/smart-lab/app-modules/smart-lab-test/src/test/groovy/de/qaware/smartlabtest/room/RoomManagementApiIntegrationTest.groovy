@@ -12,16 +12,13 @@ import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
 import de.qaware.smartlabsampledata.factory.ForestRangersDataFactory
-import de.qaware.smartlabsampledata.provider.EmptySampleDataProvider
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
 
 import java.time.Duration
 
 @SpringBootTest
-@ActiveProfiles(EmptySampleDataProvider.PROFILE_NAME)
 class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
 
     @Autowired

@@ -4,13 +4,16 @@ import de.qaware.smartlabaction.controller.ActionController;
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.result.IActionResult;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
-import org.springframework.context.annotation.Profile;
+import de.qaware.smartlabcommons.miscellaneous.Property;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 public class ActionServiceMonolith implements IActionService {
 
     private final ActionController actionController;

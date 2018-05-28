@@ -3,12 +3,15 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
-import org.springframework.context.annotation.Profile;
+import de.qaware.smartlabcommons.miscellaneous.Property;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 public class AssistanceServiceMonolith implements IAssistanceService {
 
     private final AssistanceController assistanceController;

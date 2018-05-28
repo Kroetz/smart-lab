@@ -3,13 +3,16 @@ package de.qaware.smartlabcommons.api.internal.service.assistance;
 import de.qaware.smartlabcommons.api.internal.client.IAssistanceApiClient;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.FeignException;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(ProfileNames.MICROSERVICE)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MICROSERVICE)
 public class AssistanceMicroservice implements IAssistanceService {
 
     private final IAssistanceApiClient assistanceApiClient;

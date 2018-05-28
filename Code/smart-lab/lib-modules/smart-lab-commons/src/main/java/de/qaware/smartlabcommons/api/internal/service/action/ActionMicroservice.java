@@ -4,14 +4,17 @@ import de.qaware.smartlabcommons.api.internal.client.IActionApiClient;
 import de.qaware.smartlabcommons.data.action.IActionArgs;
 import de.qaware.smartlabcommons.data.action.result.IActionResult;
 import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import feign.FeignException;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile(ProfileNames.MICROSERVICE)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MICROSERVICE)
 public class ActionMicroservice implements IActionService {
 
     private final IActionApiClient actionApiClient;

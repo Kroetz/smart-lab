@@ -3,17 +3,19 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import de.qaware.smartlabroom.controller.RoomManagementController;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Set;
 
 @Component
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 public class RoomManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IRoom> implements IRoomManagementService {
 
     private final RoomManagementController roomManagementController;

@@ -3,15 +3,18 @@ package de.qaware.smartlabcommons.configuration.action;
 import de.qaware.smartlabcommons.api.external.remeeting.client.IRemeetingApiClient;
 import de.qaware.smartlabcommons.api.external.remeeting.service.RemeetingService;
 import de.qaware.smartlabcommons.data.action.web.ISpeechToTextService;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile(ProfileNames.REMEETING)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
+        name = Property.Name.SPEECH_TO_TEXT_SERVICE,
+        havingValue = Property.Value.SpeechToTextService.REMEETING)
 @EnableConfigurationProperties(RemeetingConfiguration.RemeetingProperties.class)
 public class RemeetingConfiguration {
 

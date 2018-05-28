@@ -2,16 +2,18 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.miscellaneous.Constants;
-import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
+import de.qaware.smartlabcommons.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 
 @Component
-@Profile(ProfileNames.MONOLITH)
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MODULARITY,
+        name = Property.Name.MODULARITY,
+        havingValue = Property.Value.Modularity.MONOLITH)
 public class MeetingManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IMeeting> implements IMeetingManagementService {
 
     private final MeetingManagementController meetingManagementController;
