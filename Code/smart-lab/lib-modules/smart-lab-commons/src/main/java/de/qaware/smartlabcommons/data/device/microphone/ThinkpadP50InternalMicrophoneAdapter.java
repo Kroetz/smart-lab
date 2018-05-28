@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Component
 @Slf4j
@@ -25,7 +24,6 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
             1,
             44100.0f,
             false);
-    private static final Path AUDIO_FILE_PATH = Paths.get("C:\\Users\\d.schock\\Desktop\\meeting_protocol.wav");
     private static final AudioFileFormat.Type AUDIO_FILE_FORMAT = AudioFileFormat.Type.WAVE;
 
     private final GenericMicrophone genericMicrophone;

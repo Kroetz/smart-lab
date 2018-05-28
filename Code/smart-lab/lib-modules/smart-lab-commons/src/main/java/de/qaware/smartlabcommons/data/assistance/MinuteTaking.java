@@ -6,6 +6,7 @@ import de.qaware.smartlabcommons.data.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabcommons.data.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabcommons.data.action.uploaddata.UploadData;
 import de.qaware.smartlabcommons.data.action.web.ITranscript;
+import de.qaware.smartlabcommons.data.action.web.ITranscriptTextBuilder;
 import de.qaware.smartlabcommons.data.action.web.SpeechToText;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
@@ -36,18 +37,21 @@ public class MinuteTaking extends AbstractAssistance {
     private final DeactivateMicrophone deactivateMicrophone;
     private final SpeechToText speechToText;
     private final UploadData uploadData;
+    private final ITranscriptTextBuilder transcriptTextBuilder;
 
     public MinuteTaking(
             IResolver<String, IAction> actionResolver,
             ActivateMicrophone activateMicrophone,
             DeactivateMicrophone deactivateMicrophone,
             SpeechToText speechToText,
-            UploadData uploadData) {
+            UploadData uploadData,
+            ITranscriptTextBuilder transcriptTextBuilder) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
         this.uploadData = uploadData;
+        this.transcriptTextBuilder = transcriptTextBuilder;
     }
 
     @Override
@@ -92,7 +96,7 @@ public class MinuteTaking extends AbstractAssistance {
 
             final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
                     context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
-                    transcript.toHumanReadable());
+                    transcript.toHumanReadable(this.transcriptTextBuilder));
             IActionExecution<Void> dataUploading = this.uploadData.execution(uploadDataArgs);
             dataUploading.execute(actionService);
 

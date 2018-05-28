@@ -3,7 +3,9 @@ package de.qaware.smartlabcommons.api.external.remeeting.service;
 import de.qaware.smartlabcommons.api.external.remeeting.client.IRemeetingApiClient;
 import de.qaware.smartlabcommons.data.action.web.ITranscript;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;
+import de.qaware.smartlabcommons.miscellaneous.ProfileNames;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
@@ -12,6 +14,7 @@ import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@Profile(ProfileNames.REMEETING)
 @Slf4j
 public class RemeetingService implements IRemeetingService {
 
