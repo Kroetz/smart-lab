@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action;
+package de.qaware.smartlabaction.action.generic;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.exception.UnmatchingActionArgsTypeException;

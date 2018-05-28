@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.web;
+package de.qaware.smartlabaction.action.speechtotext;
 
 public interface ITranscript {
 

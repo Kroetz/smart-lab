@@ -2,7 +2,7 @@ package de.qaware.smartlabcommons.api.internal.client;
 
 import de.qaware.smartlabcommons.api.internal.DelegateApiConstants;
 import de.qaware.smartlabaction.action.IActionArgs;
-import de.qaware.smartlabaction.action.result.IActionResult;
+import de.qaware.smartlabaction.action.generic.result.IActionResult;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

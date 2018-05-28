@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.web;
+package de.qaware.smartlabaction.action.speechtotext;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
