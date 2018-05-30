@@ -1,10 +1,11 @@
 package de.qaware.smartlabaction.action.generic;
 
-import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
+import de.qaware.smartlabcommons.data.action.generic.IActionSubmittable;
 import de.qaware.smartlabcommons.exception.UnmatchingActionArgsTypeException;
 
-public abstract class AbstractAction implements IAction {
+public abstract class AbstractAction<ActionArgsT extends IActionArgs, ReturnT> implements IActionSubmittable<ActionArgsT, ReturnT>, IActionExecutable {
 
     protected final String actionId;
 

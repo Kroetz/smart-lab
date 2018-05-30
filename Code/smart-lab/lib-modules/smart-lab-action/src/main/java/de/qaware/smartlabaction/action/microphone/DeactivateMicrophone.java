@@ -27,7 +27,7 @@ import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class DeactivateMicrophone extends AbstractAction {
+public class DeactivateMicrophone extends AbstractAction<DeactivateMicrophone.ActionArgs, Path> {
 
     public static final String ACTION_ID = "deactivate microphone";
     private final IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;

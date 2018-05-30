@@ -1,7 +1,7 @@
 package de.qaware.smartlabassistance.assistance;
 
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
-import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.assistance.IAssistance;
 import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
 import de.qaware.smartlabcommons.data.context.IContext;
@@ -20,13 +20,13 @@ public abstract class AbstractAssistance implements IAssistance {
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;
     protected final IActionService actionService;
-    protected final IResolver<String, IAction> actionResolver;
+    protected final IResolver<String, IActionExecutable> actionResolver;
 
     public AbstractAssistance(
             String assistanceId,
             Set<String> assistanceAliases,
             IActionService actionService,
-            IResolver<String, IAction> actionResolver) {
+            IResolver<String, IActionExecutable> actionResolver) {
         this.assistanceId = assistanceId;
         this.assistanceAliases = assistanceAliases;
         this.actionService = actionService;

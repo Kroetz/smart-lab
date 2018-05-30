@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class UploadData extends AbstractAction {
+public class UploadData extends AbstractAction<UploadData.ActionArgs, Void> {
 
     public static final String ACTION_ID = "upload data";
     private IResolver<String, IUploadDataService> uploadDataServiceResolver;

@@ -21,7 +21,7 @@ import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class SpeechToText extends AbstractAction {
+public class SpeechToText extends AbstractAction<SpeechToText.ActionArgs, ITranscript> {
 
     public static final String ACTION_ID = "speech to text";
     private final ISpeechToTextService speechToTextService;

@@ -25,7 +25,7 @@ import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class ActivateMicrophone extends AbstractAction {
+public class ActivateMicrophone extends AbstractAction<ActivateMicrophone.ActionArgs, Void> {
 
     public static final String ACTION_ID = "activate microphone";
     private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;

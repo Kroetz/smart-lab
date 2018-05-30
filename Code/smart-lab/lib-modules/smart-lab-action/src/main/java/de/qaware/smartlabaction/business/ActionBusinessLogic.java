@@ -1,7 +1,7 @@
 package de.qaware.smartlabaction.business;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
-import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcommons.data.generic.IResolver;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 public class ActionBusinessLogic implements IActionBusinessLogic {
 
     private final IDelegateService delegateService;
-    private final IResolver<String, IAction> actionResolver;
+    private final IResolver<String, IActionExecutable> actionResolver;
 
     public ActionBusinessLogic(
             IDelegateService delegateService,
-            IResolver<String, IAction> actionResolver) {
+            IResolver<String, IActionExecutable> actionResolver) {
         this.delegateService = delegateService;
         this.actionResolver = actionResolver;
     }
@@ -26,7 +26,7 @@ public class ActionBusinessLogic implements IActionBusinessLogic {
     @Override
     public IActionResult executeAction(String actionId, IActionArgs actionArgs) {
         log.info("Executing action (ID: \"{}\")", actionId);
-        IAction action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
+        IActionExecutable action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
         IActionResult actionResult = action.execute(actionArgs, this.delegateService);
         log.info("Executed action (ID: \"{}\")", actionId);
         return actionResult;

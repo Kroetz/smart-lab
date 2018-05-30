@@ -1,6 +1,6 @@
 package de.qaware.smartlabdelegate.business;
 
-import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcommons.data.generic.IResolver;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DelegateBusinessLogic implements IDelegateBusinessLogic {
 
-    private final IResolver<String, IAction> actionResolver;
+    private final IResolver<String, IActionExecutable> actionResolver;
 
-    public DelegateBusinessLogic(IResolver<String, IAction> actionResolver) {
+    public DelegateBusinessLogic(IResolver<String, IActionExecutable> actionResolver) {
         this.actionResolver = actionResolver;
     }
 
     @Override
     public IActionResult executeAction(String actionId, String deviceType, IActionArgs actionArgs) {
         log.info("Executing action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
-        IAction action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
+        IActionExecutable action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
         IActionResult actionResult = action.execute(deviceType, actionArgs);
         log.info("Executed action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
         return actionResult;

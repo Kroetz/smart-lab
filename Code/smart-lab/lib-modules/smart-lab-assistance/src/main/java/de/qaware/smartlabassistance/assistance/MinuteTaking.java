@@ -5,7 +5,8 @@ import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
 import de.qaware.smartlabaction.action.uploaddata.UploadData;
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
-import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
+import de.qaware.smartlabcommons.data.action.generic.IActionSubmittable;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
@@ -37,20 +38,20 @@ public class MinuteTaking extends AbstractAssistance {
     public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
             "minute-taking",
             "minuteTaking").collect(Collectors.toSet());
-    private final ActivateMicrophone activateMicrophone;
-    private final DeactivateMicrophone deactivateMicrophone;
-    private final SpeechToText speechToText;
-    private final UploadData uploadData;
+    private final IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone;
+    private final IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone;
+    private final IActionSubmittable<SpeechToText.ActionArgs, ITranscript> speechToText;
+    private final IActionSubmittable<UploadData.ActionArgs, Void> uploadData;
     private final ITranscriptTextBuilder transcriptTextBuilder;
     private final ITextPassagesBuilder textPassagesBuilder;
 
     public MinuteTaking(
             IActionService actionService,
-            IResolver<String, IAction> actionResolver,
-            ActivateMicrophone activateMicrophone,
-            DeactivateMicrophone deactivateMicrophone,
-            SpeechToText speechToText,
-            UploadData uploadData,
+            IResolver<String, IActionExecutable> actionResolver,
+            IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone,
+            IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone,
+            IActionSubmittable<SpeechToText.ActionArgs, ITranscript> speechToText,
+            IActionSubmittable<UploadData.ActionArgs, Void> uploadData,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService, actionResolver);
