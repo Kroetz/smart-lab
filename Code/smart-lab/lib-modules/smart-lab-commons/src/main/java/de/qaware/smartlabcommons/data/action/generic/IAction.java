@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.generic;
+package de.qaware.smartlabcommons.data.action.generic;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 

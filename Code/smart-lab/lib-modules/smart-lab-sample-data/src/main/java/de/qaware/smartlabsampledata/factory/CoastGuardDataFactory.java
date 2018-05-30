@@ -1,9 +1,9 @@
 package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
+import de.qaware.smartlabassistance.assistance.MinuteTaking;
+import de.qaware.smartlabassistance.assistance.RoomUnlocking;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcommons.data.assistance.MinuteTaking;
-import de.qaware.smartlabcommons.data.assistance.RoomUnlocking;
 import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
 import de.qaware.smartlabcommons.data.device.entity.Device;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;

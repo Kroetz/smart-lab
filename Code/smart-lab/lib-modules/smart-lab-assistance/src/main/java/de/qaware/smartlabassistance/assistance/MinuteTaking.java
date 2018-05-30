@@ -1,13 +1,17 @@
-package de.qaware.smartlabcommons.data.assistance;
+package de.qaware.smartlabassistance.assistance;
 
-import de.qaware.smartlabaction.action.IAction;
-import de.qaware.smartlabaction.action.IActionExecution;
 import de.qaware.smartlabaction.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
+import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
 import de.qaware.smartlabaction.action.uploaddata.UploadData;
-import de.qaware.smartlabaction.action.web.ITranscript;
-import de.qaware.smartlabaction.action.web.ITranscriptTextBuilder;
-import de.qaware.smartlabaction.action.web.SpeechToText;
+import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecution;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceStageExecution;
+import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -38,6 +42,7 @@ public class MinuteTaking extends AbstractAssistance {
     private final SpeechToText speechToText;
     private final UploadData uploadData;
     private final ITranscriptTextBuilder transcriptTextBuilder;
+    private final ITextPassagesBuilder textPassagesBuilder;
 
     public MinuteTaking(
             IResolver<String, IAction> actionResolver,
@@ -45,13 +50,15 @@ public class MinuteTaking extends AbstractAssistance {
             DeactivateMicrophone deactivateMicrophone,
             SpeechToText speechToText,
             UploadData uploadData,
-            ITranscriptTextBuilder transcriptTextBuilder) {
+            ITranscriptTextBuilder transcriptTextBuilder,
+            ITextPassagesBuilder textPassagesBuilder) {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
         this.uploadData = uploadData;
         this.transcriptTextBuilder = transcriptTextBuilder;
+        this.textPassagesBuilder = textPassagesBuilder;
     }
 
     @Override
@@ -96,7 +103,7 @@ public class MinuteTaking extends AbstractAssistance {
 
             final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
                     context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
-                    transcript.toHumanReadable(this.transcriptTextBuilder));
+                    transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
             IActionExecution<Void> dataUploading = this.uploadData.execution(uploadDataArgs);
             dataUploading.execute(actionService);
 

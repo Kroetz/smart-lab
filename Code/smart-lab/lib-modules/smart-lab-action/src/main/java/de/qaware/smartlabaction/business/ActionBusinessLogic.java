@@ -1,10 +1,10 @@
 package de.qaware.smartlabaction.business;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
-import de.qaware.smartlabaction.action.generic.IAction;
-import de.qaware.smartlabaction.action.generic.IActionArgs;
-import de.qaware.smartlabaction.action.generic.IActionDispatching;
-import de.qaware.smartlabaction.action.generic.result.IActionResult;
+import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
+import de.qaware.smartlabcommons.data.action.generic.IActionDispatching;
+import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.exception.UnknownActionException;
 import lombok.extern.slf4j.Slf4j;

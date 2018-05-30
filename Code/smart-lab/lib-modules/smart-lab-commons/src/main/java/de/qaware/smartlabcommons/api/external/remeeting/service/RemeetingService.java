@@ -1,7 +1,7 @@
 package de.qaware.smartlabcommons.api.external.remeeting.service;
 
 import de.qaware.smartlabcommons.api.external.remeeting.client.IRemeetingApiClient;
-import de.qaware.smartlabaction.action.web.ITranscript;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;

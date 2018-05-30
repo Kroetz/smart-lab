@@ -1,8 +1,9 @@
 package de.qaware.smartlabcommons.api.external.remeeting.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlabaction.action.web.ITranscript;
-import de.qaware.smartlabaction.action.web.ITranscriptTextBuilder;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,7 +32,7 @@ public class QueryResultResponse implements ITranscript {
     private String status;
 
     @Override
-    public String toHumanReadable(ITranscriptTextBuilder transcriptTextBuilder) {
+    public String toHumanReadable(ITranscriptTextBuilder transcriptTextBuilder, ITextPassagesBuilder textPassagesBuilder) {
         // TODO: Build a readable string
         return results.toString();
     }

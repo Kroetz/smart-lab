@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.uploaddata;
+package de.qaware.smartlabcommons.data.action.uploaddata;
 
 import de.qaware.smartlabcommons.data.workgroup.IKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;

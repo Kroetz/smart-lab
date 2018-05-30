@@ -1,5 +1,6 @@
 package de.qaware.smartlabaction.action.generic;
 
+import de.qaware.smartlabcommons.data.action.generic.IAction;
 import de.qaware.smartlabcommons.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

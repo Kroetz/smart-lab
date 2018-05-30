@@ -1,6 +1,9 @@
 package de.qaware.smartlabaction.action.generic;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
+import de.qaware.smartlabcommons.data.action.generic.IAction;
+import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
+import de.qaware.smartlabcommons.data.action.generic.IActionDispatching;
 import de.qaware.smartlabcommons.exception.UnmatchingActionArgsTypeException;
 
 public abstract class AbstractAction implements IAction {

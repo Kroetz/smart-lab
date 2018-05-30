@@ -1,9 +1,13 @@
 package de.qaware.smartlabaction.action.microphone;
 
+import de.qaware.smartlabaction.action.generic.AbstractAction;
+import de.qaware.smartlabaction.action.generic.result.VoidActionResult;
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.api.internal.service.device.IDeviceManagementService;
-import de.qaware.smartlabaction.action.generic.result.IActionResult;
-import de.qaware.smartlabaction.action.generic.result.VoidActionResult;
+import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
+import de.qaware.smartlabcommons.data.action.generic.IActionDispatching;
+import de.qaware.smartlabcommons.data.action.generic.IActionExecution;
+import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcommons.data.generic.IResolver;

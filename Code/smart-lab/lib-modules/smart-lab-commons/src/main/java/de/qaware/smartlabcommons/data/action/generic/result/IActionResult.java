@@ -1,7 +1,7 @@
-package de.qaware.smartlabaction.action.generic.result;
+package de.qaware.smartlabcommons.data.action.generic.result;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabaction.action.speechtotext.ITranscript;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcommons.miscellaneous.Constants;
 
 import java.util.Optional;

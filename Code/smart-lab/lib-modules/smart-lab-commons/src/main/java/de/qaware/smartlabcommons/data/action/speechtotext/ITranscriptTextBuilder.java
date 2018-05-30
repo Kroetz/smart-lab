@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.speechtotext;
+package de.qaware.smartlabcommons.data.action.speechtotext;
 
 import java.util.List;
 

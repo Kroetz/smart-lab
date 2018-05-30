@@ -1,7 +1,10 @@
 package de.qaware.smartlabcommons.api.external.watson.speechtotext;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import de.qaware.smartlabaction.action.web.*;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassage;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcommons.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,32 +25,38 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
     }
 
     @Override
-    public String toHumanReadable(ITranscriptTextBuilder transcriptTextBuilder) {
+    public String toHumanReadable(
+            ITranscriptTextBuilder transcriptTextBuilder,
+            ITextPassagesBuilder textPassagesBuilder) {
         List<SpeakerLabelsResult> speakerLabelsResults = this.speechRecognitionResults.getSpeakerLabels();
         Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(Collectors.toMap(
                 speakerLabelsResult -> Timestamp.of(speakerLabelsResult.getFrom(), speakerLabelsResult.getTo()),
                 SpeakerLabelsResult::getSpeaker));
-        List<ITextPassage> textPassages = resolveTextPassages(this.speechRecognitionResults.getResults(), speakerIdsByTimestamps);
+        List<ITextPassage> textPassages = resolveTextPassages(
+                textPassagesBuilder,
+                this.speechRecognitionResults.getResults(),
+                speakerIdsByTimestamps);
         return transcriptTextBuilder.buildText(textPassages);
     }
 
     private List<ITextPassage> resolveTextPassages(
+            ITextPassagesBuilder textPassagesBuilder,
             List<SpeechRecognitionResult> speechRecognitionResults,
             Map<Timestamp, Long> speakerIdsByTimestamps) {
         List<ITextPassage> textPassages = new ArrayList<>();
         for(SpeechRecognitionResult speechRecognitionResult : speechRecognitionResults){
             if(speechRecognitionResult.isFinalResults()) {
                 SpeechRecognitionAlternative alternative = getMostConfidentAlternative(speechRecognitionResult);
-                textPassages.addAll(resolveTextPassages(alternative, speakerIdsByTimestamps));
+                textPassages.addAll(resolveTextPassages(textPassagesBuilder, alternative, speakerIdsByTimestamps));
             }
         }
         return textPassages;
     }
 
     private List<ITextPassage> resolveTextPassages(
+            ITextPassagesBuilder textPassagesBuilder,
             SpeechRecognitionAlternative alternative,
             Map<Timestamp, Long> speakerIdsByTimestamps) {
-        TextPassagesBuilder textPassagesBuilder = TextPassagesBuilder.newInstance();
         for(SpeechTimestamp timestamp : alternative.getTimestamps()) {
             Double start = timestamp.getStartTime();
             Double end = timestamp.getEndTime();
@@ -56,11 +65,11 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
                 // TODO: Better exception
                 throw new RuntimeException();
             }
-            textPassagesBuilder.addTextPassage(TextPassage.of(
+            textPassagesBuilder.addTextPassage(
                     StartedDuration.ofSeconds(start, end),
                     // TODO: Move string literal to constant
                     "Speaker " + speakerId,
-                    timestamp.getWord()));
+                    timestamp.getWord());
         }
         return textPassagesBuilder.getFinishedTextPassages();
     }

@@ -1,12 +1,17 @@
 package de.qaware.smartlabaction.action.speechtotext;
 
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassage;
+import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcommons.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @Slf4j
-public class TextPassagesBuilder {
+public class TextPassagesBuilder implements ITextPassagesBuilder {
 
     private final List<ITextPassage> finishedTextPassages;
     private ITextPassage unfinishedTextPassage;
@@ -19,7 +24,11 @@ public class TextPassagesBuilder {
         return new TextPassagesBuilder();
     }
 
-    public void addTextPassage(ITextPassage textPassage) {
+    public void addTextPassage(
+            StartedDuration spokenDuration,
+            String speakerName,
+            String spokenText) {
+        ITextPassage textPassage = TextPassage.of(spokenDuration, speakerName, spokenText);
         if(unfinishedTextPassage == null) {
             this.unfinishedTextPassage = TextPassage.of(
                     textPassage.getSpokenDuration(),
