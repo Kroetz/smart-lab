@@ -3,7 +3,6 @@ package de.qaware.smartlabaction.business;
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabcommons.data.action.generic.IAction;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.IActionDispatching;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.exception.UnknownActionException;
@@ -28,8 +27,7 @@ public class ActionBusinessLogic implements IActionBusinessLogic {
     public IActionResult executeAction(String actionId, IActionArgs actionArgs) {
         log.info("Executing action (ID: \"{}\")", actionId);
         IAction action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
-        IActionDispatching actionDispatching = action.dispatching(actionArgs, this.delegateService);
-        IActionResult actionResult = actionDispatching.dispatch();
+        IActionResult actionResult = action.execute(actionArgs, this.delegateService);
         log.info("Executed action (ID: \"{}\")", actionId);
         return actionResult;
     }

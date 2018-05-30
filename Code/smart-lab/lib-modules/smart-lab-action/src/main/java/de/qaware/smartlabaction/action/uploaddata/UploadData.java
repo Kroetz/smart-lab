@@ -1,10 +1,9 @@
 package de.qaware.smartlabaction.action.uploaddata;
 
+import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
 import de.qaware.smartlabaction.action.generic.AbstractAction;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.IActionDispatching;
-import de.qaware.smartlabcommons.data.action.generic.IActionExecution;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabaction.action.generic.result.VoidActionResult;
 import de.qaware.smartlabcommons.data.action.uploaddata.IUploadDataService;
@@ -30,31 +29,27 @@ public class UploadData extends AbstractAction {
         this.uploadDataServiceResolver = uploadDataServiceResolver;
     }
 
-    public IActionExecution<Void> execution(ActionArgs actionArgs) {
-        return (actionService) -> {
-            IActionResult actionResult = actionService.executeAction(UploadData.ACTION_ID, actionArgs);
-            return actionResult.getVoidValue();
-        };
+    public Void submitCall(IActionService actionService, ActionArgs actionArgs) {
+        IActionResult actionResult = actionService.executeAction(UploadData.ACTION_ID, actionArgs);
+        return actionResult.getVoidValue();
     }
 
     @Override
-    public IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
-        return () -> VoidActionResult.instance();
+        return VoidActionResult.instance();
     }
 
     @Override
-    public IActionDispatching dispatching(IActionArgs genericActionArgs, IDelegateService delegateService) {
+    public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
         ActionArgs actionArgs = convertToSpecific(UploadData.ActionArgs.class, genericActionArgs);
-        return () -> {
-            IUploadDataService uploadDataService = this.uploadDataServiceResolver
-                    .resolve(actionArgs.getKnowledgeBaseInfo().getServiceId())
-                    .orElseThrow(UnknownServiceException::new);
-            uploadDataService.upload(actionArgs.getKnowledgeBaseInfo(), actionArgs.getDataToUpload());
-            return VoidActionResult.instance();
-        };
+        IUploadDataService uploadDataService = this.uploadDataServiceResolver
+                .resolve(actionArgs.getKnowledgeBaseInfo().getServiceId())
+                .orElseThrow(UnknownServiceException::new);
+        uploadDataService.upload(actionArgs.getKnowledgeBaseInfo(), actionArgs.getDataToUpload());
+        return VoidActionResult.instance();
     }
 
     @Data

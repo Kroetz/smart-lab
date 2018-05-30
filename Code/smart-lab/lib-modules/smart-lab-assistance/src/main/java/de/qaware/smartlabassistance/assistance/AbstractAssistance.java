@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance;
 
+import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.generic.IAction;
 import de.qaware.smartlabcommons.data.assistance.IAssistance;
 import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
@@ -18,14 +19,17 @@ public abstract class AbstractAssistance implements IAssistance {
 
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;
+    protected final IActionService actionService;
     protected final IResolver<String, IAction> actionResolver;
 
     public AbstractAssistance(
             String assistanceId,
             Set<String> assistanceAliases,
+            IActionService actionService,
             IResolver<String, IAction> actionResolver) {
         this.assistanceId = assistanceId;
         this.assistanceAliases = assistanceAliases;
+        this.actionService = actionService;
         this.actionResolver = actionResolver;
     }
 

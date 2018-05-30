@@ -4,8 +4,8 @@ import de.qaware.smartlabaction.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
 import de.qaware.smartlabaction.action.uploaddata.UploadData;
+import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.generic.IAction;
-import de.qaware.smartlabcommons.data.action.generic.IActionExecution;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
@@ -45,6 +45,7 @@ public class MinuteTaking extends AbstractAssistance {
     private final ITextPassagesBuilder textPassagesBuilder;
 
     public MinuteTaking(
+            IActionService actionService,
             IResolver<String, IAction> actionResolver,
             ActivateMicrophone activateMicrophone,
             DeactivateMicrophone deactivateMicrophone,
@@ -52,7 +53,7 @@ public class MinuteTaking extends AbstractAssistance {
             UploadData uploadData,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
@@ -83,8 +84,7 @@ public class MinuteTaking extends AbstractAssistance {
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
         return (actionService) -> {
-            IActionExecution<Void> microphoneActivation = this.activateMicrophone.execution(microphoneActivationArgs);
-            microphoneActivation.execute(actionService);
+            this.activateMicrophone.submitCall(this.actionService, microphoneActivationArgs);
         };
     }
 
@@ -94,18 +94,15 @@ public class MinuteTaking extends AbstractAssistance {
             final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
                     context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                     context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-            IActionExecution<Path> microphoneDeactivation = this.deactivateMicrophone.execution(microphoneDeactivationArgs);
-            Path recordedAudio = microphoneDeactivation.execute(actionService);
+            Path recordedAudio = this.deactivateMicrophone.submitCall(this.actionService, microphoneDeactivationArgs);
 
             final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
-            IActionExecution<ITranscript> speechToTextConversion = this.speechToText.execution(speechToTextArgs);
-            ITranscript transcript = speechToTextConversion.execute(actionService);
+            ITranscript transcript = this.speechToText.submitCall(this.actionService, speechToTextArgs);
 
             final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
                     context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
                     transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
-            IActionExecution<Void> dataUploading = this.uploadData.execution(uploadDataArgs);
-            dataUploading.execute(actionService);
+            this.uploadData.submitCall(this.actionService, uploadDataArgs);
 
             // TODO: Delete temp file
             //Files.deleteIfExists(recordedAudio);

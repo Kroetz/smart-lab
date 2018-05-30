@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance;
 
+import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
 import de.qaware.smartlabcommons.data.action.generic.IAction;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceStageExecution;
@@ -28,8 +29,8 @@ public class AgendaShowing extends AbstractAssistance {
             "agenda-showing",
             "agendaShowing").collect(Collectors.toSet());
 
-    public AgendaShowing(IResolver<String, IAction> actionResolver) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
+    public AgendaShowing(IActionService actionService, IResolver<String, IAction> actionResolver) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService, actionResolver);
     }
 
     @Override

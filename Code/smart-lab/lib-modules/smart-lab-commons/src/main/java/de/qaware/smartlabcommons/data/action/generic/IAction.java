@@ -1,10 +1,11 @@
 package de.qaware.smartlabcommons.data.action.generic;
 
 import de.qaware.smartlabcommons.api.internal.service.delegate.IDelegateService;
+import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 
 public interface IAction {
 
     String getActionId();
-    IActionDispatching dispatching(String deviceType, IActionArgs genericActionArgs);
-    IActionDispatching dispatching(IActionArgs actionArgs, IDelegateService delegateService);
+    IActionResult execute(String deviceType, IActionArgs genericActionArgs);
+    IActionResult execute(IActionArgs actionArgs, IDelegateService delegateService);
 }
