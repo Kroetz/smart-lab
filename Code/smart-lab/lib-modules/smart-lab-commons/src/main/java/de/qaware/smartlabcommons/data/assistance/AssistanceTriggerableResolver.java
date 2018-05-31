@@ -8,15 +8,15 @@ import java.util.*;
 
 @Component
 @Slf4j
-public class AssistanceResolver extends AbstractResolver<String, IAssistance> {
+public class AssistanceTriggerableResolver extends AbstractResolver<String, IAssistanceTriggerable> {
 
-    public AssistanceResolver(List<IAssistance> assistances) {
-        super(AssistanceResolver.getAssistancesById(assistances));
+    public AssistanceTriggerableResolver(List<IAssistanceTriggerable> assistances) {
+        super(AssistanceTriggerableResolver.getAssistancesById(assistances));
     }
 
-    private static Map<String, IAssistance> getAssistancesById(List<IAssistance> assistances) {
-        Map<String, IAssistance> assistancesById = new HashMap<>();
-        for(IAssistance assistance : assistances) {
+    private static Map<String, IAssistanceTriggerable> getAssistancesById(List<IAssistanceTriggerable> assistances) {
+        Map<String, IAssistanceTriggerable> assistancesById = new HashMap<>();
+        for(IAssistanceTriggerable assistance : assistances) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(assistance.getAssistanceId());
             identifiers.addAll(assistance.getAssistanceAliases());

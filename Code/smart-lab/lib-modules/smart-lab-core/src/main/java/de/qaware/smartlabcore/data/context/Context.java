@@ -6,6 +6,7 @@ import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementServic
 import de.qaware.smartlabcommons.api.internal.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.assistance.IAssistance;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcommons.data.assistance.IAssistanceExecutable;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;

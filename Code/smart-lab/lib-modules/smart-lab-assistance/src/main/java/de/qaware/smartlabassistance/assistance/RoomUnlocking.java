@@ -1,10 +1,9 @@
 package de.qaware.smartlabassistance.assistance;
 
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
+import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceStageExecution;
-import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -29,42 +28,39 @@ public class RoomUnlocking extends AbstractAssistance {
             "room-unlocking",
             "roomUnlocking").collect(Collectors.toSet());
 
-    public RoomUnlocking(IActionService actionService, IResolver<String, IActionExecutable> actionResolver) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService, actionResolver);
+    public RoomUnlocking(IResolver<String, IActionExecutable> actionResolver) {
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
     }
 
     @Override
-    public ITriggerReaction reactionOnTriggerSetUpMeeting(IContext context) {
+    public void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, IContext context) {
         log.info("Reaction on set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        return (assistanceService) -> assistanceService.beginAssistance(this.assistanceId, context);
+        assistanceService.beginAssistance(this.assistanceId, context);
     }
 
     @Override
-    public ITriggerReaction reactionOnTriggerCleanUpMeeting(IContext context) {
+    public void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, IContext context) {
         log.info("Reaction on clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        return (assistanceService) -> assistanceService.endAssistance(this.assistanceId, context);
+        assistanceService.endAssistance(this.assistanceId, context);
     }
 
     @Override
-    public IAssistanceStageExecution executionOfBeginStage(IContext context) {
+    public void begin(IActionService actionService, IContext context) {
         // TODO: Implementation
-        return (actionService) -> {};
     }
 
     @Override
-    public IAssistanceStageExecution executionOfEndStage(IContext context) {
+    public void end(IActionService actionService, IContext context) {
         // TODO: Implementation
-        return (actionService) -> {};
     }
 
     @Override
-    public IAssistanceStageExecution executionOfUpdateStage(IContext context) {
+    public void update(IActionService actionService, IContext context) {
         // TODO: Implementation
-        return (actionService) -> {};
     }
 
     // TODO: Which annotation can be removed?

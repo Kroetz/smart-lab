@@ -5,14 +5,13 @@ import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
 import de.qaware.smartlabaction.action.uploaddata.UploadData;
 import de.qaware.smartlabcommons.api.internal.service.action.IActionService;
+import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
 import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.action.generic.IActionSubmittable;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceStageExecution;
-import de.qaware.smartlabcommons.data.assistance.ITriggerReaction;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
@@ -46,7 +45,6 @@ public class MinuteTaking extends AbstractAssistance {
     private final ITextPassagesBuilder textPassagesBuilder;
 
     public MinuteTaking(
-            IActionService actionService,
             IResolver<String, IActionExecutable> actionResolver,
             IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone,
             IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone,
@@ -54,7 +52,7 @@ public class MinuteTaking extends AbstractAssistance {
             IActionSubmittable<UploadData.ActionArgs, Void> uploadData,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionService, actionResolver);
+        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
@@ -64,56 +62,51 @@ public class MinuteTaking extends AbstractAssistance {
     }
 
     @Override
-    public ITriggerReaction reactionOnTriggerStartMeeting(final IContext context) {
+    public void reactOnTriggerStartMeeting(IAssistanceService assistanceService, final IContext context) {
         log.info("Reaction on start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        return (assistanceService) -> assistanceService.beginAssistance(this.assistanceId, context);
+        assistanceService.beginAssistance(this.assistanceId, context);
     }
 
     @Override
-    public ITriggerReaction reactionOnTriggerStopMeeting(final IContext context) {
+    public void reactOnTriggerStopMeeting(IAssistanceService assistanceService, final IContext context) {
         log.info("Reaction on stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
                 this.assistanceId,
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        return (assistanceService) -> assistanceService.endAssistance(this.assistanceId, context);
+        assistanceService.endAssistance(this.assistanceId, context);
     }
 
     @Override
-    public IAssistanceStageExecution executionOfBeginStage(IContext context) {
+    public void begin(IActionService actionService, IContext context) {
         final ActivateMicrophone.ActionArgs microphoneActivationArgs = ActivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-        return (actionService) -> {
-            this.activateMicrophone.submitCall(this.actionService, microphoneActivationArgs);
-        };
+        this.activateMicrophone.submitCall(actionService, microphoneActivationArgs);
     }
 
     @Override
-    public IAssistanceStageExecution executionOfEndStage(IContext context) {
-        return (actionService) -> {
-            final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
-                    context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
-                    context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-            Path recordedAudio = this.deactivateMicrophone.submitCall(this.actionService, microphoneDeactivationArgs);
+    public void end(IActionService actionService, IContext context) {
+        final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
+                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
+                context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
+        Path recordedAudio = this.deactivateMicrophone.submitCall(actionService, microphoneDeactivationArgs);
 
-            final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
-            ITranscript transcript = this.speechToText.submitCall(this.actionService, speechToTextArgs);
+        final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
+        ITranscript transcript = this.speechToText.submitCall(actionService, speechToTextArgs);
 
-            final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
-                    context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
-                    transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
-            this.uploadData.submitCall(this.actionService, uploadDataArgs);
+        final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
+                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
+                transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
+        this.uploadData.submitCall(actionService, uploadDataArgs);
 
-            // TODO: Delete temp file
-            //Files.deleteIfExists(recordedAudio);
-        };
+        // TODO: Delete temp file
+        //Files.deleteIfExists(recordedAudio);
     }
 
     @Override
-    public IAssistanceStageExecution executionOfUpdateStage(IContext context) {
+    public void update(IActionService actionService, IContext context) {
         // TODO: Implementation
-        return (actionService) -> {};
     }
 
     // TODO: Which annotation can be removed?
