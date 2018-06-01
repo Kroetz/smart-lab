@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages={
-		"de.qaware.smartlabcore",
-		"de.qaware.smartlabdelegate",
-		"de.qaware.smartlabaction"})
+@SpringBootApplication(scanBasePackageClasses = {
+		de.qaware.smartlabcore.ComponentScanMarker.class,
+		de.qaware.smartlabdelegate.ComponentScanMarker.class,
+		de.qaware.smartlabaction.ComponentScanMarker.class})
 public class SmartLabDelegateMicroserviceApplication {
 
 	public static void main(String[] args) {

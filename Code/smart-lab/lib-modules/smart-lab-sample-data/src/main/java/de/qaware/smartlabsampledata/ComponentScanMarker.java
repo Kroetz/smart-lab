@@ -1,3 +1,3 @@
-package de.qaware.smartlabcore.exception;
+package de.qaware.smartlabsampledata;
 
 public interface ComponentScanMarker { }

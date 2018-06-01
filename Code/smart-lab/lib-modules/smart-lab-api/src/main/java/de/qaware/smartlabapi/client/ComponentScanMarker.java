@@ -1,3 +1,3 @@
-package de.qaware.smartlabcore.result;
+package de.qaware.smartlabapi.client;
 
 public interface ComponentScanMarker { }

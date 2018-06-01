@@ -4,22 +4,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients(basePackages = {
-		"de.qaware.smartlabapi.client",
-		"de.qaware.smartlabaction.action.external"})
-@SpringBootApplication(scanBasePackages={
-		"de.qaware.smartlabcore",
-		"de.qaware.smartlabapi",
-		"de.qaware.smartlabmeeting",
-		"de.qaware.smartlabroom",
-		"de.qaware.smartlabdevice",
-		"de.qaware.smartlabworkgroup",
-		"de.qaware.smartlabperson",
-		"de.qaware.smartlabtrigger",
-		"de.qaware.smartlabassistance",
-		"de.qaware.smartlabaction",
-		"de.qaware.smartlabsampledata",
-		"de.qaware.smartlabmonolith"})
+@EnableFeignClients(basePackageClasses = {
+		de.qaware.smartlabapi.client.ComponentScanMarker.class,
+		de.qaware.smartlabaction.action.external.ComponentScanMarker.class})
+@SpringBootApplication(scanBasePackageClasses = {
+		de.qaware.smartlabcore.ComponentScanMarker.class,
+		de.qaware.smartlabapi.ComponentScanMarker.class,
+		de.qaware.smartlabmeeting.ComponentScanMarker.class,
+		de.qaware.smartlabroom.ComponentScanMarker.class,
+		de.qaware.smartlabdevice.ComponentScanMarker.class,
+		de.qaware.smartlabworkgroup.ComponentScanMarker.class,
+		de.qaware.smartlabperson.ComponentScanMarker.class,
+		de.qaware.smartlabtrigger.ComponentScanMarker.class,
+		de.qaware.smartlabassistance.ComponentScanMarker.class,
+		de.qaware.smartlabaction.ComponentScanMarker.class,
+		de.qaware.smartlabsampledata.ComponentScanMarker.class,
+		de.qaware.smartlabmonolith.ComponentScanMarker.class})
 public class SmartLabMonolithApplication {
 
 	public static void main(String[] args) {
