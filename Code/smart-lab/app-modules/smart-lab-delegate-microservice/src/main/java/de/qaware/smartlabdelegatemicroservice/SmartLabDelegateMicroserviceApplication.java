@@ -6,9 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages={
+		"de.qaware.smartlabcore",
 		"de.qaware.smartlabdelegate",
-		"de.qaware.smartlabcommons",
-		"de.qaware.smartlabcore.generic",
 		"de.qaware.smartlabaction"})
 public class SmartLabDelegateMicroserviceApplication {
 

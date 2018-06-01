@@ -2,11 +2,11 @@ package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.IAssistanceExecutable;
-import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.data.generic.IResolver;
-import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.exception.InsufficientContextException;
-import de.qaware.smartlabcommons.exception.UnknownAssistanceException;
+import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

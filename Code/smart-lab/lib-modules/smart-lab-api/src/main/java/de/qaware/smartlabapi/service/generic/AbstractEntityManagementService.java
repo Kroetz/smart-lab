@@ -1,10 +1,10 @@
 package de.qaware.smartlabapi.service.generic;
 
 import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
-import de.qaware.smartlabcommons.data.generic.IEntity;
-import de.qaware.smartlabcommons.exception.EntityNotFoundException;
-import de.qaware.smartlabcommons.exception.MeetingConflictException;
-import de.qaware.smartlabcommons.exception.UnknownErrorException;
+import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.exception.EntityNotFoundException;
+import de.qaware.smartlabcore.exception.MeetingConflictException;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
 

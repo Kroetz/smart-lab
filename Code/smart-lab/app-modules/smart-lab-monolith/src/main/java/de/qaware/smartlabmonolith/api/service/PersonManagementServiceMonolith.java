@@ -1,8 +1,8 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.person.IPersonManagementService;
-import de.qaware.smartlabcommons.data.person.IPerson;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabperson.controller.PersonManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

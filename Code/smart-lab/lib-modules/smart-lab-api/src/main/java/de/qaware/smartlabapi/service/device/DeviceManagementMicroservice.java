@@ -2,8 +2,8 @@ package de.qaware.smartlabapi.service.device;
 
 import de.qaware.smartlabapi.client.IDeviceManagementApiClient;
 import de.qaware.smartlabapi.service.generic.AbstractEntityManagementService;
-import de.qaware.smartlabcommons.data.device.entity.IDevice;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 

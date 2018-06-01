@@ -1,8 +1,8 @@
 package de.qaware.smartlabapi.client;
 
 import de.qaware.smartlabapi.ActionApiConstants;
-import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.data.action.generic.IActionArgs;
+import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -6,10 +6,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients(basePackages = {
 		"de.qaware.smartlabapi.client",
-		"de.qaware.smartlabcommons.api.external"})
+		"de.qaware.smartlabaction.action.external"})
 @SpringBootApplication(scanBasePackages={
-		"de.qaware.smartlabmonolith",
-		"de.qaware.smartlabcommons",
 		"de.qaware.smartlabcore",
 		"de.qaware.smartlabapi",
 		"de.qaware.smartlabmeeting",
@@ -20,7 +18,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 		"de.qaware.smartlabtrigger",
 		"de.qaware.smartlabassistance",
 		"de.qaware.smartlabaction",
-		"de.qaware.smartlabsampledata"})
+		"de.qaware.smartlabsampledata",
+		"de.qaware.smartlabmonolith"})
 public class SmartLabMonolithApplication {
 
 	public static void main(String[] args) {

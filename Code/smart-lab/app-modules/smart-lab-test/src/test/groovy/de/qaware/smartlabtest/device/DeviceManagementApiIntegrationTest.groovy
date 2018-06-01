@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.device
 
 import de.qaware.smartlabapi.service.device.IDeviceManagementService
-import de.qaware.smartlabcommons.data.device.entity.IDevice
+import de.qaware.smartlabcore.data.device.entity.IDevice
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory

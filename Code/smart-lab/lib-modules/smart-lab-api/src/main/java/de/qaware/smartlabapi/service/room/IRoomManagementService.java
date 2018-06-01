@@ -1,8 +1,8 @@
 package de.qaware.smartlabapi.service.room;
 
 import de.qaware.smartlabapi.service.generic.IEntityManagementService;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.IRoom;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.room.IRoom;
 
 import java.time.Duration;
 import java.util.Set;

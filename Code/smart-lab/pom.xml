@@ -50,7 +50,6 @@
 		<module>lib-modules/smart-lab-room</module>
 		<module>lib-modules/smart-lab-trigger</module>
 		<module>lib-modules/smart-lab-workgroup</module>
-		<module>lib-modules/smart-lab-commons</module>
 		<module>lib-modules/smart-lab-core</module>
 		<module>lib-modules/smart-lab-sample-data</module>
         <module>lib-modules/smart-lab-api</module>

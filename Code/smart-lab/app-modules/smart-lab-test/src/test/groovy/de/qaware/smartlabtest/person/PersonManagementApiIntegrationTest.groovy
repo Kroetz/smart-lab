@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.person
 
 import de.qaware.smartlabapi.service.person.IPersonManagementService
-import de.qaware.smartlabcommons.data.person.IPerson
+import de.qaware.smartlabcore.data.person.IPerson
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory

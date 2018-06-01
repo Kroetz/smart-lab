@@ -8,10 +8,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "de.qaware.smartlabapi.client")
 @SpringBootApplication(scanBasePackages={
-		"de.qaware.smartlabmeeting",
-		"de.qaware.smartlabcommons",
-		"de.qaware.smartlabapi",
 		"de.qaware.smartlabcore.generic",
+		"de.qaware.smartlabapi",
+		"de.qaware.smartlabmeeting",
 		"de.qaware.smartlabsampledata"})
 public class SmartLabMeetingMicroserviceApplication {
 

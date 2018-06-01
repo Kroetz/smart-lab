@@ -1,10 +1,10 @@
 package de.qaware.smartlabdelegate.business;
 
 import de.qaware.smartlabaction.action.generic.IActionExecutable;
-import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcommons.data.generic.IResolver;
-import de.qaware.smartlabcommons.exception.UnknownActionException;
+import de.qaware.smartlabcore.data.action.generic.IActionArgs;
+import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.exception.UnknownActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

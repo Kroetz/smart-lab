@@ -1,9 +1,9 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabroom.controller.RoomManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

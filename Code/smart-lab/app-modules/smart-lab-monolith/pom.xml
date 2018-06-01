@@ -12,7 +12,6 @@
 	<description>Module of the Smart-Lab project that runs the system as a monolith</description>
 
 	<properties>
-		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
 		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
 		<smart-lab-meeting.version>0.0.1-SNAPSHOT</smart-lab-meeting.version>
 		<smart-lab-room.version>0.0.1-SNAPSHOT</smart-lab-room.version>
@@ -36,12 +35,6 @@
 	</parent>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-commons</artifactId>
-			<version>${smart-lab-commons.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>de.qaware</groupId>

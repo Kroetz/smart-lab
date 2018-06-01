@@ -12,10 +12,11 @@
     <description>Module of the Smart-Lab project that executes the actions assistances are composed of</description>
 
     <properties>
-        <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
         <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
         <smart-lab-api.version>0.0.1-SNAPSHOT</smart-lab-api.version>
         <smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
+        <jcabi-github.version>0.39</jcabi-github.version>
+        <speech-to-text.version>5.5.0</speech-to-text.version>
     </properties>
 
     <parent>
@@ -26,12 +27,6 @@
     </parent>
 
     <dependencies>
-
-        <dependency>
-            <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-commons</artifactId>
-            <version>${smart-lab-commons.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>
@@ -49,6 +44,19 @@
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-test-dependencies</artifactId>
             <version>${smart-lab-test-dependencies.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-github</artifactId>
+            <version>${jcabi-github.version}</version>
+            <classifier>jar-with-dependencies</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
+            <artifactId>speech-to-text</artifactId>
+            <version>${speech-to-text.version}</version>
         </dependency>
 
     </dependencies>

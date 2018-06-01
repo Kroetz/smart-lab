@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.client;
 
 import de.qaware.smartlabapi.DeviceManagementApiConstants;
 import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
-import de.qaware.smartlabcommons.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

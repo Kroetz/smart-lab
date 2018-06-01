@@ -2,9 +2,9 @@ package de.qaware.smartlabassistance.controller;
 
 import de.qaware.smartlabapi.AssistanceApiConstants;
 import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
-import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.exception.InsufficientContextException;
+import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

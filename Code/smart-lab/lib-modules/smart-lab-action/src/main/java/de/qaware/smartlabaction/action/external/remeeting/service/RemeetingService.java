@@ -1,9 +1,9 @@
 package de.qaware.smartlabaction.action.external.remeeting.service;
 
 import de.qaware.smartlabaction.action.external.remeeting.client.IRemeetingApiClient;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
-import de.qaware.smartlabcommons.exception.ServiceFailedException;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcore.exception.ServiceFailedException;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

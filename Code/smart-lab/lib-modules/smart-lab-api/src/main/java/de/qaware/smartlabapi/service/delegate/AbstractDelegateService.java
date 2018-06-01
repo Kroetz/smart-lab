@@ -1,9 +1,9 @@
 package de.qaware.smartlabapi.service.delegate;
 
 import de.qaware.smartlabapi.client.IDelegateApiClient;
-import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcommons.exception.UnknownErrorException;
+import de.qaware.smartlabcore.data.action.generic.IActionArgs;
+import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
 import feign.Client;
 import feign.FeignException;
 import feign.codec.Decoder;

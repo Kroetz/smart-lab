@@ -12,7 +12,6 @@
 	<description>Module of the Smart-Lab project that runs the action microservice</description>
 
 	<properties>
-		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
 		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
 		<smart-lab-action.version>0.0.1-SNAPSHOT</smart-lab-action.version>
 		<smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
@@ -28,12 +27,6 @@
 	</parent>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-commons</artifactId>
-			<version>${smart-lab-commons.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>de.qaware</groupId>

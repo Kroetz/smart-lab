@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.delegate;
 
 import de.qaware.smartlabapi.client.IDelegateApiClient;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;

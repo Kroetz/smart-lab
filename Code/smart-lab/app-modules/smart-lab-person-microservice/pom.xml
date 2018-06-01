@@ -12,7 +12,6 @@
 	<description>Module of the Smart-Lab project that runs the person microservice</description>
 
 	<properties>
-		<smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
 		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
 		<smart-lab-person.version>0.0.1-SNAPSHOT</smart-lab-person.version>
 		<smart-lab-sample-data.version>0.0.1-SNAPSHOT</smart-lab-sample-data.version>
@@ -29,12 +28,6 @@
 	</parent>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-commons</artifactId>
-			<version>${smart-lab-commons.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>de.qaware</groupId>

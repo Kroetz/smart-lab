@@ -1,6 +1,6 @@
 package de.qaware.smartlabsampledata.provider;
 
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 

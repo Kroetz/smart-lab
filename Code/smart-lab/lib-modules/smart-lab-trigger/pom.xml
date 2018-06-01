@@ -12,7 +12,6 @@
     <description>Module of the Smart-Lab project that receives and processes triggers</description>
 
     <properties>
-        <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
         <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
         <smart-lab-api.version>0.0.1-SNAPSHOT</smart-lab-api.version>
         <smart-lab-assistance.version>0.0.1-SNAPSHOT</smart-lab-assistance.version>
@@ -27,12 +26,6 @@
     </parent>
 
     <dependencies>
-
-        <dependency>
-            <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-commons</artifactId>
-            <version>${smart-lab-commons.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>

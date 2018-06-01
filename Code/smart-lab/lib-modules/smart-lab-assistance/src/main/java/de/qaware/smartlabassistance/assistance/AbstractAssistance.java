@@ -2,10 +2,10 @@ package de.qaware.smartlabassistance.assistance;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
 import de.qaware.smartlabaction.action.generic.IActionExecutable;
-import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.data.generic.IResolver;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.exception.InsufficientContextException;
+import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

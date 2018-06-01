@@ -2,8 +2,8 @@ package de.qaware.smartlabaction.controller;
 
 import de.qaware.smartlabaction.business.IActionBusinessLogic;
 import de.qaware.smartlabapi.ActionApiConstants;
-import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.data.action.generic.IActionArgs;
+import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

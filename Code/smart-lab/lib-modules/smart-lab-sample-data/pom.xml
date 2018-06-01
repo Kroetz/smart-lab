@@ -12,7 +12,6 @@
     <description>Sample data for the modules of the Smart-Lab project</description>
 
     <properties>
-        <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
         <smart-lab-assistance.version>0.0.1-SNAPSHOT</smart-lab-assistance.version>
         <smart-lab-action.version>0.0.1-SNAPSHOT</smart-lab-action.version>
     </properties>
@@ -25,12 +24,6 @@
     </parent>
 
     <dependencies>
-
-        <dependency>
-            <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-commons</artifactId>
-            <version>${smart-lab-commons.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>

@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.client;
 
 import de.qaware.smartlabapi.AssistanceApiConstants;
-import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IContext;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -12,7 +12,7 @@
     <description>Module of the Smart-Lab project that contains the components needed to communicate with all parts of the system</description>
 
     <properties>
-        <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
+        <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
     </properties>
 
     <parent>
@@ -26,8 +26,8 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-commons</artifactId>
-            <version>${smart-lab-commons.version}</version>
+            <artifactId>smart-lab-core</artifactId>
+            <version>${smart-lab-core.version}</version>
         </dependency>
 
     </dependencies>

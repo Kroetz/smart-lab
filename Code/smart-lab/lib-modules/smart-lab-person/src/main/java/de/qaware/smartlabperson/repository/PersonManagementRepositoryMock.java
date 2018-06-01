@@ -1,6 +1,6 @@
 package de.qaware.smartlabperson.repository;
 
-import de.qaware.smartlabcommons.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;

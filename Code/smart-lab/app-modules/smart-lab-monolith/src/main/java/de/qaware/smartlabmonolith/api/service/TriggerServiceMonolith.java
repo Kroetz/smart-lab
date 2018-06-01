@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.trigger.ITriggerService;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

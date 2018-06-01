@@ -1,9 +1,9 @@
 package de.qaware.smartlabapi.service.assistance;
 
 import de.qaware.smartlabapi.client.IAssistanceApiClient;
-import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

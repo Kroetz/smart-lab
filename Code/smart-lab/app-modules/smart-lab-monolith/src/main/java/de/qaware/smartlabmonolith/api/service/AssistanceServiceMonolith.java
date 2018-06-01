@@ -2,8 +2,8 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
-import de.qaware.smartlabcommons.data.context.IContext;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 

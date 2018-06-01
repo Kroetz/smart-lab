@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.generic.IEntityManagementService;
-import de.qaware.smartlabcommons.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 
 import java.util.Set;

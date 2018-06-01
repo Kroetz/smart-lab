@@ -1,11 +1,11 @@
 package de.qaware.smartlabaction.action.external.watson.speechtotext;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassage;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlabcommons.miscellaneous.StartedDuration;
+import de.qaware.smartlabcore.data.action.speechtotext.ITextPassage;
+import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlabcore.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;

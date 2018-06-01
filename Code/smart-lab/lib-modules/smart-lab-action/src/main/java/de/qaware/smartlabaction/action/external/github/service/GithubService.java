@@ -8,8 +8,8 @@ import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
 import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabcommons.data.workgroup.IKnowledgeBaseInfo;
-import de.qaware.smartlabcommons.exception.ServiceFailedException;
+import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabcore.exception.ServiceFailedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

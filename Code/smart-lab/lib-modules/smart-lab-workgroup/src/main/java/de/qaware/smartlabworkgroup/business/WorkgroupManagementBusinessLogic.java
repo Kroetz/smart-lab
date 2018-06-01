@@ -1,8 +1,8 @@
 package de.qaware.smartlabworkgroup.business;
 
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcommons.result.ExtensionResult;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabworkgroup.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package de.qaware.smartlabmeeting.repository;
 
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.result.*;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;

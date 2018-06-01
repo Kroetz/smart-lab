@@ -1,8 +1,8 @@
 package de.qaware.smartlabassistance.assistance;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
-import de.qaware.smartlabcommons.data.assistance.IAssistance;
-import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcore.data.assistance.IAssistance;
+import de.qaware.smartlabcore.data.context.IContext;
 
 public interface IAssistanceTriggerable extends IAssistance {
 

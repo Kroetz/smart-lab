@@ -1,6 +1,6 @@
 package de.qaware.smartlabperson.business;
 
-import de.qaware.smartlabcommons.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabperson.repository.IPersonManagementRepository;
 import lombok.extern.slf4j.Slf4j;

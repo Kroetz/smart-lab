@@ -1,10 +1,10 @@
 package de.qaware.smartlabapi.service.action;
 
 import de.qaware.smartlabapi.client.IActionApiClient;
-import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
-import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.action.generic.IActionArgs;
+import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;

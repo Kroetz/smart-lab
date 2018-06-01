@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance;
 
-import de.qaware.smartlabcommons.data.generic.AbstractResolver;
+import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

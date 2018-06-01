@@ -1,8 +1,8 @@
 package de.qaware.smartlabapi.service.trigger;
 
 import de.qaware.smartlabapi.client.ITriggerApiClient;
-import de.qaware.smartlabcommons.exception.UnknownErrorException;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import feign.RetryableException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

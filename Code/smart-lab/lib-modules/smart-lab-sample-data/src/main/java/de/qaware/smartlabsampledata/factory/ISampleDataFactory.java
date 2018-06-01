@@ -1,10 +1,10 @@
 package de.qaware.smartlabsampledata.factory;
 
-import de.qaware.smartlabcommons.data.device.entity.IDevice;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.person.IPerson;
-import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 
 import java.util.List;
 import java.util.Map;

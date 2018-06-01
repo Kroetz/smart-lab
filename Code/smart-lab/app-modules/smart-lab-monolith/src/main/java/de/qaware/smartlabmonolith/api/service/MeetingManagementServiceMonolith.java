@@ -1,8 +1,8 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

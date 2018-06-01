@@ -2,9 +2,9 @@ package de.qaware.smartlabapi.service.meeting;
 
 import de.qaware.smartlabapi.client.IMeetingManagementApiClient;
 import de.qaware.smartlabapi.service.generic.AbstractEntityManagementService;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.exception.*;
-import de.qaware.smartlabcommons.miscellaneous.Property;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.exception.*;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;

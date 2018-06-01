@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.generic.result;
 
-import de.qaware.smartlabcommons.data.action.speechtotext.ITranscript;
+import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

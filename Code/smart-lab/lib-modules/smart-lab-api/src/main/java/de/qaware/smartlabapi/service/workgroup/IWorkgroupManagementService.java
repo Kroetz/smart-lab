@@ -1,8 +1,8 @@
 package de.qaware.smartlabapi.service.workgroup;
 
 import de.qaware.smartlabapi.service.generic.IEntityManagementService;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 
 import java.time.Duration;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.assistance;
 
-import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IContext;
 
 public interface IAssistanceService {
 

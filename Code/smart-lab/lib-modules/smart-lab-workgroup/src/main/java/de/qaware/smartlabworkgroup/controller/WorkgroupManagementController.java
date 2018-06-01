@@ -1,8 +1,8 @@
 package de.qaware.smartlabworkgroup.controller;
 
 import de.qaware.smartlabapi.WorkgroupManagementApiConstants;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabworkgroup.business.IWorkgroupManagementBusinessLogic;

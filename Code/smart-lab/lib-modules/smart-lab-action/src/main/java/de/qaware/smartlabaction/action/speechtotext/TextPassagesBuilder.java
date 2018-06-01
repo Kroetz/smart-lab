@@ -1,8 +1,8 @@
 package de.qaware.smartlabaction.action.speechtotext;
 
-import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassage;
-import de.qaware.smartlabcommons.data.action.speechtotext.ITextPassagesBuilder;
-import de.qaware.smartlabcommons.miscellaneous.StartedDuration;
+import de.qaware.smartlabcore.data.action.speechtotext.ITextPassage;
+import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlabcore.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

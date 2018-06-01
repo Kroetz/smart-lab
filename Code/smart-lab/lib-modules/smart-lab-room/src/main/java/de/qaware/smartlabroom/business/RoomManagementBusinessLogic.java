@@ -2,10 +2,10 @@ package de.qaware.smartlabroom.business;
 
 import de.qaware.smartlabapi.RoomManagementApiConstants;
 import de.qaware.smartlabapi.TriggerApiConstants;
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.data.room.IRoom;
-import de.qaware.smartlabcommons.miscellaneous.ApplicationPropertyNames;
-import de.qaware.smartlabcommons.result.ExtensionResult;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.miscellaneous.ApplicationPropertyNames;
+import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabroom.repository.IRoomManagementRepository;
 import lombok.extern.slf4j.Slf4j;

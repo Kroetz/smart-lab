@@ -1,9 +1,9 @@
 package de.qaware.smartlabmeeting.business;
 
-import de.qaware.smartlabcommons.data.meeting.IMeeting;
-import de.qaware.smartlabcommons.result.ExtensionResult;
-import de.qaware.smartlabcommons.result.ShiftResult;
-import de.qaware.smartlabcommons.result.ShorteningResult;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.result.ExtensionResult;
+import de.qaware.smartlabcore.result.ShiftResult;
+import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabcore.generic.business.IEntityManagementBusinessLogic;
 
 import java.time.Duration;

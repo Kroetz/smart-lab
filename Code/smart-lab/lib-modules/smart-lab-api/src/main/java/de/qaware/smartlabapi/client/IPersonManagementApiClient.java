@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.client;
 
 import de.qaware.smartlabapi.PersonManagementApiConstants;
 import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
-import de.qaware.smartlabcommons.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.IPerson;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

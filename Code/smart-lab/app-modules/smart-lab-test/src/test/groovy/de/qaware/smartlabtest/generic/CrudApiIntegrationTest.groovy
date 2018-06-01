@@ -1,9 +1,9 @@
 package de.qaware.smartlabtest.generic
 
 import de.qaware.smartlabapi.service.generic.IEntityManagementService
-import de.qaware.smartlabcommons.data.generic.IEntity
-import de.qaware.smartlabcommons.exception.EntityNotFoundException
-import de.qaware.smartlabcommons.exception.MeetingConflictException
+import de.qaware.smartlabcore.data.generic.IEntity
+import de.qaware.smartlabcore.exception.EntityNotFoundException
+import de.qaware.smartlabcore.exception.MeetingConflictException
 import spock.lang.Specification
 
 import java.util.stream.Collectors
