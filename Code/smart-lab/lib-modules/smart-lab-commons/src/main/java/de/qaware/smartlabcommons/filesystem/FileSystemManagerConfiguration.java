@@ -37,9 +37,18 @@ public class FileSystemManagerConfiguration {
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
 
+        private static final Path DEFAULT_BASE_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "smart-lab");
+        private static final String DEFAULT_FILE_NAME_PREFIX = "file";
+        private static final String DEFAULT_FILE_NAME_SUFFIX = ".tmp";
         private Path baseDir;
         private String fileNamePrefix;
         private String fileNameSuffix;
+
+        public TempFileProperties() {
+            this.baseDir = DEFAULT_BASE_DIR;
+            this.fileNamePrefix = DEFAULT_FILE_NAME_PREFIX;
+            this.fileNameSuffix = DEFAULT_FILE_NAME_SUFFIX;
+        }
 
         public Path getBaseDir() {
             return this.baseDir;
