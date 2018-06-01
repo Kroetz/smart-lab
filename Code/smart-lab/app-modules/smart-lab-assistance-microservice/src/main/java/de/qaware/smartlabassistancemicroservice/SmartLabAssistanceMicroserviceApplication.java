@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 		"de.qaware.smartlabassistance",
 		"de.qaware.smartlabcommons",
 		"de.qaware.smartlabapi",
+		"de.qaware.smartlabaction",
 		"de.qaware.smartlabcore.generic"})
 public class SmartLabAssistanceMicroserviceApplication {
 
