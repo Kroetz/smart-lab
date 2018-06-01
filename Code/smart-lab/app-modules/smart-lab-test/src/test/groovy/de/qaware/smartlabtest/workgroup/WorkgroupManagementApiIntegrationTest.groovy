@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
 import de.qaware.smartlabcore.exception.MeetingConflictException
-import de.qaware.smartlabmeeting.business.MeetingManagementBusinessLogic
+import de.qaware.smartlabcore.miscellaneous.Constants
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
@@ -324,7 +324,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWork
         meetingManagementService.create(meeting)
 
         and: "The extension of the meeting is invalid"
-        def extension = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION
+        def extension = Constants.MAXIMAL_MEETING_DURATION
 
         when: "The current meeting of the workgroup is extended"
         workgroupManagementService.extendCurrentMeeting(workgroupId, extension)

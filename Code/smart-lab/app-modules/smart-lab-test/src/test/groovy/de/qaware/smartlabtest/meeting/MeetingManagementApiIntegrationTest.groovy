@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
 import de.qaware.smartlabcore.exception.MeetingConflictException
 import de.qaware.smartlabcore.exception.MinimalDurationReachedException
-import de.qaware.smartlabmeeting.business.MeetingManagementBusinessLogic
+import de.qaware.smartlabcore.miscellaneous.Constants
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
@@ -182,7 +182,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
         meetingManagementService.create(meeting)
-        def extension = MeetingManagementBusinessLogic.MAXIMAL_MEETING_DURATION
+        def extension = Constants.MAXIMAL_MEETING_DURATION
 
         when: "The meeting is extended beyond the maximum"
         meetingManagementService.extendMeeting(meetingId, extension)
