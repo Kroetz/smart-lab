@@ -1,7 +1,7 @@
-package de.qaware.smartlabcommons.api.external.remeeting.client;
+package de.qaware.smartlabaction.action.external.remeeting.client;
 
-import de.qaware.smartlabcommons.api.external.remeeting.service.QueryResultResponse;
-import de.qaware.smartlabcommons.api.external.remeeting.service.SubmitJobResponse;
+import de.qaware.smartlabaction.action.external.remeeting.service.QueryResultResponse;
+import de.qaware.smartlabaction.action.external.remeeting.service.SubmitJobResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external.remeeting.service;
+package de.qaware.smartlabaction.action.external.remeeting.service;
 
 import de.qaware.smartlabcommons.data.action.speechtotext.ISpeechToTextService;
 

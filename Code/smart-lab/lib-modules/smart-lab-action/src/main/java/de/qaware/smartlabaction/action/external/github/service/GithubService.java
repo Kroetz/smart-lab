@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external.github.service;
+package de.qaware.smartlabaction.action.external.github.service;
 
 import com.jcabi.github.Github;
 import com.jcabi.github.Repo;
@@ -7,7 +7,7 @@ import com.jcabi.http.Request;
 import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
-import de.qaware.smartlabcommons.data.workgroup.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.data.workgroup.IKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.exception.ServiceFailedException;
 import lombok.extern.slf4j.Slf4j;

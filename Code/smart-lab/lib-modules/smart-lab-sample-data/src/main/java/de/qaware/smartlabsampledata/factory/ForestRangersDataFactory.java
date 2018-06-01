@@ -1,6 +1,7 @@
 package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
+import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.RoomUnlocking;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcommons.data.device.display.DummyDisplay;
@@ -14,7 +15,6 @@ import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.data.person.Person;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.data.room.Room;
-import de.qaware.smartlabcommons.data.workgroup.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcommons.data.workgroup.Workgroup;
 import de.qaware.smartlabcommons.miscellaneous.Constants;

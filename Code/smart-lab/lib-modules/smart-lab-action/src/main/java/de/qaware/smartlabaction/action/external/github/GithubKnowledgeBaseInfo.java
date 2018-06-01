@@ -1,7 +1,8 @@
-package de.qaware.smartlabcommons.data.workgroup;
+package de.qaware.smartlabaction.action.external.github;
 
 import com.jcabi.github.Coordinates;
-import de.qaware.smartlabcommons.api.external.github.service.GithubService;
+import de.qaware.smartlabaction.action.external.github.service.GithubService;
+import de.qaware.smartlabcommons.data.workgroup.IKnowledgeBaseInfo;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

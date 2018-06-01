@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external.watson.speechtotext;
+package de.qaware.smartlabaction.action.external.watson.speechtotext;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;

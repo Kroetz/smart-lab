@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external.watson.speechtotext;
+package de.qaware.smartlabaction.action.external.watson.speechtotext;
 
 import de.qaware.smartlabcommons.data.action.speechtotext.ISpeechToTextService;
 

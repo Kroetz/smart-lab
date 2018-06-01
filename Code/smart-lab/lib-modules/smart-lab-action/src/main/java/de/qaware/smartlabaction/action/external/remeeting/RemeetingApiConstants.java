@@ -1,4 +1,4 @@
-package de.qaware.smartlabcommons.api.external;
+package de.qaware.smartlabaction.action.external.remeeting;
 
 public class RemeetingApiConstants {
 
