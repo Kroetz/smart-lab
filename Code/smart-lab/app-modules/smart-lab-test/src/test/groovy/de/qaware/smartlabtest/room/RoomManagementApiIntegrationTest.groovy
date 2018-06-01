@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.room
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService
-import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementService
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
+import de.qaware.smartlabapi.service.room.IRoomManagementService
 import de.qaware.smartlabcommons.data.meeting.IMeeting
 import de.qaware.smartlabcommons.data.room.IRoom
 import de.qaware.smartlabcommons.exception.EntityNotFoundException

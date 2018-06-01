@@ -1,6 +1,6 @@
 package de.qaware.smartlabtest.meeting
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
 import de.qaware.smartlabcommons.data.meeting.IMeeting
 import de.qaware.smartlabcommons.exception.EntityNotFoundException
 import de.qaware.smartlabcommons.exception.MaximalDurationReachedException

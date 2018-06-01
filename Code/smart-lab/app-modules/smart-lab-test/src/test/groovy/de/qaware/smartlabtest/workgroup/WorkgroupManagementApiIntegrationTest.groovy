@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.workgroup
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService
-import de.qaware.smartlabcommons.api.internal.service.workgroup.IWorkgroupManagementService
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
+import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService
 import de.qaware.smartlabcommons.data.meeting.IMeeting
 import de.qaware.smartlabcommons.data.workgroup.IWorkgroup
 import de.qaware.smartlabcommons.exception.EntityNotFoundException

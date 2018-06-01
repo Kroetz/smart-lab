@@ -1,7 +1,7 @@
 package de.qaware.smartlabaction.controller;
 
 import de.qaware.smartlabaction.business.IActionBusinessLogic;
-import de.qaware.smartlabcommons.api.internal.ActionApiConstants;
+import de.qaware.smartlabapi.ActionApiConstants;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package de.qaware.smartlabmeetingcleanuptriggermock;
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService;
-import de.qaware.smartlabcommons.api.internal.service.trigger.ITriggerService;
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
+import de.qaware.smartlabapi.service.trigger.ITriggerService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

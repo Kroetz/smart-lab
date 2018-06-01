@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@EnableFeignClients(basePackages = "de.qaware.smartlabcommons.api.internal.client")
+@EnableFeignClients(basePackages = "de.qaware.smartlabapi.client")
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabmeetingcleanuptriggermock",
-		"de.qaware.smartlabcommons"})
+		"de.qaware.smartlabcommons",
+		"de.qaware.smartlabapi"})
 public class SmartLabMeetingCleanUpTriggerMockApplication {
 
 	public static void main(String[] args) {

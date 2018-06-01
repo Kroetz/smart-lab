@@ -14,6 +14,7 @@
     <properties>
         <smart-lab-commons.version>0.0.1-SNAPSHOT</smart-lab-commons.version>
         <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
+        <smart-lab-api.version>0.0.1-SNAPSHOT</smart-lab-api.version>
         <smart-lab-assistance.version>0.0.1-SNAPSHOT</smart-lab-assistance.version>
         <smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
     </properties>
@@ -37,6 +38,12 @@
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-core</artifactId>
             <version>${smart-lab-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-api</artifactId>
+            <version>${smart-lab-api.version}</version>
         </dependency>
 
         <dependency>

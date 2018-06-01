@@ -1,6 +1,6 @@
 package de.qaware.smartlabdelegate.controller;
 
-import de.qaware.smartlabcommons.api.internal.DelegateApiConstants;
+import de.qaware.smartlabapi.DelegateApiConstants;
 import de.qaware.smartlabcommons.data.action.generic.IActionArgs;
 import de.qaware.smartlabcommons.data.action.generic.result.IActionResult;
 import de.qaware.smartlabdelegate.business.IDelegateBusinessLogic;

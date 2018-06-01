@@ -1,9 +1,7 @@
 package de.qaware.smartlabassistance.assistance;
 
-import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
-import de.qaware.smartlabcommons.data.action.generic.IActionExecutable;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceExecutable;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceTriggerable;
+import de.qaware.smartlabapi.service.assistance.IAssistanceService;
+import de.qaware.smartlabaction.action.generic.IActionExecutable;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.generic.IResolver;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;

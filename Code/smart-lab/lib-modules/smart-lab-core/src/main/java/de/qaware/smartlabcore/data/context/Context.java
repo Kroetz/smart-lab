@@ -1,12 +1,11 @@
 package de.qaware.smartlabcore.data.context;
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService;
-import de.qaware.smartlabcommons.api.internal.service.person.IPersonManagementService;
-import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementService;
-import de.qaware.smartlabcommons.api.internal.service.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
+import de.qaware.smartlabapi.service.person.IPersonManagementService;
+import de.qaware.smartlabapi.service.room.IRoomManagementService;
+import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcommons.data.assistance.IAssistance;
 import de.qaware.smartlabcommons.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceExecutable;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;

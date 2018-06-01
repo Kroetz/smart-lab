@@ -1,9 +1,9 @@
 package de.qaware.smartlabtrigger.business;
 
-import de.qaware.smartlabcommons.api.internal.service.assistance.IAssistanceService;
-import de.qaware.smartlabcommons.api.internal.service.room.IRoomManagementService;
-import de.qaware.smartlabcommons.api.internal.service.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlabcommons.data.assistance.IAssistanceTriggerable;
+import de.qaware.smartlabapi.service.assistance.IAssistanceService;
+import de.qaware.smartlabapi.service.room.IRoomManagementService;
+import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabassistance.assistance.IAssistanceTriggerable;
 import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.context.IContextFactory;
 import de.qaware.smartlabcommons.data.generic.IResolver;

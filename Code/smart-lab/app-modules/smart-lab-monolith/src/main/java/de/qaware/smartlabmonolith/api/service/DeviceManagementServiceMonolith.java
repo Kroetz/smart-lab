@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.internal.service.device.IDeviceManagementService;
+import de.qaware.smartlabapi.service.device.IDeviceManagementService;
 import de.qaware.smartlabcommons.data.device.entity.IDevice;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import de.qaware.smartlabdevice.controller.DeviceManagementController;

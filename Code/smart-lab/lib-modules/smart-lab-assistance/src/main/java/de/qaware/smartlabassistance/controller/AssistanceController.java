@@ -1,8 +1,8 @@
 package de.qaware.smartlabassistance.controller;
 
-import de.qaware.smartlabcommons.api.internal.AssistanceApiConstants;
-import de.qaware.smartlabcommons.data.context.IContext;
+import de.qaware.smartlabapi.AssistanceApiConstants;
 import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
+import de.qaware.smartlabcommons.data.context.IContext;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.internal.service.person.IPersonManagementService;
+import de.qaware.smartlabapi.service.person.IPersonManagementService;
 import de.qaware.smartlabcommons.data.person.IPerson;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import de.qaware.smartlabperson.controller.PersonManagementController;

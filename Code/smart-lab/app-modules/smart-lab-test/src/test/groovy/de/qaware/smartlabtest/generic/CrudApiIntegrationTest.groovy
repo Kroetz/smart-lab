@@ -1,6 +1,6 @@
 package de.qaware.smartlabtest.generic
 
-import de.qaware.smartlabcommons.api.internal.service.generic.IEntityManagementService
+import de.qaware.smartlabapi.service.generic.IEntityManagementService
 import de.qaware.smartlabcommons.data.generic.IEntity
 import de.qaware.smartlabcommons.exception.EntityNotFoundException
 import de.qaware.smartlabcommons.exception.MeetingConflictException

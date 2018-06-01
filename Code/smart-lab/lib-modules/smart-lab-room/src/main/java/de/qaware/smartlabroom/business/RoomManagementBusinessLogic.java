@@ -1,7 +1,7 @@
 package de.qaware.smartlabroom.business;
 
-import de.qaware.smartlabcommons.api.internal.RoomManagementApiConstants;
-import de.qaware.smartlabcommons.api.internal.TriggerApiConstants;
+import de.qaware.smartlabapi.RoomManagementApiConstants;
+import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.data.room.IRoom;
 import de.qaware.smartlabcommons.miscellaneous.ApplicationPropertyNames;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabcommons.api.internal.service.meeting.IMeetingManagementService;
+import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcommons.data.meeting.IMeeting;
 import de.qaware.smartlabcommons.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;

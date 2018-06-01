@@ -1,6 +1,6 @@
 package de.qaware.smartlabtest.person
 
-import de.qaware.smartlabcommons.api.internal.service.person.IPersonManagementService
+import de.qaware.smartlabapi.service.person.IPersonManagementService
 import de.qaware.smartlabcommons.data.person.IPerson
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
