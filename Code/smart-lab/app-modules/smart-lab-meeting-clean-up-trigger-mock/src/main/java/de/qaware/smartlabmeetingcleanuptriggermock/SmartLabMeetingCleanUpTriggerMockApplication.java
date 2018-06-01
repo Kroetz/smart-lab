@@ -15,7 +15,6 @@ import java.util.List;
 @EnableFeignClients(basePackages = "de.qaware.smartlabapi.client")
 @SpringBootApplication(scanBasePackages={
 		"de.qaware.smartlabmeetingcleanuptriggermock",
-		"de.qaware.smartlabcommons",
 		"de.qaware.smartlabapi"})
 public class SmartLabMeetingCleanUpTriggerMockApplication {
 
