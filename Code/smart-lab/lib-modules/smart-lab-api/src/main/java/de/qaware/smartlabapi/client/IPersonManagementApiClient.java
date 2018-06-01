@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @FeignClient(PersonManagementApiConstants.FEIGN_CLIENT_VALUE)
-@Component
 public interface IPersonManagementApiClient extends IEntityManagementApiClient<IPerson> {
 
     @Override

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @FeignClient(RoomManagementApiConstants.FEIGN_CLIENT_VALUE)
-@Component
 public interface IRoomManagementApiClient extends IEntityManagementApiClient<IRoom> {
 
     @Override

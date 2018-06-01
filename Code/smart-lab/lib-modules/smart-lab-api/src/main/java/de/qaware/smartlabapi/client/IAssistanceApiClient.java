@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(AssistanceApiConstants.FEIGN_CLIENT_VALUE)
-@Component
 public interface IAssistanceApiClient {
 
     @PostMapping(

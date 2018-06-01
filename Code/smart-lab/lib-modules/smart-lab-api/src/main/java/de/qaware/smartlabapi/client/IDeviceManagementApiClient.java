@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @FeignClient(DeviceManagementApiConstants.FEIGN_CLIENT_VALUE)
-@Component
 public interface IDeviceManagementApiClient extends IEntityManagementApiClient<IDevice> {
 
     @Override

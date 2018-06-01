@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(ActionApiConstants.FEIGN_CLIENT_VALUE)
-@Component  // TODO: Remove annotation and suppress resulting autowiring warnings
 public interface IActionApiClient {
 
     @PostMapping(

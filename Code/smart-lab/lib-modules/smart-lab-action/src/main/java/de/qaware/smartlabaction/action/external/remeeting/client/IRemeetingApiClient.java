@@ -5,11 +5,9 @@ import de.qaware.smartlabaction.action.external.remeeting.service.SubmitJobRespo
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "remeeting", url = "https://api.remeeting.com/asr/v1/")
-@Component  // TODO: Remove annotation and suppress resulting autowiring warnings
 public interface IRemeetingApiClient {
 
     // TODO: string literals
