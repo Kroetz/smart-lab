@@ -1,5 +1,7 @@
 package de.qaware.smartlabtrigger.business;
 
+import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlabcore.data.job.JobStatus;
 import lombok.Data;
 import org.springframework.lang.Nullable;
 
@@ -10,7 +12,7 @@ import java.util.Optional;
 
 @Data
 @Entity
-public class JobInfo {
+public class JobInfo implements IJobInfo {
 
     // TODO: String literals
 

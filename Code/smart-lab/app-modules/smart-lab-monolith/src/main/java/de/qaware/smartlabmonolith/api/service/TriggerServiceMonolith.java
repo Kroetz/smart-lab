@@ -1,6 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.trigger.ITriggerService;
+import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,83 +23,82 @@ public class TriggerServiceMonolith implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByRoomId(String roomId) {
-        this.triggerController.setUpCurrentMeetingByRoomId(roomId, null);
+    public IJobInfo setUpCurrentMeetingByRoomId(String roomId) {
+        return this.triggerController.setUpCurrentMeetingByRoomId(roomId, null).getBody();
     }
 
     @Override
-    public void setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
-        this.triggerController.setUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+    public IJobInfo setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        return this.triggerController.setUpCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void setUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId, null);
+    public IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId) {
+        return this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
     }
 
     @Override
-    public void setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
-        this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+    public IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        return this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void cleanUpCurrentMeetingByRoomId(String roomId) {
-        this.triggerController.cleanUpCurrentMeetingByRoomId(roomId, null);
+    public IJobInfo cleanUpCurrentMeetingByRoomId(String roomId) {
+        return this.triggerController.cleanUpCurrentMeetingByRoomId(roomId, null).getBody();
     }
 
     @Override
-    public void cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
-        this.triggerController.cleanUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
-
+    public IJobInfo cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        return this.triggerController.cleanUpCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId, null);
+    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
+        return this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
     }
 
     @Override
-    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
-        this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        return this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void startCurrentMeetingByRoomId(String roomId) {
-        this.triggerController.startCurrentMeetingByRoomId(roomId, null);
+    public IJobInfo startCurrentMeetingByRoomId(String roomId) {
+        return this.triggerController.startCurrentMeetingByRoomId(roomId, null).getBody();
     }
 
     @Override
-    public void startCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
-        this.triggerController.startCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+    public IJobInfo startCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        return this.triggerController.startCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void startCurrentMeetingByWorkgroupId(String workgroupId) {
-        this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId, null);
+    public IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId) {
+        return this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
     }
 
     @Override
-    public void startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
-        this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+    public IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        return this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void stopCurrentMeetingByRoomId(String roomId) {
-        this.triggerController.stopCurrentMeetingByRoomId(roomId, null);
+    public IJobInfo stopCurrentMeetingByRoomId(String roomId) {
+        return this.triggerController.stopCurrentMeetingByRoomId(roomId, null).getBody();
     }
 
     @Override
-    public void stopCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
-        this.triggerController.stopCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+    public IJobInfo stopCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        return this.triggerController.stopCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
     }
 
     @Override
-    public void stopCurrentMeetingByWorkgroupId(String workgroupId) {
-        this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId, null);
+    public IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId) {
+        return this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
     }
 
     @Override
-    public void stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
-        this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+    public IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        return this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
     }
 }

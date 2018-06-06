@@ -1,5 +1,6 @@
 package de.qaware.smartlabtrigger.business;
 
+import de.qaware.smartlabcore.data.job.JobStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;

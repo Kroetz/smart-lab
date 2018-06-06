@@ -1,6 +1,7 @@
 package de.qaware.smartlabtrigger.controller;
 
 import de.qaware.smartlabapi.TriggerApiConstants;
+import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,15 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<Void> setUpCurrentMeetingByRoomId(
+    public ResponseEntity<IJobInfo> setUpCurrentMeetingByRoomId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to set up the current meeting in the room with ID \"{}\"", roomId);
-        ResponseEntity<Void> response;
+        ResponseEntity<IJobInfo> response;
         try {
-            response = triggerBusinessLogic.setUpCurrentMeetingByRoomId(
+            response = ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -39,13 +40,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<Void> setUpCurrentMeetingByWorkgroupId(
+    public ResponseEntity<IJobInfo> setUpCurrentMeetingByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -53,13 +54,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<Void> cleanUpCurrentMeetingByRoomId(
+    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByRoomId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -67,13 +68,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<Void> cleanUpCurrentMeetingByWorkgroupId(
+    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -81,13 +82,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<Void> startCurrentMeetingByRoomId(
+    public ResponseEntity<IJobInfo> startCurrentMeetingByRoomId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.startCurrentMeetingByRoomId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -95,13 +96,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<Void> startCurrentMeetingByWorkgroupId(
+    public ResponseEntity<IJobInfo> startCurrentMeetingByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -109,13 +110,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<Void> stopCurrentMeetingByRoomId(
+    public ResponseEntity<IJobInfo> stopCurrentMeetingByRoomId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.stopCurrentMeetingByRoomId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -123,13 +124,13 @@ public class TriggerController {
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<Void> stopCurrentMeetingByWorkgroupId(
+    public ResponseEntity<IJobInfo> stopCurrentMeetingByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            return triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null).toResponseEntity();
+                    callbackUrl != null? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);

@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.business;
+package de.qaware.smartlabcore.data.job;
 
 public enum JobStatus {
     PENDING,

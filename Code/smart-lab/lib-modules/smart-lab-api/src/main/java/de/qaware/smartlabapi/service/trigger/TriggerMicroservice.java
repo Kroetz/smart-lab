@@ -1,6 +1,7 @@
 package de.qaware.smartlabapi.service.trigger;
 
 import de.qaware.smartlabapi.client.ITriggerApiClient;
+import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
@@ -24,9 +25,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByRoomId(String roomId) {
+    public IJobInfo setUpCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, null);
+            return this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, null).getBody();
         }
         catch(Exception e) {
             throw e;
@@ -42,9 +43,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+    public IJobInfo setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+            return this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
         }
         catch(Exception e) {
             throw e;
@@ -52,9 +53,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByWorkgroupId(String workgroupId) {
+    public IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, null);
+            return this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -65,9 +66,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+    public IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+            return this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -78,9 +79,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void cleanUpCurrentMeetingByRoomId(String roomId) {
+    public IJobInfo cleanUpCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, null);
+            return this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -91,9 +92,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+    public IJobInfo cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+            return this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -104,9 +105,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
+    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, null);
+            return this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -117,9 +118,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+            return this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -130,9 +131,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByRoomId(String roomId) {
+    public IJobInfo startCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.startCurrentMeetingByRoomId(roomId, null);
+            return this.triggerApiClient.startCurrentMeetingByRoomId(roomId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -143,9 +144,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+    public IJobInfo startCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
         try {
-            this.triggerApiClient.startCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+            return this.triggerApiClient.startCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -156,9 +157,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByWorkgroupId(String workgroupId) {
+    public IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, null);
+            return this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -169,9 +170,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+    public IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
         try {
-            this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+            return this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -182,9 +183,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByRoomId(String roomId) {
+    public IJobInfo stopCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, null);
+            return this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -195,9 +196,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+    public IJobInfo stopCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+            return this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -208,9 +209,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByWorkgroupId(String workgroupId) {
+    public IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, null);
+            return this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -221,9 +222,9 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
-    public void stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+    public IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
+            return this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
