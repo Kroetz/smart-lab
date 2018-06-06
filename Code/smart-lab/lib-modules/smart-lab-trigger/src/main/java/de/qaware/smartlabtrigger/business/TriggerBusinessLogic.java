@@ -5,21 +5,18 @@ import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabassistance.assistance.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IContext;
-import de.qaware.smartlabcore.data.context.IContextFactory;
-import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
-import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import de.qaware.smartlabcore.result.CleanUpMeetingResult;
 import de.qaware.smartlabcore.result.SetUpMeetingResult;
 import de.qaware.smartlabcore.result.StartMeetingResult;
 import de.qaware.smartlabcore.result.StopMeetingResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.net.URL;
 import java.util.function.BiConsumer;
 
 @Service
@@ -29,162 +26,157 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     private final IAssistanceService assistanceService;
     private final IRoomManagementService roomManagementService;
     private final IWorkgroupManagementService workgroupManagementService;
-    private final IContextFactory contextFactory;
-    private final IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver;
+    private final ITriggerHandler asyncTriggerHandler;
+    private final IJobInfoBookKeeper jobInfoBookKeeper;
 
     public TriggerBusinessLogic(
             IAssistanceService assistanceService,
             IRoomManagementService roomManagementService,
             IWorkgroupManagementService workgroupManagementService,
-            IContextFactory contextFactory,
-            IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver) {
+            ITriggerHandler asyncTriggerHandler,
+            IJobInfoBookKeeper jobInfoBookKeeper) {
         this.assistanceService = assistanceService;
         this.roomManagementService = roomManagementService;
         this.workgroupManagementService = workgroupManagementService;
-        this.contextFactory = contextFactory;
-        this.assistanceTriggerableResolver = assistanceTriggerableResolver;
+        this.asyncTriggerHandler = asyncTriggerHandler;
+        this.jobInfoBookKeeper = jobInfoBookKeeper;
     }
 
     private void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter) {
-        Set<String> assistanceIds = meeting.getAssistanceIds();
-        for(String assistanceId : assistanceIds) {
-            triggerAssistance(assistanceId, meeting, triggerReactionGetter);
-        }
-    }
-
-    private void triggerAssistance(
-            String assistanceId,
-            IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter) {
-        log.info("Processing assistance with ID \"{}\"", assistanceId);
-        IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-        IContext context = this.contextFactory.ofMeetingAssistance(meeting, assistance);
-        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
-                assistance.getAssistanceId(),
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
-        triggerReactionGetter.accept(context, assistance);
-        log.info("Called assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
-                assistance.getAssistanceId(),
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            @Nullable URL callbackUrl) {
+        Long jobId = this.jobInfoBookKeeper.recordNewJob(JobInfo.of(callbackUrl)).getId();
+        this.asyncTriggerHandler.triggerAssistances(meeting, triggerReactionGetter, jobId);
     }
 
     @Override
-    public SetUpMeetingResult setUpMeeting(IMeeting meeting) {
+    public SetUpMeetingResult setUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
         log.info("Processing trigger to set up meeting {}", meeting.toString());
-        triggerAssistances(meeting, (context, assistance) -> assistance.reactOnTriggerSetUpMeeting(this.assistanceService, context));
+        triggerAssistances(
+                meeting,
+                (context, assistance) -> assistance.reactOnTriggerSetUpMeeting(this.assistanceService, context),
+                callbackUrl);
         log.info("Processed trigger to set up meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return SetUpMeetingResult.SUCCESS;
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeetingByRoomId(String roomId) {
-        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId));
+    public SetUpMeetingResult setUpCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeeting(IRoom room) {
-        return setUpCurrentMeetingByRoomId(room.getId());
+    public SetUpMeetingResult setUpCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
+        return setUpCurrentMeetingByRoomId(room.getId(), callbackUrl);
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        return setUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
+    public SetUpMeetingResult setUpCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+        return setUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
-    public SetUpMeetingResult setUpCurrentMeeting(IWorkgroup workgroup) {
-        return setUpCurrentMeetingByWorkgroupId(workgroup.getId());
+    public SetUpMeetingResult setUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return setUpCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting) {
+    public CleanUpMeetingResult cleanUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
         log.info("Processing trigger to clean up meeting {}", meeting.toString());
-        triggerAssistances(meeting, (context, assistance) -> assistance.reactOnTriggerCleanUpMeeting(this.assistanceService, context));
+        triggerAssistances(
+                meeting,
+                (context, assistance) -> assistance.reactOnTriggerCleanUpMeeting(this.assistanceService, context),
+                callbackUrl);
         log.info("Processed trigger to clean up meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return CleanUpMeetingResult.SUCCESS;
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeetingByRoomId(String roomId) {
-        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId));
+    public CleanUpMeetingResult cleanUpCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeeting(IRoom room) {
-        return cleanUpCurrentMeetingByRoomId(room.getId());
+    public CleanUpMeetingResult cleanUpCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
+        return cleanUpCurrentMeetingByRoomId(room.getId(), callbackUrl);
     }
 
     // TODO: Introduce "Clean up LAST meeting" since there is no "current meeting" after a meeting has ended
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
-        return cleanUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
+    public CleanUpMeetingResult cleanUpCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+        return cleanUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
-    public CleanUpMeetingResult cleanUpCurrentMeeting(IWorkgroup workgroup) {
-        return cleanUpCurrentMeetingByWorkgroupId(workgroup.getId());
+    public CleanUpMeetingResult cleanUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return cleanUpCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 
     @Override
-    public StartMeetingResult startMeeting(IMeeting meeting) {
+    public StartMeetingResult startMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
         log.info("Processing trigger to start meeting {}", meeting.toString());
-        triggerAssistances(meeting, (context, assistance) -> assistance.reactOnTriggerStartMeeting(this.assistanceService, context));
+        triggerAssistances(
+                meeting,
+                (context, assistance) -> assistance.reactOnTriggerStartMeeting(this.assistanceService, context),
+                callbackUrl);
         log.info("Processed trigger to start meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return StartMeetingResult.SUCCESS;
     }
 
     @Override
-    public StartMeetingResult startCurrentMeetingByRoomId(String roomId){
-        return startMeeting(roomManagementService.getCurrentMeeting(roomId));
+    public StartMeetingResult startCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+        return startMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
-    public StartMeetingResult startCurrentMeeting(IRoom room) {
-        return startCurrentMeetingByRoomId(room.getId());
+    public StartMeetingResult startCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
+        return startCurrentMeetingByRoomId(room.getId(), callbackUrl);
     }
 
     @Override
-    public StartMeetingResult startCurrentMeetingByWorkgroupId(String workgroupId) {
-        return startMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
+    public StartMeetingResult startCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+        return startMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
-    public StartMeetingResult startCurrentMeeting(IWorkgroup workgroup) {
-        return startCurrentMeetingByWorkgroupId(workgroup.getId());
+    public StartMeetingResult startCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return startCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 
     @Override
-    public StopMeetingResult stopMeeting(IMeeting meeting) {
+    public StopMeetingResult stopMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
         log.info("Processing trigger to stop meeting {}", meeting.toString());
-        triggerAssistances(meeting, (context, assistance) -> assistance.reactOnTriggerStopMeeting(this.assistanceService, context));
+        triggerAssistances(
+                meeting,
+                (context, assistance) -> assistance.reactOnTriggerStopMeeting(this.assistanceService, context),
+                callbackUrl);
         log.info("Processed trigger to stop meeting {}", meeting.toString());
         // TODO: Return type necessary?
         return StopMeetingResult.SUCCESS;
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeetingByRoomId(String roomId) {
-        return stopMeeting(roomManagementService.getCurrentMeeting(roomId));
+    public StopMeetingResult stopCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+        return stopMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeeting(IRoom room) {
-        return stopCurrentMeetingByRoomId(room.getId());
+    public StopMeetingResult stopCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
+        return stopCurrentMeetingByRoomId(room.getId(), callbackUrl);
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeetingByWorkgroupId(String workgroupId) {
-        return stopMeeting(workgroupManagementService.getCurrentMeeting(workgroupId));
+    public StopMeetingResult stopCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+        return stopMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
-    public StopMeetingResult stopCurrentMeeting(IWorkgroup workgroup) {
-        return stopCurrentMeetingByWorkgroupId(workgroup.getId());
+    public StopMeetingResult stopCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return stopCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 }

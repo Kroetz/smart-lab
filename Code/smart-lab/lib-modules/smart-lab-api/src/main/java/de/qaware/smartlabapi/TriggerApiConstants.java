@@ -6,6 +6,7 @@ public class TriggerApiConstants {
 
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
     public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";
+    public static final String PARAMETER_NAME_CALLBACK_URL = "callback-url";
 
     public static final String PATH_FRAGMENT_START_CURRENT_MEETING_BY_ROOM_ID = "/start-current-meeting/room/";
     public static final String PATH_FRAGMENT_STOP_CURRENT_MEETING_BY_ROOM_ID = "/stop-current-meeting/room/";

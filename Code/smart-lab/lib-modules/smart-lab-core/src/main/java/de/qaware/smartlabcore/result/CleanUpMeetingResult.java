@@ -8,13 +8,13 @@ import java.util.Map;
 
 public enum CleanUpMeetingResult {
 
-    SUCCESS(ResponseEntity.ok().build());
+    SUCCESS(ResponseEntity.accepted().build());
 
     private static final Map<HttpStatus, CleanUpMeetingResult> CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS;
     static
     {
         CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS = new HashMap<>();
-        CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS.put(HttpStatus.OK, CleanUpMeetingResult.SUCCESS);
+        CLEAN_UP_MEETING_RESULTS_BY_HTTP_STATUS.put(HttpStatus.ACCEPTED, CleanUpMeetingResult.SUCCESS);
     }
 
     private ResponseEntity<Void> responseEntity;

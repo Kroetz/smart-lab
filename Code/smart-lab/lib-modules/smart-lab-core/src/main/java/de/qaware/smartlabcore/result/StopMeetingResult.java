@@ -8,13 +8,13 @@ import java.util.Map;
 
 public enum StopMeetingResult {
 
-    SUCCESS(ResponseEntity.ok().build());
+    SUCCESS(ResponseEntity.accepted().build());
 
     private static final Map<HttpStatus, StopMeetingResult> STOP_MEETING_RESULTS_BY_HTTP_STATUS;
     static
     {
         STOP_MEETING_RESULTS_BY_HTTP_STATUS = new HashMap<>();
-        STOP_MEETING_RESULTS_BY_HTTP_STATUS.put(HttpStatus.OK, StopMeetingResult.SUCCESS);
+        STOP_MEETING_RESULTS_BY_HTTP_STATUS.put(HttpStatus.ACCEPTED, StopMeetingResult.SUCCESS);
     }
 
     private ResponseEntity<Void> responseEntity;

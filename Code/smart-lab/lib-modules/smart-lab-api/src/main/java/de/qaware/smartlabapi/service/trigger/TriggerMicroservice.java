@@ -8,6 +8,8 @@ import feign.RetryableException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
@@ -24,7 +26,7 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void setUpCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId);
+            this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, null);
         }
         catch(Exception e) {
             throw e;
@@ -40,9 +42,32 @@ public class TriggerMicroservice implements ITriggerService {
     }
 
     @Override
+    public void setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
+        }
+        catch(Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
     public void setUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId);
+            this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -55,7 +80,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void cleanUpCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId);
+            this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -68,7 +106,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId);
+            this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -81,7 +132,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void startCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.startCurrentMeetingByRoomId(roomId);
+            this.triggerApiClient.startCurrentMeetingByRoomId(roomId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void startCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.startCurrentMeetingByRoomId(roomId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -94,7 +158,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void startCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId);
+            this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -107,7 +184,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void stopCurrentMeetingByRoomId(String roomId) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByRoomId(roomId);
+            this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void stopCurrentMeetingByRoomId(String roomId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.stopCurrentMeetingByRoomId(roomId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
@@ -120,7 +210,20 @@ public class TriggerMicroservice implements ITriggerService {
     @Override
     public void stopCurrentMeetingByWorkgroupId(String workgroupId) {
         try {
-            this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId);
+            this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, null);
+        }
+        catch(RetryableException e) {
+            throw e;
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public void stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl) {
+        try {
+            this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId, callbackUrl.toString());
         }
         catch(RetryableException e) {
             throw e;
