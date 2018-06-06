@@ -42,6 +42,7 @@
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-test-dependencies</artifactId>
 			<version>${smart-lab-test-dependencies.version}</version>
+			<type>pom</type>
 		</dependency>
 
 	</dependencies>
