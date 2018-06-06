@@ -19,6 +19,7 @@
 		<commons-validator.version>1.6</commons-validator.version>
 		<commons-lang3.version>3.7</commons-lang3.version>
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
+		<commons-io.version>2.6</commons-io.version>
 	</properties>
 
 	<parent>
@@ -76,6 +77,13 @@
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-okhttp</artifactId>
 			<version>${feign-okhttp.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
 		</dependency>
 
 	</dependencies>

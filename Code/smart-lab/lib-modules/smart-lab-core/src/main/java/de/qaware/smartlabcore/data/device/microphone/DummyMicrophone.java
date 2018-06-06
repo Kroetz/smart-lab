@@ -1,8 +1,16 @@
 package de.qaware.smartlabcore.data.device.microphone;
 
+import de.qaware.smartlabcore.exception.LocalDeviceException;
+import de.qaware.smartlabcore.filesystem.IFileSystemManager;
+import de.qaware.smartlabcore.miscellaneous.ResourcePaths;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 @Component
@@ -11,9 +19,18 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
 
     public static final String DEVICE_TYPE = "dummy microphone";
     private static final boolean HAS_LOCAL_API = true;
+    private final ResourceLoader resourceLoader;
+    private final IFileSystemManager fileSystemManager;
+    private final Path resourcesTempFileSubDir;
 
-    public DummyMicrophone() {
+    public DummyMicrophone(
+            ResourceLoader resourceLoader,
+            IFileSystemManager fileSystemManager,
+            Path resourcesTempFileSubDir) {
         super(DEVICE_TYPE, HAS_LOCAL_API);
+        this.resourceLoader = resourceLoader;
+        this.fileSystemManager = fileSystemManager;
+        this.resourcesTempFileSubDir = resourcesTempFileSubDir;
     }
 
     @Override
@@ -24,6 +41,15 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     @Override
     public Path deactivate() {
         log.info("Dummy microphone deactivated");
-        return null;        // TODO: Do not return null but rather the path to a predefined audio sample
+        try {
+            Resource dummySpeechResource = resourceLoader.getResource(ResourcePaths.DUMMY_SPEECH);
+            InputStream resourceInputStream = dummySpeechResource.getInputStream();
+            byte[] bytes = IOUtils.toByteArray(resourceInputStream);
+            Path dummySpeechFile = fileSystemManager.saveToTempFile(this.resourcesTempFileSubDir, bytes);
+            dummySpeechFile.toFile().deleteOnExit();
+            return dummySpeechFile;
+        } catch (IOException e) {
+            throw new LocalDeviceException(e);
+        }
     }
 }
