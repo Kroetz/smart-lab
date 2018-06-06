@@ -30,7 +30,7 @@ public class TriggerController {
         try {
             response = ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -46,7 +46,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -60,7 +60,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -74,7 +74,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -88,7 +88,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -102,7 +102,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -116,7 +116,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByRoomId(
                     roomId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -130,7 +130,7 @@ public class TriggerController {
         try {
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
                     workgroupId,
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);

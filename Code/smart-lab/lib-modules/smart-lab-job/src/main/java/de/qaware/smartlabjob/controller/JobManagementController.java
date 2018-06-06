@@ -41,7 +41,7 @@ public class JobManagementController extends AbstractSmartLabController {
         log.info("Received call to record a new job");
         try {
             return ResponseEntity.ok().body(this.jobManagementBusinessLogic.recordNewJob(
-                    callbackUrl != null? new URL(callbackUrl) : null));
+                    callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);

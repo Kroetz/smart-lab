@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(JobManagementApiConstants.FEIGN_CLIENT_VALUE)
+@FeignClient(name = JobManagementApiConstants.FEIGN_CLIENT_VALUE, path = JobManagementApiConstants.MAPPING_BASE)
 public interface IJobManagementApiClient {
 
     @GetMapping(JobManagementApiConstants.MAPPING_FIND_ALL)
