@@ -14,6 +14,7 @@
     <properties>
         <spring-boot.version>2.0.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Finchley.RC1</spring-cloud.version>
+        <spring-boot-maven-plugin.version>2.0.2.RELEASE</spring-boot-maven-plugin.version>
     </properties>
 
     <parent>
@@ -98,6 +99,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
             </plugin>
 
         </plugins>
