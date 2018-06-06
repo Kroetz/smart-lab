@@ -1,7 +1,5 @@
-package de.qaware.smartlabjob.entity;
+package de.qaware.smartlabcore.data.job;
 
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.job.JobStatus;
 import lombok.Data;
 import org.springframework.lang.Nullable;
 
