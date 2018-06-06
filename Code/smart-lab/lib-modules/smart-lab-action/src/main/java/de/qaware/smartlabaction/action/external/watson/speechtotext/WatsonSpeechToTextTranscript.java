@@ -28,6 +28,12 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
     public String toHumanReadable(
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
+        log.info("Converting Watson speech-to-text transcript into human readable form");
+        if(this.speechRecognitionResults.getResults().size() < 1 || this.speechRecognitionResults.getSpeakerLabels() == null) {
+            log.info("Transcript cannot be converted because it is empty");
+            // TODO: String literal
+            return "Talk is silver, silence is golden.";
+        }
         List<SpeakerLabelsResult> speakerLabelsResults = this.speechRecognitionResults.getSpeakerLabels();
         Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(Collectors.toMap(
                 speakerLabelsResult -> Timestamp.of(speakerLabelsResult.getFrom(), speakerLabelsResult.getTo()),
