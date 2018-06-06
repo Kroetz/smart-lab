@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.business;
+package de.qaware.smartlabjob.entity;
 
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.job.JobStatus;

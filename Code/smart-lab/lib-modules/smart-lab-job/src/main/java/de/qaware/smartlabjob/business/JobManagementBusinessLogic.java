@@ -1,35 +1,61 @@
-package de.qaware.smartlabtrigger.business;
+package de.qaware.smartlabjob.business;
 
+import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.job.JobStatus;
+import de.qaware.smartlabjob.entity.JobInfo;
+import de.qaware.smartlabjob.repository.IJobManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URL;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
-@Component
+@Service
 @Slf4j
-public class JobInfoBookKeeper implements IJobInfoBookKeeper {
+public class JobManagementBusinessLogic implements IJobManagementBusinessLogic {
 
-    private final IJobInfoRepository jobInfoRepository;
+    private final IJobManagementRepository jobManagementRepository;
     private final RestTemplate restTemplate;
 
-    public JobInfoBookKeeper(IJobInfoRepository jobInfoRepository, RestTemplateBuilder restTemplateBuilder) {
-        this.jobInfoRepository = jobInfoRepository;
+    public JobManagementBusinessLogic(
+            IJobManagementRepository jobManagementRepository,
+            RestTemplateBuilder restTemplateBuilder) {
+        this.jobManagementRepository = jobManagementRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
 
     @Override
-    public synchronized JobInfo recordNewJob(JobInfo jobInfo) {
-        return this.jobInfoRepository.save(jobInfo);
+    public Set<IJobInfo> findAll() {
+        Set<IJobInfo> jobInfos = new HashSet<>();
+        this.jobManagementRepository.findAll().forEach(jobInfos::add);
+        return jobInfos;
     }
 
     @Override
-    public synchronized void startJobProcessing(Long jobId) {
-        JobInfo newJobInfo = this.jobInfoRepository.findById(jobId)
+    public Optional<IJobInfo> findOne(Long jobId) {
+        return this.jobManagementRepository.findById(jobId).map(jobInfo -> (IJobInfo) jobInfo);
+    }
+
+    @Override
+    public synchronized IJobInfo recordNewJob() {
+        return recordNewJob(null);
+    }
+
+    @Override
+    public synchronized IJobInfo recordNewJob(@Nullable URL callbackUrl) {
+        return this.jobManagementRepository.save(JobInfo.of(callbackUrl));
+    }
+
+    @Override
+    public synchronized void markJobAsProcessing(Long jobId) {
+        JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
                     if(jobInfo.getStatus() != JobStatus.PENDING) throw new RuntimeException();   // TODO: Better exception and message
                     return jobInfo
@@ -42,8 +68,8 @@ public class JobInfoBookKeeper implements IJobInfoBookKeeper {
     }
 
     @Override
-    public synchronized void finishJobProcessing(Long jobId) {
-        JobInfo newJobInfo = this.jobInfoRepository.findById(jobId)
+    public synchronized void markJobAsFinished(Long jobId) {
+        JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
                     if(jobInfo.getStatus() != JobStatus.PROCESSING) throw new RuntimeException();   // TODO: Better exception and message
                     return jobInfo
@@ -58,7 +84,7 @@ public class JobInfoBookKeeper implements IJobInfoBookKeeper {
 
     @Override
     public synchronized void markJobAsFailed(Long jobId, String errorMessage) {
-        JobInfo newJobInfo = this.jobInfoRepository.findById(jobId)
+        JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
                     if(jobInfo.getStatus() != JobStatus.PROCESSING) throw new RuntimeException();   // TODO: Better exception and message
                     return jobInfo
@@ -72,27 +98,23 @@ public class JobInfoBookKeeper implements IJobInfoBookKeeper {
         tryExecuteCallback(jobId);
     }
 
-    @Override
-    public Optional<JobInfo> getJobInfo(Long jobId) {
-        return this.jobInfoRepository.findById(jobId);
-    }
-
-    private JobInfo updateJob(JobInfo jobInfo) {
-        if(!this.jobInfoRepository.existsById(jobInfo.getId())) {
+    private synchronized JobInfo updateJob(JobInfo jobInfo) {
+        if(!this.jobManagementRepository.existsById(jobInfo.getId())) {
             // TODO: Better exception and message
             throw new RuntimeException();
         }
-        return this.jobInfoRepository.save(jobInfo);
+        return this.jobManagementRepository.save(jobInfo);
     }
 
     private boolean tryExecuteCallback(Long jobId) {
         // TODO: Better exception and message
-        JobInfo jobInfo = getJobInfo(jobId).orElseThrow(RuntimeException::new);
-        return jobInfo.getCallbackUrl().map(callbackUrl -> {
-            HttpEntity<JobInfo> request = new HttpEntity<>(jobInfo);
-            restTemplate.postForEntity(callbackUrl.toString(), request , Void.class);
-            return true;
-        })
-        .orElse(false);
+        IJobInfo jobInfo = findOne(jobId).orElseThrow(RuntimeException::new);
+        return jobInfo.getCallbackUrl()
+                .map(callbackUrl -> {
+                    HttpEntity<IJobInfo> request = new HttpEntity<>(jobInfo);
+                    restTemplate.postForEntity(callbackUrl.toString(), request , Void.class);
+                    return true;
+                })
+                .orElse(false);
     }
 }

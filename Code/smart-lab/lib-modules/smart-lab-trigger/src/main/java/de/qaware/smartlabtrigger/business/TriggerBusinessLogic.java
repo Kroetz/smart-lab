@@ -1,6 +1,7 @@
 package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
+import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabassistance.assistance.IAssistanceTriggerable;
@@ -24,26 +25,26 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     private final IRoomManagementService roomManagementService;
     private final IWorkgroupManagementService workgroupManagementService;
     private final ITriggerHandler asyncTriggerHandler;
-    private final IJobInfoBookKeeper jobInfoBookKeeper;
+    private final IJobManagementService jobManagementService;
 
     public TriggerBusinessLogic(
             IAssistanceService assistanceService,
             IRoomManagementService roomManagementService,
             IWorkgroupManagementService workgroupManagementService,
             ITriggerHandler asyncTriggerHandler,
-            IJobInfoBookKeeper jobInfoBookKeeper) {
+            IJobManagementService jobManagementService) {
         this.assistanceService = assistanceService;
         this.roomManagementService = roomManagementService;
         this.workgroupManagementService = workgroupManagementService;
         this.asyncTriggerHandler = asyncTriggerHandler;
-        this.jobInfoBookKeeper = jobInfoBookKeeper;
+        this.jobManagementService = jobManagementService;
     }
 
     private IJobInfo triggerAssistances(
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
             @Nullable URL callbackUrl) {
-        IJobInfo jobInfo = this.jobInfoBookKeeper.recordNewJob(JobInfo.of(callbackUrl));
+        IJobInfo jobInfo = this.jobManagementService.recordNewJob(callbackUrl);
         this.asyncTriggerHandler.triggerAssistances(meeting, triggerReactionGetter, jobInfo.getId());
         return jobInfo;
     }

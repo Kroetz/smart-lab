@@ -36,6 +36,7 @@
 		<module>app-modules/smart-lab-room-microservice</module>
 		<module>app-modules/smart-lab-trigger-microservice</module>
 		<module>app-modules/smart-lab-workgroup-microservice</module>
+		<module>app-modules/smart-lab-job-microservice</module>
 		<module>app-modules/smart-lab-monolith</module>
 		<module>app-modules/smart-lab-meeting-set-up-trigger-mock</module>
 		<module>app-modules/smart-lab-meeting-clean-up-trigger-mock</module>
@@ -53,6 +54,7 @@
 		<module>lib-modules/smart-lab-core</module>
 		<module>lib-modules/smart-lab-sample-data</module>
         <module>lib-modules/smart-lab-api</module>
+        <module>lib-modules/smart-lab-job</module>
 
     </modules>
 

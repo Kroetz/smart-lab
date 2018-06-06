@@ -1,5 +1,6 @@
 package de.qaware.smartlabtrigger.business;
 
+import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabassistance.assistance.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
@@ -20,15 +21,15 @@ public class SyncTriggerHandler implements ITriggerHandler {
 
     private final IContextFactory contextFactory;
     private final IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver;
-    private final IJobInfoBookKeeper jobInfoBookKeeper;
+    private final IJobManagementService jobManagementService;
 
     public SyncTriggerHandler(
             IContextFactory contextFactory,
             IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver,
-            IJobInfoBookKeeper jobInfoBookKeeper) {
+            IJobManagementService jobManagementService) {
         this.contextFactory = contextFactory;
         this.assistanceTriggerableResolver = assistanceTriggerableResolver;
-        this.jobInfoBookKeeper = jobInfoBookKeeper;
+        this.jobManagementService = jobManagementService;
     }
 
     @Override
@@ -36,16 +37,16 @@ public class SyncTriggerHandler implements ITriggerHandler {
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
             Long jobId) {
-        this.jobInfoBookKeeper.startJobProcessing(jobId);
+        this.jobManagementService.markJobAsProcessing(jobId);
         try {
             Set<String> assistanceIds = meeting.getAssistanceIds();
             for(String assistanceId : assistanceIds) {
                 triggerAssistance(assistanceId, meeting, triggerReactionGetter, jobId);
             }
-            this.jobInfoBookKeeper.finishJobProcessing(jobId);
+            this.jobManagementService.markJobAsFinished(jobId);
         }
         catch(Exception e) {
-            this.jobInfoBookKeeper.markJobAsFailed(jobId, e.getMessage());
+            this.jobManagementService.markJobAsFailed(jobId, e.getMessage());
             log.error("Failed to execute effect of trigger", e);
         }
     }
