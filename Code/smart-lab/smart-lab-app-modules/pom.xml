@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>smart-lab-app-modules</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>smart-lab-app-modules</name>
+    <description>Module of the Smart-Lab project that manages application modules</description>
+
+    <parent>
+        <artifactId>smart-lab</artifactId>
+        <groupId>de.qaware</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modules>
+
+        <module>smart-lab-discovery-microservice</module>
+        <module>smart-lab-job-microservice</module>
+        <module>smart-lab-person-microservice</module>
+        <module>smart-lab-workgroup-microservice</module>
+        <module>smart-lab-device-microservice</module>
+        <module>smart-lab-room-microservice</module>
+        <module>smart-lab-meeting-microservice</module>
+        <module>smart-lab-delegate-microservice</module>
+        <module>smart-lab-action-microservice</module>
+        <module>smart-lab-assistance-microservice</module>
+        <module>smart-lab-trigger-microservice</module>
+        <module>smart-lab-test</module>
+        <module>smart-lab-meeting-set-up-trigger-mock</module>
+        <module>smart-lab-meeting-clean-up-trigger-mock</module>
+        <module>smart-lab-monolith</module>
+
+    </modules>
+
+</project>

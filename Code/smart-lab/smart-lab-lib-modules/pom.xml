@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>smart-lab-lib-modules</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>smart-lab-lib-modules</name>
+    <description>Module of the Smart-Lab project that manages library modules</description>
+
+    <parent>
+        <artifactId>smart-lab</artifactId>
+        <groupId>de.qaware</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modules>
+
+        <module>smart-lab-core</module>
+        <module>smart-lab-api</module>
+        <module>smart-lab-sample-data</module>
+        <module>smart-lab-job</module>
+        <module>smart-lab-person</module>
+        <module>smart-lab-workgroup</module>
+        <module>smart-lab-device</module>
+        <module>smart-lab-room</module>
+        <module>smart-lab-meeting</module>
+        <module>smart-lab-delegate</module>
+        <module>smart-lab-action</module>
+        <module>smart-lab-assistance</module>
+        <module>smart-lab-trigger</module>
+
+    </modules>
+
+</project>

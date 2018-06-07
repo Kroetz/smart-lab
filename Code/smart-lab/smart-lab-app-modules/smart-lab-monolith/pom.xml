@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>smart-lab-monolith</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>smart-lab-monolith</name>
+	<description>Module of the Smart-Lab project that runs the system as a monolith</description>
+
+	<properties>
+		<smart-lab-meeting.version>0.0.1-SNAPSHOT</smart-lab-meeting.version>
+		<smart-lab-room.version>0.0.1-SNAPSHOT</smart-lab-room.version>
+		<smart-lab-device.version>0.0.1-SNAPSHOT</smart-lab-device.version>
+		<smart-lab-workgroup.version>0.0.1-SNAPSHOT</smart-lab-workgroup.version>
+		<smart-lab-person.version>0.0.1-SNAPSHOT</smart-lab-person.version>
+		<smart-lab-trigger.version>0.0.1-SNAPSHOT</smart-lab-trigger.version>
+		<smart-lab-assistance.version>0.0.1-SNAPSHOT</smart-lab-assistance.version>
+		<smart-lab-action.version>0.0.1-SNAPSHOT</smart-lab-action.version>
+		<smart-lab-job.version>0.0.1-SNAPSHOT</smart-lab-job.version>
+		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
+		<springfox-swagger-ui.version>2.8.0</springfox-swagger-ui.version>
+	</properties>
+
+	<parent>
+		<artifactId>smart-lab-spring-dependencies</artifactId>
+		<groupId>de.qaware</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-meeting</artifactId>
+			<version>${smart-lab-meeting.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-room</artifactId>
+			<version>${smart-lab-room.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-device</artifactId>
+			<version>${smart-lab-device.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-workgroup</artifactId>
+			<version>${smart-lab-workgroup.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-person</artifactId>
+			<version>${smart-lab-person.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-trigger</artifactId>
+			<version>${smart-lab-trigger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-assistance</artifactId>
+			<version>${smart-lab-assistance.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-action</artifactId>
+			<version>${smart-lab-action.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-job</artifactId>
+			<version>${smart-lab-job.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger-ui.version}</version>
+		</dependency>
+
+    </dependencies>
+
+</project>
