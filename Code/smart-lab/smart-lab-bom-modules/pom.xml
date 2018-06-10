@@ -19,6 +19,7 @@
 
     <modules>
         <module>smart-lab-spring-dependencies</module>
+        <module>smart-lab-springfox-dependencies</module>
         <module>smart-lab-microservice-dependencies</module>
         <module>smart-lab-test-dependencies</module>
     </modules>
