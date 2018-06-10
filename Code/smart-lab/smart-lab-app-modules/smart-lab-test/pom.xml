@@ -6,21 +6,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>smart-lab-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>smart-lab-test</name>
 	<description>Integration tests for the Smart-Lab project</description>
 
-	<properties>
-		<smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
-		<smart-lab-sample-data.version>0.0.1-SNAPSHOT</smart-lab-sample-data.version>
-		<smart-lab-test-dependencies.version>0.0.1-SNAPSHOT</smart-lab-test-dependencies.version>
-	</properties>
-
 	<parent>
 		<artifactId>smart-lab-spring-dependencies</artifactId>
 		<groupId>de.qaware</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
 	</parent>
 
@@ -29,19 +22,21 @@
 		<dependency>
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-core</artifactId>
-			<version>${smart-lab-core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-api</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-sample-data</artifactId>
-			<version>${smart-lab-sample-data.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-test-dependencies</artifactId>
-			<version>${smart-lab-test-dependencies.version}</version>
 			<type>pom</type>
 		</dependency>
 

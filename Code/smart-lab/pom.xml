@@ -7,7 +7,7 @@
 
 	<groupId>de.qaware</groupId>
 	<artifactId>smart-lab</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 	<name>smart-lab</name>
 	<description>Main module of the Smart-Lab project</description>
@@ -21,11 +21,114 @@
 	</properties>
 
 	<modules>
-
 		<module>smart-lab-bom-modules</module>
 		<module>smart-lab-lib-modules</module>
 		<module>smart-lab-app-modules</module>
-
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-spring-dependencies</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-microservice-dependencies</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-test-dependencies</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-sample-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-job</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-person</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-workgroup</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-device</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-room</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-meeting</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-delegate</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-action</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-assistance</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-trigger</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 </project>

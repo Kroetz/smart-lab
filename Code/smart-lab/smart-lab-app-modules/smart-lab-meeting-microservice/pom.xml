@@ -6,23 +6,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>smart-lab-meeting-microservice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>smart-lab-meeting-microservice</name>
 	<description>Module of the Smart-Lab project that runs the meeting microservice</description>
 
-	<properties>
-		<smart-lab-meeting.version>0.0.1-SNAPSHOT</smart-lab-meeting.version>
-		<smart-lab-sample-data.version>0.0.1-SNAPSHOT</smart-lab-sample-data.version>
-		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
-		<springfox-swagger-ui.version>2.8.0</springfox-swagger-ui.version>
-	</properties>
-
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>
 		<groupId>de.qaware</groupId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
@@ -30,27 +22,6 @@
 		<dependency>
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-meeting</artifactId>
-			<version>${smart-lab-meeting.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-sample-data</artifactId>
-			<version>${smart-lab-sample-data.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${springfox-swagger2.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${springfox-swagger-ui.version}</version>
 		</dependency>
 
 	</dependencies>

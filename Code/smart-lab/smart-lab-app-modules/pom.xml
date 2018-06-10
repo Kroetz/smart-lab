@@ -6,7 +6,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>smart-lab-app-modules</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>smart-lab-app-modules</name>
     <description>Module of the Smart-Lab project that manages application modules</description>
@@ -14,12 +13,11 @@
     <parent>
         <artifactId>smart-lab</artifactId>
         <groupId>de.qaware</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modules>
-
         <module>smart-lab-discovery-microservice</module>
         <module>smart-lab-job-microservice</module>
         <module>smart-lab-person-microservice</module>
@@ -35,7 +33,6 @@
         <module>smart-lab-meeting-set-up-trigger-mock</module>
         <module>smart-lab-meeting-clean-up-trigger-mock</module>
         <module>smart-lab-monolith</module>
-
     </modules>
 
 </project>

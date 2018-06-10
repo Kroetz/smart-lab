@@ -6,7 +6,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>smart-lab-lib-modules</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>smart-lab-lib-modules</name>
     <description>Module of the Smart-Lab project that manages library modules</description>
@@ -14,12 +13,11 @@
     <parent>
         <artifactId>smart-lab</artifactId>
         <groupId>de.qaware</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modules>
-
         <module>smart-lab-core</module>
         <module>smart-lab-api</module>
         <module>smart-lab-sample-data</module>
@@ -33,7 +31,6 @@
         <module>smart-lab-action</module>
         <module>smart-lab-assistance</module>
         <module>smart-lab-trigger</module>
-
     </modules>
 
 </project>

@@ -6,19 +6,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>smart-lab-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>smart-lab-api</name>
     <description>Module of the Smart-Lab project that contains the components needed to communicate with all parts of the system</description>
 
-    <properties>
-        <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
-    </properties>
-
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
         <groupId>de.qaware</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
     </parent>
 
@@ -27,7 +22,6 @@
         <dependency>
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-core</artifactId>
-            <version>${smart-lab-core.version}</version>
         </dependency>
 
     </dependencies>

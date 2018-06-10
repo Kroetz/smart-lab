@@ -5,11 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackageClasses = {
-		de.qaware.smartlabcore.ComponentScanMarker.class,
-		de.qaware.smartlabapi.ComponentScanMarker.class,
-		de.qaware.smartlabtrigger.ComponentScanMarker.class,
-		de.qaware.smartlabassistance.ComponentScanMarker.class})
+@SpringBootApplication(scanBasePackageClasses = de.qaware.smartlabtrigger.ComponentScanMarker.class)
 public class SmartLabTriggerMicroserviceApplication {
 
 	public static void main(String[] args) {

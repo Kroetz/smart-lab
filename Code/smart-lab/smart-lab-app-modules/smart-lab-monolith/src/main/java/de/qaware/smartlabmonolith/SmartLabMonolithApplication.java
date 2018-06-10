@@ -4,8 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackageClasses = {
-		de.qaware.smartlabcore.ComponentScanMarker.class,
-		de.qaware.smartlabapi.ComponentScanMarker.class,
 		de.qaware.smartlabmeeting.ComponentScanMarker.class,
 		de.qaware.smartlabroom.ComponentScanMarker.class,
 		de.qaware.smartlabdevice.ComponentScanMarker.class,
@@ -15,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 		de.qaware.smartlabassistance.ComponentScanMarker.class,
 		de.qaware.smartlabaction.ComponentScanMarker.class,
 		de.qaware.smartlabjob.ComponentScanMarker.class,
-		de.qaware.smartlabsampledata.ComponentScanMarker.class,
 		de.qaware.smartlabmonolith.ComponentScanMarker.class})
 public class SmartLabMonolithApplication {
 

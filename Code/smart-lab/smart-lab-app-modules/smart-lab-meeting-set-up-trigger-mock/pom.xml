@@ -6,20 +6,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>smart-lab-meeting-set-up-trigger-mock</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>smart-lab-meeting-set-up-trigger-mock</name>
 	<description>Mock implementation for a trigger source that triggers meeting set ups</description>
 
-	<properties>
-		<smart-lab-api.version>0.0.1-SNAPSHOT</smart-lab-api.version>
-	</properties>
-
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>
 		<groupId>de.qaware</groupId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
@@ -27,7 +22,6 @@
 		<dependency>
 			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-api</artifactId>
-			<version>${smart-lab-api.version}</version>
 		</dependency>
 
 	</dependencies>

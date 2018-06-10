@@ -6,20 +6,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>smart-lab-job</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>smart-lab-job</name>
     <description>Module of the Smart-Lab project that keeps track of the status of asynchronous jobs</description>
 
-    <properties>
-        <smart-lab-core.version>0.0.1-SNAPSHOT</smart-lab-core.version>
-        <smart-lab-api.version>0.0.1-SNAPSHOT</smart-lab-api.version>
-    </properties>
-
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
         <groupId>de.qaware</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
     </parent>
 
@@ -28,13 +22,11 @@
         <dependency>
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-core</artifactId>
-            <version>${smart-lab-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-api</artifactId>
-            <version>${smart-lab-api.version}</version>
         </dependency>
 
     </dependencies>

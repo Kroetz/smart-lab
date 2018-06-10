@@ -6,35 +6,44 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>smart-lab-sample-data</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>smart-lab-sample-data</name>
     <description>Sample data for the modules of the Smart-Lab project</description>
 
     <properties>
-        <smart-lab-assistance.version>0.0.1-SNAPSHOT</smart-lab-assistance.version>
-        <smart-lab-action.version>0.0.1-SNAPSHOT</smart-lab-action.version>
+        <!--TODO:This dependency should not be needed here since it introduces tight coupling with jcabi-->
+        <jcabi-github.version>0.39</jcabi-github.version>
     </properties>
 
     <parent>
-        <artifactId>smart-lab-lib-modules</artifactId>
+        <artifactId>smart-lab-spring-dependencies</artifactId>
         <groupId>de.qaware</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
     </parent>
 
     <dependencies>
 
         <dependency>
             <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
             <artifactId>smart-lab-assistance</artifactId>
-            <version>${smart-lab-assistance.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>
             <artifactId>smart-lab-action</artifactId>
-            <version>${smart-lab-action.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-github</artifactId>
+            <version>${jcabi-github.version}</version>
+            <classifier>jar-with-dependencies</classifier>
         </dependency>
 
     </dependencies>
