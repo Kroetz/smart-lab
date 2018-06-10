@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.configuration;
+package de.qaware.smartlabmonolith.configuration;
 
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -20,12 +20,12 @@ import java.util.Map;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-@EnableConfigurationProperties(MonolithConfiguration.MonolithProperties.class)
-class MonolithConfiguration {
+@EnableConfigurationProperties(MonolithModuleConfiguration.MonolithProperties.class)
+class MonolithModuleConfiguration {
 
     private MonolithProperties monolithProperties;
 
-    public MonolithConfiguration(MonolithProperties monolithProperties) {
+    public MonolithModuleConfiguration(MonolithProperties monolithProperties) {
         this.monolithProperties = monolithProperties;
     }
 
