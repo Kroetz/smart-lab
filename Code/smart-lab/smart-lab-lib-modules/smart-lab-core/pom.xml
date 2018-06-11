@@ -10,14 +10,6 @@
 	<name>smart-lab-core</name>
 	<description>Core implementations and interfaces of the Smart-Lab project that are needed by most other modules</description>
 
-	<properties>
-		<jackson-annotations.version>2.9.4</jackson-annotations.version>
-		<commons-validator.version>1.6</commons-validator.version>
-		<commons-lang3.version>3.7</commons-lang3.version>
-		<feign-okhttp.version>9.6.0</feign-okhttp.version>
-		<commons-io.version>2.6</commons-io.version>
-	</properties>
-
 	<parent>
 		<artifactId>smart-lab-spring-dependencies</artifactId>
 		<groupId>de.qaware</groupId>
@@ -27,39 +19,29 @@
 
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson-annotations.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>${commons-validator.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
-		<dependency>
-			<groupId>io.github.openfeign</groupId>
-			<artifactId>feign-okhttp</artifactId>
-			<version>${feign-okhttp.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>${commons-io.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-okhttp</artifactId>
 		</dependency>
 
 	</dependencies>
