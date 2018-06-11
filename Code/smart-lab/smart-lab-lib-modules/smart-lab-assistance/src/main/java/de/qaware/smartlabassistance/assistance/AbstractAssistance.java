@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Data
 @Slf4j
-public abstract class AbstractAssistance implements IAssistanceTriggerable, IAssistanceExecutable {
+public abstract class AbstractAssistance implements IAssistanceTriggerable, IAssistanceControllable {
 
     protected final String assistanceId;
     protected final Set<String> assistanceAliases;

@@ -1,7 +1,7 @@
 package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
-import de.qaware.smartlabassistance.assistance.IAssistanceExecutable;
+import de.qaware.smartlabassistance.assistance.IAssistanceControllable;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;
@@ -17,17 +17,17 @@ import java.util.function.Consumer;
 public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
 
     private final IActionService actionService;
-    private final IResolver<String, IAssistanceExecutable> assistanceExecutableResolver;
+    private final IResolver<String, IAssistanceControllable> assistanceControllableResolver;
 
     public AssistanceBusinessLogic(
             IActionService actionService,
-            IResolver<String, IAssistanceExecutable> assistanceExecutableResolver) {
+            IResolver<String, IAssistanceControllable> assistanceControllableResolver) {
         this.actionService = actionService;
-        this.assistanceExecutableResolver = assistanceExecutableResolver;
+        this.assistanceControllableResolver = assistanceControllableResolver;
     }
 
-    private void executeAssistanceStage(String assistanceId, Consumer<IAssistanceExecutable> assistanceStageExecution) {
-        IAssistanceExecutable assistance = this.assistanceExecutableResolver
+    private void executeAssistanceStage(String assistanceId, Consumer<IAssistanceControllable> assistanceStageExecution) {
+        IAssistanceControllable assistance = this.assistanceControllableResolver
                 .resolve(assistanceId)
                 .orElseThrow(UnknownAssistanceException::new);
         assistanceStageExecution.accept(assistance);
