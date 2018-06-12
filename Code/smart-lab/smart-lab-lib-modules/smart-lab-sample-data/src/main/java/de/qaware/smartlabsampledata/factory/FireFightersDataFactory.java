@@ -2,8 +2,8 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.MinuteTaking;
-import de.qaware.smartlabassistance.assistance.RoomUnlocking;
+import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
+import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -85,11 +85,11 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
         Set<String> fireFightersMeetingAssistances = new HashSet<>();
-        fireFightersMeetingAssistances.add(MinuteTaking.ASSISTANCE_ID);
-        fireFightersMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        fireFightersMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
+        fireFightersMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> fireFightersMeetingAssistanceConfigurations = new HashMap<>();
-        fireFightersMeetingAssistanceConfigurations.put(MinuteTaking.ASSISTANCE_ID, new MinuteTaking.Configuration(DEVICE_ID_RED_MICROPHONE));
-        fireFightersMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
+        fireFightersMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_RED_MICROPHONE));
+        fireFightersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")

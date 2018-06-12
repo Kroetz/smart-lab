@@ -2,8 +2,8 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.MinuteTaking;
-import de.qaware.smartlabassistance.assistance.RoomUnlocking;
+import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
+import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
@@ -88,11 +88,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
         Set<String> whaleMeetingAssistances = new HashSet<>();
-        whaleMeetingAssistances.add(MinuteTaking.ASSISTANCE_ID);
-        whaleMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        whaleMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
+        whaleMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whaleMeetingAssistanceConfigurations = new HashMap<>();
-        whaleMeetingAssistanceConfigurations.put(MinuteTaking.ASSISTANCE_ID, new MinuteTaking.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whaleMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
+        whaleMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
+        whaleMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
@@ -109,11 +109,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
         Set<String> whirlpoolMeetingAssistances = new HashSet<>();
-        whirlpoolMeetingAssistances.add(MinuteTaking.ASSISTANCE_ID);
-        whirlpoolMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        whirlpoolMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
+        whirlpoolMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whirlpoolMeetingAssistanceConfigurations = new HashMap<>();
-        whirlpoolMeetingAssistanceConfigurations.put(MinuteTaking.ASSISTANCE_ID, new MinuteTaking.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
+        whirlpoolMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
+        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHIRLPOOLS)
                 .title("Meeting about dangers of whirlpools")

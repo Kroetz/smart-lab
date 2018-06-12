@@ -1,4 +1,4 @@
-package de.qaware.smartlabassistance.assistance;
+package de.qaware.smartlabassistance.assistance.controllable;
 
 import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;

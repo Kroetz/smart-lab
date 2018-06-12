@@ -1,7 +1,7 @@
 package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
-import de.qaware.smartlabassistance.assistance.IAssistanceControllable;
+import de.qaware.smartlabassistance.assistance.controllable.IAssistanceControllable;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;

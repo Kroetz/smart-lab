@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.person.IPersonManagementService;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlabcore.data.assistance.IAssistance;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
@@ -77,7 +77,7 @@ public class Context implements IContext {
             return addBasedOnMeeting(new Context(), meeting);
         }
 
-        public IContext ofMeetingAssistance(IMeeting meeting, IAssistance assistance) {
+        public IContext ofMeetingAssistance(IMeeting meeting, IAssistanceInfo assistance) {
             return addBasedOnMeetingAssistance(new Context(), meeting, assistance);
         }
 
@@ -94,7 +94,7 @@ public class Context implements IContext {
         }
 
         // TODO: better would be "addBasedOnAssistance" but this would require the assistance to know which meeting it belongs to --> assistance would also hold data and not only function
-        private Context addBasedOnMeetingAssistance(Context context, IMeeting meeting, IAssistance assistance) {
+        private Context addBasedOnMeetingAssistance(Context context, IMeeting meeting, IAssistanceInfo assistance) {
             // TODO. More specific exception
             context.assistanceConfiguration = meeting.getAssistanceConfiguration(assistance.getAssistanceId()).orElseThrow(RuntimeException::new);
             return addBasedOnMeeting(context, meeting);

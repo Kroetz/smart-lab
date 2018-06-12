@@ -1,42 +1,30 @@
-package de.qaware.smartlabassistance.assistance;
+package de.qaware.smartlabassistance.assistance.controllable;
 
+import de.qaware.smartlabaction.action.generic.IActionExecutable;
+import de.qaware.smartlabaction.action.generic.IActionSubmittable;
 import de.qaware.smartlabaction.action.microphone.ActivateMicrophone;
 import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
 import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
 import de.qaware.smartlabaction.action.uploaddata.UploadData;
 import de.qaware.smartlabapi.service.action.IActionService;
-import de.qaware.smartlabapi.service.assistance.IAssistanceService;
-import de.qaware.smartlabaction.action.generic.IActionExecutable;
-import de.qaware.smartlabaction.action.generic.IActionSubmittable;
+import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 @Slf4j
-public class MinuteTaking extends AbstractAssistance {
+public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
-    public static final String ASSISTANCE_ID = "minute taking";
-    // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
-            "minute-taking",
-            "minuteTaking").collect(Collectors.toSet());
     private final IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone;
     private final IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone;
     private final IActionSubmittable<SpeechToText.ActionArgs, ITranscript> speechToText;
@@ -44,7 +32,8 @@ public class MinuteTaking extends AbstractAssistance {
     private final ITranscriptTextBuilder transcriptTextBuilder;
     private final ITextPassagesBuilder textPassagesBuilder;
 
-    public MinuteTaking(
+    public MinuteTakingControllable(
+            MinuteTakingInfo minuteTakingInfo,
             IResolver<String, IActionExecutable> actionResolver,
             IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone,
             IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone,
@@ -52,29 +41,13 @@ public class MinuteTaking extends AbstractAssistance {
             IActionSubmittable<UploadData.ActionArgs, Void> uploadData,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES, actionResolver);
+        super(minuteTakingInfo, actionResolver);
         this.activateMicrophone = activateMicrophone;
         this.deactivateMicrophone = deactivateMicrophone;
         this.speechToText = speechToText;
         this.uploadData = uploadData;
         this.transcriptTextBuilder = transcriptTextBuilder;
         this.textPassagesBuilder = textPassagesBuilder;
-    }
-
-    @Override
-    public void reactOnTriggerStartMeeting(IAssistanceService assistanceService, final IContext context) {
-        log.info("Reaction on start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
-                this.assistanceId,
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        assistanceService.beginAssistance(this.assistanceId, context);
-    }
-
-    @Override
-    public void reactOnTriggerStopMeeting(IAssistanceService assistanceService, final IContext context) {
-        log.info("Reaction on stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
-                this.assistanceId,
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        assistanceService.endAssistance(this.assistanceId, context);
     }
 
     @Override
@@ -107,15 +80,5 @@ public class MinuteTaking extends AbstractAssistance {
     @Override
     public void update(IActionService actionService, IContext context) {
         // TODO: Implementation
-    }
-
-    // TODO: Which annotation can be removed?
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Slf4j
-    public static class Configuration implements IAssistanceConfiguration {
-
-        private String deviceId;
     }
 }

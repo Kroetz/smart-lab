@@ -2,7 +2,7 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.RoomUnlocking;
+import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
@@ -84,9 +84,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
         Set<String> astronautsMeetingAssistances = new HashSet<>();
-        astronautsMeetingAssistances.add(RoomUnlocking.ASSISTANCE_ID);
+        astronautsMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> astronautsMeetingAssistanceConfigurations = new HashMap<>();
-        astronautsMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
+        astronautsMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")

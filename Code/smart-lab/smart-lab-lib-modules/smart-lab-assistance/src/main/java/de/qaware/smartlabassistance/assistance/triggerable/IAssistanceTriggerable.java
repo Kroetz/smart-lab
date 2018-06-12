@@ -1,10 +1,10 @@
-package de.qaware.smartlabassistance.assistance;
+package de.qaware.smartlabassistance.assistance.triggerable;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
-import de.qaware.smartlabcore.data.assistance.IAssistance;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IContext;
 
-public interface IAssistanceTriggerable extends IAssistance {
+public interface IAssistanceTriggerable extends IAssistanceInfo {
 
     void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, final IContext context);
     void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, final IContext context);

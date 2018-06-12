@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.business;
 
-import de.qaware.smartlabassistance.assistance.IAssistanceTriggerable;
+import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 

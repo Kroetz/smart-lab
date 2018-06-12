@@ -2,7 +2,7 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.RoomUnlocking;
+import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
@@ -87,7 +87,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         Set<String> forestRangersMeetingAssistances = new HashSet<>();
         forestRangersMeetingAssistances.add(Constants.ROOM_UNLOCKING);
         Map<String, IAssistanceConfiguration> forestRangersMeetingAssistanceConfigurations = new HashMap<>();
-        forestRangersMeetingAssistanceConfigurations.put(RoomUnlocking.ASSISTANCE_ID, new RoomUnlocking.Configuration("dummy ID"));
+        forestRangersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
