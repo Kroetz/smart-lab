@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Set;
 
 @Slf4j
-public abstract class AbstractAssistanceTriggerable implements IAssistanceTriggerable, IAssistanceInfo {
+public abstract class AbstractAssistanceTriggerable implements IAssistanceTriggerable {
 
     protected final IAssistanceInfo assistanceInfo;
 

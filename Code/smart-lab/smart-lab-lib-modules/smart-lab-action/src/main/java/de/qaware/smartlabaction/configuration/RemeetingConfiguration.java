@@ -1,7 +1,7 @@
 package de.qaware.smartlabaction.configuration;
 
-import de.qaware.smartlabaction.action.external.remeeting.client.IRemeetingApiClient;
-import de.qaware.smartlabaction.action.external.remeeting.service.RemeetingService;
+import de.qaware.smartlabaction.action.executable.external.remeeting.client.IRemeetingApiClient;
+import de.qaware.smartlabaction.action.executable.external.remeeting.service.RemeetingService;
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

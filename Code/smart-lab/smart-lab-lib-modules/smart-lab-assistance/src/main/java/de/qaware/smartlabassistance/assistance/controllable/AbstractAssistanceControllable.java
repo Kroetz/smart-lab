@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.generic.IActionExecutable;
+import de.qaware.smartlabaction.action.executable.IActionExecutable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Set;
 
 @Slf4j
-public abstract class AbstractAssistanceControllable implements IAssistanceControllable, IAssistanceInfo {
+public abstract class AbstractAssistanceControllable implements IAssistanceControllable {
 
     protected final IAssistanceInfo assistanceInfo;
     protected final IResolver<String, IActionExecutable> actionResolver;

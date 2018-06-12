@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.configuration;
 
-import de.qaware.smartlabaction.action.external.watson.speechtotext.WatsonSpeechToTextService;
+import de.qaware.smartlabaction.action.executable.external.watson.speechtotext.WatsonSpeechToTextService;
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

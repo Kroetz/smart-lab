@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.generic.IActionExecutable;
+import de.qaware.smartlabaction.action.executable.IActionExecutable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.context.IContext;

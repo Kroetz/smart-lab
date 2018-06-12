@@ -1,7 +1,7 @@
 package de.qaware.smartlabaction.business;
 
 import de.qaware.smartlabapi.service.delegate.IDelegateService;
-import de.qaware.smartlabaction.action.generic.IActionExecutable;
+import de.qaware.smartlabaction.action.executable.IActionExecutable;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.generic.IResolver;

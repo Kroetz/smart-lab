@@ -1,11 +1,7 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.generic.IActionExecutable;
-import de.qaware.smartlabaction.action.generic.IActionSubmittable;
-import de.qaware.smartlabaction.action.microphone.ActivateMicrophone;
-import de.qaware.smartlabaction.action.microphone.DeactivateMicrophone;
-import de.qaware.smartlabaction.action.speechtotext.SpeechToText;
-import de.qaware.smartlabaction.action.uploaddata.UploadData;
+import de.qaware.smartlabaction.action.executable.IActionExecutable;
+import de.qaware.smartlabaction.action.submittable.*;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
@@ -25,53 +21,53 @@ import java.nio.file.Path;
 @Slf4j
 public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone;
-    private final IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone;
-    private final IActionSubmittable<SpeechToText.ActionArgs, ITranscript> speechToText;
-    private final IActionSubmittable<UploadData.ActionArgs, Void> uploadData;
+    private final IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation;
+    private final IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation;
+    private final IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText;
+    private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
     private final ITranscriptTextBuilder transcriptTextBuilder;
     private final ITextPassagesBuilder textPassagesBuilder;
 
     public MinuteTakingControllable(
             MinuteTakingInfo minuteTakingInfo,
             IResolver<String, IActionExecutable> actionResolver,
-            IActionSubmittable<ActivateMicrophone.ActionArgs, Void> activateMicrophone,
-            IActionSubmittable<DeactivateMicrophone.ActionArgs, Path> deactivateMicrophone,
-            IActionSubmittable<SpeechToText.ActionArgs, ITranscript> speechToText,
-            IActionSubmittable<UploadData.ActionArgs, Void> uploadData,
+            IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation,
+            IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
+            IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
+            IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
         super(minuteTakingInfo, actionResolver);
-        this.activateMicrophone = activateMicrophone;
-        this.deactivateMicrophone = deactivateMicrophone;
+        this.microphoneActivation = microphoneActivation;
+        this.microphoneDeactivation = microphoneDeactivation;
         this.speechToText = speechToText;
-        this.uploadData = uploadData;
+        this.dataUpload = dataUpload;
         this.transcriptTextBuilder = transcriptTextBuilder;
         this.textPassagesBuilder = textPassagesBuilder;
     }
 
     @Override
     public void begin(IActionService actionService, IContext context) {
-        final ActivateMicrophone.ActionArgs microphoneActivationArgs = ActivateMicrophone.ActionArgs.of(
+        final MicrophoneActivationSubmittable.ActionArgs microphoneActivationArgs = MicrophoneActivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-        this.activateMicrophone.submitExecution(actionService, microphoneActivationArgs);
+        this.microphoneActivation.submitExecution(actionService, microphoneActivationArgs);
     }
 
     @Override
     public void end(IActionService actionService, IContext context) {
-        final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
+        final MicrophoneDeactivationSubmittable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-        Path recordedAudio = this.deactivateMicrophone.submitExecution(actionService, microphoneDeactivationArgs);
+        Path recordedAudio = this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
 
-        final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
+        final SpeechToTextSubmittable.ActionArgs speechToTextArgs = SpeechToTextSubmittable.ActionArgs.of(recordedAudio);
         ITranscript transcript = this.speechToText.submitExecution(actionService, speechToTextArgs);
 
-        final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
+        final DataUploadSubmittable.ActionArgs dataUploadArgs = DataUploadSubmittable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
-        this.uploadData.submitExecution(actionService, uploadDataArgs);
+        this.dataUpload.submitExecution(actionService, dataUploadArgs);
 
         // TODO: Delete temp file
         //Files.deleteIfExists(recordedAudio);

@@ -1,7 +1,7 @@
 package de.qaware.smartlabsampledata.factory;
 
 import com.jcabi.github.Coordinates;
-import de.qaware.smartlabaction.action.external.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.executable.external.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
