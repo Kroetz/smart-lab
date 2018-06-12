@@ -29,7 +29,7 @@ public class UploadData extends AbstractAction<UploadData.ActionArgs, Void> {
         this.uploadDataServiceResolver = uploadDataServiceResolver;
     }
 
-    public Void submitCall(IActionService actionService, ActionArgs actionArgs) {
+    public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(UploadData.ACTION_ID, actionArgs);
         return actionResult.getVoidValue();
     }

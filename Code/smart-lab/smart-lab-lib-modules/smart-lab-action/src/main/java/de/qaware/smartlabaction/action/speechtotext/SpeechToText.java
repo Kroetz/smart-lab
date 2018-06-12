@@ -31,7 +31,7 @@ public class SpeechToText extends AbstractAction<SpeechToText.ActionArgs, ITrans
         this.speechToTextService = speechToTextService;
     }
 
-    public ITranscript submitCall(IActionService actionService, ActionArgs actionArgs) {
+    public ITranscript submitExecution(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(SpeechToText.ACTION_ID, actionArgs);
         return actionResult.getTranscriptValue().orElseThrow(InvalidActionResultException::new);
     }

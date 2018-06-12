@@ -55,7 +55,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final ActivateMicrophone.ActionArgs microphoneActivationArgs = ActivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-        this.activateMicrophone.submitCall(actionService, microphoneActivationArgs);
+        this.activateMicrophone.submitExecution(actionService, microphoneActivationArgs);
     }
 
     @Override
@@ -63,15 +63,15 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final DeactivateMicrophone.ActionArgs microphoneDeactivationArgs = DeactivateMicrophone.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
-        Path recordedAudio = this.deactivateMicrophone.submitCall(actionService, microphoneDeactivationArgs);
+        Path recordedAudio = this.deactivateMicrophone.submitExecution(actionService, microphoneDeactivationArgs);
 
         final SpeechToText.ActionArgs speechToTextArgs = SpeechToText.ActionArgs.of(recordedAudio);
-        ITranscript transcript = this.speechToText.submitCall(actionService, speechToTextArgs);
+        ITranscript transcript = this.speechToText.submitExecution(actionService, speechToTextArgs);
 
         final UploadData.ActionArgs uploadDataArgs = UploadData.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
-        this.uploadData.submitCall(actionService, uploadDataArgs);
+        this.uploadData.submitExecution(actionService, uploadDataArgs);
 
         // TODO: Delete temp file
         //Files.deleteIfExists(recordedAudio);

@@ -45,7 +45,7 @@ public class ActivateMicrophone extends AbstractAction<ActivateMicrophone.Action
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
     }
 
-    public Void submitCall(IActionService actionService, ActionArgs actionArgs) {
+    public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(ActivateMicrophone.ACTION_ID, actionArgs);
         return actionResult.getVoidValue();
     }

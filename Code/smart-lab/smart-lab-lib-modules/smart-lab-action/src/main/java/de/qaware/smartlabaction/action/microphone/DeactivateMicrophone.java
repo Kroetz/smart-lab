@@ -47,7 +47,7 @@ public class DeactivateMicrophone extends AbstractAction<DeactivateMicrophone.Ac
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
     }
 
-    public Path submitCall(IActionService actionService, DeactivateMicrophone.ActionArgs actionArgs) {
+    public Path submitExecution(IActionService actionService, DeactivateMicrophone.ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(DeactivateMicrophone.ACTION_ID, actionArgs);
         byte[] recordedAudio = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
         try {

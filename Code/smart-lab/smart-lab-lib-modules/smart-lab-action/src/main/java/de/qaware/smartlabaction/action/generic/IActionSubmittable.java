@@ -6,5 +6,5 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 
 public interface IActionSubmittable<ActionArgsT extends IActionArgs, ReturnT> extends IAction {
 
-    ReturnT submitCall(IActionService actionService, ActionArgsT actionArgs);
+    ReturnT submitExecution(IActionService actionService, ActionArgsT actionArgs);
 }
