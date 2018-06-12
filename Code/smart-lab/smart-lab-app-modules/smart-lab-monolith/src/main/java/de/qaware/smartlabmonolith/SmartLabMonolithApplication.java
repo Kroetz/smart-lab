@@ -2,7 +2,7 @@ package de.qaware.smartlabmonolith;
 
 import com.fasterxml.classmate.TypeResolver;
 import de.qaware.smartlabassistance.annotation.EnableAssistanceService;
-import de.qaware.smartlabtrigger.annotation.EnableTriggerService;
+import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 		de.qaware.smartlabaction.ComponentScanMarker.class,
 		de.qaware.smartlabjob.ComponentScanMarker.class,
 		de.qaware.smartlabmonolith.ComponentScanMarker.class})
-@EnableTriggerService
+@EnableSmartLabTriggerService
 @EnableAssistanceService
 @EnableSwagger2
 public class SmartLabMonolithApplication {

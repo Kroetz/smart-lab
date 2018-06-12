@@ -11,4 +11,4 @@ import java.lang.annotation.*;
 @Documented
 @Configuration
 @Import(TriggerServiceConfiguration.class)
-public @interface EnableTriggerService { }
+public @interface EnableSmartLabTriggerService { }
