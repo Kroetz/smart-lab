@@ -33,6 +33,11 @@ public class FileSystemManagerConfiguration {
         return this.tempFileProperties.getFileNameSuffix();
     }
 
+    @Bean
+    public Path recordedAudioTempFileSubDir() {
+        return this.tempFileProperties.getAudioSubDir();
+    }
+
     // TODO: String literal
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
@@ -40,14 +45,17 @@ public class FileSystemManagerConfiguration {
         private static final Path DEFAULT_BASE_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "smart-lab");
         private static final String DEFAULT_FILE_NAME_PREFIX = "file";
         private static final String DEFAULT_FILE_NAME_SUFFIX = ".tmp";
+        private static final Path DEFAULT_AUDIO_SUB_DIR = Paths.get("audio");
         private Path baseDir;
         private String fileNamePrefix;
         private String fileNameSuffix;
+        private Path audioSubDir;
 
         public TempFileProperties() {
             this.baseDir = DEFAULT_BASE_DIR;
             this.fileNamePrefix = DEFAULT_FILE_NAME_PREFIX;
             this.fileNameSuffix = DEFAULT_FILE_NAME_SUFFIX;
+            this.audioSubDir = DEFAULT_AUDIO_SUB_DIR;
         }
 
         public Path getBaseDir() {
@@ -72,6 +80,14 @@ public class FileSystemManagerConfiguration {
 
         public void setFileNameSuffix(String fileNameSuffix) {
             this.fileNameSuffix = fileNameSuffix;
+        }
+
+        public Path getAudioSubDir() {
+            return this.audioSubDir;
+        }
+
+        public void setAudioSubDir(String audioSubDir) {
+            this.audioSubDir = Paths.get(audioSubDir);
         }
     }
 }

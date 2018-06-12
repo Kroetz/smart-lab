@@ -7,8 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = de.qaware.smartlabaction.ComponentScanMarker.class)
+@ComponentScan(basePackageClasses = {
+        de.qaware.smartlabaction.action.info.ComponentScanMarker.class,
+        de.qaware.smartlabaction.action.executable.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableFeignClients(basePackageClasses = de.qaware.smartlabaction.action.executable.external.ComponentScanMarker.class)
-public class ActionModuleConfiguration { }
+public class ActionExecutablesConfiguration { }

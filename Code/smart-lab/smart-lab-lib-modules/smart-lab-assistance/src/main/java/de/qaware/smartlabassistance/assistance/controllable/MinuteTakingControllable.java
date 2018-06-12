@@ -1,6 +1,5 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.executable.IActionExecutable;
 import de.qaware.smartlabaction.action.submittable.*;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
@@ -9,7 +8,6 @@ import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
-import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,14 +28,13 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
     public MinuteTakingControllable(
             MinuteTakingInfo minuteTakingInfo,
-            IResolver<String, IActionExecutable> actionResolver,
             IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation,
             IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
             IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
             IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
-        super(minuteTakingInfo, actionResolver);
+        super(minuteTakingInfo);
         this.microphoneActivation = microphoneActivation;
         this.microphoneDeactivation = microphoneDeactivation;
         this.speechToText = speechToText;

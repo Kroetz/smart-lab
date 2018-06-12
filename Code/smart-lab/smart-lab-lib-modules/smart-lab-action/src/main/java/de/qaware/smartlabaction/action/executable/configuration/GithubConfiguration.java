@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.configuration;
+package de.qaware.smartlabaction.action.executable.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

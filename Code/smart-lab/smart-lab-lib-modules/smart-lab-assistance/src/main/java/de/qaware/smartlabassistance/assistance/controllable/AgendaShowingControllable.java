@@ -1,10 +1,8 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.executable.IActionExecutable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
 import de.qaware.smartlabcore.data.context.IContext;
-import de.qaware.smartlabcore.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +10,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
-    public AgendaShowingControllable(
-            AgendaShowingInfo agendaShowingInfo,
-            IResolver<String, IActionExecutable> actionResolver) {
-        super(agendaShowingInfo, actionResolver);
+    public AgendaShowingControllable(AgendaShowingInfo agendaShowingInfo) {
+        super(agendaShowingInfo);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.configuration;
+package de.qaware.smartlabaction.action.executable.configuration;
 
 import de.qaware.smartlabaction.action.executable.external.remeeting.client.IRemeetingApiClient;
 import de.qaware.smartlabaction.action.executable.external.remeeting.service.RemeetingService;

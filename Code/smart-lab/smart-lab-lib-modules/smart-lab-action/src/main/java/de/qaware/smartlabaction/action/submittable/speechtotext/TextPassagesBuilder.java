@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.speechtotext;
+package de.qaware.smartlabaction.action.submittable.speechtotext;
 
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassage;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
