@@ -1,5 +1,6 @@
 package de.qaware.smartlabtrigger.configuration;
 
+import de.qaware.smartlabassistance.annotation.EnableAssistanceTriggerables;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -8,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabcore.ComponentScanMarker.class,
         de.qaware.smartlabapi.ComponentScanMarker.class,
-        de.qaware.smartlabtrigger.ComponentScanMarker.class,
-        de.qaware.smartlabassistance.ComponentScanMarker.class})
+        de.qaware.smartlabtrigger.ComponentScanMarker.class})
+@EnableAssistanceTriggerables
 @EnableAsync
 public class TriggerModuleConfiguration { }

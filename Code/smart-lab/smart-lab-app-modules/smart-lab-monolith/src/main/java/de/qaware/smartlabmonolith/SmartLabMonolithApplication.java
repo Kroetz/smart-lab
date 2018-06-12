@@ -1,6 +1,7 @@
 package de.qaware.smartlabmonolith;
 
 import com.fasterxml.classmate.TypeResolver;
+import de.qaware.smartlabassistance.annotation.EnableAssistanceService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -31,10 +32,10 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 		de.qaware.smartlabworkgroup.ComponentScanMarker.class,
 		de.qaware.smartlabperson.ComponentScanMarker.class,
 		de.qaware.smartlabtrigger.ComponentScanMarker.class,
-		de.qaware.smartlabassistance.ComponentScanMarker.class,
 		de.qaware.smartlabaction.ComponentScanMarker.class,
 		de.qaware.smartlabjob.ComponentScanMarker.class,
 		de.qaware.smartlabmonolith.ComponentScanMarker.class})
+@EnableAssistanceService
 @EnableSwagger2
 public class SmartLabMonolithApplication {
 
