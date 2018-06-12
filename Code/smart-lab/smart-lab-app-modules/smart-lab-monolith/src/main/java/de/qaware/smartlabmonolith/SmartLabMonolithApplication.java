@@ -4,6 +4,7 @@ import com.fasterxml.classmate.TypeResolver;
 import de.qaware.smartlabaction.annotation.EnableSmartLabActionService;
 import de.qaware.smartlabassistance.annotation.EnableAssistanceService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
+import de.qaware.smartlabworkgroup.annotation.EnableSmartLabWorkgroupService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -31,10 +32,10 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 		de.qaware.smartlabmeeting.ComponentScanMarker.class,
 		de.qaware.smartlabroom.ComponentScanMarker.class,
 		de.qaware.smartlabdevice.ComponentScanMarker.class,
-		de.qaware.smartlabworkgroup.ComponentScanMarker.class,
 		de.qaware.smartlabperson.ComponentScanMarker.class,
 		de.qaware.smartlabjob.ComponentScanMarker.class,
 		de.qaware.smartlabmonolith.ComponentScanMarker.class})
+@EnableSmartLabWorkgroupService
 @EnableSmartLabTriggerService
 @EnableAssistanceService
 @EnableSmartLabActionService

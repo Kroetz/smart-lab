@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabsampledata.ComponentScanMarker.class,
-        de.qaware.smartlabworkgroup.ComponentScanMarker.class})
+        de.qaware.smartlabworkgroup.controller.ComponentScanMarker.class,
+        de.qaware.smartlabworkgroup.business.ComponentScanMarker.class,
+        de.qaware.smartlabworkgroup.repository.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
-public class WorkgroupModuleConfiguration { }
+public class WorkgroupServiceConfiguration { }
