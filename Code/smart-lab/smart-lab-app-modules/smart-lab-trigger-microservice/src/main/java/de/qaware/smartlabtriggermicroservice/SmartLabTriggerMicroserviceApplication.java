@@ -1,11 +1,13 @@
 package de.qaware.smartlabtriggermicroservice;
 
+import de.qaware.smartlabtrigger.annotation.EnableTriggerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+@SpringBootApplication
+@EnableTriggerService
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackageClasses = de.qaware.smartlabtrigger.ComponentScanMarker.class)
 public class SmartLabTriggerMicroserviceApplication {
 
 	public static void main(String[] args) {
