@@ -1,12 +1,12 @@
 package de.qaware.smartlabassistancemicroservice;
 
-import de.qaware.smartlabassistance.annotation.EnableAssistanceService;
+import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@EnableAssistanceService
+@EnableSmartLabAssistanceService
 @EnableDiscoveryClient
 public class SmartLabAssistanceMicroserviceApplication {
 

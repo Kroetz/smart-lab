@@ -11,4 +11,4 @@ import java.lang.annotation.*;
 @Documented
 @Configuration
 @Import(AssistanceTriggerablesConfiguration.class)
-public @interface EnableAssistanceTriggerables { }
+public @interface EnableSmartLabAssistanceTriggerables { }

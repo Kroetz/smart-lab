@@ -8,4 +8,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabassistance.assistance.info.ComponentScanMarker.class})
 @EnableSmartLabCore
-public class AssistanceInfoConfiguration { }
+public class AssistanceInfosConfiguration { }
