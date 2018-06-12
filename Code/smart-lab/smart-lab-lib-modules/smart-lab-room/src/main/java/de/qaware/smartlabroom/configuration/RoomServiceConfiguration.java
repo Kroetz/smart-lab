@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabsampledata.ComponentScanMarker.class,
-        de.qaware.smartlabroom.ComponentScanMarker.class})
+        de.qaware.smartlabroom.controller.ComponentScanMarker.class,
+        de.qaware.smartlabroom.business.ComponentScanMarker.class,
+        de.qaware.smartlabroom.repository.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
-public class RoomModuleConfiguration { }
+public class RoomServiceConfiguration { }

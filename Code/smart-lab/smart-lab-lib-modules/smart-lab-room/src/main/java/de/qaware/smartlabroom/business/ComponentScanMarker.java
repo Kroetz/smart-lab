@@ -1,3 +1,3 @@
-package de.qaware.smartlabroom;
+package de.qaware.smartlabroom.business;
 
 public interface ComponentScanMarker { }
