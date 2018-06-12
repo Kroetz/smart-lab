@@ -6,8 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableFeignClients(basePackageClasses = de.qaware.smartlabapi.client.ComponentScanMarker.class)
-@ComponentScan(basePackageClasses = {
-        de.qaware.smartlabapi.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlabapi.ComponentScanMarker.class)
 @EnableSmartLabCore
+@EnableFeignClients(basePackageClasses = de.qaware.smartlabapi.client.ComponentScanMarker.class)
 public class ApiModuleConfiguration { }

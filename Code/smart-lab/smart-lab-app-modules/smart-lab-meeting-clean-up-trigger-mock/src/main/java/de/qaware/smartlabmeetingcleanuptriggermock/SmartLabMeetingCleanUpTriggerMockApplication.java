@@ -1,5 +1,6 @@
 package de.qaware.smartlabmeetingcleanuptriggermock;
 
+import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackageClasses = {
-		de.qaware.smartlabmeetingcleanuptriggermock.ComponentScanMarker.class,
-		de.qaware.smartlabapi.ComponentScanMarker.class})
+@SpringBootApplication
+@EnableSmartLabApi
 public class SmartLabMeetingCleanUpTriggerMockApplication {
 
 	public static void main(String[] args) {
