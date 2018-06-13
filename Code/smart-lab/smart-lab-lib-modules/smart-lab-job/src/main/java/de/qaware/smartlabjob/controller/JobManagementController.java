@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabjob.business.IJobManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,13 @@ import java.util.Set;
 public class JobManagementController extends AbstractSmartLabController {
 
     private final IJobManagementBusinessLogic jobManagementBusinessLogic;
+    private final UrlValidator urlValidator;
 
-    public JobManagementController(IJobManagementBusinessLogic jobManagementBusinessLogic) {
+    public JobManagementController(
+            IJobManagementBusinessLogic jobManagementBusinessLogic,
+            UrlValidator urlValidator) {
         this.jobManagementBusinessLogic = jobManagementBusinessLogic;
+        this.urlValidator = urlValidator;
     }
 
     @GetMapping(JobManagementApiConstants.MAPPING_FIND_ALL)
@@ -40,6 +45,7 @@ public class JobManagementController extends AbstractSmartLabController {
             @RequestParam(value = JobManagementApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to record a new job");
         try {
+            if(!this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.ok().body(this.jobManagementBusinessLogic.recordNewJob(
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
