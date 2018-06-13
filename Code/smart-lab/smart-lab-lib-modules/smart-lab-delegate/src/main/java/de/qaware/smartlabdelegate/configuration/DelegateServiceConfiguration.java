@@ -7,8 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = de.qaware.smartlabdelegate.ComponentScanMarker.class)
+@ComponentScan(basePackageClasses = {
+        de.qaware.smartlabdelegate.controller.ComponentScanMarker.class,
+        de.qaware.smartlabdelegate.business.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabActionExecutables
-public class DelegateModuleConfiguration { }
+public class DelegateServiceConfiguration { }
