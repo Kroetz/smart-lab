@@ -4,6 +4,7 @@ import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,13 @@ import java.net.URL;
 public class TriggerController {
 
     private final ITriggerBusinessLogic triggerBusinessLogic;
+    private final UrlValidator urlValidator;
 
-    public TriggerController(ITriggerBusinessLogic triggerBusinessLogic) {
+    public TriggerController(
+            ITriggerBusinessLogic triggerBusinessLogic,
+            UrlValidator urlValidator) {
         this.triggerBusinessLogic = triggerBusinessLogic;
+        this.urlValidator = urlValidator;
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
@@ -28,6 +33,7 @@ public class TriggerController {
         log.info("Received call to set up the current meeting in the room with ID \"{}\"", roomId);
         ResponseEntity<IJobInfo> response;
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             response = ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByRoomId(
                     roomId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -44,6 +50,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
                     workgroupId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -58,6 +65,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
                     roomId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -72,6 +80,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
                     workgroupId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -86,6 +95,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByRoomId(
                     roomId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -100,6 +110,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
                     workgroupId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -114,6 +125,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByRoomId(
                     roomId,
                     callbackUrl != null ? new URL(callbackUrl) : null));
@@ -128,6 +140,7 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
                     workgroupId,
                     callbackUrl != null ? new URL(callbackUrl) : null));

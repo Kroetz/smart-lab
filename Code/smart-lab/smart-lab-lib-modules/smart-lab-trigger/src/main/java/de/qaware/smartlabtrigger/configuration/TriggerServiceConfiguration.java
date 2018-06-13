@@ -3,6 +3,8 @@ package de.qaware.smartlabtrigger.configuration;
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceTriggerables;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
+import org.apache.commons.validator.routines.UrlValidator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -16,4 +18,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableSmartLabApi
 @EnableSmartLabAssistanceTriggerables
 @EnableAsync
-public class TriggerServiceConfiguration { }
+public class TriggerServiceConfiguration {
+
+    @Bean
+    public UrlValidator urlValidator() {
+        return new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+    }
+}
