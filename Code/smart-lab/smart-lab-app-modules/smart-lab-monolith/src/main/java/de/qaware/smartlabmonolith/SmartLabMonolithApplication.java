@@ -3,6 +3,7 @@ package de.qaware.smartlabmonolith;
 import com.fasterxml.classmate.TypeResolver;
 import de.qaware.smartlabaction.annotation.EnableSmartLabActionService;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceService;
+import de.qaware.smartlabmeeting.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabperson.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlabroom.annotation.EnableSmartLabRoomService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
@@ -31,13 +32,13 @@ import static com.google.common.collect.Lists.newArrayList;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @SpringBootApplication(scanBasePackageClasses = {
-		de.qaware.smartlabmeeting.ComponentScanMarker.class,
 		de.qaware.smartlabdevice.ComponentScanMarker.class,
 		de.qaware.smartlabjob.ComponentScanMarker.class,
 		de.qaware.smartlabmonolith.ComponentScanMarker.class})
 @EnableSmartLabPersonService
 @EnableSmartLabWorkgroupService
 @EnableSmartLabRoomService
+@EnableSmartLabMeetingService
 @EnableSmartLabTriggerService
 @EnableSmartLabAssistanceService
 @EnableSmartLabActionService

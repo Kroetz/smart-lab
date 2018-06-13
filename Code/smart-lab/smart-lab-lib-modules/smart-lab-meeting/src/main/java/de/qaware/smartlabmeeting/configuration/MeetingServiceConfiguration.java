@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabsampledata.ComponentScanMarker.class,
-        de.qaware.smartlabmeeting.ComponentScanMarker.class})
+        de.qaware.smartlabmeeting.controller.ComponentScanMarker.class,
+        de.qaware.smartlabmeeting.business.ComponentScanMarker.class,
+        de.qaware.smartlabmeeting.repository.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
-public class MeetingModuleConfiguration { }
+public class MeetingServiceConfiguration { }
