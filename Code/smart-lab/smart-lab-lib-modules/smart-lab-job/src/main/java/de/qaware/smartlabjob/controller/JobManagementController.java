@@ -45,7 +45,7 @@ public class JobManagementController extends AbstractSmartLabController {
             @RequestParam(value = JobManagementApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to record a new job");
         try {
-            if(!this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.ok().body(this.jobManagementBusinessLogic.recordNewJob(
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
