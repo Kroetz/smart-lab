@@ -1,3 +1,3 @@
-package de.qaware.smartlabmonolith;
+package de.qaware.smartlabjob.repository;
 
 public interface ComponentScanMarker { }
