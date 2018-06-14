@@ -29,7 +29,7 @@
 		<module>smart-lab-bom-modules</module>
 		<module>smart-lab-lib-modules</module>
 		<module>smart-lab-app-modules</module>
-    </modules>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
