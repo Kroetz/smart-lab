@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 @EnableConfigurationProperties(ResourcesConfiguration.TempFileProperties.class)
 public class ResourcesConfiguration {
 
-    private TempFileProperties tempFileProperties;
+    private final TempFileProperties tempFileProperties;
 
     public ResourcesConfiguration(TempFileProperties tempFileProperties) {
         this.tempFileProperties = tempFileProperties;
