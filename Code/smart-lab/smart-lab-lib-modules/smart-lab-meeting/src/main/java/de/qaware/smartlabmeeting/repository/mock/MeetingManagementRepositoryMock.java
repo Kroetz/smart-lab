@@ -1,11 +1,14 @@
-package de.qaware.smartlabmeeting.repository;
+package de.qaware.smartlabmeeting.repository.mock;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
+import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
@@ -13,6 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 
 @Repository
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
+        name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
+        havingValue = Property.Value.MeetingManagementRepository.MOCK)
 @Slf4j
 public class MeetingManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IMeeting> implements IMeetingManagementRepository {
 

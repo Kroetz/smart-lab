@@ -6,7 +6,9 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import de.qaware.smartlabcore.exception.ConfigurationException;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,10 @@ import java.util.Collections;
 import java.util.List;
 
 @Configuration
+@ConditionalOnProperty(
+        prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
+        name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
+        havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
 @EnableConfigurationProperties(GoogleCalendarAdapterConfiguration.Properties.class)
 public class GoogleCalendarAdapterConfiguration {
 
