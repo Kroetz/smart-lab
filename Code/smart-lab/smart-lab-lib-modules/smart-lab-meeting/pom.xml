@@ -21,6 +21,12 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-google-dependencies</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
             <artifactId>smart-lab-core</artifactId>
         </dependency>
 

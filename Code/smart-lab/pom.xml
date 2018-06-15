@@ -57,6 +57,13 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-google-dependencies</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
 				<artifactId>smart-lab-test-dependencies</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>

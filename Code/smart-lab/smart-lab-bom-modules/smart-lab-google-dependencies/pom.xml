@@ -11,8 +11,6 @@
     <description>Maven BOM for Smart-Lab modules depending on Google</description>
 
     <properties>
-        <google-api-client.version>1.23.0</google-api-client.version>
-        <google-oauth-client-jetty.version>1.23.0</google-oauth-client-jetty.version>
         <google-api-services-calendar.version>v3-rev328-1.23.0</google-api-services-calendar.version>
     </properties>
 
@@ -24,20 +22,6 @@
     </parent>
 
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>${google-api-client.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-jetty</artifactId>
-            <version>${google-oauth-client-jetty.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-calendar -->
         <dependency>
