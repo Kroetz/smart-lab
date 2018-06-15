@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -45,19 +46,10 @@ public class JobManagementMicroservice implements IJobManagementService {
     }
 
     @Override
-    public IJobInfo recordNewJob() {
+    public IJobInfo recordNewJob(@Nullable URL callbackUrl) {
         try {
-            return this.jobManagementApiClient.recordNewJob(null).getBody();
-        }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
-        }
-    }
-
-    @Override
-    public IJobInfo recordNewJob(URL callbackUrl) {
-        try {
-            return this.jobManagementApiClient.recordNewJob(callbackUrl.toString()).getBody();
+            return this.jobManagementApiClient.recordNewJob(
+                    callbackUrl != null ? callbackUrl.toString() : null).getBody();
         }
         catch(FeignException e) {
             throw new UnknownErrorException(e);

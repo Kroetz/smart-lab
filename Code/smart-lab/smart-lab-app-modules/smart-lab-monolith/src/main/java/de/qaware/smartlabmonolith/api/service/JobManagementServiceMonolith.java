@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabjob.controller.JobManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -34,13 +35,9 @@ public class JobManagementServiceMonolith implements IJobManagementService {
     }
 
     @Override
-    public IJobInfo recordNewJob() {
-        return this.jobManagementController.recordNewJob(null).getBody();
-    }
-
-    @Override
-    public IJobInfo recordNewJob(URL callbackUrl) {
-        return this.jobManagementController.recordNewJob(callbackUrl.toString()).getBody();
+    public IJobInfo recordNewJob(@Nullable URL callbackUrl) {
+        return this.jobManagementController.recordNewJob(
+                callbackUrl != null ? callbackUrl.toString() : null).getBody();
     }
 
     @Override
