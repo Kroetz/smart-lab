@@ -12,8 +12,8 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
@@ -25,51 +25,51 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     }
 
     @Override
-    public abstract List<IWorkgroup> createWorkgroupList();
+    public abstract Set<IWorkgroup> createWorkgroupSet();
 
     @Override
     public Map<WorkgroupId, IWorkgroup> createWorkgroupMap() {
-        List<IWorkgroup> workgroups = createWorkgroupList();
+        Set<IWorkgroup> workgroups = createWorkgroupSet();
         return workgroups.stream()
                 .collect(Collectors.toMap(IWorkgroup::getId, workgroup -> workgroup));
     }
 
     @Override
-    public abstract List<IPerson> createWorkgroupMemberList();
+    public abstract Set<IPerson> createWorkgroupMemberSet();
 
     @Override
     public Map<PersonId, IPerson> createWorkgroupMemberMap() {
-        List<IPerson> workgroupMembers = createWorkgroupMemberList();
+        Set<IPerson> workgroupMembers = createWorkgroupMemberSet();
         return workgroupMembers.stream()
                 .collect(Collectors.toMap(IPerson::getId, workgroupMember -> workgroupMember));
     }
 
     @Override
-    public abstract List<IMeeting> createMeetingList();
+    public abstract Set<IMeeting> createMeetingSet();
 
     @Override
     public Map<MeetingId, IMeeting> createMeetingMap() {
-        List<IMeeting> meetings = createMeetingList();
+        Set<IMeeting> meetings = createMeetingSet();
         return meetings.stream()
                 .collect(Collectors.toMap(IMeeting::getId, meeting -> meeting));
     }
 
     @Override
-    public abstract List<IRoom> createRoomList();
+    public abstract Set<IRoom> createRoomSet();
 
     @Override
     public Map<RoomId, IRoom> createRoomMap() {
-        List<IRoom> rooms = createRoomList();
+        Set<IRoom> rooms = createRoomSet();
         return rooms.stream()
                 .collect(Collectors.toMap(IRoom::getId, room -> room));
     }
 
     @Override
-    public abstract List<IDevice> createDeviceList();
+    public abstract Set<IDevice> createDeviceSet();
 
     @Override
     public Map<DeviceId, IDevice> createDeviceMap() {
-        List<IDevice> devices = createDeviceList();
+        Set<IDevice> devices = createDeviceSet();
         return devices.stream()
                 .collect(Collectors.toMap(IDevice::getId, device -> device));
     }

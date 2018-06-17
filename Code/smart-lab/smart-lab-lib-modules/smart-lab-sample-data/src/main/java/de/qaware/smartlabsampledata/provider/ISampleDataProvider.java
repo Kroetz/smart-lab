@@ -7,15 +7,15 @@ import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface ISampleDataProvider {
 
-    List<IWorkgroup> getWorkgroups();
-    List<IPerson> getWorkgroupMembers();
-    List<IMeeting> getMeetings();
-    Map<RoomId, List<IMeeting>> getMeetingsByRoom();
-    List<IRoom> getRooms();
-    List<IDevice> getDevices();
+    Set<IWorkgroup> getWorkgroups();
+    Set<IPerson> getWorkgroupMembers();
+    Set<IMeeting> getMeetings();
+    Map<RoomId, Set<IMeeting>> getMeetingsByRoom();
+    Set<IRoom> getRooms();
+    Set<IDevice> getDevices();
 }

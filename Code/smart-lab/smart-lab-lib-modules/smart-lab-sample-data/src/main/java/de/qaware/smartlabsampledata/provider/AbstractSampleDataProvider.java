@@ -8,9 +8,9 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabsampledata.factory.ISampleDataFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,44 +22,44 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
         this.sampleDataFactories = sampleDataFactories;
     }
 
-    private <T> List<T> getEntities(Function<ISampleDataFactory, List<T>> createEntities) {
-        List<T> entities = new ArrayList<>();
+    private <T> Set<T> getEntities(Function<ISampleDataFactory, Set<T>> entityCreation) {
+        Set<T> entities = new HashSet<>();
         for(ISampleDataFactory factory : sampleDataFactories) {
-            entities.addAll(createEntities.apply(factory));
+            entities.addAll(entityCreation.apply(factory));
         }
         return entities;
     }
 
     @Override
-    public List<IWorkgroup> getWorkgroups() {
-        return getEntities(ISampleDataFactory::createWorkgroupList);
+    public Set<IWorkgroup> getWorkgroups() {
+        return getEntities(ISampleDataFactory::createWorkgroupSet);
     }
 
     @Override
-    public List<IPerson> getWorkgroupMembers() {
-        return getEntities(ISampleDataFactory::createWorkgroupMemberList);
+    public Set<IPerson> getWorkgroupMembers() {
+        return getEntities(ISampleDataFactory::createWorkgroupMemberSet);
     }
 
     @Override
-    public List<IMeeting> getMeetings() {
-        return getEntities(ISampleDataFactory::createMeetingList);
+    public Set<IMeeting> getMeetings() {
+        return getEntities(ISampleDataFactory::createMeetingSet);
     }
 
     @Override
-    public Map<RoomId, List<IMeeting>> getMeetingsByRoom() {
-        List<IMeeting> meetings = getEntities(ISampleDataFactory::createMeetingList);
+    public Map<RoomId, Set<IMeeting>> getMeetingsByRoom() {
+        Set<IMeeting> meetings = getEntities(ISampleDataFactory::createMeetingSet);
         return meetings.stream().collect(Collectors.groupingBy(
                 IMeeting::getRoomId,
-                Collectors.toList()));
+                Collectors.toSet()));
     }
 
     @Override
-    public List<IRoom> getRooms() {
-        return getEntities(ISampleDataFactory::createRoomList);
+    public Set<IRoom> getRooms() {
+        return getEntities(ISampleDataFactory::createRoomSet);
     }
 
     @Override
-    public List<IDevice> getDevices() {
-        return getEntities(ISampleDataFactory::createDeviceList);
+    public Set<IDevice> getDevices() {
+        return getEntities(ISampleDataFactory::createDeviceSet);
     }
 }

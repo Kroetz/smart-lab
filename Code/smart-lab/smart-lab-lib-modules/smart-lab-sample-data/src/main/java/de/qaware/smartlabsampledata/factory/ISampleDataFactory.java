@@ -11,19 +11,19 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface ISampleDataFactory {
 
-    List<IWorkgroup> createWorkgroupList();
+    Set<IWorkgroup> createWorkgroupSet();
     Map<WorkgroupId, IWorkgroup> createWorkgroupMap();
-    List<IPerson> createWorkgroupMemberList();
+    Set<IPerson> createWorkgroupMemberSet();
     Map<PersonId, IPerson> createWorkgroupMemberMap();
-    List<IMeeting> createMeetingList();
+    Set<IMeeting> createMeetingSet();
     Map<MeetingId, IMeeting> createMeetingMap();
-    List<IRoom> createRoomList();
+    Set<IRoom> createRoomSet();
     Map<RoomId, IRoom> createRoomMap();
-    List<IDevice> createDeviceList();
+    Set<IDevice> createDeviceSet();
     Map<DeviceId, IDevice> createDeviceMap();
 }

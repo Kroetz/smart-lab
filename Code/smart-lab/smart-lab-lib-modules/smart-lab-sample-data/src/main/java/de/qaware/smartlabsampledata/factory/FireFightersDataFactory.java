@@ -40,8 +40,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IWorkgroup> createWorkgroupList() {
-        List<IWorkgroup> workgroups = new ArrayList<>();
+    public Set<IWorkgroup> createWorkgroupSet() {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> fireFighterMembers = new HashSet<>();
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
@@ -58,8 +58,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IPerson> createWorkgroupMemberList() {
-        List<IPerson> workgroupMembers = new ArrayList<>();
+    public Set<IPerson> createWorkgroupMemberSet() {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANTHONY)
                 .name("Fire Fighter Anthony")
@@ -79,8 +79,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IMeeting> createMeetingList() {
-        List<IMeeting> meetings = new ArrayList<>();
+    public Set<IMeeting> createMeetingSet() {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> fireFightersMeetingAgenda = new ArrayList<>();
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
@@ -105,9 +105,9 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IRoom> createRoomList() {
-        List<IRoom> rooms = new ArrayList<>();
-        List<DeviceId> redRoomDevices = new ArrayList<>();
+    public Set<IRoom> createRoomSet() {
+        Set<IRoom> rooms = new HashSet<>();
+        Set<DeviceId> redRoomDevices = new HashSet<>();
         redRoomDevices.add(DEVICE_ID_RED_MICROPHONE);
         rooms.add(Room.builder()
                 .id(ROOM_ID_RED)
@@ -118,8 +118,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IDevice> createDeviceList() {
-        List<IDevice> devices = new ArrayList<>();
+    public Set<IDevice> createDeviceSet() {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_RED_MICROPHONE)
                 .type(DummyMicrophone.DEVICE_TYPE)

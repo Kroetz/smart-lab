@@ -43,8 +43,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IWorkgroup> createWorkgroupList() {
-        List<IWorkgroup> workgroups = new ArrayList<>();
+    public Set<IWorkgroup> createWorkgroupSet() {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> coastGuardMembers = new HashSet<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
@@ -61,8 +61,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IPerson> createWorkgroupMemberList() {
-        List<IPerson> workgroupMembers = new ArrayList<>();
+    public Set<IPerson> createWorkgroupMemberSet() {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALICE)
                 .name("Coast Guard Alice")
@@ -82,8 +82,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IMeeting> createMeetingList() {
-        List<IMeeting> meetings = new ArrayList<>();
+    public Set<IMeeting> createMeetingSet() {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
         whaleMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
@@ -130,9 +130,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IRoom> createRoomList() {
-        List<IRoom> rooms = new ArrayList<>();
-        List<DeviceId> blueRoomDevices = new ArrayList<>();
+    public Set<IRoom> createRoomSet() {
+        Set<IRoom> rooms = new HashSet<>();
+        Set<DeviceId> blueRoomDevices = new HashSet<>();
         blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
         blueRoomDevices.add(DEVICE_ID_BLUE_MICROPHONE);
         rooms.add(Room.builder()
@@ -144,8 +144,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IDevice> createDeviceList() {
-        List<IDevice> devices = new ArrayList<>();
+    public Set<IDevice> createDeviceSet() {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY)
                 .type(DummyDisplay.DEVICE_TYPE)

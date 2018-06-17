@@ -40,8 +40,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IWorkgroup> createWorkgroupList() {
-        List<IWorkgroup> workgroups = new ArrayList<>();
+    public Set<IWorkgroup> createWorkgroupSet() {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> forestRangerMembers = new HashSet<>();
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
@@ -58,8 +58,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IPerson> createWorkgroupMemberList() {
-        List<IPerson> workgroupMembers = new ArrayList<>();
+    public Set<IPerson> createWorkgroupMemberSet() {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANNA)
                 .name("Forest Ranger Anna")
@@ -79,8 +79,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IMeeting> createMeetingList() {
-        List<IMeeting> meetings = new ArrayList<>();
+    public Set<IMeeting> createMeetingSet() {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
@@ -103,9 +103,9 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IRoom> createRoomList() {
-        List<IRoom> rooms = new ArrayList<>();
-        List<DeviceId> greenRoomDevices = new ArrayList<>();
+    public Set<IRoom> createRoomSet() {
+        Set<IRoom> rooms = new HashSet<>();
+        Set<DeviceId> greenRoomDevices = new HashSet<>();
         greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_GREEN)
@@ -116,8 +116,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IDevice> createDeviceList() {
-        List<IDevice> devices = new ArrayList<>();
+    public Set<IDevice> createDeviceSet() {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY)
                 .type(DummyDisplay.DEVICE_TYPE)

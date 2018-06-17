@@ -39,8 +39,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IWorkgroup> createWorkgroupList() {
-        List<IWorkgroup> workgroups = new ArrayList<>();
+    public Set<IWorkgroup> createWorkgroupSet() {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
@@ -57,8 +57,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IPerson> createWorkgroupMemberList() {
-        List<IPerson> workgroupMembers = new ArrayList<>();
+    public Set<IPerson> createWorkgroupMemberSet() {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALEX)
                 .name("Astronaut Alex")
@@ -78,8 +78,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IMeeting> createMeetingList() {
-        List<IMeeting> meetings = new ArrayList<>();
+    public Set<IMeeting> createMeetingSet() {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
@@ -102,9 +102,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IRoom> createRoomList() {
-        List<IRoom> rooms = new ArrayList<>();
-        List<DeviceId> blackRoomDevices = new ArrayList<>();
+    public Set<IRoom> createRoomSet() {
+        Set<IRoom> rooms = new HashSet<>();
+        Set<DeviceId> blackRoomDevices = new HashSet<>();
         blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLACK)
@@ -115,8 +115,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public List<IDevice> createDeviceList() {
-        List<IDevice> devices = new ArrayList<>();
+    public Set<IDevice> createDeviceSet() {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY)
                 .type(DummyDisplay.DEVICE_TYPE)
