@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.DeviceManagementApiConstants;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabdevice.business.IDeviceManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(DeviceManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class DeviceManagementController extends AbstractSmartLabController implements IEntityManagementController<IDevice> {
+public class DeviceManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IDevice> {
 
     private final IDeviceManagementBusinessLogic deviceManagementBusinessLogic;
 

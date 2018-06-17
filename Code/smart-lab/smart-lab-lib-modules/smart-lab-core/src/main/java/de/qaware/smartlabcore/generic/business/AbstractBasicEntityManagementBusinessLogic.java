@@ -4,17 +4,17 @@ import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.result.CreationResult;
 import de.qaware.smartlabcore.result.DeletionResult;
-import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
+import de.qaware.smartlabcore.generic.repository.IBasicEntityManagementRepository;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class AbstractEntityManagementBusinessLogic<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementBusinessLogic<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementBusinessLogic<EntityT, IdentifierT> {
 
-    protected final IEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository;
+    protected final IBasicEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository;
 
-    public AbstractEntityManagementBusinessLogic(IEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository) {
+    public AbstractBasicEntityManagementBusinessLogic(IBasicEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository) {
         this.entityManagementRepository = entityManagementRepository;
     }
 

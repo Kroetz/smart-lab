@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
+import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
-public class RoomManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IRoom, RoomId> implements IRoomManagementRepository {
+public class RoomManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IRoom, RoomId> implements IRoomManagementRepository {
 
     private final IMeetingManagementService meetingManagementService;
 
@@ -33,7 +33,8 @@ public class RoomManagementRepositoryMock extends AbstractEntityManagementReposi
 
     @Override
     public Set<IMeeting> getMeetingsInRoom(@NonNull IRoom room) {
-        return meetingManagementService.findAll().stream()
+        return meetingManagementService.findAll().values().stream()
+                .flatMap(Set::stream)
                 .filter(meeting -> meeting.getRoomId().equals(room.getId()))
                 .collect(Collectors.toSet());
     }
@@ -50,7 +51,7 @@ public class RoomManagementRepositoryMock extends AbstractEntityManagementReposi
         try {
             return getCurrentMeeting(room)
                     .map(meeting -> {
-                        meetingManagementService.extendMeeting(meeting.getId(), extension);
+                        meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
                         return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }

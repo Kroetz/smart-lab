@@ -6,6 +6,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.services.calendar.Calendar;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
@@ -56,17 +57,22 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
     }
 
     @Override
-    public Set<IMeeting> findAll() {
+    public Map<RoomId, Set<IMeeting>> findAll() {
         return null;
     }
 
     @Override
-    public Optional<IMeeting> findOne(MeetingId meetingId) {
+    public Set<IMeeting> findAll(RoomId roomId) {
+        return null;
+    }
+
+    @Override
+    public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
         return Optional.empty();
     }
 
     @Override
-    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds) {
+    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds, RoomId roomId) {
         return null;
     }
 
@@ -76,7 +82,7 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
     }
 
     @Override
-    public DeletionResult delete(MeetingId meetingId) {
+    public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
         return null;
     }
 

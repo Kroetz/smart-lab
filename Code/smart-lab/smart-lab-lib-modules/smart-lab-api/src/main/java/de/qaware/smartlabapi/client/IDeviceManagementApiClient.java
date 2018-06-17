@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.client;
 
 import de.qaware.smartlabapi.DeviceManagementApiConstants;
-import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
+import de.qaware.smartlabapi.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @FeignClient(name = DeviceManagementApiConstants.FEIGN_CLIENT_VALUE, path = DeviceManagementApiConstants.MAPPING_BASE)
-public interface IDeviceManagementApiClient extends IEntityManagementApiClient<IDevice> {
+public interface IDeviceManagementApiClient extends IBasicEntityManagementApiClient<IDevice> {
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ALL)

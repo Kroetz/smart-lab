@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabworkgroup.business.IWorkgroupManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class WorkgroupManagementController extends AbstractSmartLabController implements IEntityManagementController<IWorkgroup> {
+public class WorkgroupManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IWorkgroup> {
 
     private final IWorkgroupManagementBusinessLogic workgroupManagementBusinessLogic;
 

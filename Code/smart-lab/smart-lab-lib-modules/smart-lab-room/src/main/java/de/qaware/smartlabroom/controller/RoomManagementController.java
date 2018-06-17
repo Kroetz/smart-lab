@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabroom.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class RoomManagementController extends AbstractSmartLabController implements IEntityManagementController<IRoom> {
+public class RoomManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IRoom> {
 
     private final IRoomManagementBusinessLogic roomManagementBusinessLogic;
 

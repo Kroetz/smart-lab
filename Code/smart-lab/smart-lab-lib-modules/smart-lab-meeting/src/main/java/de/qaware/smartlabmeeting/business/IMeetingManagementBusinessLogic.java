@@ -2,16 +2,32 @@ package de.qaware.smartlabmeeting.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.result.ShiftResult;
-import de.qaware.smartlabcore.result.ShorteningResult;
-import de.qaware.smartlabcore.generic.business.IEntityManagementBusinessLogic;
+import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.result.*;
 
 import java.time.Duration;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
-public interface IMeetingManagementBusinessLogic extends IEntityManagementBusinessLogic<IMeeting, MeetingId> {
+public interface IMeetingManagementBusinessLogic {
 
-    ShorteningResult shortenMeeting(MeetingId meetingId, Duration shortening);
-    ExtensionResult extendMeeting(MeetingId meetingId, Duration extension);
-    ShiftResult shiftMeeting(MeetingId meetingId, Duration shift);
+    Map<RoomId, Set<IMeeting>> findAll();
+    Set<IMeeting> findAll(RoomId roomId);
+    Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId);
+    Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds, RoomId roomId);
+    CreationResult create(IMeeting meeting);
+    DeletionResult delete(MeetingId meetingId, RoomId roomId);
+    ShorteningResult shortenMeeting(
+            MeetingId meetingId,
+            RoomId roomId,
+            Duration shortening);
+    ExtensionResult extendMeeting(
+            MeetingId meetingId,
+            RoomId roomId,
+            Duration extension);
+    ShiftResult shiftMeeting(
+            MeetingId meetingId,
+            RoomId roomId,
+            Duration shift);
 }

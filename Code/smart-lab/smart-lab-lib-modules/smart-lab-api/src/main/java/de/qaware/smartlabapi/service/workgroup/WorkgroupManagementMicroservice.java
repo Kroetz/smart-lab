@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.workgroup;
 
 import de.qaware.smartlabapi.client.IWorkgroupManagementApiClient;
-import de.qaware.smartlabapi.service.generic.AbstractEntityManagementMicroservice;
+import de.qaware.smartlabapi.service.generic.AbstractBasicEntityManagementMicroservice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -23,7 +23,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class WorkgroupManagementMicroservice extends AbstractEntityManagementMicroservice<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class WorkgroupManagementMicroservice extends AbstractBasicEntityManagementMicroservice<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
 
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 

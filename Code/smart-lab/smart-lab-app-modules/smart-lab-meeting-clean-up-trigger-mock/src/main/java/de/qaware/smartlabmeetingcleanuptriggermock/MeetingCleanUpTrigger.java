@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -60,9 +60,10 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
         Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
         try {
-            List<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().stream()
+            Set<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().values().stream()
+                    .flatMap(Set::stream)
                     .filter(this::isAboutToEnd)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
             for(IMeeting meetingAboutToEnd : meetingsAboutToEnd) {
                 try {
                     log.info("Triggering clean up of meeting: " + meetingAboutToEnd.getId());

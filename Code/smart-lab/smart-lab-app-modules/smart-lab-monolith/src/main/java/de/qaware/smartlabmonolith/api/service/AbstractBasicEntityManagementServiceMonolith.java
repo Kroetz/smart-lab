@@ -1,18 +1,18 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabapi.service.generic.IEntityManagementService;
+import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
-import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 
 import java.util.Arrays;
 import java.util.Set;
 
-public abstract class AbstractEntityManagementServiceMonolith<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementService<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementServiceMonolith<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
 
-    protected final IEntityManagementController<EntityT> entityManagementController;
+    protected final IBasicEntityManagementController<EntityT> entityManagementController;
 
-    public AbstractEntityManagementServiceMonolith(IEntityManagementController<EntityT> entityManagementController) {
+    public AbstractBasicEntityManagementServiceMonolith(IBasicEntityManagementController<EntityT> entityManagementController) {
         this.entityManagementController = entityManagementController;
     }
 

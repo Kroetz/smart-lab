@@ -2,9 +2,9 @@ package de.qaware.smartlabmeeting.repository.mock;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
-import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @ConditionalOnProperty(
@@ -22,27 +22,81 @@ import java.util.List;
         name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.MeetingManagementRepository.MOCK)
 @Slf4j
-public class MeetingManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
+public class MeetingManagementRepositoryMock implements IMeetingManagementRepository {
+
+    private Map<RoomId, Set<IMeeting>> meetingsByRoom;
 
     public MeetingManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
-        this.entities = new HashSet<>(sampleDataProvider.getMeetings());
+        this.meetingsByRoom = new HashMap<>(sampleDataProvider.getMeetingsByRoom());
     }
-    
+
+    private boolean exists(MeetingId meetingId, RoomId roomId) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+        return meetingsInRoom != null && meetingsInRoom
+                .stream()
+                .anyMatch(meeting -> meeting.getId().equals(meetingId));
+    }
+
+    @Override
+    public Map<RoomId, Set<IMeeting>> findAll() {
+        return this.meetingsByRoom;
+    }
+
+    @Override
+    public Set<IMeeting> findAll(RoomId roomId) {
+        Set<IMeeting> meetings = this.meetingsByRoom.get(roomId);
+        return meetings == null ? new HashSet<>() : meetings;
+    }
+
+    @Override
+    public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+        return meetingsInRoom == null ? Optional.empty() : meetingsInRoom.stream()
+                .filter(entity -> entity.getId().equals(meetingId))
+                .findFirst();
+    }
+
+    @Override
+    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds, RoomId roomId) {
+        Map<MeetingId, Optional<IMeeting>> meetingsById = new HashMap<>();
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+        meetingIds.forEach(meetingId -> meetingsById.put(
+                meetingId, meetingsInRoom == null ? Optional.empty() : findOne(meetingId, roomId)));
+        return meetingsById;
+    }
+
     @Override
     public CreationResult create(IMeeting meeting) {
-        boolean meetingCollision = findAll().stream().anyMatch(m -> areMeetingsColliding(meeting, m));
-        if(meetingCollision || exists(meeting.getId())) {
+        boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
+        if(meetingCollision || exists(meeting.getId(), meeting.getRoomId())) {
             return CreationResult.CONFLICT;
         }
-        if(this.entities.add(meeting)) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
+        if(meetingsInRoom != null && meetingsInRoom.add(meeting)) {
             return CreationResult.SUCCESS;
         }
         return CreationResult.ERROR;
     }
 
     @Override
+    public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+        List<IMeeting> meetingsToDelete = meetingsInRoom == null ? new ArrayList<>() : meetingsInRoom.stream()
+                .filter(meeting -> meeting.getId().equals(meetingId))
+                .collect(Collectors.toList());
+        if(meetingsInRoom == null || meetingsToDelete.isEmpty()) {
+            return DeletionResult.NOT_FOUND;
+        }
+        boolean deleted =  meetingsInRoom.removeAll(meetingsToDelete);
+        if(deleted) {
+            return DeletionResult.SUCCESS;
+        }
+        return DeletionResult.ERROR;
+    }
+
+    @Override
     public ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
-        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
             IMeeting shortenedMeeting = meeting.copy();
             shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
             CreationResult shortenedMeetingCreated = create(shortenedMeeting);
@@ -57,7 +111,7 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
     public ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
         IMeeting extendedMeeting = meeting.copy();
         extendedMeeting.setEnd(meeting.getEnd().plus(extension));
-        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
             CreationResult extendedMeetingCreated = create(extendedMeeting);
             if(extendedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);
@@ -78,7 +132,7 @@ public class MeetingManagementRepositoryMock extends AbstractEntityManagementRep
         IMeeting shiftedMeeting = meeting.copy();
         shiftedMeeting.setStart(meeting.getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
-        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
             CreationResult shiftedMeetingCreated = create(shiftedMeeting);
             if(shiftedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);

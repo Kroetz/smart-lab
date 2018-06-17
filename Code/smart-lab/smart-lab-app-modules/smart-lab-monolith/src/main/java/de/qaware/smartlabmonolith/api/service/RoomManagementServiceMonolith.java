@@ -17,7 +17,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class RoomManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IRoom, RoomId> implements IRoomManagementService {
+public class RoomManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IRoom, RoomId> implements IRoomManagementService {
 
     private final RoomManagementController roomManagementController;
 

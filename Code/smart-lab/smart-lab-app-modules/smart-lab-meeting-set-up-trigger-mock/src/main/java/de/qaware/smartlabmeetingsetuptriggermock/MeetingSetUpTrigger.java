@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -61,9 +61,10 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
         try {
-            List<IMeeting> justStartedMeetings = meetingManagementService.findAll().stream()
+            Set<IMeeting> justStartedMeetings = meetingManagementService.findAll().values().stream()
+                    .flatMap(Set::stream)
                     .filter(this::hasJustStarted)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
             for(IMeeting startedMeeting : justStartedMeetings) {
                 try {
                     log.info("Triggering set up of meeting: " + startedMeeting.getId());

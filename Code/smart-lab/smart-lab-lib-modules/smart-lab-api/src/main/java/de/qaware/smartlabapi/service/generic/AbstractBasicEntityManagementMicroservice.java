@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.generic;
 
-import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
+import de.qaware.smartlabapi.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
@@ -12,11 +12,11 @@ import org.springframework.http.HttpStatus;
 import java.util.Arrays;
 import java.util.Set;
 
-public abstract class AbstractEntityManagementMicroservice<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementService<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
 
-    protected final IEntityManagementApiClient<EntityT> entityManagementApiClient;
+    protected final IBasicEntityManagementApiClient<EntityT> entityManagementApiClient;
 
-    public AbstractEntityManagementMicroservice(IEntityManagementApiClient<EntityT> entityManagementApiClient) {
+    public AbstractBasicEntityManagementMicroservice(IBasicEntityManagementApiClient<EntityT> entityManagementApiClient) {
         this.entityManagementApiClient = entityManagementApiClient;
     }
 

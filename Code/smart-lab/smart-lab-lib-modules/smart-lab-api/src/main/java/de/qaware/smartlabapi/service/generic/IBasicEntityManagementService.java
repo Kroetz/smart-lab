@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.generic.IIdentifier;
 
 import java.util.Set;
 
-public interface IEntityManagementService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> {
+public interface IBasicEntityManagementService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> {
 
     Set<EntityT> findAll();
     EntityT findOne(IdentifierT entityId);

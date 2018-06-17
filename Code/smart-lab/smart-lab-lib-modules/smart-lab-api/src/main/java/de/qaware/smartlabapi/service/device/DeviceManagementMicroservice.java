@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.device;
 
 import de.qaware.smartlabapi.client.IDeviceManagementApiClient;
-import de.qaware.smartlabapi.service.generic.AbstractEntityManagementMicroservice;
+import de.qaware.smartlabapi.service.generic.AbstractBasicEntityManagementMicroservice;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class DeviceManagementMicroservice extends AbstractEntityManagementMicroservice<IDevice, DeviceId> implements IDeviceManagementService {
+public class DeviceManagementMicroservice extends AbstractBasicEntityManagementMicroservice<IDevice, DeviceId> implements IDeviceManagementService {
 
     private final IDeviceManagementApiClient deviceManagementApiClient;
 

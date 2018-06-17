@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.PersonManagementApiConstants;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabperson.business.IPersonManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class PersonManagementController extends AbstractSmartLabController implements IEntityManagementController<IPerson> {
+public class PersonManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IPerson> {
 
     private final IPersonManagementBusinessLogic personManagementBusinessLogic;
 

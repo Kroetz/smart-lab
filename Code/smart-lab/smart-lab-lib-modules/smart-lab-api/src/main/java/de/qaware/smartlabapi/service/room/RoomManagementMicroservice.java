@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.room;
 
 import de.qaware.smartlabapi.client.IRoomManagementApiClient;
-import de.qaware.smartlabapi.service.generic.AbstractEntityManagementMicroservice;
+import de.qaware.smartlabapi.service.generic.AbstractBasicEntityManagementMicroservice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
@@ -23,7 +23,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class RoomManagementMicroservice extends AbstractEntityManagementMicroservice<IRoom, RoomId> implements IRoomManagementService {
+public class RoomManagementMicroservice extends AbstractBasicEntityManagementMicroservice<IRoom, RoomId> implements IRoomManagementService {
 
     private final IRoomManagementApiClient roomManagementApiClient;
 

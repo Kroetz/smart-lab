@@ -1,6 +1,6 @@
 package de.qaware.smartlabtest.generic
 
-import de.qaware.smartlabapi.service.generic.IEntityManagementService
+import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService
 import de.qaware.smartlabcore.data.generic.IEntity
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MeetingConflictException
@@ -10,7 +10,7 @@ import java.util.stream.Collectors
 
 abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
 
-    protected IEntityManagementService<T> crudService
+    protected IBasicEntityManagementService<T> crudService
     protected Set<T> entitiesForFindAll_withExisting
     protected T entityForFindOne_withExisting
     protected String entityIdForFindOne_withoutExisting

@@ -5,7 +5,7 @@ import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
-import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
+import de.qaware.smartlabcore.generic.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabroom.repository.IRoomManagementRepository;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class RoomManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IRoom, RoomId> implements IRoomManagementBusinessLogic {
+public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IRoom, RoomId> implements IRoomManagementBusinessLogic {
 
     private final IRoomManagementRepository roomManagementRepository;
 

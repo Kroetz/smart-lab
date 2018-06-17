@@ -17,7 +17,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class WorkgroupManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class WorkgroupManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;
 

@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
+import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
-public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IWorkgroup, WorkgroupId> implements IWorkgroupManagementRepository {
+public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IWorkgroup, WorkgroupId> implements IWorkgroupManagementRepository {
 
     private final IMeetingManagementService meetingManagementService;
 
@@ -33,7 +33,8 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
-        return meetingManagementService.findAll().stream()
+        return meetingManagementService.findAll().values().stream()
+                .flatMap(Set::stream)
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroup.getId()))
                 .collect(Collectors.toSet());
     }
@@ -50,7 +51,7 @@ public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementR
         try {
             return getCurrentMeeting(workgroup)
                     .map(meeting -> {
-                        meetingManagementService.extendMeeting(meeting.getId(), extension);
+                        meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
                         return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }
