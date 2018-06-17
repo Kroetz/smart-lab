@@ -2,6 +2,7 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,7 +15,7 @@ import java.time.Duration;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class MeetingManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IMeeting> implements IMeetingManagementService {
+public class MeetingManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IMeeting, MeetingId> implements IMeetingManagementService {
 
     private final MeetingManagementController meetingManagementController;
 
@@ -24,17 +25,17 @@ public class MeetingManagementServiceMonolith extends AbstractEntityManagementSe
     }
 
     @Override
-    public void shortenMeeting(String meetingId, Duration shortening) {
-        this.meetingManagementController.shortenMeeting(meetingId, shortening.toMinutes());
+    public void shortenMeeting(MeetingId meetingId, Duration shortening) {
+        this.meetingManagementController.shortenMeeting(meetingId.getIdValue(), shortening.toMinutes());
     }
 
     @Override
-    public void extendMeeting(String meetingId, Duration extension) {
-        this.meetingManagementController.extendMeeting(meetingId, extension.toMinutes());
+    public void extendMeeting(MeetingId meetingId, Duration extension) {
+        this.meetingManagementController.extendMeeting(meetingId.getIdValue(), extension.toMinutes());
     }
 
     @Override
-    public void shiftMeeting(String meetingId, Duration shift) {
-        this.meetingManagementController.shiftMeeting(meetingId, shift.toMinutes());
+    public void shiftMeeting(MeetingId meetingId, Duration shift) {
+        this.meetingManagementController.shiftMeeting(meetingId.getIdValue(), shift.toMinutes());
     }
 }

@@ -9,7 +9,9 @@ import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -62,7 +64,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
         return setUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
@@ -72,7 +74,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
         return setUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
@@ -94,7 +96,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
         return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
@@ -106,7 +108,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     // TODO: Introduce "Clean up LAST meeting" since there is no "current meeting" after a meeting has ended
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
         return cleanUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
@@ -128,7 +130,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
         return startMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
@@ -138,7 +140,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
         return startMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
@@ -160,7 +162,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(String roomId, @Nullable URL callbackUrl) {
+    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
         return stopMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
@@ -170,7 +172,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId, @Nullable URL callbackUrl) {
+    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
         return stopMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 

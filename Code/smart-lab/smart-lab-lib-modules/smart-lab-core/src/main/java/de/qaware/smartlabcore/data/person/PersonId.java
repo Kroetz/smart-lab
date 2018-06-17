@@ -1,5 +1,7 @@
 package de.qaware.smartlabcore.data.person;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlabcore.data.generic.AbstractIdentifier;
 
 public class PersonId extends AbstractIdentifier {
@@ -8,7 +10,8 @@ public class PersonId extends AbstractIdentifier {
         super(idValue);
     }
 
-    public static PersonId of(String idValue) {
+    @JsonCreator
+    public static PersonId of(@JsonProperty(ID_VALUE_FIELD_NAME) String idValue) {
         return new PersonId(idValue);
     }
 }

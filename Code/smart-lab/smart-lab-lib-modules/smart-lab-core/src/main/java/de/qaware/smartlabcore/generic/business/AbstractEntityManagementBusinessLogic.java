@@ -1,6 +1,7 @@
 package de.qaware.smartlabcore.generic.business;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.result.CreationResult;
 import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.generic.repository.IEntityManagementRepository;
@@ -9,36 +10,36 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class AbstractEntityManagementBusinessLogic<T extends IEntity> implements IEntityManagementBusinessLogic<T> {
+public abstract class AbstractEntityManagementBusinessLogic<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementBusinessLogic<EntityT, IdentifierT> {
 
-    protected final IEntityManagementRepository<T> entityManagementRepository;
+    protected final IEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository;
 
-    public AbstractEntityManagementBusinessLogic(IEntityManagementRepository<T> entityManagementRepository) {
+    public AbstractEntityManagementBusinessLogic(IEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository) {
         this.entityManagementRepository = entityManagementRepository;
     }
 
     @Override
-    public Set<T> findAll() {
+    public Set<EntityT> findAll() {
         return entityManagementRepository.findAll();
     }
 
     @Override
-    public Optional<T> findOne(String entityId) {
+    public Optional<EntityT> findOne(IdentifierT entityId) {
         return entityManagementRepository.findOne(entityId);
     }
 
     @Override
-    public Map<String, Optional<T>> findMultiple(Set<String> entityIds) {
+    public Map<IdentifierT, Optional<EntityT>> findMultiple(Set<IdentifierT> entityIds) {
         return entityManagementRepository.findMultiple(entityIds);
     }
 
     @Override
-    public CreationResult create(T entity) {
+    public CreationResult create(EntityT entity) {
         return entityManagementRepository.create(entity);
     }
 
     @Override
-    public DeletionResult delete(String entityId) {
+    public DeletionResult delete(IdentifierT entityId) {
         return entityManagementRepository.delete(entityId);
     }
 }

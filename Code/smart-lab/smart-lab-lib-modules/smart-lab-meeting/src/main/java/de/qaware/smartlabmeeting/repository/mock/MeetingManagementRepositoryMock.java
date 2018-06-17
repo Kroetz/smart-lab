@@ -1,6 +1,7 @@
 package de.qaware.smartlabmeeting.repository.mock;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
@@ -21,7 +22,7 @@ import java.util.List;
         name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.MeetingManagementRepository.MOCK)
 @Slf4j
-public class MeetingManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IMeeting> implements IMeetingManagementRepository {
+public class MeetingManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
     public MeetingManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
         this.entities = new HashSet<>(sampleDataProvider.getMeetings());

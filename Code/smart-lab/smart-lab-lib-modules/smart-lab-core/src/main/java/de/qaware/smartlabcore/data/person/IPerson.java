@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.data.generic.IEntity;
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = Constants.JSON_TYPE_PROPERTY_NAME)
-public interface IPerson extends IEntity {
+public interface IPerson extends IEntity<PersonId> {
 
     String getName();
     String getEmail();

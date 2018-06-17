@@ -1,6 +1,7 @@
 package de.qaware.smartlabperson.business;
 
 import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabperson.repository.IPersonManagementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class PersonManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IPerson> implements IPersonManagementBusinessLogic {
+public class PersonManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IPerson, PersonId> implements IPersonManagementBusinessLogic {
 
     private final IPersonManagementRepository personManagementRepository;
 

@@ -7,18 +7,19 @@ import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.device.microphone.ThinkpadP50InternalMicrophoneAdapter;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.Room;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -26,15 +27,15 @@ import java.util.*;
 @Component
 public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
-    public static final String WORKGROUP_ID_COAST_GUARD = "coast-guard";
-    public static final String MEMBER_ID_ALICE = "coast-guard-alice";
-    public static final String MEMBER_ID_BEN = "coast-guard-ben";
-    public static final String MEMBER_ID_CHARLIE = "coast-guard-charlie";
-    public static final String MEETING_ID_WHALES = "whales";
-    public static final String MEETING_ID_WHIRLPOOLS = "whirlpools";
-    public static final String ROOM_ID_BLUE = "blue";
-    public static final String DEVICE_ID_BLUE_DISPLAY = "blue-display";
-    public static final String DEVICE_ID_BLUE_MICROPHONE = "blue-microphone";
+    public static final WorkgroupId WORKGROUP_ID_COAST_GUARD = WorkgroupId.of("coast-guard");
+    public static final PersonId MEMBER_ID_ALICE = PersonId.of("coast-guard-alice");
+    public static final PersonId MEMBER_ID_BEN = PersonId.of("coast-guard-ben");
+    public static final PersonId MEMBER_ID_CHARLIE = PersonId.of("coast-guard-charlie");
+    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales");
+    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools");
+    public static final RoomId ROOM_ID_BLUE = RoomId.of("blue");
+    public static final DeviceId DEVICE_ID_BLUE_DISPLAY = DeviceId.of("blue-display");
+    public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
     public static final String DELEGATE_ID_BLUE = "blue-delegate";
 
     public CoastGuardDataFactory() {
@@ -44,7 +45,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IWorkgroup> createWorkgroupList() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        Set<String> coastGuardMembers = new HashSet<>();
+        Set<PersonId> coastGuardMembers = new HashSet<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
         coastGuardMembers.add(MEMBER_ID_CHARLIE);
@@ -92,7 +93,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whaleMeetingAssistanceConfigurations = new HashMap<>();
         whaleMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whaleMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
+        whaleMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));    // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
@@ -113,7 +114,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whirlpoolMeetingAssistanceConfigurations = new HashMap<>();
         whirlpoolMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
+        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHIRLPOOLS)
                 .title("Meeting about dangers of whirlpools")
@@ -131,7 +132,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IRoom> createRoomList() {
         List<IRoom> rooms = new ArrayList<>();
-        List<String> blueRoomDevices = new ArrayList<>();
+        List<DeviceId> blueRoomDevices = new ArrayList<>();
         blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
         blueRoomDevices.add(DEVICE_ID_BLUE_MICROPHONE);
         rooms.add(Room.builder()

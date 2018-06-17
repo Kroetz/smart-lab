@@ -2,6 +2,7 @@ package de.qaware.smartlabmeeting.controller;
 
 import de.qaware.smartlabapi.MeetingManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabmeeting.business.IMeetingManagementBusinessLogic;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
@@ -35,13 +36,16 @@ public class MeetingManagementController extends AbstractSmartLabController impl
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IMeeting> findOne(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
-        return responseFromOptional(meetingManagementBusinessLogic.findOne(meetingId));
+        return responseFromOptional(meetingManagementBusinessLogic.findOne(MeetingId.of(meetingId)));
     }
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IMeeting>> findMultiple(@RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
-        return responseFromOptionals(meetingManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(meetingIds))));
+        return responseFromOptionals(meetingManagementBusinessLogic.findMultiple(
+                Arrays.stream(meetingIds)
+                        .map(MeetingId::of)
+                        .collect(Collectors.toSet())));
     }
 
     @Override
@@ -53,27 +57,27 @@ public class MeetingManagementController extends AbstractSmartLabController impl
     @Override
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
-        return meetingManagementBusinessLogic.delete(meetingId).toResponseEntity();
+        return meetingManagementBusinessLogic.delete(MeetingId.of(meetingId)).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHORTEN_MEETING)
     public ResponseEntity<Void> shortenMeeting(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHORTENING_IN_MINUTES) long shorteningInMinutes) {
-        return meetingManagementBusinessLogic.shortenMeeting(meetingId, Duration.ofMinutes(shorteningInMinutes)).toResponseEntity();
+        return meetingManagementBusinessLogic.shortenMeeting(MeetingId.of(meetingId), Duration.ofMinutes(shorteningInMinutes)).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_EXTEND_MEETING)
     public ResponseEntity<Void> extendMeeting(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return meetingManagementBusinessLogic.extendMeeting(meetingId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return meetingManagementBusinessLogic.extendMeeting(MeetingId.of(meetingId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @PutMapping(MeetingManagementApiConstants.MAPPING_SHIFT_MEETING)
     public ResponseEntity<Void> shiftMeeting(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHIFT_IN_MINUTES) long shiftInMinutes) {
-        return meetingManagementBusinessLogic.shiftMeeting(meetingId, Duration.ofMinutes(shiftInMinutes)).toResponseEntity();
+        return meetingManagementBusinessLogic.shiftMeeting(MeetingId.of(meetingId), Duration.ofMinutes(shiftInMinutes)).toResponseEntity();
     }
 }

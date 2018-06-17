@@ -17,7 +17,7 @@ public abstract class AbstractSmartLabController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    protected <T> ResponseEntity<Set<T>> responseFromOptionals(Map<String, Optional<T>> entityOptionalsById) {
+    protected <T, IdentifierT> ResponseEntity<Set<T>> responseFromOptionals(Map<IdentifierT, Optional<T>> entityOptionalsById) {
         Collection<Optional<T>> entityOptionals = entityOptionalsById.values();
         if(entityOptionals.stream().anyMatch(o -> !o.isPresent())) {
             return ResponseEntity.notFound().build();

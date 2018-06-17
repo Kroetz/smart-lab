@@ -2,40 +2,45 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.generic.IEntityManagementService;
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 
+import java.util.Arrays;
 import java.util.Set;
 
-public class AbstractEntityManagementServiceMonolith<T extends IEntity> implements IEntityManagementService<T> {
+public abstract class AbstractEntityManagementServiceMonolith<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementService<EntityT, IdentifierT> {
 
-    protected final IEntityManagementController<T> entityManagementController;
+    protected final IEntityManagementController<EntityT> entityManagementController;
 
-    public AbstractEntityManagementServiceMonolith(IEntityManagementController<T> entityManagementController) {
+    public AbstractEntityManagementServiceMonolith(IEntityManagementController<EntityT> entityManagementController) {
         this.entityManagementController = entityManagementController;
     }
 
     @Override
-    public Set<T> findAll() {
+    public Set<EntityT> findAll() {
         return this.entityManagementController.findAll();
     }
 
     @Override
-    public T findOne(String entityId) {
-        return this.entityManagementController.findOne(entityId).getBody();
+    public EntityT findOne(IdentifierT entityId) {
+        return this.entityManagementController.findOne(entityId.getIdValue()).getBody();
     }
 
     @Override
-    public Set<T> findMultiple(String[] entityIds) {
-        return this.entityManagementController.findMultiple(entityIds).getBody();
+    public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
+        return this.entityManagementController.findMultiple(Arrays.stream(entityIds)
+                .map(IIdentifier::getIdValue)
+                .toArray(String[]::new))
+                .getBody();
     }
 
     @Override
-    public void create(T entity) {
+    public void create(EntityT entity) {
         this.entityManagementController.create(entity);
     }
 
     @Override
-    public void delete(String entityId) {
-        this.entityManagementController.delete(entityId);
+    public void delete(IdentifierT entityId) {
+        this.entityManagementController.delete(entityId.getIdValue());
     }
 }

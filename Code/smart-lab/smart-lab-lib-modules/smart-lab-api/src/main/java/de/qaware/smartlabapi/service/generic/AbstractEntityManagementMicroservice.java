@@ -2,24 +2,26 @@ package de.qaware.smartlabapi.service.generic;
 
 import de.qaware.smartlabapi.client.generic.IEntityManagementApiClient;
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MeetingConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
 import java.util.Set;
 
-public class AbstractEntityManagementService<T extends IEntity> implements IEntityManagementService<T> {
+public abstract class AbstractEntityManagementMicroservice<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementService<EntityT, IdentifierT> {
 
-    protected final IEntityManagementApiClient<T> entityManagementApiClient;
+    protected final IEntityManagementApiClient<EntityT> entityManagementApiClient;
 
-    public AbstractEntityManagementService(IEntityManagementApiClient<T> entityManagementApiClient) {
+    public AbstractEntityManagementMicroservice(IEntityManagementApiClient<EntityT> entityManagementApiClient) {
         this.entityManagementApiClient = entityManagementApiClient;
     }
 
     @Override
-    public Set<T> findAll() {
+    public Set<EntityT> findAll() {
         try {
             return entityManagementApiClient.findAll();
         }
@@ -29,9 +31,9 @@ public class AbstractEntityManagementService<T extends IEntity> implements IEnti
     }
 
     @Override
-    public T findOne(String entityId) {
+    public EntityT findOne(IdentifierT entityId) {
         try {
-            return entityManagementApiClient.findOne(entityId).getBody();
+            return entityManagementApiClient.findOne(entityId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -42,9 +44,12 @@ public class AbstractEntityManagementService<T extends IEntity> implements IEnti
     }
 
     @Override
-    public Set<T> findMultiple(String[] entityIds) {
+    public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
         try {
-            return entityManagementApiClient.findMultiple(entityIds).getBody();
+            return entityManagementApiClient.findMultiple(Arrays.stream(entityIds)
+                    .map(IIdentifier::getIdValue)
+                    .toArray(String[]::new))
+                    .getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -56,7 +61,7 @@ public class AbstractEntityManagementService<T extends IEntity> implements IEnti
     }
 
     @Override
-    public void create(T entity) {
+    public void create(EntityT entity) {
         try {
             entityManagementApiClient.create(entity);
         }
@@ -70,9 +75,9 @@ public class AbstractEntityManagementService<T extends IEntity> implements IEnti
     }
 
     @Override
-    public void delete(String entityId) {
+    public void delete(IdentifierT entityId) {
         try {
-            entityManagementApiClient.delete(entityId);
+            entityManagementApiClient.delete(entityId.getIdValue());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

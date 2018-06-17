@@ -1,10 +1,15 @@
 package de.qaware.smartlabsampledata.factory;
 
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
 import java.util.List;
 import java.util.Map;
@@ -12,13 +17,13 @@ import java.util.Map;
 public interface ISampleDataFactory {
 
     List<IWorkgroup> createWorkgroupList();
-    Map<String, IWorkgroup> createWorkgroupMap();
+    Map<WorkgroupId, IWorkgroup> createWorkgroupMap();
     List<IPerson> createWorkgroupMemberList();
-    Map<String, IPerson> createWorkgroupMemberMap();
+    Map<PersonId, IPerson> createWorkgroupMemberMap();
     List<IMeeting> createMeetingList();
-    Map<String, IMeeting> createMeetingMap();
+    Map<MeetingId, IMeeting> createMeetingMap();
     List<IRoom> createRoomList();
-    Map<String, IRoom> createRoomMap();
+    Map<RoomId, IRoom> createRoomMap();
     List<IDevice> createDeviceList();
-    Map<String, IDevice> createDeviceMap();
+    Map<DeviceId, IDevice> createDeviceMap();
 }

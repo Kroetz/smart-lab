@@ -1,14 +1,15 @@
 package de.qaware.smartlabapi.service.generic;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IIdentifier;
 
 import java.util.Set;
 
-public interface IEntityManagementService<T extends IEntity> {
+public interface IEntityManagementService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> {
 
-    Set<T> findAll();
-    T findOne(String entityId);
-    Set<T> findMultiple(String[] entityIds);
-    void create(T entity);
-    void delete(String entityId);
+    Set<EntityT> findAll();
+    EntityT findOne(IdentifierT entityId);
+    Set<EntityT> findMultiple(IdentifierT[] entityIds);
+    void create(EntityT entity);
+    void delete(IdentifierT entityId);
 }

@@ -2,6 +2,7 @@ package de.qaware.smartlabperson.controller;
 
 import de.qaware.smartlabapi.PersonManagementApiConstants;
 import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabperson.business.IPersonManagementBusinessLogic;
@@ -11,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
@@ -34,13 +35,16 @@ public class PersonManagementController extends AbstractSmartLabController imple
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
-        return responseFromOptional(personManagementBusinessLogic.findOne(personId));
+        return responseFromOptional(personManagementBusinessLogic.findOne(PersonId.of(personId)));
     }
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds) {
-        return responseFromOptionals(personManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(personIds))));
+        return responseFromOptionals(personManagementBusinessLogic.findMultiple(
+                Arrays.stream(personIds)
+                        .map(PersonId::of)
+                        .collect(Collectors.toSet())));
     }
 
     @Override
@@ -52,6 +56,6 @@ public class PersonManagementController extends AbstractSmartLabController imple
     @Override
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
-        return personManagementBusinessLogic.delete(personId).toResponseEntity();
+        return personManagementBusinessLogic.delete(PersonId.of(personId)).toResponseEntity();
     }
 }

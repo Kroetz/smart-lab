@@ -4,6 +4,7 @@ import de.qaware.smartlabapi.RoomManagementApiConstants;
 import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.ExtensionResult;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class RoomManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IRoom> implements IRoomManagementBusinessLogic {
+public class RoomManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IRoom, RoomId> implements IRoomManagementBusinessLogic {
 
     private final IRoomManagementRepository roomManagementRepository;
 
@@ -29,28 +30,28 @@ public class RoomManagementBusinessLogic extends AbstractEntityManagementBusines
     }
 
     @Override
-    public Optional<Set<IMeeting>> getMeetingsInRoom(String roomId) {
+    public Optional<Set<IMeeting>> getMeetingsInRoom(RoomId roomId) {
         return roomManagementRepository.findOne(roomId)
                 .map(room -> Optional.of(roomManagementRepository.getMeetingsInRoom(room)))
                 .orElse(Optional.empty());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(String roomId) {
+    public Optional<IMeeting> getCurrentMeeting(RoomId roomId) {
         return roomManagementRepository.findOne(roomId)
                 .map(roomManagementRepository::getCurrentMeeting)
                 .orElse(Optional.empty());
     }
 
     @Override
-    public ExtensionResult extendCurrentMeeting(String roomId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(RoomId roomId, Duration extension) {
         return roomManagementRepository.findOne(roomId)
                 .map(room -> roomManagementRepository.extendCurrentMeeting(room, extension))
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 
     @Override
-    public String getCurrentMeetingStatusPage(String roomId, Model model) {
+    public String getCurrentMeetingStatusPage(RoomId roomId, Model model) {
         String statusPage = getCurrentMeeting(roomId)
                 .map(meeting -> {
                     model.addAttribute("roomId", roomId);

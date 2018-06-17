@@ -1,9 +1,10 @@
 package de.qaware.smartlabapi.service.room;
 
 import de.qaware.smartlabapi.client.IRoomManagementApiClient;
-import de.qaware.smartlabapi.service.generic.AbstractEntityManagementService;
+import de.qaware.smartlabapi.service.generic.AbstractEntityManagementMicroservice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.MeetingConflictException;
@@ -22,7 +23,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class RoomManagementMicroservice extends AbstractEntityManagementService<IRoom> implements IRoomManagementService {
+public class RoomManagementMicroservice extends AbstractEntityManagementMicroservice<IRoom, RoomId> implements IRoomManagementService {
 
     private final IRoomManagementApiClient roomManagementApiClient;
 
@@ -32,9 +33,9 @@ public class RoomManagementMicroservice extends AbstractEntityManagementService<
     }
 
     @Override
-    public Set<IMeeting> getMeetingsInRoom(String roomId) {
+    public Set<IMeeting> getMeetingsInRoom(RoomId roomId) {
         try {
-            return this.roomManagementApiClient.getMeetingsInRoom(roomId).getBody();
+            return this.roomManagementApiClient.getMeetingsInRoom(roomId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -45,9 +46,9 @@ public class RoomManagementMicroservice extends AbstractEntityManagementService<
     }
 
     @Override
-    public IMeeting getCurrentMeeting(String roomId) {
+    public IMeeting getCurrentMeeting(RoomId roomId) {
         try {
-            return this.roomManagementApiClient.getCurrentMeeting(roomId).getBody();
+            return this.roomManagementApiClient.getCurrentMeeting(roomId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -58,9 +59,9 @@ public class RoomManagementMicroservice extends AbstractEntityManagementService<
     }
 
     @Override
-    public void extendCurrentMeeting(String roomId, Duration extension) {
+    public void extendCurrentMeeting(RoomId roomId, Duration extension) {
         try {
-            this.roomManagementApiClient.extendCurrentMeeting(roomId, extension.toMinutes());
+            this.roomManagementApiClient.extendCurrentMeeting(roomId.getIdValue(), extension.toMinutes());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

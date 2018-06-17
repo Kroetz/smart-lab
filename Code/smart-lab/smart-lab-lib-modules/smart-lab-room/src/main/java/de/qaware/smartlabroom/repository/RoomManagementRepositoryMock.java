@@ -3,6 +3,7 @@ package de.qaware.smartlabroom.repository;
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
-public class RoomManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IRoom> implements IRoomManagementRepository {
+public class RoomManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IRoom, RoomId> implements IRoomManagementRepository {
 
     private final IMeetingManagementService meetingManagementService;
 

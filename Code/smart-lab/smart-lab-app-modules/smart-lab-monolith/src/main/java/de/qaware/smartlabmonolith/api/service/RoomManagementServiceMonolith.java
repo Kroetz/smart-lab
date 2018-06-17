@@ -3,6 +3,7 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabroom.controller.RoomManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,7 +17,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class RoomManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IRoom> implements IRoomManagementService {
+public class RoomManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IRoom, RoomId> implements IRoomManagementService {
 
     private final RoomManagementController roomManagementController;
 
@@ -26,17 +27,17 @@ public class RoomManagementServiceMonolith extends AbstractEntityManagementServi
     }
 
     @Override
-    public Set<IMeeting> getMeetingsInRoom(String roomId) {
-        return this.roomManagementController.getMeetingsInRoom(roomId).getBody();
+    public Set<IMeeting> getMeetingsInRoom(RoomId roomId) {
+        return this.roomManagementController.getMeetingsInRoom(roomId.getIdValue()).getBody();
     }
 
     @Override
-    public IMeeting getCurrentMeeting(String roomId) {
-        return this.roomManagementController.getCurrentMeeting(roomId).getBody();
+    public IMeeting getCurrentMeeting(RoomId roomId) {
+        return this.roomManagementController.getCurrentMeeting(roomId.getIdValue()).getBody();
     }
 
     @Override
-    public void extendCurrentMeeting(String roomId, Duration extension) {
-        this.roomManagementController.extendCurrentMeeting(roomId, extension.toMinutes());
+    public void extendCurrentMeeting(RoomId roomId, Duration extension) {
+        this.roomManagementController.extendCurrentMeeting(roomId.getIdValue(), extension.toMinutes());
     }
 }

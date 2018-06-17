@@ -1,6 +1,7 @@
 package de.qaware.smartlabcore.generic.repository;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.result.CreationResult;
 import de.qaware.smartlabcore.result.DeletionResult;
 import org.springframework.stereotype.Repository;
@@ -9,36 +10,36 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> implements IEntityManagementRepository<T> {
+public abstract class AbstractEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IEntityManagementRepository<EntityT, IdentifierT> {
 
-    protected Set<T> entities;
+    protected Set<EntityT> entities;
 
-    protected boolean exists(String entityId) {
+    protected boolean exists(IdentifierT entityId) {
         return entities.stream()
                 .anyMatch(entity -> entity.getId().equals(entityId));
     }
 
     @Override
-    public Set<T> findAll() {
+    public Set<EntityT> findAll() {
         return this.entities;
     }
 
     @Override
-    public Optional<T> findOne(String entityId) {
+    public Optional<EntityT> findOne(IdentifierT entityId) {
         return this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .findFirst();
     }
 
     @Override
-    public Map<String, Optional<T>> findMultiple(Set<String> entityIds) {
-        Map<String, Optional<T>> entitiesById = new HashMap<>();
+    public Map<IdentifierT, Optional<EntityT>> findMultiple(Set<IdentifierT> entityIds) {
+        Map<IdentifierT, Optional<EntityT>> entitiesById = new HashMap<>();
         entityIds.forEach(entityId -> entitiesById.put(entityId, findOne(entityId)));
         return entitiesById;
     }
 
     @Override
-    public CreationResult create(T entity) {
+    public CreationResult create(EntityT entity) {
         if (exists(entity.getId())) {
             return CreationResult.CONFLICT;
         }
@@ -49,8 +50,8 @@ public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> 
     }
 
     @Override
-    public DeletionResult delete(String entityId) {
-        List<IEntity> entitiesToDelete = this.entities.stream()
+    public DeletionResult delete(IdentifierT entityId) {
+        List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .collect(Collectors.toList());
         if(entitiesToDelete.isEmpty()) {
@@ -61,9 +62,5 @@ public abstract class AbstractEntityManagementRepositoryMock<T extends IEntity> 
             return DeletionResult.SUCCESS;
         }
         return DeletionResult.ERROR;
-    }
-
-    protected void sortEntitiesById(List<T> entities) {
-        entities.sort(Comparator.comparing(IEntity::getId));
     }
 }

@@ -2,11 +2,10 @@ package de.qaware.smartlabcore.data.generic;
 
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
-
 @EqualsAndHashCode
 public abstract class AbstractIdentifier implements IIdentifier {
 
+    protected static final String ID_VALUE_FIELD_NAME = "idValue";
     protected final String idValue;
 
     protected AbstractIdentifier(String idValue) {
@@ -16,10 +15,5 @@ public abstract class AbstractIdentifier implements IIdentifier {
     @Override
     public String getIdValue() {
         return this.idValue;
-    }
-
-    @Override
-    public int compareTo(@NotNull String o) {
-        return this.idValue.compareTo(o);
     }
 }

@@ -6,17 +6,18 @@ import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.Room;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -24,13 +25,13 @@ import java.util.*;
 @Component
 public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
-    public static final String WORKGROUP_ID_ASTRONAUTS = "astronauts";
-    public static final String MEMBER_ID_ALEX = "alex";
-    public static final String MEMBER_ID_BEVERLY = "beverly";
-    public static final String MEMBER_ID_CHARLOTTE = "charlotte";
-    public static final String MEETING_ID_MARS = "mars";
-    public static final String ROOM_ID_BLACK = "black";
-    public static final String DEVICE_ID_BLACK_DISPLAY = "black-display";
+    public static final WorkgroupId WORKGROUP_ID_ASTRONAUTS = WorkgroupId.of("astronauts");
+    public static final PersonId MEMBER_ID_ALEX = PersonId.of("alex");
+    public static final PersonId MEMBER_ID_BEVERLY = PersonId.of("beverly");
+    public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
+    public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars");
+    public static final RoomId ROOM_ID_BLACK = RoomId.of("black");
+    public static final DeviceId DEVICE_ID_BLACK_DISPLAY = DeviceId.of("black-display");
     public static final String DELEGATE_ID_BLACK = "black-delegate";
 
     public AstronautsDataFactory() {
@@ -40,7 +41,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IWorkgroup> createWorkgroupList() {
         List<IWorkgroup> workgroups = new ArrayList<>();
-        Set<String> astronautsMembers = new HashSet<>();
+        Set<PersonId> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
         astronautsMembers.add(MEMBER_ID_CHARLOTTE);
@@ -86,7 +87,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         Set<String> astronautsMeetingAssistances = new HashSet<>();
         astronautsMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> astronautsMeetingAssistanceConfigurations = new HashMap<>();
-        astronautsMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration("dummy ID"));
+        astronautsMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));   // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
@@ -103,7 +104,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     @Override
     public List<IRoom> createRoomList() {
         List<IRoom> rooms = new ArrayList<>();
-        List<String> blackRoomDevices = new ArrayList<>();
+        List<DeviceId> blackRoomDevices = new ArrayList<>();
         blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLACK)

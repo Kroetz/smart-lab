@@ -1,9 +1,10 @@
 package de.qaware.smartlabapi.service.workgroup;
 
 import de.qaware.smartlabapi.client.IWorkgroupManagementApiClient;
-import de.qaware.smartlabapi.service.generic.AbstractEntityManagementService;
+import de.qaware.smartlabapi.service.generic.AbstractEntityManagementMicroservice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.MeetingConflictException;
@@ -22,7 +23,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class WorkgroupManagementMicroservice extends AbstractEntityManagementService<IWorkgroup> implements IWorkgroupManagementService {
+public class WorkgroupManagementMicroservice extends AbstractEntityManagementMicroservice<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
 
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
@@ -32,9 +33,9 @@ public class WorkgroupManagementMicroservice extends AbstractEntityManagementSer
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
+    public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
         try {
-            return this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId).getBody();
+            return this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -45,9 +46,9 @@ public class WorkgroupManagementMicroservice extends AbstractEntityManagementSer
     }
 
     @Override
-    public IMeeting getCurrentMeeting(String workgroupId) {
+    public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
         try {
-            return this.workgroupManagementApiClient.getCurrentMeeting(workgroupId).getBody();
+            return this.workgroupManagementApiClient.getCurrentMeeting(workgroupId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -58,9 +59,9 @@ public class WorkgroupManagementMicroservice extends AbstractEntityManagementSer
     }
 
     @Override
-    public void extendCurrentMeeting(String workgroupId, Duration extension) {
+    public void extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
         try {
-            this.workgroupManagementApiClient.extendCurrentMeeting(workgroupId, extension.toMinutes());
+            this.workgroupManagementApiClient.extendCurrentMeeting(workgroupId.getIdValue(), extension.toMinutes());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

@@ -3,6 +3,7 @@ package de.qaware.smartlabworkgroup.repository;
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.repository.AbstractEntityManagementRepositoryMock;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
-public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IWorkgroup> implements IWorkgroupManagementRepository {
+public class WorkgroupManagementRepositoryMock extends AbstractEntityManagementRepositoryMock<IWorkgroup, WorkgroupId> implements IWorkgroupManagementRepository {
 
     private final IMeetingManagementService meetingManagementService;
 

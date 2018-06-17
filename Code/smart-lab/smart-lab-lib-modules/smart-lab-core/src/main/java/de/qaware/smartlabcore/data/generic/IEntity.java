@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.miscellaneous.Constants;
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = Constants.JSON_TYPE_PROPERTY_NAME)
-public interface IEntity {
+public interface IEntity<IdentifierT extends IIdentifier> {
 
-    String getId();
+    IdentifierT getId();
 }

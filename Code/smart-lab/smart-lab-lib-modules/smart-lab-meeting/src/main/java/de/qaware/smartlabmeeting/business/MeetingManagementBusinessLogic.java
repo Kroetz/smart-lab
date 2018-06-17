@@ -1,6 +1,7 @@
 package de.qaware.smartlabmeeting.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.ExtensionResult;
@@ -14,7 +15,7 @@ import java.time.Duration;
 
 @Service
 @Slf4j
-public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IMeeting> implements IMeetingManagementBusinessLogic {
+public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IMeeting, MeetingId> implements IMeetingManagementBusinessLogic {
 
     private final IMeetingManagementRepository meetingManagementRepository;
 
@@ -24,7 +25,7 @@ public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusi
     }
 
     @Override
-    public ShorteningResult shortenMeeting(String meetingId, Duration shortening) {
+    public ShorteningResult shortenMeeting(MeetingId meetingId, Duration shortening) {
         return findOne(meetingId).map(meeting -> {
             Duration shortenedDuration = meeting.getDuration().minus(shortening);
             if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
@@ -35,7 +36,7 @@ public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusi
     }
 
     @Override
-    public ExtensionResult extendMeeting(String meetingId, Duration extension) {
+    public ExtensionResult extendMeeting(MeetingId meetingId, Duration extension) {
         return findOne(meetingId).map(meeting -> {
             if(meeting.getDuration().plus(extension).compareTo(Constants.MAXIMAL_MEETING_DURATION) > 0) {
                 return ExtensionResult.MAXIMUM_REACHED_REACHED;
@@ -45,7 +46,7 @@ public class MeetingManagementBusinessLogic extends AbstractEntityManagementBusi
     }
 
     @Override
-    public ShiftResult shiftMeeting(String meetingId, Duration shift) {
+    public ShiftResult shiftMeeting(MeetingId meetingId, Duration shift) {
         return findOne(meetingId)
                 .map(meeting -> meetingManagementRepository.shiftMeeting(meeting, shift))
                 .orElse(ShiftResult.NOT_FOUND);

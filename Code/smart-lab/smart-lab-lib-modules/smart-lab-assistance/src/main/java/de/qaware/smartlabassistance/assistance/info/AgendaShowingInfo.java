@@ -1,6 +1,7 @@
 package de.qaware.smartlabassistance.assistance.info;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,6 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
     @Slf4j
     public static class Configuration implements IAssistanceConfiguration {
 
-        private String deviceId;
+        private DeviceId deviceId;
     }
 }

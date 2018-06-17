@@ -1,5 +1,6 @@
 package de.qaware.smartlabdevice.business;
 
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabdevice.repository.IDeviceManagementRepository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class DeviceManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IDevice> implements IDeviceManagementBusinessLogic {
+public class DeviceManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IDevice, DeviceId> implements IDeviceManagementBusinessLogic {
 
     private final IDeviceManagementRepository deviceManagementRepository;
 

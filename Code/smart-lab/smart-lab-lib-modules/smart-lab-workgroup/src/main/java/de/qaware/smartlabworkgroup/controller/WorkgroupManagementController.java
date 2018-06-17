@@ -3,6 +3,7 @@ package de.qaware.smartlabworkgroup.controller;
 import de.qaware.smartlabapi.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
 import de.qaware.smartlabworkgroup.business.IWorkgroupManagementBusinessLogic;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
@@ -34,12 +35,15 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.findOne(workgroupId));
+        return responseFromOptional(workgroupManagementBusinessLogic.findOne(WorkgroupId.of(workgroupId)));
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
-        return responseFromOptionals(workgroupManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(workgroupIds))));
+        return responseFromOptionals(
+                workgroupManagementBusinessLogic.findMultiple(Arrays.stream(workgroupIds)
+                        .map(WorkgroupId::of)
+                        .collect(Collectors.toSet())));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -49,23 +53,23 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return workgroupManagementBusinessLogic.delete(workgroupId).toResponseEntity();
+        return workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
     public ResponseEntity<Set<IMeeting>> getMeetingsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.getMeetingsOfWorkgroup(workgroupId));
+        return responseFromOptional(workgroupManagementBusinessLogic.getMeetingsOfWorkgroup(WorkgroupId.of(workgroupId)));
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.getCurrentMeeting(workgroupId));
+        return responseFromOptional(workgroupManagementBusinessLogic.getCurrentMeeting(WorkgroupId.of(workgroupId)));
     }
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     public ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return workgroupManagementBusinessLogic.extendCurrentMeeting(workgroupId, Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return workgroupManagementBusinessLogic.extendCurrentMeeting(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 }

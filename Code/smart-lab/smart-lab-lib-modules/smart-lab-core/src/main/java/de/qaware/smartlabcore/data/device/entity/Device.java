@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Device implements IDevice {
 
     // TODO: Fachliche Datentypen statt String-IDs
-    private String id;
+    private DeviceId id;
     private String type;
     private String name;
     private String responsibleDelegate;

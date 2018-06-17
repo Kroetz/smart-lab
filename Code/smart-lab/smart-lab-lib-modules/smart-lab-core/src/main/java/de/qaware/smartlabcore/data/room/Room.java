@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.room;
 
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,9 +16,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class Room implements IRoom {
 
-    private String id;
+    private RoomId id;
     private String name;
-    private Collection<String> deviceIds;
+    private Collection<DeviceId> deviceIds;
     private Optional<IDevice> minuteTakingDevice;   // TODO: Still needed?
 
     public Optional<IDevice> getMinuteTakingDevice() {

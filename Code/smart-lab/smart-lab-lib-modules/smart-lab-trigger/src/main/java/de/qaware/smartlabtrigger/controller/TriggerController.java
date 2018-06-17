@@ -2,6 +2,8 @@ package de.qaware.smartlabtrigger.controller;
 
 import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -35,7 +37,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             response = ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByRoomId(
-                    roomId,
+                    RoomId.of(roomId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -52,7 +54,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
-                    workgroupId,
+                    WorkgroupId.of(workgroupId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -67,7 +69,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
-                    roomId,
+                    RoomId.of(roomId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -82,7 +84,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
-                    workgroupId,
+                    WorkgroupId.of(workgroupId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -97,7 +99,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByRoomId(
-                    roomId,
+                    RoomId.of(roomId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -112,7 +114,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
-                    workgroupId,
+                    WorkgroupId.of(workgroupId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -127,7 +129,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByRoomId(
-                    roomId,
+                    RoomId.of(roomId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -142,7 +144,7 @@ public class TriggerController {
         try {
             if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
-                    workgroupId,
+                    WorkgroupId.of(workgroupId),
                     callbackUrl != null ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message

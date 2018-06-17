@@ -3,6 +3,7 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabworkgroup.controller.WorkgroupManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,7 +17,7 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class WorkgroupManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IWorkgroup> implements IWorkgroupManagementService {
+public class WorkgroupManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;
 
@@ -26,17 +27,17 @@ public class WorkgroupManagementServiceMonolith extends AbstractEntityManagement
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(String workgroupId) {
-        return this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId).getBody();
+    public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
+        return this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId.getIdValue()).getBody();
     }
 
     @Override
-    public IMeeting getCurrentMeeting(String workgroupId) {
-        return this.workgroupManagementController.getCurrentMeeting(workgroupId).getBody();
+    public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
+        return this.workgroupManagementController.getCurrentMeeting(workgroupId.getIdValue()).getBody();
     }
 
     @Override
-    public void extendCurrentMeeting(String workgroupId, Duration extension) {
-        this.workgroupManagementController.extendCurrentMeeting(workgroupId, extension.toMinutes());
+    public void extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
+        this.workgroupManagementController.extendCurrentMeeting(workgroupId.getIdValue(), extension.toMinutes());
     }
 }

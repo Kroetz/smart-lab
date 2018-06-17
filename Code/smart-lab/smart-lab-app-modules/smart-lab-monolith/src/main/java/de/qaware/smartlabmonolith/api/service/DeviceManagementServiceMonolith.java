@@ -1,6 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabapi.service.device.IDeviceManagementService;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabdevice.controller.DeviceManagementController;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class DeviceManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IDevice> implements IDeviceManagementService {
+public class DeviceManagementServiceMonolith extends AbstractEntityManagementServiceMonolith<IDevice, DeviceId> implements IDeviceManagementService {
 
     private final DeviceManagementController deviceManagementController;
 

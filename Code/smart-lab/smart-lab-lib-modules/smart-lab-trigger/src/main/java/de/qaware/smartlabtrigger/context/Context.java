@@ -10,6 +10,7 @@ import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import lombok.Data;
@@ -109,9 +110,9 @@ public class Context implements IContext {
 
         private Context addBasedOnWorkgroup(Context context, IWorkgroup workgroup) {
             context.setWorkgroup(workgroup);
-            Set<String> workgroupMemberIds = workgroup.getMemberIds();
+            Set<PersonId> workgroupMemberIds = workgroup.getMemberIds();
             Set<IPerson> workgroupMembers = personManagementService.findMultiple(
-                    workgroup.getMemberIds().toArray(new String[workgroupMemberIds.size()]));
+                    workgroup.getMemberIds().toArray(new PersonId[workgroupMemberIds.size()]));
             return addBasedOnPersons(context, workgroupMembers);
         }
 

@@ -1,28 +1,30 @@
 package de.qaware.smartlabapi.service.trigger;
 
 import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
 import java.net.URL;
 
 public interface ITriggerService {
 
-    IJobInfo setUpCurrentMeetingByRoomId(String roomId);
-    IJobInfo setUpCurrentMeetingByRoomId(String roomId, URL callbackUrl);
-    IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId);
-    IJobInfo setUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl);
+    IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId);
+    IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl);
+    IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo cleanUpCurrentMeetingByRoomId(String roomId);
-    IJobInfo cleanUpCurrentMeetingByRoomId(String roomId, URL callbackUrl);
-    IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId);
-    IJobInfo cleanUpCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl);
+    IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId);
+    IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl);
+    IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo startCurrentMeetingByRoomId(String roomId);
-    IJobInfo startCurrentMeetingByRoomId(String roomId, URL callbackUrl);
-    IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId);
-    IJobInfo startCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl);
+    IJobInfo startCurrentMeetingByRoomId(RoomId roomId);
+    IJobInfo startCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl);
+    IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo stopCurrentMeetingByRoomId(String roomId);
-    IJobInfo stopCurrentMeetingByRoomId(String roomId, URL callbackUrl);
-    IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId);
-    IJobInfo stopCurrentMeetingByWorkgroupId(String workgroupId, URL callbackUrl);
+    IJobInfo stopCurrentMeetingByRoomId(RoomId roomId);
+    IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl);
+    IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 }

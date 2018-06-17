@@ -1,8 +1,9 @@
 package de.qaware.smartlabdevice.business;
 
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.business.IEntityManagementBusinessLogic;
 
-public interface IDeviceManagementBusinessLogic extends IEntityManagementBusinessLogic<IDevice> {
+public interface IDeviceManagementBusinessLogic extends IEntityManagementBusinessLogic<IDevice, DeviceId> {
 
 }

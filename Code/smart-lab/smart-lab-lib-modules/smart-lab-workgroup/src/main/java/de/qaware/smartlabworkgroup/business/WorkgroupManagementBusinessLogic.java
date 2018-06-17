@@ -2,6 +2,7 @@ package de.qaware.smartlabworkgroup.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.business.AbstractEntityManagementBusinessLogic;
 import de.qaware.smartlabworkgroup.repository.IWorkgroupManagementRepository;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class WorkgroupManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IWorkgroup> implements IWorkgroupManagementBusinessLogic {
+public class WorkgroupManagementBusinessLogic extends AbstractEntityManagementBusinessLogic<IWorkgroup, WorkgroupId> implements IWorkgroupManagementBusinessLogic {
 
     private final IWorkgroupManagementRepository workgroupManagementRepository;
 
@@ -25,7 +26,7 @@ public class WorkgroupManagementBusinessLogic extends AbstractEntityManagementBu
     }
 
     @Override
-    public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(String workgroupId) {
+    public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
 
         return workgroupManagementRepository.findOne(workgroupId)
                 .map(workgroup -> Optional.of(workgroupManagementRepository.getMeetingsOfWorkgroup(workgroup)))
@@ -33,14 +34,14 @@ public class WorkgroupManagementBusinessLogic extends AbstractEntityManagementBu
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(String workgroupId) {
+    public Optional<IMeeting> getCurrentMeeting(WorkgroupId workgroupId) {
         return workgroupManagementRepository.findOne(workgroupId)
                 .map(workgroupManagementRepository::getCurrentMeeting)
                 .orElse(Optional.empty());
     }
 
     @Override
-    public ExtensionResult extendCurrentMeeting(String workgroupId, Duration extension) {
+    public ExtensionResult extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
         return workgroupManagementRepository.findOne(workgroupId)
                 .map(workgroup -> workgroupManagementRepository.extendCurrentMeeting(workgroup, extension))
                 .orElse(ExtensionResult.NOT_FOUND);

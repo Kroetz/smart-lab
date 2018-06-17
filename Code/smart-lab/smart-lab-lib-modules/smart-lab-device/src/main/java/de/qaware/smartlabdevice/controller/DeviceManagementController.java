@@ -1,6 +1,7 @@
 package de.qaware.smartlabdevice.controller;
 
 import de.qaware.smartlabapi.DeviceManagementApiConstants;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IEntityManagementController;
@@ -11,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(DeviceManagementApiConstants.MAPPING_BASE)
@@ -34,13 +35,16 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return responseFromOptional(deviceManagementBusinessLogic.findOne(deviceId));
+        return responseFromOptional(deviceManagementBusinessLogic.findOne(DeviceId.of(deviceId)));
     }
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IDevice>> findMultiple(@RequestParam(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_IDS) String[] deviceIds) {
-        return responseFromOptionals(deviceManagementBusinessLogic.findMultiple(new HashSet<>(Arrays.asList(deviceIds))));
+        return responseFromOptionals(deviceManagementBusinessLogic.findMultiple(
+                Arrays.stream(deviceIds)
+                        .map(DeviceId::of)
+                        .collect(Collectors.toSet())));
     }
 
     @Override
@@ -52,6 +56,6 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @Override
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return deviceManagementBusinessLogic.delete(deviceId).toResponseEntity();
+        return deviceManagementBusinessLogic.delete(DeviceId.of(deviceId)).toResponseEntity();
     }
 }
