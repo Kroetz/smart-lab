@@ -8,9 +8,9 @@ public class RoomManagementApiConstants {
     public static final String PARAMETER_NAME_ROOM_IDS = "roomIds";
     public static final String PARAMETER_NAME_EXTENSION_IN_MINUTES = "extension-in-minutes";
 
-    public static final String PATH_FRAGMENT_ROOM = "/room";
-    public static final String PATH_FRAGMENT_ROOMS = "/rooms";
-    public static final String PATH_FRAGMENT_EXTEND_CURRENT_MEETING = "/extend-current-meeting";
+    private static final String PATH_FRAGMENT_ROOM = "/room";
+    private static final String PATH_FRAGMENT_ROOMS = "/rooms";
+    private static final String PATH_FRAGMENT_EXTEND_CURRENT_MEETING = "/extend-current-meeting";
 
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_ROOMS + "/all";

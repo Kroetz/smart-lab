@@ -7,8 +7,8 @@ public class PersonManagementApiConstants {
     public static final String PARAMETER_NAME_PERSON_ID = "personId";
     public static final String PARAMETER_NAME_PERSON_IDS = "personIds";
 
-    public static final String PATH_FRAGMENT_PERSON = "/person";
-    public static final String PATH_FRAGMENT_PERSONS = "/persons";
+    private static final String PATH_FRAGMENT_PERSON = "/person";
+    private static final String PATH_FRAGMENT_PERSONS = "/persons";
 
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_PERSONS + "/all";

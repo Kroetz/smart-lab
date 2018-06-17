@@ -7,8 +7,8 @@ public class DeviceManagementApiConstants {
     public static final String PARAMETER_NAME_DEVICE_ID = "deviceId";
     public static final String PARAMETER_NAME_DEVICE_IDS = "deviceIds";
 
-    public static final String PATH_FRAGMENT_DEVICE = "/device";
-    public static final String PATH_FRAGMENT_DEVICES = "/devices";
+    private static final String PATH_FRAGMENT_DEVICE = "/device";
+    private static final String PATH_FRAGMENT_DEVICES = "/devices";
 
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_DEVICES + "/all";

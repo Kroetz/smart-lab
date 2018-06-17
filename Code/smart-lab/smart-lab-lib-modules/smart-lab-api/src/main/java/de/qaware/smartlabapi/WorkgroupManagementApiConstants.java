@@ -8,8 +8,8 @@ public class WorkgroupManagementApiConstants {
     public static final String PARAMETER_NAME_WORKGROUP_IDS = "workgroupIds";
     public static final String PARAMETER_NAME_EXTENSION_IN_MINUTES = "extension-in-minutes";
 
-    public static final String PATH_FRAGMENT_WORKGROUP = "/workgroup";
-    public static final String PATH_FRAGMENT_WORKGROUPS = "/workgroups";
+    private static final String PATH_FRAGMENT_WORKGROUP = "/workgroup";
+    private static final String PATH_FRAGMENT_WORKGROUPS = "/workgroups";
 
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_WORKGROUPS + "/all";

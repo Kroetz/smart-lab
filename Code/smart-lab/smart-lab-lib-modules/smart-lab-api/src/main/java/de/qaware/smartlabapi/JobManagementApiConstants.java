@@ -7,8 +7,8 @@ public class JobManagementApiConstants {
     public static final String PARAMETER_NAME_JOB_ID = "jobId";
     public static final String PARAMETER_NAME_CALLBACK_URL = "callback-url";
 
-    public static final String PATH_FRAGMENT_JOB = "/job";
-    public static final String PATH_FRAGMENT_JOBS = "/jobs";
+    private static final String PATH_FRAGMENT_JOB = "/job";
+    private static final String PATH_FRAGMENT_JOBS = "/jobs";
 
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_JOBS + "/all";
