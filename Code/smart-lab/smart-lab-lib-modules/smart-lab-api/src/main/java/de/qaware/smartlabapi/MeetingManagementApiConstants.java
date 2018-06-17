@@ -2,7 +2,7 @@ package de.qaware.smartlabapi;
 
 public class MeetingManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_VALUE = "meeting-management";
+    public static final String FEIGN_CLIENT_NAME = "meeting-management";
 
     public static final String PARAMETER_NAME_MEETING_ID = "meetingId";
     public static final String PARAMETER_NAME_MEETING_IDS = "meetingIds";

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(name = RoomManagementApiConstants.FEIGN_CLIENT_VALUE, path = RoomManagementApiConstants.MAPPING_BASE)
+@FeignClient(name = RoomManagementApiConstants.FEIGN_CLIENT_NAME, path = RoomManagementApiConstants.MAPPING_BASE)
 public interface IRoomManagementApiClient extends IBasicEntityManagementApiClient<IRoom> {
 
     @Override

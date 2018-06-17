@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(name = PersonManagementApiConstants.FEIGN_CLIENT_VALUE, path = PersonManagementApiConstants.MAPPING_BASE)
+@FeignClient(name = PersonManagementApiConstants.FEIGN_CLIENT_NAME, path = PersonManagementApiConstants.MAPPING_BASE)
 public interface IPersonManagementApiClient extends IBasicEntityManagementApiClient<IPerson> {
 
     @Override

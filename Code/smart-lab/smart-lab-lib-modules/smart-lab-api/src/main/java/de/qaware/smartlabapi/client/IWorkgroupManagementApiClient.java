@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(name = WorkgroupManagementApiConstants.FEIGN_CLIENT_VALUE, path = WorkgroupManagementApiConstants.MAPPING_BASE)
+@FeignClient(name = WorkgroupManagementApiConstants.FEIGN_CLIENT_NAME, path = WorkgroupManagementApiConstants.MAPPING_BASE)
 public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApiClient<IWorkgroup> {
 
     @Override

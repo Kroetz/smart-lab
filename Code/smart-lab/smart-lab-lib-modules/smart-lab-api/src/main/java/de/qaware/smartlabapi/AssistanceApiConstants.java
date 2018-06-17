@@ -2,7 +2,7 @@ package de.qaware.smartlabapi;
 
 public class AssistanceApiConstants {
 
-    public static final String FEIGN_CLIENT_VALUE = "assistance";
+    public static final String FEIGN_CLIENT_NAME = "assistance";
 
     public static final String PARAMETER_NAME_ASSISTANCE_ID = "assistanceId";
 

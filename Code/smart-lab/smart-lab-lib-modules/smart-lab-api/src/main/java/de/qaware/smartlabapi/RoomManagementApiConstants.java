@@ -2,7 +2,7 @@ package de.qaware.smartlabapi;
 
 public class RoomManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_VALUE = "room-management";
+    public static final String FEIGN_CLIENT_NAME = "room-management";
 
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
     public static final String PARAMETER_NAME_ROOM_IDS = "roomIds";

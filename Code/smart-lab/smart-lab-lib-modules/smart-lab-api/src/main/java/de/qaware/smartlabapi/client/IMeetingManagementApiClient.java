@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Set;
 
-@FeignClient(name = MeetingManagementApiConstants.FEIGN_CLIENT_VALUE, path = MeetingManagementApiConstants.MAPPING_BASE)
+@FeignClient(name = MeetingManagementApiConstants.FEIGN_CLIENT_NAME, path = MeetingManagementApiConstants.MAPPING_BASE)
 public interface IMeetingManagementApiClient {
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL)

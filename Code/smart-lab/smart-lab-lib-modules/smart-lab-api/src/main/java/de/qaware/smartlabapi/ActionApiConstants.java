@@ -2,7 +2,7 @@ package de.qaware.smartlabapi;
 
 public class ActionApiConstants {
 
-    public static final String FEIGN_CLIENT_VALUE = "action";
+    public static final String FEIGN_CLIENT_NAME = "action";
 
     public static final String PARAMETER_NAME_ACTION_ID = "actionId";
 

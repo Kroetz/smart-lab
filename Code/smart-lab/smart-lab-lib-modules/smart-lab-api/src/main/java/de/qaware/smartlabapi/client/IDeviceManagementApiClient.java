@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@FeignClient(name = DeviceManagementApiConstants.FEIGN_CLIENT_VALUE, path = DeviceManagementApiConstants.MAPPING_BASE)
+@FeignClient(name = DeviceManagementApiConstants.FEIGN_CLIENT_NAME, path = DeviceManagementApiConstants.MAPPING_BASE)
 public interface IDeviceManagementApiClient extends IBasicEntityManagementApiClient<IDevice> {
 
     @Override
