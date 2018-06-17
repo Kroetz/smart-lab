@@ -5,9 +5,11 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,9 +23,8 @@ import org.springframework.validation.annotation.Validated;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Configuration
 @ConditionalOnProperty(
@@ -73,6 +74,13 @@ public class GoogleCalendarAdapterConfiguration {
         return JacksonFactory.getDefaultInstance();
     }
 
+    @Bean
+    // TODO: String literal
+    @Qualifier("roomToCalendarMapping")
+    public Map<RoomId, String> roomToCalendarMapping() {
+        return this.properties.getRoomMapping();
+    }
+
     // TODO: String literal
     @ConfigurationProperties(prefix = "google.calendar")
     @Validated
@@ -85,11 +93,13 @@ public class GoogleCalendarAdapterConfiguration {
         private Path credentialsFile;
         private Collection<String> scopes;
         private String applicationName;
+        private Map<String, String> roomMapping;
 
         public Properties() {
             this.credentialsFile = DEFAULT_CREDENTIALS_FILE;
             this.scopes = DEFAULT_SCOPES;
             this.applicationName = DEFAULT_APPLICATION_NAME;
+            this.roomMapping = new HashMap<>();
         }
 
         public Path getCredentialsFile() {
@@ -114,6 +124,16 @@ public class GoogleCalendarAdapterConfiguration {
 
         public void setApplicationName(String applicationName) {
             this.applicationName = applicationName;
+        }
+
+        public Map<RoomId, String> getRoomMapping() {
+            return this.roomMapping.keySet().stream().collect(Collectors.toMap(
+                    RoomId::of,
+                    roomId -> this.roomMapping.get(roomId)));
+        }
+
+        public void setRoomMapping(Map<String, String> roomMapping) {
+            this.roomMapping = roomMapping;
         }
 
         @Slf4j
