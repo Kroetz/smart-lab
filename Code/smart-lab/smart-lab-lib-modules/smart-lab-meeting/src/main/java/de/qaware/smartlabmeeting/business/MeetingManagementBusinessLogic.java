@@ -64,7 +64,7 @@ public class MeetingManagementBusinessLogic implements IMeetingManagementBusines
             if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
                 return ShorteningResult.MINIMUM_REACHED;
             }
-            return meetingManagementRepository.shortenMeeting(meeting, shortening);
+            return this.meetingManagementRepository.shortenMeeting(meeting, shortening);
         }).orElse(ShorteningResult.NOT_FOUND);
     }
 
@@ -77,7 +77,7 @@ public class MeetingManagementBusinessLogic implements IMeetingManagementBusines
             if(meeting.getDuration().plus(extension).compareTo(Constants.MAXIMAL_MEETING_DURATION) > 0) {
                 return ExtensionResult.MAXIMUM_REACHED_REACHED;
             }
-            return meetingManagementRepository.extendMeeting(meeting, extension);
+            return this.meetingManagementRepository.extendMeeting(meeting, extension);
         }).orElse(ExtensionResult.NOT_FOUND);
     }
 
@@ -87,7 +87,7 @@ public class MeetingManagementBusinessLogic implements IMeetingManagementBusines
             RoomId roomId,
             Duration shift) {
         return findOne(meetingId, roomId)
-                .map(meeting -> meetingManagementRepository.shiftMeeting(meeting, shift))
+                .map(meeting -> this.meetingManagementRepository.shiftMeeting(meeting, shift))
                 .orElse(ShiftResult.NOT_FOUND);
     }
 }

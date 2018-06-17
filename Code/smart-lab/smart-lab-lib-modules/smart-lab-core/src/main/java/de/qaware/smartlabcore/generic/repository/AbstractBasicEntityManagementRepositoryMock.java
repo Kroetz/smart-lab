@@ -15,7 +15,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     protected Set<EntityT> entities;
 
     protected boolean exists(IdentifierT entityId) {
-        return entities.stream()
+        return this.entities.stream()
                 .anyMatch(entity -> entity.getId().equals(entityId));
     }
 

@@ -33,7 +33,7 @@ public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManage
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
-        return meetingManagementService.findAll().values().stream()
+        return this.meetingManagementService.findAll().values().stream()
                 .flatMap(Set::stream)
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroup.getId()))
                 .collect(Collectors.toSet());
@@ -51,7 +51,7 @@ public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManage
         try {
             return getCurrentMeeting(workgroup)
                     .map(meeting -> {
-                        meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
+                        this.meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
                         return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }

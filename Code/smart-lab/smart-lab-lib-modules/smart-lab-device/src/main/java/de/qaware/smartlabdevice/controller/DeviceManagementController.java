@@ -29,19 +29,19 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IDevice> findAll() {
-        return deviceManagementBusinessLogic.findAll();
+        return this.deviceManagementBusinessLogic.findAll();
     }
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return responseFromOptional(deviceManagementBusinessLogic.findOne(DeviceId.of(deviceId)));
+        return responseFromOptional(this.deviceManagementBusinessLogic.findOne(DeviceId.of(deviceId)));
     }
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IDevice>> findMultiple(@RequestParam(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_IDS) String[] deviceIds) {
-        return responseFromOptionals(deviceManagementBusinessLogic.findMultiple(
+        return responseFromOptionals(this.deviceManagementBusinessLogic.findMultiple(
                 Arrays.stream(deviceIds)
                         .map(DeviceId::of)
                         .collect(Collectors.toSet())));
@@ -50,12 +50,12 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @Override
     @PostMapping(value = DeviceManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IDevice device) {
-        return deviceManagementBusinessLogic.create(device).toResponseEntity();
+        return this.deviceManagementBusinessLogic.create(device).toResponseEntity();
     }
 
     @Override
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
-        return deviceManagementBusinessLogic.delete(DeviceId.of(deviceId)).toResponseEntity();
+        return this.deviceManagementBusinessLogic.delete(DeviceId.of(deviceId)).toResponseEntity();
     }
 }

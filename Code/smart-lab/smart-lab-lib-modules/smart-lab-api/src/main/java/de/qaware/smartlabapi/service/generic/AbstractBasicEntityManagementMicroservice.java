@@ -23,7 +23,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     @Override
     public Set<EntityT> findAll() {
         try {
-            return entityManagementApiClient.findAll();
+            return this.entityManagementApiClient.findAll();
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
@@ -33,7 +33,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     @Override
     public EntityT findOne(IdentifierT entityId) {
         try {
-            return entityManagementApiClient.findOne(entityId.getIdValue()).getBody();
+            return this.entityManagementApiClient.findOne(entityId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -46,7 +46,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     @Override
     public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
         try {
-            return entityManagementApiClient.findMultiple(Arrays.stream(entityIds)
+            return this.entityManagementApiClient.findMultiple(Arrays.stream(entityIds)
                     .map(IIdentifier::getIdValue)
                     .toArray(String[]::new))
                     .getBody();
@@ -63,7 +63,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     @Override
     public void create(EntityT entity) {
         try {
-            entityManagementApiClient.create(entity);
+            this.entityManagementApiClient.create(entity);
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.CONFLICT.value()) {
@@ -77,7 +77,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     @Override
     public void delete(IdentifierT entityId) {
         try {
-            entityManagementApiClient.delete(entityId.getIdValue());
+            this.entityManagementApiClient.delete(entityId.getIdValue());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

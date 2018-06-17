@@ -33,7 +33,7 @@ public class RoomManagementRepositoryMock extends AbstractBasicEntityManagementR
 
     @Override
     public Set<IMeeting> getMeetingsInRoom(@NonNull IRoom room) {
-        return meetingManagementService.findAll().values().stream()
+        return this.meetingManagementService.findAll().values().stream()
                 .flatMap(Set::stream)
                 .filter(meeting -> meeting.getRoomId().equals(room.getId()))
                 .collect(Collectors.toSet());
@@ -51,7 +51,7 @@ public class RoomManagementRepositoryMock extends AbstractBasicEntityManagementR
         try {
             return getCurrentMeeting(room)
                     .map(meeting -> {
-                        meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
+                        this.meetingManagementService.extendMeeting(meeting.getId(), meeting.getRoomId(), extension);
                         return ExtensionResult.SUCCESS;})
                     .orElse(ExtensionResult.NOT_FOUND);
         }

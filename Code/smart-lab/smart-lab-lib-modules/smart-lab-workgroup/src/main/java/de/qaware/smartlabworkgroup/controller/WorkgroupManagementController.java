@@ -30,46 +30,46 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IWorkgroup> findAll() {
-        return workgroupManagementBusinessLogic.findAll();
+        return this.workgroupManagementBusinessLogic.findAll();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.findOne(WorkgroupId.of(workgroupId)));
+        return responseFromOptional(this.workgroupManagementBusinessLogic.findOne(WorkgroupId.of(workgroupId)));
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
         return responseFromOptionals(
-                workgroupManagementBusinessLogic.findMultiple(Arrays.stream(workgroupIds)
+                this.workgroupManagementBusinessLogic.findMultiple(Arrays.stream(workgroupIds)
                         .map(WorkgroupId::of)
                         .collect(Collectors.toSet())));
     }
 
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup) {
-        return workgroupManagementBusinessLogic.create(workgroup).toResponseEntity();
+        return this.workgroupManagementBusinessLogic.create(workgroup).toResponseEntity();
     }
 
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
+        return this.workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
     public ResponseEntity<Set<IMeeting>> getMeetingsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.getMeetingsOfWorkgroup(WorkgroupId.of(workgroupId)));
+        return responseFromOptional(this.workgroupManagementBusinessLogic.getMeetingsOfWorkgroup(WorkgroupId.of(workgroupId)));
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(workgroupManagementBusinessLogic.getCurrentMeeting(WorkgroupId.of(workgroupId)));
+        return responseFromOptional(this.workgroupManagementBusinessLogic.getCurrentMeeting(WorkgroupId.of(workgroupId)));
     }
 
     @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
     public ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return workgroupManagementBusinessLogic.extendCurrentMeeting(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.workgroupManagementBusinessLogic.extendCurrentMeeting(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 }

@@ -31,22 +31,22 @@ public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBu
 
     @Override
     public Optional<Set<IMeeting>> getMeetingsInRoom(RoomId roomId) {
-        return roomManagementRepository.findOne(roomId)
-                .map(room -> Optional.of(roomManagementRepository.getMeetingsInRoom(room)))
+        return this.roomManagementRepository.findOne(roomId)
+                .map(room -> Optional.of(this.roomManagementRepository.getMeetingsInRoom(room)))
                 .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(RoomId roomId) {
-        return roomManagementRepository.findOne(roomId)
-                .map(roomManagementRepository::getCurrentMeeting)
+        return this.roomManagementRepository.findOne(roomId)
+                .map(this.roomManagementRepository::getCurrentMeeting)
                 .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(RoomId roomId, Duration extension) {
-        return roomManagementRepository.findOne(roomId)
-                .map(room -> roomManagementRepository.extendCurrentMeeting(room, extension))
+        return this.roomManagementRepository.findOne(roomId)
+                .map(room -> this.roomManagementRepository.extendCurrentMeeting(room, extension))
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 

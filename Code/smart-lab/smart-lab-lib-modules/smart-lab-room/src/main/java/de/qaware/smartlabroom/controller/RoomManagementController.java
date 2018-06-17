@@ -33,18 +33,18 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
     public Set<IRoom> findAll() {
-        return roomManagementBusinessLogic.findAll();
+        return this.roomManagementBusinessLogic.findAll();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
     public ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementBusinessLogic.findOne(RoomId.of(roomId)));
+        return responseFromOptional(this.roomManagementBusinessLogic.findOne(RoomId.of(roomId)));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
-        return responseFromOptionals(roomManagementBusinessLogic.findMultiple(
+        return responseFromOptionals(this.roomManagementBusinessLogic.findMultiple(
                 Arrays.stream(roomIds)
                         .map(RoomId::of)
                         .collect(Collectors.toSet())));
@@ -53,24 +53,24 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Void> create(@RequestBody IRoom room) {
-        return roomManagementBusinessLogic.create(room).toResponseEntity();
+        return this.roomManagementBusinessLogic.create(room).toResponseEntity();
     }
 
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return roomManagementBusinessLogic.delete(RoomId.of(roomId)).toResponseEntity();
+        return this.roomManagementBusinessLogic.delete(RoomId.of(roomId)).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
     public ResponseEntity<Set<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementBusinessLogic.getMeetingsInRoom(RoomId.of(roomId)));
+        return responseFromOptional(this.roomManagementBusinessLogic.getMeetingsInRoom(RoomId.of(roomId)));
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
     public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(roomManagementBusinessLogic.getCurrentMeeting(RoomId.of(roomId)));
+        return responseFromOptional(this.roomManagementBusinessLogic.getCurrentMeeting(RoomId.of(roomId)));
     }
 
     @PostMapping(RoomManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
@@ -78,11 +78,11 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     public ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return roomManagementBusinessLogic.extendCurrentMeeting(RoomId.of(roomId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.roomManagementBusinessLogic.extendCurrentMeeting(RoomId.of(roomId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
     public String getCurrentMeetingStatusPage(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
-        return roomManagementBusinessLogic.getCurrentMeetingStatusPage(RoomId.of(roomId), model);
+        return this.roomManagementBusinessLogic.getCurrentMeetingStatusPage(RoomId.of(roomId), model);
     }
 }

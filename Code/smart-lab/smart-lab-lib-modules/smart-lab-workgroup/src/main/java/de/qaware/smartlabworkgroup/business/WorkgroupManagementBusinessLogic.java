@@ -28,22 +28,22 @@ public class WorkgroupManagementBusinessLogic extends AbstractBasicEntityManagem
     @Override
     public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
 
-        return workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> Optional.of(workgroupManagementRepository.getMeetingsOfWorkgroup(workgroup)))
+        return this.workgroupManagementRepository.findOne(workgroupId)
+                .map(workgroup -> Optional.of(this.workgroupManagementRepository.getMeetingsOfWorkgroup(workgroup)))
                 .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(WorkgroupId workgroupId) {
-        return workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroupManagementRepository::getCurrentMeeting)
+        return this.workgroupManagementRepository.findOne(workgroupId)
+                .map(this.workgroupManagementRepository::getCurrentMeeting)
                 .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
-        return workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> workgroupManagementRepository.extendCurrentMeeting(workgroup, extension))
+        return this.workgroupManagementRepository.findOne(workgroupId)
+                .map(workgroup -> this.workgroupManagementRepository.extendCurrentMeeting(workgroup, extension))
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 }

@@ -20,26 +20,26 @@ public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends
 
     @Override
     public Set<EntityT> findAll() {
-        return entityManagementRepository.findAll();
+        return this.entityManagementRepository.findAll();
     }
 
     @Override
     public Optional<EntityT> findOne(IdentifierT entityId) {
-        return entityManagementRepository.findOne(entityId);
+        return this.entityManagementRepository.findOne(entityId);
     }
 
     @Override
     public Map<IdentifierT, Optional<EntityT>> findMultiple(Set<IdentifierT> entityIds) {
-        return entityManagementRepository.findMultiple(entityIds);
+        return this.entityManagementRepository.findMultiple(entityIds);
     }
 
     @Override
     public CreationResult create(EntityT entity) {
-        return entityManagementRepository.create(entity);
+        return this.entityManagementRepository.create(entity);
     }
 
     @Override
     public DeletionResult delete(IdentifierT entityId) {
-        return entityManagementRepository.delete(entityId);
+        return this.entityManagementRepository.delete(entityId);
     }
 }

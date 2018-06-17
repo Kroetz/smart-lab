@@ -65,7 +65,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return setUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+        return setUpMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return setUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+        return setUpMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return cleanUpMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+        return cleanUpMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return cleanUpMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+        return cleanUpMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo startCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return startMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+        return startMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return startMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+        return startMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return stopMeeting(roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+        return stopMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return stopMeeting(workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+        return stopMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
     }
 
     @Override
