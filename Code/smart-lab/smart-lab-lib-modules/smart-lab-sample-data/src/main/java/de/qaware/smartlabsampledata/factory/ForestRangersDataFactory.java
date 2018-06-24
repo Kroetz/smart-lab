@@ -84,15 +84,18 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
-        Map<String, IAssistanceConfiguration> forestRangersMeetingAssistanceConfigurations = new HashMap<>();
-        forestRangersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));    // TODO
+        Set<IAssistanceConfiguration> configs = new HashSet<>();
+        configs.add(new RoomUnlockingInfo.Configuration(
+                MEETING_ID_BARK_BEETLE,
+                ROOM_ID_GREEN,
+                DeviceId.of("dummy ID")));    // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
                 .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
                 .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
-                .assistanceConfigurationsById(forestRangersMeetingAssistanceConfigurations)
+                .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(180))
                 .end(timeBase.plusSeconds(480)).build());
         return meetings;

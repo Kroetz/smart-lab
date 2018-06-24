@@ -1,6 +1,7 @@
 package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +32,10 @@ public class AsyncTriggerHandler implements ITriggerHandler {
     @Override
     @Async
     public void triggerAssistance(
-            String assistanceId,
+            IAssistanceConfiguration config,
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
-        this.syncTriggerHandler.triggerAssistance(assistanceId, meeting, triggerReaction, jobId);
+        this.syncTriggerHandler.triggerAssistance(config, meeting, triggerReaction, jobId);
     }
 }

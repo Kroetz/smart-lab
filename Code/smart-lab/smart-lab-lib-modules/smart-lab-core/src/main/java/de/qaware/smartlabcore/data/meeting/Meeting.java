@@ -21,23 +21,13 @@ public class Meeting implements IMeeting {
     private WorkgroupId workgroupId;
     private RoomId roomId;
     private List<IAgendaItem> agenda;
-    private Map<String, IAssistanceConfiguration> assistanceConfigurationsById;
+    private Set<IAssistanceConfiguration> assistanceConfigurations;
     private Instant start;
     private Instant end;
 
     @Override
     public Duration getDuration() {
         return Duration.between(getStart(), getEnd());
-    }
-
-    @Override
-    public Set<String> getAssistanceIds() {
-        return this.assistanceConfigurationsById.keySet();
-    }
-
-    @Override
-    public Optional<IAssistanceConfiguration> getAssistanceConfiguration(String assistanceId) {
-        return Optional.ofNullable(assistanceConfigurationsById.get(assistanceId));
     }
 
     @Override

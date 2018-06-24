@@ -84,15 +84,18 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
-        Map<String, IAssistanceConfiguration> astronautsMeetingAssistanceConfigurations = new HashMap<>();
-        astronautsMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));   // TODO
+        Set<IAssistanceConfiguration> configs = new HashSet<>();
+        configs.add(new RoomUnlockingInfo.Configuration(
+                MEETING_ID_MARS,
+                ROOM_ID_BLACK,
+                DeviceId.of("dummy ID")));   // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
                 .workgroupId(WORKGROUP_ID_ASTRONAUTS)
                 .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
-                .assistanceConfigurationsById(astronautsMeetingAssistanceConfigurations)
+                .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
         return meetings;

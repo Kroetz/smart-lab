@@ -74,12 +74,12 @@ public class Context implements IContext {
             this.roomManagementService = roomManagementService;
         }
 
-        public IContext of(IMeeting meeting) {
-            return addToContext(new Context(), meeting);
+        public IContext of(IAssistanceConfiguration assistanceConfiguration) {
+            return addToContext(new Context(), assistanceConfiguration);
         }
 
-        public IContext of(IMeeting meeting, IAssistanceInfo assistance) {
-            return addToContext(new Context(), meeting, assistance);
+        public IContext of(IMeeting meeting) {
+            return addToContext(new Context(), meeting);
         }
 
         public IContext of(IWorkgroup workgroup) {
@@ -94,10 +94,11 @@ public class Context implements IContext {
             return addToContext(new Context(), room);
         }
 
-        // TODO: better would be "addBasedOnAssistance" but this would require the assistance to know which meeting it belongs to --> assistance would also hold data and not only function
-        private Context addToContext(Context context, IMeeting meeting, IAssistanceInfo assistance) {
-            // TODO. More specific exception
-            context.assistanceConfiguration = meeting.getAssistanceConfiguration(assistance.getAssistanceId()).orElseThrow(RuntimeException::new);
+        private Context addToContext(Context context, IAssistanceConfiguration assistanceConfiguration) {
+            context.setAssistanceConfiguration(assistanceConfiguration);
+            IMeeting meeting = meetingManagementService.findOne(
+                    assistanceConfiguration.getMeetingId(),
+                    assistanceConfiguration.getRoomId());
             return addToContext(context, meeting);
         }
 

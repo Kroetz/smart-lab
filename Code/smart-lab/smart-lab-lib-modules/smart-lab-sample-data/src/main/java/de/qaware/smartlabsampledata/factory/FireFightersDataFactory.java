@@ -85,16 +85,22 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
-        Map<String, IAssistanceConfiguration> fireFightersMeetingAssistanceConfigurations = new HashMap<>();
-        fireFightersMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_RED_MICROPHONE));
-        fireFightersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID"))); // TODO
+        Set<IAssistanceConfiguration> configs = new HashSet<>();
+        configs.add(new MinuteTakingInfo.Configuration(
+                MEETING_ID_TRUCK,
+                ROOM_ID_RED,
+                DEVICE_ID_RED_MICROPHONE));
+        configs.add(new RoomUnlockingInfo.Configuration(
+                MEETING_ID_TRUCK,
+                ROOM_ID_RED,
+                DeviceId.of("dummy ID"))); // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
                 .roomId(ROOM_ID_RED)
                 .agenda(fireFightersMeetingAgenda)
-                .assistanceConfigurationsById(fireFightersMeetingAssistanceConfigurations)
+                .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(240))
                 .end(timeBase.plusSeconds(540)).build());
         return meetings;

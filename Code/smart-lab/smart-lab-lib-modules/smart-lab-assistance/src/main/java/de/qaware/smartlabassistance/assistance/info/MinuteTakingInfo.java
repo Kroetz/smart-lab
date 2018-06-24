@@ -1,10 +1,9 @@
 package de.qaware.smartlabassistance.assistance.info;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import lombok.AllArgsConstructor;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.room.RoomId;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -28,11 +27,14 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     // TODO: Which annotation can be removed?
     @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Slf4j
-    public static class Configuration implements IAssistanceConfiguration {
+    public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
-        private DeviceId deviceId;
+        public Configuration(
+                MeetingId meetingId,
+                RoomId roomId,
+                DeviceId deviceId) {
+            super(meetingId, roomId, MinuteTakingInfo.ASSISTANCE_ID, deviceId);
+        }
     }
 }

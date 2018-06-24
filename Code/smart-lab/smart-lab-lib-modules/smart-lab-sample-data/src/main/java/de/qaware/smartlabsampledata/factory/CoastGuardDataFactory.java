@@ -88,16 +88,22 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
-        Map<String, IAssistanceConfiguration> whaleMeetingAssistanceConfigurations = new HashMap<>();
-        whaleMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whaleMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));    // TODO
+        Set<IAssistanceConfiguration> whaleConfigs = new HashSet<>();
+        whaleConfigs.add(new MinuteTakingInfo.Configuration(
+                MEETING_ID_WHALES,
+                ROOM_ID_BLUE,
+                DEVICE_ID_BLUE_MICROPHONE));
+        whaleConfigs.add(new RoomUnlockingInfo.Configuration(
+                MEETING_ID_WHALES,
+                ROOM_ID_BLUE,
+                DeviceId.of("dummy ID")));    // TODO
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whaleMeetingAgenda)
-                .assistanceConfigurationsById(whaleMeetingAssistanceConfigurations)
+                .assistanceConfigurations(whaleConfigs)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
 
@@ -105,16 +111,22 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Explain how whirlpools develop").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
-        Map<String, IAssistanceConfiguration> whirlpoolMeetingAssistanceConfigurations = new HashMap<>();
-        whirlpoolMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
-        whirlpoolMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));
+        Set<IAssistanceConfiguration> whirlpoolConfigs = new HashSet<>();
+        whirlpoolConfigs.add(new MinuteTakingInfo.Configuration(
+                MEETING_ID_WHIRLPOOLS,
+                ROOM_ID_BLUE,
+                DEVICE_ID_BLUE_MICROPHONE));
+        whirlpoolConfigs.add(new RoomUnlockingInfo.Configuration(
+                MEETING_ID_WHIRLPOOLS,
+                ROOM_ID_BLUE,
+                DeviceId.of("dummy ID")));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHIRLPOOLS)
                 .title("Meeting about dangers of whirlpools")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whirlpoolMeetingAgenda)
-                .assistanceConfigurationsById(whirlpoolMeetingAssistanceConfigurations)
+                .assistanceConfigurations(whirlpoolConfigs)
                 .start(timeBase.plusSeconds(360))
                 .end(timeBase.plusSeconds(660)).build());
 

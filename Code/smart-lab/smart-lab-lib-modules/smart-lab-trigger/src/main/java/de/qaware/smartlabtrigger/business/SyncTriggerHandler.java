@@ -2,6 +2,7 @@ package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
 import de.qaware.smartlabcore.data.generic.IResolver;
@@ -39,9 +40,9 @@ public class SyncTriggerHandler implements ITriggerHandler {
             Long jobId) {
         this.jobManagementService.markJobAsProcessing(jobId);
         try {
-            Set<String> assistanceIds = meeting.getAssistanceIds();
-            for(String assistanceId : assistanceIds) {
-                triggerAssistance(assistanceId, meeting, triggerReaction, jobId);
+            Set<IAssistanceConfiguration> configs = meeting.getAssistanceConfigurations();
+            for(IAssistanceConfiguration config : configs) {
+                triggerAssistance(config, meeting, triggerReaction, jobId);
             }
             this.jobManagementService.markJobAsFinished(jobId);
         }
@@ -53,13 +54,14 @@ public class SyncTriggerHandler implements ITriggerHandler {
 
     @Override
     public void triggerAssistance(
-            String assistanceId,
+            IAssistanceConfiguration config,
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
+        String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-        IContext context = this.contextFactory.of(meeting, assistance);
+        IContext context = this.contextFactory.of(config);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));

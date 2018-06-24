@@ -1,6 +1,7 @@
 package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 
@@ -14,7 +15,7 @@ public interface ITriggerHandler {
             Long jobId);
 
     void triggerAssistance(
-            String assistanceId,
+            IAssistanceConfiguration config,
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId);
