@@ -23,6 +23,7 @@
 		<commons-validator.version>1.6</commons-validator.version>
 		<jackson-annotations.version>2.9.4</jackson-annotations.version>
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
+		<antlr4.version>4.7.1</antlr4.version>
 	</properties>
 
 	<modules>
@@ -180,6 +181,13 @@
 				<groupId>io.github.openfeign</groupId>
 				<artifactId>feign-okhttp</artifactId>
 				<version>${feign-okhttp.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.antlr/antlr4 -->
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4</artifactId>
+				<version>${antlr4.version}</version>
 			</dependency>
 
 		</dependencies>
