@@ -84,8 +84,6 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
-        Set<String> astronautsMeetingAssistances = new HashSet<>();
-        astronautsMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> astronautsMeetingAssistanceConfigurations = new HashMap<>();
         astronautsMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));   // TODO
         meetings.add(Meeting.builder()
@@ -94,7 +92,6 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_ASTRONAUTS)
                 .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
-                .assistanceIds(astronautsMeetingAssistances)
                 .assistanceConfigurationsById(astronautsMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());

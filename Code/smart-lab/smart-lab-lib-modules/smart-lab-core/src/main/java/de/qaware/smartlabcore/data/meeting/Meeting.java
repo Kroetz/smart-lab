@@ -21,7 +21,6 @@ public class Meeting implements IMeeting {
     private WorkgroupId workgroupId;
     private RoomId roomId;
     private List<IAgendaItem> agenda;
-    private Set<String> assistanceIds;
     private Map<String, IAssistanceConfiguration> assistanceConfigurationsById;
     private Instant start;
     private Instant end;
@@ -29,6 +28,11 @@ public class Meeting implements IMeeting {
     @Override
     public Duration getDuration() {
         return Duration.between(getStart(), getEnd());
+    }
+
+    @Override
+    public Set<String> getAssistanceIds() {
+        return this.assistanceConfigurationsById.keySet();
     }
 
     @Override

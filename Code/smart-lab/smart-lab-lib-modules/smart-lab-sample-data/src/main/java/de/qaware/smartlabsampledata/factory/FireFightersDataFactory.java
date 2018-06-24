@@ -85,9 +85,6 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
         fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
-        Set<String> fireFightersMeetingAssistances = new HashSet<>();
-        fireFightersMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
-        fireFightersMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> fireFightersMeetingAssistanceConfigurations = new HashMap<>();
         fireFightersMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_RED_MICROPHONE));
         fireFightersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID"))); // TODO
@@ -97,7 +94,6 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
                 .roomId(ROOM_ID_RED)
                 .agenda(fireFightersMeetingAgenda)
-                .assistanceIds(fireFightersMeetingAssistances)
                 .assistanceConfigurationsById(fireFightersMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(240))
                 .end(timeBase.plusSeconds(540)).build());

@@ -88,9 +88,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleMeetingAgenda.add(AgendaItem.builder().text("Show critical areas").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Explain whale anatomy").build());
         whaleMeetingAgenda.add(AgendaItem.builder().text("Drink coffee").build());
-        Set<String> whaleMeetingAssistances = new HashSet<>();
-        whaleMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
-        whaleMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whaleMeetingAssistanceConfigurations = new HashMap<>();
         whaleMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
         whaleMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));    // TODO
@@ -100,7 +97,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whaleMeetingAgenda)
-                .assistanceIds(whaleMeetingAssistances)
                 .assistanceConfigurationsById(whaleMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(0))
                 .end(timeBase.plusSeconds(300)).build());
@@ -109,9 +105,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Explain how whirlpools develop").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Show how you can escape whirlpools").build());
         whirlpoolMeetingAgenda.add(AgendaItem.builder().text("Admire the fine weather").build());
-        Set<String> whirlpoolMeetingAssistances = new HashSet<>();
-        whirlpoolMeetingAssistances.add(MinuteTakingInfo.ASSISTANCE_ID);
-        whirlpoolMeetingAssistances.add(RoomUnlockingInfo.ASSISTANCE_ID);
         Map<String, IAssistanceConfiguration> whirlpoolMeetingAssistanceConfigurations = new HashMap<>();
         whirlpoolMeetingAssistanceConfigurations.put(MinuteTakingInfo.ASSISTANCE_ID, new MinuteTakingInfo.Configuration(DEVICE_ID_BLUE_MICROPHONE));
         whirlpoolMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));
@@ -121,7 +114,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
                 .roomId(ROOM_ID_BLUE)
                 .agenda(whirlpoolMeetingAgenda)
-                .assistanceIds(whirlpoolMeetingAssistances)
                 .assistanceConfigurationsById(whirlpoolMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(360))
                 .end(timeBase.plusSeconds(660)).build());

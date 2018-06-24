@@ -18,7 +18,6 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -85,8 +84,6 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
-        Set<String> forestRangersMeetingAssistances = new HashSet<>();
-        forestRangersMeetingAssistances.add(Constants.ROOM_UNLOCKING);
         Map<String, IAssistanceConfiguration> forestRangersMeetingAssistanceConfigurations = new HashMap<>();
         forestRangersMeetingAssistanceConfigurations.put(RoomUnlockingInfo.ASSISTANCE_ID, new RoomUnlockingInfo.Configuration(DeviceId.of("dummy ID")));    // TODO
         meetings.add(Meeting.builder()
@@ -95,7 +92,6 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
                 .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
-                .assistanceIds(forestRangersMeetingAssistances)
                 .assistanceConfigurationsById(forestRangersMeetingAssistanceConfigurations)
                 .start(timeBase.plusSeconds(180))
                 .end(timeBase.plusSeconds(480)).build());
