@@ -35,13 +35,13 @@ public class SyncTriggerHandler implements ITriggerHandler {
     @Override
     public void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         this.jobManagementService.markJobAsProcessing(jobId);
         try {
             Set<String> assistanceIds = meeting.getAssistanceIds();
             for(String assistanceId : assistanceIds) {
-                triggerAssistance(assistanceId, meeting, triggerReactionGetter, jobId);
+                triggerAssistance(assistanceId, meeting, triggerReaction, jobId);
             }
             this.jobManagementService.markJobAsFinished(jobId);
         }
@@ -55,7 +55,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
     public void triggerAssistance(
             String assistanceId,
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
@@ -63,7 +63,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
-        triggerReactionGetter.accept(context, assistance);
+        triggerReaction.accept(context, assistance);
         log.info("Called assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));

@@ -23,9 +23,9 @@ public class AsyncTriggerHandler implements ITriggerHandler {
     @Async
     public void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
-        this.syncTriggerHandler.triggerAssistances(meeting, triggerReactionGetter, jobId);
+        this.syncTriggerHandler.triggerAssistances(meeting, triggerReaction, jobId);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class AsyncTriggerHandler implements ITriggerHandler {
     public void triggerAssistance(
             String assistanceId,
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
-        this.syncTriggerHandler.triggerAssistance(assistanceId, meeting, triggerReactionGetter, jobId);
+        this.syncTriggerHandler.triggerAssistance(assistanceId, meeting, triggerReaction, jobId);
     }
 }

@@ -44,10 +44,10 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private IJobInfo triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             @Nullable URL callbackUrl) {
         IJobInfo jobInfo = this.jobManagementService.recordNewJob(callbackUrl);
-        this.asyncTriggerHandler.triggerAssistances(meeting, triggerReactionGetter, jobInfo.getId());
+        this.asyncTriggerHandler.triggerAssistances(meeting, triggerReaction, jobInfo.getId());
         return jobInfo;
     }
 

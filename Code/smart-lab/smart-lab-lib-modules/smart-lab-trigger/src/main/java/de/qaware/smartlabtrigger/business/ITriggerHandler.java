@@ -10,12 +10,12 @@ public interface ITriggerHandler {
 
     void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId);
 
     void triggerAssistance(
             String assistanceId,
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReactionGetter,
+            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId);
 }
