@@ -74,54 +74,54 @@ public class Context implements IContext {
             this.roomManagementService = roomManagementService;
         }
 
-        public IContext ofMeeting(IMeeting meeting) {
-            return addBasedOnMeeting(new Context(), meeting);
+        public IContext of(IMeeting meeting) {
+            return addToContext(new Context(), meeting);
         }
 
-        public IContext ofMeetingAssistance(IMeeting meeting, IAssistanceInfo assistance) {
-            return addBasedOnMeetingAssistance(new Context(), meeting, assistance);
+        public IContext of(IMeeting meeting, IAssistanceInfo assistance) {
+            return addToContext(new Context(), meeting, assistance);
         }
 
-        public IContext ofWorkgroup(IWorkgroup workgroup) {
-            return addBasedOnWorkgroup(new Context(), workgroup);
+        public IContext of(IWorkgroup workgroup) {
+            return addToContext(new Context(), workgroup);
         }
 
-        public IContext ofPersons(Set<IPerson> persons) {
-            return addBasedOnPersons(new Context(), persons);
+        public IContext of(Set<IPerson> persons) {
+            return addToContext(new Context(), persons);
         }
 
-        public IContext ofRoom(IRoom room) {
-            return addBasedOnRoom(new Context(), room);
+        public IContext of(IRoom room) {
+            return addToContext(new Context(), room);
         }
 
         // TODO: better would be "addBasedOnAssistance" but this would require the assistance to know which meeting it belongs to --> assistance would also hold data and not only function
-        private Context addBasedOnMeetingAssistance(Context context, IMeeting meeting, IAssistanceInfo assistance) {
+        private Context addToContext(Context context, IMeeting meeting, IAssistanceInfo assistance) {
             // TODO. More specific exception
             context.assistanceConfiguration = meeting.getAssistanceConfiguration(assistance.getAssistanceId()).orElseThrow(RuntimeException::new);
-            return addBasedOnMeeting(context, meeting);
+            return addToContext(context, meeting);
         }
 
-        private Context addBasedOnMeeting(Context context, IMeeting meeting) {
+        private Context addToContext(Context context, IMeeting meeting) {
             context.setMeeting(meeting);
             IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
             IRoom room = roomManagementService.findOne(meeting.getRoomId());
-            return addBasedOnRoom(addBasedOnWorkgroup(context, workgroup), room);
+            return addToContext(addToContext(context, workgroup), room);
         }
 
-        private Context addBasedOnWorkgroup(Context context, IWorkgroup workgroup) {
+        private Context addToContext(Context context, IWorkgroup workgroup) {
             context.setWorkgroup(workgroup);
             Set<PersonId> workgroupMemberIds = workgroup.getMemberIds();
             Set<IPerson> workgroupMembers = personManagementService.findMultiple(
                     workgroup.getMemberIds().toArray(new PersonId[workgroupMemberIds.size()]));
-            return addBasedOnPersons(context, workgroupMembers);
+            return addToContext(context, workgroupMembers);
         }
 
-        private Context addBasedOnPersons(Context context, Set<IPerson> persons) {
+        private Context addToContext(Context context, Set<IPerson> persons) {
             context.setPersons(persons);
             return context;
         }
 
-        private Context addBasedOnRoom(Context context, IRoom room) {
+        private Context addToContext(Context context, IRoom room) {
             context.setRoom(room);
             return context;
         }
