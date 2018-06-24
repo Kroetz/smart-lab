@@ -40,6 +40,11 @@
             <artifactId>smart-lab-sample-data</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
