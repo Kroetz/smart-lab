@@ -1,17 +1,13 @@
 // Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-meeting/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
 package de.qaware.smartlabmeeting.repository.parser.antlr.generated;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
-import java.util.ArrayList;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MeetingConfigurationLanguageParser extends Parser {
@@ -22,7 +18,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		IDENTIFIER=1, INTEGER=2, STRING=3, WORKGROUP_IDENTIFIER=4, AGENDA_TAG=5, 
-		ASSISTANCES_TAG=6, SPECIAL_CHAR=7, LPAREN=8, RPAREN=9, LBRACE=10, RBRACE=11, 
+		ASSISTANCES_TAG=6, SIGNAL_SEQUENCE=7, LPAREN=8, RPAREN=9, LBRACE=10, RBRACE=11, 
 		LBRACK=12, RBRACK=13, COMMA=14, DOT=15, COLON=16, SEMICOLON=17, EQUALS=18, 
 		AT=19, QUOTES=20, WHITESPACE=21, COMMENT=22, LINE_COMMENT=23;
 	public static final int
@@ -43,7 +39,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "IDENTIFIER", "INTEGER", "STRING", "WORKGROUP_IDENTIFIER", "AGENDA_TAG", 
-		"ASSISTANCES_TAG", "SPECIAL_CHAR", "LPAREN", "RPAREN", "LBRACE", "RBRACE", 
+		"ASSISTANCES_TAG", "SIGNAL_SEQUENCE", "LPAREN", "RPAREN", "LBRACE", "RBRACE", 
 		"LBRACK", "RBRACK", "COMMA", "DOT", "COLON", "SEMICOLON", "EQUALS", "AT", 
 		"QUOTES", "WHITESPACE", "COMMENT", "LINE_COMMENT"
 	};
@@ -132,7 +128,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			setState(27);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AGENDA_TAG) | (1L << ASSISTANCES_TAG) | (1L << SPECIAL_CHAR))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AGENDA_TAG) | (1L << ASSISTANCES_TAG) | (1L << SIGNAL_SEQUENCE))) != 0)) {
 				{
 				{
 				setState(24);
@@ -189,7 +185,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case SPECIAL_CHAR:
+			case SIGNAL_SEQUENCE:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(30);
@@ -232,7 +228,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 	public static class WorkgroupAssignmentContext extends AssignmentContext {
 		public Token workgroupId;
-		public TerminalNode SPECIAL_CHAR() { return getToken(MeetingConfigurationLanguageParser.SPECIAL_CHAR, 0); }
+		public TerminalNode SIGNAL_SEQUENCE() { return getToken(MeetingConfigurationLanguageParser.SIGNAL_SEQUENCE, 0); }
 		public TerminalNode WORKGROUP_IDENTIFIER() { return getToken(MeetingConfigurationLanguageParser.WORKGROUP_IDENTIFIER, 0); }
 		public TerminalNode EQUALS() { return getToken(MeetingConfigurationLanguageParser.EQUALS, 0); }
 		public TerminalNode STRING() { return getToken(MeetingConfigurationLanguageParser.STRING, 0); }
@@ -260,7 +256,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(34);
-			match(SPECIAL_CHAR);
+			match(SIGNAL_SEQUENCE);
 			setState(35);
 			match(WORKGROUP_IDENTIFIER);
 			setState(36);

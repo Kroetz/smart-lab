@@ -12,7 +12,7 @@ statement
     ;
 
 assignment
-    : SPECIAL_CHAR WORKGROUP_IDENTIFIER EQUALS workgroupId=STRING #WorkgroupAssignment
+    : SIGNAL_SEQUENCE WORKGROUP_IDENTIFIER EQUALS workgroupId=STRING #WorkgroupAssignment
 //  | ...   (Add other assignments here)
     ;
 
@@ -63,9 +63,9 @@ STRING
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
 WORKGROUP_IDENTIFIER:   'workgroup' ;
-AGENDA_TAG:             SPECIAL_CHAR 'agenda' ;
-ASSISTANCES_TAG:        SPECIAL_CHAR 'assistances' ;
-SPECIAL_CHAR:           AT ;
+AGENDA_TAG:             SIGNAL_SEQUENCE 'agenda' ;
+ASSISTANCES_TAG:        SIGNAL_SEQUENCE 'assistances' ;
+SIGNAL_SEQUENCE:        AT AT AT ;
 LPAREN:                 '(' ;
 RPAREN:                 ')' ;
 LBRACE:                 '{' ;
