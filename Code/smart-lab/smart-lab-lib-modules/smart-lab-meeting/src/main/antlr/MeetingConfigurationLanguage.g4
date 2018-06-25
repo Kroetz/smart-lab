@@ -26,8 +26,8 @@ agendaSection
     ;
 
 agendaItems
-    : agendaItemList+=agendaItem (COMMA agendaItemList+=agendaItem)* #PopulatedAgenda
-    |                                                                #EmptyAgenda
+    : agendaItemList+=agendaItem (agendaItemList+=agendaItem)* #PopulatedAgenda
+    |                                                          #EmptyAgenda
     ;
 
 agendaItem
@@ -61,7 +61,7 @@ assistanceArg
 IDENTIFIER:         [a-z]+[a-zA-Z0-9]* ;
 INTEGER:            [0-9]+ ;
 STRING
-    :   QUOTES ('""' | ~'"')* QUOTES
+    :   QUOTES (~'"')* QUOTES
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
 WORKGROUP_IDENTIFIER:   'workgroup' ;
