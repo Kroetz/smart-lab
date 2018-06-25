@@ -17,9 +17,12 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -28,6 +31,9 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class MeetingParser implements IMeetingParser {
 
+    private static final String TAG_PATTERN = "@@@[^@\n]*";
+    private static final String PARSE_STRING_PATTERN = TAG_PATTERN + ".*" + TAG_PATTERN;
+
     private final MeetingConfigurationVisitor meetingConfigurationVisitor;
 
     public MeetingParser(MeetingConfigurationVisitor meetingConfigurationVisitor) {
@@ -35,7 +41,8 @@ public class MeetingParser implements IMeetingParser {
     }
 
     public IMeeting parse(String stringToParse) {
-        CharStream charStream = CharStreams.fromString(stringToParse);
+        CharStream charStream =
+                CharStreams.fromString(trimToRelevant(stringToParse));
         MeetingConfigurationLanguageLexer lexer =
                 new MeetingConfigurationLanguageLexer(charStream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
@@ -43,6 +50,13 @@ public class MeetingParser implements IMeetingParser {
                 new MeetingConfigurationLanguageParser(tokenStream);
         ParseTree parseTree = parser.meetingConfiguration();
         return this.meetingConfigurationVisitor.visit(parseTree);
+    }
+
+    private String trimToRelevant(String stringToTrim) {
+        Pattern pattern = Pattern.compile(PARSE_STRING_PATTERN, Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(stringToTrim);
+        if(!matcher.find()) return StringUtils.EMPTY;
+        return matcher.group(0);
     }
 
     @Component
