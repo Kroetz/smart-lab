@@ -59,7 +59,7 @@ assistanceArg
 IDENTIFIER:         [a-z]+[a-zA-Z0-9]* ;
 INTEGER:            [0-9]+ ;
 STRING
-    :   QUOTES (~'"')* QUOTES
+    : QUOTES (~'"')* QUOTES
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
 WORKGROUP_IDENTIFIER:   'workgroup' ;
@@ -80,11 +80,11 @@ EQUALS:                 '=' ;
 AT:                     '@' ;
 QUOTES:                 '"' ;
 WHITESPACE
-    :   [ \t\r\n\u000C]+ -> skip
+    : [ \t\r\n\u000C]+ -> skip
     ;
 COMMENT
-    :   '/*' .*? '*/' -> channel(HIDDEN)
+    : '/*' .*? '*/' -> channel(HIDDEN)
     ;
 LINE_COMMENT
-    :   '//' ~[\r\n]* -> channel(HIDDEN)
+    : '//' ~[\r\n]* -> channel(HIDDEN)
     ;
