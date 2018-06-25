@@ -73,14 +73,7 @@ public class MeetingConfigurationLanguageBaseVisitor<T> extends AbstractParseTre
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

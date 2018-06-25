@@ -112,25 +112,13 @@ public class MeetingConfigurationLanguageBaseListener implements MeetingConfigur
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx) { }
+	@Override public void enterAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx) { }
+	@Override public void exitAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

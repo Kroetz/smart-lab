@@ -38,8 +38,7 @@ assistancesSection
     ;
 
 assistances
-    : assistanceList+=assistance (assistanceList+=assistance)* # PopulatedAssistances
-    |                                                          # EmptyAssistances
+    : assistanceList+=assistance*
     ;
 
 assistance

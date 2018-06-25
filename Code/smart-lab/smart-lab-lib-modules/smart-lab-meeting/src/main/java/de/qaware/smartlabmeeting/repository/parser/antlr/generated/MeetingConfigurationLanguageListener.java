@@ -90,29 +90,15 @@ public interface MeetingConfigurationLanguageListener extends ParseTreeListener 
 	 */
 	void exitAssistancesSection(MeetingConfigurationLanguageParser.AssistancesSectionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PopulatedAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
+	 * Enter a parse tree produced by {@link MeetingConfigurationLanguageParser#assistances}.
 	 * @param ctx the parse tree
 	 */
-	void enterPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx);
+	void enterAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PopulatedAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
+	 * Exit a parse tree produced by {@link MeetingConfigurationLanguageParser#assistances}.
 	 * @param ctx the parse tree
 	 */
-	void exitPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code EmptyAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
-	 * @param ctx the parse tree
-	 */
-	void enterEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code EmptyAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
-	 * @param ctx the parse tree
-	 */
-	void exitEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx);
+	void exitAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MeetingConfigurationLanguageParser#assistance}.
 	 * @param ctx the parse tree

@@ -60,19 +60,11 @@ public interface MeetingConfigurationLanguageVisitor<T> extends ParseTreeVisitor
 	 */
 	T visitAssistancesSection(MeetingConfigurationLanguageParser.AssistancesSectionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PopulatedAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
+	 * Visit a parse tree produced by {@link MeetingConfigurationLanguageParser#assistances}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code EmptyAssistances}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#assistances}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEmptyAssistances(MeetingConfigurationLanguageParser.EmptyAssistancesContext ctx);
+	T visitAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MeetingConfigurationLanguageParser#assistance}.
 	 * @param ctx the parse tree

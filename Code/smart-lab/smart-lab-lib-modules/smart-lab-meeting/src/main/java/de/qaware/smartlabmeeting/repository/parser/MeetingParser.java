@@ -81,7 +81,7 @@ public class MeetingParser implements IMeetingParser {
         }
 
         @Override
-        public IMeeting visitPopulatedAssistances(MeetingConfigurationLanguageParser.PopulatedAssistancesContext ctx) {
+        public IMeeting visitAssistances(MeetingConfigurationLanguageParser.AssistancesContext ctx) {
             Set<IAssistanceConfiguration> configs = ctx.assistanceList
                     .stream()
                     .map(assistance -> assistance.accept(this.assistanceVisitor))

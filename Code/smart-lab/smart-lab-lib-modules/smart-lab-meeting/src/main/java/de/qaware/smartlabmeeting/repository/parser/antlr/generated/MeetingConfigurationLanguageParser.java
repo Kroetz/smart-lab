@@ -553,33 +553,6 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static class AssistancesContext extends ParserRuleContext {
-		public AssistancesContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_assistances; }
-	 
-		public AssistancesContext() { }
-		public void copyFrom(AssistancesContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class EmptyAssistancesContext extends AssistancesContext {
-		public EmptyAssistancesContext(AssistancesContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterEmptyAssistances(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitEmptyAssistances(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitEmptyAssistances(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class PopulatedAssistancesContext extends AssistancesContext {
 		public AssistanceContext assistance;
 		public List<AssistanceContext> assistanceList = new ArrayList<AssistanceContext>();
 		public List<AssistanceContext> assistance() {
@@ -588,18 +561,21 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		public AssistanceContext assistance(int i) {
 			return getRuleContext(AssistanceContext.class,i);
 		}
-		public PopulatedAssistancesContext(AssistancesContext ctx) { copyFrom(ctx); }
+		public AssistancesContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_assistances; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterPopulatedAssistances(this);
+			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterAssistances(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitPopulatedAssistances(this);
+			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitAssistances(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitPopulatedAssistances(this);
+			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitAssistances(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -609,41 +585,23 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 16, RULE_assistances);
 		int _la;
 		try {
-			setState(67);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(62);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case IDENTIFIER:
-				_localctx = new PopulatedAssistancesContext(_localctx);
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			while (_la==IDENTIFIER) {
+				{
 				{
 				setState(59);
-				((PopulatedAssistancesContext)_localctx).assistance = assistance();
-				((PopulatedAssistancesContext)_localctx).assistanceList.add(((PopulatedAssistancesContext)_localctx).assistance);
-				setState(63);
+				((AssistancesContext)_localctx).assistance = assistance();
+				((AssistancesContext)_localctx).assistanceList.add(((AssistancesContext)_localctx).assistance);
+				}
+				}
+				setState(64);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==IDENTIFIER) {
-					{
-					{
-					setState(60);
-					((PopulatedAssistancesContext)_localctx).assistance = assistance();
-					((PopulatedAssistancesContext)_localctx).assistanceList.add(((PopulatedAssistancesContext)_localctx).assistance);
-					}
-					}
-					setState(65);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				break;
-			case ASSISTANCES_TAG:
-				_localctx = new EmptyAssistancesContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -690,13 +648,13 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(69);
+			setState(65);
 			((AssistanceContext)_localctx).assistanceId = match(IDENTIFIER);
-			setState(70);
+			setState(66);
 			match(LPAREN);
-			setState(71);
+			setState(67);
 			assistanceArgs();
-			setState(72);
+			setState(68);
 			match(RPAREN);
 			}
 		}
@@ -772,30 +730,30 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 20, RULE_assistanceArgs);
 		int _la;
 		try {
-			setState(83);
+			setState(79);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new PopulatedAssistanceArgsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(70);
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
-				setState(79);
+				setState(75);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(75);
+					setState(71);
 					match(COMMA);
-					setState(76);
+					setState(72);
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
 					}
 					}
-					setState(81);
+					setState(77);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -853,11 +811,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(85);
+			setState(81);
 			((AssistanceArgContext)_localctx).argKey = match(IDENTIFIER);
-			setState(86);
+			setState(82);
 			match(COLON);
-			setState(87);
+			setState(83);
 			((AssistanceArgContext)_localctx).argValue = match(STRING);
 			}
 		}
@@ -873,28 +831,27 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31\\\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13"+
-		"\4\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\5\3#\n\3\3\4"+
-		"\3\4\3\4\3\4\3\4\3\5\3\5\5\5,\n\5\3\6\3\6\3\6\3\6\3\7\7\7\63\n\7\f\7\16"+
-		"\7\66\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\7\n@\n\n\f\n\16\nC\13\n\3\n"+
-		"\5\nF\n\n\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fP\n\f\f\f\16\fS\13\f"+
-		"\3\f\5\fV\n\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30"+
-		"\2\2\2W\2\35\3\2\2\2\4\"\3\2\2\2\6$\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2\f\64"+
-		"\3\2\2\2\16\67\3\2\2\2\209\3\2\2\2\22E\3\2\2\2\24G\3\2\2\2\26U\3\2\2\2"+
-		"\30W\3\2\2\2\32\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35"+
-		"\36\3\2\2\2\36\3\3\2\2\2\37\35\3\2\2\2 #\5\6\4\2!#\5\b\5\2\" \3\2\2\2"+
-		"\"!\3\2\2\2#\5\3\2\2\2$%\7\t\2\2%&\7\6\2\2&\'\7\24\2\2\'(\7\5\2\2(\7\3"+
-		"\2\2\2),\5\n\6\2*,\5\20\t\2+)\3\2\2\2+*\3\2\2\2,\t\3\2\2\2-.\7\7\2\2."+
-		"/\5\f\7\2/\60\7\7\2\2\60\13\3\2\2\2\61\63\5\16\b\2\62\61\3\2\2\2\63\66"+
-		"\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\r\3\2\2\2\66\64\3\2\2\2\678\7"+
-		"\5\2\28\17\3\2\2\29:\7\b\2\2:;\5\22\n\2;<\7\b\2\2<\21\3\2\2\2=A\5\24\13"+
-		"\2>@\5\24\13\2?>\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BF\3\2\2\2CA\3\2"+
-		"\2\2DF\3\2\2\2E=\3\2\2\2ED\3\2\2\2F\23\3\2\2\2GH\7\3\2\2HI\7\n\2\2IJ\5"+
-		"\26\f\2JK\7\13\2\2K\25\3\2\2\2LQ\5\30\r\2MN\7\20\2\2NP\5\30\r\2OM\3\2"+
-		"\2\2PS\3\2\2\2QO\3\2\2\2QR\3\2\2\2RV\3\2\2\2SQ\3\2\2\2TV\3\2\2\2UL\3\2"+
-		"\2\2UT\3\2\2\2V\27\3\2\2\2WX\7\3\2\2XY\7\22\2\2YZ\7\5\2\2Z\31\3\2\2\2"+
-		"\n\35\"+\64AEQU";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31X\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\5\3#\n\3\3\4\3"+
+		"\4\3\4\3\4\3\4\3\5\3\5\5\5,\n\5\3\6\3\6\3\6\3\6\3\7\7\7\63\n\7\f\7\16"+
+		"\7\66\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\7\n?\n\n\f\n\16\nB\13\n\3\13\3"+
+		"\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fL\n\f\f\f\16\fO\13\f\3\f\5\fR\n\f\3"+
+		"\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2R\2\35\3"+
+		"\2\2\2\4\"\3\2\2\2\6$\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2\f\64\3\2\2\2\16\67"+
+		"\3\2\2\2\209\3\2\2\2\22@\3\2\2\2\24C\3\2\2\2\26Q\3\2\2\2\30S\3\2\2\2\32"+
+		"\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35\36\3\2\2\2\36"+
+		"\3\3\2\2\2\37\35\3\2\2\2 #\5\6\4\2!#\5\b\5\2\" \3\2\2\2\"!\3\2\2\2#\5"+
+		"\3\2\2\2$%\7\t\2\2%&\7\6\2\2&\'\7\24\2\2\'(\7\5\2\2(\7\3\2\2\2),\5\n\6"+
+		"\2*,\5\20\t\2+)\3\2\2\2+*\3\2\2\2,\t\3\2\2\2-.\7\7\2\2./\5\f\7\2/\60\7"+
+		"\7\2\2\60\13\3\2\2\2\61\63\5\16\b\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62"+
+		"\3\2\2\2\64\65\3\2\2\2\65\r\3\2\2\2\66\64\3\2\2\2\678\7\5\2\28\17\3\2"+
+		"\2\29:\7\b\2\2:;\5\22\n\2;<\7\b\2\2<\21\3\2\2\2=?\5\24\13\2>=\3\2\2\2"+
+		"?B\3\2\2\2@>\3\2\2\2@A\3\2\2\2A\23\3\2\2\2B@\3\2\2\2CD\7\3\2\2DE\7\n\2"+
+		"\2EF\5\26\f\2FG\7\13\2\2G\25\3\2\2\2HM\5\30\r\2IJ\7\20\2\2JL\5\30\r\2"+
+		"KI\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NR\3\2\2\2OM\3\2\2\2PR\3\2\2\2"+
+		"QH\3\2\2\2QP\3\2\2\2R\27\3\2\2\2ST\7\3\2\2TU\7\22\2\2UV\7\5\2\2V\31\3"+
+		"\2\2\2\t\35\"+\64@MQ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
