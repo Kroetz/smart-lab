@@ -22,7 +22,7 @@ section
     ;
 
 agendaSection
-    : AGENDA_TAG agendaItems AGENDA_TAG
+    : AGENDA_TAG_BEGIN agendaItems AGENDA_TAG_END
     ;
 
 agendaItems
@@ -34,7 +34,7 @@ agendaItem
     ;
 
 assistancesSection
-    : ASSISTANCES_TAG assistances ASSISTANCES_TAG
+    : ASSISTANCES_TAG_BEGIN assistances ASSISTANCES_TAG_END
     ;
 
 assistances
@@ -63,8 +63,10 @@ STRING
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
 WORKGROUP_IDENTIFIER:   'workgroup' ;
-AGENDA_TAG:             SIGNAL_SEQUENCE 'agenda' ;
-ASSISTANCES_TAG:        SIGNAL_SEQUENCE 'assistances' ;
+AGENDA_TAG_BEGIN:       SIGNAL_SEQUENCE 'agenda-begin' ;
+AGENDA_TAG_END:         SIGNAL_SEQUENCE 'agenda-end' ;
+ASSISTANCES_TAG_BEGIN:  SIGNAL_SEQUENCE 'assistances-begin' ;
+ASSISTANCES_TAG_END:    SIGNAL_SEQUENCE 'assistances-end' ;
 SIGNAL_SEQUENCE:        AT AT AT ;
 LPAREN:                 '(' ;
 RPAREN:                 ')' ;
