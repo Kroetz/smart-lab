@@ -99,7 +99,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(MinuteTakingInfo.Configuration.KEY_MICROPHONE_ID, DEVICE_ID_RED_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_RED_MICROPHONE.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

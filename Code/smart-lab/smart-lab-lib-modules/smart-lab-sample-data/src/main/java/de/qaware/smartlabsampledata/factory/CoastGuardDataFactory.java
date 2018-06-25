@@ -102,7 +102,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         Set<IAssistanceConfiguration> whaleConfigs = new HashSet<>();
         whaleConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(MinuteTakingInfo.Configuration.KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -124,7 +124,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         Set<IAssistanceConfiguration> whirlpoolConfigs = new HashSet<>();
         whirlpoolConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(MinuteTakingInfo.Configuration.KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

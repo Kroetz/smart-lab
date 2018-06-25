@@ -34,7 +34,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
     @Getter
     public class Configuration implements IAssistanceConfiguration {
 
-        public static final String KEY_MICROPHONE_ID = "microphoneId";
+        public static final String CONFIG_PROPERTY_KEY_MICROPHONE_ID = "microphoneId";
         private DeviceId microphoneId;
 
         private Configuration(Map<String, String> configProperties) {
