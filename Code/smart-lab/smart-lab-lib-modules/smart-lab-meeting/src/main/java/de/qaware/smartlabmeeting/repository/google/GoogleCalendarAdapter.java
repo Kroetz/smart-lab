@@ -3,13 +3,18 @@ package de.qaware.smartlabmeeting.repository.google;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
+import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -33,14 +39,17 @@ import java.util.Set;
 public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     private final Calendar service;
+    private final IMeetingParser meetingParser;
 
     public GoogleCalendarAdapter(
+            IMeetingParser meetingParser,
             ISampleDataProvider sampleDataProvider,
             Path googleCalendarCredentialFile,
             Collection<String> googleCalendarScopes,
             String googleCalendarApplicationName,
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory) throws IOException {
+        this.meetingParser = meetingParser;
         GoogleCredential credentials = GoogleCredential.fromStream(
                 Files.newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
@@ -52,7 +61,7 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
                 .setApplicationName(googleCalendarApplicationName)
                 .build();
 
-        // TODO
+        // TODO: fill with sample data
         //this.entities = new HashSet<>(sampleDataProvider.getMeetings());
     }
 
@@ -99,5 +108,34 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
     @Override
     public ShiftResult shiftMeeting(IMeeting meeting, Duration shift) {
         return null;
+    }
+
+    private IMeeting eventToMeeting(Event event) {
+        String description = event.getDescription();
+        IMeeting parsedMeeting = this.meetingParser.parse(description);
+        return Meeting.builder()
+                .id(MeetingId.of(event.getId()))
+                .title(event.getSummary())
+                .start(eventDateTimeToInstant(event.getStart()))
+                .end(eventDateTimeToInstant(event.getEnd()))
+                .roomId(RoomId.of(event.getLocation()))
+                .build()
+                .merge(parsedMeeting);
+    }
+
+    public static Instant dateTimeToInstant(DateTime dateTime) {
+        return Instant.ofEpochMilli(dateTime.getValue());
+    }
+
+    public static Instant eventDateTimeToInstant(EventDateTime eventDateTime) {
+        return dateTimeToInstant(eventDateTime.getDateTime());
+    }
+
+    public static DateTime instantToDateTime(Instant instant) {
+        return new DateTime(instant.toEpochMilli());
+    }
+
+    public static EventDateTime instantToEventDateTime(Instant instant) {
+        return new EventDateTime().setDateTime(instantToDateTime(instant));
     }
 }

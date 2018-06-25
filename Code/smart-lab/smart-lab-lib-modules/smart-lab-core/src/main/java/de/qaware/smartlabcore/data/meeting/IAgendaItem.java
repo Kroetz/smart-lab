@@ -9,5 +9,5 @@ import de.qaware.smartlabcore.miscellaneous.Constants;
         property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IAgendaItem {
 
-    String getText();
+    String getContent();
 }

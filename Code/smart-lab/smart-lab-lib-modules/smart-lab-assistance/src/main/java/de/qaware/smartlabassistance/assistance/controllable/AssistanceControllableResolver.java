@@ -27,4 +27,3 @@ public class AssistanceControllableResolver extends AbstractResolver<String, IAs
         return assistancesById;
     }
 }
-

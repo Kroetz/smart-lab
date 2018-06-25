@@ -17,5 +17,5 @@ public class AgendaItem implements IAgendaItem {
     @JsonProperty
     private String type = this.getClass().getName();
 
-    private String text;
+    private String content;
 }

@@ -39,11 +39,17 @@
             <artifactId>smart-lab-action</artifactId>
         </dependency>
 
+        <!-- TODO: This dependency should not be necessary -->
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-github</artifactId>
             <version>${jcabi-github.version}</version>
             <classifier>jar-with-dependencies</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
     </dependencies>

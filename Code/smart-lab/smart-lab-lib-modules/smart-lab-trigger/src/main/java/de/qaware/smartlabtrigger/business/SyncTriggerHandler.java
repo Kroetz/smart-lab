@@ -58,10 +58,13 @@ public class SyncTriggerHandler implements ITriggerHandler {
             IMeeting meeting,
             BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
+        if(!meeting.getAssistanceConfigurations().contains(config)) {
+            throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
+        }
         String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-        IContext context = this.contextFactory.of(config);
+        IContext context = this.contextFactory.of(meeting, config);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));

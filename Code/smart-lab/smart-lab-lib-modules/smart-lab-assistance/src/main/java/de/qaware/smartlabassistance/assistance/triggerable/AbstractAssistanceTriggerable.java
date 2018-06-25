@@ -1,12 +1,14 @@
 package de.qaware.smartlabassistance.assistance.triggerable;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
 import java.util.Set;
 
 @Slf4j
@@ -24,6 +26,11 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
 
     public Set<String> getAssistanceAliases() {
         return this.assistanceInfo.getAssistanceAliases();
+    }
+
+    @Override
+    public IAssistanceConfiguration createConfiguration(Map<String, String> configProperties) {
+        return this.assistanceInfo.createConfiguration(configProperties);
     }
 
     @Override

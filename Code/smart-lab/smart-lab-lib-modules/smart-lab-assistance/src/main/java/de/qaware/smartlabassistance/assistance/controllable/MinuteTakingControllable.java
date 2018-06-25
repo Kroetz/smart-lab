@@ -6,7 +6,6 @@ import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
@@ -45,17 +44,23 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void begin(IActionService actionService, IContext context) {
+        // TODO: casting smells
+        // TODO: Check for casting exception and throw illegalstateexception
+        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
         final MicrophoneActivationSubmittable.ActionArgs microphoneActivationArgs = MicrophoneActivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
-                context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
+                config.getMicrophoneId());
         this.microphoneActivation.submitExecution(actionService, microphoneActivationArgs);
     }
 
     @Override
     public void end(IActionService actionService, IContext context) {
+        // TODO: casting smells
+        // TODO: Check for casting exception and throw illegalstateexception
+        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
         final MicrophoneDeactivationSubmittable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
-                context.getAssistanceConfiguration().map(IAssistanceConfiguration::getDeviceId).orElseThrow(InsufficientContextException::new));
+                config.getMicrophoneId());
         Path recordedAudio = this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
 
         final SpeechToTextSubmittable.ActionArgs speechToTextArgs = SpeechToTextSubmittable.ActionArgs.of(recordedAudio);

@@ -29,4 +29,5 @@ public interface IMeeting extends IEntity<MeetingId> {
     Instant getEnd();
     Duration getDuration();
     IMeeting copy();
+    IMeeting merge(IMeeting meeting);
 }

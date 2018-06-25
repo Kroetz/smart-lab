@@ -1,9 +1,10 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -20,7 +21,10 @@ import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class ForestRangersDataFactory extends AbstractSampleDataFactory {
@@ -34,8 +38,11 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY = DeviceId.of("green-display");
     public static final String DELEGATE_ID_GREEN = "green-delegate";
 
-    public ForestRangersDataFactory() {
+    private final IAssistanceInfo roomUnlockingInfo;
+
+    public ForestRangersDataFactory(IAssistanceInfo roomUnlockingInfo) {
         super();
+        this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
     @Override
@@ -81,14 +88,13 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show potential damage").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Show increase in population").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().text("Laugh together").build());
+        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show potential damage").build());
+        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show increase in population").build());
+        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Laugh together").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
-        configs.add(new RoomUnlockingInfo.Configuration(
-                MEETING_ID_BARK_BEETLE,
-                ROOM_ID_GREEN,
-                DeviceId.of("dummy ID")));    // TODO
+        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")

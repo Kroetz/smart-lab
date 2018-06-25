@@ -1,9 +1,10 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.external.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -20,7 +21,10 @@ import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class AstronautsDataFactory extends AbstractSampleDataFactory {
@@ -34,8 +38,11 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_BLACK_DISPLAY = DeviceId.of("black-display");
     public static final String DELEGATE_ID_BLACK = "black-delegate";
 
-    public AstronautsDataFactory() {
+    private final IAssistanceInfo roomUnlockingInfo;
+
+    public AstronautsDataFactory(IAssistanceInfo roomUnlockingInfo) {
         super();
+        this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
     @Override
@@ -81,14 +88,13 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
-        astronautsMeetingAgenda.add(AgendaItem.builder().text("Calculate journey duration").build());
-        astronautsMeetingAgenda.add(AgendaItem.builder().text("Discuss who may press the launch button of the rocket").build());
-        astronautsMeetingAgenda.add(AgendaItem.builder().text("Complain that this is all rocket science").build());
+        astronautsMeetingAgenda.add(AgendaItem.builder().content("Calculate journey duration").build());
+        astronautsMeetingAgenda.add(AgendaItem.builder().content("Discuss who may press the launch button of the rocket").build());
+        astronautsMeetingAgenda.add(AgendaItem.builder().content("Complain that this is all rocket science").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
-        configs.add(new RoomUnlockingInfo.Configuration(
-                MEETING_ID_MARS,
-                ROOM_ID_BLACK,
-                DeviceId.of("dummy ID")));   // TODO
+        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")

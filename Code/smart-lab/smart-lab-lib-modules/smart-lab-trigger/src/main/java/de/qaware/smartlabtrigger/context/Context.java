@@ -4,7 +4,6 @@ import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.person.IPersonManagementService;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
@@ -74,8 +73,11 @@ public class Context implements IContext {
             this.roomManagementService = roomManagementService;
         }
 
-        public IContext of(IAssistanceConfiguration assistanceConfiguration) {
-            return addToContext(new Context(), assistanceConfiguration);
+        public IContext of(IMeeting meeting, IAssistanceConfiguration config) {
+            if(!meeting.getAssistanceConfigurations().contains(config)) {
+                throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
+            }
+            return addToContext(addToContext(new Context(), meeting), config);
         }
 
         public IContext of(IMeeting meeting) {
@@ -94,12 +96,9 @@ public class Context implements IContext {
             return addToContext(new Context(), room);
         }
 
-        private Context addToContext(Context context, IAssistanceConfiguration assistanceConfiguration) {
-            context.setAssistanceConfiguration(assistanceConfiguration);
-            IMeeting meeting = meetingManagementService.findOne(
-                    assistanceConfiguration.getMeetingId(),
-                    assistanceConfiguration.getRoomId());
-            return addToContext(context, meeting);
+        private Context addToContext(Context context, IAssistanceConfiguration config) {
+            context.setAssistanceConfiguration(config);
+            return context;
         }
 
         private Context addToContext(Context context, IMeeting meeting) {

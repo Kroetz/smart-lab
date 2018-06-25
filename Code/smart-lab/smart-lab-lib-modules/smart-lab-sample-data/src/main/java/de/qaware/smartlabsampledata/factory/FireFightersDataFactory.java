@@ -1,10 +1,11 @@
 package de.qaware.smartlabsampledata.factory;
 
+import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.external.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
-import de.qaware.smartlabassistance.assistance.info.RoomUnlockingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -21,7 +22,10 @@ import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class FireFightersDataFactory extends AbstractSampleDataFactory {
@@ -35,8 +39,15 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final String DELEGATE_ID_RED = "red-delegate";
 
-    public FireFightersDataFactory() {
+    private final IAssistanceInfo minuteTakingInfo;
+    private final IAssistanceInfo roomUnlockingInfo;
+
+    public FireFightersDataFactory(
+            IAssistanceInfo minuteTakingInfo,
+            IAssistanceInfo roomUnlockingInfo) {
         super();
+        this.minuteTakingInfo = minuteTakingInfo;
+        this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
     @Override
@@ -82,18 +93,17 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> fireFightersMeetingAgenda = new ArrayList<>();
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how bad the old truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Show how great the new truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().text("Discuss how to pay for the new truck").build());
+        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Show how bad the old truck is").build());
+        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Show how great the new truck is").build());
+        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Discuss how to pay for the new truck").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
-        configs.add(new MinuteTakingInfo.Configuration(
-                MEETING_ID_TRUCK,
-                ROOM_ID_RED,
-                DEVICE_ID_RED_MICROPHONE));
-        configs.add(new RoomUnlockingInfo.Configuration(
-                MEETING_ID_TRUCK,
-                ROOM_ID_RED,
-                DeviceId.of("dummy ID"))); // TODO
+        configs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(MinuteTakingInfo.Configuration.KEY_MICROPHONE_ID, DEVICE_ID_RED_MICROPHONE.getIdValue())
+                .build()));
+        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
