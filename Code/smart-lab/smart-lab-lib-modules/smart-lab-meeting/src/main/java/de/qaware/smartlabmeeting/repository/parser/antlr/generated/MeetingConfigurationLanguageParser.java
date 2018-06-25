@@ -1,13 +1,17 @@
 // Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-meeting/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
 package de.qaware.smartlabmeeting.repository.parser.antlr.generated;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
-import java.util.List;
-import java.util.Iterator;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MeetingConfigurationLanguageParser extends Parser {
@@ -391,33 +395,6 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static class AgendaItemsContext extends ParserRuleContext {
-		public AgendaItemsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_agendaItems; }
-	 
-		public AgendaItemsContext() { }
-		public void copyFrom(AgendaItemsContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class EmptyAgendaContext extends AgendaItemsContext {
-		public EmptyAgendaContext(AgendaItemsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterEmptyAgenda(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitEmptyAgenda(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitEmptyAgenda(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class PopulatedAgendaContext extends AgendaItemsContext {
 		public AgendaItemContext agendaItem;
 		public List<AgendaItemContext> agendaItemList = new ArrayList<AgendaItemContext>();
 		public List<AgendaItemContext> agendaItem() {
@@ -426,18 +403,21 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		public AgendaItemContext agendaItem(int i) {
 			return getRuleContext(AgendaItemContext.class,i);
 		}
-		public PopulatedAgendaContext(AgendaItemsContext ctx) { copyFrom(ctx); }
+		public AgendaItemsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_agendaItems; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterPopulatedAgenda(this);
+			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).enterAgendaItems(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitPopulatedAgenda(this);
+			if ( listener instanceof MeetingConfigurationLanguageListener ) ((MeetingConfigurationLanguageListener)listener).exitAgendaItems(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitPopulatedAgenda(this);
+			if ( visitor instanceof MeetingConfigurationLanguageVisitor ) return ((MeetingConfigurationLanguageVisitor<? extends T>)visitor).visitAgendaItems(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -447,41 +427,23 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 10, RULE_agendaItems);
 		int _la;
 		try {
-			setState(55);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(50);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case STRING:
-				_localctx = new PopulatedAgendaContext(_localctx);
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			while (_la==STRING) {
+				{
 				{
 				setState(47);
-				((PopulatedAgendaContext)_localctx).agendaItem = agendaItem();
-				((PopulatedAgendaContext)_localctx).agendaItemList.add(((PopulatedAgendaContext)_localctx).agendaItem);
-				setState(51);
+				((AgendaItemsContext)_localctx).agendaItem = agendaItem();
+				((AgendaItemsContext)_localctx).agendaItemList.add(((AgendaItemsContext)_localctx).agendaItem);
+				}
+				}
+				setState(52);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==STRING) {
-					{
-					{
-					setState(48);
-					((PopulatedAgendaContext)_localctx).agendaItem = agendaItem();
-					((PopulatedAgendaContext)_localctx).agendaItemList.add(((PopulatedAgendaContext)_localctx).agendaItem);
-					}
-					}
-					setState(53);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				break;
-			case AGENDA_TAG:
-				_localctx = new EmptyAgendaContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -523,7 +485,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(53);
 			((AgendaItemContext)_localctx).content = match(STRING);
 			}
 		}
@@ -571,11 +533,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(59);
+			setState(55);
 			match(ASSISTANCES_TAG);
-			setState(60);
+			setState(56);
 			assistances();
-			setState(61);
+			setState(57);
 			match(ASSISTANCES_TAG);
 			}
 		}
@@ -647,28 +609,28 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 16, RULE_assistances);
 		int _la;
 		try {
-			setState(71);
+			setState(67);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new PopulatedAssistancesContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(63);
+				setState(59);
 				((PopulatedAssistancesContext)_localctx).assistance = assistance();
 				((PopulatedAssistancesContext)_localctx).assistanceList.add(((PopulatedAssistancesContext)_localctx).assistance);
-				setState(67);
+				setState(63);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==IDENTIFIER) {
 					{
 					{
-					setState(64);
+					setState(60);
 					((PopulatedAssistancesContext)_localctx).assistance = assistance();
 					((PopulatedAssistancesContext)_localctx).assistanceList.add(((PopulatedAssistancesContext)_localctx).assistance);
 					}
 					}
-					setState(69);
+					setState(65);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -728,13 +690,13 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(73);
+			setState(69);
 			((AssistanceContext)_localctx).assistanceId = match(IDENTIFIER);
-			setState(74);
+			setState(70);
 			match(LPAREN);
-			setState(75);
+			setState(71);
 			assistanceArgs();
-			setState(76);
+			setState(72);
 			match(RPAREN);
 			}
 		}
@@ -810,30 +772,30 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 20, RULE_assistanceArgs);
 		int _la;
 		try {
-			setState(87);
+			setState(83);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new PopulatedAssistanceArgsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(78);
+				setState(74);
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
-				setState(83);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(79);
+					setState(75);
 					match(COMMA);
-					setState(80);
+					setState(76);
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
 					}
 					}
-					setState(85);
+					setState(81);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -891,11 +853,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(89);
+			setState(85);
 			((AssistanceArgContext)_localctx).argKey = match(IDENTIFIER);
-			setState(90);
+			setState(86);
 			match(COLON);
-			setState(91);
+			setState(87);
 			((AssistanceArgContext)_localctx).argValue = match(STRING);
 			}
 		}
@@ -911,29 +873,28 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31`\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\5\3#\n\3\3\4\3"+
-		"\4\3\4\3\4\3\4\3\5\3\5\5\5,\n\5\3\6\3\6\3\6\3\6\3\7\3\7\7\7\64\n\7\f\7"+
-		"\16\7\67\13\7\3\7\5\7:\n\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\7\nD\n\n\f"+
-		"\n\16\nG\13\n\3\n\5\nJ\n\n\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fT\n"+
-		"\f\f\f\16\fW\13\f\3\f\5\fZ\n\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f"+
-		"\16\20\22\24\26\30\2\2\2\\\2\35\3\2\2\2\4\"\3\2\2\2\6$\3\2\2\2\b+\3\2"+
-		"\2\2\n-\3\2\2\2\f9\3\2\2\2\16;\3\2\2\2\20=\3\2\2\2\22I\3\2\2\2\24K\3\2"+
-		"\2\2\26Y\3\2\2\2\30[\3\2\2\2\32\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2"+
-		"\35\33\3\2\2\2\35\36\3\2\2\2\36\3\3\2\2\2\37\35\3\2\2\2 #\5\6\4\2!#\5"+
-		"\b\5\2\" \3\2\2\2\"!\3\2\2\2#\5\3\2\2\2$%\7\t\2\2%&\7\6\2\2&\'\7\24\2"+
-		"\2\'(\7\5\2\2(\7\3\2\2\2),\5\n\6\2*,\5\20\t\2+)\3\2\2\2+*\3\2\2\2,\t\3"+
-		"\2\2\2-.\7\7\2\2./\5\f\7\2/\60\7\7\2\2\60\13\3\2\2\2\61\65\5\16\b\2\62"+
-		"\64\5\16\b\2\63\62\3\2\2\2\64\67\3\2\2\2\65\63\3\2\2\2\65\66\3\2\2\2\66"+
-		":\3\2\2\2\67\65\3\2\2\28:\3\2\2\29\61\3\2\2\298\3\2\2\2:\r\3\2\2\2;<\7"+
-		"\5\2\2<\17\3\2\2\2=>\7\b\2\2>?\5\22\n\2?@\7\b\2\2@\21\3\2\2\2AE\5\24\13"+
-		"\2BD\5\24\13\2CB\3\2\2\2DG\3\2\2\2EC\3\2\2\2EF\3\2\2\2FJ\3\2\2\2GE\3\2"+
-		"\2\2HJ\3\2\2\2IA\3\2\2\2IH\3\2\2\2J\23\3\2\2\2KL\7\3\2\2LM\7\n\2\2MN\5"+
-		"\26\f\2NO\7\13\2\2O\25\3\2\2\2PU\5\30\r\2QR\7\20\2\2RT\5\30\r\2SQ\3\2"+
-		"\2\2TW\3\2\2\2US\3\2\2\2UV\3\2\2\2VZ\3\2\2\2WU\3\2\2\2XZ\3\2\2\2YP\3\2"+
-		"\2\2YX\3\2\2\2Z\27\3\2\2\2[\\\7\3\2\2\\]\7\22\2\2]^\7\5\2\2^\31\3\2\2"+
-		"\2\13\35\"+\659EIUY";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31\\\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13"+
+		"\4\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\5\3#\n\3\3\4"+
+		"\3\4\3\4\3\4\3\4\3\5\3\5\5\5,\n\5\3\6\3\6\3\6\3\6\3\7\7\7\63\n\7\f\7\16"+
+		"\7\66\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\7\n@\n\n\f\n\16\nC\13\n\3\n"+
+		"\5\nF\n\n\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fP\n\f\f\f\16\fS\13\f"+
+		"\3\f\5\fV\n\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30"+
+		"\2\2\2W\2\35\3\2\2\2\4\"\3\2\2\2\6$\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2\f\64"+
+		"\3\2\2\2\16\67\3\2\2\2\209\3\2\2\2\22E\3\2\2\2\24G\3\2\2\2\26U\3\2\2\2"+
+		"\30W\3\2\2\2\32\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35"+
+		"\36\3\2\2\2\36\3\3\2\2\2\37\35\3\2\2\2 #\5\6\4\2!#\5\b\5\2\" \3\2\2\2"+
+		"\"!\3\2\2\2#\5\3\2\2\2$%\7\t\2\2%&\7\6\2\2&\'\7\24\2\2\'(\7\5\2\2(\7\3"+
+		"\2\2\2),\5\n\6\2*,\5\20\t\2+)\3\2\2\2+*\3\2\2\2,\t\3\2\2\2-.\7\7\2\2."+
+		"/\5\f\7\2/\60\7\7\2\2\60\13\3\2\2\2\61\63\5\16\b\2\62\61\3\2\2\2\63\66"+
+		"\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\r\3\2\2\2\66\64\3\2\2\2\678\7"+
+		"\5\2\28\17\3\2\2\29:\7\b\2\2:;\5\22\n\2;<\7\b\2\2<\21\3\2\2\2=A\5\24\13"+
+		"\2>@\5\24\13\2?>\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BF\3\2\2\2CA\3\2"+
+		"\2\2DF\3\2\2\2E=\3\2\2\2ED\3\2\2\2F\23\3\2\2\2GH\7\3\2\2HI\7\n\2\2IJ\5"+
+		"\26\f\2JK\7\13\2\2K\25\3\2\2\2LQ\5\30\r\2MN\7\20\2\2NP\5\30\r\2OM\3\2"+
+		"\2\2PS\3\2\2\2QO\3\2\2\2QR\3\2\2\2RV\3\2\2\2SQ\3\2\2\2TV\3\2\2\2UL\3\2"+
+		"\2\2UT\3\2\2\2V\27\3\2\2\2WX\7\3\2\2XY\7\22\2\2YZ\7\5\2\2Z\31\3\2\2\2"+
+		"\n\35\"+\64AEQU";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

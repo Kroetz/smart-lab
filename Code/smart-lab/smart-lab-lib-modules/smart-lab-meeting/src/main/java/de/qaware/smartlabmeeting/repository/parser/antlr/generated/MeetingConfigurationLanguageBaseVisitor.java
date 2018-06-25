@@ -52,14 +52,7 @@ public class MeetingConfigurationLanguageBaseVisitor<T> extends AbstractParseTre
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPopulatedAgenda(MeetingConfigurationLanguageParser.PopulatedAgendaContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitEmptyAgenda(MeetingConfigurationLanguageParser.EmptyAgendaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAgendaItems(MeetingConfigurationLanguageParser.AgendaItemsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

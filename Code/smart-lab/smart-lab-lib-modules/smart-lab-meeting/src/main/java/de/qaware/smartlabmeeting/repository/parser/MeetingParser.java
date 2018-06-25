@@ -72,7 +72,7 @@ public class MeetingParser implements IMeetingParser {
         }
 
         @Override
-        public IMeeting visitPopulatedAgenda(MeetingConfigurationLanguageParser.PopulatedAgendaContext ctx) {
+        public IMeeting visitAgendaItems(MeetingConfigurationLanguageParser.AgendaItemsContext ctx) {
             List<IAgendaItem> agendaItems = ctx.agendaItemList
                     .stream()
                     .map(agendaItem -> agendaItem.accept(this.agendaItemVisitor))

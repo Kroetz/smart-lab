@@ -60,29 +60,15 @@ public interface MeetingConfigurationLanguageListener extends ParseTreeListener 
 	 */
 	void exitAgendaSection(MeetingConfigurationLanguageParser.AgendaSectionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PopulatedAgenda}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#agendaItems}.
+	 * Enter a parse tree produced by {@link MeetingConfigurationLanguageParser#agendaItems}.
 	 * @param ctx the parse tree
 	 */
-	void enterPopulatedAgenda(MeetingConfigurationLanguageParser.PopulatedAgendaContext ctx);
+	void enterAgendaItems(MeetingConfigurationLanguageParser.AgendaItemsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PopulatedAgenda}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#agendaItems}.
+	 * Exit a parse tree produced by {@link MeetingConfigurationLanguageParser#agendaItems}.
 	 * @param ctx the parse tree
 	 */
-	void exitPopulatedAgenda(MeetingConfigurationLanguageParser.PopulatedAgendaContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code EmptyAgenda}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#agendaItems}.
-	 * @param ctx the parse tree
-	 */
-	void enterEmptyAgenda(MeetingConfigurationLanguageParser.EmptyAgendaContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code EmptyAgenda}
-	 * labeled alternative in {@link MeetingConfigurationLanguageParser#agendaItems}.
-	 * @param ctx the parse tree
-	 */
-	void exitEmptyAgenda(MeetingConfigurationLanguageParser.EmptyAgendaContext ctx);
+	void exitAgendaItems(MeetingConfigurationLanguageParser.AgendaItemsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MeetingConfigurationLanguageParser#agendaItem}.
 	 * @param ctx the parse tree

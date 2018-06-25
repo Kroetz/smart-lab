@@ -26,8 +26,7 @@ agendaSection
     ;
 
 agendaItems
-    : agendaItemList+=agendaItem (agendaItemList+=agendaItem)* #PopulatedAgenda
-    |                                                          #EmptyAgenda
+    : agendaItemList+=agendaItem*
     ;
 
 agendaItem
