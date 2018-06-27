@@ -16,7 +16,7 @@ import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
-import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
+import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
 import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ import static java.util.Objects.isNull;
         name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
 @Slf4j
-public class GoogleCalendarAdapter implements IMeetingManagementRepository {
+public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
 
     private final Calendar service;
     private final IBiResolver<RoomId, String> calendarIdResolver;
@@ -72,19 +72,6 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
         this.calendarIdResolver = calendarIdResolver;
         this.meetingParser = meetingParser;
         create(sampleDataProvider.getMeetings());
-    }
-
-    private boolean exists(MeetingId meetingId, RoomId roomId) {
-        return findOne(meetingId, roomId).isPresent();
-    }
-
-    private boolean areMeetingsColliding(IMeeting m1, IMeeting m2) {
-        return (m1.getRoomId().equals(m2.getRoomId())
-                && (m1.getStart().equals(m2.getStart()) && m1.getEnd().equals(m2.getEnd())
-                || m1.getStart().isAfter(m2.getStart()) && m1.getStart().isBefore(m2.getEnd())
-                || m1.getEnd().isAfter(m2.getStart()) && m1.getEnd().isBefore(m2.getEnd())
-                || m2.getStart().isAfter(m1.getStart()) && m2.getStart().isBefore(m1.getEnd())
-                || m2.getEnd().isAfter(m1.getStart()) && m2.getEnd().isBefore(m1.getEnd())));
     }
 
     @Override
