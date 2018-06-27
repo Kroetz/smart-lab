@@ -5,6 +5,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -24,7 +26,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Configuration
 @ConditionalOnProperty(
@@ -51,6 +52,8 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     @Bean
+    // TODO: String literal
+    @Qualifier("googleCalendarScopes")
     public Collection<String> googleCalendarScopes() {
         return this.properties.getScopes();
     }
@@ -76,8 +79,8 @@ public class GoogleCalendarAdapterConfiguration {
 
     @Bean
     // TODO: String literal
-    @Qualifier("roomToCalendarMapping")
-    public Map<RoomId, String> roomToCalendarMapping() {
+    @Qualifier("googleCalendarRoomMapping")
+    public BiMap<RoomId, String> googleCalendarRoomMapping() {
         return this.properties.getRoomMapping();
     }
 
@@ -126,10 +129,11 @@ public class GoogleCalendarAdapterConfiguration {
             this.applicationName = applicationName;
         }
 
-        public Map<RoomId, String> getRoomMapping() {
-            return this.roomMapping.keySet().stream().collect(Collectors.toMap(
-                    RoomId::of,
-                    roomId -> this.roomMapping.get(roomId)));
+        public BiMap<RoomId, String> getRoomMapping() {
+            return this.roomMapping.keySet().stream().collect(
+                    HashBiMap::create,
+                    (biMap, roomId) -> biMap.put(RoomId.of(roomId), this.roomMapping.get(roomId)),
+                    BiMap::putAll);
         }
 
         public void setRoomMapping(Map<String, String> roomMapping) {

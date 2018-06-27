@@ -27,6 +27,7 @@ public class DelegateServiceMonolith extends AbstractDelegateService {
     private final Map<String, String> urlsByDelegateName;
 
     public DelegateServiceMonolith(
+            // TODO: String literal
             @Qualifier("urlsByDelegateName") Map<String, String> urlsByDelegateName,
             Client client,
             Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
