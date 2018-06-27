@@ -74,6 +74,19 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
         create(sampleDataProvider.getMeetings());
     }
 
+    private boolean exists(MeetingId meetingId, RoomId roomId) {
+        return findOne(meetingId, roomId).isPresent();
+    }
+
+    private boolean areMeetingsColliding(IMeeting m1, IMeeting m2) {
+        return (m1.getRoomId().equals(m2.getRoomId())
+                && (m1.getStart().equals(m2.getStart()) && m1.getEnd().equals(m2.getEnd())
+                || m1.getStart().isAfter(m2.getStart()) && m1.getStart().isBefore(m2.getEnd())
+                || m1.getEnd().isAfter(m2.getStart()) && m1.getEnd().isBefore(m2.getEnd())
+                || m2.getStart().isAfter(m1.getStart()) && m2.getStart().isBefore(m1.getEnd())
+                || m2.getEnd().isAfter(m1.getStart()) && m2.getEnd().isBefore(m1.getEnd())));
+    }
+
     @Override
     public Map<RoomId, Set<IMeeting>> findAll() {
         Map<RoomId, Set<IMeeting>> meetingsByRoom = new HashMap<>();
@@ -157,10 +170,13 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     @Override
     public CreationResult create(IMeeting meeting) {
+        boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
+        if(meetingCollision || exists(meeting.getId(), meeting.getRoomId())) {
+            return CreationResult.CONFLICT;
+        }
         // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
         Optional<String> calendarId = this.calendarIdResolver.resolve(meeting.getRoomId());
         if(calendarId.isPresent()) {
-            //  TODO: What happens if the is an event conflict in the Google calendar?
             Event event = meetingToEvent(meeting);
             try {
                 this.service.events().insert(calendarId.get(), event).execute();
