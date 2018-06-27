@@ -3,7 +3,7 @@ grammar MeetingConfigurationLanguage;
 // ----- Parser rules -----
 
 meetingConfiguration
-    : statement*
+    : CONFIG_TAG_BEGIN statement* CONFIG_TAG_END EOF
     ;
 
 statement
@@ -63,6 +63,8 @@ STRING
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
 WORKGROUP_IDENTIFIER:   'workgroup' ;
+CONFIG_TAG_BEGIN:       SIGNAL_SEQUENCE 'smart-lab-config-begin' ;
+CONFIG_TAG_END:         SIGNAL_SEQUENCE 'smart-lab-config-end' ;
 AGENDA_TAG_BEGIN:       SIGNAL_SEQUENCE 'agenda-begin' ;
 AGENDA_TAG_END:         SIGNAL_SEQUENCE 'agenda-end' ;
 ASSISTANCES_TAG_BEGIN:  SIGNAL_SEQUENCE 'assistances-begin' ;

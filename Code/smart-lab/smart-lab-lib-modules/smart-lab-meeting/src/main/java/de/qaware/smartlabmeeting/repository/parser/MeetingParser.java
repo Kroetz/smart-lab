@@ -8,14 +8,13 @@ import de.qaware.smartlabcore.data.meeting.IAgendaItem;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.exception.InvalidSyntaxException;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageLexer;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageParser;
 import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -31,8 +30,9 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class MeetingParser implements IMeetingParser {
 
-    private static final String TAG_PATTERN = "@@@[^@\n]*";
-    private static final String PARSE_STRING_PATTERN = TAG_PATTERN + ".*" + TAG_PATTERN;
+    private static final String CONFIG_TAG_BEGIN = "@@@smart-lab-config-begin";
+    private static final String CONFIG_TAG_END = "@@@smart-lab-config-end";
+    private static final String PARSE_STRING_PATTERN = CONFIG_TAG_BEGIN + ".*" + CONFIG_TAG_END;
 
     private final MeetingConfigurationVisitor meetingConfigurationVisitor;
 
@@ -40,15 +40,24 @@ public class MeetingParser implements IMeetingParser {
         this.meetingConfigurationVisitor = meetingConfigurationVisitor;
     }
 
-    public IMeeting parse(String stringToParse) {
+    public IMeeting parse(String stringToParse) throws InvalidSyntaxException {
+        String trimmed = trimToRelevant(stringToParse);
         CharStream charStream =
-                CharStreams.fromString(trimToRelevant(stringToParse));
+                CharStreams.fromString(trimmed);
         MeetingConfigurationLanguageLexer lexer =
                 new MeetingConfigurationLanguageLexer(charStream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
         MeetingConfigurationLanguageParser parser =
                 new MeetingConfigurationLanguageParser(tokenStream);
-        ParseTree parseTree = parser.meetingConfiguration();
+        parser.setErrorHandler(new BailErrorStrategy());
+        ParseTree parseTree;
+        try {
+            parseTree = parser.meetingConfiguration();
+        }
+        catch(ParseCancellationException e) {
+            log.error("Could not parse the following string: {}", trimmed);
+            throw new InvalidSyntaxException("The syntax of the meeting configuration must be valid", e);
+        }
         return this.meetingConfigurationVisitor.visit(parseTree);
     }
 

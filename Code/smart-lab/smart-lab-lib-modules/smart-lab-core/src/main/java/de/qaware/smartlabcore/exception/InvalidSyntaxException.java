@@ -1,0 +1,23 @@
+package de.qaware.smartlabcore.exception;
+
+public class InvalidSyntaxException extends RuntimeException {
+
+    public InvalidSyntaxException() {
+    }
+
+    public InvalidSyntaxException(String message) {
+        super(message);
+    }
+
+    public InvalidSyntaxException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public InvalidSyntaxException(Throwable cause) {
+        super(cause);
+    }
+
+    public InvalidSyntaxException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+}

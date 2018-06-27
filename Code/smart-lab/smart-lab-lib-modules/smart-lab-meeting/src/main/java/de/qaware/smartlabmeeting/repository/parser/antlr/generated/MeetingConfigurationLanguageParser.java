@@ -17,11 +17,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		IDENTIFIER=1, INTEGER=2, STRING=3, WORKGROUP_IDENTIFIER=4, AGENDA_TAG_BEGIN=5, 
-		AGENDA_TAG_END=6, ASSISTANCES_TAG_BEGIN=7, ASSISTANCES_TAG_END=8, SIGNAL_SEQUENCE=9, 
-		LPAREN=10, RPAREN=11, LBRACE=12, RBRACE=13, LBRACK=14, RBRACK=15, COMMA=16, 
-		DOT=17, COLON=18, SEMICOLON=19, EQUALS=20, AT=21, QUOTES=22, WHITESPACE=23, 
-		COMMENT=24, LINE_COMMENT=25;
+		IDENTIFIER=1, INTEGER=2, STRING=3, WORKGROUP_IDENTIFIER=4, CONFIG_TAG_BEGIN=5, 
+		CONFIG_TAG_END=6, AGENDA_TAG_BEGIN=7, AGENDA_TAG_END=8, ASSISTANCES_TAG_BEGIN=9, 
+		ASSISTANCES_TAG_END=10, SIGNAL_SEQUENCE=11, LPAREN=12, RPAREN=13, LBRACE=14, 
+		RBRACE=15, LBRACK=16, RBRACK=17, COMMA=18, DOT=19, COLON=20, SEMICOLON=21, 
+		EQUALS=22, AT=23, QUOTES=24, WHITESPACE=25, COMMENT=26, LINE_COMMENT=27;
 	public static final int
 		RULE_meetingConfiguration = 0, RULE_statement = 1, RULE_assignment = 2, 
 		RULE_section = 3, RULE_agendaSection = 4, RULE_agendaItems = 5, RULE_agendaItem = 6, 
@@ -34,16 +34,16 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, null, null, null, "'workgroup'", null, null, null, null, null, "'('", 
-		"')'", "'{'", "'}'", "'['", "']'", "','", "'.'", "':'", "';'", "'='", 
-		"'@'", "'\"'"
+		null, null, null, null, "'workgroup'", null, null, null, null, null, null, 
+		null, "'('", "')'", "'{'", "'}'", "'['", "']'", "','", "'.'", "':'", "';'", 
+		"'='", "'@'", "'\"'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, "IDENTIFIER", "INTEGER", "STRING", "WORKGROUP_IDENTIFIER", "AGENDA_TAG_BEGIN", 
-		"AGENDA_TAG_END", "ASSISTANCES_TAG_BEGIN", "ASSISTANCES_TAG_END", "SIGNAL_SEQUENCE", 
-		"LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", "COMMA", "DOT", 
-		"COLON", "SEMICOLON", "EQUALS", "AT", "QUOTES", "WHITESPACE", "COMMENT", 
-		"LINE_COMMENT"
+		null, "IDENTIFIER", "INTEGER", "STRING", "WORKGROUP_IDENTIFIER", "CONFIG_TAG_BEGIN", 
+		"CONFIG_TAG_END", "AGENDA_TAG_BEGIN", "AGENDA_TAG_END", "ASSISTANCES_TAG_BEGIN", 
+		"ASSISTANCES_TAG_END", "SIGNAL_SEQUENCE", "LPAREN", "RPAREN", "LBRACE", 
+		"RBRACE", "LBRACK", "RBRACK", "COMMA", "DOT", "COLON", "SEMICOLON", "EQUALS", 
+		"AT", "QUOTES", "WHITESPACE", "COMMENT", "LINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -95,6 +95,9 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class MeetingConfigurationContext extends ParserRuleContext {
+		public TerminalNode CONFIG_TAG_BEGIN() { return getToken(MeetingConfigurationLanguageParser.CONFIG_TAG_BEGIN, 0); }
+		public TerminalNode CONFIG_TAG_END() { return getToken(MeetingConfigurationLanguageParser.CONFIG_TAG_END, 0); }
+		public TerminalNode EOF() { return getToken(MeetingConfigurationLanguageParser.EOF, 0); }
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
@@ -127,20 +130,26 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(24);
+			match(CONFIG_TAG_BEGIN);
+			setState(28);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AGENDA_TAG_BEGIN) | (1L << ASSISTANCES_TAG_BEGIN) | (1L << SIGNAL_SEQUENCE))) != 0)) {
 				{
 				{
-				setState(24);
+				setState(25);
 				statement();
 				}
 				}
-				setState(29);
+				setState(30);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
+			setState(31);
+			match(CONFIG_TAG_END);
+			setState(32);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -184,13 +193,13 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(32);
+			setState(36);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SIGNAL_SEQUENCE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(30);
+				setState(34);
 				assignment();
 				}
 				break;
@@ -198,7 +207,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			case ASSISTANCES_TAG_BEGIN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(31);
+				setState(35);
 				section();
 				}
 				break;
@@ -257,13 +266,13 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			_localctx = new WorkgroupAssignmentContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
+			setState(38);
 			match(SIGNAL_SEQUENCE);
-			setState(35);
+			setState(39);
 			match(WORKGROUP_IDENTIFIER);
-			setState(36);
+			setState(40);
 			match(EQUALS);
-			setState(37);
+			setState(41);
 			((WorkgroupAssignmentContext)_localctx).workgroupId = match(STRING);
 			}
 		}
@@ -308,20 +317,20 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		SectionContext _localctx = new SectionContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_section);
 		try {
-			setState(41);
+			setState(45);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case AGENDA_TAG_BEGIN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(39);
+				setState(43);
 				agendaSection();
 				}
 				break;
 			case ASSISTANCES_TAG_BEGIN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(40);
+				setState(44);
 				assistancesSection();
 				}
 				break;
@@ -371,11 +380,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(47);
 			match(AGENDA_TAG_BEGIN);
-			setState(44);
+			setState(48);
 			agendaItems();
-			setState(45);
+			setState(49);
 			match(AGENDA_TAG_END);
 			}
 		}
@@ -425,18 +434,18 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(50);
+			setState(54);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==STRING) {
 				{
 				{
-				setState(47);
+				setState(51);
 				((AgendaItemsContext)_localctx).agendaItem = agendaItem();
 				((AgendaItemsContext)_localctx).agendaItemList.add(((AgendaItemsContext)_localctx).agendaItem);
 				}
 				}
-				setState(52);
+				setState(56);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -481,7 +490,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(53);
+			setState(57);
 			((AgendaItemContext)_localctx).content = match(STRING);
 			}
 		}
@@ -527,11 +536,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
+			setState(59);
 			match(ASSISTANCES_TAG_BEGIN);
-			setState(56);
+			setState(60);
 			assistances();
-			setState(57);
+			setState(61);
 			match(ASSISTANCES_TAG_END);
 			}
 		}
@@ -581,18 +590,18 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
+			setState(66);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IDENTIFIER) {
 				{
 				{
-				setState(59);
+				setState(63);
 				((AssistancesContext)_localctx).assistance = assistance();
 				((AssistancesContext)_localctx).assistanceList.add(((AssistancesContext)_localctx).assistance);
 				}
 				}
-				setState(64);
+				setState(68);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -642,13 +651,13 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(65);
+			setState(69);
 			((AssistanceContext)_localctx).assistanceId = match(IDENTIFIER);
-			setState(66);
+			setState(70);
 			match(LPAREN);
-			setState(67);
+			setState(71);
 			assistanceArgs();
-			setState(68);
+			setState(72);
 			match(RPAREN);
 			}
 		}
@@ -724,30 +733,30 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		enterRule(_localctx, 20, RULE_assistanceArgs);
 		int _la;
 		try {
-			setState(79);
+			setState(83);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new PopulatedAssistanceArgsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(70);
+				setState(74);
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 				((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
-				setState(75);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(71);
+					setState(75);
 					match(COMMA);
-					setState(72);
+					setState(76);
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArg = assistanceArg();
 					((PopulatedAssistanceArgsContext)_localctx).assistanceArgList.add(((PopulatedAssistanceArgsContext)_localctx).assistanceArg);
 					}
 					}
-					setState(77);
+					setState(81);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -805,11 +814,11 @@ public class MeetingConfigurationLanguageParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(81);
+			setState(85);
 			((AssistanceArgContext)_localctx).argKey = match(IDENTIFIER);
-			setState(82);
+			setState(86);
 			match(COLON);
-			setState(83);
+			setState(87);
 			((AssistanceArgContext)_localctx).argValue = match(STRING);
 			}
 		}
@@ -825,27 +834,28 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\33X\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\3\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\5\3#\n\3\3\4\3"+
-		"\4\3\4\3\4\3\4\3\5\3\5\5\5,\n\5\3\6\3\6\3\6\3\6\3\7\7\7\63\n\7\f\7\16"+
-		"\7\66\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\7\n?\n\n\f\n\16\nB\13\n\3\13\3"+
-		"\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fL\n\f\f\f\16\fO\13\f\3\f\5\fR\n\f\3"+
-		"\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2R\2\35\3"+
-		"\2\2\2\4\"\3\2\2\2\6$\3\2\2\2\b+\3\2\2\2\n-\3\2\2\2\f\64\3\2\2\2\16\67"+
-		"\3\2\2\2\209\3\2\2\2\22@\3\2\2\2\24C\3\2\2\2\26Q\3\2\2\2\30S\3\2\2\2\32"+
-		"\34\5\4\3\2\33\32\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35\36\3\2\2\2\36"+
-		"\3\3\2\2\2\37\35\3\2\2\2 #\5\6\4\2!#\5\b\5\2\" \3\2\2\2\"!\3\2\2\2#\5"+
-		"\3\2\2\2$%\7\13\2\2%&\7\6\2\2&\'\7\26\2\2\'(\7\5\2\2(\7\3\2\2\2),\5\n"+
-		"\6\2*,\5\20\t\2+)\3\2\2\2+*\3\2\2\2,\t\3\2\2\2-.\7\7\2\2./\5\f\7\2/\60"+
-		"\7\b\2\2\60\13\3\2\2\2\61\63\5\16\b\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62"+
-		"\3\2\2\2\64\65\3\2\2\2\65\r\3\2\2\2\66\64\3\2\2\2\678\7\5\2\28\17\3\2"+
-		"\2\29:\7\t\2\2:;\5\22\n\2;<\7\n\2\2<\21\3\2\2\2=?\5\24\13\2>=\3\2\2\2"+
-		"?B\3\2\2\2@>\3\2\2\2@A\3\2\2\2A\23\3\2\2\2B@\3\2\2\2CD\7\3\2\2DE\7\f\2"+
-		"\2EF\5\26\f\2FG\7\r\2\2G\25\3\2\2\2HM\5\30\r\2IJ\7\22\2\2JL\5\30\r\2K"+
-		"I\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NR\3\2\2\2OM\3\2\2\2PR\3\2\2\2"+
-		"QH\3\2\2\2QP\3\2\2\2R\27\3\2\2\2ST\7\3\2\2TU\7\24\2\2UV\7\5\2\2V\31\3"+
-		"\2\2\2\t\35\"+\64@MQ";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35\\\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13"+
+		"\4\f\t\f\4\r\t\r\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\3\2\3\2\3\3\3\3"+
+		"\5\3\'\n\3\3\4\3\4\3\4\3\4\3\4\3\5\3\5\5\5\60\n\5\3\6\3\6\3\6\3\6\3\7"+
+		"\7\7\67\n\7\f\7\16\7:\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\7\nC\n\n\f\n\16"+
+		"\nF\13\n\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fP\n\f\f\f\16\fS\13\f"+
+		"\3\f\5\fV\n\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30"+
+		"\2\2\2V\2\32\3\2\2\2\4&\3\2\2\2\6(\3\2\2\2\b/\3\2\2\2\n\61\3\2\2\2\f8"+
+		"\3\2\2\2\16;\3\2\2\2\20=\3\2\2\2\22D\3\2\2\2\24G\3\2\2\2\26U\3\2\2\2\30"+
+		"W\3\2\2\2\32\36\7\7\2\2\33\35\5\4\3\2\34\33\3\2\2\2\35 \3\2\2\2\36\34"+
+		"\3\2\2\2\36\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\7\b\2\2\"#\7\2\2\3#"+
+		"\3\3\2\2\2$\'\5\6\4\2%\'\5\b\5\2&$\3\2\2\2&%\3\2\2\2\'\5\3\2\2\2()\7\r"+
+		"\2\2)*\7\6\2\2*+\7\30\2\2+,\7\5\2\2,\7\3\2\2\2-\60\5\n\6\2.\60\5\20\t"+
+		"\2/-\3\2\2\2/.\3\2\2\2\60\t\3\2\2\2\61\62\7\t\2\2\62\63\5\f\7\2\63\64"+
+		"\7\n\2\2\64\13\3\2\2\2\65\67\5\16\b\2\66\65\3\2\2\2\67:\3\2\2\28\66\3"+
+		"\2\2\289\3\2\2\29\r\3\2\2\2:8\3\2\2\2;<\7\5\2\2<\17\3\2\2\2=>\7\13\2\2"+
+		">?\5\22\n\2?@\7\f\2\2@\21\3\2\2\2AC\5\24\13\2BA\3\2\2\2CF\3\2\2\2DB\3"+
+		"\2\2\2DE\3\2\2\2E\23\3\2\2\2FD\3\2\2\2GH\7\3\2\2HI\7\16\2\2IJ\5\26\f\2"+
+		"JK\7\17\2\2K\25\3\2\2\2LQ\5\30\r\2MN\7\24\2\2NP\5\30\r\2OM\3\2\2\2PS\3"+
+		"\2\2\2QO\3\2\2\2QR\3\2\2\2RV\3\2\2\2SQ\3\2\2\2TV\3\2\2\2UL\3\2\2\2UT\3"+
+		"\2\2\2V\27\3\2\2\2WX\7\3\2\2XY\7\26\2\2YZ\7\5\2\2Z\31\3\2\2\2\t\36&/8"+
+		"DQU";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
