@@ -59,7 +59,7 @@ public class MeetingParser implements IMeetingParser {
             throw new InvalidSyntaxException("The syntax of the meeting configuration must be valid", e);
         }
         IMeeting meeting = this.meetingConfigurationVisitor.visit(parseTree);
-        return Objects.isNull(meeting) ? Meeting.builder().build() : meeting;
+        return isNull(meeting) ? Meeting.builder().build() : meeting;
     }
 
     private String trimToRelevant(String stringToTrim) {
