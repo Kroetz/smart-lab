@@ -2,15 +2,15 @@ package de.qaware.smartlabcore.data.generic;
 
 import java.util.*;
 
-public abstract class AbstractResolver<K, V> implements IResolver<K, V> {
+public abstract class AbstractResolver<KeyT, ValueT> implements IResolver<KeyT, ValueT> {
 
-    private final Map<K, V> valuesByKey;
+    private final Map<KeyT, ValueT> valuesByKey;
 
-    public AbstractResolver(Map<K, V> valuesByKey) {
+    public AbstractResolver(Map<KeyT, ValueT> valuesByKey) {
         this.valuesByKey = valuesByKey;
     }
 
-    public Optional<V> resolve(K key) {
-        return Optional.ofNullable(valuesByKey.get(key));
+    public Optional<ValueT> resolve(KeyT key) {
+        return Optional.ofNullable(this.valuesByKey.get(key));
     }
 }
