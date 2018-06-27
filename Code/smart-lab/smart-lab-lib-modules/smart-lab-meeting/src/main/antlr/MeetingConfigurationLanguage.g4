@@ -12,7 +12,7 @@ statement
     ;
 
 assignment
-    : SIGNAL_SEQUENCE WORKGROUP_IDENTIFIER EQUALS workgroupId=STRING #WorkgroupAssignment
+    : WORKGROUP_TAG EQUALS workgroupId=STRING #WorkgroupAssignment
 //  | ...   (Add other assignments here)
     ;
 
@@ -62,7 +62,7 @@ STRING
     : QUOTES (~'"')* QUOTES
     {setText(getText().substring(1, getText().length()-1));}    // Removes the leading and trailing quotes from the string
     ;
-WORKGROUP_IDENTIFIER:   'workgroup' ;
+WORKGROUP_TAG:          SIGNAL_SEQUENCE 'workgroup' ;
 CONFIG_TAG_BEGIN:       SIGNAL_SEQUENCE 'smart-lab-config-begin' ;
 CONFIG_TAG_END:         SIGNAL_SEQUENCE 'smart-lab-config-end' ;
 AGENDA_TAG_BEGIN:       SIGNAL_SEQUENCE 'agenda-begin' ;
