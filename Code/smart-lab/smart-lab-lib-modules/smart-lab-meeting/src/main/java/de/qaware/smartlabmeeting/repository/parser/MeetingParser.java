@@ -58,7 +58,8 @@ public class MeetingParser implements IMeetingParser {
             log.error("Could not parse the following string: {}", trimmed);
             throw new InvalidSyntaxException("The syntax of the meeting configuration must be valid", e);
         }
-        return this.meetingConfigurationVisitor.visit(parseTree);
+        IMeeting meeting = this.meetingConfigurationVisitor.visit(parseTree);
+        return Objects.isNull(meeting) ? Meeting.builder().build() : meeting;
     }
 
     private String trimToRelevant(String stringToTrim) {
