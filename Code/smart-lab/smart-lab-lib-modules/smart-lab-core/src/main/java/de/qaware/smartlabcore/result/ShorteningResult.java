@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 public enum ShorteningResult {
 
@@ -38,7 +41,7 @@ public enum ShorteningResult {
 
     public static ShorteningResult fromHttpStatus(HttpStatus httpStatus) {
         ShorteningResult shorteningResult = SHORTENING_RESULTS_BY_HTTP_STATUS.get(httpStatus);
-        if(shorteningResult == null) {
+        if(isNull(shorteningResult)) {
             throw new IllegalArgumentException("ShorteningResult cannot be created from the passed HTTP status");
         }
         return shorteningResult;

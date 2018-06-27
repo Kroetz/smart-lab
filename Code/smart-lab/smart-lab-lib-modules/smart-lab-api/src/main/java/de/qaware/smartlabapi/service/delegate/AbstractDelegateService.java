@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public abstract class AbstractDelegateService implements IDelegateService {
 
     private final Map<String, IDelegateApiClient> clientsByServiceName;
@@ -33,7 +35,7 @@ public abstract class AbstractDelegateService implements IDelegateService {
     @Override
     public IActionResult executeAction(String serviceName, String actionId, String deviceType, IActionArgs actionArgs) {
         IDelegateApiClient delegateApiClient = this.clientsByServiceName.get(serviceName);
-        if(delegateApiClient == null) delegateApiClient = createNewClient(serviceName);
+        if(isNull(delegateApiClient)) delegateApiClient = createNewClient(serviceName);
         try {
             ResponseEntity<IActionResult> response = delegateApiClient.executeAction(actionId, deviceType, actionArgs);
             return response.getBody();

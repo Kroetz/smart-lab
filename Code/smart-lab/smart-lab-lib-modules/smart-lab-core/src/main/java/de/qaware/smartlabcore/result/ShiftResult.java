@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public enum ShiftResult {
 
     SUCCESS(ResponseEntity.ok().build()),
@@ -37,11 +39,11 @@ public enum ShiftResult {
     }
 
     public static ShiftResult fromHttpStatus(HttpStatus httpStatus) {
-        ShiftResult ShiftResult = SHIFT_RESULTS_BY_HTTP_STATUS.get(httpStatus);
-        if(ShiftResult == null) {
+        ShiftResult shiftResult = SHIFT_RESULTS_BY_HTTP_STATUS.get(httpStatus);
+        if(isNull(shiftResult)) {
             throw new IllegalArgumentException("ShiftResult cannot be created from the passed HTTP status");
         }
-        return ShiftResult;
+        return shiftResult;
     }
 
     public static ShiftResult fromException(Exception e) {

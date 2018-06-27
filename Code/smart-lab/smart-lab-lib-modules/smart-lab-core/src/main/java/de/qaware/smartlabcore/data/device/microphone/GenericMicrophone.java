@@ -12,6 +12,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 public class GenericMicrophone implements AutoCloseable {
 
@@ -83,7 +85,7 @@ public class GenericMicrophone implements AutoCloseable {
     }
 
     public Optional<Path> stopRecording() {
-        if(this.lastRecordedFile == null) return Optional.empty();
+        if(isNull(this.lastRecordedFile)) return Optional.empty();
         /*
         Create copy of the path object because just returning it might return the false path if another recording job
         is started right after closing the target data line.

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public enum DeletionResult {
 
     SUCCESS(ResponseEntity.ok().build()),
@@ -35,7 +37,7 @@ public enum DeletionResult {
 
     public static DeletionResult fromHttpStatus(HttpStatus httpStatus) {
         DeletionResult deletionResult = DELETION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
-        if(deletionResult == null) {
+        if(isNull(deletionResult)) {
             throw new IllegalArgumentException("DeletionResult cannot be created from the passed HTTP status");
         }
         return deletionResult;

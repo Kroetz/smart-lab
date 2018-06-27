@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public enum CreationResult {
 
     SUCCESS(ResponseEntity.ok().build()),
@@ -35,7 +37,7 @@ public enum CreationResult {
 
     public static CreationResult fromHttpStatus(HttpStatus httpStatus) {
         CreationResult creationResult = CREATION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
-        if(creationResult == null) {
+        if(isNull(creationResult)) {
             throw new IllegalArgumentException("CreationResult cannot be created from the passed HTTP status");
         }
         return creationResult;

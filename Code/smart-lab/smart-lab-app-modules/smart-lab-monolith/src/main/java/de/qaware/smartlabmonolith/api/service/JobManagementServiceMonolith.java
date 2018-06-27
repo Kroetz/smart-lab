@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.Set;
 
+import static java.util.Objects.nonNull;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
@@ -37,7 +39,7 @@ public class JobManagementServiceMonolith implements IJobManagementService {
     @Override
     public IJobInfo recordNewJob(@Nullable URL callbackUrl) {
         return this.jobManagementController.recordNewJob(
-                callbackUrl != null ? callbackUrl.toString() : null).getBody();
+                nonNull(callbackUrl) ? callbackUrl.toString() : null).getBody();
     }
 
     @Override

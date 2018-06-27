@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public enum ExtensionResult {
 
     SUCCESS(ResponseEntity.ok().build()),
@@ -41,7 +43,7 @@ public enum ExtensionResult {
 
     public static ExtensionResult fromHttpStatus(HttpStatus httpStatus) {
         ExtensionResult extensionResult = EXTENSION_RESULTS_BY_HTTP_STATUS.get(httpStatus);
-        if(extensionResult == null) {
+        if(isNull(extensionResult)) {
             throw new IllegalArgumentException("ExtensionResult cannot be created from the passed HTTP status");
         }
         return extensionResult;

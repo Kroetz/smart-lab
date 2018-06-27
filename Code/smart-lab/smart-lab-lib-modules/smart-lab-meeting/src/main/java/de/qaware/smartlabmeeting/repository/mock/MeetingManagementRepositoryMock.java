@@ -16,6 +16,9 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 @Repository
 @ConditionalOnProperty(
         prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
@@ -38,13 +41,13 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
         Set<IMeeting> meetings = this.meetingsByRoom.get(roomId);
-        return meetings == null ? new HashSet<>() : meetings;
+        return isNull(meetings) ? new HashSet<>() : meetings;
     }
 
     @Override
     public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
-        return meetingsInRoom == null ? Optional.empty() : meetingsInRoom.stream()
+        return isNull(meetingsInRoom) ? Optional.empty() : meetingsInRoom.stream()
                 .filter(entity -> entity.getId().equals(meetingId))
                 .findFirst();
     }
@@ -54,7 +57,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         Map<MeetingId, Optional<IMeeting>> meetingsById = new HashMap<>();
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
         meetingIds.forEach(meetingId -> meetingsById.put(
-                meetingId, meetingsInRoom == null ? Optional.empty() : findOne(meetingId, roomId)));
+                meetingId, isNull(meetingsInRoom) ? Optional.empty() : findOne(meetingId, roomId)));
         return meetingsById;
     }
 
@@ -65,7 +68,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
             return CreationResult.CONFLICT;
         }
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
-        if(meetingsInRoom != null && meetingsInRoom.add(meeting)) {
+        if(nonNull(meetingsInRoom) && meetingsInRoom.add(meeting)) {
             return CreationResult.SUCCESS;
         }
         return CreationResult.ERROR;
@@ -74,10 +77,10 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     @Override
     public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
-        List<IMeeting> meetingsToDelete = meetingsInRoom == null ? new ArrayList<>() : meetingsInRoom.stream()
+        List<IMeeting> meetingsToDelete = isNull(meetingsInRoom) ? new ArrayList<>() : meetingsInRoom.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(Collectors.toList());
-        if(meetingsInRoom == null || meetingsToDelete.isEmpty()) {
+        if(isNull(meetingsInRoom) || meetingsToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }
         boolean deleted =  meetingsInRoom.removeAll(meetingsToDelete);

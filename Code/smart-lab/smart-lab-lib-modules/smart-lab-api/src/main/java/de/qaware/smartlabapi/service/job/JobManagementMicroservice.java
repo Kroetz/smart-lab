@@ -10,7 +10,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.Set;
+
+import static java.util.Objects.nonNull;
 
 @Component
 @ConditionalOnProperty(
@@ -49,7 +52,7 @@ public class JobManagementMicroservice implements IJobManagementService {
     public IJobInfo recordNewJob(@Nullable URL callbackUrl) {
         try {
             return this.jobManagementApiClient.recordNewJob(
-                    callbackUrl != null ? callbackUrl.toString() : null).getBody();
+                    nonNull(callbackUrl) ? callbackUrl.toString() : null).getBody();
         }
         catch(FeignException e) {
             throw new UnknownErrorException(e);

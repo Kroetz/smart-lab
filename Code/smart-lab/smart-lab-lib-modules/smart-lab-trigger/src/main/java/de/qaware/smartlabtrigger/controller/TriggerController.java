@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static java.util.Objects.nonNull;
+
 @RestController
 @RequestMapping(TriggerApiConstants.MAPPING_BASE)
 @Slf4j
@@ -35,10 +37,10 @@ public class TriggerController {
         log.info("Received call to set up the current meeting in the room with ID \"{}\"", roomId);
         ResponseEntity<IJobInfo> response;
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByRoomId(
                     RoomId.of(roomId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -52,10 +54,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
                     WorkgroupId.of(workgroupId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -67,10 +69,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
                     RoomId.of(roomId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -82,10 +84,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
                     WorkgroupId.of(workgroupId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -97,10 +99,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByRoomId(
                     RoomId.of(roomId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -112,10 +114,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
                     WorkgroupId.of(workgroupId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -127,10 +129,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByRoomId(
                     RoomId.of(roomId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);
@@ -142,10 +144,10 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
                     WorkgroupId.of(workgroupId),
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);

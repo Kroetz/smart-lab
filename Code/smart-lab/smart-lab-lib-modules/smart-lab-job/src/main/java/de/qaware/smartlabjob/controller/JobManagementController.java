@@ -13,6 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
+import static java.util.Objects.nonNull;
+
 @RestController
 @RequestMapping(JobManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -45,9 +47,9 @@ public class JobManagementController extends AbstractSmartLabController {
             @RequestParam(value = JobManagementApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to record a new job");
         try {
-            if(callbackUrl != null && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
             return ResponseEntity.ok().body(this.jobManagementBusinessLogic.recordNewJob(
-                    callbackUrl != null ? new URL(callbackUrl) : null));
+                    nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
             throw new RuntimeException(e);

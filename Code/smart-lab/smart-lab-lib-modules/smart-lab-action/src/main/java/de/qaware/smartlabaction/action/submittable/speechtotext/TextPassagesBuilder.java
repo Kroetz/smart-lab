@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 @Component
 @Slf4j
 public class TextPassagesBuilder implements ITextPassagesBuilder {
@@ -29,7 +32,7 @@ public class TextPassagesBuilder implements ITextPassagesBuilder {
             String speakerName,
             String spokenText) {
         ITextPassage textPassage = TextPassage.of(spokenDuration, speakerName, spokenText);
-        if(unfinishedTextPassage == null) {
+        if(isNull(unfinishedTextPassage)) {
             this.unfinishedTextPassage = TextPassage.of(
                     textPassage.getSpokenDuration(),
                     textPassage.getSpeakerName(),
@@ -53,7 +56,7 @@ public class TextPassagesBuilder implements ITextPassagesBuilder {
     }
 
     private void finishUnfinishedTextPassage() {
-        if(this.unfinishedTextPassage != null) {
+        if(nonNull(this.unfinishedTextPassage)) {
             this.finishedTextPassages.add(this.unfinishedTextPassage);
             this.unfinishedTextPassage = null;
         }

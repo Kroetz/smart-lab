@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 public class WatsonSpeechToTextTranscript implements ITranscript {
 
@@ -29,7 +31,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
             ITranscriptTextBuilder transcriptTextBuilder,
             ITextPassagesBuilder textPassagesBuilder) {
         log.info("Converting Watson speech-to-text transcript into human readable form");
-        if(this.speechRecognitionResults.getResults().size() < 1 || this.speechRecognitionResults.getSpeakerLabels() == null) {
+        if(this.speechRecognitionResults.getResults().size() < 1 || isNull(this.speechRecognitionResults.getSpeakerLabels())) {
             log.info("Transcript cannot be converted because it is empty");
             // TODO: String literal
             return "Talk is silver, silence is golden.";
@@ -67,7 +69,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
             Double start = timestamp.getStartTime();
             Double end = timestamp.getEndTime();
             Long speakerId = speakerIdsByTimestamps.get(Timestamp.of(start.floatValue(), end.floatValue()));
-            if(speakerId == null) {
+            if(isNull(speakerId)) {
                 // TODO: Better exception
                 throw new RuntimeException();
             }

@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Data
 @Builder(toBuilder = true)
@@ -67,7 +68,7 @@ public class Meeting implements IMeeting {
     private void requireNonConflictingField(IMeeting meeting, Function<IMeeting, ?> fieldGetter) {
         Object fieldValue1 = fieldGetter.apply(this);
         Object fieldValue2 = fieldGetter.apply(meeting);
-        if((!isNull(fieldValue1) && !isNull(fieldValue2)) && !fieldValue1.equals(fieldValue2)) {
+        if((nonNull(fieldValue1) && nonNull(fieldValue2)) && !fieldValue1.equals(fieldValue2)) {
             throw new IllegalArgumentException(
                     String.format(
                             "The meetings have conflicting fields with the values %s and %s",

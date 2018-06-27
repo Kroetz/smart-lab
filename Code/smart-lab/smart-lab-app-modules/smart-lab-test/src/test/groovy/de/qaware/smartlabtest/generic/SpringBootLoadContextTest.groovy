@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
 
+import static java.util.Objects.nonNull
+
 @SpringBootTest
 class SpringBootLoadContextTest extends Specification {
 
@@ -22,11 +24,11 @@ class SpringBootLoadContextTest extends Specification {
 
     def "Load Spring Boot application context"() {
         expect: "That the application context is loaded"
-        applicationContext != null
+        nonNull(applicationContext)
     }
 
     def "Load Spring Boot web application context"() {
         expect: "That the web application context is loaded"
-        webApplicationContext != null
+        nonNull(webApplicationContext)
     }
 }
