@@ -9,6 +9,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.InvalidSyntaxException;
+import de.qaware.smartlabcore.miscellaneous.StringUtils;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageLexer;
 import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageParser;
@@ -16,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -24,14 +24,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_BEGIN;
+import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_END;
 import static java.util.Objects.isNull;
 
 @Component
 @Slf4j
 public class MeetingParser implements IMeetingParser {
 
-    private static final String CONFIG_TAG_BEGIN = "@@@smart-lab-config-begin";
-    private static final String CONFIG_TAG_END = "@@@smart-lab-config-end";
     private static final String PARSE_STRING_PATTERN = CONFIG_TAG_BEGIN + ".*" + CONFIG_TAG_END;
 
     private final MeetingConfigurationVisitor meetingConfigurationVisitor;
@@ -67,6 +67,11 @@ public class MeetingParser implements IMeetingParser {
         Matcher matcher = pattern.matcher(stringToTrim);
         if(!matcher.find()) return StringUtils.EMPTY;
         return matcher.group(0);
+    }
+
+    @Override
+    public String unparse(IMeeting meeting) {
+        return meeting.toConfigLangString();
     }
 
     @Component

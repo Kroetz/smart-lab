@@ -10,4 +10,5 @@ import de.qaware.smartlabcore.miscellaneous.Constants;
 public interface IAssistanceConfiguration {
 
     String getAssistanceId();
+    String toConfigLangString();
 }

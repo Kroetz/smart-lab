@@ -243,42 +243,13 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     private Event meetingToEvent(IMeeting meeting) {
-	//String meetingConfigurationAsString =
-    //    	this.meetingConfigurationParser.parse(meeting.getMeetingConfiguration());
-	return new Event()        
-		// TODO
-		//.setId(meeting.getId().getIdValue())
+	String meetingConfigString = this.meetingParser.unparse(meeting);
+	return new Event()
 		.setSummary(meeting.getTitle())
 		.setStart(instantToEventDateTime(meeting.getStart()))
 		.setEnd(instantToEventDateTime(meeting.getEnd()))
 		.setLocation(meeting.getRoomId().getIdValue())
-		//.setDescription(meetingConfigurationAsString);
-	    .setDescription(
-	            "@@@smart-lab-config-begin\n" +
-                "    @@@workgroup = \"workgroupId\"\n" +
-                "    @@@agenda-begin\n" +
-                "        \"Take a nap\"\n" +
-                "        \"Drink coffee\"\n" +
-                "        \"Go home\"\n" +
-                "    @@@agenda-end\n" +
-                "    @@@assistances-begin\n" +
-                "        minuteTaking(\n" +
-                "            language: \"english\",\n" +
-                "            uploadDir: \"folder/in/repo/minutes.txt\",\n" +
-                "            commitMessage: \"commitMessage\",\n" +
-                "            microphoneId: \"microphoneId\")\n" +
-                "        agendaShowing(displayId: \"displayId\")\n" +
-                //"        displayWebsite(\n" +
-                //"            url: \"https://github.com/Kroetz/coastGuardRepo\",\n" +
-                //"            displayId: \"displayId1\")\n" +
-                //"        displayWebsite(\n" +
-                //"            url: \"https://github.com/Kroetz/forestRangersRepo\",\n" +
-                //"            displayId: \"displayId2\")\n" +
-                //"        displayFile(\n" +
-                //"            file: \"folder/in/repo/file.pptx\",\n" +
-                //"            displayId: \"displayId\")\n" +
-                "    @@@assistances-end\n" +
-                "@@@smart-lab-config-end");
+	    .setDescription(meetingConfigString);
     }
 
     public static Instant dateTimeToInstant(DateTime dateTime) {

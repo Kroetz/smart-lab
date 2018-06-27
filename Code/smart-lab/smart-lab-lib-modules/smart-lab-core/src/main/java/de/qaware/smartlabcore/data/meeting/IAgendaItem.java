@@ -10,4 +10,5 @@ import de.qaware.smartlabcore.miscellaneous.Constants;
 public interface IAgendaItem {
 
     String getContent();
+    String toConfigLangString();
 }

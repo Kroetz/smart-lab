@@ -10,15 +10,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.NEW_LINE;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.PARENTHESES_TEMPLATE;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.TAB;
+
 @Component
 @Slf4j
 public class RoomUnlockingInfo extends AbstractAssistanceInfo {
 
-    public static final String ASSISTANCE_ID = "room unlocking";
+    public static final String ASSISTANCE_ID = "roomUnlocking";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
     public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
             "room-unlocking",
-            "roomUnlocking").collect(Collectors.toSet());
+            "room unlocking").collect(Collectors.toSet());
 
     public RoomUnlockingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
@@ -40,6 +44,12 @@ public class RoomUnlockingInfo extends AbstractAssistanceInfo {
         @Override
         public String getAssistanceId() {
             return RoomUnlockingInfo.this.getAssistanceId();
+        }
+
+        @Override
+        public String toConfigLangString() {
+            // TODO
+            return TAB + TAB + getAssistanceId() + String.format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
         }
     }
 }

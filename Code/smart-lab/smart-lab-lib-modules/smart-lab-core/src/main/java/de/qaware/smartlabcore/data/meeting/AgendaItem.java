@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.DOUBLE_QUOTED_TEMPLATE;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.NEW_LINE;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.TAB;
+import static java.lang.String.format;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,4 +23,9 @@ public class AgendaItem implements IAgendaItem {
     private String type = this.getClass().getName();
 
     private String content;
+
+    @Override
+    public String toConfigLangString() {
+        return TAB + TAB + format(DOUBLE_QUOTED_TEMPLATE, this.content) + NEW_LINE;
+    }
 }

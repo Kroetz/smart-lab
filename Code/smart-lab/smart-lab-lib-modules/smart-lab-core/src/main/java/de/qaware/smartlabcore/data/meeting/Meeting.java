@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.*;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -75,5 +77,57 @@ public class Meeting implements IMeeting {
                             fieldValue1,
                             fieldValue2));
         }
+    }
+
+    @Override
+    public String toConfigLangString() {
+        // TODO: This method currently only converts those fields into strings that are stored as a parsable string in the description field of Google calendar events.
+        /*
+        Depending on their capabilities other meeting management repositories (other than Google calendar) may need a
+        greater part of the meeting entity to be stored as a parsable string instead of data fields. In this case this
+        method and the ANTLR grammar of the meeting configuration language must be further extended to support
+        parsing/unparsing of those additional fields.
+         */
+        StringBuilder configLangBuilder = new StringBuilder();
+        configLangBuilder.append(CONFIG_TAG_BEGIN).append(NEW_LINE);
+        appendWorkgroupId(configLangBuilder);
+        appendAgenda(configLangBuilder);
+        appendAssistanceConfigurations(configLangBuilder);
+        configLangBuilder.append(CONFIG_TAG_END);
+        return configLangBuilder.toString();
+    }
+
+    private StringBuilder appendWorkgroupId(StringBuilder configLangBuilder) {
+        if(nonNull(this.workgroupId)) {
+            configLangBuilder
+                    .append(TAB)
+                    .append(WORKGROUP_TAG)
+                    .append(EQUALS)
+                    .append(String.format(DOUBLE_QUOTED_TEMPLATE, this.workgroupId.getIdValue()))
+                    .append(NEW_LINE);
+        }
+        return configLangBuilder;
+    }
+
+    private StringBuilder appendAgenda(StringBuilder configLangBuilder) {
+        if(nonNull(this.agenda)) {
+            configLangBuilder.append(TAB).append(AGENDA_TAG_BEGIN).append(NEW_LINE);
+            for(IAgendaItem agendaItem : this.agenda) {
+                configLangBuilder.append(agendaItem.toConfigLangString());
+            }
+            configLangBuilder.append(TAB).append(AGENDA_TAG_END).append(NEW_LINE);
+        }
+        return configLangBuilder;
+    }
+
+    private StringBuilder appendAssistanceConfigurations(StringBuilder configLangBuilder) {
+        if(nonNull(this.assistanceConfigurations)) {
+            configLangBuilder.append(TAB).append(ASSISTANCES_TAG_BEGIN).append(NEW_LINE);
+            for(IAssistanceConfiguration config : this.assistanceConfigurations) {
+                configLangBuilder.append(config.toConfigLangString());
+            }
+            configLangBuilder.append(TAB).append(ASSISTANCES_TAG_END).append(NEW_LINE);
+        }
+        return configLangBuilder;
     }
 }

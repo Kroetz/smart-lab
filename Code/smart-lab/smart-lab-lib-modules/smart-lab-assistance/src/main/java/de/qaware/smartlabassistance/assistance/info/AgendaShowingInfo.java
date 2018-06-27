@@ -10,15 +10,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
+
 @Component
 @Slf4j
 public class AgendaShowingInfo extends AbstractAssistanceInfo {
 
-    public static final String ASSISTANCE_ID = "agenda showing";
+    public static final String ASSISTANCE_ID = "agendaShowing";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
     public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
             "agenda-showing",
-            "agendaShowing").collect(Collectors.toSet());
+            "agenda showing").collect(Collectors.toSet());
 
     public AgendaShowingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
@@ -40,6 +42,12 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         @Override
         public String getAssistanceId() {
             return AgendaShowingInfo.this.getAssistanceId();
+        }
+
+        @Override
+        public String toConfigLangString() {
+            // TODO
+            return TAB + TAB + getAssistanceId() + String.format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
         }
     }
 }

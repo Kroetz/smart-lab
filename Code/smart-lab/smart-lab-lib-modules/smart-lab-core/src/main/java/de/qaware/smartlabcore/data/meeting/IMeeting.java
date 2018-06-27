@@ -30,4 +30,5 @@ public interface IMeeting extends IEntity<MeetingId> {
     Duration getDuration();
     IMeeting copy();
     IMeeting merge(IMeeting meeting);
+    String toConfigLangString();
 }
