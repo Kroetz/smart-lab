@@ -9,6 +9,7 @@ import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.common.collect.BiMap;
+import de.qaware.smartlabcore.data.generic.IBiResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
@@ -19,13 +20,12 @@ import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
 import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,13 +45,11 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
-    // TODO: Null checks everywhere after uses of this map?
-    private final BiMap<RoomId, String> calendarIdsByRoomId;
     private final Calendar service;
+    private final IBiResolver<RoomId, String> calendarIdResolver;
     private final IMeetingParser meetingParser;
 
     public GoogleCalendarAdapter(
-            IMeetingParser meetingParser,
             ISampleDataProvider sampleDataProvider,
             Path googleCalendarCredentialFile,
             // TODO: String literal
@@ -59,10 +57,8 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
             String googleCalendarApplicationName,
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
-            // TODO: String literal
-            @Qualifier("googleCalendarRoomMapping") BiMap<RoomId, String> googleCalendarRoomMapping) throws IOException {
-	    this.meetingParser = meetingParser;
-	    this.calendarIdsByRoomId = googleCalendarRoomMapping;
+            IBiResolver<RoomId, String> calendarIdResolver,
+            IMeetingParser meetingParser) throws IOException {
         GoogleCredential credentials = GoogleCredential.fromStream(
                 Files.newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
@@ -73,6 +69,8 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
                 credentials)
                 .setApplicationName(googleCalendarApplicationName)
                 .build();
+        this.calendarIdResolver = calendarIdResolver;
+        this.meetingParser = meetingParser;
         create(sampleDataProvider.getMeetings());
     }
 
@@ -90,13 +88,13 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
                         .stream()
                         .map(this::eventToMeeting)
                         .collect(Collectors.toSet());
-                if(this.calendarIdsByRoomId.inverse().containsKey(calendar.getId())) {
-                    RoomId roomId = this.calendarIdsByRoomId.inverse().get(calendar.getId());
-                    meetingsByRoom.put(roomId, meetings);
+                // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+                Optional<RoomId> roomId = this.calendarIdResolver.inverseResolve(calendar.getId());
+                if(roomId.isPresent()) {
+                    meetingsByRoom.put(roomId.get(), meetings);
                 }
                 else {
-                    log.error("A calendar ID must be mapped to a room ID");
-                    throw new InvalidStateException("A calendar ID must be mapped to a room ID");
+                    log.warn("Ignoring events from calendar {} since it has no mapped room ID", calendar.getId());
                 }
             }
             return meetingsByRoom;
@@ -108,34 +106,44 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
-        if(!this.calendarIdsByRoomId.containsKey(roomId)) return new HashSet<>();
-        try {
-            return this.service.events()
-                    .list(this.calendarIdsByRoomId.get(roomId))
-                    .execute()
-                    .getItems()
-                    .stream()
-                    .map(this::eventToMeeting)
-                    .collect(Collectors.toSet());
-        } catch (IOException e) {
-            log.error("I/O error while querying events from Google calendar");
-            return new HashSet<>();
+        // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<String> calendarId = this.calendarIdResolver.resolve(roomId);
+        if(calendarId.isPresent()) {
+            try {
+                return this.service.events()
+                        .list(calendarId.get())
+                        .execute()
+                        .getItems()
+                        .stream()
+                        .map(this::eventToMeeting)
+                        .collect(Collectors.toSet());
+            } catch (IOException e) {
+                log.error("I/O error while querying events from Google calendar");
+                return new HashSet<>();
+            }
         }
+        log.warn("Cannot find meetings in room {} since it has no mapped calendar ID", roomId);
+        return new HashSet<>();
     }
 
     @Override
     public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
-        if(!this.calendarIdsByRoomId.containsKey(roomId)) return Optional.empty();
-        try {
-            Event event = this.service.events().get(
-                    this.calendarIdsByRoomId.get(roomId),
-                    meetingId.getIdValue())
-                    .execute();
-            return Optional.of(eventToMeeting(event));
-        } catch (IOException e) {
-            log.error("I/O error while querying event from Google calendar");
-            return Optional.empty();
+        // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<String> calendarId = this.calendarIdResolver.resolve(roomId);
+        if(calendarId.isPresent()) {
+            try {
+                Event event = this.service.events().get(
+                        calendarId.get(),
+                        meetingId.getIdValue())
+                        .execute();
+                return Optional.of(eventToMeeting(event));
+            } catch (IOException e) {
+                log.error("I/O error while querying event from Google calendar");
+                return Optional.empty();
+            }
         }
+        log.warn("Cannot find meeting {} in room {} since it has no mapped calendar ID", meetingId, roomId);
+        return Optional.empty();
     }
 
     @Override
@@ -149,20 +157,21 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     @Override
     public CreationResult create(IMeeting meeting) {
-        if(!this.calendarIdsByRoomId.containsKey(meeting.getRoomId())) {
-            log.error("There must be a calendar for the specified room");
-            return CreationResult.ERROR;
+        // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<String> calendarId = this.calendarIdResolver.resolve(meeting.getRoomId());
+        if(calendarId.isPresent()) {
+            //  TODO: What happens if the is an event conflict in the Google calendar?
+            Event event = meetingToEvent(meeting);
+            try {
+                this.service.events().insert(calendarId.get(), event).execute();
+            } catch (IOException e) {
+                log.error("I/O error while creating event in Google calendar");
+                return CreationResult.ERROR;
+            }
+            return CreationResult.SUCCESS;
         }
-        String calendarId = this.calendarIdsByRoomId.get(meeting.getRoomId());
-        Event event = meetingToEvent(meeting);
-        try {
-            this.service.events().insert(calendarId, event).execute();
-        } catch (IOException e) {
-            log.error("I/O error while creating event in Google calendar");
-            return CreationResult.ERROR;
-        }
-        return CreationResult.SUCCESS;
-        //  TODO: What happens if the is an event conflict in the Google calendar?
+        log.warn("Cannot create meeting {} in room {} since it has no mapped calendar ID", meeting.getRoomId(), meeting.getRoomId());
+        return CreationResult.ERROR;
     }
 
     private CreationResult create(Set<IMeeting> meetings) {
@@ -175,14 +184,19 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     @Override
     public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
-        String calendarId = this.calendarIdsByRoomId.get(roomId);
-        try {
-            this.service.events().delete(calendarId, meetingId.getIdValue());
-        } catch (IOException e) {
-            log.error("I/O error while deleting event in Google calendar");
-            return DeletionResult.ERROR;
+        // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<String> calendarId = this.calendarIdResolver.resolve(roomId);
+        if(calendarId.isPresent()) {
+            try {
+                this.service.events().delete(calendarId.get(), meetingId.getIdValue());
+            } catch (IOException e) {
+                log.error("I/O error while deleting event in Google calendar");
+                return DeletionResult.ERROR;
+            }
+            return DeletionResult.SUCCESS;
         }
-        return DeletionResult.SUCCESS;
+        log.warn("Cannot delete meeting {} in room {} since it has no mapped calendar ID", meetingId, roomId);
+        return DeletionResult.ERROR;
     }
 
     @Override
@@ -278,5 +292,27 @@ public class GoogleCalendarAdapter implements IMeetingManagementRepository {
 
     public static EventDateTime instantToEventDateTime(Instant instant) {
         return new EventDateTime().setDateTime(instantToDateTime(instant));
+    }
+
+    @Component
+    @Slf4j
+    private static class CalendarIdResolver implements IBiResolver<RoomId, String> {
+
+        private final BiMap<RoomId, String> calendarIdsByRoomId;
+
+        // TODO: String literal
+        public CalendarIdResolver(@Qualifier("googleCalendarRoomMapping") BiMap<RoomId, String> googleCalendarRoomMapping) {
+            this.calendarIdsByRoomId = googleCalendarRoomMapping;
+        }
+
+        @Override
+        public Optional<String> resolve(RoomId roomId) {
+            return Optional.ofNullable(this.calendarIdsByRoomId.get(roomId));
+        }
+
+        @Override
+        public Optional<RoomId> inverseResolve(String calendarId) {
+            return Optional.ofNullable(this.calendarIdsByRoomId.inverse().get(calendarId));
+        }
     }
 }
