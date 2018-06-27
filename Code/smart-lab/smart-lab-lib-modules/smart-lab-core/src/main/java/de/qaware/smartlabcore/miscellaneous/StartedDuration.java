@@ -4,6 +4,8 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.time.Duration;
 
+import static java.lang.String.*;
+
 public class StartedDuration {
 
     private static final long MILLIS_PER_SECOND = 1000;
@@ -65,7 +67,7 @@ public class StartedDuration {
 
     @Override
     public String toString() {
-        return String.format(
+        return format(
                 "[%s - %s]",
                 DurationFormatUtils.formatDurationHMS(startMillisecond),
                 DurationFormatUtils.formatDurationHMS(startMillisecond + this.duration.toMillis()));

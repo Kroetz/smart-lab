@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.NEW_LINE;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.PARENTHESES_TEMPLATE;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.TAB;
+import static java.lang.String.*;
 
 @Component
 @Slf4j
@@ -53,7 +54,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
         @Override
         public String toConfigLangString() {
             // TODO
-            return TAB + TAB + getAssistanceId() + String.format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
+            return TAB + TAB + getAssistanceId() + format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
         }
     }
 }

@@ -18,6 +18,7 @@ import java.util.function.Function;
 
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.*;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
+import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -72,7 +73,7 @@ public class Meeting implements IMeeting {
         Object fieldValue2 = fieldGetter.apply(meeting);
         if((nonNull(fieldValue1) && nonNull(fieldValue2)) && !fieldValue1.equals(fieldValue2)) {
             throw new IllegalArgumentException(
-                    String.format(
+                    format(
                             "The meetings have conflicting fields with the values %s and %s",
                             fieldValue1,
                             fieldValue2));
@@ -103,7 +104,7 @@ public class Meeting implements IMeeting {
                     .append(TAB)
                     .append(WORKGROUP_TAG)
                     .append(EQUALS)
-                    .append(String.format(DOUBLE_QUOTED_TEMPLATE, this.workgroupId.getIdValue()))
+                    .append(format(DOUBLE_QUOTED_TEMPLATE, this.workgroupId.getIdValue()))
                     .append(NEW_LINE);
         }
         return configLangBuilder;

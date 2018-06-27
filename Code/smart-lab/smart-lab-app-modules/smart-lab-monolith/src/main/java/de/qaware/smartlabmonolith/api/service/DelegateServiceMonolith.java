@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+import static java.lang.String.*;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
@@ -45,6 +47,6 @@ public class DelegateServiceMonolith extends AbstractDelegateService {
                     .decoder(this.feignDecoder)
                     .target(IDelegateApiClient.class, this.urlsByDelegateName.get(serviceName));
         }
-        throw new UnknownDelegateException(String.format("There was no URL configured for the delegate with the name \"%s\"", serviceName));
+        throw new UnknownDelegateException(format("There was no URL configured for the delegate with the name \"%s\"", serviceName));
     }
 }

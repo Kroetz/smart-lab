@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
+import static java.lang.String.*;
 
 @Component
 @Slf4j
@@ -47,7 +48,7 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         @Override
         public String toConfigLangString() {
             // TODO
-            return TAB + TAB + getAssistanceId() + String.format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
+            return TAB + TAB + getAssistanceId() + format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
         }
     }
 }

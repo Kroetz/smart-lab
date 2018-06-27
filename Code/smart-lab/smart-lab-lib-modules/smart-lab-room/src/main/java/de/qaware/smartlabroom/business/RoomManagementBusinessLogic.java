@@ -18,6 +18,8 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.lang.String.*;
+
 @Service
 @Slf4j
 public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IRoom, RoomId> implements IRoomManagementBusinessLogic {
@@ -58,12 +60,12 @@ public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBu
                     model.addAttribute("meetingTopic", meeting.getTitle());
                     model.addAttribute("minutesLeft", Duration.between(Instant.now(), meeting.getEnd()).toMinutes());
                     model.addAttribute("secondsLeft", Duration.between(Instant.now(), meeting.getEnd()).toMillis() / 1000);
-                    model.addAttribute("startMeetingUrl", "http://localhost:8081" + String.format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
-                    model.addAttribute("stopMeetingUrl", "http://localhost:8081" + String.format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
-                    model.addAttribute("extendMeetingUrl", "http://localhost:8086" + String.format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, Constants.DEFAULT_MEETING_EXTENSION.toMinutes()));
-                    /*model.addAttribute("startMeetingUrl", TriggerApiConstants.FEIGN_CLIENT_URL + String.format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
-                    model.addAttribute("stopMeetingUrl", TriggerApiConstants.FEIGN_CLIENT_URL + String.format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
-                    model.addAttribute("extendMeetingUrl", RoomManagementApiConstants.FEIGN_CLIENT_URL + String.format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, DEFAULT_MEETING_EXTENSION.toMinutes()));*/
+                    model.addAttribute("startMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("stopMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("extendMeetingUrl", "http://localhost:8086" + format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, Constants.DEFAULT_MEETING_EXTENSION.toMinutes()));
+                    /*model.addAttribute("startMeetingUrl", TriggerApiConstants.FEIGN_CLIENT_URL + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("stopMeetingUrl", TriggerApiConstants.FEIGN_CLIENT_URL + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
+                    model.addAttribute("extendMeetingUrl", RoomManagementApiConstants.FEIGN_CLIENT_URL + format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, DEFAULT_MEETING_EXTENSION.toMinutes()));*/
                     // TODO: Incorporate meeting details in page.
                     return "meeting-status";
                 })
