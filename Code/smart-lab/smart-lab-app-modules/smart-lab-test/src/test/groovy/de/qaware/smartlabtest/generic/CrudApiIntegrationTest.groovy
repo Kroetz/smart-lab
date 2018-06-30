@@ -16,7 +16,6 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
     protected EntityT entityForFindOne_withExisting
     protected IdentifierT entityIdForFindOne_withoutExisting
     protected Set<EntityT> allEntitiesForFindMultiple_withExisting
-    protected Set<EntityT> requestedEntitiesForFindMultiple_withExisting
     protected Set<EntityT> allEntitiesForFindMultiple_withoutExisting
     protected Set<EntityT> requestedEntitiesForFindMultiple_withoutExisting
     protected EntityT entityForCreate_withoutConflict
@@ -40,18 +39,19 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
 
         given: "There are entities available in the repository"
         setupDataForFindAll_withExisting()
-        for (def entity : entitiesForFindAll_withExisting) {
-            crudService.create(entity)
+        Set<EntityT> createdEntities = new HashSet<>()
+        for (EntityT entity : entitiesForFindAll_withExisting) {
+            createdEntities.add(crudService.create(entity))
         }
 
         when: "The set of entities is requested"
         Set<EntityT> foundEntities = crudService.findAll()
 
         then: "The returned set equals the one that was used to populate the repository"
-        foundEntities == entitiesForFindAll_withExisting
+        foundEntities == createdEntities
 
         cleanup:
-        for (def entity : entitiesForFindAll_withExisting) {
+        for (EntityT entity : createdEntities) {
             crudService.delete(entity.getId())
         }
     }
@@ -72,16 +72,16 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
 
         given: "An entity with the requested entity ID does exist"
         setupDataForFindOne_withExisting()
-        crudService.create(entityForFindOne_withExisting)
+        EntityT createdEntity = crudService.create(entityForFindOne_withExisting)
 
         when: "The entity is requested"
-        def foundEntity = crudService.findOne(entityForFindOne_withExisting.getId())
+        EntityT foundEntity = crudService.findOne(createdEntity.getId())
 
         then: "The received entity equals the one that was initially put into the repository"
-        foundEntity == entityForFindOne_withExisting
+        foundEntity == createdEntity
 
         cleanup:
-        crudService.delete(entityForFindOne_withExisting.getId())
+        crudService.delete(createdEntity.getId())
     }
 
     def "Get a specific entity when the entity does not exist (aka findOne_withoutExisting)"() {
@@ -100,22 +100,25 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
 
         given: "The entities with the requested entity IDs do exist"
         setupDataForFindMultiple_withExisting()
-        for (def entity : allEntitiesForFindMultiple_withExisting) {
-            crudService.create(entity)
+        List<EntityT> createdEntities = new ArrayList<>()
+        for (EntityT entity : allEntitiesForFindMultiple_withExisting) {
+            createdEntities.add(crudService.create(entity))
         }
-        IdentifierT[] requestedEntityIds = requestedEntitiesForFindMultiple_withExisting.stream()
+        List<EntityT> requestedEntities = new ArrayList<>(createdEntities)
+        requestedEntities.remove(0)
+        IdentifierT[] requestedEntityIds = requestedEntities.stream()
                 .map(mapEntityId)
                 .collect(Collectors.toList())
                 .toArray()
 
         when: "The entities are requested"
-        def foundEntities = crudService.findMultiple(requestedEntityIds)
+        Set<EntityT> foundEntities = crudService.findMultiple(requestedEntityIds)
 
         then: "The received set of entities equals the one that was initially put into the repository"
-        foundEntities == requestedEntitiesForFindMultiple_withExisting
+        foundEntities == requestedEntities.toSet()
 
         cleanup:
-        for (def entity : allEntitiesForFindMultiple_withExisting) {
+        for (EntityT entity : createdEntities) {
             crudService.delete(entity.getId())
         }
     }
@@ -124,8 +127,9 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
 
         given: "At least one of the entities with the requested entity IDs does not exist"
         setupDataForFindMultiple_withoutExisting()
-        for (def entity : allEntitiesForFindMultiple_withoutExisting) {
-            crudService.create(entity)
+        Set<EntityT> createdEntities = new HashSet<>()
+        for (EntityT entity : allEntitiesForFindMultiple_withoutExisting) {
+            createdEntities.add(crudService.create(entity))
         }
         IdentifierT[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
                 .map(mapEntityId)
@@ -139,7 +143,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         thrown(EntityNotFoundException)
 
         cleanup:
-        for (def entity : allEntitiesForFindMultiple_withoutExisting) {
+        for (EntityT entity : createdEntities) {
             crudService.delete(entity.getId())
         }
     }
@@ -150,26 +154,26 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         setupDataForCreate_withoutConflict()
 
         when: "The entity is created"
-        def createdEntity = crudService.create(entityForCreate_withoutConflict)
+        EntityT createdEntity = crudService.create(entityForCreate_withoutConflict)
 
         then: "The creation is successful and no exception is thrown"
         noExceptionThrown()
 
         when: "The created entity is requested"
-        def foundEntity = crudService.findOne(entityForCreate_withoutConflict.getId())
+        EntityT foundEntity = crudService.findOne(createdEntity.getId())
 
         then: "The found entity equals the one that was initially passed during the creation"
         createdEntity == foundEntity
 
         cleanup:
-        crudService.delete(entityForCreate_withoutConflict.getId())
+        crudService.delete(createdEntity.getId())
     }
 
     def "Create an entity with an ID that does already exist (aka create_withConflict)"() {
 
         given: "The ID of the entity to create is already taken"
         setupDataForCreate_withConflict()
-        crudService.create(entityForCreate_withConflict)
+        EntityT createdEntity = crudService.create(entityForCreate_withConflict)
 
         when: "The entity is created"
         crudService.create(entityForCreate_withConflict)
@@ -178,23 +182,23 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         thrown(EntityConflictException)
 
         cleanup:
-        crudService.delete(entityForCreate_withConflict.getId())
+        crudService.delete(createdEntity.getId())
     }
 
     def "Delete an entity with an ID that does exist (aka delete_withExisting)"() {
 
         given: "The ID of the entity to delete is taken"
         setupDataForDelete_withExisting()
-        crudService.create(entityForDelete_withExisting)
+        EntityT createdEntity = crudService.create(entityForDelete_withExisting)
 
         when: "The entity is deleted"
-        crudService.delete(entityForDelete_withExisting.getId())
+        crudService.delete(createdEntity.getId())
 
         then: "The deletion is successful and no exception is thrown"
         noExceptionThrown()
 
         when: "The deleted entity is requested"
-        crudService.findOne(entityForDelete_withExisting.getId())
+        crudService.findOne(createdEntity.getId())
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)

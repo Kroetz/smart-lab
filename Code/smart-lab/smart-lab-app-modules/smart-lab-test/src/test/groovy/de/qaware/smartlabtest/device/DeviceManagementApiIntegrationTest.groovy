@@ -60,7 +60,6 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
         def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
         def device3 = fireFightersDataFactory.createDeviceMap().get(deviceId3)
         allEntitiesForFindMultiple_withExisting = [device1, device2, device3]
-        requestedEntitiesForFindMultiple_withExisting = [device1, device2]
     }
 
     @Override

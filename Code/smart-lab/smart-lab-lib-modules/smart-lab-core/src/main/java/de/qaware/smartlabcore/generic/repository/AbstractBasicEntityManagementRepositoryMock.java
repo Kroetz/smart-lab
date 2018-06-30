@@ -42,7 +42,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     }
 
     @Override
-    public EntityT create(EntityT entity) {
+    public synchronized EntityT create(EntityT entity) {
         if (exists(entity.getId())) {
             log.error("Cannot create entity {} because an entity with that ID already exists", entity);
             // TODO: Meaningful exception messages
@@ -55,7 +55,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     }
 
     @Override
-    public DeletionResult delete(IdentifierT entityId) {
+    public synchronized DeletionResult delete(IdentifierT entityId) {
         List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .collect(Collectors.toList());

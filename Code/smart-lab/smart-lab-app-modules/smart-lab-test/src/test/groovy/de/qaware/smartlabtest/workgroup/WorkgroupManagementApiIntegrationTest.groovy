@@ -71,7 +71,6 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup2 = forestRangersDataFactory.createWorkgroupMap().get(workgroupId2)
         def workgroup3 = fireFightersDataFactory.createWorkgroupMap().get(workgroupId3)
         allEntitiesForFindMultiple_withExisting = [workgroup1, workgroup2, workgroup3]
-        requestedEntitiesForFindMultiple_withExisting = [workgroup1, workgroup2]
     }
 
     @Override

@@ -65,7 +65,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public IMeeting create(IMeeting meeting) {
+    public synchronized IMeeting create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {
             log.error("Cannot create meeting {} because a meeting with that ID already exists", meeting);
@@ -86,7 +86,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public DeletionResult delete(MeetingId meetingId) {
+    public synchronized DeletionResult delete(MeetingId meetingId) {
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
         List<IMeeting> meetingsToDelete = isNull(meetingsInRoom) ? new ArrayList<>() : meetingsInRoom.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
@@ -102,7 +102,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
+    public synchronized ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             IMeeting shortenedMeeting = meeting.copy();
             shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
@@ -118,7 +118,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
+    public synchronized ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
         IMeeting extendedMeeting = meeting.copy();
         extendedMeeting.setEnd(meeting.getEnd().plus(extension));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
@@ -139,7 +139,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift) {
+    public synchronized ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift) {
         IMeeting shiftedMeeting = meeting.copy();
         shiftedMeeting.setStart(meeting.getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.getEnd().plus(shift));

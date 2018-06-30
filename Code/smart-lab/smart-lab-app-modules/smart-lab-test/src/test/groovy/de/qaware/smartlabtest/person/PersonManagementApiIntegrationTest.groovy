@@ -60,7 +60,6 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId
         def person2 = forestRangersDataFactory.createWorkgroupMemberMap().get(personId2)
         def person3 = fireFightersDataFactory.createWorkgroupMemberMap().get(personId3)
         allEntitiesForFindMultiple_withExisting = [person1, person2, person3]
-        requestedEntitiesForFindMultiple_withExisting = [person1, person2]
     }
 
     @Override

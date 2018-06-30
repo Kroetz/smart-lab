@@ -67,7 +67,6 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<Meeting
         def meeting2 = forestRangersDataFactory.createMeetingMap().get(meetingId2)
         def meeting3 = fireFightersDataFactory.createMeetingMap().get(meetingId3)
         allEntitiesForFindMultiple_withExisting = [meeting1, meeting2, meeting3]
-        requestedEntitiesForFindMultiple_withExisting = [meeting1, meeting2]
     }
 
     @Override

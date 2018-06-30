@@ -71,7 +71,6 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         def room2 = forestRangersDataFactory.createRoomMap().get(roomId2)
         def room3 = fireFightersDataFactory.createRoomMap().get(roomId3)
         allEntitiesForFindMultiple_withExisting = [room1, room2, room3]
-        requestedEntitiesForFindMultiple_withExisting = [room1, room2]
     }
 
     @Override
