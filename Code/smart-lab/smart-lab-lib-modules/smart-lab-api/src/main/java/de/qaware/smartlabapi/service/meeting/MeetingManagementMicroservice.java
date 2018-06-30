@@ -71,7 +71,7 @@ public class MeetingManagementMicroservice extends AbstractBasicEntityManagement
             }
             if(e.status() == HttpStatus.CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
-                throw new MeetingConflictException();
+                throw new EntityConflictException();
             }
             if(e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
                 throw new MaximalDurationReachedException();
@@ -93,7 +93,7 @@ public class MeetingManagementMicroservice extends AbstractBasicEntityManagement
             }
             if(e.status() == HttpStatus.CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
-                throw new MeetingConflictException();
+                throw new EntityConflictException();
             }
             throw new UnknownErrorException();
         }

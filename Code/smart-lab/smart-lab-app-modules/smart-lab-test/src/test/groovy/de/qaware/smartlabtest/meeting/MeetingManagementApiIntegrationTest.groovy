@@ -2,9 +2,10 @@ package de.qaware.smartlabtest.meeting
 
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
+import de.qaware.smartlabcore.data.meeting.MeetingId
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
-import de.qaware.smartlabcore.exception.MeetingConflictException
+import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.MinimalDurationReachedException
 import de.qaware.smartlabcore.miscellaneous.Constants
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
@@ -18,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import java.time.Duration
 
 @SpringBootTest
-class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeeting> {
+class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<MeetingId, IMeeting> {
 
     @Autowired
     private IMeetingManagementService meetingManagementService
@@ -209,7 +210,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         meetingManagementService.extendMeeting(meetingToExtendId, extension)
 
         then: "An exception is thrown"
-        thrown(MeetingConflictException)
+        thrown(EntityConflictException)
 
         cleanup:
         meetingManagementService.delete(meetingToExtendId)
@@ -264,7 +265,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<IMeetin
         meetingManagementService.shiftMeeting(meetingToShiftId, shift)
 
         then: "An exception is thrown"
-        thrown(MeetingConflictException)
+        thrown(EntityConflictException)
 
         cleanup:
         meetingManagementService.delete(meetingToShiftId)

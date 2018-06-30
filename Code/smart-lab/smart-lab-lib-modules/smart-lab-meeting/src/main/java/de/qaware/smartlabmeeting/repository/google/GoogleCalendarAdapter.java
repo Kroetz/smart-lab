@@ -268,6 +268,10 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Component
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
+            name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
+            havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
     @Slf4j
     private static class CalendarIdResolver implements IBiResolver<RoomId, String> {
 

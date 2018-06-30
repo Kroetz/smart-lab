@@ -2,6 +2,7 @@ package de.qaware.smartlabtest.person
 
 import de.qaware.smartlabapi.service.person.IPersonManagementService
 import de.qaware.smartlabcore.data.person.IPerson
+import de.qaware.smartlabcore.data.person.PersonId
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
 import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<IPerson> {
+class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId, IPerson> {
 
     @Autowired
     private IPersonManagementService personManagementService

@@ -18,8 +18,9 @@ class SpringBootLoadContextTest extends Specification {
     private final WebApplicationContext webApplicationContext
 
     def setupSpec() {
+        // TODO: Waiting is only necessary when starting the system as microservices
         // Wait some time until system is up and the discovery service has connected all modules.
-        Thread.sleep(90000)
+        //Thread.sleep(90000)
     }
 
     def "Load Spring Boot application context"() {

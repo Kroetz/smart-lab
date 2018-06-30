@@ -3,7 +3,12 @@ package de.qaware.smartlabmonolith.api.service;
 import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
+import de.qaware.smartlabcore.exception.EntityNotFoundException;
+import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -23,24 +28,40 @@ public abstract class AbstractBasicEntityManagementServiceMonolith<EntityT exten
 
     @Override
     public EntityT findOne(IdentifierT entityId) {
-        return this.entityManagementController.findOne(entityId.getIdValue()).getBody();
+        ResponseEntity<EntityT> response = this.entityManagementController.findOne(entityId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        // TODO: Meaningful exception message
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        throw new UnknownErrorException();
     }
 
     @Override
     public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
-        return this.entityManagementController.findMultiple(Arrays.stream(entityIds)
+        ResponseEntity<Set<EntityT>> response = this.entityManagementController
+                .findMultiple(Arrays.stream(entityIds)
                 .map(IIdentifier::getIdValue)
-                .toArray(String[]::new))
-                .getBody();
+                .toArray(String[]::new));
+        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        // TODO: Meaningful exception message
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        throw new UnknownErrorException();
     }
 
     @Override
     public void create(EntityT entity) {
-        this.entityManagementController.create(entity);
+        ResponseEntity<Void> response = this.entityManagementController.create(entity);
+        if(response.getStatusCode() == HttpStatus.OK) return;
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        throw new UnknownErrorException();
     }
 
     @Override
     public void delete(IdentifierT entityId) {
-        this.entityManagementController.delete(entityId.getIdValue());
+        ResponseEntity<Void> response = this.entityManagementController.delete(entityId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return;
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        throw new UnknownErrorException();
     }
 }

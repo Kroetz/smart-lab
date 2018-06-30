@@ -2,7 +2,7 @@ package de.qaware.smartlabcore.result;
 
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
-import de.qaware.smartlabcore.exception.MeetingConflictException;
+import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,7 @@ public enum ExtensionResult {
         if(e instanceof EntityNotFoundException) {
             return NOT_FOUND;
         }
-        if(e instanceof MeetingConflictException) {
+        if(e instanceof EntityConflictException) {
             return CONFLICT;
         }
         if(e instanceof MaximalDurationReachedException) {

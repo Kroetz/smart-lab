@@ -69,7 +69,11 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
             return CreationResult.CONFLICT;
         }
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
-        if(nonNull(meetingsInRoom) && meetingsInRoom.add(meeting)) {
+        if(isNull(meetingsInRoom)) {
+            meetingsInRoom = new HashSet<>();
+            this.meetingsByRoom.put(meeting.getRoomId(), meetingsInRoom);
+        }
+        if(meetingsInRoom.add(meeting)) {
             return CreationResult.SUCCESS;
         }
         return CreationResult.ERROR;

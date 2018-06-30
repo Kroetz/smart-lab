@@ -21,6 +21,12 @@
 
 		<dependency>
 			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-test-dependencies</artifactId>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-core</artifactId>
 		</dependency>
 
@@ -36,8 +42,7 @@
 
 		<dependency>
 			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-test-dependencies</artifactId>
-			<type>pom</type>
+			<artifactId>smart-lab-monolith</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -1,6 +1,7 @@
 package de.qaware.smartlabtest.device
 
 import de.qaware.smartlabapi.service.device.IDeviceManagementService
+import de.qaware.smartlabcore.data.device.entity.DeviceId
 import de.qaware.smartlabcore.data.device.entity.IDevice
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<IDevice> {
+class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId, IDevice> {
 
     @Autowired
     private IDeviceManagementService deviceManagementService

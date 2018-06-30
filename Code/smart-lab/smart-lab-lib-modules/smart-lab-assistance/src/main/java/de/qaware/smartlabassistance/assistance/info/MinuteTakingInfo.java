@@ -2,7 +2,9 @@ package de.qaware.smartlabassistance.assistance.info;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +39,8 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     // TODO: Which annotation can be removed?
     @Getter
+    @ToString
+    @EqualsAndHashCode
     public class Configuration implements IAssistanceConfiguration {
 
         public static final String CONFIG_PROPERTY_KEY_MICROPHONE_ID = "microphoneId";

@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
-import de.qaware.smartlabcore.exception.MeetingConflictException;
+import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
@@ -69,7 +69,7 @@ public class WorkgroupManagementMicroservice extends AbstractBasicEntityManageme
             }
             if(e.status() == HttpStatus.CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
-                throw new MeetingConflictException();
+                throw new EntityConflictException();
             }
             if(e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
                 throw new MaximalDurationReachedException();

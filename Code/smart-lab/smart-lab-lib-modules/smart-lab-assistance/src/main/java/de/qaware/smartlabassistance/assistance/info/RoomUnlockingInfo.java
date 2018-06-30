@@ -1,7 +1,9 @@
 package de.qaware.smartlabassistance.assistance.info;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +38,8 @@ public class RoomUnlockingInfo extends AbstractAssistanceInfo {
 
     // TODO: Which annotation can be removed?
     @Getter
+    @ToString
+    @EqualsAndHashCode
     public class Configuration implements IAssistanceConfiguration {
 
         private Configuration(Map<String, String> configProperties) {

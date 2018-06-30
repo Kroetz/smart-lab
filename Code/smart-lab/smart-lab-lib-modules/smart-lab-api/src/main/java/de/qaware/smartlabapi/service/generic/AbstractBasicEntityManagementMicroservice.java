@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
-import de.qaware.smartlabcore.exception.MeetingConflictException;
+import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
@@ -68,7 +68,7 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
         catch(FeignException e) {
             if(e.status() == HttpStatus.CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
-                throw new MeetingConflictException();
+                throw new EntityConflictException();
             }
             throw new UnknownErrorException();
         }

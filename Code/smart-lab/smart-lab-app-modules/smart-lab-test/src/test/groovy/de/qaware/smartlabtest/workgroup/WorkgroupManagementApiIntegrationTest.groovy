@@ -4,9 +4,10 @@ import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
-import de.qaware.smartlabcore.exception.MeetingConflictException
+import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.miscellaneous.Constants
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
@@ -19,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import java.time.Duration
 
 @SpringBootTest
-class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWorkgroup> {
+class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<WorkgroupId, IWorkgroup> {
 
     @Autowired
     private IWorkgroupManagementService workgroupManagementService
@@ -359,7 +360,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<IWork
         workgroupManagementService.extendCurrentMeeting(workgroupId, extension)
 
         then: "An exception is thrown"
-        thrown(MeetingConflictException)
+        thrown(EntityConflictException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)

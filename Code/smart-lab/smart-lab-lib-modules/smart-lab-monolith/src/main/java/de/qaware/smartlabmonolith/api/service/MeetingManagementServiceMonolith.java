@@ -4,9 +4,12 @@ import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -33,22 +36,38 @@ public class MeetingManagementServiceMonolith extends AbstractBasicEntityManagem
 
     @Override
     public void shortenMeeting(MeetingId meetingId, Duration shortening) {
-        this.meetingManagementController.shortenMeeting(
+        ResponseEntity<Void> response = this.meetingManagementController.shortenMeeting(
                 meetingId.getIdValue(),
                 shortening.toMinutes());
+        if(response.getStatusCode() == HttpStatus.OK) return;
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MinimalDurationReachedException();
+        throw new UnknownErrorException();
     }
 
     @Override
     public void extendMeeting(MeetingId meetingId, Duration extension) {
-        this.meetingManagementController.extendMeeting(
+        ResponseEntity<Void> response = this.meetingManagementController.extendMeeting(
                 meetingId.getIdValue(),
                 extension.toMinutes());
+        if(response.getStatusCode() == HttpStatus.OK) return;
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
+        throw new UnknownErrorException();
     }
 
     @Override
     public void shiftMeeting(MeetingId meetingId, Duration shift) {
-        this.meetingManagementController.shiftMeeting(
+        ResponseEntity<Void> response = this.meetingManagementController.shiftMeeting(
                 meetingId.getIdValue(),
                 shift.toMinutes());
+        if(response.getStatusCode() == HttpStatus.OK) return;
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        throw new UnknownErrorException();
     }
 }

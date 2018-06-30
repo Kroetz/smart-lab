@@ -2,26 +2,27 @@ package de.qaware.smartlabtest.generic
 
 import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService
 import de.qaware.smartlabcore.data.generic.IEntity
+import de.qaware.smartlabcore.data.generic.IIdentifier
 import de.qaware.smartlabcore.exception.EntityNotFoundException
-import de.qaware.smartlabcore.exception.MeetingConflictException
+import de.qaware.smartlabcore.exception.EntityConflictException
 import spock.lang.Specification
 
 import java.util.stream.Collectors
 
-abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
+abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT extends IEntity<IdentifierT>> extends Specification {
 
-    protected IBasicEntityManagementService<T> crudService
-    protected Set<T> entitiesForFindAll_withExisting
-    protected T entityForFindOne_withExisting
-    protected String entityIdForFindOne_withoutExisting
-    protected Set<T> allEntitiesForFindMultiple_withExisting
-    protected Set<T> requestedEntitiesForFindMultiple_withExisting
-    protected Set<T> allEntitiesForFindMultiple_withoutExisting
-    protected Set<T> requestedEntitiesForFindMultiple_withoutExisting
-    protected T entityForCreate_withoutConflict
-    protected T entityForCreate_withConflict
-    protected T entityForDelete_withExisting
-    protected String entityIdForDelete_withoutExisting
+    protected IBasicEntityManagementService<EntityT, IdentifierT> crudService
+    protected Set<EntityT> entitiesForFindAll_withExisting
+    protected EntityT entityForFindOne_withExisting
+    protected IdentifierT entityIdForFindOne_withoutExisting
+    protected Set<EntityT> allEntitiesForFindMultiple_withExisting
+    protected Set<EntityT> requestedEntitiesForFindMultiple_withExisting
+    protected Set<EntityT> allEntitiesForFindMultiple_withoutExisting
+    protected Set<EntityT> requestedEntitiesForFindMultiple_withoutExisting
+    protected EntityT entityForCreate_withoutConflict
+    protected EntityT entityForCreate_withConflict
+    protected EntityT entityForDelete_withExisting
+    protected IdentifierT entityIdForDelete_withoutExisting
 
     def abstract setupDataForFindAll_withExisting()
     def abstract setupDataForFindOne_withExisting()
@@ -44,7 +45,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         }
 
         when: "The set of entities is requested"
-        Set<T> foundEntities = crudService.findAll()
+        Set<EntityT> foundEntities = crudService.findAll()
 
         then: "The returned set equals the one that was used to populate the repository"
         foundEntities == entitiesForFindAll_withExisting
@@ -58,10 +59,10 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
     def "Get a set of all existing entities when there are no entities (aka findAll_withoutExisting)"() {
 
         given: "There are no entities available in the repository"
-        Set<T> entities = new HashSet<T>()
+        Set<EntityT> entities = new HashSet<EntityT>()
 
         when: "The set of entities is requested"
-        Set<T> foundEntities = crudService.findAll()
+        Set<EntityT> foundEntities = crudService.findAll()
 
         then: "The returned set is empty"
         foundEntities == entities
@@ -102,7 +103,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         for (def entity : allEntitiesForFindMultiple_withExisting) {
             crudService.create(entity)
         }
-        String[] requestedEntityIds = requestedEntitiesForFindMultiple_withExisting.stream()
+        IdentifierT[] requestedEntityIds = requestedEntitiesForFindMultiple_withExisting.stream()
                 .map(mapEntityId)
                 .collect(Collectors.toList())
                 .toArray()
@@ -126,7 +127,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         for (def entity : allEntitiesForFindMultiple_withoutExisting) {
             crudService.create(entity)
         }
-        String[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
+        IdentifierT[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
                 .map(mapEntityId)
                 .collect(Collectors.toList())
                 .toArray()
@@ -174,7 +175,7 @@ abstract class CrudApiIntegrationTest<T extends IEntity> extends Specification {
         crudService.create(entityForCreate_withConflict)
 
         then: "An exception is thrown"
-        thrown(MeetingConflictException)
+        thrown(EntityConflictException)
 
         cleanup:
         crudService.delete(entityForCreate_withConflict.getId())

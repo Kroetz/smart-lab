@@ -17,4 +17,4 @@ import org.junit.runners.Suite
         PersonManagementApiIntegrationTest.class,
         RoomManagementApiIntegrationTest.class,
         WorkgroupManagementApiIntegrationTest.class])
-class IntegrationTestSuite {}
+class IntegrationTestSuite { }

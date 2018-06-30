@@ -4,9 +4,10 @@ import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
 import de.qaware.smartlabapi.service.room.IRoomManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.room.IRoom
+import de.qaware.smartlabcore.data.room.RoomId
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
-import de.qaware.smartlabcore.exception.MeetingConflictException
+import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.miscellaneous.Constants
 import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
 import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
@@ -19,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import java.time.Duration
 
 @SpringBootTest
-class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
+class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IRoom> {
 
     @Autowired
     private IRoomManagementService roomManagementService
@@ -359,7 +360,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<IRoom> {
         roomManagementService.extendCurrentMeeting(roomId, extension)
 
         then: "An exception is thrown"
-        thrown(MeetingConflictException)
+        thrown(EntityConflictException)
 
         cleanup:
         roomManagementService.delete(roomId)
