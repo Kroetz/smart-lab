@@ -149,6 +149,12 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-monolith</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
