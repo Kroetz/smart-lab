@@ -32,7 +32,6 @@
         <module>smart-lab-test</module>
         <module>smart-lab-meeting-set-up-trigger-mock</module>
         <module>smart-lab-meeting-clean-up-trigger-mock</module>
-        <module>smart-lab-monolith</module>
     </modules>
 
 </project>
