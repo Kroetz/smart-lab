@@ -75,8 +75,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
-    public Map<RoomId, Set<IMeeting>> findAll() {
-        Map<RoomId, Set<IMeeting>> meetingsByRoom = new HashMap<>();
+    public Set<IMeeting> findAll() {
+        Set<IMeeting> allMeetings = new HashSet<>();
         try {
             List<CalendarListEntry> calendars = findAllCalendars();
             for(CalendarListEntry calendar : calendars) {
@@ -91,16 +91,16 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
                 Optional<RoomId> roomId = this.calendarIdResolver.inverseResolve(calendar.getId());
                 if(roomId.isPresent()) {
-                    meetingsByRoom.put(roomId.get(), meetings);
+                    allMeetings.addAll(meetings);
                 }
                 else {
                     log.warn("Ignoring events from calendar {} since it has no mapped room ID", calendar.getId());
                 }
             }
-            return meetingsByRoom;
+            return allMeetings;
         } catch (IOException e) {
             log.error("I/O error while querying events from Google calendar");
-            return new HashMap<>();
+            return new HashSet<>();
         }
     }
 
@@ -127,9 +127,9 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
-    public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
+    public Optional<IMeeting> findOne(MeetingId meetingId) {
         // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
-        Optional<String> calendarId = this.calendarIdResolver.resolve(roomId);
+        Optional<String> calendarId = this.calendarIdResolver.resolve(meetingId.getLocationIdPart());
         if(calendarId.isPresent()) {
             try {
                 Event event = this.service.events().get(
@@ -142,15 +142,15 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 return Optional.empty();
             }
         }
-        log.warn("Cannot find meeting {} in room {} since it has no mapped calendar ID", meetingId, roomId);
+        log.warn("Cannot find meeting {} in room {} since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart());
         return Optional.empty();
     }
 
     @Override
-    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds, RoomId roomId) {
+    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds) {
         Map<MeetingId, Optional<IMeeting>> meetings = new HashMap<>();
         for(MeetingId meetingId : meetingIds) {
-            meetings.put(meetingId, findOne(meetingId, roomId));
+            meetings.put(meetingId, findOne(meetingId));
         }
         return meetings;
     }
@@ -158,7 +158,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     @Override
     public CreationResult create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
-        if(meetingCollision || exists(meeting.getId(), meeting.getRoomId())) {
+        if(meetingCollision || exists(meeting.getId())) {
             return CreationResult.CONFLICT;
         }
         // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
@@ -186,9 +186,9 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
-    public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
+    public DeletionResult delete(MeetingId meetingId) {
         // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
-        Optional<String> calendarId = this.calendarIdResolver.resolve(roomId);
+        Optional<String> calendarId = this.calendarIdResolver.resolve(meetingId.getLocationIdPart());
         if(calendarId.isPresent()) {
             try {
                 this.service.events().delete(calendarId.get(), meetingId.getIdValue());
@@ -198,7 +198,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             }
             return DeletionResult.SUCCESS;
         }
-        log.warn("Cannot delete meeting {} in room {} since it has no mapped calendar ID", meetingId, roomId);
+        log.warn("Cannot delete meeting {} in room {} since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart());
         return DeletionResult.ERROR;
     }
 
@@ -233,11 +233,10 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         description = isNull(description) ? StringUtils.EMPTY : description;
         IMeeting parsedMeeting = this.meetingParser.parse(description);
         return Meeting.builder()
-                .id(MeetingId.of(event.getId()))
+                .id(MeetingId.of(event.getId(), RoomId.of(event.getLocation())))
                 .title(event.getSummary())
                 .start(eventDateTimeToInstant(event.getStart()))
                 .end(eventDateTimeToInstant(event.getEnd()))
-                .roomId(RoomId.of(event.getLocation()))
                 .build()
                 .merge(parsedMeeting);
     }

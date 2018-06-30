@@ -1,7 +1,9 @@
 package de.qaware.smartlabcore.data.generic;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
 @EqualsAndHashCode
 public abstract class AbstractIdentifier implements IIdentifier {
 

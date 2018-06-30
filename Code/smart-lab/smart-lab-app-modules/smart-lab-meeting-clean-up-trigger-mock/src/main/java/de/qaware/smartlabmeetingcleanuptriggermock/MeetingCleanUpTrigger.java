@@ -60,8 +60,7 @@ public class MeetingCleanUpTrigger implements CommandLineRunner {
         Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
         try {
-            Set<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().values().stream()
-                    .flatMap(Set::stream)
+            Set<IMeeting> meetingsAboutToEnd = meetingManagementService.findAll().stream()
                     .filter(this::isAboutToEnd)
                     .collect(Collectors.toSet());
             for(IMeeting meetingAboutToEnd : meetingsAboutToEnd) {

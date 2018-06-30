@@ -2,13 +2,13 @@ package de.qaware.smartlabmeeting.repository.generic;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
 
-public abstract class AbstractMeetingManagementRepository implements IMeetingManagementRepository {
+public abstract class AbstractMeetingManagementRepository extends AbstractBasicEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
-    protected boolean exists(MeetingId meetingId, RoomId roomId) {
-        return findOne(meetingId, roomId).isPresent();
+    protected boolean exists(MeetingId meetingId) {
+        return findOne(meetingId).isPresent();
     }
 
     protected boolean areMeetingsColliding(IMeeting m1, IMeeting m2) {

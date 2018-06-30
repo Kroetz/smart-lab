@@ -33,9 +33,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ALEX = PersonId.of("alex");
     public static final PersonId MEMBER_ID_BEVERLY = PersonId.of("beverly");
     public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
-    public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars");
     public static final RoomId ROOM_ID_BLACK = RoomId.of("black");
     public static final DeviceId DEVICE_ID_BLACK_DISPLAY = DeviceId.of("black-display");
+    public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", ROOM_ID_BLACK);
     public static final String DELEGATE_ID_BLACK = "black-delegate";
 
     private final IAssistanceInfo roomUnlockingInfo;
@@ -99,7 +99,6 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
                 .workgroupId(WORKGROUP_ID_ASTRONAUTS)
-                .roomId(ROOM_ID_BLACK)
                 .agenda(astronautsMeetingAgenda)
                 .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(0))

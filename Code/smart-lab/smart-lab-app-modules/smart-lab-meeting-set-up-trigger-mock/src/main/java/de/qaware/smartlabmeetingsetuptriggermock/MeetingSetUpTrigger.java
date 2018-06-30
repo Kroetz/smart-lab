@@ -61,8 +61,7 @@ public class MeetingSetUpTrigger implements CommandLineRunner {
         Instant currentCheckBackup = currentCheck;
         currentCheck = Instant.now();
         try {
-            Set<IMeeting> justStartedMeetings = meetingManagementService.findAll().values().stream()
-                    .flatMap(Set::stream)
+            Set<IMeeting> justStartedMeetings = meetingManagementService.findAll().stream()
                     .filter(this::hasJustStarted)
                     .collect(Collectors.toSet());
             for(IMeeting startedMeeting : justStartedMeetings) {

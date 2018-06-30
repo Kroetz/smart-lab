@@ -34,9 +34,9 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ANTHONY = PersonId.of("fire-fighter-anthony");
     public static final PersonId MEMBER_ID_BRUCE = PersonId.of("fire-fighter-bruce");
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
-    public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck");
     public static final RoomId ROOM_ID_RED = RoomId.of("red");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
+    public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
     public static final String DELEGATE_ID_RED = "red-delegate";
 
     private final IAssistanceInfo minuteTakingInfo;
@@ -108,7 +108,6 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .id(MEETING_ID_TRUCK)
                 .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
-                .roomId(ROOM_ID_RED)
                 .agenda(fireFightersMeetingAgenda)
                 .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(240))

@@ -33,9 +33,9 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ANNA = PersonId.of("forest-ranger-anna");
     public static final PersonId MEMBER_ID_BARRY = PersonId.of("forest-ranger-barry");
     public static final PersonId MEMBER_ID_CAROLINE = PersonId.of("forest-ranger-caroline");
-    public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle");
     public static final RoomId ROOM_ID_GREEN = RoomId.of("green");
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY = DeviceId.of("green-display");
+    public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "green-delegate";
 
     private final IAssistanceInfo roomUnlockingInfo;
@@ -99,7 +99,6 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .id(MEETING_ID_BARK_BEETLE)
                 .title("Meeting about the danger of the bark beetle")
                 .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
-                .roomId(ROOM_ID_GREEN)
                 .agenda(forestRangersMeetingAgenda)
                 .assistanceConfigurations(configs)
                 .start(timeBase.plusSeconds(180))

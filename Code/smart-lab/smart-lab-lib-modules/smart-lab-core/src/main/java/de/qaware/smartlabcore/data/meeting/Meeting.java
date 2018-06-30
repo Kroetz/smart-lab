@@ -31,11 +31,15 @@ public class Meeting implements IMeeting {
     private MeetingId id;
     private String title;
     private WorkgroupId workgroupId;
-    private RoomId roomId;
     private List<IAgendaItem> agenda;
     private Set<IAssistanceConfiguration> assistanceConfigurations;
     private Instant start;
     private Instant end;
+
+    @Override
+    public RoomId getRoomId() {
+        return this.id.getLocationIdPart();
+    }
 
     @Override
     public Duration getDuration() {
@@ -53,7 +57,6 @@ public class Meeting implements IMeeting {
                 .id(getMergedFieldValue(meeting, IEntity::getId))
                 .title(getMergedFieldValue(meeting, IMeeting::getTitle))
                 .workgroupId(getMergedFieldValue(meeting, IMeeting::getWorkgroupId))
-                .roomId(getMergedFieldValue(meeting, IMeeting::getRoomId))
                 .agenda(getMergedFieldValue(meeting, IMeeting::getAgenda))
                 .assistanceConfigurations(getMergedFieldValue(meeting, IMeeting::getAssistanceConfigurations))
                 .start(getMergedFieldValue(meeting, IMeeting::getStart))

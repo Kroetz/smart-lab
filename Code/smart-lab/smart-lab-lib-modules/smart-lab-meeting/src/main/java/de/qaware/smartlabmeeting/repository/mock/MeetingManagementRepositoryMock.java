@@ -34,8 +34,11 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public Map<RoomId, Set<IMeeting>> findAll() {
-        return this.meetingsByRoom;
+    public Set<IMeeting> findAll() {
+        Set<IMeeting> allMeetings = new HashSet<>();
+        this.meetingsByRoom.keySet()
+                .forEach(roomId -> allMeetings.addAll(this.meetingsByRoom.get(roomId)));
+        return allMeetings;
     }
 
     @Override
@@ -45,26 +48,24 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public Optional<IMeeting> findOne(MeetingId meetingId, RoomId roomId) {
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+    public Optional<IMeeting> findOne(MeetingId meetingId) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
         return isNull(meetingsInRoom) ? Optional.empty() : meetingsInRoom.stream()
                 .filter(entity -> entity.getId().equals(meetingId))
                 .findFirst();
     }
 
     @Override
-    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds, RoomId roomId) {
+    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds) {
         Map<MeetingId, Optional<IMeeting>> meetingsById = new HashMap<>();
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
-        meetingIds.forEach(meetingId -> meetingsById.put(
-                meetingId, isNull(meetingsInRoom) ? Optional.empty() : findOne(meetingId, roomId)));
+        meetingIds.forEach(meetingId -> meetingsById.put(meetingId, findOne(meetingId)));
         return meetingsById;
     }
 
     @Override
     public CreationResult create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
-        if(meetingCollision || exists(meeting.getId(), meeting.getRoomId())) {
+        if(meetingCollision || exists(meeting.getId())) {
             return CreationResult.CONFLICT;
         }
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
@@ -75,8 +76,8 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public DeletionResult delete(MeetingId meetingId, RoomId roomId) {
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(roomId);
+    public DeletionResult delete(MeetingId meetingId) {
+        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
         List<IMeeting> meetingsToDelete = isNull(meetingsInRoom) ? new ArrayList<>() : meetingsInRoom.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(Collectors.toList());
@@ -92,7 +93,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
 
     @Override
     public ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
-        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             IMeeting shortenedMeeting = meeting.copy();
             shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
             CreationResult shortenedMeetingCreated = create(shortenedMeeting);
@@ -107,7 +108,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     public ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
         IMeeting extendedMeeting = meeting.copy();
         extendedMeeting.setEnd(meeting.getEnd().plus(extension));
-        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             CreationResult extendedMeetingCreated = create(extendedMeeting);
             if(extendedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);
@@ -128,7 +129,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         IMeeting shiftedMeeting = meeting.copy();
         shiftedMeeting.setStart(meeting.getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
-        if(delete(meeting.getId(), meeting.getRoomId()) == DeletionResult.SUCCESS) {
+        if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             CreationResult shiftedMeetingCreated = create(shiftedMeeting);
             if(shiftedMeetingCreated == CreationResult.CONFLICT) {
                 create(meeting);

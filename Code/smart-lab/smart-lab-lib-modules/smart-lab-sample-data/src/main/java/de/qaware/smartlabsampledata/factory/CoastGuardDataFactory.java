@@ -35,11 +35,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ALICE = PersonId.of("coast-guard-alice");
     public static final PersonId MEMBER_ID_BEN = PersonId.of("coast-guard-ben");
     public static final PersonId MEMBER_ID_CHARLIE = PersonId.of("coast-guard-charlie");
-    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales");
-    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools");
     public static final RoomId ROOM_ID_BLUE = RoomId.of("blue");
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY = DeviceId.of("blue-display");
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
+    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", ROOM_ID_BLUE);
+    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", ROOM_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "blue-delegate";
 
     private final IAssistanceInfo minuteTakingInfo;
@@ -111,7 +111,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
-                .roomId(ROOM_ID_BLUE)
                 .agenda(whaleMeetingAgenda)
                 .assistanceConfigurations(whaleConfigs)
                 .start(timeBase.plusSeconds(0))
@@ -133,7 +132,6 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .id(MEETING_ID_WHIRLPOOLS)
                 .title("Meeting about dangers of whirlpools")
                 .workgroupId(WORKGROUP_ID_COAST_GUARD)
-                .roomId(ROOM_ID_BLUE)
                 .agenda(whirlpoolMeetingAgenda)
                 .assistanceConfigurations(whirlpoolConfigs)
                 .start(timeBase.plusSeconds(360))
