@@ -30,18 +30,21 @@ public class RoomManagementController extends AbstractSmartLabController impleme
         this.roomManagementBusinessLogic = roomManagementBusinessLogic;
     }
 
+    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
     public Set<IRoom> findAll() {
         return this.roomManagementBusinessLogic.findAll();
     }
 
+    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
     public ResponseEntity<IRoom> findOne(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(this.roomManagementBusinessLogic.findOne(RoomId.of(roomId)));
     }
 
+    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
         return responseFromOptionals(this.roomManagementBusinessLogic.findMultiple(
@@ -50,12 +53,14 @@ public class RoomManagementController extends AbstractSmartLabController impleme
                         .collect(Collectors.toSet())));
     }
 
+    @Override
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Void> create(@RequestBody IRoom room) {
         return this.roomManagementBusinessLogic.create(room).toResponseEntity();
     }
 
+    @Override
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {

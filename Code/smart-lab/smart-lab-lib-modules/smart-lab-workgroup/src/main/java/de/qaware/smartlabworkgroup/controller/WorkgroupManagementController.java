@@ -28,16 +28,19 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
         this.workgroupManagementBusinessLogic = workgroupManagementBusinessLogic;
     }
 
+    @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ALL)
     public Set<IWorkgroup> findAll() {
         return this.workgroupManagementBusinessLogic.findAll();
     }
 
+    @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IWorkgroup> findOne(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromOptional(this.workgroupManagementBusinessLogic.findOne(WorkgroupId.of(workgroupId)));
     }
 
+    @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_MULTIPLE)
     public ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
         return responseFromOptionals(
@@ -46,11 +49,13 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
                         .collect(Collectors.toSet())));
     }
 
+    @Override
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup) {
         return this.workgroupManagementBusinessLogic.create(workgroup).toResponseEntity();
     }
 
+    @Override
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
     public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return this.workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
