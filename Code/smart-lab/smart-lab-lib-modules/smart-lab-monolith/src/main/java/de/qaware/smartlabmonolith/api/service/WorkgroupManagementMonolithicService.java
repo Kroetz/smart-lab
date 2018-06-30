@@ -23,11 +23,11 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class WorkgroupManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class WorkgroupManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;
 
-    public WorkgroupManagementServiceMonolith(WorkgroupManagementController workgroupManagementController) {
+    public WorkgroupManagementMonolithicService(WorkgroupManagementController workgroupManagementController) {
         super(workgroupManagementController);
         this.workgroupManagementController = workgroupManagementController;
     }

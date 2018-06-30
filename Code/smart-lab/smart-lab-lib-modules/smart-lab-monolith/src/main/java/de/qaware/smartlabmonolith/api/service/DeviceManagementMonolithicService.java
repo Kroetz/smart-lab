@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class DeviceManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IDevice, DeviceId> implements IDeviceManagementService {
+public class DeviceManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IDevice, DeviceId> implements IDeviceManagementService {
 
     private final DeviceManagementController deviceManagementController;
 
-    public DeviceManagementServiceMonolith(DeviceManagementController deviceManagementController) {
+    public DeviceManagementMonolithicService(DeviceManagementController deviceManagementController) {
         super(deviceManagementController);
         this.deviceManagementController = deviceManagementController;
     }

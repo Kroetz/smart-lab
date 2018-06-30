@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class PersonManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IPerson, PersonId> implements IPersonManagementService {
+public class PersonManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IPerson, PersonId> implements IPersonManagementService {
 
     private final PersonManagementController personManagementController;
 
-    public PersonManagementServiceMonolith(PersonManagementController personManagementController) {
+    public PersonManagementMonolithicService(PersonManagementController personManagementController) {
         super(personManagementController);
         this.personManagementController = personManagementController;
     }

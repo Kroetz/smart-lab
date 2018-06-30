@@ -20,11 +20,11 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class MeetingManagementServiceMonolith extends AbstractBasicEntityManagementServiceMonolith<IMeeting, MeetingId> implements IMeetingManagementService {
+public class MeetingManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IMeeting, MeetingId> implements IMeetingManagementService {
 
     private final MeetingManagementController meetingManagementController;
 
-    public MeetingManagementServiceMonolith(MeetingManagementController meetingManagementController) {
+    public MeetingManagementMonolithicService(MeetingManagementController meetingManagementController) {
         super(meetingManagementController);
         this.meetingManagementController = meetingManagementController;
     }

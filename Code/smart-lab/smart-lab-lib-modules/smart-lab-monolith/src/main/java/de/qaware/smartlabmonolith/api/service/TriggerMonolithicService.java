@@ -16,11 +16,11 @@ import java.net.URL;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class TriggerServiceMonolith implements ITriggerService {
+public class TriggerMonolithicService implements ITriggerService {
 
     private final TriggerController triggerController;
 
-    public TriggerServiceMonolith(TriggerController triggerController) {
+    public TriggerMonolithicService(TriggerController triggerController) {
         this.triggerController = triggerController;
     }
 
