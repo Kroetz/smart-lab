@@ -32,7 +32,7 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
     @Override
     @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<Void> create(@RequestBody IRoom room);
+    ResponseEntity<IRoom> create(@RequestBody IRoom room);
 
     @Override
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)

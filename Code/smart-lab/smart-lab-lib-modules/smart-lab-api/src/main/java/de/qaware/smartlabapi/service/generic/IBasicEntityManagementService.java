@@ -10,6 +10,6 @@ public interface IBasicEntityManagementService<EntityT extends IEntity<Identifie
     Set<EntityT> findAll();
     EntityT findOne(IdentifierT entityId);
     Set<EntityT> findMultiple(IdentifierT[] entityIds);
-    void create(EntityT entity);
+    EntityT create(EntityT entity);
     void delete(IdentifierT entityId);
 }

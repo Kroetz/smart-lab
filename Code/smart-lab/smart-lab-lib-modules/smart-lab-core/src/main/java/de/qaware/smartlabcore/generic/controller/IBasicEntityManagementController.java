@@ -6,11 +6,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.Set;
 
 //TODO: Same content as IEntityManagementApiClient --> Eliminate code duplicates via parent interface
-public interface IBasicEntityManagementController<T extends IEntity> {
+public interface IBasicEntityManagementController<EntityT extends IEntity> {
 
-    Set<T> findAll();
-    ResponseEntity<T> findOne(String entityId);
-    ResponseEntity<Set<T>> findMultiple(String[] entityIds);
-    ResponseEntity<Void> create(T entity);
+    Set<EntityT> findAll();
+    ResponseEntity<EntityT> findOne(String entityId);
+    ResponseEntity<Set<EntityT>> findMultiple(String[] entityIds);
+    ResponseEntity<EntityT> create(EntityT entity);
     ResponseEntity<Void> delete(String entityId);
 }

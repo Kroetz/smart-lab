@@ -5,11 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Set;
 
-public interface IBasicEntityManagementApiClient<T extends IEntity> {
+public interface IBasicEntityManagementApiClient<EntityT extends IEntity> {
 
-    Set<T> findAll();
-    ResponseEntity<T> findOne(String entityId);
-    ResponseEntity<Set<T>> findMultiple(String[] entityIds);
-    ResponseEntity<Void> create(T entity);
+    Set<EntityT> findAll();
+    ResponseEntity<EntityT> findOne(String entityId);
+    ResponseEntity<Set<EntityT>> findMultiple(String[] entityIds);
+    ResponseEntity<EntityT> create(EntityT entity);
     ResponseEntity<Void> delete(String entityId);
 }

@@ -2,7 +2,6 @@ package de.qaware.smartlabcore.generic.business;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
-import de.qaware.smartlabcore.result.CreationResult;
 import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.generic.repository.IBasicEntityManagementRepository;
 
@@ -34,7 +33,7 @@ public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends
     }
 
     @Override
-    public CreationResult create(EntityT entity) {
+    public EntityT create(EntityT entity) {
         return this.entityManagementRepository.create(entity);
     }
 

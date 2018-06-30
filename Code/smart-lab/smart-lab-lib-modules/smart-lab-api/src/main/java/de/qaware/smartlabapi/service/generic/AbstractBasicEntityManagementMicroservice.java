@@ -61,9 +61,9 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     }
 
     @Override
-    public void create(EntityT entity) {
+    public EntityT create(EntityT entity) {
         try {
-            this.entityManagementApiClient.create(entity);
+            return this.entityManagementApiClient.create(entity).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.CONFLICT.value()) {

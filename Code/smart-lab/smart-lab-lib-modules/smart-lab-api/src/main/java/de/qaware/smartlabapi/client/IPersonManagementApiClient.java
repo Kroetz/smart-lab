@@ -27,7 +27,7 @@ public interface IPersonManagementApiClient extends IBasicEntityManagementApiCli
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> create(@RequestBody IPerson person);
+    ResponseEntity<IPerson> create(@RequestBody IPerson person);
 
     @Override
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)

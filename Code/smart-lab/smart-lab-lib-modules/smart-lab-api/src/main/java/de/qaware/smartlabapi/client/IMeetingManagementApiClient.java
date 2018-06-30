@@ -29,7 +29,7 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
 
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> create(@RequestBody IMeeting meeting);
+    ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting);
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     ResponseEntity<Void> delete(

@@ -48,9 +48,9 @@ public abstract class AbstractBasicEntityManagementMonolithicService<EntityT ext
     }
 
     @Override
-    public void create(EntityT entity) {
-        ResponseEntity<Void> response = this.entityManagementController.create(entity);
-        if(response.getStatusCode() == HttpStatus.OK) return;
+    public EntityT create(EntityT entity) {
+        ResponseEntity<EntityT> response = this.entityManagementController.create(entity);
+        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();

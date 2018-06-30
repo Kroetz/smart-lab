@@ -14,6 +14,8 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
@@ -156,33 +158,37 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
-    public CreationResult create(IMeeting meeting) {
+    public IMeeting create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {
-            return CreationResult.CONFLICT;
+            log.error("Cannot create meeting {} because a meeting with that ID already exists", meeting);
+            // TODO: Meaningful exception message
+            throw new EntityConflictException();
         }
         // TODO: Cleaner with "ifPresentOrElse" from Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
         Optional<String> calendarId = this.calendarIdResolver.resolve(meeting.getRoomId());
         if(calendarId.isPresent()) {
-            Event event = meetingToEvent(meeting);
+            Event createdEvent;
             try {
-                this.service.events().insert(calendarId.get(), event).execute();
+                createdEvent = this.service.events().insert(calendarId.get(), meetingToEvent(meeting)).execute();
             } catch (IOException e) {
                 log.error("I/O error while creating event in Google calendar");
-                return CreationResult.ERROR;
+                // TODO: Meaningful exception message
+                throw new EntityCreationException(e);
             }
-            return CreationResult.SUCCESS;
+            return eventToMeeting(createdEvent);
         }
-        log.warn("Cannot create meeting {} in room {} since it has no mapped calendar ID", meeting, meeting.getRoomId());
-        return CreationResult.ERROR;
+        log.error("Cannot create meeting {} in room {} since it has no mapped calendar ID", meeting, meeting.getRoomId());
+        // TODO: Meaningful exception message
+        throw new EntityCreationException();
     }
 
-    private CreationResult create(Set<IMeeting> meetings) {
+    private Set<IMeeting> create(Set<IMeeting> meetings) {
+        Set<IMeeting> createdMeetings = new HashSet<>();
         for(IMeeting meeting : meetings) {
-            CreationResult creationResult = create(meeting);
-            if(creationResult != CreationResult.SUCCESS) return creationResult;
+            createdMeetings.add(create(meeting));
         }
-        return CreationResult.SUCCESS;
+        return createdMeetings;
     }
 
     @Override

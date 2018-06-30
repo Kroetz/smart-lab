@@ -49,8 +49,8 @@ public class PersonManagementController extends AbstractSmartLabController imple
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> create(@RequestBody IPerson person) {
-        return this.personManagementBusinessLogic.create(person).toResponseEntity();
+    public ResponseEntity<IPerson> create(@RequestBody IPerson person) {
+        return ResponseEntity.ok(this.personManagementBusinessLogic.create(person));
     }
 
     @Override

@@ -3,6 +3,8 @@ package de.qaware.smartlabmeeting.repository.mock;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
@@ -63,10 +65,12 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
-    public CreationResult create(IMeeting meeting) {
+    public IMeeting create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {
-            return CreationResult.CONFLICT;
+            log.error("Cannot create meeting {} because a meeting with that ID already exists", meeting);
+            // TODO: Meaningful exception message
+            throw new EntityConflictException();
         }
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
         if(isNull(meetingsInRoom)) {
@@ -74,9 +78,11 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
             this.meetingsByRoom.put(meeting.getRoomId(), meetingsInRoom);
         }
         if(meetingsInRoom.add(meeting)) {
-            return CreationResult.SUCCESS;
+            return meeting;
         }
-        return CreationResult.ERROR;
+        log.error("Cannot create meeting {} because of unknown reason", meeting);
+        // TODO: Meaningful exception message
+        throw new EntityCreationException();
     }
 
     @Override
@@ -100,9 +106,12 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             IMeeting shortenedMeeting = meeting.copy();
             shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
-            CreationResult shortenedMeetingCreated = create(shortenedMeeting);
-            if(shortenedMeetingCreated == CreationResult.SUCCESS) {
+            try {
+                create(shortenedMeeting);
                 return ShorteningResult.SUCCESS;
+            }
+            catch(Exception e) {
+                return ShorteningResult.ERROR;
             }
         }
         return ShorteningResult.ERROR;
@@ -113,16 +122,17 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         IMeeting extendedMeeting = meeting.copy();
         extendedMeeting.setEnd(meeting.getEnd().plus(extension));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            CreationResult extendedMeetingCreated = create(extendedMeeting);
-            if(extendedMeetingCreated == CreationResult.CONFLICT) {
+            try {
+                create(extendedMeeting);
+                return ExtensionResult.SUCCESS;
+            }
+            catch(EntityConflictException e) {
                 create(meeting);
                 return ExtensionResult.CONFLICT;
             }
-            else if(extendedMeetingCreated == CreationResult.SUCCESS) {
-                return ExtensionResult.SUCCESS;
-            }
-            else {
+            catch(Exception e) {
                 create(meeting);
+                return ExtensionResult.ERROR;
             }
         }
         return ExtensionResult.ERROR;
@@ -134,16 +144,17 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         shiftedMeeting.setStart(meeting.getStart().plus(shift));
         shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            CreationResult shiftedMeetingCreated = create(shiftedMeeting);
-            if(shiftedMeetingCreated == CreationResult.CONFLICT) {
+            try {
+                create(shiftedMeeting);
+                return ShiftResult.SUCCESS;
+            }
+            catch(EntityConflictException e) {
                 create(meeting);
                 return ShiftResult.CONFLICT;
             }
-            else if(shiftedMeetingCreated == CreationResult.SUCCESS) {
-                return ShiftResult.SUCCESS;
-            }
-            else {
+            catch(Exception e) {
                 create(meeting);
+                return ShiftResult.ERROR;
             }
         }
         return ShiftResult.ERROR;

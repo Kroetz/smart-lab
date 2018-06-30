@@ -150,7 +150,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         setupDataForCreate_withoutConflict()
 
         when: "The entity is created"
-        crudService.create(entityForCreate_withoutConflict)
+        def createdEntity = crudService.create(entityForCreate_withoutConflict)
 
         then: "The creation is successful and no exception is thrown"
         noExceptionThrown()
@@ -159,7 +159,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         def foundEntity = crudService.findOne(entityForCreate_withoutConflict.getId())
 
         then: "The found entity equals the one that was initially passed during the creation"
-        entityForCreate_withoutConflict == foundEntity
+        createdEntity == foundEntity
 
         cleanup:
         crudService.delete(entityForCreate_withoutConflict.getId())

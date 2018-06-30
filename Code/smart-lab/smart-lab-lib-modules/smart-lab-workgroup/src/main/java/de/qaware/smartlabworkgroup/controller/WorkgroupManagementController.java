@@ -51,8 +51,8 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
 
     @Override
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup) {
-        return this.workgroupManagementBusinessLogic.create(workgroup).toResponseEntity();
+    public ResponseEntity<IWorkgroup> create(@RequestBody IWorkgroup workgroup) {
+        return ResponseEntity.ok(this.workgroupManagementBusinessLogic.create(workgroup));
     }
 
     @Override

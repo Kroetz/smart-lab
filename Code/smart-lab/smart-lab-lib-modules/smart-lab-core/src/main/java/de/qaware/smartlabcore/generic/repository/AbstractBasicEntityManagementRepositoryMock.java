@@ -2,14 +2,17 @@ package de.qaware.smartlabcore.generic.repository;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
-import de.qaware.smartlabcore.result.CreationResult;
+import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.result.DeletionResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+@Slf4j
 public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementRepository<EntityT, IdentifierT> {
 
     protected Set<EntityT> entities;
@@ -39,14 +42,16 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     }
 
     @Override
-    public CreationResult create(EntityT entity) {
+    public EntityT create(EntityT entity) {
         if (exists(entity.getId())) {
-            return CreationResult.CONFLICT;
+            log.error("Cannot create entity {} because an entity with that ID already exists", entity);
+            // TODO: Meaningful exception messages
+            throw new EntityConflictException();
         }
         if(this.entities.add(entity)) {
-            return CreationResult.SUCCESS;
+            return entity;
         }
-        return CreationResult.ERROR;
+        throw new UnknownErrorException();
     }
 
     @Override

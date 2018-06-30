@@ -28,7 +28,7 @@ public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApi
 
     @Override
     @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> create(@RequestBody IWorkgroup workgroup);
+    ResponseEntity<IWorkgroup> create(@RequestBody IWorkgroup workgroup);
 
     @Override
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
