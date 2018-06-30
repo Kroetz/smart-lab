@@ -173,7 +173,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             }
             return CreationResult.SUCCESS;
         }
-        log.warn("Cannot create meeting {} in room {} since it has no mapped calendar ID", meeting.getRoomId(), meeting.getRoomId());
+        log.warn("Cannot create meeting {} in room {} since it has no mapped calendar ID", meeting, meeting.getRoomId());
         return CreationResult.ERROR;
     }
 

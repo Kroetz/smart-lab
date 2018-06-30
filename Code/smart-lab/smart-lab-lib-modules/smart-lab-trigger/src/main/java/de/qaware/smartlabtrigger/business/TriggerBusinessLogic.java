@@ -53,12 +53,12 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo setUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to set up meeting {}", meeting.toString());
+        log.info("Processing trigger to set up meeting {}", meeting);
         IJobInfo jobInfo = triggerAssistances(
                 meeting,
                 (context, assistance) -> assistance.reactOnTriggerSetUpMeeting(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to set up meeting {}", meeting.toString());
+        log.info("Processed trigger to set up meeting {}", meeting);
         // TODO: Return type necessary?
         return jobInfo;
     }
@@ -85,12 +85,12 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo cleanUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to clean up meeting {}", meeting.toString());
+        log.info("Processing trigger to clean up meeting {}", meeting);
         IJobInfo jobInfo = triggerAssistances(
                 meeting,
                 (context, assistance) -> assistance.reactOnTriggerCleanUpMeeting(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to clean up meeting {}", meeting.toString());
+        log.info("Processed trigger to clean up meeting {}", meeting);
         // TODO: Return type necessary?
         return jobInfo;
     }
@@ -119,12 +119,12 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo startMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to start meeting {}", meeting.toString());
+        log.info("Processing trigger to start meeting {}", meeting);
         IJobInfo jobInfo = triggerAssistances(
                 meeting,
                 (context, assistance) -> assistance.reactOnTriggerStartMeeting(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to start meeting {}", meeting.toString());
+        log.info("Processed trigger to start meeting {}", meeting);
         // TODO: Return type necessary?
         return jobInfo;
     }
@@ -151,12 +151,12 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     @Override
     public IJobInfo stopMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to stop meeting {}", meeting.toString());
+        log.info("Processing trigger to stop meeting {}", meeting);
         IJobInfo jobInfo = triggerAssistances(
                 meeting,
                 (context, assistance) -> assistance.reactOnTriggerStopMeeting(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to stop meeting {}", meeting.toString());
+        log.info("Processed trigger to stop meeting {}", meeting);
         // TODO: Return type necessary?
         return jobInfo;
     }
