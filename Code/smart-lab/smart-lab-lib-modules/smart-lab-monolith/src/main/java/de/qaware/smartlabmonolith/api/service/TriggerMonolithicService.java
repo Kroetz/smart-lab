@@ -1,11 +1,13 @@
 package de.qaware.smartlabmonolith.api.service;
 
+import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabtrigger.controller.TriggerController;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -102,5 +104,26 @@ public class TriggerMonolithicService implements ITriggerService {
     @Override
     public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
         return this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("triggerServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MONOLITH)
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final TriggerController.BaseUrlGetter triggerServiceBaseUrlGetter;
+
+        public BaseUrlGetter(TriggerController.BaseUrlGetter triggerServiceBaseUrlGetter) {
+            this.triggerServiceBaseUrlGetter = triggerServiceBaseUrlGetter;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            return this.triggerServiceBaseUrlGetter.getBaseUrl().getBody();
+        }
     }
 }

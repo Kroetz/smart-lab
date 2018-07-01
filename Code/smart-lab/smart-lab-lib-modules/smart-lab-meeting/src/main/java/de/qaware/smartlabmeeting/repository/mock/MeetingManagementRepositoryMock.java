@@ -6,7 +6,10 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.result.*;
+import de.qaware.smartlabcore.result.DeletionResult;
+import de.qaware.smartlabcore.result.ExtensionResult;
+import de.qaware.smartlabcore.result.ShiftResult;
+import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
 import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
@@ -19,7 +22,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 @Repository
 @ConditionalOnProperty(

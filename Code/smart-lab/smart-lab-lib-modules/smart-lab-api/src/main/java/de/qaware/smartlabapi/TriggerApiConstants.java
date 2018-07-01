@@ -20,6 +20,7 @@ public class TriggerApiConstants {
     public static final String MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID = "/start-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID = PATH_FRAGMENT_STOP_CURRENT_MEETING_BY_ROOM_ID + "{" + PARAMETER_NAME_ROOM_ID + "}";
     public static final String MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID = "/stop-current-meeting/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
+    public static final String MAPPING_GET_BASE_URL = "/url";
 
     public static final String URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID = MAPPING_BASE + PATH_FRAGMENT_START_CURRENT_MEETING_BY_ROOM_ID + "%s";
     public static final String URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID = MAPPING_BASE + PATH_FRAGMENT_STOP_CURRENT_MEETING_BY_ROOM_ID + "%s";

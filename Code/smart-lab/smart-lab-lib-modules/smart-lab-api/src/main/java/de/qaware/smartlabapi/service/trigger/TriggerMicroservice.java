@@ -1,6 +1,7 @@
 package de.qaware.smartlabapi.service.trigger;
 
 import de.qaware.smartlabapi.client.ITriggerApiClient;
+import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -8,6 +9,7 @@ import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
 import feign.RetryableException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -233,6 +235,35 @@ public class TriggerMicroservice implements ITriggerService {
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
+        }
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("triggerServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MICROSERVICE)
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final ITriggerApiClient triggerApiClient;
+
+        public BaseUrlGetter(ITriggerApiClient triggerApiClient) {
+            this.triggerApiClient = triggerApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            try {
+                return this.triggerApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }
