@@ -47,6 +47,11 @@
             <version>${speech-to-text.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

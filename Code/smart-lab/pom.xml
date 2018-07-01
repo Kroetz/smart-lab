@@ -25,6 +25,7 @@
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
 		<antlr4.version>4.7.1</antlr4.version>
 		<guava.version>25.1-jre</guava.version>
+		<selenium-java.version>3.13.0</selenium-java.version>
 	</properties>
 
 	<modules>
@@ -202,6 +203,13 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-java</artifactId>
+				<version>${selenium-java.version}</version>
 			</dependency>
 
 		</dependencies>
