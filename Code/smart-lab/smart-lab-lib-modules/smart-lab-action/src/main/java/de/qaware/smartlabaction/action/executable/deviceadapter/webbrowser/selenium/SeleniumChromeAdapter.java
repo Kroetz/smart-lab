@@ -7,6 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
+
 @Component
 @Slf4j
 public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
@@ -23,11 +25,9 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    private SeleniumChromeAdapter() {
+    public SeleniumChromeAdapter(Path seleniumChromeDriverFile) {
         super(DEVICE_TYPE, HAS_LOCAL_API, () -> new ChromeDriver(), newTabHotkeys);
-    }
-
-    public static SeleniumChromeAdapter newInstance() {
-        return new SeleniumChromeAdapter();
+        // TODO: String literal
+        System.setProperty("webdriver.chrome.driver", seleniumChromeDriverFile.toString());
     }
 }

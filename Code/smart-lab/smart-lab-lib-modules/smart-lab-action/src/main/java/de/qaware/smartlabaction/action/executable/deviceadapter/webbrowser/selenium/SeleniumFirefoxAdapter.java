@@ -7,6 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
+
 @Component
 @Slf4j
 public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
@@ -23,11 +25,9 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    private SeleniumFirefoxAdapter() {
+    public SeleniumFirefoxAdapter(Path seleniumGeckoDriverFile) {
         super(DEVICE_TYPE, HAS_LOCAL_API, () -> new FirefoxDriver(), newTabHotkeys);
-    }
-
-    public static SeleniumFirefoxAdapter newInstance() {
-        return new SeleniumFirefoxAdapter();
+        // TODO: String literal
+        System.setProperty("webdriver.gecko.driver", seleniumGeckoDriverFile.toString());
     }
 }
