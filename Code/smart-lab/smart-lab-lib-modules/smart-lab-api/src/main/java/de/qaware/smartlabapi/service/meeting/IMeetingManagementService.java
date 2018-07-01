@@ -1,5 +1,6 @@
 package de.qaware.smartlabapi.service.meeting;
 
+import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
@@ -7,7 +8,7 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import java.time.Duration;
 import java.util.Set;
 
-public interface IMeetingManagementService {
+public interface IMeetingManagementService extends IBasicEntityManagementService<IMeeting, MeetingId> {
 
     Set<IMeeting> findAll();
     Set<IMeeting> findAll(RoomId roomId);

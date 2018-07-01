@@ -1,6 +1,7 @@
 package de.qaware.smartlabmeeting.repository.google;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.DateTime;
@@ -100,7 +101,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 }
             }
             return allMeetings;
-        } catch (IOException e) {
+        }
+        catch(IOException e) {
             log.error("I/O error while querying events from Google calendar");
             return new HashSet<>();
         }
@@ -119,7 +121,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                         .stream()
                         .map(this::eventToMeeting)
                         .collect(Collectors.toSet());
-            } catch (IOException e) {
+            }
+            catch(IOException e) {
                 log.error("I/O error while querying events from Google calendar");
                 return new HashSet<>();
             }
@@ -136,10 +139,16 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             try {
                 Event event = this.service.events().get(
                         calendarId.get(),
-                        meetingId.getIdValue())
+                        meetingId.getNameIdPart())
                         .execute();
+                log.info("Found event {} in calendar {}", event, calendarId.get());
                 return Optional.of(eventToMeeting(event));
-            } catch (IOException e) {
+            }
+            catch(GoogleJsonResponseException e) {
+                log.info("Cannot find event with ID {} in calendar {}", meetingId.getNameIdPart(), calendarId.get());
+                return Optional.empty();
+            }
+            catch(IOException e) {
                 log.error("I/O error while querying event from Google calendar");
                 return Optional.empty();
             }
@@ -171,7 +180,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             Event createdEvent;
             try {
                 createdEvent = this.service.events().insert(calendarId.get(), meetingToEvent(meeting)).execute();
-            } catch (IOException e) {
+            }
+            catch(IOException e) {
                 log.error("I/O error while creating event in Google calendar");
                 // TODO: Meaningful exception message
                 throw new EntityCreationException(e);
@@ -197,11 +207,17 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         Optional<String> calendarId = this.calendarIdResolver.resolve(meetingId.getLocationIdPart());
         if(calendarId.isPresent()) {
             try {
-                this.service.events().delete(calendarId.get(), meetingId.getIdValue());
-            } catch (IOException e) {
+                this.service.events().delete(calendarId.get(), meetingId.getNameIdPart()).execute();
+            }
+            catch(GoogleJsonResponseException e) {
+                log.info("Cannot delete event with ID {} in calendar {} since it does not exist", meetingId.getNameIdPart(), calendarId.get());
+                return DeletionResult.ERROR;
+            }
+            catch(IOException e) {
                 log.error("I/O error while deleting event in Google calendar");
                 return DeletionResult.ERROR;
             }
+            log.info("Deleted event with ID {} in calendar {}", meetingId.getNameIdPart(), calendarId.get());
             return DeletionResult.SUCCESS;
         }
         log.warn("Cannot delete meeting {} in room {} since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart());
@@ -248,13 +264,13 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     private Event meetingToEvent(IMeeting meeting) {
-	String meetingConfigString = this.meetingParser.unparse(meeting);
-	return new Event()
-		.setSummary(meeting.getTitle())
-		.setStart(instantToEventDateTime(meeting.getStart()))
-		.setEnd(instantToEventDateTime(meeting.getEnd()))
-		.setLocation(meeting.getRoomId().getIdValue())
-	    .setDescription(meetingConfigString);
+        String meetingConfigString = this.meetingParser.unparse(meeting);
+        return new Event()
+            .setSummary(meeting.getTitle())
+            .setStart(instantToEventDateTime(meeting.getStart()))
+            .setEnd(instantToEventDateTime(meeting.getEnd()))
+            .setLocation(meeting.getRoomId().getIdValue())
+            .setDescription(meetingConfigString);
     }
 
     public static Instant dateTimeToInstant(DateTime dateTime) {
