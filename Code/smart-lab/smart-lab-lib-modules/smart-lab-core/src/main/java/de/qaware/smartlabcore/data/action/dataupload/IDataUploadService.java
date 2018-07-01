@@ -6,5 +6,10 @@ import de.qaware.smartlabcore.exception.ServiceFailedException;
 public interface IDataUploadService {
 
     String getServiceId();
-    void upload(IKnowledgeBaseInfo knowledgeBaseInfo, String dataToUpload) throws ServiceFailedException;
+    void upload(
+            IKnowledgeBaseInfo knowledgeBaseInfo,
+            String uploadMessage,
+            String path,
+            String fileName,
+            String dataToUpload) throws ServiceFailedException;
 }

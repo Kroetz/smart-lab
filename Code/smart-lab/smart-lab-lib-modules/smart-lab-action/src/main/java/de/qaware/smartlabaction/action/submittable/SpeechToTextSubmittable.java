@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.InvalidActionResultException;
+import de.qaware.smartlabcore.miscellaneous.Language;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -35,5 +36,8 @@ public class SpeechToTextSubmittable extends AbstractActionSubmittable<SpeechToT
 
         @NonNull
         private Path audioFile;
+
+        @NonNull
+        private Language spokenLanguage;
     }
 }

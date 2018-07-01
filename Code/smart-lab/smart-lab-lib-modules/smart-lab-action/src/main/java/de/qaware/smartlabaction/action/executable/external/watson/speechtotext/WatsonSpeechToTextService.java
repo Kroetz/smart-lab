@@ -6,6 +6,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
+import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.String.format;
 
 @Component
 @ConditionalOnProperty(
@@ -35,14 +38,13 @@ public class WatsonSpeechToTextService implements IWatsonSpeechToTextService {
     }
 
     @Override
-    public ITranscript speechToText(Path audioFile) throws ServiceFailedException {
+    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ServiceFailedException {
         try {
             RecognizeOptions options = new RecognizeOptions.Builder()
                     // TODO: Get file type from assistance config or determine automatically
                     .contentType(HttpMediaType.AUDIO_WAV)
                     .speakerLabels(true)
-                    // TODO: Get language from assistance config
-                    .model("en-US_BroadbandModel")
+                    .model(toWatsonSpeechToTextLanguage(spokenLanguage))
                     .timestamps(true)
                     .smartFormatting(true)
                     .audio(audioFile.toFile())
@@ -53,6 +55,21 @@ public class WatsonSpeechToTextService implements IWatsonSpeechToTextService {
         catch (Exception e) {
             // TODO: exception message
             throw new ServiceFailedException(e);
+        }
+    }
+
+    private String toWatsonSpeechToTextLanguage(Language language) {
+        switch (language) {
+            case EN_US:
+                return "en-US_BroadbandModel";
+            case EN_GB:
+                return "en-GB_BroadbandModel";
+            case FR_FR:
+                return "fr-FR_BroadbandModel";
+            default:
+                String errorMessage = format("The language %s is not supported by IBM Watson speech to text", language);
+                log.error(errorMessage);
+                throw new ServiceFailedException(errorMessage);
         }
     }
 }

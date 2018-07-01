@@ -3,6 +3,7 @@ package de.qaware.smartlabaction.action.executable.external.remeeting.service;
 import de.qaware.smartlabaction.action.executable.external.remeeting.client.IRemeetingApiClient;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
+import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.String.format;
 
 @Component
 @ConditionalOnProperty(
@@ -32,7 +35,12 @@ public class RemeetingService implements IRemeetingService {
     }
 
     @Override
-    public ITranscript speechToText(Path audioFile) throws ServiceFailedException {
+    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ServiceFailedException {
+        if(spokenLanguage != Language.EN_US) {
+            String errorMessage = format("The language %s is not supported by Remeeting speech to text", spokenLanguage);
+            log.error(errorMessage);
+            throw new ServiceFailedException(errorMessage);
+        }
         try {
             // TODO: String literals
             String authHeader = "Basic " + Base64.getEncoder().encodeToString((this.remeetingApiKey + ":").getBytes("utf-8"));

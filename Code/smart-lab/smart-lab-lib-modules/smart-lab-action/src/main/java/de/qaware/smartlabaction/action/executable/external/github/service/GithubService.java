@@ -17,10 +17,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,21 +38,22 @@ public class GithubService implements IGithubService {
     }
 
     @Override
-    public void upload(IKnowledgeBaseInfo knowledgeBaseInfo, String dataToUpload) throws ServiceFailedException {
+    public void upload(
+            IKnowledgeBaseInfo knowledgeBaseInfo,
+            String uploadMessage,
+            String path,
+            String fileName,
+            String dataToUpload) throws ServiceFailedException {
         try {
             acceptPendingRepoInvitations();
             // TODO: Eliminate String literals (get committer name and email from github configuration)
-            // TODO: Get path (from assistance config) and commit message as arguments
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-            Path path = Paths.get("minutes/" + LocalDateTime.now().format(formatter) + ".txt");
-            String commitMessage = "Upload minutes taken by Smart-Lab";
             JsonObject committer = Json.createObjectBuilder().add("name", "Smart-Lab-Test").add("email", "hanswurst@byom.de").build();
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo;
             githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
             Repo repository = this.github.repos().get(githubKnowledgeBaseInfo.getRepository());
             JsonObject jsonObject = Json.createObjectBuilder()
-                    .add("message", commitMessage)
-                    .add("path", path.toString())
+                    .add("message", uploadMessage)
+                    .add("path", path + "/" + fileName)
                     .add("committer", committer)
                     .add("content", Base64.getEncoder().encodeToString((dataToUpload).getBytes("utf-8")))
                     .build();

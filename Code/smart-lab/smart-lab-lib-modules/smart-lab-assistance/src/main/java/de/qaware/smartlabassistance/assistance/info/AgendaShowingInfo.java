@@ -37,8 +37,8 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
     // TODO: Which annotation can be removed?
     @Getter
     @ToString
-    @EqualsAndHashCode
-    public class Configuration implements IAssistanceConfiguration {
+    @EqualsAndHashCode(callSuper = true)
+    public class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
         private Configuration(Map<String, String> configProperties) {
             // TODO: process config properties

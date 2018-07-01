@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @Slf4j
@@ -63,11 +65,20 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 config.getMicrophoneId());
         Path recordedAudio = this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
 
-        final SpeechToTextSubmittable.ActionArgs speechToTextArgs = SpeechToTextSubmittable.ActionArgs.of(recordedAudio);
+        final SpeechToTextSubmittable.ActionArgs speechToTextArgs = SpeechToTextSubmittable.ActionArgs.of(
+                recordedAudio,
+                config.getSpokenLanguage());
         ITranscript transcript = this.speechToText.submitExecution(actionService, speechToTextArgs);
 
+        // TODO: String literals
+        String uploadMessage = "Upload minutes taken by Smart-Lab";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        String fileName = LocalDateTime.now().format(formatter) + ".txt";
         final DataUploadSubmittable.ActionArgs dataUploadArgs = DataUploadSubmittable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
+                config.getUploadDir(),
+                fileName,
+                uploadMessage,
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
 

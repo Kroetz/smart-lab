@@ -54,6 +54,6 @@ public class MicrophoneDeactivationSubmittable extends AbstractActionSubmittable
         private RoomId roomId;
 
         @NonNull
-        private DeviceId deviceId;
+        private DeviceId microphoneId;
     }
 }

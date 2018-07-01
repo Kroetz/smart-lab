@@ -38,7 +38,9 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
         SpeechToTextSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 SpeechToTextSubmittable.ActionArgs.class,
                 genericActionArgs);
-        ITranscript transcript = this.speechToTextService.speechToText(actionArgs.getAudioFile());
+        ITranscript transcript = this.speechToTextService.speechToText(
+                actionArgs.getAudioFile(),
+                actionArgs.getSpokenLanguage());
         return TranscriptActionResult.of(transcript);
     }
 }

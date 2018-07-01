@@ -64,7 +64,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         MicrophoneDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 MicrophoneDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
+        IDevice device = this.deviceManagementService.findOne(actionArgs.getMicrophoneId());
         String deviceType = device.getType();
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver
                 .resolve(deviceType)

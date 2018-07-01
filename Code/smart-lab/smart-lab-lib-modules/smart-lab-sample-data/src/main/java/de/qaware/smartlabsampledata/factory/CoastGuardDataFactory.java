@@ -21,6 +21,7 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.miscellaneous.Language;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -102,6 +103,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         Set<IAssistanceConfiguration> whaleConfigs = new HashSet<>();
         whaleConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
@@ -123,6 +126,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         Set<IAssistanceConfiguration> whirlpoolConfigs = new HashSet<>();
         whirlpoolConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
