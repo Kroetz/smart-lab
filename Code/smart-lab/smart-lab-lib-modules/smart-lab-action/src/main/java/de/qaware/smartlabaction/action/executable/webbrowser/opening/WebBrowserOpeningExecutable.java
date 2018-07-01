@@ -9,7 +9,7 @@ import de.qaware.smartlabapi.service.device.IDeviceManagementService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.device.webbrowser.IWebBrowserAdapter;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;

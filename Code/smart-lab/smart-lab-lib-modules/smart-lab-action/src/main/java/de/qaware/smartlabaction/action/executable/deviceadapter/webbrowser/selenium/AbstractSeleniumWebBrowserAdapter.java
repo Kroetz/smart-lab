@@ -1,8 +1,8 @@
-package de.qaware.smartlabcore.data.device.webbrowser.selenium;
+package de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.selenium;
 
-import de.qaware.smartlabcore.data.device.webbrowser.AbstractWebBrowserAdapter;
-import de.qaware.smartlabcore.data.device.webbrowser.IHotkeys;
-import de.qaware.smartlabcore.data.device.webbrowser.IWebBrowserTab;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.AbstractWebBrowserAdapter;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IHotkeys;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserTab;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.device.webbrowser;
+package de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser;
 
 import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;

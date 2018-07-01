@@ -1,6 +1,6 @@
-package de.qaware.smartlabcore.data.device.webbrowser.selenium;
+package de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.selenium;
 
-import de.qaware.smartlabcore.data.device.webbrowser.IHotkeys;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IHotkeys;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Keys;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.device.webbrowser;
+package de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser;
 
 import java.net.URL;
 

@@ -1,6 +1,6 @@
-package de.qaware.smartlabcore.data.device.webbrowser.selenium;
+package de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.selenium;
 
-import de.qaware.smartlabcore.data.device.webbrowser.IWebBrowserTab;
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserTab;
 import lombok.Getter;
 import lombok.ToString;
 
