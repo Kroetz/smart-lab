@@ -1,5 +1,6 @@
 package de.qaware.smartlabaction.action.executable;
 
+import de.qaware.smartlabaction.action.executable.generic.IActionExecutable;
 import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

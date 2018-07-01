@@ -15,5 +15,5 @@ import org.springframework.context.annotation.Configuration;
         de.qaware.smartlabaction.action.executable.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
-@EnableFeignClients(basePackageClasses = de.qaware.smartlabaction.action.executable.external.ComponentScanMarker.class)
+@EnableFeignClients(basePackageClasses = de.qaware.smartlabaction.action.externalapi.ComponentScanMarker.class)
 public class ActionServiceConfiguration { }

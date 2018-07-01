@@ -1,6 +1,10 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabaction.action.submittable.*;
+import de.qaware.smartlabaction.action.submittable.dataupload.DataUploadSubmittable;
+import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
+import de.qaware.smartlabaction.action.submittable.microphoneactivation.MicrophoneActivationSubmittable;
+import de.qaware.smartlabaction.action.submittable.microphonedeactivation.MicrophoneDeactivationSubmittable;
+import de.qaware.smartlabaction.action.submittable.speechtotext.SpeechToTextSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
