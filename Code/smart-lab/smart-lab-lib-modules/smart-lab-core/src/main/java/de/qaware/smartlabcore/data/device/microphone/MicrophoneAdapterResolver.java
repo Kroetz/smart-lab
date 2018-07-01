@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 public class MicrophoneAdapterResolver extends AbstractResolver<String, IMicrophoneAdapter> {
 
     public MicrophoneAdapterResolver(List<IMicrophoneAdapter> microphoneAdapters) {
-        super(MicrophoneAdapterResolver.getMicrophoneAdaptersById(microphoneAdapters));
+        super(MicrophoneAdapterResolver.getMicrophoneAdaptersByType(microphoneAdapters));
     }
 
-    private static Map<String, IMicrophoneAdapter> getMicrophoneAdaptersById(List<IMicrophoneAdapter> microphoneAdapters) {
+    private static Map<String, IMicrophoneAdapter> getMicrophoneAdaptersByType(List<IMicrophoneAdapter> microphoneAdapters) {
         return microphoneAdapters.stream().collect(Collectors.toMap(IMicrophoneAdapter::getDeviceType, Function.identity()));
     }
 }

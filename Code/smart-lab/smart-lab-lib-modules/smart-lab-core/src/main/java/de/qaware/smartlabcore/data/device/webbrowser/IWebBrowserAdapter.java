@@ -1,12 +1,14 @@
 package de.qaware.smartlabcore.data.device.webbrowser;
 
-import java.net.URL;
-import java.util.Set;
+import de.qaware.smartlabcore.data.device.IDeviceAdapter;
 
-public interface IWebBrowser {
+import java.net.URL;
+import java.util.List;
+
+public interface IWebBrowserAdapter extends IDeviceAdapter {
 
     IWebBrowserTab newTab(URL url);
-    Set<IWebBrowserTab> newTabs(Set<URL> urls);
+    List<IWebBrowserTab> newTabs(List<URL> urls);
     void closeIfUnchanged(IWebBrowserTab tab);
     void closeUnchangedAutoOpenedTabs();
     void closeTab(IWebBrowserTab tab);

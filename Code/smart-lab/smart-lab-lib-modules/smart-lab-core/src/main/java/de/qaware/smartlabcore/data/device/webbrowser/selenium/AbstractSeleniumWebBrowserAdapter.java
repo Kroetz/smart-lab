@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.data.device.webbrowser.selenium;
 
-import de.qaware.smartlabcore.data.device.webbrowser.AbstractWebBrowser;
+import de.qaware.smartlabcore.data.device.webbrowser.AbstractWebBrowserAdapter;
 import de.qaware.smartlabcore.data.device.webbrowser.IHotkeys;
 import de.qaware.smartlabcore.data.device.webbrowser.IWebBrowserTab;
 import lombok.extern.slf4j.Slf4j;
@@ -10,18 +10,21 @@ import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class AbstractSeleniumWebBrowser extends AbstractWebBrowser {
+public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrowserAdapter {
 
     protected final WebDriver webDriver;
     protected final IHotkeys newTabHotkeys;
 
-    protected AbstractSeleniumWebBrowser(
+    protected AbstractSeleniumWebBrowserAdapter(
+            String webBrowserType,
+            boolean hasLocalApi,
             WebDriver webDriver,
             IHotkeys newTabHotkeys) {
+        super(webBrowserType, hasLocalApi);
         this.webDriver = webDriver;
         this.newTabHotkeys = newTabHotkeys;
     }
@@ -43,11 +46,11 @@ public abstract class AbstractSeleniumWebBrowser extends AbstractWebBrowser {
     }
 
     @Override
-    public Set<IWebBrowserTab> newTabs(Set<URL> urls) {
+    public List<IWebBrowserTab> newTabs(List<URL> urls) {
         log.info("Creating new tabs for URLs {}", urls);
         return urls.stream()
                 .map(this::newTab)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override

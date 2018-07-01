@@ -5,14 +5,13 @@ import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmitt
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 @Slf4j
@@ -33,6 +32,6 @@ public class WebBrowserClosingSubmittable extends AbstractActionSubmittable<WebB
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private UUID webBrowserId;
+        private DeviceId webBrowserId;
     }
 }
