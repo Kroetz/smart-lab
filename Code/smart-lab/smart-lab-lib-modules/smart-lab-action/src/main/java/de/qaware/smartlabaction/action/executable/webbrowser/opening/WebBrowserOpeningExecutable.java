@@ -15,6 +15,8 @@ import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @Slf4j
 public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
@@ -42,7 +44,8 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 .resolve(webBrowserType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        webBrowserAdapter.newTabs(actionArgs.getUrlsToOpen());
+        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
+        webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
         return VoidActionResult.instance();
     }
 
@@ -62,7 +65,8 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 webBrowserType,
                 actionArgs);
-        webBrowserAdapter.newTabs(actionArgs.getUrlsToOpen());
+        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
+        webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
         return VoidActionResult.instance();
     }
 }

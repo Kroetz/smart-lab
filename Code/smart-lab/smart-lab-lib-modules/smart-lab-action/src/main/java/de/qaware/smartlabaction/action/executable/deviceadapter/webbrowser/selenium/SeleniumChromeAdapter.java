@@ -24,7 +24,7 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
     };
 
     private SeleniumChromeAdapter() {
-        super(DEVICE_TYPE, HAS_LOCAL_API, new ChromeDriver(), newTabHotkeys);
+        super(DEVICE_TYPE, HAS_LOCAL_API, () -> new ChromeDriver(), newTabHotkeys);
     }
 
     public static SeleniumChromeAdapter newInstance() {

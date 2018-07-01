@@ -24,7 +24,7 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
     };
 
     private SeleniumFirefoxAdapter() {
-        super(DEVICE_TYPE, HAS_LOCAL_API, new FirefoxDriver(), newTabHotkeys);
+        super(DEVICE_TYPE, HAS_LOCAL_API, () -> new FirefoxDriver(), newTabHotkeys);
     }
 
     public static SeleniumFirefoxAdapter newInstance() {
