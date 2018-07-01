@@ -1,6 +1,6 @@
-package de.qaware.smartlabaction.action.submittable.website.closing;
+package de.qaware.smartlabaction.action.submittable.webbrowser.opening;
 
-import de.qaware.smartlabaction.action.info.website.closing.WebsiteClosingInfo;
+import de.qaware.smartlabaction.action.info.webbrowser.opening.WebBrowserOpeningInfo;
 import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
@@ -16,10 +16,10 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class WebsiteClosingSubmittable extends AbstractActionSubmittable<WebsiteClosingSubmittable.ActionArgs, Void> {
+public class WebBrowserOpeningSubmittable extends AbstractActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> {
 
-    public WebsiteClosingSubmittable(WebsiteClosingInfo websiteClosingInfo) {
-        super(websiteClosingInfo);
+    public WebBrowserOpeningSubmittable(WebBrowserOpeningInfo webBrowserOpeningInfo) {
+        super(webBrowserOpeningInfo);
     }
 
     public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
