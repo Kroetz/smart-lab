@@ -110,8 +110,8 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
                 .agenda(fireFightersMeetingAgenda)
                 .assistanceConfigurations(configs)
-                .start(timeBase.plusSeconds(240))
-                .end(timeBase.plusSeconds(540)).build());
+                .start(timeBase.plusSeconds(120))
+                .end(timeBase.plusSeconds(420)).build());
         return meetings;
     }
 

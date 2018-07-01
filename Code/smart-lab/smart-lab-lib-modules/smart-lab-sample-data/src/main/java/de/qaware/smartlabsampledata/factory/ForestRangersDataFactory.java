@@ -101,8 +101,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
                 .agenda(forestRangersMeetingAgenda)
                 .assistanceConfigurations(configs)
-                .start(timeBase.plusSeconds(180))
-                .end(timeBase.plusSeconds(480)).build());
+                .start(timeBase.plusSeconds(60))
+                .end(timeBase.plusSeconds(360)).build());
         return meetings;
     }
 
