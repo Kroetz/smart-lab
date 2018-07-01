@@ -1,6 +1,6 @@
-package de.qaware.smartlabaction.action.submittable.microphoneactivation;
+package de.qaware.smartlabaction.action.submittable.microphone.activation;
 
-import de.qaware.smartlabaction.action.info.microphoneactivation.MicrophoneActivationInfo;
+import de.qaware.smartlabaction.action.info.microphone.activation.MicrophoneActivationInfo;
 import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.info.microphoneactivation;
+package de.qaware.smartlabaction.action.info.microphone.activation;
 
 import de.qaware.smartlabaction.action.info.generic.AbstractActionInfo;
 import lombok.extern.slf4j.Slf4j;
