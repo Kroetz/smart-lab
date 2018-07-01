@@ -1,10 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Meeting status not available</title>
+    <title>Meeting status</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="refresh" content="5">
 </head>
 <body>
-<p th:text="'The status of the requested meeting is not available'" />
+
+<h1>Meeting Status</h1>
+
+<p th:text="'This is the meeting status page of room: ' + ${roomId}" />
+<p th:text="'There is currently no meeting in progress'" />
+
 </body>
 </html>

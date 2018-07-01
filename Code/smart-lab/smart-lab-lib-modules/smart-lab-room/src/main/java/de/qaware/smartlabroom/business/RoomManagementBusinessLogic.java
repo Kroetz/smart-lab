@@ -67,10 +67,10 @@ public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBu
     @Override
     public String getCurrentMeetingStatusPage(RoomId roomId, Model model) {
         URL triggerBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
+        // TODO: String literals
+        model.addAttribute("roomId", roomId.getIdValue());
         String statusPage = getCurrentMeeting(roomId)
                 .map(meeting -> {
-                    // TODO: String literals
-                    model.addAttribute("roomId", roomId.getIdValue());
                     model.addAttribute("meetingTopic", meeting.getTitle());
                     model.addAttribute("minutesLeft", Duration.between(Instant.now(), meeting.getEnd()).toMinutes());
                     model.addAttribute("secondsLeft", Duration.between(Instant.now(), meeting.getEnd()).toMillis() / 1000);
