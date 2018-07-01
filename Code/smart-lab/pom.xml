@@ -25,6 +25,8 @@
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
 		<antlr4.version>4.7.1</antlr4.version>
 		<guava.version>25.1-jre</guava.version>
+		<jcabi-github.version>0.39</jcabi-github.version>
+		<speech-to-text.version>5.5.0</speech-to-text.version>
 		<selenium-java.version>3.13.0</selenium-java.version>
 	</properties>
 
@@ -204,6 +206,21 @@
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
 			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-github -->
+			<dependency>
+                <groupId>com.jcabi</groupId>
+                <artifactId>jcabi-github</artifactId>
+                <version>${jcabi-github.version}</version>
+                <classifier>jar-with-dependencies</classifier>
+            </dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.ibm.watson.developer_cloud/speech-to-text -->
+			<dependency>
+                <groupId>com.ibm.watson.developer_cloud</groupId>
+                <artifactId>speech-to-text</artifactId>
+                <version>${speech-to-text.version}</version>
+            </dependency>
 
 			<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 			<dependency>

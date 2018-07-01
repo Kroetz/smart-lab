@@ -10,11 +10,6 @@
     <name>smart-lab-action</name>
     <description>Module of the Smart-Lab project that executes the actions assistances are composed of</description>
 
-    <properties>
-        <jcabi-github.version>0.39</jcabi-github.version>
-        <speech-to-text.version>5.5.0</speech-to-text.version>
-    </properties>
-
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
         <groupId>de.qaware</groupId>
@@ -37,14 +32,12 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-github</artifactId>
-            <version>${jcabi-github.version}</version>
             <classifier>jar-with-dependencies</classifier>
         </dependency>
 
         <dependency>
             <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>speech-to-text</artifactId>
-            <version>${speech-to-text.version}</version>
         </dependency>
 
         <dependency>
