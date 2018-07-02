@@ -101,6 +101,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
         for(IWebBrowserTab tab : autoOpenedTabs) {
             closeIfUnchanged(webDriverId, tab);
         }
+        this.webDriversById.remove(webDriverId);
     }
 
     @Override
@@ -121,5 +122,6 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
         log.info("Closing all web browser tabs");
         WebDriver webDriver = resolveWebDriver(webDriverId);
         webDriver.quit();
+        this.webDriversById.remove(webDriverId);
     }
 }
