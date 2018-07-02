@@ -154,6 +154,12 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-gui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
 				<artifactId>smart-lab-monolith</artifactId>
 				<version>${project.version}</version>
 			</dependency>

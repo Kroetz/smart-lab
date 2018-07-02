@@ -5,28 +5,23 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-gui</artifactId>
+    <artifactId>smart-lab-gui-microservice</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-gui</name>
-    <description>Module of the Smart-Lab project that contains websites and other graphical interfaces</description>
+    <name>smart-lab-gui-microservice</name>
+    <description>Module of the Smart-Lab project that runs the GUI microservice</description>
 
     <parent>
-        <artifactId>smart-lab-spring-dependencies</artifactId>
+        <artifactId>smart-lab-microservice-dependencies</artifactId>
         <groupId>de.qaware</groupId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../../smart-lab-bom-modules/smart-lab-spring-dependencies/pom.xml</relativePath>
+        <relativePath>../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
     </parent>
 
     <dependencies>
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-api</artifactId>
+            <artifactId>smart-lab-gui</artifactId>
         </dependency>
 
     </dependencies>
