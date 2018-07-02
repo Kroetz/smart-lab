@@ -31,6 +31,7 @@
         <module>smart-lab-action</module>
         <module>smart-lab-assistance</module>
         <module>smart-lab-trigger</module>
+        <module>smart-lab-gui</module>
         <module>smart-lab-monolith</module>
     </modules>
 
