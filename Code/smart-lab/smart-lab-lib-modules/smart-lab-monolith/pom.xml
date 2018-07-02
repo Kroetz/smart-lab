@@ -69,6 +69,11 @@
             <artifactId>smart-lab-job</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-gui</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

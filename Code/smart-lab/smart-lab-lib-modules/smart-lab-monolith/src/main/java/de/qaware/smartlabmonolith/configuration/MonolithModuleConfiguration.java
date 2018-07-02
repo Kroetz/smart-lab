@@ -5,6 +5,7 @@ import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabdevice.annotation.EnableSmartLabDeviceService;
+import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabmeeting.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabperson.annotation.EnableSmartLabPersonService;
@@ -40,6 +41,7 @@ import java.util.Map;
 @EnableSmartLabTriggerService
 @EnableSmartLabAssistanceService
 @EnableSmartLabActionService
+@EnableSmartLabGui
 @EnableConfigurationProperties(MonolithModuleConfiguration.MonolithProperties.class)
 public class MonolithModuleConfiguration {
 
