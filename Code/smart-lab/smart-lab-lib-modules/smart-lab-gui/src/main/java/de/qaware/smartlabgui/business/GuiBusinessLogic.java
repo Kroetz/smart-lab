@@ -61,4 +61,23 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         // TODO: Incorporate meeting details in page.
         return "meeting-status";
     }
+
+    @Override
+    public String getCurrentMeetingAgendaPage(RoomId roomId, Model model) {
+        URL triggerBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
+        // TODO: String literals
+        IMeeting currentMeeting;
+        try {
+            currentMeeting = this.roomManagementService.getCurrentMeeting(roomId);
+
+        }
+        catch(EntityNotFoundException e) {
+            model.addAttribute("roomId", roomId.getIdValue());
+            return "meeting-agenda-not-available";
+        }
+        model.addAttribute("meetingId", currentMeeting.getId().getIdValue());
+        model.addAttribute("meetingTopic", currentMeeting.getTitle());
+        model.addAttribute("agendaItems", currentMeeting.getAgenda());
+        return "meeting-agenda";
+    }
 }

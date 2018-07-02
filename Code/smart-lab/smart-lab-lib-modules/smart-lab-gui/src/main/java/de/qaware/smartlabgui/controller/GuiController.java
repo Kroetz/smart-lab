@@ -26,4 +26,9 @@ public class GuiController extends AbstractSmartLabController {
     public String getCurrentMeetingStatusPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
         return this.guiBusinessLogic.getCurrentMeetingStatusPage(RoomId.of(roomId), model);
     }
+
+    @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_MEETING_AGENDA_PAGE)
+    public String getCurrentMeetingAgendaPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
+        return this.guiBusinessLogic.getCurrentMeetingAgendaPage(RoomId.of(roomId), model);
+    }
 }

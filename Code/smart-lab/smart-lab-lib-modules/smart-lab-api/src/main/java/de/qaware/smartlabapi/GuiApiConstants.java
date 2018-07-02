@@ -9,4 +9,5 @@ public class GuiApiConstants {
     private static final String PATH_FRAGMENT_ROOM = "/room";
 
     public static final String MAPPING_GET_CURRENT_MEETING_STATUS_PAGE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting-status-page";
+    public static final String MAPPING_GET_CURRENT_MEETING_AGENDA_PAGE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting-agenda-page";
 }
