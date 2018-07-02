@@ -14,7 +14,7 @@
         <artifactId>smart-lab-microservice-dependencies</artifactId>
         <groupId>de.qaware</groupId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
+        <relativePath>../../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
     </parent>
 
     <dependencies>
