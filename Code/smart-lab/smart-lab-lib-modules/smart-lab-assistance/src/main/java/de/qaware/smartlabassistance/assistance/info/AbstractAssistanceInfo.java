@@ -2,6 +2,7 @@ package de.qaware.smartlabassistance.assistance.info;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Iterator;
@@ -35,6 +36,7 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
     }
 
     // TODO: Possible to force inner class for configuration?
+    @EqualsAndHashCode
     protected abstract static class AbstractConfiguration implements IAssistanceConfiguration {
 
         protected String toConfigLangString(Map<String, String> configProperties) {
