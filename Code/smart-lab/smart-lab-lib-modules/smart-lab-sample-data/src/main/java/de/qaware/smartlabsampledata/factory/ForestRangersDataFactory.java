@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
@@ -35,13 +36,18 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_CAROLINE = PersonId.of("forest-ranger-caroline");
     public static final RoomId ROOM_ID_GREEN = RoomId.of("green");
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY = DeviceId.of("green-display");
+    public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
     public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "green-delegate";
 
+    private final IAssistanceInfo displayWebsiteInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
-    public ForestRangersDataFactory(IAssistanceInfo roomUnlockingInfo) {
+    public ForestRangersDataFactory(
+            IAssistanceInfo displayWebsiteInfo,
+            IAssistanceInfo roomUnlockingInfo) {
         super();
+        this.displayWebsiteInfo = displayWebsiteInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -92,6 +98,11 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().content("Laugh together").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
+        configs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
+                .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
@@ -126,6 +137,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .id(DEVICE_ID_GREEN_DISPLAY)
                 .type(DummyDisplay.DEVICE_TYPE)
                 .name("Display in Room Green")
+                .responsibleDelegate(DELEGATE_ID_GREEN)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_GREEN_WEB_BROWSER)
+                .type("chrome")
+                .name("Web browser in Room Green")
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         return devices;

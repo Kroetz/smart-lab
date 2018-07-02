@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
@@ -39,18 +40,22 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final RoomId ROOM_ID_BLUE = RoomId.of("blue");
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY = DeviceId.of("blue-display");
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
+    public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
     public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", ROOM_ID_BLUE);
     public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", ROOM_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "blue-delegate";
 
     private final IAssistanceInfo minuteTakingInfo;
+    private final IAssistanceInfo displayWebsiteInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public CoastGuardDataFactory(
             IAssistanceInfo minuteTakingInfo,
+            IAssistanceInfo displayWebsiteInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
+        this.displayWebsiteInfo = displayWebsiteInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -107,6 +112,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
+        whaleConfigs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
@@ -129,6 +139,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
+                .build()));
+        whirlpoolConfigs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
+                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -172,6 +187,12 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .id(DEVICE_ID_BLUE_MICROPHONE)
                 .type(ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE)
                 .name("Microphone in Room Blue")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_BLUE_WEB_BROWSER)
+                .type("firefox")
+                .name("Web browser in Room Blue")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         return devices;
