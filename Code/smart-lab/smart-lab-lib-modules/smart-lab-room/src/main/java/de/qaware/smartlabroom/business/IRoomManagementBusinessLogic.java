@@ -16,5 +16,4 @@ public interface IRoomManagementBusinessLogic extends IBasicEntityManagementBusi
     Optional<Set<IMeeting>> getMeetingsInRoom(RoomId roomId);
     Optional<IMeeting> getCurrentMeeting(RoomId roomId);
     ExtensionResult extendCurrentMeeting(RoomId roomId, Duration extension);
-    String getCurrentMeetingStatusPage(RoomId roomId, Model model);
 }

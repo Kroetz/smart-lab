@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -84,10 +83,5 @@ public class RoomManagementController extends AbstractSmartLabController impleme
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
         return this.roomManagementBusinessLogic.extendCurrentMeeting(RoomId.of(roomId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
-    }
-
-    @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    public String getCurrentMeetingStatusPage(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
-        return this.roomManagementBusinessLogic.getCurrentMeetingStatusPage(RoomId.of(roomId), model);
     }
 }

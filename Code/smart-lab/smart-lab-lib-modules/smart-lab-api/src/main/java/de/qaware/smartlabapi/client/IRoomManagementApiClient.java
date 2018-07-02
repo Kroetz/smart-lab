@@ -7,7 +7,6 @@ import de.qaware.smartlabcore.data.room.IRoom;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -51,7 +50,4 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
     ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
-
-    @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    String getCurrentMeetingStatusPage(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model);
 }
