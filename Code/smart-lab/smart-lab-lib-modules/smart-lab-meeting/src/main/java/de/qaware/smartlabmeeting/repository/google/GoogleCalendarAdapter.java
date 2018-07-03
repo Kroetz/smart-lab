@@ -14,6 +14,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.DeletionResult;
@@ -208,7 +209,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     public IMeeting create(IMeeting meeting) {
         try {
             // TODO: Meaningful exception message
-            if(isCollidingWithOtherMeetings(meeting)) throw new EntityCreationException();
+            if(isCollidingWithOtherMeetings(meeting)) throw new EntityConflictException();
             String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
             Event createdEvent = this.service.events().insert(calendarId, meetingToEvent(meeting)).execute();
             log.info("Created meeting \"{}\"", meeting);
