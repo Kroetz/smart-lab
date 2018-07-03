@@ -26,6 +26,7 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
 
     @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    @ResponseBody
     ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds);
 
     @Override
@@ -44,6 +45,7 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
     ResponseEntity<Void> delete(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
+    @ResponseBody
     ResponseEntity<Set<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_CURRENT_MEETING)

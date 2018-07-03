@@ -28,18 +28,21 @@ public class PersonManagementController extends AbstractSmartLabController imple
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ALL)
+    @ResponseBody
     public Set<IPerson> findAll() {
         return this.personManagementBusinessLogic.findAll();
     }
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ONE)
+    @ResponseBody
     public ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return responseFromOptional(this.personManagementBusinessLogic.findOne(PersonId.of(personId)));
     }
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    @ResponseBody
     public ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds) {
         return responseFromOptionals(this.personManagementBusinessLogic.findMultiple(
                 Arrays.stream(personIds)
@@ -49,18 +52,21 @@ public class PersonManagementController extends AbstractSmartLabController imple
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<IPerson> create(@RequestBody IPerson person) {
         return ResponseEntity.ok(this.personManagementBusinessLogic.create(person));
     }
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<Set<IPerson>> create(@RequestBody Set<IPerson> persons) {
         return ResponseEntity.ok(this.personManagementBusinessLogic.create(persons));
     }
 
     @Override
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
+    @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return this.personManagementBusinessLogic.delete(PersonId.of(personId)).toResponseEntity();
     }

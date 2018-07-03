@@ -45,6 +45,7 @@ public class RoomManagementController extends AbstractSmartLabController impleme
 
     @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    @ResponseBody
     public ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
         return responseFromOptionals(this.roomManagementBusinessLogic.findMultiple(
                 Arrays.stream(roomIds)
@@ -74,6 +75,7 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     }
 
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_MEETINGS_IN_ROOM)
+    @ResponseBody
     public ResponseEntity<Set<IMeeting>> getMeetingsInRoom(@PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return responseFromOptional(this.roomManagementBusinessLogic.getMeetingsInRoom(RoomId.of(roomId)));
     }

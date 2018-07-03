@@ -15,25 +15,31 @@ public interface IPersonManagementApiClient extends IBasicEntityManagementApiCli
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ALL)
+    @ResponseBody
     Set<IPerson> findAll();
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ONE)
+    @ResponseBody
     ResponseEntity<IPerson> findOne(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    @ResponseBody
     ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds);
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     ResponseEntity<IPerson> create(@RequestBody IPerson person);
 
     @Override
     @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     ResponseEntity<Set<IPerson>> create(@RequestBody Set<IPerson> persons);
 
     @Override
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
+    @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 }

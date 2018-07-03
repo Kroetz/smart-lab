@@ -15,29 +15,35 @@ public interface IDeviceManagementApiClient extends IBasicEntityManagementApiCli
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ALL)
+    @ResponseBody
     Set<IDevice> findAll();
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_ONE)
+    @ResponseBody
     ResponseEntity<IDevice> findOne(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
     @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_FIND_MULTIPLE)
+    @ResponseBody
     ResponseEntity<Set<IDevice>> findMultiple(@RequestParam(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_IDS) String[] deviceIds);
 
     @Override
     @PostMapping(
             value = DeviceManagementApiConstants.MAPPING_CREATE_SINGLE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     ResponseEntity<IDevice> create(@RequestBody IDevice device);
 
     @Override
     @PostMapping(
             value = DeviceManagementApiConstants.MAPPING_CREATE_MULTIPLE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     ResponseEntity<Set<IDevice>> create(@RequestBody Set<IDevice> devices);
 
     @Override
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE)
+    @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 }
