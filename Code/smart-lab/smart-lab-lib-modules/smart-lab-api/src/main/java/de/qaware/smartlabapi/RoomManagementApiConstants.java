@@ -16,7 +16,8 @@ public class RoomManagementApiConstants {
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_ROOMS + "/all";
     public static final String MAPPING_FIND_ONE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}";
     public static final String MAPPING_FIND_MULTIPLE = PATH_FRAGMENT_ROOMS + "";
-    public static final String MAPPING_CREATE = PATH_FRAGMENT_ROOM + "";
+    public static final String MAPPING_CREATE_SINGLE = PATH_FRAGMENT_ROOM + "";
+    public static final String MAPPING_CREATE_MULTIPLE = PATH_FRAGMENT_ROOMS + "";
     public static final String MAPPING_DELETE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}";
     public static final String MAPPING_GET_MEETINGS_IN_ROOM = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/meetings";
     public static final String MAPPING_GET_CURRENT_MEETING = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting";

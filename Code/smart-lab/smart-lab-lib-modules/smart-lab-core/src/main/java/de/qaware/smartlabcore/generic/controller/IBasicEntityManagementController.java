@@ -12,5 +12,6 @@ public interface IBasicEntityManagementController<EntityT extends IEntity> {
     ResponseEntity<EntityT> findOne(String entityId);
     ResponseEntity<Set<EntityT>> findMultiple(String[] entityIds);
     ResponseEntity<EntityT> create(EntityT entity);
+    ResponseEntity<Set<EntityT>> create(Set<EntityT> entities);
     ResponseEntity<Void> delete(String entityId);
 }

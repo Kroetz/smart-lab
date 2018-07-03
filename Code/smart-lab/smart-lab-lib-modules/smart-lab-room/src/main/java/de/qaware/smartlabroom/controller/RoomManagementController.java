@@ -53,10 +53,17 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     }
 
     @Override
-    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_SINGLE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<IRoom> create(@RequestBody IRoom room) {
         return ResponseEntity.ok(this.roomManagementBusinessLogic.create(room));
+    }
+
+    @Override
+    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_MULTIPLE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Set<IRoom>> create(@RequestBody Set<IRoom> rooms) {
+        return ResponseEntity.ok(this.roomManagementBusinessLogic.create(rooms));
     }
 
     @Override

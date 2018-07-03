@@ -48,9 +48,15 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     }
 
     @Override
-    @PostMapping(value = DeviceManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = DeviceManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IDevice> create(@RequestBody IDevice device) {
         return ResponseEntity.ok(this.deviceManagementBusinessLogic.create(device));
+    }
+
+    @Override
+    @PostMapping(value = DeviceManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<IDevice>> create(@RequestBody Set<IDevice> devices) {
+        return ResponseEntity.ok(this.deviceManagementBusinessLogic.create(devices));
     }
 
     @Override

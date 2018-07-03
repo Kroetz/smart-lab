@@ -27,9 +27,15 @@ public interface IDeviceManagementApiClient extends IBasicEntityManagementApiCli
 
     @Override
     @PostMapping(
-            value = DeviceManagementApiConstants.MAPPING_CREATE,
+            value = DeviceManagementApiConstants.MAPPING_CREATE_SINGLE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IDevice> create(@RequestBody IDevice device);
+
+    @Override
+    @PostMapping(
+            value = DeviceManagementApiConstants.MAPPING_CREATE_MULTIPLE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Set<IDevice>> create(@RequestBody Set<IDevice> devices);
 
     @Override
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE)

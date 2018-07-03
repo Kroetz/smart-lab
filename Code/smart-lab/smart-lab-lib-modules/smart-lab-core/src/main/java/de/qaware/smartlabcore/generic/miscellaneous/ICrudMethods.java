@@ -14,5 +14,6 @@ public interface ICrudMethods<EntityT extends IEntity<IdentifierT>, IdentifierT 
     Optional<EntityT> findOne(IdentifierT entityId);
     Map<IdentifierT, Optional<EntityT>> findMultiple(Set<IdentifierT> entityIds);
     EntityT create(EntityT entity);
+    Set<EntityT> create(Set<EntityT> entities);
     DeletionResult delete(IdentifierT entityId);
 }

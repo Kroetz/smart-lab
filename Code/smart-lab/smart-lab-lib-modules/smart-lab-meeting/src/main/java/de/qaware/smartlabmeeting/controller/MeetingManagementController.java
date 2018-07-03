@@ -58,9 +58,15 @@ public class MeetingManagementController extends AbstractSmartLabController impl
     }
 
     @Override
-    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting) {
         return ResponseEntity.ok(this.meetingManagementBusinessLogic.create(meeting));
+    }
+
+    @Override
+    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<IMeeting>> create(Set<IMeeting> meetings) {
+        return ResponseEntity.ok(this.meetingManagementBusinessLogic.create(meetings));
     }
 
     @Override

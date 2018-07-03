@@ -14,6 +14,7 @@ public class PersonManagementApiConstants {
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_PERSONS + "/all";
     public static final String MAPPING_FIND_ONE = PATH_FRAGMENT_PERSON + "/{" + PARAMETER_NAME_PERSON_ID + "}";
     public static final String MAPPING_FIND_MULTIPLE = PATH_FRAGMENT_PERSONS + "";
-    public static final String MAPPING_CREATE = PATH_FRAGMENT_PERSON + "";
+    public static final String MAPPING_CREATE_SINGLE = PATH_FRAGMENT_PERSON + "";
+    public static final String MAPPING_CREATE_MULTIPLE = PATH_FRAGMENT_PERSONS + "";
     public static final String MAPPING_DELETE = PATH_FRAGMENT_PERSON + "/{" + PARAMETER_NAME_PERSON_ID + "}";
 }

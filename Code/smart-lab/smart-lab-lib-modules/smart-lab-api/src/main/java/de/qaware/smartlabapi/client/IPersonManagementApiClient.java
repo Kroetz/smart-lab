@@ -26,8 +26,12 @@ public interface IPersonManagementApiClient extends IBasicEntityManagementApiCli
     ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds);
 
     @Override
-    @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IPerson> create(@RequestBody IPerson person);
+
+    @Override
+    @PostMapping(value = PersonManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Set<IPerson>> create(@RequestBody Set<IPerson> persons);
 
     @Override
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)

@@ -57,6 +57,15 @@ public abstract class AbstractBasicEntityManagementMonolithicService<EntityT ext
     }
 
     @Override
+    public Set<EntityT> create(Set<EntityT> entities) {
+        ResponseEntity<Set<EntityT>> response = this.entityManagementController.create(entities);
+        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        // TODO: Meaningful exception messages
+        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        throw new UnknownErrorException();
+    }
+
+    @Override
     public void delete(IdentifierT entityId) {
         ResponseEntity<Void> response = this.entityManagementController.delete(entityId.getIdValue());
         if(response.getStatusCode() == HttpStatus.OK) return;

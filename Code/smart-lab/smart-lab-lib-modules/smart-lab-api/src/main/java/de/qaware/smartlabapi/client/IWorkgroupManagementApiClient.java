@@ -27,8 +27,12 @@ public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApi
     ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds);
 
     @Override
-    @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IWorkgroup> create(@RequestBody IWorkgroup workgroup);
+
+    @Override
+    @PostMapping(value = WorkgroupManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Set<IWorkgroup>> create(@RequestBody Set<IWorkgroup> workgroups);
 
     @Override
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)

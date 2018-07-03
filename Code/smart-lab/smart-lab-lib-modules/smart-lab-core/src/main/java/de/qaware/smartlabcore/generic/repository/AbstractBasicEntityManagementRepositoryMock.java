@@ -55,6 +55,15 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     }
 
     @Override
+    public synchronized Set<EntityT> create(Set<EntityT> entities) {
+        Set<EntityT> createdEntities = new HashSet<>();
+        for(EntityT entity : entities) {
+            createdEntities.add(create(entity));
+        }
+        return createdEntities;
+    }
+
+    @Override
     public synchronized DeletionResult delete(IdentifierT entityId) {
         List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))

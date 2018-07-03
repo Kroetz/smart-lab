@@ -245,7 +245,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         return !collidingMeetings.isEmpty();
     }
 
-    private Set<IMeeting> create(Set<IMeeting> meetings) {
+    @Override
+    public Set<IMeeting> create(Set<IMeeting> meetings) {
         Set<IMeeting> createdMeetings = new HashSet<>();
         for(IMeeting meeting : meetings) {
             createdMeetings.add(create(meeting));

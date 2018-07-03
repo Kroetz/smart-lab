@@ -29,9 +29,14 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
     ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds);
 
     @Override
-    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     ResponseEntity<IRoom> create(@RequestBody IRoom room);
+
+    @Override
+    @PostMapping(value = RoomManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    ResponseEntity<Set<IRoom>> create(@RequestBody Set<IRoom> rooms);
 
     @Override
     @DeleteMapping(RoomManagementApiConstants.MAPPING_DELETE)

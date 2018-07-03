@@ -28,8 +28,11 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
     ResponseEntity<Set<IMeeting>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
 
-    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting);
+
+    @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Set<IMeeting>> create(@RequestBody Set<IMeeting> meetings);
 
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     ResponseEntity<Void> delete(

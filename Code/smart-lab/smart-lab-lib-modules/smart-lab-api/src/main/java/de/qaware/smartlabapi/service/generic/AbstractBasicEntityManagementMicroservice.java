@@ -75,6 +75,20 @@ public abstract class AbstractBasicEntityManagementMicroservice<EntityT extends 
     }
 
     @Override
+    public Set<EntityT> create(Set<EntityT> entities) {
+        try {
+            return this.entityManagementApiClient.create(entities).getBody();
+        }
+        catch(FeignException e) {
+            if(e.status() == HttpStatus.CONFLICT.value()) {
+                // TODO: Incorporate information about the conflict
+                throw new EntityConflictException();
+            }
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
     public void delete(IdentifierT entityId) {
         try {
             this.entityManagementApiClient.delete(entityId.getIdValue());

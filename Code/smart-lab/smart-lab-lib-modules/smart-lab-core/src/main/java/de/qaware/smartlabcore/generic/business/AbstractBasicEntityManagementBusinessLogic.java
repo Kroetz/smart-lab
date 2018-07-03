@@ -38,6 +38,11 @@ public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends
     }
 
     @Override
+    public Set<EntityT> create(Set<EntityT> entities) {
+        return this.entityManagementRepository.create(entities);
+    }
+
+    @Override
     public DeletionResult delete(IdentifierT entityId) {
         return this.entityManagementRepository.delete(entityId);
     }
