@@ -32,6 +32,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,9 +56,9 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     private final Calendar service;
     private final BiMap<RoomId, String> calendarIdsByRoomId;
     private final IMeetingParser meetingParser;
+    private final ISampleDataProvider sampleDataProvider;
 
     public GoogleCalendarAdapter(
-            ISampleDataProvider sampleDataProvider,
             Path googleCalendarCredentialFile,
             // TODO: String literal
             @Qualifier("googleCalendarScopes") Collection<String> googleCalendarScopes,
@@ -65,7 +66,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
             @Qualifier("googleCalendarRoomMapping") BiMap<RoomId, String> googleCalendarRoomMapping,
-            IMeetingParser meetingParser) throws IOException {
+            IMeetingParser meetingParser,
+            ISampleDataProvider sampleDataProvider) throws IOException {
         GoogleCredential credentials = GoogleCredential.fromStream(
                 Files.newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
@@ -78,7 +80,17 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 .build();
         this.calendarIdsByRoomId = googleCalendarRoomMapping;
         this.meetingParser = meetingParser;
-        create(sampleDataProvider.getMeetings());
+        this.sampleDataProvider = sampleDataProvider;
+    }
+
+    @PostConstruct
+    private void populateWithSampleData() {
+        try {
+            create(this.sampleDataProvider.getMeetings());
+        }
+        catch(EntityCreationException e) {
+            log.error("Could not populate repository with sample data", e);
+        }
     }
 
     private String resolveCalendarId(RoomId roomId) throws IllegalArgumentException {
