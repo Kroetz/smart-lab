@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class EntityConflictException extends RuntimeException {
+public class EntityConflictException extends EntityCreationException {
 
     public EntityConflictException() {
     }
