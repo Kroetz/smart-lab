@@ -226,9 +226,12 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         }
     }
 
-    private boolean isCollidingWithOtherMeetings(IMeeting meeting) throws IllegalArgumentException {
-        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
-        Set<IMeeting> collidingMeetings = findAll(calendarId, meeting.getStart(), meeting.getEnd());
+    private boolean isCollidingWithOtherMeetings(IMeeting meetingToCheck) throws IllegalArgumentException {
+        String calendarId = resolveCalendarId(meetingToCheck.getId().getLocationIdPart());
+        Set<IMeeting> collidingMeetings = findAll(calendarId, meetingToCheck.getStart(), meetingToCheck.getEnd())
+                .stream()
+                .filter(meeting -> !meeting.getId().equals(meetingToCheck.getId()))
+                .collect(Collectors.toSet());
         return !collidingMeetings.isEmpty();
     }
 
@@ -271,8 +274,19 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
 
     @Override
     public ExtensionResult extendMeeting(IMeeting meeting, Duration extension) {
-        // TODO
-        throw new NotYetImplementedException();
+        meeting.setEnd(meeting.getEnd().plus(extension));
+        if(isCollidingWithOtherMeetings(meeting)) return ExtensionResult.CONFLICT;
+        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        try {
+            this.service.events().update(
+                    calendarId,
+                    meeting.getId().getNameIdPart(),
+                    meetingToEvent(meeting)).execute();
+        } catch (IOException e) {
+            log.error("I/O error while extending meeting \"{}\"", meeting, e);
+            return ExtensionResult.ERROR;
+        }
+        return ExtensionResult.SUCCESS;
     }
 
     @Override
