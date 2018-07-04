@@ -25,7 +25,6 @@ import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRep
 import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
@@ -301,8 +300,20 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
 
     @Override
     public ShiftResult shiftMeeting(IMeeting meeting, Duration shift) {
-        // TODO
-        throw new NotYetImplementedException();
+        meeting.setStart(meeting.getStart().plus(shift));
+        meeting.setEnd(meeting.getEnd().plus(shift));
+        if(isCollidingWithOtherMeetings(meeting)) return ShiftResult.CONFLICT;
+        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        try {
+            this.service.events().update(
+                    calendarId,
+                    meeting.getId().getNameIdPart(),
+                    meetingToEvent(meeting)).execute();
+        } catch (IOException e) {
+            log.error("I/O error while shifting meeting \"{}\"", meeting, e);
+            return ShiftResult.ERROR;
+        }
+        return ShiftResult.SUCCESS;
     }
 
     private List<CalendarListEntry> findAllCalendars() {
