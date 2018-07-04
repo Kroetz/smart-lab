@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
@@ -41,13 +42,16 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final String DELEGATE_ID_GREEN = "green-delegate";
 
     private final IAssistanceInfo displayWebsiteInfo;
+    private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public ForestRangersDataFactory(
             IAssistanceInfo displayWebsiteInfo,
+            IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
         this.displayWebsiteInfo = displayWebsiteInfo;
+        this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -102,6 +106,10 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
+                .build()));
+        configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

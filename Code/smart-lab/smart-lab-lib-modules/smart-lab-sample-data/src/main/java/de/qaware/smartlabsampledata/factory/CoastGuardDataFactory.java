@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
@@ -47,15 +48,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo displayWebsiteInfo;
+    private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public CoastGuardDataFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo displayWebsiteInfo,
+            IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.displayWebsiteInfo = displayWebsiteInfo;
+        this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -117,6 +121,10 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
+        whaleConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
@@ -144,6 +152,10 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
                 .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .build()));
+        whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

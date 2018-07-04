@@ -15,6 +15,8 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrowserAdapter {
 
@@ -36,7 +38,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     private WebDriver resolveWebDriver(UUID webDriverId) {
         WebDriver webDriver = this.webDriversById.get(webDriverId);
         // TODO: Exception message
-        if(Objects.isNull(webDriver)) throw new LocalDeviceException("The specified web driver instance does not exist");
+        if(isNull(webDriver)) throw new LocalDeviceException("The specified web driver instance does not exist");
         return webDriver;
     }
 

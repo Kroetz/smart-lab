@@ -10,7 +10,7 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.net.URL;
@@ -19,7 +19,7 @@ import java.time.Instant;
 
 import static java.lang.String.format;
 
-@Service
+@Component
 @Slf4j
 public class GuiBusinessLogic implements IGuiBusinessLogic {
 
@@ -69,7 +69,6 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         IMeeting currentMeeting;
         try {
             currentMeeting = this.roomManagementService.getCurrentMeeting(roomId);
-
         }
         catch(EntityNotFoundException e) {
             model.addAttribute("roomId", roomId.getIdValue());

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.net.URL;
 
-@FeignClient(name = TriggerApiConstants.FEIGN_CLIENT_NAME,path = TriggerApiConstants.MAPPING_BASE)
+@FeignClient(name = TriggerApiConstants.FEIGN_CLIENT_NAME, path = TriggerApiConstants.MAPPING_BASE)
 public interface ITriggerApiClient {
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)

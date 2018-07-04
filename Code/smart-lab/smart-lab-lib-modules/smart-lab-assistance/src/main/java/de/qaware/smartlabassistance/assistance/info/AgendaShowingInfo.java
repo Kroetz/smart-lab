@@ -1,19 +1,18 @@
 package de.qaware.smartlabassistance.assistance.info;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
-import static java.lang.String.*;
 
 @Component
 @Slf4j
@@ -40,8 +39,21 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
     @EqualsAndHashCode(callSuper = true)
     public class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
+        public static final String CONFIG_PROPERTY_KEY_WEB_BROWSER_ID = "webBrowserId";
+
+        private DeviceId webBrowserId;
+
         private Configuration(Map<String, String> configProperties) {
-            // TODO: process config properties
+            for(String key : configProperties.keySet()) {
+                switch (key) {
+                    case CONFIG_PROPERTY_KEY_WEB_BROWSER_ID:
+                        this.webBrowserId = DeviceId.of(configProperties.get(key));
+                        break;
+                    default:
+                        log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());
+                        break;
+                }
+            }
         }
 
         @Override
@@ -51,8 +63,9 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
 
         @Override
         public String toConfigLangString() {
-            // TODO
-            return TAB + TAB + getAssistanceId() + format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
+            Map<String, String> configProperties = new HashMap<>();
+            configProperties.put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue());
+            return toConfigLangString(configProperties);
         }
     }
 }

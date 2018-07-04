@@ -2,6 +2,8 @@ package de.qaware.smartlabapi;
 
 public class GuiApiConstants {
 
+    public static final String FEIGN_CLIENT_NAME = "gui";
+
     public static final String MAPPING_BASE = "/smart-lab/gui";
 
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
@@ -10,4 +12,7 @@ public class GuiApiConstants {
 
     public static final String MAPPING_GET_CURRENT_MEETING_STATUS_PAGE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting-status-page";
     public static final String MAPPING_GET_CURRENT_MEETING_AGENDA_PAGE = PATH_FRAGMENT_ROOM + "/{" + PARAMETER_NAME_ROOM_ID + "}/current-meeting-agenda-page";
+    public static final String MAPPING_GET_BASE_URL = "/url";
+
+    public static final String URL_TEMPLATE_GET_CURRENT_MEETING_AGENDA_PAGE = MAPPING_BASE + PATH_FRAGMENT_ROOM + "/%s/current-meeting-agenda-page";
 }

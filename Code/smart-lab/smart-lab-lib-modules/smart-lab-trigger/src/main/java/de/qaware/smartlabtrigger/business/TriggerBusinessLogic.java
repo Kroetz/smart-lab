@@ -47,7 +47,10 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
             BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
             @Nullable URL callbackUrl) {
         IJobInfo jobInfo = this.jobManagementService.recordNewJob(callbackUrl);
-        this.asyncTriggerHandler.triggerAssistances(meeting, triggerReaction, jobInfo.getId());
+        this.asyncTriggerHandler.triggerAssistances(
+                meeting,
+                triggerReaction,
+                jobInfo.getId());
         return jobInfo;
     }
 

@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
@@ -37,17 +38,21 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
     public static final RoomId ROOM_ID_RED = RoomId.of("red");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
+    public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
     public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
     public static final String DELEGATE_ID_RED = "red-delegate";
 
     private final IAssistanceInfo minuteTakingInfo;
+    private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public FireFightersDataFactory(
             IAssistanceInfo minuteTakingInfo,
+            IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
+        this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -103,6 +108,10 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_RED_MICROPHONE.getIdValue())
+                .build()));
+        configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_RED_WEB_BROWSER.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

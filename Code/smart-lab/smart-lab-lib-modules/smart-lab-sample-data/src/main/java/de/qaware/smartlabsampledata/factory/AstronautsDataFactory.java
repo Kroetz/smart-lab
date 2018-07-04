@@ -3,6 +3,7 @@ package de.qaware.smartlabsampledata.factory;
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
@@ -35,13 +36,18 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
     public static final RoomId ROOM_ID_BLACK = RoomId.of("black");
     public static final DeviceId DEVICE_ID_BLACK_DISPLAY = DeviceId.of("black-display");
+    public static final DeviceId DEVICE_ID_BLACK_WEB_BROWSER = DeviceId.of("black-web-browser");
     public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", ROOM_ID_BLACK);
     public static final String DELEGATE_ID_BLACK = "black-delegate";
 
+    private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
-    public AstronautsDataFactory(IAssistanceInfo roomUnlockingInfo) {
+    public AstronautsDataFactory(
+            IAssistanceInfo agendaShowingInfo,
+            IAssistanceInfo roomUnlockingInfo) {
         super();
+        this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -92,6 +98,10 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         astronautsMeetingAgenda.add(AgendaItem.builder().content("Discuss who may press the launch button of the rocket").build());
         astronautsMeetingAgenda.add(AgendaItem.builder().content("Complain that this is all rocket science").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
+        configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLACK_WEB_BROWSER.getIdValue())
+                .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
