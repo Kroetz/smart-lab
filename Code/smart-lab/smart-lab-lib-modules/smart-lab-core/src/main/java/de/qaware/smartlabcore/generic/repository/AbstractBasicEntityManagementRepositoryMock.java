@@ -3,11 +3,13 @@ package de.qaware.smartlabcore.generic.repository;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +18,21 @@ import java.util.stream.Collectors;
 public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementRepository<EntityT, IdentifierT> {
 
     protected Set<EntityT> entities;
+    protected final Set<EntityT> initialData;
+
+    public AbstractBasicEntityManagementRepositoryMock(Set<EntityT> initialData) {
+        this.initialData = initialData;
+    }
+
+    @PostConstruct
+    private void populateWithInitialData() {
+        try {
+            create(this.initialData);
+        }
+        catch(EntityCreationException e) {
+            log.error("Could not populate repository with initial data", e);
+        }
+    }
 
     protected boolean exists(IdentifierT entityId) {
         return this.entities.stream()

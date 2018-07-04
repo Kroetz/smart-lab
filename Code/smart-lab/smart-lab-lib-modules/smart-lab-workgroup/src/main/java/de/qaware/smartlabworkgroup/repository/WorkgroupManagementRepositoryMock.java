@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
-import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.data.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -26,9 +26,10 @@ public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManage
 
     public WorkgroupManagementRepositoryMock(
             IMeetingManagementService meetingManagementService,
-            ISampleDataProvider sampleDataProvider) {
+            Set<IWorkgroup> initialWorkgroups) {
+        super(initialWorkgroups);
         this.meetingManagementService = meetingManagementService;
-        this.entities = new HashSet<>(sampleDataProvider.getWorkgroups());
+        this.entities = new HashSet<>();
     }
 
     @Override

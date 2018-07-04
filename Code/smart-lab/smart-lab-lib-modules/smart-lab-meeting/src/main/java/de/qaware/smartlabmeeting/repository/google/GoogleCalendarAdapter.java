@@ -23,7 +23,6 @@ import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
 import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
-import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.cfg.NotYetImplementedException;
@@ -32,7 +31,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,7 +54,6 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     private final Calendar service;
     private final BiMap<RoomId, String> calendarIdsByRoomId;
     private final IMeetingParser meetingParser;
-    private final ISampleDataProvider sampleDataProvider;
 
     public GoogleCalendarAdapter(
             Path googleCalendarCredentialFile,
@@ -67,7 +64,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             JsonFactory googleCalendarJsonFactory,
             @Qualifier("googleCalendarRoomMapping") BiMap<RoomId, String> googleCalendarRoomMapping,
             IMeetingParser meetingParser,
-            ISampleDataProvider sampleDataProvider) throws IOException {
+            Set<IMeeting> initialMeetings) throws IOException {
+        super(initialMeetings);
         GoogleCredential credentials = GoogleCredential.fromStream(
                 Files.newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
@@ -80,17 +78,6 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 .build();
         this.calendarIdsByRoomId = googleCalendarRoomMapping;
         this.meetingParser = meetingParser;
-        this.sampleDataProvider = sampleDataProvider;
-    }
-
-    @PostConstruct
-    private void populateWithSampleData() {
-        try {
-            create(this.sampleDataProvider.getMeetings());
-        }
-        catch(EntityCreationException e) {
-            log.error("Could not populate repository with sample data", e);
-        }
     }
 
     private String resolveCalendarId(RoomId roomId) throws IllegalArgumentException {

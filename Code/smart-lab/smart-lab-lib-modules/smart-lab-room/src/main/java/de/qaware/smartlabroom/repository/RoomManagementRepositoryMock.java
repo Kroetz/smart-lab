@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
-import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
+import de.qaware.smartlabcore.data.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -26,9 +26,10 @@ public class RoomManagementRepositoryMock extends AbstractBasicEntityManagementR
 
     public RoomManagementRepositoryMock(
             IMeetingManagementService meetingManagementService,
-            ISampleDataProvider sampleDataProvider) {
+            Set<IRoom> initialRooms) {
+        super(initialRooms);
         this.meetingManagementService = meetingManagementService;
-        this.entities = new HashSet<>(sampleDataProvider.getRooms());
+        this.entities = new HashSet<>();
     }
 
     @Override

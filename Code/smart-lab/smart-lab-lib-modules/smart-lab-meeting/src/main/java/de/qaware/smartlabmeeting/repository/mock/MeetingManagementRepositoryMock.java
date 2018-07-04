@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
-import de.qaware.smartlabsampledata.provider.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,8 +32,9 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
 
     private Map<RoomId, Set<IMeeting>> meetingsByRoom;
 
-    public MeetingManagementRepositoryMock(ISampleDataProvider sampleDataProvider) {
-        this.meetingsByRoom = new HashMap<>(sampleDataProvider.getMeetingsByRoom());
+    public MeetingManagementRepositoryMock(Set<IMeeting> initialMeetings) {
+        super(initialMeetings);
+        this.meetingsByRoom = new HashMap<>();
     }
 
     @Override

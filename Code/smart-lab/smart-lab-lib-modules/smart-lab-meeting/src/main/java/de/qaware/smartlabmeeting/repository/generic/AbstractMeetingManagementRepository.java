@@ -4,8 +4,16 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Set;
+
+@Slf4j
 public abstract class AbstractMeetingManagementRepository extends AbstractBasicEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
+
+    public AbstractMeetingManagementRepository(Set<IMeeting> initialMeetings) {
+        super(initialMeetings);
+    }
 
     protected boolean exists(MeetingId meetingId) {
         return findOne(meetingId).isPresent();

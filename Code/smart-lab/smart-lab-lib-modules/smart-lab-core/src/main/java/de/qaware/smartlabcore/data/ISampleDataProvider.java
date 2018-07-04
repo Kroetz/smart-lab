@@ -1,4 +1,4 @@
-package de.qaware.smartlabsampledata.provider;
+package de.qaware.smartlabcore.data;
 
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
