@@ -268,8 +268,18 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
 
     @Override
     public ShorteningResult shortenMeeting(IMeeting meeting, Duration shortening) {
-        // TODO
-        throw new NotYetImplementedException();
+        meeting.setEnd(meeting.getEnd().minus(shortening));
+        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        try {
+            this.service.events().update(
+                    calendarId,
+                    meeting.getId().getNameIdPart(),
+                    meetingToEvent(meeting)).execute();
+        } catch (IOException e) {
+            log.error("I/O error while shortening meeting \"{}\"", meeting, e);
+            return ShorteningResult.ERROR;
+        }
+        return ShorteningResult.SUCCESS;
     }
 
     @Override
