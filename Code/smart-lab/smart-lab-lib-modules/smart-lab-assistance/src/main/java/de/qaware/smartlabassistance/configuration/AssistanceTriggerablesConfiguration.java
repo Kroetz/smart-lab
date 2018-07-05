@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabassistance.assistance.triggerable.ComponentScanMarker.class,
-        de.qaware.smartlabassistance.assistance.info.ComponentScanMarker.class})
+        de.qaware.smartlabassistance.assistance.info.ComponentScanMarker.class,
+        de.qaware.smartlabassistance.context.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 public class AssistanceTriggerablesConfiguration { }

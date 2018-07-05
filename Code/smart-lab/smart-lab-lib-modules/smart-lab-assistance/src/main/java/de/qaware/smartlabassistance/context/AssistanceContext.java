@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.context;
+package de.qaware.smartlabassistance.context;
 
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.person.IPersonManagementService;
