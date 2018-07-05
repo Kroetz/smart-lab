@@ -6,7 +6,9 @@ import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowser
 import de.qaware.smartlabapi.GuiApiConstants;
 import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.action.IActionService;
+import de.qaware.smartlabassistance.assistance.controllable.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,6 @@ import java.util.Arrays;
 
 import static java.lang.String.format;
 
-@Component
 @Slf4j
 public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
@@ -27,12 +28,11 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
     private final IServiceBaseUrlGetter guiBaseUrlGetter;
 
-    public AgendaShowingControllable(
-            AgendaShowingInfo agendaShowingInfo,
+    private AgendaShowingControllable(
+            IAssistanceInfo agendaShowingInfo,
             IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
-            // TODO: String literal
-            @Qualifier("guiBaseUrlGetter") IServiceBaseUrlGetter guiBaseUrlGetter) {
+            IServiceBaseUrlGetter guiBaseUrlGetter) {
         super(agendaShowingInfo);
         this.webBrowserOpening = webBrowserOpening;
         this.webBrowserClosing = webBrowserClosing;
@@ -76,5 +76,35 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     @Override
     public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
+    }
+
+    @Component
+    @Slf4j
+    public static class Factory extends AbstractAssistanceControllableFactory {
+
+        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+        private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
+        private final IServiceBaseUrlGetter guiBaseUrlGetter;
+
+        public Factory(
+                AgendaShowingInfo agendaShowingInfo,
+                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+                IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
+                // TODO: String literal
+                @Qualifier("guiBaseUrlGetter") IServiceBaseUrlGetter guiBaseUrlGetter) {
+            super(agendaShowingInfo);
+            this.webBrowserOpening = webBrowserOpening;
+            this.webBrowserClosing = webBrowserClosing;
+            this.guiBaseUrlGetter = guiBaseUrlGetter;
+        }
+
+        @Override
+        public IAssistanceControllable newInstance() {
+            return new AgendaShowingControllable(
+                    this.assistanceInfo,
+                    this.webBrowserOpening,
+                    this.webBrowserClosing,
+                    this.guiBaseUrlGetter);
+        }
     }
 }

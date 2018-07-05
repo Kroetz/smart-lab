@@ -2,6 +2,7 @@ package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.IAssistanceControllable;
+import de.qaware.smartlabassistance.assistance.controllable.tracker.IAssistanceTracker;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;
@@ -10,34 +11,29 @@ import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 @Service
 @Slf4j
 public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
 
     private final IActionService actionService;
-    private final IResolver<String, IAssistanceControllable> assistanceControllableResolver;
+    private final IAssistanceTracker assistanceTracker;
 
     public AssistanceBusinessLogic(
             IActionService actionService,
-            IResolver<String, IAssistanceControllable> assistanceControllableResolver) {
+            IAssistanceTracker assistanceTracker) {
         this.actionService = actionService;
-        this.assistanceControllableResolver = assistanceControllableResolver;
-    }
-
-    private void executeAssistanceStage(String assistanceId, Consumer<IAssistanceControllable> assistanceStageExecution) {
-        IAssistanceControllable assistance = this.assistanceControllableResolver
-                .resolve(assistanceId)
-                .orElseThrow(UnknownAssistanceException::new);
-        assistanceStageExecution.accept(assistance);
+        this.assistanceTracker = assistanceTracker;
     }
 
     public void beginAssistance(String assistanceId, final IAssistanceContext context) {
         log.info("Executing begin stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
-        executeAssistanceStage(assistanceId, assistance -> assistance.begin(this.actionService, context));
+        IAssistanceControllable assistance = this.assistanceTracker.track(context);
+        assistance.begin(this.actionService, context);
+        this.assistanceTracker.updateTracked(context, assistance);
         log.info("Executed begin stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
@@ -47,7 +43,10 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         log.info("Executing end stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
-        executeAssistanceStage(assistanceId, assistance -> assistance.end(this.actionService, context));
+        IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
+        assistance.end(this.actionService, context);
+        this.assistanceTracker.updateTracked(context, assistance);
+        this.assistanceTracker.stopTracking(context);
         log.info("Executed end stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));

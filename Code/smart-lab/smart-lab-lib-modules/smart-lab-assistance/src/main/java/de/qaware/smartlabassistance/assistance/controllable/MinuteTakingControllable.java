@@ -6,10 +6,12 @@ import de.qaware.smartlabaction.action.submittable.microphone.activation.Microph
 import de.qaware.smartlabaction.action.submittable.microphone.deactivation.MicrophoneDeactivationSubmittable;
 import de.qaware.smartlabaction.action.submittable.speechtotext.SpeechToTextSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
+import de.qaware.smartlabassistance.assistance.controllable.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
@@ -20,7 +22,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Component
 @Slf4j
 public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
@@ -31,8 +32,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     private final ITranscriptTextBuilder transcriptTextBuilder;
     private final ITextPassagesBuilder textPassagesBuilder;
 
-    public MinuteTakingControllable(
-            MinuteTakingInfo minuteTakingInfo,
+    private MinuteTakingControllable(
+            IAssistanceInfo minuteTakingInfo,
             IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation,
             IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
             IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
@@ -93,5 +94,46 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     @Override
     public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
+    }
+
+    @Component
+    @Slf4j
+    public static class Factory extends AbstractAssistanceControllableFactory {
+
+        private final IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation;
+        private final IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation;
+        private final IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText;
+        private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
+        private final ITranscriptTextBuilder transcriptTextBuilder;
+        private final ITextPassagesBuilder textPassagesBuilder;
+
+        public Factory(
+                IAssistanceInfo minuteTakingInfo,
+                IActionSubmittable<MicrophoneActivationSubmittable.ActionArgs, Void> microphoneActivation,
+                IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
+                IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
+                IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
+                ITranscriptTextBuilder transcriptTextBuilder,
+                ITextPassagesBuilder textPassagesBuilder) {
+            super(minuteTakingInfo);
+            this.microphoneActivation = microphoneActivation;
+            this.microphoneDeactivation = microphoneDeactivation;
+            this.speechToText = speechToText;
+            this.dataUpload = dataUpload;
+            this.transcriptTextBuilder = transcriptTextBuilder;
+            this.textPassagesBuilder = textPassagesBuilder;
+        }
+
+        @Override
+        public IAssistanceControllable newInstance() {
+            return new MinuteTakingControllable(
+                    this.assistanceInfo,
+                    this.microphoneActivation,
+                    this.microphoneDeactivation,
+                    this.speechToText,
+                    this.dataUpload,
+                    this.transcriptTextBuilder,
+                    this.textPassagesBuilder);
+        }
     }
 }

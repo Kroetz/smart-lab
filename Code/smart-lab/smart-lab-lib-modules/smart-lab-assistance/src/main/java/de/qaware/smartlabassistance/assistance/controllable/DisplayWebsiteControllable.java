@@ -4,22 +4,23 @@ import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
+import de.qaware.smartlabassistance.assistance.controllable.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
+import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Component
 @Slf4j
 public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
 
     private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
 
-    public DisplayWebsiteControllable(
-            DisplayWebsiteInfo displayWebsiteInfo,
+    private DisplayWebsiteControllable(
+            IAssistanceInfo displayWebsiteInfo,
             IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
         super(displayWebsiteInfo);
@@ -51,5 +52,31 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     @Override
     public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
+    }
+
+    @Component
+    @Slf4j
+    public static class Factory extends AbstractAssistanceControllableFactory {
+
+        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+        private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
+
+
+        public Factory(
+                IAssistanceInfo displayWebsiteInfo,
+                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+                IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
+            super(displayWebsiteInfo);
+            this.webBrowserOpening = webBrowserOpening;
+            this.webBrowserClosing = webBrowserClosing;
+        }
+
+        @Override
+        public IAssistanceControllable newInstance() {
+            return new DisplayWebsiteControllable(
+                    this.assistanceInfo,
+                    this.webBrowserOpening,
+                    this.webBrowserClosing);
+        }
     }
 }
