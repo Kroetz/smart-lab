@@ -2,7 +2,7 @@ package de.qaware.smartlabassistance.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.IAssistanceControllable;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
@@ -33,7 +33,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         assistanceStageExecution.accept(assistance);
     }
 
-    public void beginAssistance(String assistanceId, final IContext context) {
+    public void beginAssistance(String assistanceId, final IAssistanceContext context) {
         log.info("Executing begin stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
@@ -43,7 +43,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public void endAssistance(String assistanceId, IContext context) {
+    public void endAssistance(String assistanceId, IAssistanceContext context) {
         log.info("Executing end stage of assistance (ID: \"{}\") in room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
@@ -53,7 +53,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
                 context.getRoom().map(IRoom::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public void updateAssistance(String assistanceId, IContext context) {
+    public void updateAssistance(String assistanceId, IAssistanceContext context) {
 
         // TODO: Implementation
     }

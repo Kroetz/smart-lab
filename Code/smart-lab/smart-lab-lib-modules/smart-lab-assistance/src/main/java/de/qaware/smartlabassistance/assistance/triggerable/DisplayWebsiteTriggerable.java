@@ -2,7 +2,7 @@ package de.qaware.smartlabassistance.assistance.triggerable;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class DisplayWebsiteTriggerable extends AbstractAssistanceTriggerable {
     }
 
     @Override
-    public void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, IContext context) {
+    public void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
         log.info("Reaction on set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
                 this.assistanceInfo.getAssistanceId(),
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
@@ -25,7 +25,7 @@ public class DisplayWebsiteTriggerable extends AbstractAssistanceTriggerable {
     }
 
     @Override
-    public void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, IContext context) {
+    public void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
         log.info("Reaction on clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
                 this.assistanceInfo.getAssistanceId(),
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));

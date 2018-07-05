@@ -5,7 +5,7 @@ import de.qaware.smartlabapi.service.person.IPersonManagementService;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Data
-public class Context implements IContext {
+public class AssistanceContext implements IAssistanceContext {
 
     private IMeeting meeting;
     private IWorkgroup workgroup;
@@ -27,7 +27,7 @@ public class Context implements IContext {
     private IRoom room;
     private IAssistanceConfiguration assistanceConfiguration;
 
-    private Context() { }
+    private AssistanceContext() { }
 
     @Override
     public Optional<IMeeting> getMeeting() {
@@ -73,42 +73,42 @@ public class Context implements IContext {
             this.roomManagementService = roomManagementService;
         }
 
-        public IContext of(IMeeting meeting, IAssistanceConfiguration config) {
+        public IAssistanceContext of(IMeeting meeting, IAssistanceConfiguration config) {
             if(!meeting.getAssistanceConfigurations().contains(config)) {
                 throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
             }
-            return addToContext(addToContext(new Context(), meeting), config);
+            return addToContext(addToContext(new AssistanceContext(), meeting), config);
         }
 
-        public IContext of(IMeeting meeting) {
-            return addToContext(new Context(), meeting);
+        public IAssistanceContext of(IMeeting meeting) {
+            return addToContext(new AssistanceContext(), meeting);
         }
 
-        public IContext of(IWorkgroup workgroup) {
-            return addToContext(new Context(), workgroup);
+        public IAssistanceContext of(IWorkgroup workgroup) {
+            return addToContext(new AssistanceContext(), workgroup);
         }
 
-        public IContext of(Set<IPerson> persons) {
-            return addToContext(new Context(), persons);
+        public IAssistanceContext of(Set<IPerson> persons) {
+            return addToContext(new AssistanceContext(), persons);
         }
 
-        public IContext of(IRoom room) {
-            return addToContext(new Context(), room);
+        public IAssistanceContext of(IRoom room) {
+            return addToContext(new AssistanceContext(), room);
         }
 
-        private Context addToContext(Context context, IAssistanceConfiguration config) {
+        private AssistanceContext addToContext(AssistanceContext context, IAssistanceConfiguration config) {
             context.setAssistanceConfiguration(config);
             return context;
         }
 
-        private Context addToContext(Context context, IMeeting meeting) {
+        private AssistanceContext addToContext(AssistanceContext context, IMeeting meeting) {
             context.setMeeting(meeting);
             IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
             IRoom room = roomManagementService.findOne(meeting.getRoomId());
             return addToContext(addToContext(context, workgroup), room);
         }
 
-        private Context addToContext(Context context, IWorkgroup workgroup) {
+        private AssistanceContext addToContext(AssistanceContext context, IWorkgroup workgroup) {
             context.setWorkgroup(workgroup);
             Set<PersonId> workgroupMemberIds = workgroup.getMemberIds();
             Set<IPerson> workgroupMembers = personManagementService.findMultiple(
@@ -116,12 +116,12 @@ public class Context implements IContext {
             return addToContext(context, workgroupMembers);
         }
 
-        private Context addToContext(Context context, Set<IPerson> persons) {
+        private AssistanceContext addToContext(AssistanceContext context, Set<IPerson> persons) {
             context.setPersons(persons);
             return context;
         }
 
-        private Context addToContext(Context context, IRoom room) {
+        private AssistanceContext addToContext(AssistanceContext context, IRoom room) {
             context.setRoom(room);
             return context;
         }

@@ -2,7 +2,7 @@ package de.qaware.smartlabassistance.assistance.triggerable;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class MinuteTakingTriggerable extends AbstractAssistanceTriggerable {
     }
 
     @Override
-    public void reactOnTriggerStartMeeting(IAssistanceService assistanceService, final IContext context) {
+    public void reactOnTriggerStartMeeting(IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Reaction on start-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
                 this.assistanceInfo.getAssistanceId(),
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
@@ -25,7 +25,7 @@ public class MinuteTakingTriggerable extends AbstractAssistanceTriggerable {
     }
 
     @Override
-    public void reactOnTriggerStopMeeting(IAssistanceService assistanceService, final IContext context) {
+    public void reactOnTriggerStopMeeting(IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Reaction on stop-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
                 this.assistanceInfo.getAssistanceId(),
                 context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));

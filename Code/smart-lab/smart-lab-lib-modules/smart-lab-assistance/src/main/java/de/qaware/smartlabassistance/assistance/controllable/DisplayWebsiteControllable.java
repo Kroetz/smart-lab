@@ -5,7 +5,7 @@ import de.qaware.smartlabaction.action.submittable.webbrowser.closing.WebBrowser
 import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void begin(IActionService actionService, IContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -40,7 +40,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void end(IActionService actionService, IContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -50,7 +50,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void update(IActionService actionService, IContext context) {
+    public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
     }
 }

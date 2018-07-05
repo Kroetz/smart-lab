@@ -10,7 +10,7 @@ import de.qaware.smartlabassistance.assistance.info.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void begin(IActionService actionService, IContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -60,7 +60,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void end(IActionService actionService, IContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -91,7 +91,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void update(IActionService actionService, IContext context) {
+    public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
     }
 }

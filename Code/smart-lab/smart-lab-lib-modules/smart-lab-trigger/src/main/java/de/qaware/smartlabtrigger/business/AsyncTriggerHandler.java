@@ -2,7 +2,7 @@ package de.qaware.smartlabtrigger.business;
 
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -24,7 +24,7 @@ public class AsyncTriggerHandler implements ITriggerHandler {
     @Async
     public void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
+            BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         this.syncTriggerHandler.triggerAssistances(meeting, triggerReaction, jobId);
     }
@@ -34,7 +34,7 @@ public class AsyncTriggerHandler implements ITriggerHandler {
     public void triggerAssistance(
             IAssistanceConfiguration config,
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
+            BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         this.syncTriggerHandler.triggerAssistance(config, meeting, triggerReaction, jobId);
     }

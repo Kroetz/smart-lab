@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.assistance;
 
 import de.qaware.smartlabapi.client.IAssistanceApiClient;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
@@ -22,7 +22,7 @@ public class AssistanceMicroservice implements IAssistanceService {
     }
 
     @Override
-    public void beginAssistance(String assistanceId, IContext context) {
+    public void beginAssistance(String assistanceId, IAssistanceContext context) {
         try {
             this.assistanceApiClient.beginAssistance(assistanceId, context);
         }
@@ -32,7 +32,7 @@ public class AssistanceMicroservice implements IAssistanceService {
     }
 
     @Override
-    public void endAssistance(String assistanceId, IContext context) {
+    public void endAssistance(String assistanceId, IAssistanceContext context) {
         try {
             this.assistanceApiClient.endAssistance(assistanceId, context);
         }
@@ -42,7 +42,7 @@ public class AssistanceMicroservice implements IAssistanceService {
     }
 
     @Override
-    public void updateAssistance(String assistanceId, IContext context) {
+    public void updateAssistance(String assistanceId, IAssistanceContext context) {
         try {
             this.assistanceApiClient.updateAssistance(assistanceId, context);
         }

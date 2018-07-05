@@ -1,10 +1,10 @@
 package de.qaware.smartlabapi.service.assistance;
 
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 
 public interface IAssistanceService {
 
-    void beginAssistance(String assistanceId, IContext context);
-    void endAssistance(String assistanceId, IContext context);
-    void updateAssistance(String assistanceId, IContext context);
+    void beginAssistance(String assistanceId, IAssistanceContext context);
+    void endAssistance(String assistanceId, IAssistanceContext context);
+    void updateAssistance(String assistanceId, IAssistanceContext context);
 }

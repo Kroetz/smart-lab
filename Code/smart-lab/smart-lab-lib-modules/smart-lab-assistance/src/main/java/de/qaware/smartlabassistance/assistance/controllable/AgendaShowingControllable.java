@@ -7,7 +7,7 @@ import de.qaware.smartlabapi.GuiApiConstants;
 import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,7 +40,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void begin(IActionService actionService, IContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -64,7 +64,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void end(IActionService actionService, IContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
@@ -74,7 +74,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void update(IActionService actionService, IContext context) {
+    public void update(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
     }
 }

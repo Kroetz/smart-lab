@@ -15,7 +15,7 @@ import java.util.Set;
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = Constants.JSON_TYPE_PROPERTY_NAME)
-public interface IContext {
+public interface IAssistanceContext {
 
     Optional<IMeeting> getMeeting();
     Optional<IWorkgroup> getWorkgroup();

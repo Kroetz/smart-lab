@@ -3,7 +3,7 @@ package de.qaware.smartlabtrigger.business;
 import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.context.IContextFactory;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -36,7 +36,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
     @Override
     public void triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
+            BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         this.jobManagementService.markJobAsProcessing(jobId);
         try {
@@ -56,7 +56,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
     public void triggerAssistance(
             IAssistanceConfiguration config,
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
+            BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         if(!meeting.getAssistanceConfigurations().contains(config)) {
             throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
@@ -64,7 +64,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
         String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-        IContext context = this.contextFactory.of(meeting, config);
+        IAssistanceContext context = this.contextFactory.of(meeting, config);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));

@@ -2,7 +2,7 @@ package de.qaware.smartlabmonolith.api.service;
 
 import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -21,17 +21,17 @@ public class AssistanceMonolithicService implements IAssistanceService {
     }
 
     @Override
-    public void beginAssistance(String assistanceId, IContext context) {
+    public void beginAssistance(String assistanceId, IAssistanceContext context) {
         this.assistanceController.beginAssistance(assistanceId, context);
     }
 
     @Override
-    public void endAssistance(String assistanceId, IContext context) {
+    public void endAssistance(String assistanceId, IAssistanceContext context) {
         this.assistanceController.endAssistance(assistanceId, context);
     }
 
     @Override
-    public void updateAssistance(String assistanceId, IContext context) {
+    public void updateAssistance(String assistanceId, IAssistanceContext context) {
         this.assistanceController.updateAssistance(assistanceId, context);
     }
 }

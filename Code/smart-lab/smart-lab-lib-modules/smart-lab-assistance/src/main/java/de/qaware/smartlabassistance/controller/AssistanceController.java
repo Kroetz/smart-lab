@@ -2,7 +2,7 @@ package de.qaware.smartlabassistance.controller;
 
 import de.qaware.smartlabapi.AssistanceApiConstants;
 import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class AssistanceController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> beginAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IContext context) {
+            @RequestBody IAssistanceContext context) {
         log.info("Received call to begin assistance with ID \"{}\" in the room with ID \"{}\"",
                 assistanceId,
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
@@ -42,7 +42,7 @@ public class AssistanceController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> endAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IContext context) {
+            @RequestBody IAssistanceContext context) {
         this.assistanceBusinessLogic.endAssistance(assistanceId, context);
         // TODO
         return ResponseEntity.ok().build();
@@ -53,7 +53,7 @@ public class AssistanceController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IContext context) {
+            @RequestBody IAssistanceContext context) {
         this.assistanceBusinessLogic.updateAssistance(assistanceId, context);
         // TODO
         return ResponseEntity.ok().build();

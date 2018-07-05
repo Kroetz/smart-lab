@@ -5,7 +5,7 @@ import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
-import de.qaware.smartlabcore.data.context.IContext;
+import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
@@ -44,7 +44,7 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private IJobInfo triggerAssistances(
             IMeeting meeting,
-            BiConsumer<IContext, IAssistanceTriggerable> triggerReaction,
+            BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             @Nullable URL callbackUrl) {
         IJobInfo jobInfo = this.jobManagementService.recordNewJob(callbackUrl);
         this.asyncTriggerHandler.triggerAssistances(
