@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.context.IContextFactory;
+import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
@@ -20,12 +20,12 @@ import java.util.function.BiConsumer;
 @Slf4j
 public class SyncTriggerHandler implements ITriggerHandler {
 
-    private final IContextFactory contextFactory;
+    private final IAssistanceContextFactory contextFactory;
     private final IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver;
     private final IJobManagementService jobManagementService;
 
     public SyncTriggerHandler(
-            IContextFactory contextFactory,
+            IAssistanceContextFactory contextFactory,
             IResolver<String, IAssistanceTriggerable> assistanceTriggerableResolver,
             IJobManagementService jobManagementService) {
         this.contextFactory = contextFactory;

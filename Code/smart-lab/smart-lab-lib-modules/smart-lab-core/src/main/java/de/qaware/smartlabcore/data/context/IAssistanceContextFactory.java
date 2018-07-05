@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 
 import java.util.Set;
 
-public interface IContextFactory {
+public interface IAssistanceContextFactory {
 
     IAssistanceContext of(IAssistanceConfiguration config, IMeeting meeting);
     IAssistanceContext of(IAssistanceConfiguration config, IWorkgroup workgroup);

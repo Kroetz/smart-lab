@@ -6,7 +6,7 @@ import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.context.IContextFactory;
+import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
@@ -50,14 +50,14 @@ public class AssistanceContext implements IAssistanceContext {
     }
 
     @Component
-    public static class ContextFactory implements IContextFactory {
+    public static class Factory implements IAssistanceContextFactory {
 
         private IMeetingManagementService meetingManagementService;
         private IWorkgroupManagementService workgroupManagementService;
         private IPersonManagementService personManagementService;
         private IRoomManagementService roomManagementService;
 
-        public ContextFactory(
+        public Factory(
                 IMeetingManagementService meetingManagementService,
                 IWorkgroupManagementService workgroupManagementService,
                 IPersonManagementService personManagementService,
