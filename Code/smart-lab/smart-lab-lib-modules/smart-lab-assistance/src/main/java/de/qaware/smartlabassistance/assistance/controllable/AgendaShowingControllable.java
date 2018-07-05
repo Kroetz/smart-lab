@@ -43,7 +43,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
         // TODO: Exception message
         URL guiBaseUrl = this.guiBaseUrlGetter.getBaseUrl();
         URL meetingAgendaUrl;
@@ -67,7 +67,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
                 config.getWebBrowserId());
         this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);

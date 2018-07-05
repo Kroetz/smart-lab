@@ -17,9 +17,9 @@ import java.util.Set;
         property = Constants.JSON_TYPE_PROPERTY_NAME)
 public interface IAssistanceContext {
 
+    IAssistanceConfiguration getAssistanceConfiguration();
     Optional<IMeeting> getMeeting();
     Optional<IWorkgroup> getWorkgroup();
     Optional<Set<IPerson>> getPersons();
     Optional<IRoom> getRoom();
-    Optional<IAssistanceConfiguration> getAssistanceConfiguration();
 }

@@ -6,7 +6,6 @@ import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowser
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 Arrays.asList(config.getUrl()));
@@ -43,7 +42,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
                 config.getWebBrowserId());
         this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);

@@ -21,11 +21,11 @@ import java.util.Set;
 @Data
 public class AssistanceContext implements IAssistanceContext {
 
+    private IAssistanceConfiguration assistanceConfiguration;
     private IMeeting meeting;
     private IWorkgroup workgroup;
     private Set<IPerson> persons;
     private IRoom room;
-    private IAssistanceConfiguration assistanceConfiguration;
 
     private AssistanceContext() { }
 
@@ -49,11 +49,6 @@ public class AssistanceContext implements IAssistanceContext {
         return Optional.ofNullable(this.room);
     }
 
-    @Override
-    public Optional<IAssistanceConfiguration> getAssistanceConfiguration() {
-        return Optional.ofNullable(this.assistanceConfiguration);
-    }
-
     @Component
     public static class ContextFactory implements IContextFactory {
 
@@ -73,27 +68,23 @@ public class AssistanceContext implements IAssistanceContext {
             this.roomManagementService = roomManagementService;
         }
 
-        public IAssistanceContext of(IMeeting meeting, IAssistanceConfiguration config) {
+        public IAssistanceContext of(IAssistanceConfiguration config, IMeeting meeting) {
             if(!meeting.getAssistanceConfigurations().contains(config)) {
                 throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
             }
-            return addToContext(addToContext(new AssistanceContext(), meeting), config);
+            return addToContext(addToContext(new AssistanceContext(), config), meeting);
         }
 
-        public IAssistanceContext of(IMeeting meeting) {
-            return addToContext(new AssistanceContext(), meeting);
+        public IAssistanceContext of(IAssistanceConfiguration config, IWorkgroup workgroup) {
+            return addToContext(addToContext(new AssistanceContext(), config), workgroup);
         }
 
-        public IAssistanceContext of(IWorkgroup workgroup) {
-            return addToContext(new AssistanceContext(), workgroup);
+        public IAssistanceContext of(IAssistanceConfiguration config, Set<IPerson> persons) {
+            return addToContext(addToContext(new AssistanceContext(), config), persons);
         }
 
-        public IAssistanceContext of(Set<IPerson> persons) {
-            return addToContext(new AssistanceContext(), persons);
-        }
-
-        public IAssistanceContext of(IRoom room) {
-            return addToContext(new AssistanceContext(), room);
+        public IAssistanceContext of(IAssistanceConfiguration config, IRoom room) {
+            return addToContext(addToContext(new AssistanceContext(), config), room);
         }
 
         private AssistanceContext addToContext(AssistanceContext context, IAssistanceConfiguration config) {

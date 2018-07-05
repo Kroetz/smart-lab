@@ -64,7 +64,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
         String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
-        IAssistanceContext context = this.contextFactory.of(meeting, config);
+        IAssistanceContext context = this.contextFactory.of(config, meeting);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));

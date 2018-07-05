@@ -10,9 +10,8 @@ import java.util.Set;
 
 public interface IContextFactory {
 
-    IAssistanceContext of(IMeeting meeting, IAssistanceConfiguration config);
-    IAssistanceContext of(IMeeting meeting);
-    IAssistanceContext of(IWorkgroup workgroup);
-    IAssistanceContext of(Set<IPerson> persons);
-    IAssistanceContext of(IRoom room);
+    IAssistanceContext of(IAssistanceConfiguration config, IMeeting meeting);
+    IAssistanceContext of(IAssistanceConfiguration config, IWorkgroup workgroup);
+    IAssistanceContext of(IAssistanceConfiguration config, Set<IPerson> persons);
+    IAssistanceContext of(IAssistanceConfiguration config, IRoom room);
 }

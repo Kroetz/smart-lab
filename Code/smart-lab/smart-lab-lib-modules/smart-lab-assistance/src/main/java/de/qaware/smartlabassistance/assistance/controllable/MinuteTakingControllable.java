@@ -52,7 +52,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
         final MicrophoneActivationSubmittable.ActionArgs microphoneActivationArgs = MicrophoneActivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
@@ -63,7 +63,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration().orElseThrow(InsufficientContextException::new);
+        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
         final MicrophoneDeactivationSubmittable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationSubmittable.ActionArgs.of(
                 context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
