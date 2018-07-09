@@ -42,6 +42,12 @@ public class MeetingManagementController extends AbstractSmartLabController impl
         return this.meetingManagementBusinessLogic.findAll(RoomId.of(roomId));
     }
 
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_CURRENT)
+    @ResponseBody
+    public Set<IMeeting> findAllCurrent() {
+        return this.meetingManagementBusinessLogic.findAllCurrent();
+    }
+
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody

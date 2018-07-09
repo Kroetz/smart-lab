@@ -40,6 +40,16 @@ public class MeetingManagementMicroservice extends AbstractBasicEntityManagement
     }
 
     @Override
+    public Set<IMeeting> findAllCurrent() {
+        try {
+            return this.meetingManagementApiClient.findAllCurrent();
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
     public void shortenMeeting(MeetingId meetingId, Duration shortening)
             throws EntityNotFoundException, MinimalDurationReachedException, UnknownErrorException {
         try {

@@ -45,6 +45,11 @@ public class Meeting implements IMeeting {
     }
 
     @Override
+    public boolean isInProgress() {
+        return this.start.isBefore(Instant.now()) && this.end.isAfter(Instant.now());
+    }
+
+    @Override
     public IMeeting copy() {
         return toBuilder().build();
     }

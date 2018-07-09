@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -29,6 +30,13 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
         return this.meetingManagementRepository.findAll(roomId);
+    }
+
+    @Override
+    public Set<IMeeting> findAllCurrent() {
+        return findAll().stream()
+                .filter(IMeeting::isInProgress)
+                .collect(Collectors.toSet());
     }
 
     @Override

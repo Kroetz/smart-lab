@@ -22,6 +22,10 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
     Set<IMeeting> findAll(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
 
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_CURRENT)
+    @ResponseBody
+    Set<IMeeting> findAllCurrent();
+
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
     ResponseEntity<IMeeting> findOne(

@@ -12,6 +12,7 @@ public interface IMeetingManagementService extends IBasicEntityManagementService
 
     Set<IMeeting> findAll();
     Set<IMeeting> findAll(RoomId roomId);
+    Set<IMeeting> findAllCurrent();
     IMeeting findOne(MeetingId entityId);
     Set<IMeeting> findMultiple(MeetingId[] entityIds);
     IMeeting create(IMeeting meeting);

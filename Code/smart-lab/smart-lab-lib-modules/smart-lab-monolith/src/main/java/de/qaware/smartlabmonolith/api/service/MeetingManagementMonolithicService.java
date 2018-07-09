@@ -35,6 +35,11 @@ public class MeetingManagementMonolithicService extends AbstractBasicEntityManag
     }
 
     @Override
+    public Set<IMeeting> findAllCurrent() {
+        return this.meetingManagementController.findAllCurrent();
+    }
+
+    @Override
     public void shortenMeeting(MeetingId meetingId, Duration shortening) {
         ResponseEntity<Void> response = this.meetingManagementController.shortenMeeting(
                 meetingId.getIdValue(),

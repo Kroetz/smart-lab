@@ -21,6 +21,7 @@ public class MeetingManagementApiConstants {
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_MEETINGS + "/all";
     public static final String MAPPING_FIND_ALL_BY_ROOM_ID = PATH_FRAGMENT_MEETINGS + "/all" + PATH_FRAGMENT_IN_ROOM  + "/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_FIND_ALL_CURRENT = PATH_FRAGMENT_MEETINGS + "/all/current";
     public static final String MAPPING_FIND_ONE = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}";
     public static final String MAPPING_FIND_MULTIPLE = PATH_FRAGMENT_MEETINGS;
     public static final String MAPPING_CREATE_SINGLE = PATH_FRAGMENT_MEETING;

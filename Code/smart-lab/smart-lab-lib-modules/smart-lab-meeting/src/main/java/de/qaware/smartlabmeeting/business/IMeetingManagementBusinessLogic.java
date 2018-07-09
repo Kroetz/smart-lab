@@ -14,6 +14,7 @@ import java.util.Set;
 public interface IMeetingManagementBusinessLogic extends IBasicEntityManagementBusinessLogic<IMeeting, MeetingId> {
 
     Set<IMeeting> findAll(RoomId roomId);
+    Set<IMeeting> findAllCurrent();
     ShorteningResult shortenMeeting(
             MeetingId meetingId,
             Duration shortening);
