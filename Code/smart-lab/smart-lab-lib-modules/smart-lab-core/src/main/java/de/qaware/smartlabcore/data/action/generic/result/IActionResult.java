@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
@@ -15,4 +16,5 @@ public interface IActionResult {
     Void getVoidValue();
     Optional<byte[]> getByteArrayValue();
     Optional<ITranscript> getTranscriptValue();
+    Optional<UUID> getUuidValue();
 }

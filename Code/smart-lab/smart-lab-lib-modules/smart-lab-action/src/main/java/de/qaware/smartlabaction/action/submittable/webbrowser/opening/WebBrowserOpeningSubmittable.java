@@ -6,6 +6,7 @@ import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlabcore.exception.InvalidActionResultException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -15,18 +16,19 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @Slf4j
-public class WebBrowserOpeningSubmittable extends AbstractActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> {
+public class WebBrowserOpeningSubmittable extends AbstractActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> {
 
     public WebBrowserOpeningSubmittable(WebBrowserOpeningInfo webBrowserOpeningInfo) {
         super(webBrowserOpeningInfo);
     }
 
-    public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public UUID submitExecution(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        return actionResult.getVoidValue();
+        return actionResult.getUuidValue().orElseThrow(InvalidActionResultException::new);
     }
 
     @Data

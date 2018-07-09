@@ -1,15 +1,15 @@
 package de.qaware.smartlabaction.action.executable.webbrowser.opening;
 
+import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserAdapter;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.webbrowser.opening.WebBrowserOpeningInfo;
-import de.qaware.smartlabaction.action.result.VoidActionResult;
+import de.qaware.smartlabaction.action.result.UuidActionResult;
 import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
 import de.qaware.smartlabapi.service.delegate.IDelegateService;
 import de.qaware.smartlabapi.service.device.IDeviceManagementService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
         webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
-        return VoidActionResult.instance();
+        return UuidActionResult.of(webBrowserInstanceId);
     }
 
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
@@ -67,6 +67,6 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 actionArgs);
         UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
         webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
-        return VoidActionResult.instance();
+        return UuidActionResult.of(webBrowserInstanceId);
     }
 }

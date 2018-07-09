@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @Slf4j
 public class WebBrowserClosingSubmittable extends AbstractActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> {
@@ -33,5 +35,8 @@ public class WebBrowserClosingSubmittable extends AbstractActionSubmittable<WebB
 
         @NonNull
         private DeviceId webBrowserId;
+
+        @NonNull
+        private UUID webBrowserInstanceId;
     }
 }

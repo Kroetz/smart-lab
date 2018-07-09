@@ -12,16 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Slf4j
 public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+    private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
+    private UUID webBrowserInstanceId;
 
     private DisplayWebsiteControllable(
             IAssistanceInfo displayWebsiteInfo,
-            IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+            IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
         super(displayWebsiteInfo);
         this.webBrowserOpening = webBrowserOpening;
@@ -36,7 +38,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 Arrays.asList(config.getUrl()));
-        this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
+        this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }
 
     @Override
@@ -45,7 +47,8 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
         // TODO: Check for casting exception and throw illegalstateexception
         DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
-                config.getWebBrowserId());
+                config.getWebBrowserId(),
+                this.webBrowserInstanceId);
         this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);
     }
 
@@ -58,13 +61,12 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
         private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
-
 
         public Factory(
                 IAssistanceInfo displayWebsiteInfo,
-                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
                 IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
             super(displayWebsiteInfo);
             this.webBrowserOpening = webBrowserOpening;

@@ -42,9 +42,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
                 .resolve(webBrowserType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-
-        // TODO
-        //webBrowserAdapter.closeUnchangedAutoOpenedTabs();
+        webBrowserAdapter.closeUnchangedAutoOpenedTabs(actionArgs.getWebBrowserInstanceId());
         return VoidActionResult.instance();
     }
 
@@ -64,9 +62,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 webBrowserType,
                 actionArgs);
-
-        // TODO
-        //webBrowserAdapter.closeUnchangedAutoOpenedTabs();
+        webBrowserAdapter.closeUnchangedAutoOpenedTabs(actionArgs.getWebBrowserInstanceId());
         return VoidActionResult.instance();
     }
 }

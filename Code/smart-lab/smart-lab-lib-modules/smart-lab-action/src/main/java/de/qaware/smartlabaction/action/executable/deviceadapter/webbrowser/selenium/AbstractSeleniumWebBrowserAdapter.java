@@ -63,7 +63,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
         webDriver.findElement(By.cssSelector("body")).sendKeys(this.newTabHotkeys.getCharSequence());
         webDriver.navigate().to(url);
         IWebBrowserTab newTab = SeleniumWebBrowserTab.of(url, webDriver.getWindowHandle());
-        this.autoOpenedTabs.add(newTab);
+        addToAutoOpenedTabs(webDriverId, newTab);
         return newTab;
     }
 
@@ -100,10 +100,16 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     @Override
     public void closeUnchangedAutoOpenedTabs(UUID webDriverId) {
         log.info("Closing all automatically opened web browser tabs that were not manually changed");
+        Set<IWebBrowserTab> autoOpenedTabs = this.autoOpenedTabsByWebBrowserInstanceId.get(webDriverId);
+        if(isNull(autoOpenedTabs)) {
+            log.info("Cannot close auto opened tabs of web driver \"{}\" since it does not have any", webDriverId);
+            return;
+        }
         for(IWebBrowserTab tab : autoOpenedTabs) {
             closeIfUnchanged(webDriverId, tab);
         }
         this.webDriversById.remove(webDriverId);
+        this.autoOpenedTabsByWebBrowserInstanceId.remove(webDriverId);
     }
 
     @Override
@@ -125,5 +131,6 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
         WebDriver webDriver = resolveWebDriver(webDriverId);
         webDriver.quit();
         this.webDriversById.remove(webDriverId);
+        this.autoOpenedTabsByWebBrowserInstanceId.remove(webDriverId);
     }
 }

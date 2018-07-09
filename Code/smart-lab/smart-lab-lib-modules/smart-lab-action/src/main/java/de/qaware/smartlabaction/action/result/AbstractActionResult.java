@@ -1,11 +1,12 @@
 package de.qaware.smartlabaction.action.result;
 
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -39,5 +40,10 @@ public abstract class AbstractActionResult<T> implements IActionResult {
     @Override
     public Optional<ITranscript> getTranscriptValue() {
         return getCastedValue(ITranscript.class);
+    }
+
+    @Override
+    public Optional<UUID> getUuidValue() {
+        return getCastedValue(UUID.class);
     }
 }

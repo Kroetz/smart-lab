@@ -17,20 +17,22 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.UUID;
 
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
 
 @Slf4j
 public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+    private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
     private final IServiceBaseUrlGetter guiBaseUrlGetter;
+    private UUID webBrowserInstanceId;
 
     private AgendaShowingControllable(
             IAssistanceInfo agendaShowingInfo,
-            IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+            IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
             IServiceBaseUrlGetter guiBaseUrlGetter) {
         super(agendaShowingInfo);
@@ -59,8 +61,8 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         }
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
-                Arrays.asList(meetingAgendaUrl));
-        this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
+                asList(meetingAgendaUrl));
+        this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }
 
     @Override
@@ -69,7 +71,8 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         // TODO: Check for casting exception and throw illegalstateexception
         AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
-                config.getWebBrowserId());
+                config.getWebBrowserId(),
+                this.webBrowserInstanceId);
         this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);
     }
 
@@ -82,13 +85,13 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening;
+        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
         private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
         private final IServiceBaseUrlGetter guiBaseUrlGetter;
 
         public Factory(
                 AgendaShowingInfo agendaShowingInfo,
-                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, Void> webBrowserOpening,
+                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
                 IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
                 // TODO: String literal
                 @Qualifier("guiBaseUrlGetter") IServiceBaseUrlGetter guiBaseUrlGetter) {
