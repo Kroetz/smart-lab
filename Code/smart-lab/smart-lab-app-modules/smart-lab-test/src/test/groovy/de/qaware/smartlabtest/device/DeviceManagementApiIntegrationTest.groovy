@@ -11,6 +11,8 @@ import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
+import static java.util.Arrays.asList
+
 @SpringBootTest
 class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId, IDevice> {
 
@@ -32,7 +34,7 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     @Override
     def setupDataForFindAll_withExisting() {
         crudService = deviceManagementService
-        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(asList(
                 coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY),
                 forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY),
                 fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE)))

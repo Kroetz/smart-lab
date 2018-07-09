@@ -11,6 +11,8 @@ import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
+import static java.util.Arrays.asList
+
 @SpringBootTest
 class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId, IPerson> {
 
@@ -32,7 +34,7 @@ class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId
     @Override
     def setupDataForFindAll_withExisting() {
         crudService = personManagementService
-        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(asList(
                 coastGuardDataFactory.createWorkgroupMemberMap().get(coastGuardDataFactory.MEMBER_ID_ALICE),
                 forestRangersDataFactory.createWorkgroupMemberMap().get(forestRangersDataFactory.MEMBER_ID_ANNA),
                 fireFightersDataFactory.createWorkgroupMemberMap().get(fireFightersDataFactory.MEMBER_ID_ANTHONY)))

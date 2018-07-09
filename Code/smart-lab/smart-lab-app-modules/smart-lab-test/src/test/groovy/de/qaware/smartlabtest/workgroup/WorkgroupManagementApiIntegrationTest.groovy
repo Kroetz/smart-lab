@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
 
+import static java.util.Arrays.asList
+
 @SpringBootTest
 class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<WorkgroupId, IWorkgroup> {
 
@@ -43,7 +45,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
     @Override
     def setupDataForFindAll_withExisting() {
         crudService = workgroupManagementService
-        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(asList(
                 coastGuardDataFactory.createWorkgroupMap().get(coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD),
                 forestRangersDataFactory.createWorkgroupMap().get(forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS),
                 fireFightersDataFactory.createWorkgroupMap().get(fireFightersDataFactory.WORKGROUP_ID_FIRE_FIGHTERS)))
@@ -118,12 +120,12 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.create(workgroup)
 
         and: "The requested workgroup and another workgroup have meetings"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsOfWorkgroup = new HashSet<IMeeting>(Arrays.asList(
+        def meetingsOfWorkgroup = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS)))
         for(def meeting : meetings) {
@@ -151,7 +153,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.create(workgroup)
 
         and: "Only other workgroups than the requested one have meetings"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
         def meetingsOfWorkgroup = new HashSet<IMeeting>()
@@ -178,7 +180,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
 
         and: "Several other workgroups have meetings"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
@@ -207,7 +209,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.create(workgroup)
 
         and: "The requested workgroup and another workgroup currently have a meeting"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
@@ -257,7 +259,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
 
         and: "Several other workgroups currently have meetings"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         for(def meeting : meetings) {

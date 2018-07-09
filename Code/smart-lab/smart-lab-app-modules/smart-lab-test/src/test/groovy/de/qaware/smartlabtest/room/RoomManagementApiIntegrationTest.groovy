@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
 
+import static java.util.Arrays.asList
+
 @SpringBootTest
 class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IRoom> {
 
@@ -43,7 +45,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
     @Override
     def setupDataForFindAll_withExisting() {
         crudService = roomManagementService
-        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(asList(
                 coastGuardDataFactory.createRoomMap().get(coastGuardDataFactory.ROOM_ID_BLUE),
                 forestRangersDataFactory.createRoomMap().get(forestRangersDataFactory.ROOM_ID_GREEN),
                 fireFightersDataFactory.createRoomMap().get(fireFightersDataFactory.ROOM_ID_RED)))
@@ -118,12 +120,12 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         roomManagementService.create(room)
 
         and: "There are meetings in the requested room and other rooms"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsInRoom = new HashSet<IMeeting>(Arrays.asList(
+        def meetingsInRoom = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS)))
         for(def meeting : meetings) {
@@ -151,7 +153,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         roomManagementService.create(room)
 
         and: "There are only meetings in other rooms than the requested one"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
         def meetingsInRoom = new HashSet<IMeeting>()
@@ -178,7 +180,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         def roomId = coastGuardDataFactory.ROOM_ID_BLUE
 
         and: "There are meetings in several rooms"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
@@ -207,7 +209,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         roomManagementService.create(room)
 
         and: "There is currently a meeting in the requested room and another room"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
@@ -257,7 +259,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         def roomId = forestRangersDataFactory.ROOM_ID_GREEN
 
         and: "There are currently meetings in several room"
-        def meetings = new HashSet<IMeeting>(Arrays.asList(
+        def meetings = new HashSet<IMeeting>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
         for(def meeting : meetings) {
@@ -434,7 +436,7 @@ class RoomManagementApiIntegrationTest extends CrudApiIntegrationTest<RoomId, IR
         roomManagementService.create(room)
 
         and: "There is currently a meeting in the requested room and another room"
-        def meetings = Arrays.asList(
+        def meetings = asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS))
         def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)

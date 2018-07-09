@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
 
+import static java.util.Arrays.asList
+
 @SpringBootTest
 class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<MeetingId, IMeeting> {
 
@@ -39,7 +41,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<Meeting
     @Override
     def setupDataForFindAll_withExisting() {
         crudService = meetingManagementService
-        entitiesForFindAll_withExisting = new HashSet<>(Arrays.asList(
+        entitiesForFindAll_withExisting = new HashSet<>(asList(
                 coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
                 forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
                 fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))

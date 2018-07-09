@@ -11,8 +11,9 @@ import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.UUID;
+
+import static java.util.Arrays.asList;
 
 @Slf4j
 public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
@@ -37,7 +38,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
         DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
-                Arrays.asList(config.getUrl()));
+                asList(config.getUrl()));
         this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }
 
