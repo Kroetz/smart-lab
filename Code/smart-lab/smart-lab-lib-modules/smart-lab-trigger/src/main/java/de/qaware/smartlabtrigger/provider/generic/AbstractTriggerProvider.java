@@ -73,7 +73,7 @@ public abstract class AbstractTriggerProvider implements CommandLineRunner {
         this.currentCheck = Instant.now();
         Set<IMeeting> triggerCandidates = getTriggerCandidates();
         updateTriggerCandidateCache(triggerCandidates);
-        log.info("{} meetings are suitable for trigger \"{}\"", triggerCandidates.size(), this.triggerName);
+        log.info("{} meeting(s) suitable for trigger \"{}\"", triggerCandidates.size(), this.triggerName);
         for(IMeeting triggerCandidate : triggerCandidates) {
             provideTrigger(triggerCandidate);
         }
