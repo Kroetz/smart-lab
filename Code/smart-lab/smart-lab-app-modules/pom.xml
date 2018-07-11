@@ -30,10 +30,9 @@
         <module>smart-lab-assistance-microservice</module>
         <module>smart-lab-trigger-microservice</module>
         <module>smart-lab-gui-microservice</module>
+        <module>smart-lab-trigger-provider-microservice</module>
         <module>smart-lab-monolithic-service</module>
         <module>smart-lab-test</module>
-        <module>smart-lab-meeting-set-up-trigger-mock</module>
-        <module>smart-lab-meeting-clean-up-trigger-mock</module>
     </modules>
 
 </project>
