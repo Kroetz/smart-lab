@@ -25,6 +25,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,20 +48,26 @@ import java.util.Map;
 @EnableSmartLabGui
 @EnableSmartLabSetUpMeetingTriggerProvider
 @EnableSmartLabCleanUpMeetingTriggerProvider
-@EnableConfigurationProperties(MonolithModuleConfiguration.MonolithProperties.class)
+@EnableConfigurationProperties(value = {
+        MonolithModuleConfiguration.DelegateProperties.class,
+        MonolithModuleConfiguration.FallbackBaseUrlProperties.class})
 public class MonolithModuleConfiguration {
 
-    private MonolithProperties monolithProperties;
+    private final DelegateProperties delegateProperties;
+    private final FallbackBaseUrlProperties fallbackBaseUrlProperties;
 
-    public MonolithModuleConfiguration(MonolithProperties monolithProperties) {
-        this.monolithProperties = monolithProperties;
+    public MonolithModuleConfiguration(
+            DelegateProperties delegateProperties,
+            FallbackBaseUrlProperties fallbackBaseUrlProperties) {
+        this.delegateProperties = delegateProperties;
+        this.fallbackBaseUrlProperties = fallbackBaseUrlProperties;
     }
 
     @Bean
     // TODO: String literal
     @Qualifier("urlsByDelegateName")
     public Map<String, String> urlsByDelegateName() {
-        return this.monolithProperties.getUrls();
+        return this.delegateProperties.getUrls();
     }
 
     @Bean
@@ -76,11 +84,27 @@ public class MonolithModuleConfiguration {
         return new OkHttpClient();
     }
 
+    /*
+     * This URL is only used if the regular method fails to deduce the base URL of the GUI service from the request
+     * URL that is being processed (e.g. when there is technically no REST call because a request came from within the
+     * system).
+     */
+    @Bean
+    // TODO: String literal
+    @Qualifier("guiServiceFallbackBaseUrl")
+    public URL guiServiceFallbackBaseUrl() throws MalformedURLException {
+        return this.fallbackBaseUrlProperties.getGuiService();
+    }
+
     // TODO: String literal
     @ConfigurationProperties(prefix = "delegate")
-    public static class MonolithProperties {
+    public static class DelegateProperties {
 
-        private Map<String, String> urls = new HashMap<>();
+        private Map<String, String> urls;
+
+        public DelegateProperties() {
+            this.urls = new HashMap<>();
+        }
 
         public Map<String, String> getUrls() {
             return this.urls;
@@ -92,6 +116,27 @@ public class MonolithModuleConfiguration {
                 throw new ConfigurationException("The configured delegate URLs must be valid");
             }
             this.urls = urls;
+        }
+    }
+
+    // TODO: String literal
+    @ConfigurationProperties(prefix = "fallback-base-url")
+    public static class FallbackBaseUrlProperties {
+
+        private final String DEFAULT_GUI_SERVICE_FALLBACK_BASE_URL = "http://localhost:8080";
+
+        private String guiService;
+
+        public FallbackBaseUrlProperties() {
+            this.guiService = DEFAULT_GUI_SERVICE_FALLBACK_BASE_URL;
+        }
+
+        public URL getGuiService() throws MalformedURLException {
+            return new URL(this.guiService);
+        }
+
+        public void setGuiService(String guiService) {
+            this.guiService = guiService;
         }
     }
 }

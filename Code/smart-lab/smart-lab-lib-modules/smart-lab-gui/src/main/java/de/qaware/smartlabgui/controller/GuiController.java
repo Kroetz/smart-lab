@@ -7,6 +7,7 @@ import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.miscellaneous.StringUtils;
 import de.qaware.smartlabgui.business.IGuiBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,10 +46,20 @@ public class GuiController extends AbstractSmartLabController {
     @Slf4j
     public static class BaseUrlGetter {
 
+        private final URL fallbackBaseUrl;
+
+        public BaseUrlGetter(
+                // TODO: String literal
+                @Qualifier("guiServiceFallbackBaseUrl") URL fallbackBaseUrl) {
+            this.fallbackBaseUrl = fallbackBaseUrl;
+        }
+
         @GetMapping(GuiApiConstants.MAPPING_GET_BASE_URL)
         public ResponseEntity<URL> getBaseUrl() {
             // TODO: Exception
-            URL associatedRequestUrl = ThreadContext.get().getAssociatedRequestUrl().orElseThrow(RuntimeException::new);
+            URL associatedRequestUrl = ThreadContext.get()
+                    .getAssociatedRequestUrl()
+                    .orElse(this.fallbackBaseUrl);
             URL baseUrl;
             try {
                 baseUrl = new URL(
