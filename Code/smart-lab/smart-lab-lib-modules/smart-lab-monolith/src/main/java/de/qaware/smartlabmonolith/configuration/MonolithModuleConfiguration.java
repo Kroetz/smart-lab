@@ -10,6 +10,8 @@ import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabmeeting.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabperson.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlabroom.annotation.EnableSmartLabRoomService;
+import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
+import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
 import de.qaware.smartlabworkgroup.annotation.EnableSmartLabWorkgroupService;
 import feign.Client;
@@ -42,6 +44,8 @@ import java.util.Map;
 @EnableSmartLabAssistanceService
 @EnableSmartLabActionService
 @EnableSmartLabGui
+@EnableSmartLabSetUpMeetingTriggerProvider
+@EnableSmartLabCleanUpMeetingTriggerProvider
 @EnableConfigurationProperties(MonolithModuleConfiguration.MonolithProperties.class)
 public class MonolithModuleConfiguration {
 
