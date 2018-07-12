@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.trigger;
 
-public class TriggerApiConstants {
+public abstract class TriggerApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "trigger";
 

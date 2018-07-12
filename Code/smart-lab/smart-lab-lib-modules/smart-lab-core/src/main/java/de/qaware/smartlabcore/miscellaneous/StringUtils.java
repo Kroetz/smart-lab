@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.miscellaneous;
 
-public class StringUtils {
+public abstract class StringUtils {
 
     public static final String EMPTY = "";
     public static final String SPACE = " ";

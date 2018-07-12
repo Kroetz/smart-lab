@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.job;
 
-public class JobManagementApiConstants {
+public abstract class JobManagementApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "job-management";
 

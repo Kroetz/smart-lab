@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.room;
 
-public class RoomManagementApiConstants {
+public abstract class RoomManagementApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "room-management";
 

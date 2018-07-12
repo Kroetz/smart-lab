@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.assistance;
 
-public class AssistanceApiConstants {
+public abstract class AssistanceApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "assistance";
 

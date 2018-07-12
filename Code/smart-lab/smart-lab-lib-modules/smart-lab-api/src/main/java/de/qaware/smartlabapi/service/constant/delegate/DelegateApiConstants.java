@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.delegate;
 
-public class DelegateApiConstants {
+public abstract class DelegateApiConstants {
 
     public static final String PARAMETER_NAME_ACTION_ID = "actionId";
     public static final String PARAMETER_NAME_DEVICE_TYPE = "deviceType";

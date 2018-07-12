@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.device;
 
-public class DeviceManagementApiConstants {
+public abstract class DeviceManagementApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "device-management";
 

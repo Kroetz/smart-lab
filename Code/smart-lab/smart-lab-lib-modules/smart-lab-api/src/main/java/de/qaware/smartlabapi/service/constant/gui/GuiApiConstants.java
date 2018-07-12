@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.gui;
 
-public class GuiApiConstants {
+public abstract class GuiApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "gui";
 

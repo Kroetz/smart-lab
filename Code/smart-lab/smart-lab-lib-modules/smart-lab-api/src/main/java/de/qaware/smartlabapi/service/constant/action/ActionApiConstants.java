@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.action;
 
-public class ActionApiConstants {
+public abstract class ActionApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "action";
 

@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.meeting;
 
-public class MeetingManagementApiConstants {
+public abstract class MeetingManagementApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "meeting-management";
 

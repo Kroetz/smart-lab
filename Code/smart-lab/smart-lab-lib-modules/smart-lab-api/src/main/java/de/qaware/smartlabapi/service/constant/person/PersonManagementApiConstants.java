@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.constant.person;
 
-public class PersonManagementApiConstants {
+public abstract class PersonManagementApiConstants {
 
     public static final String FEIGN_CLIENT_NAME = "person-management";
 
