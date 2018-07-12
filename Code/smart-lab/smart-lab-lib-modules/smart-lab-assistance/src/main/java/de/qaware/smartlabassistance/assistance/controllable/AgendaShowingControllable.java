@@ -27,18 +27,18 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
     private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
-    private final IServiceBaseUrlGetter guiBaseUrlGetter;
+    private final IServiceBaseUrlGetter guiServiceBaseUrlGetter;
     private UUID webBrowserInstanceId;
 
     private AgendaShowingControllable(
             IAssistanceInfo agendaShowingInfo,
             IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
-            IServiceBaseUrlGetter guiBaseUrlGetter) {
+            IServiceBaseUrlGetter guiServiceBaseUrlGetter) {
         super(agendaShowingInfo);
         this.webBrowserOpening = webBrowserOpening;
         this.webBrowserClosing = webBrowserClosing;
-        this.guiBaseUrlGetter = guiBaseUrlGetter;
+        this.guiServiceBaseUrlGetter = guiServiceBaseUrlGetter;
     }
 
     @Override
@@ -47,13 +47,13 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         // TODO: Check for casting exception and throw illegalstateexception
         AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
         // TODO: Exception message
-        URL guiBaseUrl = this.guiBaseUrlGetter.getBaseUrl();
+        URL guiServiceBaseUrl = this.guiServiceBaseUrlGetter.getBaseUrl();
         URL meetingAgendaUrl;
         try {
             meetingAgendaUrl = new URL(
-                    guiBaseUrl.getProtocol(),
-                    guiBaseUrl.getHost(),
-                    guiBaseUrl.getPort(),
+                    guiServiceBaseUrl.getProtocol(),
+                    guiServiceBaseUrl.getHost(),
+                    guiServiceBaseUrl.getPort(),
                     format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_MEETING_AGENDA_PAGE, context.getRoom().map(room -> room.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
         } catch (MalformedURLException e) {
             // TODO: Logging and appropriate exception
@@ -87,18 +87,18 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
         private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
         private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
-        private final IServiceBaseUrlGetter guiBaseUrlGetter;
+        private final IServiceBaseUrlGetter guiServiceBaseUrlGetter;
 
         public Factory(
                 AgendaShowingInfo agendaShowingInfo,
                 IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
                 IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing,
                 // TODO: String literal
-                @Qualifier("guiBaseUrlGetter") IServiceBaseUrlGetter guiBaseUrlGetter) {
+                @Qualifier("guiServiceBaseUrlGetter") IServiceBaseUrlGetter guiServiceBaseUrlGetter) {
             super(agendaShowingInfo);
             this.webBrowserOpening = webBrowserOpening;
             this.webBrowserClosing = webBrowserClosing;
-            this.guiBaseUrlGetter = guiBaseUrlGetter;
+            this.guiServiceBaseUrlGetter = guiServiceBaseUrlGetter;
         }
 
         @Override
@@ -107,7 +107,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                     this.assistanceInfo,
                     this.webBrowserOpening,
                     this.webBrowserClosing,
-                    this.guiBaseUrlGetter);
+                    this.guiServiceBaseUrlGetter);
         }
     }
 }

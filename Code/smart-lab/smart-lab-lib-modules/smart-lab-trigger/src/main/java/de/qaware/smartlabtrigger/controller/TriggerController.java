@@ -5,6 +5,7 @@ import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.StringUtils;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -160,21 +161,20 @@ public class TriggerController {
     @RestController
     @RequestMapping(TriggerApiConstants.MAPPING_BASE)
     @Slf4j
-    public static class BaseUrlGetter {
+    public static class BaseUrlController {
+
+        private final IBaseUrlDetector baseUrlDetector;
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            this.baseUrlDetector = baseUrlDetector;
+        }
 
         @GetMapping(TriggerApiConstants.MAPPING_GET_BASE_URL)
         public ResponseEntity<URL> getBaseUrl() {
             try {
-                ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
-                URL requestUrl = builder.build().toUri().toURL();
-                URL baseUrl = new URL(
-                        requestUrl.getProtocol(),
-                        requestUrl.getHost(),
-                        requestUrl.getPort(),
-                        StringUtils.EMPTY);
-                return ResponseEntity.ok(baseUrl);
+                return ResponseEntity.ok(this.baseUrlDetector.detect());
             } catch (MalformedURLException e) {
-                log.error("Could not build requested base URL");
+                log.error("Could determine base URL", e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }

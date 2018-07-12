@@ -1,13 +1,11 @@
 package de.qaware.smartlabgui.controller;
 
 import de.qaware.smartlabapi.GuiApiConstants;
-import de.qaware.smartlabcore.concurrency.ThreadContext;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.miscellaneous.StringUtils;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabgui.business.IGuiBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,34 +42,22 @@ public class GuiController extends AbstractSmartLabController {
     @RestController
     @RequestMapping(GuiApiConstants.MAPPING_BASE)
     @Slf4j
-    public static class BaseUrlGetter {
+    public static class BaseUrlController {
 
-        private final URL fallbackBaseUrl;
+        private final IBaseUrlDetector baseUrlDetector;
 
-        public BaseUrlGetter(
-                // TODO: String literal
-                @Qualifier("guiServiceFallbackBaseUrl") URL fallbackBaseUrl) {
-            this.fallbackBaseUrl = fallbackBaseUrl;
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            this.baseUrlDetector = baseUrlDetector;
         }
 
         @GetMapping(GuiApiConstants.MAPPING_GET_BASE_URL)
         public ResponseEntity<URL> getBaseUrl() {
-            // TODO: Exception
-            URL associatedRequestUrl = ThreadContext.get()
-                    .getAssociatedRequestUrl()
-                    .orElse(this.fallbackBaseUrl);
-            URL baseUrl;
             try {
-                baseUrl = new URL(
-                        associatedRequestUrl.getProtocol(),
-                        associatedRequestUrl.getHost(),
-                        associatedRequestUrl.getPort(),
-                        StringUtils.EMPTY);
+                return ResponseEntity.ok(this.baseUrlDetector.detect());
             } catch (MalformedURLException e) {
-                log.error("Could not build base URL of the request this thread is associated with", e);
+                log.error("Could determine base URL", e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
-            return ResponseEntity.ok(baseUrl);
         }
     }
 }

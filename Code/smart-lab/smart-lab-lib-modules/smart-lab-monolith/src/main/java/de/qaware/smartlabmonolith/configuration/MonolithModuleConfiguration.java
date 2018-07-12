@@ -85,15 +85,14 @@ public class MonolithModuleConfiguration {
     }
 
     /*
-     * This URL is only used if the regular method fails to deduce the base URL of the GUI service from the request
-     * URL that is being processed (e.g. when there is technically no REST call because a request came from within the
-     * system).
+     * This URL is only used if the regular method fails to deduce the base URL of services from the request URL that
+     * is being processed (e.g. when there is technically no REST call because a request came from within the system).
      */
     @Bean
     // TODO: String literal
-    @Qualifier("guiServiceFallbackBaseUrl")
-    public URL guiServiceFallbackBaseUrl() throws MalformedURLException {
-        return this.fallbackBaseUrlProperties.getGuiService();
+    @Qualifier("fallbackBaseUrl")
+    public URL fallbackBaseUrl() throws MalformedURLException {
+        return this.fallbackBaseUrlProperties.getFallbackBaseUrl();
     }
 
     // TODO: String literal
@@ -120,23 +119,23 @@ public class MonolithModuleConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "fallback-base-url")
+    @ConfigurationProperties(prefix = "monolith")
     public static class FallbackBaseUrlProperties {
 
-        private final String DEFAULT_GUI_SERVICE_FALLBACK_BASE_URL = "http://localhost:8080";
+        private final String DEFAULT_FALLBACK_BASE_URL = "http://localhost:8080";
 
-        private String guiService;
+        private String fallbackBaseUrl;
 
         public FallbackBaseUrlProperties() {
-            this.guiService = DEFAULT_GUI_SERVICE_FALLBACK_BASE_URL;
+            this.fallbackBaseUrl = DEFAULT_FALLBACK_BASE_URL;
         }
 
-        public URL getGuiService() throws MalformedURLException {
-            return new URL(this.guiService);
+        public URL getFallbackBaseUrl() throws MalformedURLException {
+            return new URL(this.fallbackBaseUrl);
         }
 
-        public void setGuiService(String guiService) {
-            this.guiService = guiService;
+        public void setFallbackBaseUrl(String fallbackBaseUrl) {
+            this.fallbackBaseUrl = fallbackBaseUrl;
         }
     }
 }

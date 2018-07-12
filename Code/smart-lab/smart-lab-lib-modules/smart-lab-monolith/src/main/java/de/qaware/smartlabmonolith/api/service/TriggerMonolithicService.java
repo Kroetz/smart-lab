@@ -115,15 +115,15 @@ public class TriggerMonolithicService implements ITriggerService {
             havingValue = Property.Value.Modularity.MONOLITH)
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 
-        private final TriggerController.BaseUrlGetter triggerServiceBaseUrlGetter;
+        private final TriggerController.BaseUrlController triggerServiceBaseUrlController;
 
-        public BaseUrlGetter(TriggerController.BaseUrlGetter triggerServiceBaseUrlGetter) {
-            this.triggerServiceBaseUrlGetter = triggerServiceBaseUrlGetter;
+        public BaseUrlGetter(TriggerController.BaseUrlController triggerServiceBaseUrlController) {
+            this.triggerServiceBaseUrlController = triggerServiceBaseUrlController;
         }
 
         @Override
         public URL getBaseUrl() {
-            return this.triggerServiceBaseUrlGetter.getBaseUrl().getBody();
+            return this.triggerServiceBaseUrlController.getBaseUrl().getBody();
         }
     }
 }

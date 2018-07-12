@@ -39,7 +39,7 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
 
     @Override
     public String getCurrentMeetingStatusPage(RoomId roomId, Model model) {
-        URL triggerBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
+        URL triggerServiceBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
         // TODO: String literals
         model.addAttribute("roomId", roomId.getIdValue());
         IMeeting currentMeeting;
@@ -55,16 +55,15 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         model.addAttribute("startMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId));
         model.addAttribute("stopMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId));
         model.addAttribute("extendMeetingUrl", "http://localhost:8086" + format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId, Constants.DEFAULT_MEETING_EXTENSION.toMinutes()));
-        model.addAttribute("startMeetingUrl", triggerBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId.getIdValue()));
-        model.addAttribute("stopMeetingUrl", triggerBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId.getIdValue()));
-        model.addAttribute("extendMeetingUrl", triggerBaseUrl + format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId.getIdValue(), this.roomStatusMeetingExtension.toMinutes()));
+        model.addAttribute("startMeetingUrl", triggerServiceBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_ROOM_ID, roomId.getIdValue()));
+        model.addAttribute("stopMeetingUrl", triggerServiceBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_ROOM_ID, roomId.getIdValue()));
+        model.addAttribute("extendMeetingUrl", triggerServiceBaseUrl + format(RoomManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, roomId.getIdValue(), this.roomStatusMeetingExtension.toMinutes()));
         // TODO: Incorporate meeting details in page.
         return "meeting-status";
     }
 
     @Override
     public String getCurrentMeetingAgendaPage(RoomId roomId, Model model) {
-        URL triggerBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
         // TODO: String literals
         IMeeting currentMeeting;
         try {

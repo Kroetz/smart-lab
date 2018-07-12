@@ -21,7 +21,7 @@ public class GuiMicroservice implements IGuiService {
 
     @Component
     // TODO: String literal
-    @Qualifier("guiBaseUrlGetter")
+    @Qualifier("guiServiceBaseUrlGetter")
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

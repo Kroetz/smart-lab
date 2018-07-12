@@ -19,22 +19,22 @@ public class GuiMonolithicService implements IGuiService {
 
     @Component
     // TODO: String literal
-    @Qualifier("guiBaseUrlGetter")
+    @Qualifier("guiServiceBaseUrlGetter")
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MONOLITH)
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 
-        private final GuiController.BaseUrlGetter guiBaseUrlGetter;
+        private final GuiController.BaseUrlController guiServiceBaseUrlController;
 
-        public BaseUrlGetter(GuiController.BaseUrlGetter guiBaseUrlGetter) {
-            this.guiBaseUrlGetter = guiBaseUrlGetter;
+        public BaseUrlGetter(GuiController.BaseUrlController guiServiceBaseUrlController) {
+            this.guiServiceBaseUrlController = guiServiceBaseUrlController;
         }
 
         @Override
         public URL getBaseUrl() {
-            return this.guiBaseUrlGetter.getBaseUrl().getBody();
+            return this.guiServiceBaseUrlController.getBaseUrl().getBody();
         }
     }
 }
