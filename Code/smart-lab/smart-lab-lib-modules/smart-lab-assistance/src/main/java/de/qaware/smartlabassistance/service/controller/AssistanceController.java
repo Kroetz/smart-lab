@@ -1,7 +1,7 @@
-package de.qaware.smartlabassistance.controller;
+package de.qaware.smartlabassistance.service.controller;
 
 import de.qaware.smartlabapi.AssistanceApiConstants;
-import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
+import de.qaware.smartlabassistance.service.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;

@@ -1,17 +1,13 @@
-package de.qaware.smartlabassistance.business;
+package de.qaware.smartlabassistance.service.business;
 
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.tracker.IAssistanceTracker;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
-import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.function.BiConsumer;
 
 @Service
 @Slf4j

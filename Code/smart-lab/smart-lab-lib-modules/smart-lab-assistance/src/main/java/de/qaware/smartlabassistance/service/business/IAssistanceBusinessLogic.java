@@ -1,4 +1,4 @@
-package de.qaware.smartlabassistance.business;
+package de.qaware.smartlabassistance.service.business;
 
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 
