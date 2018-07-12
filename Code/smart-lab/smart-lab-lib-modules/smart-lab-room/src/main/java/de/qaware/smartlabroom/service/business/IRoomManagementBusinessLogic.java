@@ -1,11 +1,10 @@
-package de.qaware.smartlabroom.business;
+package de.qaware.smartlabroom.service.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.business.IBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.result.ExtensionResult;
-import org.springframework.ui.Model;
 
 import java.time.Duration;
 import java.util.Optional;

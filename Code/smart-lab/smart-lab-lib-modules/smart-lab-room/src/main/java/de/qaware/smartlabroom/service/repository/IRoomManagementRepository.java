@@ -1,4 +1,4 @@
-package de.qaware.smartlabroom.repository;
+package de.qaware.smartlabroom.service.repository;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;

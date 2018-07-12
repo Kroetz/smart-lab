@@ -10,7 +10,7 @@ import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabroom.controller.RoomManagementController;
+import de.qaware.smartlabroom.service.controller.RoomManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;

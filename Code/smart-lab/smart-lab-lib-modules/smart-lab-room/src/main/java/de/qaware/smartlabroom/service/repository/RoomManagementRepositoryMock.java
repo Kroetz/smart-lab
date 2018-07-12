@@ -1,4 +1,4 @@
-package de.qaware.smartlabroom.repository;
+package de.qaware.smartlabroom.service.repository;
 
 import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -6,7 +6,6 @@ import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
-import de.qaware.smartlabcore.data.ISampleDataProvider;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

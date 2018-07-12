@@ -1,4 +1,4 @@
-package de.qaware.smartlabroom.controller;
+package de.qaware.smartlabroom.service.controller;
 
 import de.qaware.smartlabapi.RoomManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
-import de.qaware.smartlabroom.business.IRoomManagementBusinessLogic;
+import de.qaware.smartlabroom.service.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
