@@ -1,11 +1,11 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabmonolith.api.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -113,17 +113,10 @@ public class TriggerMonolithicService implements ITriggerService {
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MONOLITH)
-    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
-
-        private final TriggerController.BaseUrlController triggerServiceBaseUrlController;
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
         public BaseUrlGetter(TriggerController.BaseUrlController triggerServiceBaseUrlController) {
-            this.triggerServiceBaseUrlController = triggerServiceBaseUrlController;
-        }
-
-        @Override
-        public URL getBaseUrl() {
-            return this.triggerServiceBaseUrlController.getBaseUrl().getBody();
+            super(triggerServiceBaseUrlController);
         }
     }
 }

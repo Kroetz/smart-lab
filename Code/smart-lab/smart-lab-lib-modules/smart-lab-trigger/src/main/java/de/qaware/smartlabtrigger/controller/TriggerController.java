@@ -4,15 +4,13 @@ import de.qaware.smartlabapi.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.miscellaneous.StringUtils;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabtrigger.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -161,22 +159,16 @@ public class TriggerController {
     @RestController
     @RequestMapping(TriggerApiConstants.MAPPING_BASE)
     @Slf4j
-    public static class BaseUrlController {
-
-        private final IBaseUrlDetector baseUrlDetector;
+    public static class BaseUrlController extends AbstractBaseUrlController {
 
         public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
-            this.baseUrlDetector = baseUrlDetector;
+            super(baseUrlDetector);
         }
 
+        @Override
         @GetMapping(TriggerApiConstants.MAPPING_GET_BASE_URL)
         public ResponseEntity<URL> getBaseUrl() {
-            try {
-                return ResponseEntity.ok(this.baseUrlDetector.detect());
-            } catch (MalformedURLException e) {
-                log.error("Could determine base URL", e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+            return super.getBaseUrl();
         }
     }
 }

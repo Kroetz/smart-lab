@@ -4,6 +4,7 @@ import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.gui.IGuiService;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabgui.controller.GuiController;
+import de.qaware.smartlabmonolith.api.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -24,17 +25,10 @@ public class GuiMonolithicService implements IGuiService {
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MONOLITH)
-    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
-
-        private final GuiController.BaseUrlController guiServiceBaseUrlController;
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
         public BaseUrlGetter(GuiController.BaseUrlController guiServiceBaseUrlController) {
-            this.guiServiceBaseUrlController = guiServiceBaseUrlController;
-        }
-
-        @Override
-        public URL getBaseUrl() {
-            return this.guiServiceBaseUrlController.getBaseUrl().getBody();
+            super(guiServiceBaseUrlController);
         }
     }
 }
