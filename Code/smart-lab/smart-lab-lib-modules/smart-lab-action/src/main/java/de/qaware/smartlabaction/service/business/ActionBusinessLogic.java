@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.business;
+package de.qaware.smartlabaction.service.business;
 
 import de.qaware.smartlabapi.service.delegate.IDelegateService;
 import de.qaware.smartlabaction.action.executable.generic.IActionExecutable;

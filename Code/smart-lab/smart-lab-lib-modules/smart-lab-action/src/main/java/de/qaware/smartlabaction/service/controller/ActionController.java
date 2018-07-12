@@ -1,6 +1,6 @@
-package de.qaware.smartlabaction.controller;
+package de.qaware.smartlabaction.service.controller;
 
-import de.qaware.smartlabaction.business.IActionBusinessLogic;
+import de.qaware.smartlabaction.service.business.IActionBusinessLogic;
 import de.qaware.smartlabapi.ActionApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
