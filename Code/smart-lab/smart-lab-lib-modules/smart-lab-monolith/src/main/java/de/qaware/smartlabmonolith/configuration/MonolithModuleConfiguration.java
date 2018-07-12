@@ -35,7 +35,7 @@ import java.util.Map;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-@ComponentScan(basePackageClasses = {de.qaware.smartlabmonolith.api.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlabmonolith.ComponentScanMarker.class})
 @EnableSmartLabJobService
 @EnableSmartLabPersonService
 @EnableSmartLabWorkgroupService

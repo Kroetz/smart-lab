@@ -1,10 +1,11 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.person;
 
 import de.qaware.smartlabapi.service.connector.person.IPersonManagementService;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
 import de.qaware.smartlabperson.service.controller.PersonManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

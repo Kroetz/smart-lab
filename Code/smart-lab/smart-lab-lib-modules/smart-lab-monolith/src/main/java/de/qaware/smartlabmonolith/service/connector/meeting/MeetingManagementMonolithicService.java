@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.meeting;
 
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -8,6 +8,7 @@ import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;

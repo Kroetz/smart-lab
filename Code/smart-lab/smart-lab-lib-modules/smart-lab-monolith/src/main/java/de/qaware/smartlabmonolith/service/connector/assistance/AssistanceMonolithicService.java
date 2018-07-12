@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.assistance;
 
 import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.service.controller.AssistanceController;

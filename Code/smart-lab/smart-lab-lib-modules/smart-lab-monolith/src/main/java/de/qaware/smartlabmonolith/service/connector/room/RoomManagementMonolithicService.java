@@ -1,16 +1,17 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.room;
 
-import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabapi.service.connector.room.IRoomManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabworkgroup.service.controller.WorkgroupManagementController;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
+import de.qaware.smartlabroom.service.controller.RoomManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
@@ -25,18 +26,18 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class WorkgroupManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class RoomManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IRoom, RoomId> implements IRoomManagementService {
 
-    private final WorkgroupManagementController workgroupManagementController;
+    private final RoomManagementController roomManagementController;
 
-    public WorkgroupManagementMonolithicService(WorkgroupManagementController workgroupManagementController) {
-        super(workgroupManagementController);
-        this.workgroupManagementController = workgroupManagementController;
+    public RoomManagementMonolithicService(RoomManagementController roomManagementController) {
+        super(roomManagementController);
+        this.roomManagementController = roomManagementController;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
-        ResponseEntity<Set<IMeeting>> response = this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId.getIdValue());
+    public Set<IMeeting> getMeetingsInRoom(RoomId roomId) {
+        ResponseEntity<Set<IMeeting>> response = this.roomManagementController.getMeetingsInRoom(roomId.getIdValue());
         if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
@@ -44,8 +45,8 @@ public class WorkgroupManagementMonolithicService extends AbstractBasicEntityMan
     }
 
     @Override
-    public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
-        ResponseEntity<IMeeting> response = this.workgroupManagementController.getCurrentMeeting(workgroupId.getIdValue());
+    public IMeeting getCurrentMeeting(RoomId roomId) {
+        ResponseEntity<IMeeting> response = this.roomManagementController.getCurrentMeeting(roomId.getIdValue());
         if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
@@ -53,8 +54,8 @@ public class WorkgroupManagementMonolithicService extends AbstractBasicEntityMan
     }
 
     @Override
-    public void extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
-        ResponseEntity<Void> response = this.workgroupManagementController.extendCurrentMeeting(workgroupId.getIdValue(), extension.toMinutes());
+    public void extendCurrentMeeting(RoomId roomId, Duration extension) {
+        ResponseEntity<Void> response = this.roomManagementController.extendCurrentMeeting(roomId.getIdValue(), extension.toMinutes());
         if(response.getStatusCode() == HttpStatus.OK) return;
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
@@ -65,14 +66,14 @@ public class WorkgroupManagementMonolithicService extends AbstractBasicEntityMan
 
     @Component
     // TODO: String literal
-    @Qualifier("workgroupManagementServiceBaseUrlGetter")
+    @Qualifier("roomManagementServiceBaseUrlGetter")
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MONOLITH)
     public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
-        public BaseUrlGetter(WorkgroupManagementController.BaseUrlController baseUrlController) {
+        public BaseUrlGetter(RoomManagementController.BaseUrlController baseUrlController) {
             super(baseUrlController);
         }
     }

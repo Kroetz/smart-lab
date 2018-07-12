@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.gui;
 
 import de.qaware.smartlabapi.service.connector.gui.IGuiService;
 import de.qaware.smartlabcore.miscellaneous.Property;

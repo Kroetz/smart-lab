@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.trigger;
 
 import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.job.IJobInfo;

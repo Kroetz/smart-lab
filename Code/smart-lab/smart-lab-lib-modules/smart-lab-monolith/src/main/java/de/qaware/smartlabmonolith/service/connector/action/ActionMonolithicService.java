@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.action;
 
 import de.qaware.smartlabaction.service.controller.ActionController;
 import de.qaware.smartlabapi.service.connector.action.IActionService;

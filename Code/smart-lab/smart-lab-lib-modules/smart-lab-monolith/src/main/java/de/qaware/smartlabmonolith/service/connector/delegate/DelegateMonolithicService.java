@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolith.api.service;
+package de.qaware.smartlabmonolith.service.connector.delegate;
 
 import de.qaware.smartlabapi.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlabapi.service.connector.delegate.AbstractDelegateServiceConnector;
