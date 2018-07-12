@@ -1,4 +1,4 @@
-package de.qaware.smartlabdevice.controller;
+package de.qaware.smartlabdevice.service.controller;
 
 import de.qaware.smartlabapi.DeviceManagementApiConstants;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
-import de.qaware.smartlabdevice.business.IDeviceManagementBusinessLogic;
+import de.qaware.smartlabdevice.service.business.IDeviceManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

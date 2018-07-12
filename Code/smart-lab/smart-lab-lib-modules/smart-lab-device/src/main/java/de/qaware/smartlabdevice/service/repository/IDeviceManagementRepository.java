@@ -1,4 +1,4 @@
-package de.qaware.smartlabdevice.repository;
+package de.qaware.smartlabdevice.service.repository;
 
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
