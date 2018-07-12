@@ -48,7 +48,6 @@ public interface IDeviceManagementApiClient extends IBasicEntityManagementApiCli
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
 
-    @Override
     @GetMapping(DeviceManagementApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }

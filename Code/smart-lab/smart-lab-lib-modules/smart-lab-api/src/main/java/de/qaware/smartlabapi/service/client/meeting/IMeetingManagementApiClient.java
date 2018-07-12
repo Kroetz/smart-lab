@@ -68,7 +68,6 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId,
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_SHIFT_IN_MINUTES) long shiftInMinutes);
 
-    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }

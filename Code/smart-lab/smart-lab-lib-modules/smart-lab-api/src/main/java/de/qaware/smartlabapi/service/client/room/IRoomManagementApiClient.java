@@ -59,7 +59,6 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
 
-    @Override
     @GetMapping(RoomManagementApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }

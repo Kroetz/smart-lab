@@ -1,6 +1,5 @@
 package de.qaware.smartlabapi.service.client.trigger;
 
-import de.qaware.smartlabapi.service.client.generic.ISmartLabApiClient;
 import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.net.URL;
 
 @FeignClient(name = TriggerApiConstants.FEIGN_CLIENT_NAME, path = TriggerApiConstants.MAPPING_BASE)
-public interface ITriggerApiClient extends ISmartLabApiClient {
+public interface ITriggerApiClient {
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
     ResponseEntity<IJobInfo> setUpCurrentMeetingByRoomId(
@@ -55,7 +54,6 @@ public interface ITriggerApiClient extends ISmartLabApiClient {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
-    @Override
     @GetMapping(TriggerApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }

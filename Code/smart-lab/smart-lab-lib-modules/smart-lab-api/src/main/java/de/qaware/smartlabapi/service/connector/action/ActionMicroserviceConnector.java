@@ -1,16 +1,20 @@
 package de.qaware.smartlabapi.service.connector.action;
 
 import de.qaware.smartlabapi.service.client.action.IActionApiClient;
-import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import java.net.URL;
 
 @Component
 @ConditionalOnProperty(
@@ -42,10 +46,27 @@ public class ActionMicroserviceConnector implements IActionService {
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+    @Slf4j
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final IActionApiClient actionApiClient;
 
         public BaseUrlGetter(IActionApiClient actionApiClient) {
-            super(actionApiClient);
+            this.actionApiClient = actionApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            // TODO: Exceptions
+            try {
+                return this.actionApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }

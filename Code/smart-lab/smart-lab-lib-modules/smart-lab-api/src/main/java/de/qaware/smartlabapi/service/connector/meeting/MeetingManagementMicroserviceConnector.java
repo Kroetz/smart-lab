@@ -2,18 +2,21 @@ package de.qaware.smartlabapi.service.connector.meeting;
 
 import de.qaware.smartlabapi.service.client.meeting.IMeetingManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
-import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
@@ -118,10 +121,27 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+    @Slf4j
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final IMeetingManagementApiClient meetingManagementApiClient;
 
         public BaseUrlGetter(IMeetingManagementApiClient meetingManagementApiClient) {
-            super(meetingManagementApiClient);
+            this.meetingManagementApiClient = meetingManagementApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            // TODO: Exceptions
+            try {
+                return this.meetingManagementApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }

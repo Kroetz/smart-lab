@@ -2,7 +2,6 @@ package de.qaware.smartlabapi.service.connector.workgroup;
 
 import de.qaware.smartlabapi.service.client.workgroup.IWorkgroupManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
-import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -11,12 +10,16 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
@@ -87,10 +90,27 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+    @Slf4j
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final IWorkgroupManagementApiClient workgroupManagementApiClient;
 
         public BaseUrlGetter(IWorkgroupManagementApiClient workgroupManagementApiClient) {
-            super(workgroupManagementApiClient);
+            this.workgroupManagementApiClient = workgroupManagementApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            // TODO: Exceptions
+            try {
+                return this.workgroupManagementApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }

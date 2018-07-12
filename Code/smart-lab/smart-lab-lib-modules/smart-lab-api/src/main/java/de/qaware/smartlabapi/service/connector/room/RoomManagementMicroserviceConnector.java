@@ -2,7 +2,6 @@ package de.qaware.smartlabapi.service.connector.room;
 
 import de.qaware.smartlabapi.service.client.room.IRoomManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
-import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
@@ -11,12 +10,16 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
@@ -87,10 +90,27 @@ public class RoomManagementMicroserviceConnector extends AbstractBasicEntityMana
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+    @Slf4j
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final IRoomManagementApiClient roomManagementApiClient;
 
         public BaseUrlGetter(IRoomManagementApiClient roomManagementApiClient) {
-            super(roomManagementApiClient);
+            this.roomManagementApiClient = roomManagementApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            // TODO: Exceptions
+            try {
+                return this.roomManagementApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.client.workgroup;
 
-import de.qaware.smartlabapi.service.constant.workgroup.WorkgroupManagementApiConstants;
 import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
+import de.qaware.smartlabapi.service.constant.workgroup.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -59,7 +59,6 @@ public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApi
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
 
-    @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }

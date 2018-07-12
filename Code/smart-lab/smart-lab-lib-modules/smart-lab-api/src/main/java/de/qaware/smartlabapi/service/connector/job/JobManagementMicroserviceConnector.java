@@ -1,11 +1,13 @@
 package de.qaware.smartlabapi.service.connector.job;
 
 import de.qaware.smartlabapi.service.client.job.IJobManagementApiClient;
-import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
+import feign.RetryableException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.lang.Nullable;
@@ -97,10 +99,27 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+    @Slf4j
+    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
+
+        private final IJobManagementApiClient jobManagementApiClient;
 
         public BaseUrlGetter(IJobManagementApiClient jobManagementApiClient) {
-            super(jobManagementApiClient);
+            this.jobManagementApiClient = jobManagementApiClient;
+        }
+
+        @Override
+        public URL getBaseUrl() {
+            // TODO: Exceptions
+            try {
+                return this.jobManagementApiClient.getBaseUrl().getBody();
+            }
+            catch(RetryableException e) {
+                throw e;
+            }
+            catch(FeignException e) {
+                throw new UnknownErrorException();
+            }
         }
     }
 }

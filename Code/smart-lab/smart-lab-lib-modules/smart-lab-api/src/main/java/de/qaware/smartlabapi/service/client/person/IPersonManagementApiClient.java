@@ -44,7 +44,6 @@ public interface IPersonManagementApiClient extends IBasicEntityManagementApiCli
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
 
-    @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_GET_BASE_URL)
     ResponseEntity<URL> getBaseUrl();
 }
