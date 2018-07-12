@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.business;
+package de.qaware.smartlabmeeting.service.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.*;
-import de.qaware.smartlabmeeting.repository.IMeetingManagementRepository;
+import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

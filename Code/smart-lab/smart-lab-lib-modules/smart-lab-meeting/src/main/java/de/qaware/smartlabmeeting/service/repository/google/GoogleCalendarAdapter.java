@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.repository.google;
+package de.qaware.smartlabmeeting.service.repository.google;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -21,8 +21,8 @@ import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
-import de.qaware.smartlabmeeting.repository.generic.AbstractMeetingManagementRepository;
-import de.qaware.smartlabmeeting.repository.parser.IMeetingParser;
+import de.qaware.smartlabmeeting.service.repository.generic.AbstractMeetingManagementRepository;
+import de.qaware.smartlabmeeting.service.repository.parser.IMeetingParser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;

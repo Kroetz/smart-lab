@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.repository.parser;
+package de.qaware.smartlabmeeting.service.repository.parser;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 

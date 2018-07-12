@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabmeeting.controller.MeetingManagementController;
+import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

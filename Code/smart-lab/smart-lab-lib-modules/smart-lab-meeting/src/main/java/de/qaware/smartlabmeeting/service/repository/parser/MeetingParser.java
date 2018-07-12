@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.repository.parser;
+package de.qaware.smartlabmeeting.service.repository.parser;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
@@ -10,9 +10,9 @@ import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.InvalidSyntaxException;
 import de.qaware.smartlabcore.miscellaneous.StringUtils;
-import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
-import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageLexer;
-import de.qaware.smartlabmeeting.repository.parser.antlr.generated.MeetingConfigurationLanguageParser;
+import de.qaware.smartlabmeeting.service.repository.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
+import de.qaware.smartlabmeeting.service.repository.parser.antlr.generated.MeetingConfigurationLanguageLexer;
+import de.qaware.smartlabmeeting.service.repository.parser.antlr.generated.MeetingConfigurationLanguageParser;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
