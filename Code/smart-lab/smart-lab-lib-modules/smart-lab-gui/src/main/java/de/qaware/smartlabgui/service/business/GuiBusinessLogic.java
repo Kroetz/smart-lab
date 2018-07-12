@@ -1,9 +1,9 @@
 package de.qaware.smartlabgui.service.business;
 
-import de.qaware.smartlabapi.RoomManagementApiConstants;
-import de.qaware.smartlabapi.TriggerApiConstants;
+import de.qaware.smartlabapi.service.constant.room.RoomManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
-import de.qaware.smartlabapi.service.room.IRoomManagementService;
+import de.qaware.smartlabapi.service.connector.room.IRoomManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;

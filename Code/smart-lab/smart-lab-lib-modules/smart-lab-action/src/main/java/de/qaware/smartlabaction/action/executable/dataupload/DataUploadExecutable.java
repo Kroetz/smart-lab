@@ -4,7 +4,7 @@ import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutab
 import de.qaware.smartlabaction.action.info.dataupload.DataUploadInfo;
 import de.qaware.smartlabaction.action.result.VoidActionResult;
 import de.qaware.smartlabaction.action.submittable.dataupload.DataUploadSubmittable;
-import de.qaware.smartlabapi.service.delegate.IDelegateService;
+import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
 import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;

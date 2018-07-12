@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.service.controller;
 
-import de.qaware.smartlabapi.TriggerApiConstants;
+import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;

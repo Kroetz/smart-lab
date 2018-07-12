@@ -3,7 +3,7 @@ package de.qaware.smartlabassistance.assistance.controllable;
 import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
-import de.qaware.smartlabapi.service.action.IActionService;
+import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlabassistance.assistance.info.DisplayWebsiteInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;

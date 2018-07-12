@@ -5,7 +5,7 @@ import de.qaware.smartlabaction.action.result.TranscriptActionResult;
 import de.qaware.smartlabaction.action.result.VoidActionResult;
 import de.qaware.smartlabaction.action.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlabaction.action.submittable.speechtotext.SpeechToTextSubmittable;
-import de.qaware.smartlabapi.service.delegate.IDelegateService;
+import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;

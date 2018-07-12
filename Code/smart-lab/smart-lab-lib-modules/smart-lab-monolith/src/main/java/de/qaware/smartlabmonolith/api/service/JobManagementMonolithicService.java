@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabapi.service.job.IJobManagementService;
+import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabjob.service.controller.JobManagementController;

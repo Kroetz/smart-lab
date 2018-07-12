@@ -1,6 +1,6 @@
 package de.qaware.smartlabtest.generic
 
-import de.qaware.smartlabapi.service.generic.IBasicEntityManagementService
+import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService
 import de.qaware.smartlabcore.data.generic.IEntity
 import de.qaware.smartlabcore.data.generic.IIdentifier
 import de.qaware.smartlabcore.exception.EntityConflictException

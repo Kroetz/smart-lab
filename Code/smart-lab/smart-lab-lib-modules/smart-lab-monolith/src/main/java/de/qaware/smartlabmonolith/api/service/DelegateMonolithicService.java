@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabapi.client.IDelegateApiClient;
-import de.qaware.smartlabapi.service.delegate.AbstractDelegateService;
+import de.qaware.smartlabapi.service.client.delegate.IDelegateApiClient;
+import de.qaware.smartlabapi.service.connector.delegate.AbstractDelegateServiceConnector;
 import de.qaware.smartlabcore.exception.UnknownDelegateException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.Client;
@@ -24,7 +24,7 @@ import static java.lang.String.format;
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
 @Import(FeignClientsConfiguration.class)
-public class DelegateMonolithicService extends AbstractDelegateService {
+public class DelegateMonolithicService extends AbstractDelegateServiceConnector {
 
     private final Map<String, String> urlsByDelegateName;
 

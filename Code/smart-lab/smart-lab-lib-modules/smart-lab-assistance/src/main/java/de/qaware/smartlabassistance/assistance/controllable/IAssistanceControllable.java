@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.controllable;
 
-import de.qaware.smartlabapi.service.action.IActionService;
+import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 

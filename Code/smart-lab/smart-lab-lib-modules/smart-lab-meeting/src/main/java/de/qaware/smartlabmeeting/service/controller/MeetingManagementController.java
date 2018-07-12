@@ -1,6 +1,6 @@
 package de.qaware.smartlabmeeting.service.controller;
 
-import de.qaware.smartlabapi.MeetingManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;

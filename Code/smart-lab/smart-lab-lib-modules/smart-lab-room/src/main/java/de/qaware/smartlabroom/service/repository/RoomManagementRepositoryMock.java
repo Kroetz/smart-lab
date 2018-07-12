@@ -1,6 +1,6 @@
 package de.qaware.smartlabroom.service.repository;
 
-import de.qaware.smartlabapi.service.meeting.IMeetingManagementService;
+import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;

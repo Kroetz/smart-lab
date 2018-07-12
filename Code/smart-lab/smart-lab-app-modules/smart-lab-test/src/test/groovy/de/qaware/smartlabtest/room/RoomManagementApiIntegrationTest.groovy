@@ -1,7 +1,7 @@
 package de.qaware.smartlabtest.room
 
-import de.qaware.smartlabapi.service.meeting.IMeetingManagementService
-import de.qaware.smartlabapi.service.room.IRoomManagementService
+import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
+import de.qaware.smartlabapi.service.connector.room.IRoomManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.room.IRoom
 import de.qaware.smartlabcore.data.room.RoomId
