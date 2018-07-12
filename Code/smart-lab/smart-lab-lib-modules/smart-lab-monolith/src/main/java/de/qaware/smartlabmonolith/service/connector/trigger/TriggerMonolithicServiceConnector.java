@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabtrigger.service.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

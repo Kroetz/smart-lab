@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.url;
+package de.qaware.smartlabcore.service.url;
 
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.miscellaneous.StringUtils;

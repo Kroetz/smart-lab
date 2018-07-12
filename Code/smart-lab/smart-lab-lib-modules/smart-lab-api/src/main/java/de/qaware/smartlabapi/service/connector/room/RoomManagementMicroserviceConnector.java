@@ -2,15 +2,17 @@ package de.qaware.smartlabapi.service.connector.room;
 
 import de.qaware.smartlabapi.service.client.room.IRoomManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
+import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
-import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -75,6 +77,20 @@ public class RoomManagementMicroserviceConnector extends AbstractBasicEntityMana
                 throw new MaximalDurationReachedException();
             }
             throw new UnknownErrorException();
+        }
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("roomManagementServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MICROSERVICE)
+    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+
+        public BaseUrlGetter(IRoomManagementApiClient roomManagementApiClient) {
+            super(roomManagementApiClient);
         }
     }
 }

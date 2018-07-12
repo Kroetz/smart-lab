@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = PersonManagementApiConstants.FEIGN_CLIENT_NAME, path = PersonManagementApiConstants.MAPPING_BASE)
@@ -42,4 +43,8 @@ public interface IPersonManagementApiClient extends IBasicEntityManagementApiCli
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId);
+
+    @Override
+    @GetMapping(PersonManagementApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

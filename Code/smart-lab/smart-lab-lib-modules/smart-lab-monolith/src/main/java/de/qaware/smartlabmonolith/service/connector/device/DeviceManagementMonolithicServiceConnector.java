@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabdevice.service.controller.DeviceManagementController;
-import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

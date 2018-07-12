@@ -9,7 +9,7 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlabroom.service.controller.RoomManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;

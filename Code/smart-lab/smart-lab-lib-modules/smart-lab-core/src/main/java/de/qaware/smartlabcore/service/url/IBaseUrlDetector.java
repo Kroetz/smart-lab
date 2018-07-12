@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.url;
+package de.qaware.smartlabcore.service.url;
 
 import java.net.MalformedURLException;
 import java.net.URL;

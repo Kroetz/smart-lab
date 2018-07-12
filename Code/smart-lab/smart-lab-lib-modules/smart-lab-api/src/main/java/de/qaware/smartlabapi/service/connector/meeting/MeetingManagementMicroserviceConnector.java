@@ -2,12 +2,14 @@ package de.qaware.smartlabapi.service.connector.meeting;
 
 import de.qaware.smartlabapi.service.client.meeting.IMeetingManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
+import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -106,6 +108,20 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
                 throw new EntityConflictException();
             }
             throw new UnknownErrorException();
+        }
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("meetingManagementServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MICROSERVICE)
+    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+
+        public BaseUrlGetter(IMeetingManagementApiClient meetingManagementApiClient) {
+            super(meetingManagementApiClient);
         }
     }
 }

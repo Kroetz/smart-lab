@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.url.IBaseUrlDetector;
+import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
 import de.qaware.smartlabperson.service.business.IPersonManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

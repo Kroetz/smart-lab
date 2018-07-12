@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.service.controller.url;
 
-import de.qaware.smartlabcore.url.IBaseUrlDetector;
+import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

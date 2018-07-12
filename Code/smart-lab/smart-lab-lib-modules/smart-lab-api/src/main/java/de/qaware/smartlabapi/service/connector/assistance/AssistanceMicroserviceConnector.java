@@ -1,10 +1,12 @@
 package de.qaware.smartlabapi.service.connector.assistance;
 
 import de.qaware.smartlabapi.service.client.assistance.IAssistanceApiClient;
+import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +50,20 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
+        }
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("assistanceServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MICROSERVICE)
+    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
+
+        public BaseUrlGetter(IAssistanceApiClient assistanceApiClient) {
+            super(assistanceApiClient);
         }
     }
 }

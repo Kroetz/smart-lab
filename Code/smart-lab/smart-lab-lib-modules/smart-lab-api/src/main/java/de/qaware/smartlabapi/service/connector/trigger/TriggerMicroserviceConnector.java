@@ -1,7 +1,8 @@
 package de.qaware.smartlabapi.service.connector.trigger;
 
 import de.qaware.smartlabapi.service.client.trigger.ITriggerApiClient;
-import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
+import de.qaware.smartlabapi.service.url.AbstractMicroserviceBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -245,25 +246,10 @@ public class TriggerMicroserviceConnector implements ITriggerService {
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
             havingValue = Property.Value.Modularity.MICROSERVICE)
-    public static class BaseUrlGetter implements IServiceBaseUrlGetter {
-
-        private final ITriggerApiClient triggerApiClient;
+    public static class BaseUrlGetter extends AbstractMicroserviceBaseUrlGetter {
 
         public BaseUrlGetter(ITriggerApiClient triggerApiClient) {
-            this.triggerApiClient = triggerApiClient;
-        }
-
-        @Override
-        public URL getBaseUrl() {
-            try {
-                return this.triggerApiClient.getBaseUrl().getBody();
-            }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
-            }
+            super(triggerApiClient);
         }
     }
 }

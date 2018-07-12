@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Set;
 
-public interface IBasicEntityManagementApiClient<EntityT extends IEntity> {
+public interface IBasicEntityManagementApiClient<EntityT extends IEntity> extends ISmartLabApiClient {
 
     Set<EntityT> findAll();
     ResponseEntity<EntityT> findOne(String entityId);

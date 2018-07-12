@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = DeviceManagementApiConstants.FEIGN_CLIENT_NAME, path = DeviceManagementApiConstants.MAPPING_BASE)
@@ -46,4 +47,8 @@ public interface IDeviceManagementApiClient extends IBasicEntityManagementApiCli
     @DeleteMapping(DeviceManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId);
+
+    @Override
+    @GetMapping(DeviceManagementApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

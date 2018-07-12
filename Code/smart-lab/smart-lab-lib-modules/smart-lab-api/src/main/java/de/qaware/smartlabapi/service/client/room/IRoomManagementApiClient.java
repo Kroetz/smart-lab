@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = RoomManagementApiConstants.FEIGN_CLIENT_NAME, path = RoomManagementApiConstants.MAPPING_BASE)
@@ -57,4 +58,8 @@ public interface IRoomManagementApiClient extends IBasicEntityManagementApiClien
     ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
+
+    @Override
+    @GetMapping(RoomManagementApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = WorkgroupManagementApiConstants.FEIGN_CLIENT_NAME, path = WorkgroupManagementApiConstants.MAPPING_BASE)
@@ -57,4 +58,8 @@ public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApi
     ResponseEntity<Void> extendCurrentMeeting(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
+
+    @Override
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

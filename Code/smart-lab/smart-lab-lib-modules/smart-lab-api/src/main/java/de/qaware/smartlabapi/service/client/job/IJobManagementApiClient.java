@@ -1,15 +1,17 @@
 package de.qaware.smartlabapi.service.client.job;
 
+import de.qaware.smartlabapi.service.client.generic.ISmartLabApiClient;
 import de.qaware.smartlabapi.service.constant.job.JobManagementApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = JobManagementApiConstants.FEIGN_CLIENT_NAME, path = JobManagementApiConstants.MAPPING_BASE)
-public interface IJobManagementApiClient {
+public interface IJobManagementApiClient extends ISmartLabApiClient {
 
     @GetMapping(JobManagementApiConstants.MAPPING_FIND_ALL)
     Set<IJobInfo> findAll();
@@ -31,4 +33,8 @@ public interface IJobManagementApiClient {
     ResponseEntity<Void> markJobAsFailed(
             @PathVariable(JobManagementApiConstants.PARAMETER_NAME_JOB_ID) Long jobId,
             @RequestBody String errorMessage);
+
+    @Override
+    @GetMapping(JobManagementApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

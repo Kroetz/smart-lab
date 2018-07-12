@@ -1,5 +1,6 @@
 package de.qaware.smartlabapi.service.client.delegate;
 
+import de.qaware.smartlabapi.service.client.generic.ISmartLabApiClient;
 import de.qaware.smartlabapi.service.constant.delegate.DelegateApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
@@ -9,7 +10,7 @@ import feign.RequestLine;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-public interface IDelegateApiClient {
+public interface IDelegateApiClient extends ISmartLabApiClient {
 
     // TODO: String literals
     @RequestLine("POST " + DelegateApiConstants.MAPPING_BASE + DelegateApiConstants.MAPPING_EXECUTE)

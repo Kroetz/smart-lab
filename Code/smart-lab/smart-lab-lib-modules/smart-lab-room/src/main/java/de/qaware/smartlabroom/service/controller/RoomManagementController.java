@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.url.IBaseUrlDetector;
+import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
 import de.qaware.smartlabroom.service.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

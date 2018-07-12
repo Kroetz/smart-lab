@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.url;
+package de.qaware.smartlabcore.service.url;
 
 import de.qaware.smartlabcore.service.controller.url.IBaseUrlController;
 import lombok.extern.slf4j.Slf4j;

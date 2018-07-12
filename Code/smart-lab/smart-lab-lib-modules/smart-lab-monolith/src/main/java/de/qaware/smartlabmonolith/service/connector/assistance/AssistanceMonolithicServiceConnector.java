@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.service.controller.AssistanceController;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

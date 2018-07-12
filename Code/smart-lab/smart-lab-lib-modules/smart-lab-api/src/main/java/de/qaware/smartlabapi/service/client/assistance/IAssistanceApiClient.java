@@ -1,16 +1,20 @@
 package de.qaware.smartlabapi.service.client.assistance;
 
+import de.qaware.smartlabapi.service.client.generic.ISmartLabApiClient;
 import de.qaware.smartlabapi.service.constant.assistance.AssistanceApiConstants;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.net.URL;
+
 @FeignClient(name = AssistanceApiConstants.FEIGN_CLIENT_NAME, path = AssistanceApiConstants.MAPPING_BASE)
-public interface IAssistanceApiClient {
+public interface IAssistanceApiClient extends ISmartLabApiClient {
 
     @PostMapping(
             value = AssistanceApiConstants.MAPPING_BEGIN,
@@ -32,4 +36,8 @@ public interface IAssistanceApiClient {
     ResponseEntity<Void> updateAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IAssistanceContext context);
+
+    @Override
+    @GetMapping(AssistanceApiConstants.MAPPING_GET_BASE_URL)
+    ResponseEntity<URL> getBaseUrl();
 }

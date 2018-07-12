@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabjob.service.controller.JobManagementController;
-import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.lang.Nullable;
