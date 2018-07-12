@@ -3,6 +3,8 @@ package de.qaware.smartlabjob.controller;
 import de.qaware.smartlabapi.JobManagementApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabjob.business.IJobManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -77,5 +79,21 @@ public class JobManagementController extends AbstractSmartLabController {
         log.info("Received call that processing of job with ID \"{}\" has failed", jobId);
         this.jobManagementBusinessLogic.markJobAsFailed(jobId, errorMessage);
         return ResponseEntity.ok().build();
+    }
+
+    @RestController
+    @RequestMapping(JobManagementApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(JobManagementApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

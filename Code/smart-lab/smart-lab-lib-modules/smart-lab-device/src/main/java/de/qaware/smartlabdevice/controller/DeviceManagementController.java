@@ -5,12 +5,15 @@ import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabdevice.business.IDeviceManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,5 +72,21 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_ID) String deviceId) {
         return this.deviceManagementBusinessLogic.delete(DeviceId.of(deviceId)).toResponseEntity();
+    }
+
+    @RestController
+    @RequestMapping(DeviceManagementApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(DeviceManagementApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

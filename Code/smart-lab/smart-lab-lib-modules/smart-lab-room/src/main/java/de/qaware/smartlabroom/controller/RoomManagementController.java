@@ -6,6 +6,8 @@ import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabroom.business.IRoomManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Set;
@@ -92,5 +95,21 @@ public class RoomManagementController extends AbstractSmartLabController impleme
             @PathVariable(RoomManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
             @RequestParam(RoomManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
         return this.roomManagementBusinessLogic.extendCurrentMeeting(RoomId.of(roomId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+    }
+
+    @RestController
+    @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(RoomManagementApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

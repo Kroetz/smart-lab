@@ -5,12 +5,15 @@ import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabperson.business.IPersonManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,5 +72,21 @@ public class PersonManagementController extends AbstractSmartLabController imple
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
         return this.personManagementBusinessLogic.delete(PersonId.of(personId)).toResponseEntity();
+    }
+
+    @RestController
+    @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(PersonManagementApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

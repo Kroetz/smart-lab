@@ -5,10 +5,14 @@ import de.qaware.smartlabassistance.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URL;
 
 @RestController
 @RequestMapping(AssistanceApiConstants.MAPPING_BASE)
@@ -57,5 +61,21 @@ public class AssistanceController {
         this.assistanceBusinessLogic.updateAssistance(assistanceId, context);
         // TODO
         return ResponseEntity.ok().build();
+    }
+
+    @RestController
+    @RequestMapping(AssistanceApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(AssistanceApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

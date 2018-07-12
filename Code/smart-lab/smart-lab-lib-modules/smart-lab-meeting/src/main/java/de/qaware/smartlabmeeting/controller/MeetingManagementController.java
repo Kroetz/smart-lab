@@ -6,12 +6,15 @@ import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabmeeting.business.IMeetingManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Set;
@@ -117,5 +120,21 @@ public class MeetingManagementController extends AbstractSmartLabController impl
         return this.meetingManagementBusinessLogic.shiftMeeting(
                 MeetingId.of(meetingId),
                 Duration.ofMinutes(shiftInMinutes)).toResponseEntity();
+    }
+
+    @RestController
+    @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(MeetingManagementApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }

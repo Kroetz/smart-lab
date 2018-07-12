@@ -4,10 +4,14 @@ import de.qaware.smartlabaction.business.IActionBusinessLogic;
 import de.qaware.smartlabapi.ActionApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URL;
 
 @RestController
 @RequestMapping(ActionApiConstants.MAPPING_BASE)
@@ -32,5 +36,21 @@ public class ActionController {
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO: Proper response
         return response;
+    }
+
+    @RestController
+    @RequestMapping(ActionApiConstants.MAPPING_BASE)
+    @Slf4j
+    public static class BaseUrlController extends AbstractBaseUrlController {
+
+        public BaseUrlController(IBaseUrlDetector baseUrlDetector) {
+            super(baseUrlDetector);
+        }
+
+        @Override
+        @GetMapping(ActionApiConstants.MAPPING_GET_BASE_URL)
+        public ResponseEntity<URL> getBaseUrl() {
+            return super.getBaseUrl();
+        }
     }
 }
