@@ -13,11 +13,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.Set;
 
-public abstract class AbstractBasicEntityManagementMonolithicService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
 
     protected final IBasicEntityManagementController<EntityT> entityManagementController;
 
-    public AbstractBasicEntityManagementMonolithicService(IBasicEntityManagementController<EntityT> entityManagementController) {
+    public AbstractBasicEntityManagementMonolithicServiceConnector(IBasicEntityManagementController<EntityT> entityManagementController) {
         this.entityManagementController = entityManagementController;
     }
 

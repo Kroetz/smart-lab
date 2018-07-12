@@ -24,11 +24,11 @@ import static java.lang.String.format;
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
 @Import(FeignClientsConfiguration.class)
-public class DelegateMonolithicService extends AbstractDelegateServiceConnector {
+public class DelegateMonolithicServiceConnector extends AbstractDelegateServiceConnector {
 
     private final Map<String, String> urlsByDelegateName;
 
-    public DelegateMonolithicService(
+    public DelegateMonolithicServiceConnector(
             // TODO: String literal
             @Qualifier("urlsByDelegateName") Map<String, String> urlsByDelegateName,
             Client client,

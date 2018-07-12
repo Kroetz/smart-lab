@@ -20,11 +20,11 @@ import static java.util.Objects.nonNull;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class JobManagementMonolithicService implements IJobManagementService {
+public class JobManagementMonolithicServiceConnector implements IJobManagementService {
 
     private final JobManagementController jobManagementController;
 
-    public JobManagementMonolithicService(JobManagementController jobManagementController) {
+    public JobManagementMonolithicServiceConnector(JobManagementController jobManagementController) {
         this.jobManagementController = jobManagementController;
     }
 

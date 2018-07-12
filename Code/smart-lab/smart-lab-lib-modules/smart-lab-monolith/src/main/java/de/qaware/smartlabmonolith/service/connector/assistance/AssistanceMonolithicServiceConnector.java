@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class AssistanceMonolithicService implements IAssistanceService {
+public class AssistanceMonolithicServiceConnector implements IAssistanceService {
 
     private final AssistanceController assistanceController;
 
-    public AssistanceMonolithicService(AssistanceController assistanceController) {
+    public AssistanceMonolithicServiceConnector(AssistanceController assistanceController) {
         this.assistanceController = assistanceController;
     }
 

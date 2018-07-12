@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class GuiMonolithicService implements IGuiService {
+public class GuiMonolithicServiceConnector implements IGuiService {
 
     @Component
     // TODO: String literal

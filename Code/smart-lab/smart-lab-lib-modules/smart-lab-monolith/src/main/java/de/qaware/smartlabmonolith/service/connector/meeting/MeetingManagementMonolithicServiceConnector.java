@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
@@ -23,11 +23,11 @@ import java.util.Set;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class MeetingManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IMeeting, MeetingId> implements IMeetingManagementService {
+public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IMeeting, MeetingId> implements IMeetingManagementService {
 
     private final MeetingManagementController meetingManagementController;
 
-    public MeetingManagementMonolithicService(MeetingManagementController meetingManagementController) {
+    public MeetingManagementMonolithicServiceConnector(MeetingManagementController meetingManagementController) {
         super(meetingManagementController);
         this.meetingManagementController = meetingManagementController;
     }

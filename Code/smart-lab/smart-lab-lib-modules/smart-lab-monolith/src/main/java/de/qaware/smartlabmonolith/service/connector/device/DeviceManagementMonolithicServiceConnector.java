@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabdevice.service.controller.DeviceManagementController;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class DeviceManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IDevice, DeviceId> implements IDeviceManagementService {
+public class DeviceManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IDevice, DeviceId> implements IDeviceManagementService {
 
     private final DeviceManagementController deviceManagementController;
 
-    public DeviceManagementMonolithicService(DeviceManagementController deviceManagementController) {
+    public DeviceManagementMonolithicServiceConnector(DeviceManagementController deviceManagementController) {
         super(deviceManagementController);
         this.deviceManagementController = deviceManagementController;
     }

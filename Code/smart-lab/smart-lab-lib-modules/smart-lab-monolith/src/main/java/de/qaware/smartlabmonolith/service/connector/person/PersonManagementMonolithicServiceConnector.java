@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicService;
+import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlabperson.service.controller.PersonManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class PersonManagementMonolithicService extends AbstractBasicEntityManagementMonolithicService<IPerson, PersonId> implements IPersonManagementService {
+public class PersonManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IPerson, PersonId> implements IPersonManagementService {
 
     private final PersonManagementController personManagementController;
 
-    public PersonManagementMonolithicService(PersonManagementController personManagementController) {
+    public PersonManagementMonolithicServiceConnector(PersonManagementController personManagementController) {
         super(personManagementController);
         this.personManagementController = personManagementController;
     }
