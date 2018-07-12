@@ -2,7 +2,7 @@ package de.qaware.smartlabmeeting.service.repository.generic;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.generic.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 

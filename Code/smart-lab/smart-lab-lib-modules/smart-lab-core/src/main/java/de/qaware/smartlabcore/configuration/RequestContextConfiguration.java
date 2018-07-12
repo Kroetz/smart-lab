@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.configuration;
 
-import de.qaware.smartlabcore.generic.controller.SmartLabRequestContextListener;
+import de.qaware.smartlabcore.service.controller.SmartLabRequestContextListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

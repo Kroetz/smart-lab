@@ -4,7 +4,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.generic.repository.IBasicEntityManagementRepository;
+import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
 import lombok.NonNull;
 
 import java.time.Duration;

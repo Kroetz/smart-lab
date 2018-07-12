@@ -2,8 +2,8 @@ package de.qaware.smartlabgui.service.controller;
 
 import de.qaware.smartlabapi.service.constant.gui.GuiApiConstants;
 import de.qaware.smartlabcore.data.room.RoomId;
-import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabgui.service.business.IGuiBusinessLogic;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.generic.controller;
+package de.qaware.smartlabcore.service.controller;
 
 import de.qaware.smartlabcore.concurrency.ThreadContext;
 import lombok.extern.slf4j.Slf4j;

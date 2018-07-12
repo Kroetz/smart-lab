@@ -5,7 +5,7 @@ import de.qaware.smartlabassistance.service.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
-import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

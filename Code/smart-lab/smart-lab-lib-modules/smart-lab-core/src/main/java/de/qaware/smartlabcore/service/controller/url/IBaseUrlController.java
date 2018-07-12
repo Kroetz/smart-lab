@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.generic.controller.url;
+package de.qaware.smartlabcore.service.controller.url;
 
 import org.springframework.http.ResponseEntity;
 

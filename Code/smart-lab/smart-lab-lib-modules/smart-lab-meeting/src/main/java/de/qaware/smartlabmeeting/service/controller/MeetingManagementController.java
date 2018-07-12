@@ -4,9 +4,9 @@ import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConsta
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
-import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
-import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
+import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import de.qaware.smartlabmeeting.service.business.IMeetingManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;

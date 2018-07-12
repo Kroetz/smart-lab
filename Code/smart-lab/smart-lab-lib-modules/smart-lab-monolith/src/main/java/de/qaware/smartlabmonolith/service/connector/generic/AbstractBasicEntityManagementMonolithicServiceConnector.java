@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
-import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
+import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

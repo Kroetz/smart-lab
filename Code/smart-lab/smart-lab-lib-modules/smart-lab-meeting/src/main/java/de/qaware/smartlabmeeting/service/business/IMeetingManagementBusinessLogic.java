@@ -3,7 +3,7 @@ package de.qaware.smartlabmeeting.service.business;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
-import de.qaware.smartlabcore.generic.business.IBasicEntityManagementBusinessLogic;
+import de.qaware.smartlabcore.service.business.IBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;

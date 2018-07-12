@@ -1,9 +1,9 @@
-package de.qaware.smartlabcore.generic.business;
+package de.qaware.smartlabcore.service.business;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.result.DeletionResult;
-import de.qaware.smartlabcore.generic.repository.IBasicEntityManagementRepository;
+import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
 
 import java.util.Map;
 import java.util.Optional;

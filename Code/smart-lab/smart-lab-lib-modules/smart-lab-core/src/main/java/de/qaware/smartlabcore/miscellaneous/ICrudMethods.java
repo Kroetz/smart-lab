@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.generic.miscellaneous;
+package de.qaware.smartlabcore.miscellaneous;
 
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;

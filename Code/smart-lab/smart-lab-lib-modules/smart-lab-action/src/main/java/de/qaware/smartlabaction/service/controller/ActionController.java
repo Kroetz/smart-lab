@@ -4,7 +4,7 @@ import de.qaware.smartlabaction.service.business.IActionBusinessLogic;
 import de.qaware.smartlabapi.service.constant.action.ActionApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
