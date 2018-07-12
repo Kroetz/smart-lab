@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.business;
+package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;

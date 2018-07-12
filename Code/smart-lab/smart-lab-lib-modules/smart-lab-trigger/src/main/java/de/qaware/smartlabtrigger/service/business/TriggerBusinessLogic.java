@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.business;
+package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
 import de.qaware.smartlabapi.service.job.IJobManagementService;

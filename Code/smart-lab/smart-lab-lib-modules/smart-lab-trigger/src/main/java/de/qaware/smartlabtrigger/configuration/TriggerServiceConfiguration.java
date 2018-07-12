@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
-@ComponentScan(basePackageClasses = {
-        de.qaware.smartlabtrigger.controller.ComponentScanMarker.class,
-        de.qaware.smartlabtrigger.business.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlabtrigger.service.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabAssistanceTriggerables
