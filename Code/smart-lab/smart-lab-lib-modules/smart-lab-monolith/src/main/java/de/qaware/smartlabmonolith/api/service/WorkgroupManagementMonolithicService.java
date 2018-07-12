@@ -10,7 +10,7 @@ import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabworkgroup.controller.WorkgroupManagementController;
+import de.qaware.smartlabworkgroup.service.controller.WorkgroupManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;

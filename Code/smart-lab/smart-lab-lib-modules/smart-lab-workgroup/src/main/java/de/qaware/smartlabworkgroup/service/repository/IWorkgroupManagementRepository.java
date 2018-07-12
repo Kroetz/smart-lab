@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroup.repository;
+package de.qaware.smartlabworkgroup.service.repository;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroup.controller;
+package de.qaware.smartlabworkgroup.service.controller;
 
 import de.qaware.smartlabapi.WorkgroupManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
-import de.qaware.smartlabworkgroup.business.IWorkgroupManagementBusinessLogic;
+import de.qaware.smartlabworkgroup.service.business.IWorkgroupManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
