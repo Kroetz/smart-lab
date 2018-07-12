@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {
-        de.qaware.smartlabgui.controller.ComponentScanMarker.class,
-        de.qaware.smartlabgui.business.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlabgui.service.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableConfigurationProperties(GuiConfiguration.GuiProperties.class)

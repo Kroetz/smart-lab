@@ -1,11 +1,11 @@
-package de.qaware.smartlabgui.controller;
+package de.qaware.smartlabgui.service.controller;
 
 import de.qaware.smartlabapi.GuiApiConstants;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.generic.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.generic.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.url.IBaseUrlDetector;
-import de.qaware.smartlabgui.business.IGuiBusinessLogic;
+import de.qaware.smartlabgui.service.business.IGuiBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

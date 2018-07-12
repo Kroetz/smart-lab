@@ -1,4 +1,4 @@
-package de.qaware.smartlabgui.business;
+package de.qaware.smartlabgui.service.business;
 
 import de.qaware.smartlabapi.RoomManagementApiConstants;
 import de.qaware.smartlabapi.TriggerApiConstants;

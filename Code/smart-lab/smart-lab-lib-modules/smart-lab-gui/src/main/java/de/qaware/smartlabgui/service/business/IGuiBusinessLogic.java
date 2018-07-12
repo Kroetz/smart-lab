@@ -1,4 +1,4 @@
-package de.qaware.smartlabgui.business;
+package de.qaware.smartlabgui.service.business;
 
 import de.qaware.smartlabcore.data.room.RoomId;
 import org.springframework.ui.Model;
