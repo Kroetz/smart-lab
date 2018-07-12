@@ -9,7 +9,9 @@ import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabroom.controller.RoomManagementController;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,5 +61,19 @@ public class RoomManagementMonolithicService extends AbstractBasicEntityManageme
         if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
         if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
         throw new UnknownErrorException();
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("roomManagementServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MONOLITH)
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
+
+        public BaseUrlGetter(RoomManagementController.BaseUrlController baseUrlController) {
+            super(baseUrlController);
+        }
     }
 }

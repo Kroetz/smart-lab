@@ -4,6 +4,8 @@ import de.qaware.smartlabapi.service.job.IJobManagementService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabjob.controller.JobManagementController;
+import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -55,5 +57,19 @@ public class JobManagementMonolithicService implements IJobManagementService {
     @Override
     public void markJobAsFailed(Long jobId, String errorMessage) {
         this.jobManagementController.markJobAsFailed(jobId, errorMessage);
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("jobManagementServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MONOLITH)
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
+
+        public BaseUrlGetter(JobManagementController.BaseUrlController baseUrlController) {
+            super(baseUrlController);
+        }
     }
 }

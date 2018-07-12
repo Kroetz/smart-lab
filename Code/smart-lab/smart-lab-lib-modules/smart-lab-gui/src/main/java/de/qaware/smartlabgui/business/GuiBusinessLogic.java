@@ -2,7 +2,7 @@ package de.qaware.smartlabgui.business;
 
 import de.qaware.smartlabapi.RoomManagementApiConstants;
 import de.qaware.smartlabapi.TriggerApiConstants;
-import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
+import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.room.IRoomManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.RoomId;

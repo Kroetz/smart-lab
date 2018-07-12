@@ -4,7 +4,7 @@ import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
 import de.qaware.smartlabaction.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
 import de.qaware.smartlabapi.GuiApiConstants;
-import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
+import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlabassistance.assistance.info.AgendaShowingInfo;

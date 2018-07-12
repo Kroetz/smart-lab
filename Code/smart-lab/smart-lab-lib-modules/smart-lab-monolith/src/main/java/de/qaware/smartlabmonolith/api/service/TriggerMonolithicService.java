@@ -5,7 +5,7 @@ import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabmonolith.api.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabtrigger.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -115,8 +115,8 @@ public class TriggerMonolithicService implements ITriggerService {
             havingValue = Property.Value.Modularity.MONOLITH)
     public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
-        public BaseUrlGetter(TriggerController.BaseUrlController triggerServiceBaseUrlController) {
-            super(triggerServiceBaseUrlController);
+        public BaseUrlGetter(TriggerController.BaseUrlController baseUrlController) {
+            super(baseUrlController);
         }
     }
 }

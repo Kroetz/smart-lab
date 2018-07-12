@@ -7,6 +7,8 @@ import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.controller.MeetingManagementController;
+import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,5 +76,19 @@ public class MeetingManagementMonolithicService extends AbstractBasicEntityManag
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("meetingManagementServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MONOLITH)
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
+
+        public BaseUrlGetter(MeetingManagementController.BaseUrlController baseUrlController) {
+            super(baseUrlController);
+        }
     }
 }

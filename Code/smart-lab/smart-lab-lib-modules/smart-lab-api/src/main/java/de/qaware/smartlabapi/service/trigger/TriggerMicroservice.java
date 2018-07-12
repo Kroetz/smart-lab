@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.trigger;
 
 import de.qaware.smartlabapi.client.ITriggerApiClient;
-import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
+import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;

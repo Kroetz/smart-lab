@@ -1,4 +1,4 @@
-package de.qaware.smartlabapi.service;
+package de.qaware.smartlabcore.url;
 
 import java.net.URL;
 

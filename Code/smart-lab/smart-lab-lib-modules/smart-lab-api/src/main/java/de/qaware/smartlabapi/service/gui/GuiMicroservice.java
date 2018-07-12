@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.gui;
 
 import de.qaware.smartlabapi.client.IGuiApiClient;
-import de.qaware.smartlabapi.service.IServiceBaseUrlGetter;
+import de.qaware.smartlabcore.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import feign.FeignException;

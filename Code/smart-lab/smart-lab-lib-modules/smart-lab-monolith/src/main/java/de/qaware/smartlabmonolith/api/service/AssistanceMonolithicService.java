@@ -1,9 +1,11 @@
 package de.qaware.smartlabmonolith.api.service;
 
-import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabapi.service.assistance.IAssistanceService;
+import de.qaware.smartlabassistance.controller.AssistanceController;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabcore.url.AbstractMonolithicBaseUrlGetter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -33,5 +35,19 @@ public class AssistanceMonolithicService implements IAssistanceService {
     @Override
     public void updateAssistance(String assistanceId, IAssistanceContext context) {
         this.assistanceController.updateAssistance(assistanceId, context);
+    }
+
+    @Component
+    // TODO: String literal
+    @Qualifier("assistanceServiceBaseUrlGetter")
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.MODULARITY,
+            name = Property.Name.MODULARITY,
+            havingValue = Property.Value.Modularity.MONOLITH)
+    public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
+
+        public BaseUrlGetter(AssistanceController.BaseUrlController baseUrlController) {
+            super(baseUrlController);
+        }
     }
 }

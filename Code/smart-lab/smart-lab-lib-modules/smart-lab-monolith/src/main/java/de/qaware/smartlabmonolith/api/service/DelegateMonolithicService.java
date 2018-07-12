@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 @Component
 @ConditionalOnProperty(
