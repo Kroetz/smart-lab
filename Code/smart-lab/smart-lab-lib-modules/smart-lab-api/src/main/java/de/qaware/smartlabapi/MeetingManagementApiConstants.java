@@ -30,5 +30,5 @@ public class MeetingManagementApiConstants {
     public static final String MAPPING_SHORTEN_MEETING = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}" + PATH_FRAGMENT_SHORTEN;
     public static final String MAPPING_EXTEND_MEETING = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}" + PATH_FRAGMENT_EXTEND;
     public static final String MAPPING_SHIFT_MEETING = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}" + PATH_FRAGMENT_SHIFT;
-    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_MEETING + "/url";
+    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_MEETING + "/base-url";
 }

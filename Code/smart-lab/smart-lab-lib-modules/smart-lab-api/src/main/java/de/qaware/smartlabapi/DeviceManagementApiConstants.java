@@ -17,5 +17,5 @@ public class DeviceManagementApiConstants {
     public static final String MAPPING_CREATE_SINGLE = PATH_FRAGMENT_DEVICE + "";
     public static final String MAPPING_CREATE_MULTIPLE = PATH_FRAGMENT_DEVICES + "";
     public static final String MAPPING_DELETE = PATH_FRAGMENT_DEVICE + "/{" + PARAMETER_NAME_DEVICE_ID + "}";
-    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_DEVICE + "/url";
+    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_DEVICE + "/base-url";
 }

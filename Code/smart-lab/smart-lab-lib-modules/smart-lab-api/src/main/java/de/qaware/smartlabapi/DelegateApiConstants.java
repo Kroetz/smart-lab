@@ -7,5 +7,5 @@ public class DelegateApiConstants {
 
     public static final String MAPPING_BASE = "/smart-lab/api/delegate";
     public static final String MAPPING_EXECUTE = "/execute/action/{" + PARAMETER_NAME_ACTION_ID + "}/with/device/{" + PARAMETER_NAME_DEVICE_TYPE+ "}";
-    public static final String MAPPING_GET_BASE_URL = "/url";
+    public static final String MAPPING_GET_BASE_URL = "/base-url";
 }

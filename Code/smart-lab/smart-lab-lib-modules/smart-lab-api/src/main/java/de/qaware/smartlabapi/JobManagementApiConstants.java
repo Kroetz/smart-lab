@@ -17,5 +17,5 @@ public class JobManagementApiConstants {
     public static final String MAPPING_MARK_JOB_AS_PROCESSING = PATH_FRAGMENT_JOB + "/{" + PARAMETER_NAME_JOB_ID + "}/processing";
     public static final String MAPPING_MARK_JOB_AS_FINISHED = PATH_FRAGMENT_JOB + "/{" + PARAMETER_NAME_JOB_ID + "}/finished";
     public static final String MAPPING_MARK_JOB_AS_FAILED = PATH_FRAGMENT_JOB + "/{" + PARAMETER_NAME_JOB_ID + "}/failed";
-    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_JOB + "/url";
+    public static final String MAPPING_GET_BASE_URL = PATH_FRAGMENT_JOB + "/base-url";
 }

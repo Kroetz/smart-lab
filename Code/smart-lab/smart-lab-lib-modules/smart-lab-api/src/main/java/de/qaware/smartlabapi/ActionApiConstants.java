@@ -8,5 +8,5 @@ public class ActionApiConstants {
 
     public static final String MAPPING_BASE = "/smart-lab/api/action";
     public static final String MAPPING_EXECUTE = "/{" + PARAMETER_NAME_ACTION_ID + "}" + "/execute";
-    public static final String MAPPING_GET_BASE_URL = "/url";
+    public static final String MAPPING_GET_BASE_URL = "/base-url";
 }
