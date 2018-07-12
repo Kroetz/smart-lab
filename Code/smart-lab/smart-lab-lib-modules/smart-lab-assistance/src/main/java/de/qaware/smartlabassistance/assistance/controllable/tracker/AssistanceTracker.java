@@ -22,6 +22,9 @@ public class AssistanceTracker implements IAssistanceTracker {
     /*
      * TODO: Replace this simple map with an persistent alternative that can be replicated between different instances of the assistance service. "MapDB" may be an option.
      * See:
+     * http://www.mapdb.org/
+     * https://jankotek.gitbooks.io/mapdb/content/
+     * https://dzone.com/articles/mapdb-agile-java-data-engine
      * https://github.com/jankotek/mapdb
      * https://github.com/mrfrag/spring-data-mapdb
      */
