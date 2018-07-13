@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
-import de.qaware.smartlabassistance.assistance.info.websitedisplaying.DisplayWebsiteInfo;
+import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
@@ -41,16 +41,16 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "green-delegate";
 
-    private final IAssistanceInfo displayWebsiteInfo;
+    private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public ForestRangersDataFactory(
-            IAssistanceInfo displayWebsiteInfo,
+            IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
-        this.displayWebsiteInfo = displayWebsiteInfo;
+        this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
@@ -102,10 +102,10 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show increase in population").build());
         forestRangersMeetingAgenda.add(AgendaItem.builder().content("Laugh together").build());
         Set<IAssistanceConfiguration> configs = new HashSet<>();
-        configs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+        configs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
                 .build()));
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

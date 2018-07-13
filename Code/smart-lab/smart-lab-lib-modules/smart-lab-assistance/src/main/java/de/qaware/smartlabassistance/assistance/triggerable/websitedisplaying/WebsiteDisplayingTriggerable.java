@@ -1,7 +1,7 @@
 package de.qaware.smartlabassistance.assistance.triggerable.websitedisplaying;
 
 import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
-import de.qaware.smartlabassistance.assistance.info.websitedisplaying.DisplayWebsiteInfo;
+import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.triggerable.generic.AbstractAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class DisplayWebsiteTriggerable extends AbstractAssistanceTriggerable {
+public class WebsiteDisplayingTriggerable extends AbstractAssistanceTriggerable {
 
-    public DisplayWebsiteTriggerable(DisplayWebsiteInfo displayWebsiteInfo) {
-        super(displayWebsiteInfo);
+    public WebsiteDisplayingTriggerable(WebsiteDisplayingInfo websiteDisplayingInfo) {
+        super(websiteDisplayingInfo);
     }
 
     @Override

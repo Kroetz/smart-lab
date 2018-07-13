@@ -7,7 +7,7 @@ import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
-import de.qaware.smartlabassistance.assistance.info.websitedisplaying.DisplayWebsiteInfo;
+import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +18,17 @@ import java.util.UUID;
 import static java.util.Arrays.asList;
 
 @Slf4j
-public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
+public class WebsiteDisplayingControllable extends AbstractAssistanceControllable {
 
     private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
     private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
     private UUID webBrowserInstanceId;
 
-    private DisplayWebsiteControllable(
-            IAssistanceInfo displayWebsiteInfo,
+    private WebsiteDisplayingControllable(
+            IAssistanceInfo websiteDisplayingInfo,
             IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
             IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
-        super(displayWebsiteInfo);
+        super(websiteDisplayingInfo);
         this.webBrowserOpening = webBrowserOpening;
         this.webBrowserClosing = webBrowserClosing;
     }
@@ -37,7 +37,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
+        WebsiteDisplayingInfo.Configuration config = (WebsiteDisplayingInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 asList(config.getUrl()));
@@ -48,7 +48,7 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
     public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DisplayWebsiteInfo.Configuration config = (DisplayWebsiteInfo.Configuration) context.getAssistanceConfiguration();
+        WebsiteDisplayingInfo.Configuration config = (WebsiteDisplayingInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);
@@ -68,17 +68,17 @@ public class DisplayWebsiteControllable extends AbstractAssistanceControllable {
         private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
 
         public Factory(
-                IAssistanceInfo displayWebsiteInfo,
+                IAssistanceInfo websiteDisplayingInfo,
                 IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
                 IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
-            super(displayWebsiteInfo);
+            super(websiteDisplayingInfo);
             this.webBrowserOpening = webBrowserOpening;
             this.webBrowserClosing = webBrowserClosing;
         }
 
         @Override
         public IAssistanceControllable newInstance() {
-            return new DisplayWebsiteControllable(
+            return new WebsiteDisplayingControllable(
                     this.assistanceInfo,
                     this.webBrowserOpening,
                     this.webBrowserClosing);

@@ -22,15 +22,15 @@ import static java.lang.String.format;
 
 @Component
 @Slf4j
-public class DisplayWebsiteInfo extends AbstractAssistanceInfo {
+public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
 
-    public static final String ASSISTANCE_ID = "displayWebsite";
+    public static final String ASSISTANCE_ID = "websiteDisplaying";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
     public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
-            "display-website",
-            "display website").collect(Collectors.toSet());
+            "website-displaying",
+            "website displaying").collect(Collectors.toSet());
 
-    public DisplayWebsiteInfo() {
+    public WebsiteDisplayingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
     }
 
@@ -76,7 +76,7 @@ public class DisplayWebsiteInfo extends AbstractAssistanceInfo {
 
         @Override
         public String getAssistanceId() {
-            return DisplayWebsiteInfo.this.getAssistanceId();
+            return WebsiteDisplayingInfo.this.getAssistanceId();
         }
 
         @Override

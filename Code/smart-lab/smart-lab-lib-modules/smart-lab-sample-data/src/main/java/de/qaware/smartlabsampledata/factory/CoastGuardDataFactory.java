@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
-import de.qaware.smartlabassistance.assistance.info.websitedisplaying.DisplayWebsiteInfo;
+import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
@@ -47,18 +47,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final String DELEGATE_ID_BLUE = "blue-delegate";
 
     private final IAssistanceInfo minuteTakingInfo;
-    private final IAssistanceInfo displayWebsiteInfo;
+    private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public CoastGuardDataFactory(
             IAssistanceInfo minuteTakingInfo,
-            IAssistanceInfo displayWebsiteInfo,
+            IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo roomUnlockingInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
-        this.displayWebsiteInfo = displayWebsiteInfo;
+        this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
@@ -116,10 +116,10 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
-        whaleConfigs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+        whaleConfigs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
         whaleConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -148,10 +148,10 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
-        whirlpoolConfigs.add(this.displayWebsiteInfo.createConfiguration(ImmutableMap
+        whirlpoolConfigs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
-                .put(DisplayWebsiteInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
