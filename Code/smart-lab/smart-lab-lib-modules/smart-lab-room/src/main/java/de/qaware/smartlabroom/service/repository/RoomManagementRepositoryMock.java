@@ -33,9 +33,7 @@ public class RoomManagementRepositoryMock extends AbstractBasicEntityManagementR
 
     @Override
     public Set<IMeeting> getMeetingsInRoom(@NonNull IRoom room) {
-        return this.meetingManagementService.findAll().stream()
-                .filter(meeting -> meeting.getRoomId().equals(room.getId()))
-                .collect(Collectors.toSet());
+        return this.meetingManagementService.findAll(room.getId());
     }
 
     @Override
