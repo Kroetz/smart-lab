@@ -40,6 +40,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -115,54 +116,78 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
 
     @Override
     public Set<IMeeting> findAll() {
-        Set<IMeeting> foundMeetings = new HashSet<>();
+        return eventsToMeetings(findAllGoogleCalEvents());
+    }
+
+    private Set<Event> findAllGoogleCalEvents() {
+        Set<Event> foundEvents = new HashSet<>();
         List<CalendarListEntry> calendars = findAllCalendars();
         for(CalendarListEntry calendar : calendars) {
             String calendarId = calendar.getId();
             if(hasMappedRoom(calendarId)) {
-                foundMeetings.addAll(findAll(calendarId));
+                foundEvents.addAll(findAllGoogleCalEvents(calendarId));
             }
             else {
                 log.warn("Ignoring events from calendar \"{}\" since it has no mapped room ID", calendarId);
             }
         }
-        return foundMeetings;
+        return foundEvents;
     }
 
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
+        return eventsToMeetings(findAllGoogleCalEvents(roomId));
+    }
+
+    private Set<Event> findAllGoogleCalEvents(RoomId roomId) {
         try {
-            return findAll(resolveCalendarId(roomId));
+            return findAllGoogleCalEvents(resolveCalendarId(roomId));
         }
         catch(IllegalArgumentException e) {
-            log.warn("Cannot find meetings in room \"{}\" since it has no mapped calendar ID", roomId, e);
+            log.warn("Cannot find events in room \"{}\" since it has no mapped calendar ID", roomId, e);
             return new HashSet<>();
         }
     }
 
+    @Override
+    public Set<IMeeting> findAllCurrent() {
+        return eventsToMeetings(findAllCurrentGoogleCalEvents());
+    }
+
+    private Set<Event> findAllCurrentGoogleCalEvents() {
+        Set<Event> events = findAllGoogleCalEvents();
+        return events.stream()
+                .filter(this::isEventInProgress)
+                .collect(Collectors.toSet());
+    }
+
     private Set<IMeeting> findAll(String calendarId) {
-        return findAll(calendarId, null, null);
+        return eventsToMeetings(findAllGoogleCalEvents(calendarId));
+    }
+
+    private Set<Event> findAllGoogleCalEvents(String calendarId) {
+        return findAllGoogleCalEvents(calendarId, null, null);
     }
 
     private Set<IMeeting> findAll(String calendarId, @Nullable Instant from, @Nullable Instant until) {
+        return eventsToMeetings(findAllGoogleCalEvents(calendarId, from, until));
+    }
+
+    private Set<Event> findAllGoogleCalEvents(String calendarId, @Nullable Instant from, @Nullable Instant until) {
         try {
-             Calendar.Events.List listRequest = this.service.events().list(calendarId);
-             if(nonNull(from)) listRequest.setTimeMin(instantToDateTime(from));
-             if(nonNull(until)) listRequest.setTimeMax(instantToDateTime(until));
-             return listRequest
+            Calendar.Events.List listRequest = this.service.events().list(calendarId);
+            if(nonNull(from)) listRequest.setTimeMin(instantToDateTime(from));
+            if(nonNull(until)) listRequest.setTimeMax(instantToDateTime(until));
+            return new HashSet<>(listRequest
                     .execute()
-                    .getItems()
-                    .stream()
-                    .map(this::eventToMeeting)
-                    .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
-                    .collect(Collectors.toSet());
+                    .getItems());
         }
         catch(GoogleJsonResponseException e) {
             log.info("Cannot find calendar \"{}\"", calendarId, e);
             return new HashSet<>();
         }
         catch (IOException e) {
-            log.error("I/O error while querying meetings from calendar \"{}\"", calendarId, e);
+            log.error("I/O error while querying events from calendar \"{}\"", calendarId, e);
             return new HashSet<>();
         }
     }
@@ -334,6 +359,14 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         return this.service.calendarList().get(calendarId).execute();
     }
 
+    private Set<IMeeting> eventsToMeetings(Set<Event> events) {
+        return events
+                .stream()
+                .map(this::eventToMeeting)
+                .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
+                .collect(Collectors.toSet());
+    }
+
     private Optional<IMeeting> eventToMeeting(Event event) {
         String description = event.getDescription();
         description = isNull(description) ? StringUtils.EMPTY : description;
@@ -362,6 +395,12 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             .setEnd(instantToEventDateTime(meeting.getEnd()))
             .setLocation(meeting.getRoomId().getIdValue())
             .setDescription(meetingConfigString);
+    }
+
+    private boolean isEventInProgress(Event event) {
+        return isNowInProgress(
+                eventDateTimeToInstant(event.getStart()),
+                eventDateTimeToInstant(event.getEnd()));
     }
 
     private Instant dateTimeToInstant(DateTime dateTime) {

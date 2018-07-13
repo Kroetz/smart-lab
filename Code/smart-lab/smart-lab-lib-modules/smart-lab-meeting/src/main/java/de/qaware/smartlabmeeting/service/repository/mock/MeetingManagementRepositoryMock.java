@@ -52,6 +52,13 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
+    public Set<IMeeting> findAllCurrent() {
+        return findAll().stream()
+                .filter(IMeeting::isInProgress)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Optional<IMeeting> findOne(MeetingId meetingId) {
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
         return isNull(meetingsInRoom) ? Optional.empty() : meetingsInRoom.stream()

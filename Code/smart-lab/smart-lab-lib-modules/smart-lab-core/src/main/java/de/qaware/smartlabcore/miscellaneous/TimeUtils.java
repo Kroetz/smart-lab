@@ -1,6 +1,10 @@
 package de.qaware.smartlabcore.miscellaneous;
 
+import org.openqa.selenium.InvalidArgumentException;
+
 import java.time.Instant;
+
+import static java.lang.String.format;
 
 public abstract class TimeUtils {
 
@@ -16,5 +20,13 @@ public abstract class TimeUtils {
             until = firstBoundary;
         }
         return instantToCheck.isAfter(from) && instantToCheck.isBefore(until);
+    }
+
+    public static boolean isNowInProgress(Instant start, Instant end) {
+        if(start.isAfter(end)) throw new InvalidArgumentException(format(
+                "The start %s must be prior to the end %s",
+                start.toString(),
+                end.toString()));
+        return isBetween(Instant.now(), start, end);
     }
 }

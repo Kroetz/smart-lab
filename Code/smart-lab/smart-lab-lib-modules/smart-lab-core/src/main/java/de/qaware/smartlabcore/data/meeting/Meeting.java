@@ -15,6 +15,7 @@ import java.util.function.Function;
 
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.*;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
+import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -46,7 +47,7 @@ public class Meeting implements IMeeting {
 
     @Override
     public boolean isInProgress() {
-        return this.start.isBefore(Instant.now()) && this.end.isAfter(Instant.now());
+        return isNowInProgress(this.start, this.end);
     }
 
     @Override

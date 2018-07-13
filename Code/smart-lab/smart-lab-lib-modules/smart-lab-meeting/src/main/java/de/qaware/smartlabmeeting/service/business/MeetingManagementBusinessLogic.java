@@ -32,9 +32,7 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
 
     @Override
     public Set<IMeeting> findAllCurrent() {
-        return findAll().stream()
-                .filter(IMeeting::isInProgress)
-                .collect(Collectors.toSet());
+        return this.meetingManagementRepository.findAllCurrent();
     }
 
     @Override

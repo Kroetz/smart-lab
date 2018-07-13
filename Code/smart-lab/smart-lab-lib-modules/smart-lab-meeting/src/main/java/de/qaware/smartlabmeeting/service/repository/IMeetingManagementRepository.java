@@ -15,6 +15,7 @@ import java.util.Set;
 public interface IMeetingManagementRepository extends IBasicEntityManagementRepository<IMeeting, MeetingId> {
 
     Set<IMeeting> findAll(RoomId roomId);
+    Set<IMeeting> findAllCurrent();
     ShorteningResult shortenMeeting(
             @NonNull IMeeting meeting,
             Duration shortening);
