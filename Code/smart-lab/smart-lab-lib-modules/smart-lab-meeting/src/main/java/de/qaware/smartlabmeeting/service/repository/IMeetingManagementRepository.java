@@ -3,6 +3,7 @@ package de.qaware.smartlabmeeting.service.repository;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
@@ -15,6 +16,7 @@ import java.util.Set;
 public interface IMeetingManagementRepository extends IBasicEntityManagementRepository<IMeeting, MeetingId> {
 
     Set<IMeeting> findAll(RoomId roomId);
+    Set<IMeeting> findAll(WorkgroupId workgroupId);
     Set<IMeeting> findAllCurrent();
     ShorteningResult shortenMeeting(
             @NonNull IMeeting meeting,

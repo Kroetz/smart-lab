@@ -7,6 +7,7 @@ public abstract class MeetingManagementApiConstants {
     public static final String PARAMETER_NAME_MEETING_ID = "meetingId";
     public static final String PARAMETER_NAME_MEETING_IDS = "meetingIds";
     public static final String PARAMETER_NAME_ROOM_ID = "roomId";
+    public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";
     public static final String PARAMETER_NAME_SHORTENING_IN_MINUTES = "shortening-in-minutes";
     public static final String PARAMETER_NAME_EXTENSION_IN_MINUTES = "extension-in-minutes";
     public static final String PARAMETER_NAME_SHIFT_IN_MINUTES = "shift-in-minutes";
@@ -14,6 +15,7 @@ public abstract class MeetingManagementApiConstants {
     private static final String PATH_FRAGMENT_MEETING = "/meeting";
     private static final String PATH_FRAGMENT_MEETINGS = "/meetings";
     private static final String PATH_FRAGMENT_IN_ROOM = "/in/room";
+    private static final String PATH_FRAGMENT_OF_WORKGROUP = "/of/workgroup";
     private static final String PATH_FRAGMENT_SHORTEN = "/shorten";
     private static final String PATH_FRAGMENT_EXTEND = "/extend";
     private static final String PATH_FRAGMENT_SHIFT = "/shift";
@@ -21,6 +23,7 @@ public abstract class MeetingManagementApiConstants {
     public static final String MAPPING_BASE = "/smart-lab/api";
     public static final String MAPPING_FIND_ALL = PATH_FRAGMENT_MEETINGS + "/all";
     public static final String MAPPING_FIND_ALL_BY_ROOM_ID = PATH_FRAGMENT_MEETINGS + "/all" + PATH_FRAGMENT_IN_ROOM  + "/{" + PARAMETER_NAME_ROOM_ID + "}";
+    public static final String MAPPING_FIND_ALL_BY_WORKGROUP_ID = PATH_FRAGMENT_MEETINGS + "/all" + PATH_FRAGMENT_OF_WORKGROUP  + "/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_FIND_ALL_CURRENT = PATH_FRAGMENT_MEETINGS + "/all/current";
     public static final String MAPPING_FIND_ONE = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}";
     public static final String MAPPING_FIND_MULTIPLE = PATH_FRAGMENT_MEETINGS;

@@ -3,6 +3,7 @@ package de.qaware.smartlabmeeting.service.business;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.*;
@@ -28,6 +29,11 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
         return this.meetingManagementRepository.findAll(roomId);
+    }
+
+    @Override
+    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+        return this.meetingManagementRepository.findAll(workgroupId);
     }
 
     @Override

@@ -4,6 +4,7 @@ import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConsta
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
@@ -40,9 +41,16 @@ public class MeetingManagementController extends AbstractSmartLabController impl
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_ROOM_ID)
     @ResponseBody
-    public Set<IMeeting> findAll(
+    public Set<IMeeting> findAllByRoomId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
         return this.meetingManagementBusinessLogic.findAll(RoomId.of(roomId));
+    }
+
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_WORKGROUP_ID)
+    @ResponseBody
+    public Set<IMeeting> findAllByWorkgroupId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+        return this.meetingManagementBusinessLogic.findAll(WorkgroupId.of(workgroupId));
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_CURRENT)

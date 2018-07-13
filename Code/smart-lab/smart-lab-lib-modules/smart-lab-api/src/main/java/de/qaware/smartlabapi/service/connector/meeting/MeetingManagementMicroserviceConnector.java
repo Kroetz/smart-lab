@@ -5,6 +5,7 @@ import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManage
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
@@ -37,7 +38,17 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
         try {
-            return this.meetingManagementApiClient.findAll(roomId.getIdValue());
+            return this.meetingManagementApiClient.findAllByRoomId(roomId.getIdValue());
+        }
+        catch(FeignException e) {
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
+    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+        try {
+            return this.meetingManagementApiClient.findAllByWorkgroupId(workgroupId.getIdValue());
         }
         catch(FeignException e) {
             throw new UnknownErrorException();

@@ -3,6 +3,7 @@ package de.qaware.smartlabmeeting.service.repository.mock;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -49,6 +50,13 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     public Set<IMeeting> findAll(RoomId roomId) {
         Set<IMeeting> meetings = this.meetingsByRoom.get(roomId);
         return isNull(meetings) ? new HashSet<>() : meetings;
+    }
+
+    @Override
+    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+        return findAll().stream()
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .collect(Collectors.toSet());
     }
 
     @Override

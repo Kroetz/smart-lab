@@ -33,9 +33,7 @@ public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManage
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(@NonNull IWorkgroup workgroup) {
-        return this.meetingManagementService.findAll().stream()
-                .filter(meeting -> meeting.getWorkgroupId().equals(workgroup.getId()))
-                .collect(Collectors.toSet());
+        return this.meetingManagementService.findAll(workgroup.getId());
     }
 
     @Override

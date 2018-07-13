@@ -4,6 +4,7 @@ import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
@@ -34,7 +35,12 @@ public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEn
 
     @Override
     public Set<IMeeting> findAll(RoomId roomId) {
-        return this.meetingManagementController.findAll(roomId.getIdValue());
+        return this.meetingManagementController.findAllByRoomId(roomId.getIdValue());
+    }
+
+    @Override
+    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+        return this.meetingManagementController.findAllByWorkgroupId(workgroupId.getIdValue());
     }
 
     @Override

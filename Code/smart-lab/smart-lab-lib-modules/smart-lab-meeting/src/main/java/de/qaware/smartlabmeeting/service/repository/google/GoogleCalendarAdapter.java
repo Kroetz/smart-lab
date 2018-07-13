@@ -14,6 +14,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.exception.InvalidSyntaxException;
@@ -147,6 +148,13 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             log.warn("Cannot find events in room \"{}\" since it has no mapped calendar ID", roomId, e);
             return new HashSet<>();
         }
+    }
+
+    @Override
+    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+        return findAll().stream()
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .collect(Collectors.toSet());
     }
 
     @Override
