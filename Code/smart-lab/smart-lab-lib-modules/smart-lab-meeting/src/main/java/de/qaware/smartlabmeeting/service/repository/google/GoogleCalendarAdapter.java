@@ -240,6 +240,20 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
+    public Optional<IMeeting> findCurrent(RoomId roomId) {
+        return findCurrentGoogleCalEvent(roomId)
+                .map(this::eventToMeeting)
+                .orElse(Optional.empty());
+    }
+
+    private Optional<Event> findCurrentGoogleCalEvent(RoomId roomId) {
+        Set<Event> events = findAllGoogleCalEvents(roomId);
+        return events.stream()
+                .filter(this::isEventInProgress)
+                .findFirst();
+    }
+
+    @Override
     public IMeeting create(IMeeting meeting) {
         try {
             // TODO: Meaningful exception message

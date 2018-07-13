@@ -1,5 +1,6 @@
 package de.qaware.smartlabroom.service.business;
 
+import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.data.room.RoomId;
@@ -18,30 +19,45 @@ import java.util.Set;
 public class RoomManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IRoom, RoomId> implements IRoomManagementBusinessLogic {
 
     private final IRoomManagementRepository roomManagementRepository;
+    private final IMeetingManagementService meetingManagementService;
 
-    public RoomManagementBusinessLogic(IRoomManagementRepository roomManagementRepository) {
+    public RoomManagementBusinessLogic(
+            IRoomManagementRepository roomManagementRepository,
+            IMeetingManagementService meetingManagementService) {
         super(roomManagementRepository);
         this.roomManagementRepository = roomManagementRepository;
+        this.meetingManagementService = meetingManagementService;
     }
 
     @Override
     public Optional<Set<IMeeting>> getMeetingsInRoom(RoomId roomId) {
         return this.roomManagementRepository.findOne(roomId)
-                .map(room -> Optional.of(this.roomManagementRepository.getMeetingsInRoom(room)))
+                .map(room -> Optional.of(this.meetingManagementService.findAll(roomId)))
                 .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(RoomId roomId) {
         return this.roomManagementRepository.findOne(roomId)
-                .map(this.roomManagementRepository::getCurrentMeeting)
+                .map(room -> Optional.of(this.meetingManagementService.findCurrent(roomId)))
                 .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(RoomId roomId, Duration extension) {
         return this.roomManagementRepository.findOne(roomId)
-                .map(room -> this.roomManagementRepository.extendCurrentMeeting(room, extension))
+                .map(room -> {
+                    try {
+                        return getCurrentMeeting(room.getId())
+                                .map(meeting -> {
+                                    this.meetingManagementService.extendMeeting(meeting.getId(), extension);
+                                    return ExtensionResult.SUCCESS;})
+                                .orElse(ExtensionResult.NOT_FOUND);
+                    }
+                    catch(Exception e) {
+                        return ExtensionResult.fromException(e);
+                    }
+                })
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 }

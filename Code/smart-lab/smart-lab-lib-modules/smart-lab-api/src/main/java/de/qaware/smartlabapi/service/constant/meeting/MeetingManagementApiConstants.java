@@ -27,6 +27,7 @@ public abstract class MeetingManagementApiConstants {
     public static final String MAPPING_FIND_ALL_CURRENT = PATH_FRAGMENT_MEETINGS + "/all/current";
     public static final String MAPPING_FIND_ONE = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}";
     public static final String MAPPING_FIND_MULTIPLE = PATH_FRAGMENT_MEETINGS;
+    public static final String MAPPING_FIND_CURRENT_BY_ROOM_ID = PATH_FRAGMENT_MEETING + "/current" + PATH_FRAGMENT_IN_ROOM  + "/{" + PARAMETER_NAME_ROOM_ID + "}";
     public static final String MAPPING_CREATE_SINGLE = PATH_FRAGMENT_MEETING;
     public static final String MAPPING_CREATE_MULTIPLE = PATH_FRAGMENT_MEETINGS;
     public static final String MAPPING_DELETE = PATH_FRAGMENT_MEETING + "/{" + PARAMETER_NAME_MEETING_ID + "}";

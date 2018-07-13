@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,11 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     @Override
     public Set<IMeeting> findAllCurrent() {
         return this.meetingManagementRepository.findAllCurrent();
+    }
+
+    @Override
+    public Optional<IMeeting> findCurrent(RoomId roomId) {
+        return this.meetingManagementRepository.findCurrent(roomId);
     }
 
     @Override

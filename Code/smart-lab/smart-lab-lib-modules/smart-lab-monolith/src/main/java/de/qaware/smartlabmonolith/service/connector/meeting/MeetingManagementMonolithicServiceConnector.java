@@ -49,6 +49,15 @@ public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEn
     }
 
     @Override
+    public IMeeting findCurrent(RoomId roomId) {
+        ResponseEntity<IMeeting> response = this.meetingManagementController.findCurrentByRoomId(roomId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        // TODO: Meaningful exception message
+        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        throw new UnknownErrorException();
+    }
+
+    @Override
     public void shortenMeeting(MeetingId meetingId, Duration shortening) {
         ResponseEntity<Void> response = this.meetingManagementController.shortenMeeting(
                 meetingId.getIdValue(),

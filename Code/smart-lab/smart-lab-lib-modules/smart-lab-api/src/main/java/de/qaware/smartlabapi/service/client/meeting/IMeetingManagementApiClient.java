@@ -42,6 +42,11 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
     ResponseEntity<Set<IMeeting>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
 
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_ROOM_ID)
+    @ResponseBody
+    ResponseEntity<IMeeting> findCurrentByRoomId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
+
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting);

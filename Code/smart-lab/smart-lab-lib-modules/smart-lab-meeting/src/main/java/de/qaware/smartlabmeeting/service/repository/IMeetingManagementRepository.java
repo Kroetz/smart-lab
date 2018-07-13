@@ -4,13 +4,14 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
+import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
 import lombok.NonNull;
 
 import java.time.Duration;
+import java.util.Optional;
 import java.util.Set;
 
 public interface IMeetingManagementRepository extends IBasicEntityManagementRepository<IMeeting, MeetingId> {
@@ -18,6 +19,7 @@ public interface IMeetingManagementRepository extends IBasicEntityManagementRepo
     Set<IMeeting> findAll(RoomId roomId);
     Set<IMeeting> findAll(WorkgroupId workgroupId);
     Set<IMeeting> findAllCurrent();
+    Optional<IMeeting> findCurrent(RoomId roomId);
     ShorteningResult shortenMeeting(
             @NonNull IMeeting meeting,
             Duration shortening);

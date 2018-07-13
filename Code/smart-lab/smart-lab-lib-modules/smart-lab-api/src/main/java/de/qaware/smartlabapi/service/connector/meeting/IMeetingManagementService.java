@@ -15,10 +15,11 @@ public interface IMeetingManagementService extends IBasicEntityManagementService
     Set<IMeeting> findAll(RoomId roomId);
     Set<IMeeting> findAll(WorkgroupId workgroupId);
     Set<IMeeting> findAllCurrent();
-    IMeeting findOne(MeetingId entityId);
-    Set<IMeeting> findMultiple(MeetingId[] entityIds);
+    IMeeting findOne(MeetingId meetingId);
+    Set<IMeeting> findMultiple(MeetingId[] meetingIds);
+    IMeeting findCurrent(RoomId roomId);
     IMeeting create(IMeeting meeting);
-    void delete(MeetingId entityId);
+    void delete(MeetingId meetingId);
     void shortenMeeting(MeetingId meetingId, Duration shortening);
     void extendMeeting(MeetingId meetingId, Duration extension);
     void shiftMeeting(MeetingId meetingId, Duration shift);
