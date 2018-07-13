@@ -16,6 +16,7 @@ import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
+import de.qaware.smartlabcore.exception.InvalidSyntaxException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.result.ExtensionResult;
@@ -37,6 +38,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
@@ -152,6 +154,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                     .getItems()
                     .stream()
                     .map(this::eventToMeeting)
+                    .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
                     .collect(Collectors.toSet());
         }
         catch(GoogleJsonResponseException e) {
@@ -182,7 +185,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                     .get(calendarId, eventId)
                     .execute();
             log.info("Found event \"{}\" in calendar \"{}\"", eventId, calendarId);
-            return Optional.of(eventToMeeting(event));
+            return eventToMeeting(event);
         }
         catch(GoogleJsonResponseException e) {
             log.info("Cannot find event \"{}\" in calendar \"{}\"", eventId, calendarId, e);
@@ -211,7 +214,8 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
             Event createdEvent = this.service.events().insert(calendarId, meetingToEvent(meeting)).execute();
             log.info("Created meeting \"{}\"", meeting);
-            return eventToMeeting(createdEvent);
+            // TODO: Meaningful exception message
+            return eventToMeeting(createdEvent).orElseThrow(EntityCreationException::new);
         }
         catch(IllegalArgumentException e) {
             log.error("Cannot create meeting \"{}\" in room \"{}\" since it has no mapped calendar ID", meeting, meeting.getRoomId());
@@ -330,17 +334,24 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         return this.service.calendarList().get(calendarId).execute();
     }
 
-    private IMeeting eventToMeeting(Event event) {
+    private Optional<IMeeting> eventToMeeting(Event event) {
         String description = event.getDescription();
         description = isNull(description) ? StringUtils.EMPTY : description;
-        IMeeting parsedMeeting = this.meetingParser.parse(description);
-        return Meeting.builder()
+        IMeeting parsedMeeting;
+        try {
+            parsedMeeting = this.meetingParser.parse(description);
+        }
+        catch(InvalidSyntaxException e) {
+            log.error("Failed to create Smart Lab meeting from Google calendar event {} because of invalid configuration syntax", event, e);
+            return Optional.empty();
+        }
+        return Optional.of(Meeting.builder()
                 .id(MeetingId.of(event.getId(), RoomId.of(event.getLocation())))
                 .title(event.getSummary())
                 .start(eventDateTimeToInstant(event.getStart()))
                 .end(eventDateTimeToInstant(event.getEnd()))
                 .build()
-                .merge(parsedMeeting);
+                .merge(parsedMeeting));
     }
 
     private Event meetingToEvent(IMeeting meeting) {
