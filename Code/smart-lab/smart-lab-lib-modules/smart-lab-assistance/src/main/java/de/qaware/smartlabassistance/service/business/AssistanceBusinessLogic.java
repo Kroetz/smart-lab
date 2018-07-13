@@ -1,8 +1,8 @@
 package de.qaware.smartlabassistance.service.business;
 
 import de.qaware.smartlabapi.service.connector.action.IActionService;
-import de.qaware.smartlabassistance.assistance.controllable.IAssistanceControllable;
-import de.qaware.smartlabassistance.assistance.controllable.tracker.IAssistanceTracker;
+import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
+import de.qaware.smartlabassistance.assistance.controllable.miscellaneous.tracker.IAssistanceTracker;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;

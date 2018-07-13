@@ -1,7 +1,7 @@
 package de.qaware.smartlabmeeting.service.repository.parser;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.assistance.IAssistanceInfo;
+import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.AgendaItem;
 import de.qaware.smartlabcore.data.meeting.IAgendaItem;

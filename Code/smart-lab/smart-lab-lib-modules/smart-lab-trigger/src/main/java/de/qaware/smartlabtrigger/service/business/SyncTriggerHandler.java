@@ -1,7 +1,7 @@
 package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
-import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
+import de.qaware.smartlabassistance.assistance.triggerable.generic.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;

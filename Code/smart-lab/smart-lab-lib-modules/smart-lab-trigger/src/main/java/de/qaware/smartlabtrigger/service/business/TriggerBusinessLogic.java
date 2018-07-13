@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
 import de.qaware.smartlabapi.service.connector.room.IRoomManagementService;
 import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlabassistance.assistance.triggerable.IAssistanceTriggerable;
+import de.qaware.smartlabassistance.assistance.triggerable.generic.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
