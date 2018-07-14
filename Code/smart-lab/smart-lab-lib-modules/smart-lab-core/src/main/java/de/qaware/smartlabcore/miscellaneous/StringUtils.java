@@ -14,4 +14,8 @@ public abstract class StringUtils {
     public static final String LPAREN = "(";
     public static final String RPAREN = ")";
     public static final String PARENTHESES_TEMPLATE = LPAREN + "%s" + RPAREN;
+
+    public static String trimEnclosing(String s) {
+        return s.substring(1, s.length() - 1);
+    }
 }

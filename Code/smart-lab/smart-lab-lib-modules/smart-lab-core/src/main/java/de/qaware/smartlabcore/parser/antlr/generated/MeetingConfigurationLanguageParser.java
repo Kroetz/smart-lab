@@ -1,4 +1,4 @@
-// Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-meeting/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
+// Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-core/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
 package de.qaware.smartlabcore.parser.antlr.generated;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
@@ -16,11 +17,14 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		IDENTIFIER=1, INTEGER=2, STRING=3, WORKGROUP_TAG=4, CONFIG_TAG_BEGIN=5, 
-		CONFIG_TAG_END=6, AGENDA_TAG_BEGIN=7, AGENDA_TAG_END=8, ASSISTANCES_TAG_BEGIN=9, 
-		ASSISTANCES_TAG_END=10, SIGNAL_SEQUENCE=11, LPAREN=12, RPAREN=13, LBRACE=14, 
-		RBRACE=15, LBRACK=16, RBRACK=17, COMMA=18, DOT=19, COLON=20, SEMICOLON=21, 
-		EQUALS=22, AT=23, QUOTES=24, WHITESPACE=25, COMMENT=26, LINE_COMMENT=27;
+		IDENTIFIER=1, INTEGER=2, STRING=3, CONFIG_TAG_BEGIN=4, CONFIG_TAG_BEGIN_IDENTIFIER=5, 
+		CONFIG_TAG_END=6, CONFIG_TAG_END_IDENTIFIER=7, WORKGROUP_TAG=8, WORKGROUP_TAG_IDENTIFIER=9, 
+		AGENDA_TAG_BEGIN=10, AGENDA_TAG_BEGIN_IDENTIFIER=11, AGENDA_TAG_END=12, 
+		AGENDA_TAG_END_IDENTIFIER=13, ASSISTANCES_TAG_BEGIN=14, ASSISTANCES_TAG_BEGIN_IDENTIFIER=15, 
+		ASSISTANCES_TAG_END=16, ASSISTANCES_TAG_END_IDENTIFIER=17, SIGNAL_SEQUENCE=18, 
+		LPAREN=19, RPAREN=20, LBRACE=21, RBRACE=22, LBRACK=23, RBRACK=24, COMMA=25, 
+		DOT=26, COLON=27, SEMICOLON=28, EQUALS=29, QUOTES=30, WHITESPACE=31, COMMENT=32, 
+		LINE_COMMENT=33;
 	public static final int
 		RULE_meetingConfiguration = 0, RULE_statement = 1, RULE_assignment = 2, 
 		RULE_section = 3, RULE_agendaSection = 4, RULE_agendaItems = 5, RULE_agendaItem = 6, 
@@ -33,16 +37,19 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		"'('", "')'", "'{'", "'}'", "'['", "']'", "','", "'.'", "':'", "';'", 
-		"'='", "'@'", "'\"'"
+		null, null, null, null, null, "'smart-lab-config-begin'", null, "'smart-lab-config-end'", 
+		null, "'workgroup'", null, "'agenda-begin'", null, "'agenda-end'", null, 
+		"'assistances-begin'", null, "'assistances-end'", "'@'", "'('", "')'", 
+		"'{'", "'}'", "'['", "']'", "','", "'.'", "':'", "';'", "'='", "'\"'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, "IDENTIFIER", "INTEGER", "STRING", "WORKGROUP_TAG", "CONFIG_TAG_BEGIN", 
-		"CONFIG_TAG_END", "AGENDA_TAG_BEGIN", "AGENDA_TAG_END", "ASSISTANCES_TAG_BEGIN", 
-		"ASSISTANCES_TAG_END", "SIGNAL_SEQUENCE", "LPAREN", "RPAREN", "LBRACE", 
-		"RBRACE", "LBRACK", "RBRACK", "COMMA", "DOT", "COLON", "SEMICOLON", "EQUALS", 
-		"AT", "QUOTES", "WHITESPACE", "COMMENT", "LINE_COMMENT"
+		null, "IDENTIFIER", "INTEGER", "STRING", "CONFIG_TAG_BEGIN", "CONFIG_TAG_BEGIN_IDENTIFIER", 
+		"CONFIG_TAG_END", "CONFIG_TAG_END_IDENTIFIER", "WORKGROUP_TAG", "WORKGROUP_TAG_IDENTIFIER", 
+		"AGENDA_TAG_BEGIN", "AGENDA_TAG_BEGIN_IDENTIFIER", "AGENDA_TAG_END", "AGENDA_TAG_END_IDENTIFIER", 
+		"ASSISTANCES_TAG_BEGIN", "ASSISTANCES_TAG_BEGIN_IDENTIFIER", "ASSISTANCES_TAG_END", 
+		"ASSISTANCES_TAG_END_IDENTIFIER", "SIGNAL_SEQUENCE", "LPAREN", "RPAREN", 
+		"LBRACE", "RBRACE", "LBRACK", "RBRACK", "COMMA", "DOT", "COLON", "SEMICOLON", 
+		"EQUALS", "QUOTES", "WHITESPACE", "COMMENT", "LINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -830,27 +837,27 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35[\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\3\2\3\2\3\3\3\3\5"+
-		"\3\'\n\3\3\4\3\4\3\4\3\4\3\5\3\5\5\5/\n\5\3\6\3\6\3\6\3\6\3\7\7\7\66\n"+
-		"\7\f\7\16\79\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\7\nB\n\n\f\n\16\nE\13\n"+
-		"\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fO\n\f\f\f\16\fR\13\f\3\f\5\f"+
-		"U\n\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2U"+
-		"\2\32\3\2\2\2\4&\3\2\2\2\6(\3\2\2\2\b.\3\2\2\2\n\60\3\2\2\2\f\67\3\2\2"+
-		"\2\16:\3\2\2\2\20<\3\2\2\2\22C\3\2\2\2\24F\3\2\2\2\26T\3\2\2\2\30V\3\2"+
-		"\2\2\32\36\7\7\2\2\33\35\5\4\3\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2"+
-		"\2\36\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\7\b\2\2\"#\7\2\2\3#\3\3\2"+
-		"\2\2$\'\5\6\4\2%\'\5\b\5\2&$\3\2\2\2&%\3\2\2\2\'\5\3\2\2\2()\7\6\2\2)"+
-		"*\7\30\2\2*+\7\5\2\2+\7\3\2\2\2,/\5\n\6\2-/\5\20\t\2.,\3\2\2\2.-\3\2\2"+
-		"\2/\t\3\2\2\2\60\61\7\t\2\2\61\62\5\f\7\2\62\63\7\n\2\2\63\13\3\2\2\2"+
-		"\64\66\5\16\b\2\65\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28\r"+
-		"\3\2\2\29\67\3\2\2\2:;\7\5\2\2;\17\3\2\2\2<=\7\13\2\2=>\5\22\n\2>?\7\f"+
-		"\2\2?\21\3\2\2\2@B\5\24\13\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2\2CD\3\2\2\2D"+
-		"\23\3\2\2\2EC\3\2\2\2FG\7\3\2\2GH\7\16\2\2HI\5\26\f\2IJ\7\17\2\2J\25\3"+
-		"\2\2\2KP\5\30\r\2LM\7\24\2\2MO\5\30\r\2NL\3\2\2\2OR\3\2\2\2PN\3\2\2\2"+
-		"PQ\3\2\2\2QU\3\2\2\2RP\3\2\2\2SU\3\2\2\2TK\3\2\2\2TS\3\2\2\2U\27\3\2\2"+
-		"\2VW\7\3\2\2WX\7\26\2\2XY\7\5\2\2Y\31\3\2\2\2\t\36&.\67CPT";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#[\4\2\t\2\4\3\t\3"+
+		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f"+
+		"\t\f\4\r\t\r\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\3\2\3\2\3\3\3\3\5\3"+
+		"\'\n\3\3\4\3\4\3\4\3\4\3\5\3\5\5\5/\n\5\3\6\3\6\3\6\3\6\3\7\7\7\66\n\7"+
+		"\f\7\16\79\13\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\7\nB\n\n\f\n\16\nE\13\n\3"+
+		"\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\7\fO\n\f\f\f\16\fR\13\f\3\f\5\fU\n"+
+		"\f\3\r\3\r\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\2\2U\2\32"+
+		"\3\2\2\2\4&\3\2\2\2\6(\3\2\2\2\b.\3\2\2\2\n\60\3\2\2\2\f\67\3\2\2\2\16"+
+		":\3\2\2\2\20<\3\2\2\2\22C\3\2\2\2\24F\3\2\2\2\26T\3\2\2\2\30V\3\2\2\2"+
+		"\32\36\7\6\2\2\33\35\5\4\3\2\34\33\3\2\2\2\35 \3\2\2\2\36\34\3\2\2\2\36"+
+		"\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\7\b\2\2\"#\7\2\2\3#\3\3\2\2\2$"+
+		"\'\5\6\4\2%\'\5\b\5\2&$\3\2\2\2&%\3\2\2\2\'\5\3\2\2\2()\7\n\2\2)*\7\37"+
+		"\2\2*+\7\5\2\2+\7\3\2\2\2,/\5\n\6\2-/\5\20\t\2.,\3\2\2\2.-\3\2\2\2/\t"+
+		"\3\2\2\2\60\61\7\f\2\2\61\62\5\f\7\2\62\63\7\16\2\2\63\13\3\2\2\2\64\66"+
+		"\5\16\b\2\65\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28\r\3\2\2"+
+		"\29\67\3\2\2\2:;\7\5\2\2;\17\3\2\2\2<=\7\20\2\2=>\5\22\n\2>?\7\22\2\2"+
+		"?\21\3\2\2\2@B\5\24\13\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2\2CD\3\2\2\2D\23\3"+
+		"\2\2\2EC\3\2\2\2FG\7\3\2\2GH\7\25\2\2HI\5\26\f\2IJ\7\26\2\2J\25\3\2\2"+
+		"\2KP\5\30\r\2LM\7\33\2\2MO\5\30\r\2NL\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3"+
+		"\2\2\2QU\3\2\2\2RP\3\2\2\2SU\3\2\2\2TK\3\2\2\2TS\3\2\2\2U\27\3\2\2\2V"+
+		"W\7\3\2\2WX\7\35\2\2XY\7\5\2\2Y\31\3\2\2\2\t\36&.\67CPT";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,4 +1,4 @@
-// Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-meeting/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
+// Generated from C:/Users/d.schock/Desktop/Masterarbeit/smart_lab/Code/smart-lab/smart-lab-lib-modules/smart-lab-core/src/main/antlr\MeetingConfigurationLanguage.g4 by ANTLR 4.7
 package de.qaware.smartlabcore.parser.antlr.generated;
 
 import org.antlr.v4.runtime.ParserRuleContext;
