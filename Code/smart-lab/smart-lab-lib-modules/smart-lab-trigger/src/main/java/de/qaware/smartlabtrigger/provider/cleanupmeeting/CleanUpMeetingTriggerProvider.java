@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.time.Duration;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,26 +29,22 @@ public class CleanUpMeetingTriggerProvider extends AbstractTriggerProvider {
             IMeetingManagementService meetingManagementService,
             // TODO: String literals
             @Qualifier("cleanUpTriggerProviderCheckInterval") Duration checkInterval,
-            @Qualifier("cleanUpTriggerProviderTriggerThreshold") Duration triggerThreshold) {
+            @Qualifier("cleanUpTriggerProviderTriggerThreshold") Duration triggerThreshold,
+            // TODO: String literal
+            @Qualifier("cleanUpTriggerProviderCallbackUrl") URL callbackUrl) {
         super(
                 checkInterval,
-                meeting -> triggerService.cleanUpCurrentMeetingByRoomId(meeting.getRoomId()),
+                meeting -> triggerService.cleanUpCurrentMeetingByRoomId(meeting.getRoomId(), callbackUrl),
                 TRIGGER_NAME);
         this.meetingManagementService = meetingManagementService;
         this.triggerThreshold = triggerThreshold;
     }
 
     @Override
-    protected Set<IMeeting> getTriggerCandidates() {
-        try {
-            return meetingManagementService.findAllCurrent().stream()
-                    .filter(this::isAboutToEnd)
-                    .collect(Collectors.toSet());
-        }
-        catch(Exception e) {
-            log.error("Could not find all meetings that are currently in progress", e);
-            return new HashSet<>();
-        }
+    protected Set<IMeeting> findTriggerCandidates() {
+        return meetingManagementService.findAllCurrent().stream()
+                .filter(this::isAboutToEnd)
+                .collect(Collectors.toSet());
     }
 
     private boolean isAboutToEnd(IMeeting meeting) {

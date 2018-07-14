@@ -3,13 +3,15 @@ package de.qaware.smartlabtrigger.provider.setupmeeting;
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.miscellaneous.UrlUtils;
 import de.qaware.smartlabtrigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
-import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -24,22 +26,18 @@ public class SetUpMeetingTriggerProvider extends AbstractTriggerProvider {
             IMeetingManagementService meetingManagementService,
             ITriggerService triggerService,
             // TODO: String literals
-            @Qualifier("setUpTriggerProviderCheckInterval") Duration checkInterval) {
+            @Qualifier("setUpTriggerProviderCheckInterval") Duration checkInterval,
+            // TODO: String literal
+            @Qualifier("setUpTriggerProviderCallbackUrl") URL callbackUrl) {
         super(
                 checkInterval,
-                meeting -> triggerService.setUpCurrentMeetingByRoomId(meeting.getRoomId()),
+                meeting -> triggerService.setUpCurrentMeetingByRoomId(meeting.getRoomId(), callbackUrl),
                 TRIGGER_NAME);
         this.meetingManagementService = meetingManagementService;
     }
 
     @Override
-    protected Set<IMeeting> getTriggerCandidates() {
-        try {
-            return meetingManagementService.findAllCurrent();
-        }
-        catch(Exception e) {
-            log.error("Could not find all meetings that are currently in progress", e);
-            return new HashSet<>();
-        }
+    protected Set<IMeeting> findTriggerCandidates() {
+        return meetingManagementService.findAllCurrent();
     }
 }

@@ -9,7 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+
+import static de.qaware.smartlabcore.miscellaneous.UrlUtils.of;
+import static de.qaware.smartlabtrigger.provider.setupmeeting.SetUpMeetingCallbackController.MAPPING_CALLBACK;
 
 @Configuration
 @ComponentScan(basePackageClasses = {
@@ -32,16 +37,26 @@ public class SetUpMeetingTriggerProviderConfiguration {
         return this.properties.getCheckIntervalInSeconds();
     }
 
+    @Bean
+    // TODO: String literal
+    @Qualifier("setUpTriggerProviderCallbackUrl")
+    public URL setUpTriggerProviderCallbackBaseUrl() throws MalformedURLException {
+        return of(this.properties.getCallbackBaseUrl(), MAPPING_CALLBACK);
+    }
+
     // TODO: String literal
     @ConfigurationProperties(prefix = "trigger.provider.set-up")
     public static class Properties {
 
         private static final int DEFAULT_CHECK_INTERVAL_IN_SECONDS = 5;
+        private static final String DEFAULT_CALLBACK_BASE_URL = "http://localhost:8080";
 
         private int checkIntervalInSeconds;
+        private String callbackBaseUrl;
 
         public Properties() {
             this.checkIntervalInSeconds = DEFAULT_CHECK_INTERVAL_IN_SECONDS;
+            this.callbackBaseUrl = DEFAULT_CALLBACK_BASE_URL;
         }
 
         public Duration getCheckIntervalInSeconds() {
@@ -50,6 +65,14 @@ public class SetUpMeetingTriggerProviderConfiguration {
 
         public void setCheckIntervalInSeconds(int checkIntervalInSeconds) {
             this.checkIntervalInSeconds = checkIntervalInSeconds;
+        }
+
+        public URL getCallbackBaseUrl() throws MalformedURLException {
+            return new URL(this.callbackBaseUrl);
+        }
+
+        public void setCallbackBaseUrl(String callbackBaseUrl) {
+            this.callbackBaseUrl = callbackBaseUrl;
         }
     }
 }
