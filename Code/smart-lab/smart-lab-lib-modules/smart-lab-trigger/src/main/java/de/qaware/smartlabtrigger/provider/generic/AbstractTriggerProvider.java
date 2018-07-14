@@ -163,12 +163,25 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     }
 
     private void cleanTriggerJobInfoCache(Set<IMeeting> newTriggerCandidates) {
-        Set<MeetingId> currentMeetingIds = newTriggerCandidates.stream()
+        log.info("Cleaning up trigger job info cache");
+        Set<MeetingId> newTriggerCandidateIds = newTriggerCandidates.stream()
                 .map(IEntity::getId)
                 .collect(Collectors.toSet());
-        for(MeetingId meetingId : this.triggerJobInfoCache.keySet()) {
-            if(!currentMeetingIds.contains(meetingId)) {
-                this.triggerJobInfoCache.remove(meetingId);
+        synchronized(this.triggerJobInfoCache) {  // Manual synchronization is necessary (See https://stackoverflow.com/questions/44050911/synchronization-for-inverse-view-of-synchronized-bimap)
+            Set<MeetingId> cacheItemsToRemove = new HashSet<>();
+            for (MeetingId meetingId : this.triggerJobInfoCache.keySet()) {
+                if (!newTriggerCandidateIds.contains(meetingId)) {
+                    cacheItemsToRemove.add(meetingId);
+                }
+            }
+            log.info("Found {} cache item(s) that can be cleared", cacheItemsToRemove.size());
+            /*
+             * Do not manipulate the map while iterating over its key set! Perform manipulations outside of the loop
+             * or otherwise undefined behavior may occur.
+             */
+            for(MeetingId cacheItemToRemove : cacheItemsToRemove) {
+                log.info("Clearing trigger job info of meeting {}", cacheItemToRemove);
+                this.triggerJobInfoCache.remove(cacheItemToRemove);
             }
         }
     }
