@@ -45,11 +45,6 @@
             <artifactId>smart-lab-assistance</artifactId>
         </dependency>
 
-	    <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>
