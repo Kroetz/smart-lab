@@ -254,6 +254,13 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     }
 
     @Override
+    public Optional<IMeeting> findCurrent(WorkgroupId workgroupId) {
+        return findAllCurrent().stream()
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .findFirst();
+    }
+
+    @Override
     public IMeeting create(IMeeting meeting) {
         try {
             // TODO: Meaningful exception message

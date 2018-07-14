@@ -48,6 +48,11 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     }
 
     @Override
+    public Optional<IMeeting> findCurrent(WorkgroupId workgroupId) {
+        return this.meetingManagementRepository.findCurrent(workgroupId);
+    }
+
+    @Override
     public ShorteningResult shortenMeeting(
             MeetingId meetingId,
             Duration shortening) {

@@ -89,6 +89,14 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     }
 
     @Override
+    public Optional<IMeeting> findCurrent(WorkgroupId workgroupId) {
+        return findAll().stream()
+                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .filter(IMeeting::isInProgress)
+                .findFirst();
+    }
+
+    @Override
     public synchronized IMeeting create(IMeeting meeting) {
         boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
         if(meetingCollision || exists(meeting.getId())) {

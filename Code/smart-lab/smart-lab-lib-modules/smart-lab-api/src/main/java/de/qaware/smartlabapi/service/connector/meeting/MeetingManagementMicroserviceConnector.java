@@ -79,6 +79,19 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
     }
 
     @Override
+    public IMeeting findCurrent(WorkgroupId workgroupId) {
+        try {
+            return this.meetingManagementApiClient.findCurrentByWorkgroupId(workgroupId.getIdValue()).getBody();
+        }
+        catch(FeignException e) {
+            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+                throw new EntityNotFoundException();
+            }
+            throw new UnknownErrorException();
+        }
+    }
+
+    @Override
     public void shortenMeeting(MeetingId meetingId, Duration shortening)
             throws EntityNotFoundException, MinimalDurationReachedException, UnknownErrorException {
         try {

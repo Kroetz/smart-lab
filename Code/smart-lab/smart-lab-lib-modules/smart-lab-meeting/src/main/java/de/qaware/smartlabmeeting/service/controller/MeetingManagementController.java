@@ -85,6 +85,13 @@ public class MeetingManagementController extends AbstractSmartLabController impl
         return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(RoomId.of(roomId)));
     }
 
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_WORKGROUP_ID)
+    @ResponseBody
+    public ResponseEntity<IMeeting> findCurrentByWorkgroupId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+        return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(WorkgroupId.of(workgroupId)));
+    }
+
     @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

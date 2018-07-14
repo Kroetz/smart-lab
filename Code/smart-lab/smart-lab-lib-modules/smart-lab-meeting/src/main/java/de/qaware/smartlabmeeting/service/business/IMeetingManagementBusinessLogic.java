@@ -19,6 +19,7 @@ public interface IMeetingManagementBusinessLogic extends IBasicEntityManagementB
     Set<IMeeting> findAll(WorkgroupId workgroupId);
     Set<IMeeting> findAllCurrent();
     Optional<IMeeting> findCurrent(RoomId roomId);
+    Optional<IMeeting> findCurrent(WorkgroupId workgroupId);
     ShorteningResult shortenMeeting(
             MeetingId meetingId,
             Duration shortening);

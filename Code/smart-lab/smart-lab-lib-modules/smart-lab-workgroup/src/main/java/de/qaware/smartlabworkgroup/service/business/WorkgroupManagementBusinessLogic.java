@@ -1,5 +1,6 @@
 package de.qaware.smartlabworkgroup.service.business;
 
+import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -18,32 +19,45 @@ import java.util.Set;
 public class WorkgroupManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IWorkgroup, WorkgroupId> implements IWorkgroupManagementBusinessLogic {
 
     private final IWorkgroupManagementRepository workgroupManagementRepository;
+    private final IMeetingManagementService meetingManagementService;
 
     public WorkgroupManagementBusinessLogic(
-            IWorkgroupManagementRepository workgroupManagementRepository) {
+            IWorkgroupManagementRepository workgroupManagementRepository,
+            IMeetingManagementService meetingManagementService) {
         super(workgroupManagementRepository);
         this.workgroupManagementRepository = workgroupManagementRepository;
+        this.meetingManagementService = meetingManagementService;
     }
 
     @Override
     public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
-
         return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> Optional.of(this.workgroupManagementRepository.getMeetingsOfWorkgroup(workgroup)))
+                .map(workgroup -> Optional.of(this.meetingManagementService.findAll(workgroup.getId())))
                 .orElse(Optional.empty());
     }
 
     @Override
     public Optional<IMeeting> getCurrentMeeting(WorkgroupId workgroupId) {
         return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(this.workgroupManagementRepository::getCurrentMeeting)
+                .map(workgroup -> Optional.of(this.meetingManagementService.findCurrent(workgroup.getId())))
                 .orElse(Optional.empty());
     }
 
     @Override
     public ExtensionResult extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
         return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> this.workgroupManagementRepository.extendCurrentMeeting(workgroup, extension))
+                .map(workgroup -> {
+                    try {
+                        return getCurrentMeeting(workgroup.getId())
+                                .map(meeting -> {
+                                    this.meetingManagementService.extendMeeting(meeting.getId(), extension);
+                                    return ExtensionResult.SUCCESS;})
+                                .orElse(ExtensionResult.NOT_FOUND);
+                    }
+                    catch(Exception e) {
+                        return ExtensionResult.fromException(e);
+                    }
+                })
                 .orElse(ExtensionResult.NOT_FOUND);
     }
 }
