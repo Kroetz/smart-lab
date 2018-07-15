@@ -35,6 +35,7 @@ public class JobInfo implements IJobInfo {
     private Instant processingEnd;
 
     @Column(name = "error_message")
+    @Lob
     private String errorMessage;
 
     protected JobInfo() { }
