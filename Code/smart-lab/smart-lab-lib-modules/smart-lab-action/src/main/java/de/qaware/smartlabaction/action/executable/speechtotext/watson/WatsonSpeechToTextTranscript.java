@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toMap;
 
 @Slf4j
 public class WatsonSpeechToTextTranscript implements ITranscript {
@@ -37,7 +38,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
             return "Talk is silver, silence is golden.";
         }
         List<SpeakerLabelsResult> speakerLabelsResults = this.speechRecognitionResults.getSpeakerLabels();
-        Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(Collectors.toMap(
+        Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(toMap(
                 speakerLabelsResult -> Timestamp.of(speakerLabelsResult.getFrom(), speakerLabelsResult.getTo()),
                 SpeakerLabelsResult::getSpeaker));
         List<ITextPassage> textPassages = resolveTextPassages(

@@ -21,6 +21,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
+
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -73,9 +76,9 @@ public class MeetingManagementController extends AbstractSmartLabController impl
     public ResponseEntity<Set<IMeeting>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
         return responseFromOptionals(this.meetingManagementBusinessLogic.findMultiple(
-                Arrays.stream(meetingIds)
+                stream(meetingIds)
                         .map(MeetingId::of)
-                        .collect(Collectors.toSet())));
+                        .collect(toSet())));
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_ROOM_ID)

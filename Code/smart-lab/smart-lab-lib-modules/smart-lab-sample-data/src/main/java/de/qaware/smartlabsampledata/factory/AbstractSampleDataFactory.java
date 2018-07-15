@@ -14,7 +14,8 @@ import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
 
 public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
 
@@ -31,7 +32,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     public Map<WorkgroupId, IWorkgroup> createWorkgroupMap() {
         Set<IWorkgroup> workgroups = createWorkgroupSet();
         return workgroups.stream()
-                .collect(Collectors.toMap(IWorkgroup::getId, workgroup -> workgroup));
+                .collect(toMap(IWorkgroup::getId, workgroup -> workgroup));
     }
 
     @Override
@@ -41,7 +42,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     public Map<PersonId, IPerson> createWorkgroupMemberMap() {
         Set<IPerson> workgroupMembers = createWorkgroupMemberSet();
         return workgroupMembers.stream()
-                .collect(Collectors.toMap(IPerson::getId, workgroupMember -> workgroupMember));
+                .collect(toMap(IPerson::getId, workgroupMember -> workgroupMember));
     }
 
     @Override
@@ -51,7 +52,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     public Map<MeetingId, IMeeting> createMeetingMap() {
         Set<IMeeting> meetings = createMeetingSet();
         return meetings.stream()
-                .collect(Collectors.toMap(IMeeting::getId, meeting -> meeting));
+                .collect(toMap(IMeeting::getId, meeting -> meeting));
     }
 
     @Override
@@ -61,7 +62,7 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     public Map<RoomId, IRoom> createRoomMap() {
         Set<IRoom> rooms = createRoomSet();
         return rooms.stream()
-                .collect(Collectors.toMap(IRoom::getId, room -> room));
+                .collect(toMap(IRoom::getId, room -> room));
     }
 
     @Override
@@ -71,6 +72,6 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     public Map<DeviceId, IDevice> createDeviceMap() {
         Set<IDevice> devices = createDeviceSet();
         return devices.stream()
-                .collect(Collectors.toMap(IDevice::getId, device -> device));
+                .collect(toMap(IDevice::getId, device -> device));
     }
 }

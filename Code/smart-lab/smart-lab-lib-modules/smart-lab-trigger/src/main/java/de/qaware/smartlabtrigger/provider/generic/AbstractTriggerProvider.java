@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toSet;
+
 @Slf4j
 public abstract class AbstractTriggerProvider implements ITriggerProvider, CommandLineRunner {
 
@@ -81,7 +83,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         synchronized(this.triggerJobInfoCache) {  // Manual synchronization is necessary (See https://stackoverflow.com/questions/44050911/synchronization-for-inverse-view-of-synchronized-bimap)
             Set<IJobInfo> triggerJobInfosWithSameId = oldTriggerJobInfos.stream()
                     .filter(triggerJobInfo -> triggerJobInfo.getId().equals(newTriggerJobInfo.getId()))
-                    .collect(Collectors.toSet());
+                    .collect(toSet());
             if(triggerJobInfosWithSameId.size() > 1) throw new IllegalStateException("The IDs of all job info objects in the cache must be unique");
             Optional<IJobInfo> oldTriggerJobInfoOptional = triggerJobInfosWithSameId.stream().findFirst();
             // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
@@ -112,7 +114,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     private Set<IMeeting> removeAlreadyTriggered(Set<IMeeting> triggerCandidates) {
         return triggerCandidates.stream()
                 .filter(this::isNotYetTriggered)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private Set<IMeeting> getTriggerCandidates() {
@@ -166,7 +168,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         log.info("Cleaning up trigger job info cache");
         Set<MeetingId> newTriggerCandidateIds = newTriggerCandidates.stream()
                 .map(IEntity::getId)
-                .collect(Collectors.toSet());
+                .collect(toSet());
         synchronized(this.triggerJobInfoCache) {  // Manual synchronization is necessary (See https://stackoverflow.com/questions/44050911/synchronization-for-inverse-view-of-synchronized-bimap)
             Set<MeetingId> cacheItemsToRemove = new HashSet<>();
             for (MeetingId meetingId : this.triggerJobInfoCache.keySet()) {

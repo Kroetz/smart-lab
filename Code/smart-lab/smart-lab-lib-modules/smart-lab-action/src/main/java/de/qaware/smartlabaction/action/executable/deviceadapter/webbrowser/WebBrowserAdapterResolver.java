@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 
 @Component
 @Slf4j
@@ -20,7 +21,7 @@ public class WebBrowserAdapterResolver extends AbstractResolver<String, IWebBrow
 
     private static Set<Map.Entry<String, IWebBrowserAdapter>> getWebBrowserAdaptersByType(List<IWebBrowserAdapter> webBrowserAdapters) {
         return webBrowserAdapters.stream()
-                .collect(Collectors.toMap(IWebBrowserAdapter::getDeviceType, Function.identity()))
+                .collect(toMap(IWebBrowserAdapter::getDeviceType, identity()))
                 .entrySet();
     }
 }

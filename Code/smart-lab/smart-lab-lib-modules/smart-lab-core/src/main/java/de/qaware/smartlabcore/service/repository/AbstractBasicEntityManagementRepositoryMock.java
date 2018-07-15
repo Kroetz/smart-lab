@@ -13,6 +13,8 @@ import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Repository
 @Slf4j
 public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementRepository<EntityT, IdentifierT> {
@@ -84,7 +86,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     public synchronized DeletionResult delete(IdentifierT entityId) {
         List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
-                .collect(Collectors.toList());
+                .collect(toList());
         if(entitiesToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }

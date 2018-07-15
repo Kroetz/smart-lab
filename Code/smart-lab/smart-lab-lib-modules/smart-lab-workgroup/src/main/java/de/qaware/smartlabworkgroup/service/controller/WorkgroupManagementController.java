@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
+
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -50,9 +53,9 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
     @ResponseBody
     public ResponseEntity<Set<IWorkgroup>> findMultiple(@RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_IDS) String[] workgroupIds) {
         return responseFromOptionals(
-                this.workgroupManagementBusinessLogic.findMultiple(Arrays.stream(workgroupIds)
+                this.workgroupManagementBusinessLogic.findMultiple(stream(workgroupIds)
                         .map(WorkgroupId::of)
-                        .collect(Collectors.toSet())));
+                        .collect(toSet())));
     }
 
     @Override

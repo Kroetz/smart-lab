@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.of;
 
 @Component
 @Slf4j
@@ -22,13 +23,13 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "fileDisplaying";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = of(
             "file-displaying",
-            "file displaying").collect(Collectors.toSet());
+            "file displaying").collect(toSet());
     public static final String ASSISTANCE_COMMAND = "displayFile";
-    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = of(
             "display-file",
-            "display file").collect(Collectors.toSet());
+            "display file").collect(toSet());
 
     public FileDisplayingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);

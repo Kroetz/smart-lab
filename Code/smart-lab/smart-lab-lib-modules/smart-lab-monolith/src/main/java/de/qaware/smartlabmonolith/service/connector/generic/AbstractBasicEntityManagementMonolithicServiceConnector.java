@@ -3,15 +3,16 @@ package de.qaware.smartlabmonolith.service.connector.generic;
 import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
-import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.EntityConflictException;
+import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
 import java.util.Set;
+
+import static java.util.Arrays.stream;
 
 public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
 
@@ -38,7 +39,7 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
     @Override
     public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
         ResponseEntity<Set<EntityT>> response = this.entityManagementController
-                .findMultiple(Arrays.stream(entityIds)
+                .findMultiple(stream(entityIds)
                 .map(IIdentifier::getIdValue)
                 .toArray(String[]::new));
         if(response.getStatusCode() == HttpStatus.OK) return response.getBody();

@@ -1,10 +1,11 @@
 package de.qaware.smartlabcore.service.controller;
 
-import de.qaware.smartlabcore.miscellaneous.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.EMPTY;
 
 public abstract class RequestContextUtils {
 
@@ -19,6 +20,6 @@ public abstract class RequestContextUtils {
                 currentRequestUrl.getProtocol(),
                 currentRequestUrl.getHost(),
                 currentRequestUrl.getPort(),
-                StringUtils.EMPTY);
+                EMPTY);
     }
 }

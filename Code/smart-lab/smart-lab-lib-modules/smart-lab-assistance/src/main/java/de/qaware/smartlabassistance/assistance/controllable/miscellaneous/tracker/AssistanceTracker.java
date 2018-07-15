@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static java.util.Objects.hash;
 import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 @Slf4j
@@ -111,7 +111,7 @@ public class AssistanceTracker implements IAssistanceTracker {
                     context.getWorkgroup().map(IEntity::getId).orElse(null),
                     context.getPersons().map(persons -> persons.stream()
                             .map(IEntity::getId)
-                            .collect(Collectors.toSet())).orElse(null),
+                            .collect(toSet())).orElse(null),
                     context.getRoom().map(IEntity::getId).orElse(null)
             );
         }

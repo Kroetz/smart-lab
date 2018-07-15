@@ -19,9 +19,10 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @Repository
 @ConditionalOnProperty(
@@ -56,14 +57,14 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
     public Set<IMeeting> findAll(WorkgroupId workgroupId) {
         return findAll().stream()
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     @Override
     public Set<IMeeting> findAllCurrent() {
         return findAll().stream()
                 .filter(IMeeting::isInProgress)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     @Override
@@ -122,7 +123,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
         Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
         List<IMeeting> meetingsToDelete = isNull(meetingsInRoom) ? new ArrayList<>() : meetingsInRoom.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
-                .collect(Collectors.toList());
+                .collect(toList());
         if(isNull(meetingsInRoom) || meetingsToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }

@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.of;
 
 @Component
 @Slf4j
@@ -23,13 +24,13 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "agendaShowing";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = of(
             "agenda-showing",
-            "agenda showing").collect(Collectors.toSet());
+            "agenda showing").collect(toSet());
     public static final String ASSISTANCE_COMMAND = "showAgenda";
-    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = of(
             "show-agenda",
-            "show agenda").collect(Collectors.toSet());
+            "show agenda").collect(toSet());
 
     public AgendaShowingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);

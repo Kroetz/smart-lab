@@ -26,7 +26,6 @@ import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabmeeting.service.repository.generic.AbstractMeetingManagementRepository;
 import de.qaware.smartlabmeeting.service.repository.parser.IMeetingParser;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
@@ -38,13 +37,14 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toSet;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Repository
 @ConditionalOnProperty(
@@ -154,7 +154,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
     public Set<IMeeting> findAll(WorkgroupId workgroupId) {
         return findAll().stream()
                 .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     @Override
@@ -166,7 +166,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         Set<Event> events = findAllGoogleCalEvents();
         return events.stream()
                 .filter(this::isEventInProgress)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private Set<IMeeting> findAll(String calendarId) {
@@ -288,7 +288,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
         Set<IMeeting> collidingMeetings = findAll(calendarId, meetingToCheck.getStart(), meetingToCheck.getEnd())
                 .stream()
                 .filter(meeting -> !meeting.getId().equals(meetingToCheck.getId()))
-                .collect(Collectors.toSet());
+                .collect(toSet());
         return !collidingMeetings.isEmpty();
     }
 
@@ -393,12 +393,12 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
                 .stream()
                 .map(this::eventToMeeting)
                 .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private Optional<IMeeting> eventToMeeting(Event event) {
         String description = event.getDescription();
-        description = isNull(description) ? StringUtils.EMPTY : description;
+        description = isNull(description) ? EMPTY : description;
         IMeeting parsedMeeting;
         try {
             parsedMeeting = this.meetingParser.parse(description);

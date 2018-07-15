@@ -21,6 +21,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
+
 @Controller
 @RequestMapping(RoomManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -51,9 +54,9 @@ public class RoomManagementController extends AbstractSmartLabController impleme
     @ResponseBody
     public ResponseEntity<Set<IRoom>> findMultiple(@RequestParam(RoomManagementApiConstants.PARAMETER_NAME_ROOM_IDS) String[] roomIds) {
         return responseFromOptionals(this.roomManagementBusinessLogic.findMultiple(
-                Arrays.stream(roomIds)
+                stream(roomIds)
                         .map(RoomId::of)
-                        .collect(Collectors.toSet())));
+                        .collect(toSet())));
     }
 
     @Override

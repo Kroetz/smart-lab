@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 
 @Component
 @Slf4j
@@ -21,7 +22,7 @@ public class ActionExecutableResolver extends AbstractResolver<String, IActionEx
 
     private static Set<Map.Entry<String, IActionExecutable>> getActionsById(List<IActionExecutable> actions) {
         return actions.stream()
-                .collect(Collectors.toMap(IActionExecutable::getActionId, Function.identity()))
+                .collect(toMap(IActionExecutable::getActionId, identity()))
                 .entrySet();
     }
 }

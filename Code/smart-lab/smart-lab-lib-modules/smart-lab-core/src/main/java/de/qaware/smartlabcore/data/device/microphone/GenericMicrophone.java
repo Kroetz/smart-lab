@@ -9,10 +9,11 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Arrays.stream;
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toSet;
 
 @Slf4j
 public class GenericMicrophone implements AutoCloseable {
@@ -119,7 +120,7 @@ public class GenericMicrophone implements AutoCloseable {
     public synchronized static Optional<GenericMicrophone> getMicrophone(String name, AudioFormat audioFormat) {
         Set<Mixer> mixersWithMatchingName = getMicrophoneMixers().stream()
                 .filter(mixer -> mixer.getMixerInfo().getName().equals(name))
-                .collect(Collectors.toSet());
+                .collect(toSet());
         if(mixersWithMatchingName.size() > 1) throw new IllegalStateException("Multiple microphones with the same name exist");
         return mixersWithMatchingName.stream()
                 .findFirst()
@@ -135,29 +136,29 @@ public class GenericMicrophone implements AutoCloseable {
         return getMicrophoneMixers().stream()
                 .map(mixer -> getFromCache(mixer, DEFAULT_AUDIO_FORMAT))
                 .flatMap(microphone -> microphone.map(Stream::of).orElseGet(Stream::empty))
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private static Set<Mixer> getMicrophoneMixers() {
         return getMixers().stream()
-                .filter(mixer -> Arrays.stream(mixer.getTargetLineInfo())
+                .filter(mixer -> stream(mixer.getTargetLineInfo())
                         .anyMatch(lineInfo -> lineInfo.getLineClass().equals(TargetDataLine.class)))
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private static Optional<Mixer> getMixerByTargetDataLine(Line targetDataLine) {
         Set<Mixer> matchingMixers = getMicrophoneMixers().stream()
-                .filter(mixer -> Arrays.stream(mixer.getTargetLineInfo())
+                .filter(mixer -> stream(mixer.getTargetLineInfo())
                         .anyMatch(targetLineInfo -> targetLineInfo.equals(targetDataLine.getLineInfo())))
-                .collect(Collectors.toSet());
+                .collect(toSet());
         if(matchingMixers.size() > 1) throw new IllegalStateException("Multiple microphones with the same target line info exist");
         return matchingMixers.stream().findFirst();
     }
 
     private static Set<Mixer> getMixers() {
-        return Arrays.stream(AudioSystem.getMixerInfo())
+        return stream(AudioSystem.getMixerInfo())
                 .map(AudioSystem::getMixer)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private static Optional<GenericMicrophone> getFromCache(Mixer mixer, AudioFormat audioFormat) {

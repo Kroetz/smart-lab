@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrowserAdapter {
@@ -72,7 +72,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
         log.info("Creating new tabs for URLs {}", urls);
         return urls.stream()
                 .map(url -> newTab(webDriverId, url))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override

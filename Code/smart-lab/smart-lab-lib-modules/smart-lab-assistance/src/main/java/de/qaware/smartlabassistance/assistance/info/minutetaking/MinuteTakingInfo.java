@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.of;
 
 @Component
 @Slf4j
@@ -27,13 +27,13 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "minuteTaking";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = of(
             "minute-taking",
-            "minute taking").collect(Collectors.toSet());
+            "minute taking").collect(toSet());
     public static final String ASSISTANCE_COMMAND = "takeMinutes";
-    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = of(
             "take-minutes",
-            "take minutes").collect(Collectors.toSet());
+            "take minutes").collect(toSet());
 
     public MinuteTakingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);

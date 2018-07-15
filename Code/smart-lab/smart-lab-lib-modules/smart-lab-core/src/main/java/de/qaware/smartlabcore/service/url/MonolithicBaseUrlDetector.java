@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.EMPTY;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
@@ -36,6 +38,6 @@ public class MonolithicBaseUrlDetector implements IBaseUrlDetector {
                 associatedRequestUrl.getProtocol(),
                 associatedRequestUrl.getHost(),
                 associatedRequestUrl.getPort(),
-                StringUtils.EMPTY);
+                EMPTY);
     }
 }

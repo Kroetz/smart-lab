@@ -1,10 +1,9 @@
 package de.qaware.smartlabcore.miscellaneous;
 
-import org.apache.commons.lang3.time.DurationFormatUtils;
-
 import java.time.Duration;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
+import static org.apache.commons.lang3.time.DurationFormatUtils.formatDurationHMS;
 
 public class StartedDuration {
 
@@ -69,7 +68,7 @@ public class StartedDuration {
     public String toString() {
         return format(
                 "[%s - %s]",
-                DurationFormatUtils.formatDurationHMS(startMillisecond),
-                DurationFormatUtils.formatDurationHMS(startMillisecond + this.duration.toMillis()));
+                formatDurationHMS(startMillisecond),
+                formatDurationHMS(startMillisecond + this.duration.toMillis()));
     }
 }

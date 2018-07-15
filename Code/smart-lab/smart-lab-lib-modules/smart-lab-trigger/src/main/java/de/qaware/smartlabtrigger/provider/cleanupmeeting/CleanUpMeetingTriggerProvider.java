@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isBetween;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 @Slf4j
@@ -44,7 +45,7 @@ public class CleanUpMeetingTriggerProvider extends AbstractTriggerProvider {
     protected Set<IMeeting> findTriggerCandidates() {
         return meetingManagementService.findAllCurrent().stream()
                 .filter(this::isAboutToEnd)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private boolean isAboutToEnd(IMeeting meeting) {

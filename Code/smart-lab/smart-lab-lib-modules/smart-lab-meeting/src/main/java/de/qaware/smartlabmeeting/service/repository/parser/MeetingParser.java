@@ -27,7 +27,10 @@ import java.util.stream.Collectors;
 
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_BEGIN;
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_END;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.EMPTY;
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 @Slf4j
@@ -67,7 +70,7 @@ public class MeetingParser implements IMeetingParser {
     private String trimToRelevant(String stringToTrim) {
         Pattern pattern = Pattern.compile(PARSE_STRING_PATTERN, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(stringToTrim);
-        if(!matcher.find()) return StringUtils.EMPTY;
+        if(!matcher.find()) return EMPTY;
         return matcher.group(0);
     }
 
@@ -107,7 +110,7 @@ public class MeetingParser implements IMeetingParser {
             List<IAgendaItem> agendaItems = ctx.agendaItemList
                     .stream()
                     .map(agendaItem -> agendaItem.accept(this.agendaItemVisitor))
-                    .collect(Collectors.toList());
+                    .collect(toList());
             return Meeting.builder().agenda(agendaItems).build();
         }
 
@@ -116,7 +119,7 @@ public class MeetingParser implements IMeetingParser {
             Set<IAssistanceConfiguration> configs = ctx.assistanceList
                     .stream()
                     .map(assistance -> assistance.accept(this.assistanceVisitor))
-                    .collect(Collectors.toSet());
+                    .collect(toSet());
             return Meeting.builder()
                     .assistanceConfigurations(configs)
                     .build();

@@ -10,6 +10,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.EMPTY;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
@@ -26,6 +28,6 @@ public class MicroServiceBaseUrlDetector implements IBaseUrlDetector {
                 requestUrl.getProtocol(),
                 requestUrl.getHost(),
                 requestUrl.getPort(),
-                StringUtils.EMPTY);
+                EMPTY);
     }
 }

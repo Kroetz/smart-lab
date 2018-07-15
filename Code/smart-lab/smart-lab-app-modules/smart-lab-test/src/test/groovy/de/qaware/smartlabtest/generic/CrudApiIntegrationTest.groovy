@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import spock.lang.Specification
 
-import java.util.stream.Collectors
+import static java.util.stream.Collectors.toList
 
 abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT extends IEntity<IdentifierT>> extends Specification {
 
@@ -108,7 +108,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         requestedEntities.remove(0)
         IdentifierT[] requestedEntityIds = requestedEntities.stream()
                 .map(mapEntityId)
-                .collect(Collectors.toList())
+                .collect(toList())
                 .toArray()
 
         when: "The entities are requested"
@@ -133,7 +133,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT e
         }
         IdentifierT[] requestedEntityIds = requestedEntitiesForFindMultiple_withoutExisting.stream()
                 .map(mapEntityId)
-                .collect(Collectors.toList())
+                .collect(toList())
                 .toArray()
 
         when: "The entities are requested"

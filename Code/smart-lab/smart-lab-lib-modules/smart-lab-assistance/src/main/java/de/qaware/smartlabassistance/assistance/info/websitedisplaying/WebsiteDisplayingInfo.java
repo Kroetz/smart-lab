@@ -15,10 +15,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.of;
 
 @Component
 @Slf4j
@@ -28,13 +28,13 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "websiteDisplaying";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = of(
             "website-displaying",
-            "website displaying").collect(Collectors.toSet());
+            "website displaying").collect(toSet());
     public static final String ASSISTANCE_COMMAND = "displayWebsite";
-    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = of(
             "display-website",
-            "display website").collect(Collectors.toSet());
+            "display website").collect(toSet());
 
     public WebsiteDisplayingInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);

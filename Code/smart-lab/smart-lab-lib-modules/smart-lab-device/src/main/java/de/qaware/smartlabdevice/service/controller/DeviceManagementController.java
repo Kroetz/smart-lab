@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
+
 @RestController
 @RequestMapping(DeviceManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -48,9 +51,9 @@ public class DeviceManagementController extends AbstractSmartLabController imple
     @ResponseBody
     public ResponseEntity<Set<IDevice>> findMultiple(@RequestParam(DeviceManagementApiConstants.PARAMETER_NAME_DEVICE_IDS) String[] deviceIds) {
         return responseFromOptionals(this.deviceManagementBusinessLogic.findMultiple(
-                Arrays.stream(deviceIds)
+                stream(deviceIds)
                         .map(DeviceId::of)
-                        .collect(Collectors.toSet())));
+                        .collect(toSet())));
     }
 
     @Override

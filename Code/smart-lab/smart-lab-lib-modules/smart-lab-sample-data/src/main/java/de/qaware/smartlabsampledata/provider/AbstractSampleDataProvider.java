@@ -13,7 +13,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toSet;
 
 public abstract class AbstractSampleDataProvider implements ISampleDataProvider {
 
@@ -49,9 +51,9 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     @Override
     public Map<RoomId, Set<IMeeting>> getMeetingsByRoom() {
         Set<IMeeting> meetings = getEntities(ISampleDataFactory::createMeetingSet);
-        return meetings.stream().collect(Collectors.groupingBy(
+        return meetings.stream().collect(groupingBy(
                 IMeeting::getRoomId,
-                Collectors.toSet()));
+                toSet()));
     }
 
     @Override

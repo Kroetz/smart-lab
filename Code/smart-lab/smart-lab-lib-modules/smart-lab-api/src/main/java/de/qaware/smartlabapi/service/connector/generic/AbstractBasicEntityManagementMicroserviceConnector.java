@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import java.util.Arrays;
 import java.util.Set;
 
+import static java.util.Arrays.stream;
+
 public abstract class AbstractBasicEntityManagementMicroserviceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
 
     protected final IBasicEntityManagementApiClient<EntityT> entityManagementApiClient;
@@ -46,7 +48,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<EntityT
     @Override
     public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
         try {
-            return this.entityManagementApiClient.findMultiple(Arrays.stream(entityIds)
+            return this.entityManagementApiClient.findMultiple(stream(entityIds)
                     .map(IIdentifier::getIdValue)
                     .toArray(String[]::new))
                     .getBody();

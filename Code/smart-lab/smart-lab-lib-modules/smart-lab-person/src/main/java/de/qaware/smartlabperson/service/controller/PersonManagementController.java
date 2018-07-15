@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toSet;
+
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
 @Slf4j
@@ -48,9 +51,9 @@ public class PersonManagementController extends AbstractSmartLabController imple
     @ResponseBody
     public ResponseEntity<Set<IPerson>> findMultiple(@RequestParam(PersonManagementApiConstants.PARAMETER_NAME_PERSON_IDS) String[] personIds) {
         return responseFromOptionals(this.personManagementBusinessLogic.findMultiple(
-                Arrays.stream(personIds)
+                stream(personIds)
                         .map(PersonId::of)
-                        .collect(Collectors.toSet())));
+                        .collect(toSet())));
     }
 
     @Override

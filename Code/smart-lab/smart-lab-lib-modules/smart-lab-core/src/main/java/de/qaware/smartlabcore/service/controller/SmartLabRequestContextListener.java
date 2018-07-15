@@ -8,6 +8,8 @@ import org.springframework.web.context.request.RequestContextListener;
 import javax.servlet.ServletRequestEvent;
 import java.net.MalformedURLException;
 
+import static de.qaware.smartlabcore.service.controller.RequestContextUtils.currentRequestUrl;
+
 @Component
 @Slf4j
 public class SmartLabRequestContextListener extends RequestContextListener {
@@ -16,7 +18,7 @@ public class SmartLabRequestContextListener extends RequestContextListener {
     public void requestInitialized(ServletRequestEvent requestEvent) {
         super.requestInitialized(requestEvent);
         try {
-            ThreadContext.get().setAssociatedRequestUrl(RequestContextUtils.currentRequestUrl());
+            ThreadContext.get().setAssociatedRequestUrl(currentRequestUrl());
         } catch (MalformedURLException e) {
             log.error("Could not set URL of current request in thread context", e);
         }
