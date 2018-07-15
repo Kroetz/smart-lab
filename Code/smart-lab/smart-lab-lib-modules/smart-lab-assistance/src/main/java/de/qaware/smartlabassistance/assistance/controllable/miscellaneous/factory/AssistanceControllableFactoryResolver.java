@@ -19,7 +19,7 @@ public class AssistanceControllableFactoryResolver extends AbstractResolver<Stri
         for(IAssistanceControllableFactory factory : factories) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(factory.getAssociatedAssistanceId());
-            identifiers.addAll(factory.getAssociatedAssistanceAliases());
+            identifiers.addAll(factory.getAssociatedAssistanceIdAliases());
             for(String identifier : identifiers) {
                 factoriesByAssistanceId.put(identifier, factory);
             }

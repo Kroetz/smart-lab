@@ -20,7 +20,9 @@ public class AssistanceInfoResolver extends AbstractResolver<String, IAssistance
         for(IAssistanceInfo assistance : assistances) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(assistance.getAssistanceId());
-            identifiers.addAll(assistance.getAssistanceAliases());
+            identifiers.addAll(assistance.getAssistanceIdAliases());
+            identifiers.add(assistance.getAssistanceCommand());
+            identifiers.addAll(assistance.getAssistanceCommandAliases());
             for(String identifier : identifiers) {
                 assistancesById.put(identifier, assistance);
             }

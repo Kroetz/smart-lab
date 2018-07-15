@@ -26,24 +26,29 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "websiteDisplaying";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
             "website-displaying",
             "website displaying").collect(Collectors.toSet());
+    public static final String ASSISTANCE_COMMAND = "displayWebsite";
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+            "display-website",
+            "display website").collect(Collectors.toSet());
 
     public WebsiteDisplayingInfo() {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
+        super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);
     }
 
     @Override
     public IAssistanceConfiguration createConfiguration(Map<String, String> configProperties) {
-        return new Configuration(configProperties);
+        return new Configuration(this, configProperties);
     }
 
     // TODO: Which annotation can be removed?
     @Getter
     @ToString
     @EqualsAndHashCode(callSuper = true)
-    public class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
+    @Slf4j
+    public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
         public static final String CONFIG_PROPERTY_KEY_URL = "url";
         public static final String CONFIG_PROPERTY_KEY_WEB_BROWSER_ID = "webBrowserId";
@@ -51,7 +56,8 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
         private URL url;
         private DeviceId webBrowserId;
 
-        private Configuration(Map<String, String> configProperties) {
+        private Configuration(WebsiteDisplayingInfo websiteDisplayingInfo, Map<String, String> configProperties) {
+            super(websiteDisplayingInfo);
             for(String key : configProperties.keySet()) {
                 switch (key) {
                     case CONFIG_PROPERTY_KEY_URL:
@@ -72,11 +78,6 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
                         break;
                 }
             }
-        }
-
-        @Override
-        public String getAssistanceId() {
-            return WebsiteDisplayingInfo.this.getAssistanceId();
         }
 
         @Override

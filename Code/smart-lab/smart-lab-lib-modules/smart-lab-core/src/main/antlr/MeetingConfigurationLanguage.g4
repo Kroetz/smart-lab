@@ -42,7 +42,7 @@ assistances
     ;
 
 assistance
-    : assistanceId=IDENTIFIER LPAREN assistanceArgs RPAREN
+    : assistanceCommand=IDENTIFIER LPAREN assistanceArgs RPAREN
     ;
 
 assistanceArgs

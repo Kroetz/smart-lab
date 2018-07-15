@@ -7,6 +7,6 @@ import java.util.Set;
 public interface IAssistanceControllableFactory {
 
     String getAssociatedAssistanceId();
-    Set<String> getAssociatedAssistanceAliases();
+    Set<String> getAssociatedAssistanceIdAliases();
     IAssistanceControllable newInstance();
 }

@@ -8,6 +8,8 @@ import java.util.Set;
 public interface IAssistanceInfo {
 
     String getAssistanceId();
-    Set<String> getAssistanceAliases();
+    Set<String> getAssistanceIdAliases();
+    String getAssistanceCommand();
+    Set<String> getAssistanceCommandAliases();
     IAssistanceConfiguration createConfiguration(Map<String, String> configProperties);
 }

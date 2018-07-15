@@ -158,7 +158,7 @@ public class MeetingParser implements IMeetingParser {
 
         @Override
         public IAssistanceConfiguration visitAssistance(MeetingConfigurationLanguageParser.AssistanceContext ctx) {
-            String id = ctx.assistanceId.getText();
+            String id = ctx.assistanceCommand.getText();
             Map<String, String> args = ctx.assistanceArgs().accept(this.assistanceArgsVisitor);
             // TODO: Better exception
             IAssistanceInfo assistance = this.assistanceInfoResolver

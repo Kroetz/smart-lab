@@ -24,8 +24,16 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
         return this.assistanceInfo.getAssistanceId();
     }
 
-    public Set<String> getAssistanceAliases() {
-        return this.assistanceInfo.getAssistanceAliases();
+    public Set<String> getAssistanceIdAliases() {
+        return this.assistanceInfo.getAssistanceIdAliases();
+    }
+
+    public String getAssistanceCommand() {
+        return this.assistanceInfo.getAssistanceCommand();
+    }
+
+    public Set<String> getAssistanceCommandAliases() {
+        return this.assistanceInfo.getAssistanceCommandAliases();
     }
 
     @Override

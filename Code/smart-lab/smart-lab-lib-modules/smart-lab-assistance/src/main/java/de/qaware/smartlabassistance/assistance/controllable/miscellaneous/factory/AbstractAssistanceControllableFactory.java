@@ -20,7 +20,7 @@ public abstract class AbstractAssistanceControllableFactory implements IAssistan
     }
 
     @Override
-    public Set<String> getAssociatedAssistanceAliases() {
-        return this.assistanceInfo.getAssistanceAliases();
+    public Set<String> getAssociatedAssistanceIdAliases() {
+        return this.assistanceInfo.getAssistanceIdAliases();
     }
 }

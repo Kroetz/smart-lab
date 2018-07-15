@@ -622,7 +622,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 	}
 
 	public static class AssistanceContext extends ParserRuleContext {
-		public Token assistanceId;
+		public Token assistanceCommand;
 		public TerminalNode LPAREN() { return getToken(MeetingConfigurationLanguageParser.LPAREN, 0); }
 		public AssistanceArgsContext assistanceArgs() {
 			return getRuleContext(AssistanceArgsContext.class,0);
@@ -655,7 +655,7 @@ public class MeetingConfigurationLanguageParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(68);
-			((AssistanceContext)_localctx).assistanceId = match(IDENTIFIER);
+			((AssistanceContext)_localctx).assistanceCommand = match(IDENTIFIER);
 			setState(69);
 			match(LPAREN);
 			setState(70);

@@ -20,7 +20,7 @@ public class AssistanceTriggerableResolver extends AbstractResolver<String, IAss
         for(IAssistanceTriggerable assistance : assistances) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(assistance.getAssistanceId());
-            identifiers.addAll(assistance.getAssistanceAliases());
+            identifiers.addAll(assistance.getAssistanceIdAliases());
             for(String identifier : identifiers) {
                 assistancesById.put(identifier, assistance);
             }

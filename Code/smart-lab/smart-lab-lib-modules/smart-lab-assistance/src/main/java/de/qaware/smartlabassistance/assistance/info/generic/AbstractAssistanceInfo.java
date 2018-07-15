@@ -15,13 +15,19 @@ import static java.lang.String.format;
 public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
 
     protected final String assistanceId;
-    protected final Set<String> assistanceAliases;
+    protected final Set<String> assistanceIdAliases;
+    protected final String assistanceCommand;
+    protected final Set<String> assistanceCommandAliases;
 
     public AbstractAssistanceInfo(
             String assistanceId,
-            Set<String> assistanceAliases) {
+            Set<String> assistanceIdAliases,
+            String assistanceCommand,
+            Set<String> assistanceCommandAliases) {
         this.assistanceId = assistanceId;
-        this.assistanceAliases = assistanceAliases;
+        this.assistanceIdAliases = assistanceIdAliases;
+        this.assistanceCommand = assistanceCommand;
+        this.assistanceCommandAliases = assistanceCommandAliases;
     }
 
     @Override
@@ -30,18 +36,45 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
     }
 
     @Override
-    public Set<String> getAssistanceAliases() {
-        return this.assistanceAliases;
+    public Set<String> getAssistanceIdAliases() {
+        return this.assistanceIdAliases;
+    }
+
+    @Override
+    public String getAssistanceCommand() {
+        return this.assistanceCommand;
+    }
+
+    @Override
+    public Set<String> getAssistanceCommandAliases() {
+        return this.assistanceCommandAliases;
     }
 
     // TODO: Possible to force inner class for configuration?
     @EqualsAndHashCode
+    @Slf4j
     protected abstract static class AbstractConfiguration implements IAssistanceConfiguration {
+
+        private final IAssistanceInfo assistanceInfo;
+
+        protected AbstractConfiguration(IAssistanceInfo assistanceInfo) {
+            this.assistanceInfo = assistanceInfo;
+        }
+
+        @Override
+        public String getAssistanceId() {
+            return this.assistanceInfo.getAssistanceId();
+        }
+
+        @Override
+        public String getAssistanceCommand() {
+            return this.assistanceInfo.getAssistanceCommand();
+        }
 
         protected String toConfigLangString(Map<String, String> configProperties) {
             return new StringBuilder()
                     .append(TAB).append(TAB)
-                    .append(getAssistanceId())
+                    .append(getAssistanceCommand())
                     .append(format(PARENTHESES_TEMPLATE, configPropertiesToConfigLangString(configProperties)))
                     .append(NEW_LINE)
                     .toString();

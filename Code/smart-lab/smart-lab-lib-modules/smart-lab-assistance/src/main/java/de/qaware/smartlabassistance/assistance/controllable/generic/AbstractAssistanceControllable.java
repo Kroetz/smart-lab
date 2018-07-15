@@ -22,8 +22,18 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
     }
 
     @Override
-    public Set<String> getAssistanceAliases() {
-        return this.assistanceInfo.getAssistanceAliases();
+    public Set<String> getAssistanceIdAliases() {
+        return this.assistanceInfo.getAssistanceIdAliases();
+    }
+
+    @Override
+    public String getAssistanceCommand() {
+        return this.assistanceInfo.getAssistanceCommand();
+    }
+
+    @Override
+    public Set<String> getAssistanceCommandAliases() {
+        return this.assistanceInfo.getAssistanceCommandAliases();
     }
 
     @Override

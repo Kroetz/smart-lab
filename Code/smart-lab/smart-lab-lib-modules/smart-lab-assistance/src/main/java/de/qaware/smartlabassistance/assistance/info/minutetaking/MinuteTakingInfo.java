@@ -25,24 +25,29 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "minuteTaking";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
             "minute-taking",
             "minute taking").collect(Collectors.toSet());
+    public static final String ASSISTANCE_COMMAND = "takeMinutes";
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+            "take-minutes",
+            "take minutes").collect(Collectors.toSet());
 
     public MinuteTakingInfo() {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
+        super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);
     }
 
     @Override
     public IAssistanceConfiguration createConfiguration(Map<String, String> configProperties) {
-        return new Configuration(configProperties);
+        return new Configuration(this, configProperties);
     }
 
     // TODO: Which annotation can be removed?
     @Getter
     @ToString
     @EqualsAndHashCode(callSuper = true)
-    public class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
+    @Slf4j
+    public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
         public static final String CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE = "spokenLanguage";
         public static final String CONFIG_PROPERTY_KEY_UPLOAD_DIR = "uploadDir";
@@ -52,7 +57,8 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
         private String uploadDir;
         private DeviceId microphoneId;
 
-        private Configuration(Map<String, String> configProperties) {
+        private Configuration(MinuteTakingInfo minuteTakingInfo, Map<String, String> configProperties) {
+            super(minuteTakingInfo);
             for(String key : configProperties.keySet()) {
                 switch (key) {
                     case CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE:
@@ -76,11 +82,6 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
                         break;
                 }
             }
-        }
-
-        @Override
-        public String getAssistanceId() {
-            return MinuteTakingInfo.this.getAssistanceId();
         }
 
         @Override

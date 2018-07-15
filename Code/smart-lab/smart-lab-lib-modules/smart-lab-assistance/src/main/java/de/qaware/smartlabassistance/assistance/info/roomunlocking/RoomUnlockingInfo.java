@@ -8,15 +8,11 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.NEW_LINE;
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.PARENTHESES_TEMPLATE;
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.TAB;
-import static java.lang.String.*;
 
 @Component
 @Slf4j
@@ -24,38 +20,40 @@ public class RoomUnlockingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "roomUnlocking";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
-    public static final Set<String> ASSISTANCE_ALIASES = Stream.of(
+    public static final Set<String> ASSISTANCE_ID_ALIASES = Stream.of(
             "room-unlocking",
             "room unlocking").collect(Collectors.toSet());
+    public static final String ASSISTANCE_COMMAND = "unlockRoom";
+    public static final Set<String> ASSISTANCE_COMMAND_ALIASES = Stream.of(
+            "unlock-room",
+            "unlock room").collect(Collectors.toSet());
 
     public RoomUnlockingInfo() {
-        super(ASSISTANCE_ID, ASSISTANCE_ALIASES);
+        super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);
     }
 
     @Override
     public IAssistanceConfiguration createConfiguration(Map<String, String> configProperties) {
-        return new Configuration(configProperties);
+        return new Configuration(this, configProperties);
     }
 
     // TODO: Which annotation can be removed?
     @Getter
     @ToString
     @EqualsAndHashCode(callSuper = true)
-    public class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
+    @Slf4j
+    public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
-        private Configuration(Map<String, String> configProperties) {
+        private Configuration(RoomUnlockingInfo roomUnlockingInfo, Map<String, String> configProperties) {
             // TODO: process config properties
-        }
-
-        @Override
-        public String getAssistanceId() {
-            return RoomUnlockingInfo.this.getAssistanceId();
+            super(roomUnlockingInfo);
         }
 
         @Override
         public String toConfigLangString() {
             // TODO
-            return TAB + TAB + getAssistanceId() + format(PARENTHESES_TEMPLATE, "") + NEW_LINE;
+            Map<String, String> configProperties = new HashMap<>();
+            return toConfigLangString(configProperties);
         }
     }
 }
