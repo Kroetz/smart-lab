@@ -16,6 +16,8 @@ import java.util.stream.Stream;
 
 @Component
 @Slf4j
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class FileDisplayingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "fileDisplaying";

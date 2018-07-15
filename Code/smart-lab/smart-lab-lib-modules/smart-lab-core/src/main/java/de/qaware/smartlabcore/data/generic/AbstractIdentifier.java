@@ -2,7 +2,9 @@ package de.qaware.smartlabcore.data.generic;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ToString
 @EqualsAndHashCode
 public abstract class AbstractIdentifier implements IIdentifier {

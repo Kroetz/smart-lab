@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 @Component
 @Slf4j
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class AgendaShowingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "agendaShowing";

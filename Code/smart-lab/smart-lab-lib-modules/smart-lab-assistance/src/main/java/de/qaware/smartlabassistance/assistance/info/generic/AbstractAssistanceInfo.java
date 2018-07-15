@@ -13,6 +13,8 @@ import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
 import static java.lang.String.format;
 
 @Slf4j
+@ToString
+@EqualsAndHashCode
 public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
 
     protected final String assistanceId;

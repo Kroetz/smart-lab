@@ -21,6 +21,8 @@ import static java.lang.String.format;
 
 @Component
 @Slf4j
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     public static final String ASSISTANCE_ID = "minuteTaking";
