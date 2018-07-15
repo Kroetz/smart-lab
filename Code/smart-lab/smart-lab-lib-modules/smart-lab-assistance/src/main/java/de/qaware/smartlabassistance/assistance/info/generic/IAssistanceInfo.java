@@ -1,15 +1,7 @@
 package de.qaware.smartlabassistance.assistance.info.generic;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabassistance.assistance.generic.IAssistanceCommandSupplier;
+import de.qaware.smartlabassistance.assistance.generic.IAssistanceConfigurationSupplier;
+import de.qaware.smartlabassistance.assistance.generic.IAssistanceIdSupplier;
 
-import java.util.Map;
-import java.util.Set;
-
-public interface IAssistanceInfo {
-
-    String getAssistanceId();
-    Set<String> getAssistanceIdAliases();
-    String getAssistanceCommand();
-    Set<String> getAssistanceCommandAliases();
-    IAssistanceConfiguration createConfiguration(Map<String, String> configProperties);
-}
+public interface IAssistanceInfo extends IAssistanceIdSupplier, IAssistanceCommandSupplier, IAssistanceConfigurationSupplier { }

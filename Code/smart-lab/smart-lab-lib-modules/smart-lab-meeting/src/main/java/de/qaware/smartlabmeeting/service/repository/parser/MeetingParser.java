@@ -197,7 +197,7 @@ public class MeetingParser implements IMeetingParser {
         public Map.Entry<String, String> visitAssistanceArg(MeetingConfigurationLanguageParser.AssistanceArgContext ctx) {
             String argKey = ctx.argKey.getText();
             String argValue = ctx.argValue.getText();
-            return new AbstractMap.SimpleEntry<>(argKey, argValue);
+            return new AbstractMap.SimpleImmutableEntry<>(argKey, argValue);
         }
     }
 }

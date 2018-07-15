@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,9 @@ public class MicrophoneAdapterResolver extends AbstractResolver<String, IMicroph
         super(MicrophoneAdapterResolver.getMicrophoneAdaptersByType(microphoneAdapters));
     }
 
-    private static Map<String, IMicrophoneAdapter> getMicrophoneAdaptersByType(List<IMicrophoneAdapter> microphoneAdapters) {
-        return microphoneAdapters.stream().collect(Collectors.toMap(IMicrophoneAdapter::getDeviceType, Function.identity()));
+    private static Set<Map.Entry<String, IMicrophoneAdapter>> getMicrophoneAdaptersByType(List<IMicrophoneAdapter> microphoneAdapters) {
+        return microphoneAdapters.stream()
+                .collect(Collectors.toMap(IMicrophoneAdapter::getDeviceType, Function.identity()))
+                .entrySet();
     }
 }

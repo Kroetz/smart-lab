@@ -15,8 +15,8 @@ public class AssistanceInfoResolver extends AbstractResolver<String, IAssistance
         super(AssistanceInfoResolver.getAssistancesById(assistances));
     }
 
-    private static Map<String, IAssistanceInfo> getAssistancesById(List<IAssistanceInfo> assistances) {
-        Map<String, IAssistanceInfo> assistancesById = new HashMap<>();
+    private static Set<Map.Entry<String, IAssistanceInfo>> getAssistancesById(List<IAssistanceInfo> assistances) {
+        Set<Map.Entry<String, IAssistanceInfo>> assistancesById = new HashSet<>();
         for(IAssistanceInfo assistance : assistances) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(assistance.getAssistanceId());
@@ -24,7 +24,7 @@ public class AssistanceInfoResolver extends AbstractResolver<String, IAssistance
             identifiers.add(assistance.getAssistanceCommand());
             identifiers.addAll(assistance.getAssistanceCommandAliases());
             for(String identifier : identifiers) {
-                assistancesById.put(identifier, assistance);
+                assistancesById.add(new AbstractMap.SimpleImmutableEntry<>(identifier, assistance));
             }
         }
         return assistancesById;

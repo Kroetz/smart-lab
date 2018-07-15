@@ -14,14 +14,14 @@ public class AssistanceControllableFactoryResolver extends AbstractResolver<Stri
         super(AssistanceControllableFactoryResolver.getFactoriesByAssistanceId(factories));
     }
 
-    private static Map<String, IAssistanceControllableFactory> getFactoriesByAssistanceId(List<IAssistanceControllableFactory> factories) {
-        Map<String, IAssistanceControllableFactory> factoriesByAssistanceId = new HashMap<>();
+    private static Set<Map.Entry<String, IAssistanceControllableFactory>> getFactoriesByAssistanceId(List<IAssistanceControllableFactory> factories) {
+        Set<Map.Entry<String, IAssistanceControllableFactory>> factoriesByAssistanceId = new HashSet<>();
         for(IAssistanceControllableFactory factory : factories) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(factory.getAssociatedAssistanceId());
             identifiers.addAll(factory.getAssociatedAssistanceIdAliases());
             for(String identifier : identifiers) {
-                factoriesByAssistanceId.put(identifier, factory);
+                factoriesByAssistanceId.add(new AbstractMap.SimpleImmutableEntry<>(identifier, factory));
             }
         }
         return factoriesByAssistanceId;

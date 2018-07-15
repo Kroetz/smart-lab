@@ -15,14 +15,14 @@ public class AssistanceTriggerableResolver extends AbstractResolver<String, IAss
         super(AssistanceTriggerableResolver.getAssistancesById(assistances));
     }
 
-    private static Map<String, IAssistanceTriggerable> getAssistancesById(List<IAssistanceTriggerable> assistances) {
-        Map<String, IAssistanceTriggerable> assistancesById = new HashMap<>();
+    private static Set<Map.Entry<String, IAssistanceTriggerable>> getAssistancesById(List<IAssistanceTriggerable> assistances) {
+        Set<Map.Entry<String, IAssistanceTriggerable>> assistancesById = new HashSet<>();
         for(IAssistanceTriggerable assistance : assistances) {
             Set<String> identifiers = new HashSet<>();
             identifiers.add(assistance.getAssistanceId());
             identifiers.addAll(assistance.getAssistanceIdAliases());
             for(String identifier : identifiers) {
-                assistancesById.put(identifier, assistance);
+                assistancesById.add(new AbstractMap.SimpleImmutableEntry<>(identifier, assistance));
             }
         }
         return assistancesById;

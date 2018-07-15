@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,9 @@ public class DataUploadServiceResolver extends AbstractResolver<String, IDataUpl
         super(DataUploadServiceResolver.getMicrophoneAdaptersById(dataUploadServices));
     }
 
-    private static Map<String, IDataUploadService> getMicrophoneAdaptersById(List<IDataUploadService> dataUploadServices) {
-        return dataUploadServices.stream().collect(Collectors.toMap(IDataUploadService::getServiceId, Function.identity()));
+    private static Set<Map.Entry<String, IDataUploadService>> getMicrophoneAdaptersById(List<IDataUploadService> dataUploadServices) {
+        return dataUploadServices.stream()
+                .collect(Collectors.toMap(IDataUploadService::getServiceId, Function.identity()))
+                .entrySet();
     }
 }
