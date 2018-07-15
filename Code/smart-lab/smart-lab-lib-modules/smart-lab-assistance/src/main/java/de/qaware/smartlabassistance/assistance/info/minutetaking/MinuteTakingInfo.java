@@ -44,7 +44,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
     // TODO: Which annotation can be removed?
     @Getter
-    @ToString
+    @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = true)
     @Slf4j
     public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
