@@ -3,9 +3,8 @@ package de.qaware.smartlabassistance.assistance.triggerable.websitedisplaying;
 import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.triggerable.generic.AbstractAssistanceTriggerable;
+import de.qaware.smartlabassistance.assistance.triggerable.miscellaneous.triggerreaction.ITriggerReaction;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,23 +12,25 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class WebsiteDisplayingTriggerable extends AbstractAssistanceTriggerable {
 
-    public WebsiteDisplayingTriggerable(WebsiteDisplayingInfo websiteDisplayingInfo) {
+    private final ITriggerReaction beginAssistanceReaction;
+    private final ITriggerReaction endAssistanceReaction;
+
+    public WebsiteDisplayingTriggerable(
+            WebsiteDisplayingInfo websiteDisplayingInfo,
+            ITriggerReaction beginAssistanceReaction,
+            ITriggerReaction endAssistanceReaction) {
         super(websiteDisplayingInfo);
+        this.beginAssistanceReaction = beginAssistanceReaction;
+        this.endAssistanceReaction = endAssistanceReaction;
     }
 
     @Override
     public void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
-        log.info("Reaction on set-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to begin the assistance",
-                this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        assistanceService.beginAssistance(this.assistanceInfo.getAssistanceId(), context);
+        this.beginAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 
     @Override
     public void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
-        log.info("Reaction on clean-up-meeting trigger on assistance \"{}\" of meeting with ID \"{}\" is to end the assistance",
-                this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
-        assistanceService.endAssistance(this.assistanceInfo.getAssistanceId(), context);
+        this.endAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 }
