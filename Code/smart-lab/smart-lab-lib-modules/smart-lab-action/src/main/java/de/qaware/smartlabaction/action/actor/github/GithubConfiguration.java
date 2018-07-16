@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.data.upload.github;
+package de.qaware.smartlabaction.action.actor.github;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

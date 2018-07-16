@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.data.upload.github;
+package de.qaware.smartlabaction.action.actor.github;
 
 import com.jcabi.github.Content;
 import com.jcabi.github.Github;
