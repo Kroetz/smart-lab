@@ -45,7 +45,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
         dataUploadService.upload(
                 actionArgs.getKnowledgeBaseInfo(),
                 actionArgs.getUploadMessage(),
-                actionArgs.getPath(),
+                actionArgs.getDir(),
                 actionArgs.getFileName(),
                 actionArgs.getDataToUpload());
         return VoidActionResult.instance();

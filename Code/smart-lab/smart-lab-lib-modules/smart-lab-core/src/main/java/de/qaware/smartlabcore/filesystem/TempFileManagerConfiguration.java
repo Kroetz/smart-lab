@@ -38,6 +38,11 @@ public class TempFileManagerConfiguration {
         return this.tempFileProperties.getAudioSubDir();
     }
 
+    @Bean
+    public Path downloadedFilesTempFileSubDir() {
+        return this.tempFileProperties.getDownloadSubDir();
+    }
+
     // TODO: String literal
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
@@ -46,16 +51,20 @@ public class TempFileManagerConfiguration {
         private static final String DEFAULT_FILE_NAME_PREFIX = "file";
         private static final String DEFAULT_FILE_NAME_SUFFIX = ".tmp";
         private static final Path DEFAULT_AUDIO_SUB_DIR = Paths.get("audio");
+        private static final Path DEFAULT_DOWNLOAD_SUB_DIR = Paths.get("download");
+
         private Path baseDir;
         private String fileNamePrefix;
         private String fileNameSuffix;
         private Path audioSubDir;
+        private Path downloadSubDir;
 
         public TempFileProperties() {
             this.baseDir = DEFAULT_BASE_DIR;
             this.fileNamePrefix = DEFAULT_FILE_NAME_PREFIX;
             this.fileNameSuffix = DEFAULT_FILE_NAME_SUFFIX;
             this.audioSubDir = DEFAULT_AUDIO_SUB_DIR;
+            this.downloadSubDir = DEFAULT_DOWNLOAD_SUB_DIR;
         }
 
         public Path getBaseDir() {
@@ -88,6 +97,14 @@ public class TempFileManagerConfiguration {
 
         public void setAudioSubDir(String audioSubDir) {
             this.audioSubDir = Paths.get(audioSubDir);
+        }
+
+        public Path getDownloadSubDir() {
+            return this.downloadSubDir;
+        }
+
+        public void setDownloadSubDir(String downloadSubDir) {
+            this.downloadSubDir = Paths.get(downloadSubDir);
         }
     }
 }

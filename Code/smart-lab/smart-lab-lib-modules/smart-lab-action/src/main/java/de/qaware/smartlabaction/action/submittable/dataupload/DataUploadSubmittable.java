@@ -35,7 +35,7 @@ public class DataUploadSubmittable extends AbstractActionSubmittable<DataUploadS
         private IKnowledgeBaseInfo knowledgeBaseInfo;
 
         @NonNull
-        private String path;
+        private String dir;
 
         @NonNull
         private String fileName;

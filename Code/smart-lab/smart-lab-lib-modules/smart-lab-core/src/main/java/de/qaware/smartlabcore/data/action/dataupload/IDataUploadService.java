@@ -9,7 +9,7 @@ public interface IDataUploadService {
     void upload(
             IKnowledgeBaseInfo knowledgeBaseInfo,
             String uploadMessage,
-            String path,
+            String dir,
             String fileName,
             String dataToUpload) throws ServiceFailedException;
 }
