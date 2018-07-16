@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface IWebBrowserAdapter extends IDeviceAdapter {
 
-    public UUID newWebBrowserInstance();
+    UUID newWebBrowserInstance();
     IWebBrowserTab newTab(UUID browserInstanceId, URL url);
     List<IWebBrowserTab> newTabs(UUID browserInstanceId, List<URL> urls);
     void closeIfUnchanged(UUID browserInstanceId, IWebBrowserTab tab);
