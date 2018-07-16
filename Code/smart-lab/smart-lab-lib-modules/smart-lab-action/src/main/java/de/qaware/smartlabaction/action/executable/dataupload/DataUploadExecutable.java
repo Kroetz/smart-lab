@@ -3,7 +3,7 @@ package de.qaware.smartlabaction.action.executable.dataupload;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.data.upload.DataUploadInfo;
 import de.qaware.smartlabaction.action.result.VoidActionResult;
-import de.qaware.smartlabaction.action.submittable.dataupload.DataUploadSubmittable;
+import de.qaware.smartlabaction.action.submittable.data.upload.DataUploadSubmittable;
 import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
 import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
