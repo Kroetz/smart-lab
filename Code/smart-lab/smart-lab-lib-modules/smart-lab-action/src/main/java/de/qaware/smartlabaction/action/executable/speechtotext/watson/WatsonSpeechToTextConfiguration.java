@@ -24,7 +24,7 @@ public class WatsonSpeechToTextConfiguration {
 
     @Bean
     public ISpeechToTextService speechToTextService() {
-        return new WatsonSpeechToTextService(
+        return new WatsonSpeechToTextServiceConnector(
                 this.watsonSpeechToTextProperties.getUserName(),
                 this.watsonSpeechToTextProperties.getPassword());
     }

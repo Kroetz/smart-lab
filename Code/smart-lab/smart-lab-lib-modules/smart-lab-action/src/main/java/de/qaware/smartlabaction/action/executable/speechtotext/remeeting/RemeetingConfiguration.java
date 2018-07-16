@@ -29,7 +29,7 @@ public class RemeetingConfiguration {
 
     @Bean
     public ISpeechToTextService speechToTextService() {
-        return new RemeetingService(this.remeetingApiClient, this.remeetingProperties.getApiKey());
+        return new RemeetingServiceConnector(this.remeetingApiClient, this.remeetingProperties.getApiKey());
     }
 
     @Bean

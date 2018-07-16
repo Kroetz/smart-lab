@@ -23,6 +23,6 @@ public class GithubKnowledgeBaseInfo implements IKnowledgeBaseInfo {
 
     @Override
     public String getServiceId() {
-        return GithubService.SERVICE_ID;
+        return GithubServiceConnector.SERVICE_ID;
     }
 }

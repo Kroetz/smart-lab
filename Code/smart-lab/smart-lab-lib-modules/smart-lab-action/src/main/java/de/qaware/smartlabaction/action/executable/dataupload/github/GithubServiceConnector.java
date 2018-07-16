@@ -27,7 +27,7 @@ import static java.lang.String.format;
 
 @Component
 @Slf4j
-public class GithubService implements IGithubService {
+public class GithubServiceConnector implements IGithubService {
 
     public static final String SERVICE_ID = "github";
 
@@ -35,7 +35,7 @@ public class GithubService implements IGithubService {
     private final ITempFileManager tempFileManager;
     private final Path downloadedFilesTempSubDir;
 
-    public GithubService(
+    public GithubServiceConnector(
             String githubApiKey,
             ITempFileManager tempFileManager,
             Path downloadedFilesTempSubDir) {
@@ -46,7 +46,7 @@ public class GithubService implements IGithubService {
 
     @Override
     public String getServiceId() {
-        return GithubService.SERVICE_ID;
+        return GithubServiceConnector.SERVICE_ID;
     }
 
     @Override

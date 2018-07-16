@@ -24,11 +24,11 @@ import static java.lang.String.format;
         name = Property.Name.SPEECH_TO_TEXT_SERVICE,
         havingValue = Property.Value.SpeechToTextService.WATSON)
 @Slf4j
-public class WatsonSpeechToTextService implements IWatsonSpeechToTextService {
+public class WatsonSpeechToTextServiceConnector implements IWatsonSpeechToTextService {
 
     private final SpeechToText speechToTextService;
 
-    public WatsonSpeechToTextService(
+    public WatsonSpeechToTextServiceConnector(
             String watsonSpeechToTextUserName,
             String watsonSpeechToTextPassword) {
         this.speechToTextService = new SpeechToText(watsonSpeechToTextUserName, watsonSpeechToTextPassword);

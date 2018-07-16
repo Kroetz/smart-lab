@@ -22,12 +22,12 @@ import static java.lang.String.format;
         name = Property.Name.SPEECH_TO_TEXT_SERVICE,
         havingValue = Property.Value.SpeechToTextService.REMEETING)
 @Slf4j
-public class RemeetingService implements IRemeetingService {
+public class RemeetingServiceConnector implements IRemeetingService {
 
     private IRemeetingApiClient remeetingApiClient;
     private String remeetingApiKey;
 
-    public RemeetingService(
+    public RemeetingServiceConnector(
             IRemeetingApiClient remeetingApiClient,
             String remeetingApiKey) {
         this.remeetingApiClient = remeetingApiClient;
