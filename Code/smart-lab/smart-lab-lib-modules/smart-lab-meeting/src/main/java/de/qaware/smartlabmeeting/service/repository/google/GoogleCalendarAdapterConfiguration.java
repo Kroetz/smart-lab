@@ -22,10 +22,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import static java.nio.file.Files.exists;
+import static java.nio.file.Paths.get;
 
 @Configuration
 @ConditionalOnProperty(
@@ -89,7 +91,7 @@ public class GoogleCalendarAdapterConfiguration {
     @Validated
     public static class Properties {
 
-        private static final Path DEFAULT_CREDENTIALS_FILE = Paths.get(System.getProperty("user.home"), "smart-lab", "google_calendar_credentials.json");
+        private static final Path DEFAULT_CREDENTIALS_FILE = get(System.getProperty("user.home"), "smart-lab", "google_calendar_credentials.json");
         private static final Collection<String> DEFAULT_SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
         private static final String DEFAULT_APPLICATION_NAME = "Default Google Calendar application name";
 
@@ -110,7 +112,7 @@ public class GoogleCalendarAdapterConfiguration {
         }
 
         public void setCredentialsFile(String credentialsFile) {
-            this.credentialsFile = Paths.get(credentialsFile);
+            this.credentialsFile = get(credentialsFile);
         }
 
         public Collection<String> getScopes() {
@@ -151,7 +153,7 @@ public class GoogleCalendarAdapterConfiguration {
             @Override
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
-                if(!Files.exists(properties.getCredentialsFile())) {
+                if(!exists(properties.getCredentialsFile())) {
                     // TODO: String literals
                     errors.rejectValue(
                             "credentialsFile",

@@ -10,9 +10,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import static java.nio.file.Files.exists;
+import static java.nio.file.Paths.get;
 
 @Configuration
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
@@ -44,8 +45,8 @@ public class SeleniumConfiguration {
     @Validated
     public static class Properties {
 
-        private static final Path DEFAULT_GECKO_DRIVER_FILE = Paths.get(System.getProperty("user.home"), "smart-lab", "geckodriver.exe");
-        private static final Path DEFAULT_CHROME_DRIVER_FILE = Paths.get(System.getProperty("user.home"), "smart-lab", "chromedriver.exe");
+        private static final Path DEFAULT_GECKO_DRIVER_FILE = get(System.getProperty("user.home"), "smart-lab", "geckodriver.exe");
+        private static final Path DEFAULT_CHROME_DRIVER_FILE = get(System.getProperty("user.home"), "smart-lab", "chromedriver.exe");
 
         private Path geckoDriverFile;
         private Path chromeDriverFile;
@@ -60,7 +61,7 @@ public class SeleniumConfiguration {
         }
 
         public void setGeckoDriverFile(String geckoDriverFile) {
-            this.geckoDriverFile = Paths.get(geckoDriverFile);
+            this.geckoDriverFile = get(geckoDriverFile);
         }
 
         public Path getChromeDriverFile() {
@@ -68,7 +69,7 @@ public class SeleniumConfiguration {
         }
 
         public void setChromeDriverFile(String chromeDriverFile) {
-            this.chromeDriverFile = Paths.get(chromeDriverFile);
+            this.chromeDriverFile = get(chromeDriverFile);
         }
 
         @Slf4j
@@ -82,7 +83,7 @@ public class SeleniumConfiguration {
             @Override
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
-                if(!Files.exists(properties.getGeckoDriverFile())) {
+                if(!exists(properties.getGeckoDriverFile())) {
                     // TODO: String literals
                     String errorMessage = "The path of the Gecko driver file must be valid";
                     log.error(errorMessage);
@@ -90,7 +91,7 @@ public class SeleniumConfiguration {
                             "geckoDriverFile",
                             errorMessage);
                 }
-                if(!Files.exists(properties.getChromeDriverFile())) {
+                if(!exists(properties.getChromeDriverFile())) {
                     // TODO: String literals
                     String errorMessage = "The path of the Chrome driver file must be valid";
                     log.error(errorMessage);

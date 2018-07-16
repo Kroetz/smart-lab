@@ -5,12 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
+import static java.nio.file.Paths.get;
 import static java.util.Arrays.stream;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toSet;
@@ -91,7 +94,7 @@ public class GenericMicrophone implements AutoCloseable {
         Create copy of the path object because just returning it might return the false path if another recording job
         is started right after closing the target data line.
          */
-        Path recordedFile = Paths.get(this.lastRecordedFile.toUri());
+        Path recordedFile = get(this.lastRecordedFile.toUri());
         this.targetDataLine.stop();
         this.targetDataLine.close();
         log.info("Stopped recording");

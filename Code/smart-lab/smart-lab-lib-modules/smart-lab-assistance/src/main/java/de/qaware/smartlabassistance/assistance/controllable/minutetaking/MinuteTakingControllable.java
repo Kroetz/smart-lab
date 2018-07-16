@@ -89,7 +89,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
 
-        // TODO: Delete temp file
+        // TODO: Delete temp file (do not forget import of static method)
         //Files.deleteIfExists(recordedAudio);
     }
 

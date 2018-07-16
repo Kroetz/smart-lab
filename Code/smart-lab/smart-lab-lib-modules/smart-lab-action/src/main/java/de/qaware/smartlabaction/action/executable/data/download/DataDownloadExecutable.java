@@ -16,8 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+
+import static java.nio.file.Files.deleteIfExists;
+import static java.nio.file.Files.readAllBytes;
 
 @Component
 @Slf4j
@@ -54,8 +56,8 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
                 actionArgs.getFileName());
         IActionResult actionResult;
         try {
-            actionResult = ByteArrayActionResult.of(Files.readAllBytes(downloadedFile));
-            Files.deleteIfExists(downloadedFile);
+            actionResult = ByteArrayActionResult.of(readAllBytes(downloadedFile));
+            deleteIfExists(downloadedFile);
         } catch (IOException e) {
             // TODO: Exception message
             throw new ActionExecutionFailedException(e);

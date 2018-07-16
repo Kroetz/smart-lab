@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.nio.file.Paths.get;
+
 @Configuration
 @EnableConfigurationProperties(TempFileManagerConfiguration.TempFileProperties.class)
 public class TempFileManagerConfiguration {
@@ -47,11 +49,11 @@ public class TempFileManagerConfiguration {
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
 
-        private static final Path DEFAULT_BASE_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "smart-lab");
+        private static final Path DEFAULT_BASE_DIR = get(System.getProperty("java.io.tmpdir"), "smart-lab");
         private static final String DEFAULT_FILE_NAME_PREFIX = "file";
         private static final String DEFAULT_FILE_NAME_SUFFIX = ".tmp";
-        private static final Path DEFAULT_AUDIO_SUB_DIR = Paths.get("audio");
-        private static final Path DEFAULT_DOWNLOAD_SUB_DIR = Paths.get("download");
+        private static final Path DEFAULT_AUDIO_SUB_DIR = get("audio");
+        private static final Path DEFAULT_DOWNLOAD_SUB_DIR = get("download");
 
         private Path baseDir;
         private String fileNamePrefix;
@@ -72,7 +74,7 @@ public class TempFileManagerConfiguration {
         }
 
         public void setBaseDir(String baseDir) {
-            this.baseDir = Paths.get(baseDir);
+            this.baseDir = get(baseDir);
         }
 
         public String getFileNamePrefix() {
@@ -96,7 +98,7 @@ public class TempFileManagerConfiguration {
         }
 
         public void setAudioSubDir(String audioSubDir) {
-            this.audioSubDir = Paths.get(audioSubDir);
+            this.audioSubDir = get(audioSubDir);
         }
 
         public Path getDownloadSubDir() {
@@ -104,7 +106,7 @@ public class TempFileManagerConfiguration {
         }
 
         public void setDownloadSubDir(String downloadSubDir) {
-            this.downloadSubDir = Paths.get(downloadSubDir);
+            this.downloadSubDir = get(downloadSubDir);
         }
     }
 }

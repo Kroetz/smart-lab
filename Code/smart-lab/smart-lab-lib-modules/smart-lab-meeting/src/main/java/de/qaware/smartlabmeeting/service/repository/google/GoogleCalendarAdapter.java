@@ -32,7 +32,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
@@ -41,6 +40,7 @@ import java.util.stream.Stream;
 
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
+import static java.nio.file.Files.newInputStream;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
@@ -70,7 +70,7 @@ public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
             Set<IMeeting> initialMeetings) throws IOException {
         super(initialMeetings);
         GoogleCredential credentials = GoogleCredential.fromStream(
-                Files.newInputStream(googleCalendarCredentialFile),
+                newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
                 googleCalendarJsonFactory).createScoped(googleCalendarScopes);
         this.service = new Calendar.Builder(

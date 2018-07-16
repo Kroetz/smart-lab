@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.nio.file.Files.deleteIfExists;
+import static java.nio.file.Files.readAllBytes;
+
 @Component
 @Slf4j
 public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
@@ -50,8 +53,8 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         Path recordedAudio = microphoneAdapter.deactivate();
         IActionResult actionResult;
         try {
-            actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
-            Files.deleteIfExists(recordedAudio);
+            actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
+            deleteIfExists(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
@@ -78,8 +81,8 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         Path recordedAudio = microphoneAdapter.deactivate();
         IActionResult actionResult;
         try {
-            actionResult = ByteArrayActionResult.of(Files.readAllBytes(recordedAudio));
-            Files.deleteIfExists(recordedAudio);
+            actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
+            deleteIfExists(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }

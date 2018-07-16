@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.nio.file.Paths.get;
+
 @Configuration
 @EnableConfigurationProperties(ResourcesConfiguration.TempFileProperties.class)
 public class ResourcesConfiguration {
@@ -27,7 +29,7 @@ public class ResourcesConfiguration {
     @ConfigurationProperties(prefix = "temp.resources")
     public static class TempFileProperties {
 
-        private static final Path DEFAULT_SUB_DIR = Paths.get("resources");
+        private static final Path DEFAULT_SUB_DIR = get("resources");
         private Path subDir;
 
         public TempFileProperties() {
@@ -39,7 +41,7 @@ public class ResourcesConfiguration {
         }
 
         public void setSubDir(String subDir) {
-            this.subDir = Paths.get(subDir);
+            this.subDir = get(subDir);
         }
     }
 }

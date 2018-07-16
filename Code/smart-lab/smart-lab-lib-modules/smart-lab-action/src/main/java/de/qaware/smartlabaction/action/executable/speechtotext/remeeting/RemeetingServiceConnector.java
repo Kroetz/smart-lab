@@ -15,6 +15,7 @@ import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
 
 @Component
 @ConditionalOnProperty(
@@ -44,7 +45,7 @@ public class RemeetingServiceConnector implements IRemeetingService {
         try {
             // TODO: String literals
             String authHeader = "Basic " + Base64.getEncoder().encodeToString((this.remeetingApiKey + ":").getBytes("utf-8"));
-            SubmitJobResponse submitJobResponse = this.remeetingApiClient.submitJob(authHeader, Files.readAllBytes(audioFile));
+            SubmitJobResponse submitJobResponse = this.remeetingApiClient.submitJob(authHeader, readAllBytes(audioFile));
             String jobId = submitJobResponse.getId();
             QueryResultResponse queryResultResponse;
             do {

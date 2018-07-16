@@ -2,7 +2,6 @@ package de.qaware.smartlabcore.data.device.microphone;
 
 import de.qaware.smartlabcore.exception.LocalDeviceException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
-import de.qaware.smartlabcore.miscellaneous.ResourcePaths;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
+import static de.qaware.smartlabcore.miscellaneous.ResourcePaths.DUMMY_SPEECH;
 import static org.apache.commons.io.IOUtils.toByteArray;
 
 @Component
@@ -43,7 +43,7 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     public Path deactivate() {
         log.info("Dummy microphone deactivated");
         try {
-            Resource dummySpeechResource = resourceLoader.getResource(ResourcePaths.DUMMY_SPEECH);
+            Resource dummySpeechResource = resourceLoader.getResource(DUMMY_SPEECH);
             InputStream resourceInputStream = dummySpeechResource.getInputStream();
             byte[] bytes = toByteArray(resourceInputStream);
             Path dummySpeechFile = tempFileManager.saveToTempFile(this.resourcesTempFileSubDir, bytes);
