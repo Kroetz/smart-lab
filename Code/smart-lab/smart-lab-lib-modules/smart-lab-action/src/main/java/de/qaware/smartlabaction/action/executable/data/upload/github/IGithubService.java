@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.dataupload.github;
+package de.qaware.smartlabaction.action.executable.data.upload.github;
 
 import de.qaware.smartlabcore.data.action.datadownload.IDataDownloadService;
 import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;

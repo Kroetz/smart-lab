@@ -2,7 +2,7 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
-import de.qaware.smartlabaction.action.executable.dataupload.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.executable.data.upload.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;

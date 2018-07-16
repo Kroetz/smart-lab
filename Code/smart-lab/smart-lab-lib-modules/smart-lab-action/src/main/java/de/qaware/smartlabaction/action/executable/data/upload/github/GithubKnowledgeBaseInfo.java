@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.dataupload.github;
+package de.qaware.smartlabaction.action.executable.data.upload.github;
 
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;

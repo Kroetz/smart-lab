@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.executable.dataupload;
+package de.qaware.smartlabaction.action.executable.data.upload;
 
 import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;
 import de.qaware.smartlabcore.data.generic.AbstractResolver;
