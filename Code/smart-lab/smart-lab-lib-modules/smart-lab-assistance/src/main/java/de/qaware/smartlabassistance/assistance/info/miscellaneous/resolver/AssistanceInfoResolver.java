@@ -12,7 +12,7 @@ import java.util.*;
 public class AssistanceInfoResolver extends AbstractResolver<String, IAssistanceInfo> {
 
     public AssistanceInfoResolver(List<IAssistanceInfo> assistances) {
-        super(AssistanceInfoResolver.getAssistancesById(assistances));
+        super(getAssistancesById(assistances));
     }
 
     private static Set<Map.Entry<String, IAssistanceInfo>> getAssistancesById(List<IAssistanceInfo> assistances) {

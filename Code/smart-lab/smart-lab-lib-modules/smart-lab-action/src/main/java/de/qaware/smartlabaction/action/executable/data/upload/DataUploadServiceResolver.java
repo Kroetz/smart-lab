@@ -17,10 +17,10 @@ import static java.util.stream.Collectors.toMap;
 public class DataUploadServiceResolver extends AbstractResolver<String, IDataUploadService> {
 
     public DataUploadServiceResolver(List<IDataUploadService> dataUploadServices) {
-        super(DataUploadServiceResolver.getMicrophoneAdaptersById(dataUploadServices));
+        super(getDataUploadServicesById(dataUploadServices));
     }
 
-    private static Set<Map.Entry<String, IDataUploadService>> getMicrophoneAdaptersById(List<IDataUploadService> dataUploadServices) {
+    private static Set<Map.Entry<String, IDataUploadService>> getDataUploadServicesById(List<IDataUploadService> dataUploadServices) {
         return dataUploadServices.stream()
                 .collect(toMap(IDataUploadService::getServiceId, identity()))
                 .entrySet();

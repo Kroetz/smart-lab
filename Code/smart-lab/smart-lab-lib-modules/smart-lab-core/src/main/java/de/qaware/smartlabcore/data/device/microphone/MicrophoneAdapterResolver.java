@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toMap;
 public class MicrophoneAdapterResolver extends AbstractResolver<String, IMicrophoneAdapter> {
 
     public MicrophoneAdapterResolver(List<IMicrophoneAdapter> microphoneAdapters) {
-        super(MicrophoneAdapterResolver.getMicrophoneAdaptersByType(microphoneAdapters));
+        super(getMicrophoneAdaptersByType(microphoneAdapters));
     }
 
     private static Set<Map.Entry<String, IMicrophoneAdapter>> getMicrophoneAdaptersByType(List<IMicrophoneAdapter> microphoneAdapters) {

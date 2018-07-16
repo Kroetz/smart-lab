@@ -12,7 +12,7 @@ import java.util.*;
 public class AssistanceTriggerableResolver extends AbstractResolver<String, IAssistanceTriggerable> {
 
     public AssistanceTriggerableResolver(List<IAssistanceTriggerable> assistances) {
-        super(AssistanceTriggerableResolver.getAssistancesById(assistances));
+        super(getAssistancesById(assistances));
     }
 
     private static Set<Map.Entry<String, IAssistanceTriggerable>> getAssistancesById(List<IAssistanceTriggerable> assistances) {

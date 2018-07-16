@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toMap;
 public class WebBrowserAdapterResolver extends AbstractResolver<String, IWebBrowserAdapter> {
 
     public WebBrowserAdapterResolver(List<IWebBrowserAdapter> webBrowserAdapters) {
-        super(WebBrowserAdapterResolver.getWebBrowserAdaptersByType(webBrowserAdapters));
+        super(getWebBrowserAdaptersByType(webBrowserAdapters));
     }
 
     private static Set<Map.Entry<String, IWebBrowserAdapter>> getWebBrowserAdaptersByType(List<IWebBrowserAdapter> webBrowserAdapters) {

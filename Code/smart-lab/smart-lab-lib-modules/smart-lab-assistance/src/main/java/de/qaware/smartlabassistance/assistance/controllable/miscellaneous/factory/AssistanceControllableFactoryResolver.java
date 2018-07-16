@@ -11,7 +11,7 @@ import java.util.*;
 public class AssistanceControllableFactoryResolver extends AbstractResolver<String, IAssistanceControllableFactory> {
 
     public AssistanceControllableFactoryResolver(List<IAssistanceControllableFactory> factories) {
-        super(AssistanceControllableFactoryResolver.getFactoriesByAssistanceId(factories));
+        super(getFactoriesByAssistanceId(factories));
     }
 
     private static Set<Map.Entry<String, IAssistanceControllableFactory>> getFactoriesByAssistanceId(List<IAssistanceControllableFactory> factories) {

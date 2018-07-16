@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toMap;
 public class ActionExecutableResolver extends AbstractResolver<String, IActionExecutable> {
 
     public ActionExecutableResolver(List<IActionExecutable> actions) {
-        super(ActionExecutableResolver.getActionsById(actions));
+        super(getActionsById(actions));
     }
 
     private static Set<Map.Entry<String, IActionExecutable>> getActionsById(List<IActionExecutable> actions) {
