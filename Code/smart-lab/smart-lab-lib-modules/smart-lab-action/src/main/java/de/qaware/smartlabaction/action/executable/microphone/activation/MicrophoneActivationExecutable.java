@@ -13,7 +13,7 @@ import de.qaware.smartlabcore.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
-import de.qaware.smartlabcore.filesystem.IFileSystemManager;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,19 +27,19 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
     private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
     private IDeviceManagementService deviceManagementService;
     private final Path recordedAudioTempFileSubDir;
-    private final IFileSystemManager fileSystemManager;
+    private final ITempFileManager tempFileManager;
 
     public MicrophoneActivationExecutable(
             MicrophoneActivationInfo microphoneActivationInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
             IDeviceManagementService deviceManagementService,
             Path recordedAudioTempFileSubDir,
-            IFileSystemManager fileSystemManager) {
+            ITempFileManager tempFileManager) {
         super(microphoneActivationInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
         this.deviceManagementService = deviceManagementService;
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
-        this.fileSystemManager = fileSystemManager;
+        this.tempFileManager = tempFileManager;
     }
 
     // TODO: too much code duplicates
@@ -55,7 +55,7 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path recordingTargetFile;
         try {
-            recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
@@ -81,7 +81,7 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
                 actionArgs);
         Path recordingTargetFile;
         try {
-            recordingTargetFile = this.fileSystemManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }

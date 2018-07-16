@@ -9,12 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Configuration
-@EnableConfigurationProperties(FileSystemManagerConfiguration.TempFileProperties.class)
-public class FileSystemManagerConfiguration {
+@EnableConfigurationProperties(TempFileManagerConfiguration.TempFileProperties.class)
+public class TempFileManagerConfiguration {
 
     private TempFileProperties tempFileProperties;
 
-    public FileSystemManagerConfiguration(TempFileProperties tempFileProperties) {
+    public TempFileManagerConfiguration(TempFileProperties tempFileProperties) {
         this.tempFileProperties = tempFileProperties;
     }
 

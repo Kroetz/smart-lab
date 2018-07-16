@@ -1,7 +1,7 @@
 package de.qaware.smartlabcore.data.device.microphone;
 
 import de.qaware.smartlabcore.exception.LocalDeviceException;
-import de.qaware.smartlabcore.filesystem.IFileSystemManager;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import de.qaware.smartlabcore.miscellaneous.ResourcePaths;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -21,16 +21,16 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     public static final String DEVICE_TYPE = "dummy microphone";
     private static final boolean HAS_LOCAL_API = true;
     private final ResourceLoader resourceLoader;
-    private final IFileSystemManager fileSystemManager;
+    private final ITempFileManager tempFileManager;
     private final Path resourcesTempFileSubDir;
 
     public DummyMicrophone(
             ResourceLoader resourceLoader,
-            IFileSystemManager fileSystemManager,
+            ITempFileManager tempFileManager,
             Path resourcesTempFileSubDir) {
         super(DEVICE_TYPE, HAS_LOCAL_API);
         this.resourceLoader = resourceLoader;
-        this.fileSystemManager = fileSystemManager;
+        this.tempFileManager = tempFileManager;
         this.resourcesTempFileSubDir = resourcesTempFileSubDir;
     }
 
@@ -46,7 +46,7 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
             Resource dummySpeechResource = resourceLoader.getResource(ResourcePaths.DUMMY_SPEECH);
             InputStream resourceInputStream = dummySpeechResource.getInputStream();
             byte[] bytes = toByteArray(resourceInputStream);
-            Path dummySpeechFile = fileSystemManager.saveToTempFile(this.resourcesTempFileSubDir, bytes);
+            Path dummySpeechFile = tempFileManager.saveToTempFile(this.resourcesTempFileSubDir, bytes);
             dummySpeechFile.toFile().deleteOnExit();
             return dummySpeechFile;
         } catch (IOException e) {

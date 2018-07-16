@@ -9,7 +9,7 @@ import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.InvalidActionResultException;
-import de.qaware.smartlabcore.filesystem.IFileSystemManager;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -25,22 +25,22 @@ import java.nio.file.Path;
 public class MicrophoneDeactivationSubmittable extends AbstractActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> {
 
     private final Path recordedAudioTempFileSubDir;
-    private final IFileSystemManager fileSystemManager;
+    private final ITempFileManager tempFileManager;
 
     public MicrophoneDeactivationSubmittable(
             MicrophoneDeactivationInfo microphoneDeactivationInfo,
             Path recordedAudioTempFileSubDir,
-            IFileSystemManager fileSystemManager) {
+            ITempFileManager tempFileManager) {
         super(microphoneDeactivationInfo);
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
-        this.fileSystemManager = fileSystemManager;
+        this.tempFileManager = tempFileManager;
     }
 
     public Path submitExecution(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         byte[] recordedAudio = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
         try {
-            return this.fileSystemManager.saveToTempFile(recordedAudioTempFileSubDir, recordedAudio);
+            return this.tempFileManager.saveToTempFile(recordedAudioTempFileSubDir, recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }

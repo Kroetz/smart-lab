@@ -9,13 +9,13 @@ import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class FileSystemManager implements IFileSystemManager {
+public class TempFileManager implements ITempFileManager {
 
     private final Path tempFileBaseDir;
     private final String tempFileNamePrefix;
     private final String tempFileNameSuffix;
 
-    public FileSystemManager(Path tempFileBaseDir, String tempFileNamePrefix, String tempFileNameSuffix) {
+    public TempFileManager(Path tempFileBaseDir, String tempFileNamePrefix, String tempFileNameSuffix) {
         this.tempFileBaseDir = tempFileBaseDir;
         this.tempFileNamePrefix = tempFileNamePrefix;
         this.tempFileNameSuffix = tempFileNameSuffix;
