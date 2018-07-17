@@ -38,6 +38,6 @@ public class FileOpeningSubmittable extends AbstractActionSubmittable<FileOpenin
         private DeviceId programId;
 
         @NonNull
-        private String fileToOpen;
+        private byte[] fileToOpen;
     }
 }

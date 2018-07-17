@@ -2,10 +2,11 @@ package de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedp
 
 import de.qaware.smartlabcore.data.device.IDeviceAdapter;
 
+import java.nio.file.Path;
 import java.util.UUID;
 
 public interface IFileAssociatedProgramAdapter extends IDeviceAdapter {
 
-    UUID openFile(String path);
-    void close(UUID programInstance);
+    UUID openFile(Path fileToOpen);
+    void close(UUID programInstanceId);
 }

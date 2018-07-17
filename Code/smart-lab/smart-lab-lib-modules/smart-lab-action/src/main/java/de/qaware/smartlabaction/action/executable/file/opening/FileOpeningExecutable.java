@@ -11,10 +11,14 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 @Component
@@ -23,14 +27,17 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
 
     private final IDeviceManagementService deviceManagementService;
     private final IResolver<String, IFileAssociatedProgramAdapter> programAdapterResolver;
+    private final ITempFileManager tempFileManager;
 
     public FileOpeningExecutable(
             FileOpeningInfo fileOpeningInfo,
             IDeviceManagementService deviceManagementService,
-            IResolver<String, IFileAssociatedProgramAdapter> fileAssociatedProgramAdapterResolver) {
+            IResolver<String, IFileAssociatedProgramAdapter> fileAssociatedProgramAdapterResolver,
+            ITempFileManager tempFileManager) {
         super(fileOpeningInfo);
         this.deviceManagementService = deviceManagementService;
         this.programAdapterResolver = fileAssociatedProgramAdapterResolver;
+        this.tempFileManager = tempFileManager;
     }
 
     // TODO: too much code duplicates
@@ -44,7 +51,14 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
                 .resolve(programType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        UUID programInstanceId = programAdapter.openFile(actionArgs.getFileToOpen());
+        Path fileToOpen;
+        try {
+            fileToOpen = this.tempFileManager.saveToTempFile(actionArgs.getFileToOpen());
+        } catch (IOException e) {
+            // TODO: Exception message
+            throw new ActionExecutionFailedException(e);
+        }
+        UUID programInstanceId = programAdapter.openFile(fileToOpen);
         return UuidActionResult.of(programInstanceId);
     }
 
@@ -64,7 +78,14 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 programType,
                 actionArgs);
-        UUID programInstanceId = programAdapter.openFile(actionArgs.getFileToOpen());
+        Path fileToOpen;
+        try {
+            fileToOpen = this.tempFileManager.saveToTempFile(actionArgs.getFileToOpen());
+        } catch (IOException e) {
+            // TODO: Exception message
+            throw new ActionExecutionFailedException(e);
+        }
+        UUID programInstanceId = programAdapter.openFile(fileToOpen);
         return UuidActionResult.of(programInstanceId);
     }
 }
