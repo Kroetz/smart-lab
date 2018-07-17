@@ -3,11 +3,13 @@ package de.qaware.smartlabcore.filesystem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
 import static java.nio.file.Files.*;
+import static java.util.Objects.isNull;
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 @Component
@@ -25,8 +27,13 @@ public class TempFileManager implements ITempFileManager {
     }
 
     @Override
-    public Path createEmptyTempFile(Path subDirectory) throws IOException {
-        Path tempDir = tempFileBaseDir.resolve(subDirectory);
+    public Path createEmptyTempFile() throws IOException {
+        return createEmptyTempFile(null);
+    }
+
+    @Override
+    public Path createEmptyTempFile(@Nullable Path subDirectory) throws IOException {
+        Path tempDir = isNull(subDirectory) ? this.tempFileBaseDir : this.tempFileBaseDir.resolve(subDirectory);
         createDirectories(tempDir);
         return createTempFile(
                 tempDir,
@@ -35,15 +42,25 @@ public class TempFileManager implements ITempFileManager {
     }
 
     @Override
-    public Path saveToTempFile(Path subDirectory, byte[] bytes) throws IOException {
-        Path tempFile = createEmptyTempFile(subDirectory);
+    public Path saveToTempFile(byte[] bytes) throws IOException {
+        return saveToTempFile(null, bytes);
+    }
+
+    @Override
+    public Path saveToTempFile(InputStream inputStream) throws IOException {
+        return saveToTempFile(null, inputStream);
+    }
+
+    @Override
+    public Path saveToTempFile(@Nullable Path subDirectory, byte[] bytes) throws IOException {
+        Path tempFile = isNull(subDirectory) ? createEmptyTempFile() : createEmptyTempFile(subDirectory);
         write(tempFile, bytes);
         return tempFile;
     }
 
     @Override
-    public Path saveToTempFile(Path subDirectory, InputStream inputStream) throws IOException {
-        Path tempFile = createEmptyTempFile(subDirectory);
+    public Path saveToTempFile(@Nullable Path subDirectory, InputStream inputStream) throws IOException {
+        Path tempFile = isNull(subDirectory) ? createEmptyTempFile() : createEmptyTempFile(subDirectory);
         copyInputStreamToFile(inputStream, tempFile.toFile());
         return tempFile;
     }
