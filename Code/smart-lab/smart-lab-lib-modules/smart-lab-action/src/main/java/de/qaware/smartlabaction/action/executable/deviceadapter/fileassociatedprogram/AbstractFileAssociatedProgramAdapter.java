@@ -14,15 +14,15 @@ import static java.util.Objects.isNull;
 @Slf4j
 public abstract class AbstractFileAssociatedProgramAdapter extends AbstractDeviceAdapter implements IFileAssociatedProgramAdapter {
 
-    protected final Map<UUID, Process> programInstancesByID;
+    protected final Map<UUID, IProgramInstance> programInstancesByID;
 
     public AbstractFileAssociatedProgramAdapter(String programType, boolean hasLocalApi) {
         super(programType, hasLocalApi);
         this.programInstancesByID = new HashMap<>();
     }
 
-    protected Process resolveProgramInstance(UUID programInstanceId) {
-        Process pogramInstance = this.programInstancesByID.get(programInstanceId);
+    protected IProgramInstance resolveProgramInstance(UUID programInstanceId) {
+        IProgramInstance pogramInstance = this.programInstancesByID.get(programInstanceId);
         if(isNull(pogramInstance)) throw new LocalDeviceException(format(
                 "The specified program instance with the ID %s does not exist", programInstanceId));
         return pogramInstance;

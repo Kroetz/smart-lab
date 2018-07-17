@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface IFileAssociatedProgramAdapter extends IDeviceAdapter {
 
     UUID openFile(Path fileToOpen);
-    void close(UUID programInstanceId);
+    Path close(UUID programInstanceId);
 }

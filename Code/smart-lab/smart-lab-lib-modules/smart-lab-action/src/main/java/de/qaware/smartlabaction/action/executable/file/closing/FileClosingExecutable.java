@@ -11,9 +11,15 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+import static java.nio.file.Files.deleteIfExists;
 
 @Component
 @Slf4j
@@ -42,7 +48,13 @@ public class FileClosingExecutable extends AbstractActionExecutable {
                 .resolve(programType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        programAdapter.close(actionArgs.getProgramInstanceId());
+        Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
+        try {
+            deleteIfExists(closedFile);
+        } catch (IOException e) {
+            // TODO: Exception message
+            throw new ActionExecutionFailedException(e);
+        }
         return VoidActionResult.instance();
     }
 
@@ -62,7 +74,13 @@ public class FileClosingExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 programType,
                 actionArgs);
-        programAdapter.close(actionArgs.getProgramInstanceId());
+        Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
+        try {
+            deleteIfExists(closedFile);
+        } catch (IOException e) {
+            // TODO: Exception message
+            throw new ActionExecutionFailedException(e);
+        }
         return VoidActionResult.instance();
     }
 }

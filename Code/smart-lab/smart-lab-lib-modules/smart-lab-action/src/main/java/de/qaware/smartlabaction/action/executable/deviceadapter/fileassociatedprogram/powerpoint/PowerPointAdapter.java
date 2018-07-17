@@ -1,6 +1,8 @@
 package de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedprogram.powerpoint;
 
 import de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedprogram.AbstractFileAssociatedProgramAdapter;
+import de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedprogram.IProgramInstance;
+import de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedprogram.ProgramInstance;
 import de.qaware.smartlabcore.exception.LocalDeviceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -45,13 +47,15 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
             throw new LocalDeviceException(errorMessage, e);
         }
         UUID powerPointInstanceId = UUID.randomUUID();
-        this.programInstancesByID.put(powerPointInstanceId, powerPointInstance);
+        this.programInstancesByID.put(powerPointInstanceId, ProgramInstance.of(powerPointInstance, fileToOpen));
         return powerPointInstanceId;
     }
 
     @Override
-    public void close(UUID powerPointInstanceId) {
-        resolveProgramInstance(powerPointInstanceId).destroy();
+    public Path close(UUID powerPointInstanceId) {
+        IProgramInstance programInstance = resolveProgramInstance(powerPointInstanceId);
+        programInstance.getProcess().destroy();
         this.programInstancesByID.remove(powerPointInstanceId);
+        return programInstance.getOpenedFile();
     }
 }
