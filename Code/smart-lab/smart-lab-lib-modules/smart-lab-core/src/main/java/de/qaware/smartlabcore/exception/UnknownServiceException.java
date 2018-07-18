@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class UnknownServiceException extends RuntimeException {
+public class UnknownServiceException extends SmartLabException {
 
     public UnknownServiceException() {
     }

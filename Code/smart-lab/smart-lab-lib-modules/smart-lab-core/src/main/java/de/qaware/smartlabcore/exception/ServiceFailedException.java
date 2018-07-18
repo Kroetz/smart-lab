@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class ServiceFailedException extends RuntimeException {
+public class ServiceFailedException extends SmartLabException {
 
     public ServiceFailedException() {
     }

@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class LocalDeviceException extends RuntimeException {
+public class LocalDeviceException extends SmartLabException {
 
     public LocalDeviceException() {
     }

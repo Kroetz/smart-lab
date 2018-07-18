@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class UnknownErrorException extends RuntimeException {
+public class UnknownErrorException extends SmartLabException {
 
     public UnknownErrorException() {
     }

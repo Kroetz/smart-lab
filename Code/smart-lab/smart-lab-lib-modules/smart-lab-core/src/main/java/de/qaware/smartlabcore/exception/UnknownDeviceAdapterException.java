@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class UnknownDeviceAdapterException extends RuntimeException {
+public class UnknownDeviceAdapterException extends SmartLabException {
 
     public UnknownDeviceAdapterException() {
     }

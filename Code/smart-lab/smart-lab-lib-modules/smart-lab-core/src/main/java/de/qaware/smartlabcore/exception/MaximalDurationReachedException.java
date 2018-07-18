@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class MaximalDurationReachedException extends RuntimeException {
+public class MaximalDurationReachedException extends SmartLabException {
 
     public MaximalDurationReachedException() {
     }

@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class AssistanceTrackingException extends RuntimeException {
+public class AssistanceTrackingException extends SmartLabException {
 
     public AssistanceTrackingException() {
     }

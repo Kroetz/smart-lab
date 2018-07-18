@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class ConnectionFailedException extends RuntimeException {
+public class ConnectionFailedException extends SmartLabException {
 
     public ConnectionFailedException() {
     }

@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class ConfigurationException extends RuntimeException {
+public class ConfigurationException extends SmartLabException {
 
     public ConfigurationException() {
     }

@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class ActionExecutionFailedException extends RuntimeException {
+public class ActionExecutionFailedException extends SmartLabException {
 
     public ActionExecutionFailedException() {
     }

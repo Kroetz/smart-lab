@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class InvalidSyntaxException extends RuntimeException {
+public class InvalidSyntaxException extends SmartLabException {
 
     public InvalidSyntaxException() {
     }

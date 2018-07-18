@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class UnmatchingActionArgsTypeException extends RuntimeException {
+public class UnmatchingActionArgsTypeException extends SmartLabException {
 
     public UnmatchingActionArgsTypeException() {
     }

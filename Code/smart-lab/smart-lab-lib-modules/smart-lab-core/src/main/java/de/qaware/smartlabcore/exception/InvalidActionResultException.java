@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class InvalidActionResultException extends RuntimeException {
+public class InvalidActionResultException extends SmartLabException {
 
     public InvalidActionResultException() {
     }

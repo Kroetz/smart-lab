@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class EntityCreationException extends RuntimeException {
+public class EntityCreationException extends SmartLabException {
 
     public EntityCreationException() {
     }

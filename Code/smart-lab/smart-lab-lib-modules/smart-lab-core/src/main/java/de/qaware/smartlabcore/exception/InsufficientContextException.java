@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class InsufficientContextException extends RuntimeException {
+public class InsufficientContextException extends SmartLabException {
 
     public InsufficientContextException() {
     }

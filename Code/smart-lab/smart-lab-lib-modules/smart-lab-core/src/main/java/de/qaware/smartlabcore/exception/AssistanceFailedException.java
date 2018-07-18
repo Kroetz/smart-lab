@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class AssistanceFailedException extends RuntimeException {
+public class AssistanceFailedException extends SmartLabException {
 
     public AssistanceFailedException() {
     }

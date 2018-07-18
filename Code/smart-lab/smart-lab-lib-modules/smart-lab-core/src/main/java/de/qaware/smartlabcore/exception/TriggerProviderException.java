@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class TriggerProviderException extends RuntimeException {
+public class TriggerProviderException extends SmartLabException {
 
     public TriggerProviderException() {
     }

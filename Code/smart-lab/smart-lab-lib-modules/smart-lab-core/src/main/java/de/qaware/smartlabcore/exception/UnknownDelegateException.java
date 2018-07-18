@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.exception;
 
-public class UnknownDelegateException extends RuntimeException {
+public class UnknownDelegateException extends SmartLabException {
 
     public UnknownDelegateException() {
     }
