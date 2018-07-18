@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackageClasses = {
         de.qaware.smartlabaction.service.ComponentScanMarker.class,
         de.qaware.smartlabaction.action.info.ComponentScanMarker.class,
-        de.qaware.smartlabaction.action.executable.ComponentScanMarker.class})
+        de.qaware.smartlabaction.action.executable.ComponentScanMarker.class,
+        de.qaware.smartlabaction.action.actor.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableFeignClients(basePackageClasses = de.qaware.smartlabaction.action.externalapi.ComponentScanMarker.class)
