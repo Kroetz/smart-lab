@@ -30,7 +30,6 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
     @Override
     public UUID openFile(Path fileToOpen) {
         ProcessBuilder processBuilder = new ProcessBuilder();
-
         Process powerPointInstance;
         try {
             powerPointInstance = processBuilder
