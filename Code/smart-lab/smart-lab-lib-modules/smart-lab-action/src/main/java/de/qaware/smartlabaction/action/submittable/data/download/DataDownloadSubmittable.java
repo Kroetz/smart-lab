@@ -23,15 +23,15 @@ import java.nio.file.Path;
 @Slf4j
 public class DataDownloadSubmittable extends AbstractActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> {
 
-    private final Path downloadedFilesTempFileSubDir;
+    private final Path downloadsTempFileSubDir;
     private final ITempFileManager tempFileManager;
 
     public DataDownloadSubmittable(
             DataDownloadInfo dataDownloadInfo,
-            Path downloadedFilesTempFileSubDir,
+            Path downloadsTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(dataDownloadInfo);
-        this.downloadedFilesTempFileSubDir = downloadedFilesTempFileSubDir;
+        this.downloadsTempFileSubDir = downloadsTempFileSubDir;
         this.tempFileManager = tempFileManager;
     }
 
@@ -39,7 +39,7 @@ public class DataDownloadSubmittable extends AbstractActionSubmittable<DataDownl
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         byte[] downloadedData = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
         try {
-            return this.tempFileManager.saveToTempFile(downloadedFilesTempFileSubDir, downloadedData);
+            return this.tempFileManager.saveToTempFile(downloadsTempFileSubDir, downloadedData);
         } catch (IOException e) {
             // TODO: Exception message
             throw new ActionExecutionFailedException(e);

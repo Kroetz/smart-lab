@@ -33,15 +33,15 @@ public class GithubServiceConnector implements IGithubService {
 
     private final Github github;
     private final ITempFileManager tempFileManager;
-    private final Path downloadedFilesTempSubDir;
+    private final Path downloadsTempFileSubDir;
 
     public GithubServiceConnector(
             String githubApiKey,
             ITempFileManager tempFileManager,
-            Path downloadedFilesTempSubDir) {
+            Path downloadsTempFileSubDir) {
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;
-        this.downloadedFilesTempSubDir = downloadedFilesTempSubDir;
+        this.downloadsTempFileSubDir = downloadsTempFileSubDir;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class GithubServiceConnector implements IGithubService {
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
             Repo repository = this.github.repos().get(githubKnowledgeBaseInfo.getRepository());
             Content file = repository.contents().get(filePath);
-            return this.tempFileManager.saveToTempFile(this.downloadedFilesTempSubDir, file.raw());
+            return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, file.raw());
         }
         // Assertion errors are thrown by jcabi when the file to download does not exist
         catch(Exception | AssertionError e) {

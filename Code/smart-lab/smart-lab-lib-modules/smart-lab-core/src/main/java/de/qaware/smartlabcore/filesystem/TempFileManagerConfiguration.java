@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static java.nio.file.Paths.get;
 
@@ -41,7 +40,7 @@ public class TempFileManagerConfiguration {
     }
 
     @Bean
-    public Path downloadedFilesTempFileSubDir() {
+    public Path downloadsTempFileSubDir() {
         return this.tempFileProperties.getDownloadSubDir();
     }
 
