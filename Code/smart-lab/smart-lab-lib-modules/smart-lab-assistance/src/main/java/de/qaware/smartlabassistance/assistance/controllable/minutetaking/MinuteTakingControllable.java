@@ -17,6 +17,7 @@ import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.room.IRoom;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
     private final ITranscriptTextBuilder transcriptTextBuilder;
     private final ITextPassagesBuilder textPassagesBuilder;
+    private final ITempFileManager tempFileManager;
 
     private MinuteTakingControllable(
             IAssistanceInfo minuteTakingInfo,
@@ -41,7 +43,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
             IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
             ITranscriptTextBuilder transcriptTextBuilder,
-            ITextPassagesBuilder textPassagesBuilder) {
+            ITextPassagesBuilder textPassagesBuilder,
+            ITempFileManager tempFileManager) {
         super(minuteTakingInfo);
         this.microphoneActivation = microphoneActivation;
         this.microphoneDeactivation = microphoneDeactivation;
@@ -49,6 +52,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         this.dataUpload = dataUpload;
         this.transcriptTextBuilder = transcriptTextBuilder;
         this.textPassagesBuilder = textPassagesBuilder;
+        this.tempFileManager = tempFileManager;
     }
 
     @Override
@@ -89,8 +93,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
 
-        // TODO: Delete temp file (do not forget import of static method)
-        //Files.deleteIfExists(recordedAudio);
+        // TODO: Delete temp file
+        //this.tempFileManager.markForCleaning(recordedAudio);
     }
 
     @Override
@@ -108,6 +112,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
         private final ITranscriptTextBuilder transcriptTextBuilder;
         private final ITextPassagesBuilder textPassagesBuilder;
+        private final ITempFileManager tempFileManager;
 
         public Factory(
                 IAssistanceInfo minuteTakingInfo,
@@ -116,7 +121,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
                 IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
                 ITranscriptTextBuilder transcriptTextBuilder,
-                ITextPassagesBuilder textPassagesBuilder) {
+                ITextPassagesBuilder textPassagesBuilder,
+                ITempFileManager tempFileManager) {
             super(minuteTakingInfo);
             this.microphoneActivation = microphoneActivation;
             this.microphoneDeactivation = microphoneDeactivation;
@@ -124,6 +130,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             this.dataUpload = dataUpload;
             this.transcriptTextBuilder = transcriptTextBuilder;
             this.textPassagesBuilder = textPassagesBuilder;
+            this.tempFileManager = tempFileManager;
         }
 
         @Override
@@ -135,7 +142,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                     this.speechToText,
                     this.dataUpload,
                     this.transcriptTextBuilder,
-                    this.textPassagesBuilder);
+                    this.textPassagesBuilder,
+                    this.tempFileManager);
         }
     }
 }

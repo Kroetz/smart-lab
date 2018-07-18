@@ -6,6 +6,9 @@ import java.nio.file.Path;
 
 public interface ITempFileManager {
 
+    void startCleaningObsoleteFiles();
+    void stopCleaningObsoleteFiles();
+    void markForCleaning(Path fileToDelete);
     Path createEmptyTempFile() throws IOException;
     Path createEmptyTempFile(Path subDirectory) throws IOException;
     Path saveToTempFile(byte[] bytes) throws IOException;

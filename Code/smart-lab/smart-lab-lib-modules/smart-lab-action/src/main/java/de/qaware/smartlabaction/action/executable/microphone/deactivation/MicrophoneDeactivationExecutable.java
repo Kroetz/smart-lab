@@ -1,8 +1,8 @@
 package de.qaware.smartlabaction.action.executable.microphone.deactivation;
 
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
-import de.qaware.smartlabaction.action.result.ByteArrayActionResult;
 import de.qaware.smartlabaction.action.info.microphone.deactivation.MicrophoneDeactivationInfo;
+import de.qaware.smartlabaction.action.result.ByteArrayActionResult;
 import de.qaware.smartlabaction.action.submittable.microphone.deactivation.MicrophoneDeactivationSubmittable;
 import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
 import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService;
@@ -13,14 +13,13 @@ import de.qaware.smartlabcore.data.device.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -29,14 +28,17 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
 
     private final IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
     private final IDeviceManagementService deviceManagementService;
+    private final ITempFileManager tempFileManager;
 
     public MicrophoneDeactivationExecutable(
             MicrophoneDeactivationInfo microphoneDeactivationInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
-            IDeviceManagementService deviceManagementService) {
+            IDeviceManagementService deviceManagementService,
+            ITempFileManager tempFileManager) {
         super(microphoneDeactivationInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
         this.deviceManagementService = deviceManagementService;
+        this.tempFileManager = tempFileManager;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
-            deleteIfExists(recordedAudio);
+            this.tempFileManager.markForCleaning(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
@@ -82,7 +84,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
-            deleteIfExists(recordedAudio);
+            this.tempFileManager.markForCleaning(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }

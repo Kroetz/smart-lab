@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.nio.file.Path;
+import java.time.Duration;
 
 import static java.nio.file.Paths.get;
 
@@ -17,6 +18,11 @@ public class TempFileManagerConfiguration {
 
     public TempFileManagerConfiguration(TempFileProperties tempFileProperties) {
         this.tempFileProperties = tempFileProperties;
+    }
+
+    @Bean
+    public Duration obsoleteFileCleaningInterval() {
+        return this.tempFileProperties.getObsoleteFileCleaningIntervalInSeconds();
     }
 
     @Bean
@@ -48,12 +54,14 @@ public class TempFileManagerConfiguration {
     @ConfigurationProperties(prefix = "temp")
     public static class TempFileProperties {
 
+        private static final int DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS = 60;
         private static final Path DEFAULT_BASE_DIR = get(System.getProperty("java.io.tmpdir"), "smart-lab");
         private static final String DEFAULT_FILE_NAME_PREFIX = "file";
         private static final String DEFAULT_FILE_NAME_SUFFIX = ".tmp";
         private static final Path DEFAULT_AUDIO_SUB_DIR = get("audio");
         private static final Path DEFAULT_DOWNLOAD_SUB_DIR = get("download");
 
+        private int obsoleteFileCleaningIntervalInSeconds;
         private Path baseDir;
         private String fileNamePrefix;
         private String fileNameSuffix;
@@ -61,11 +69,20 @@ public class TempFileManagerConfiguration {
         private Path downloadSubDir;
 
         public TempFileProperties() {
+            this.obsoleteFileCleaningIntervalInSeconds = DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS;
             this.baseDir = DEFAULT_BASE_DIR;
             this.fileNamePrefix = DEFAULT_FILE_NAME_PREFIX;
             this.fileNameSuffix = DEFAULT_FILE_NAME_SUFFIX;
             this.audioSubDir = DEFAULT_AUDIO_SUB_DIR;
             this.downloadSubDir = DEFAULT_DOWNLOAD_SUB_DIR;
+        }
+
+        public Duration getObsoleteFileCleaningIntervalInSeconds() {
+            return Duration.ofSeconds(this.obsoleteFileCleaningIntervalInSeconds);
+        }
+
+        public void setObsoleteFileCleaningIntervalInSeconds(int obsoleteFileCleaningIntervalInSeconds) {
+            this.obsoleteFileCleaningIntervalInSeconds = obsoleteFileCleaningIntervalInSeconds;
         }
 
         public Path getBaseDir() {

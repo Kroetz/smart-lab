@@ -12,13 +12,13 @@ import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.UnknownServiceException;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -26,12 +26,15 @@ import static java.nio.file.Files.readAllBytes;
 public class DataDownloadExecutable extends AbstractActionExecutable {
 
     private IResolver<String, IDataDownloadService> dataDownloadServiceResolver;
+    private final ITempFileManager tempFileManager;
 
     public DataDownloadExecutable(
             DataDownloadInfo dataDownloadInfo,
-            IResolver<String, IDataDownloadService> dataDownloadServiceResolver) {
+            IResolver<String, IDataDownloadService> dataDownloadServiceResolver,
+            ITempFileManager tempFileManager) {
         super(dataDownloadInfo);
         this.dataDownloadServiceResolver = dataDownloadServiceResolver;
+        this.tempFileManager = tempFileManager;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(downloadedFile));
-            deleteIfExists(downloadedFile);
+            this.tempFileManager.markForCleaning(downloadedFile);
         } catch (IOException e) {
             // TODO: Exception message
             throw new ActionExecutionFailedException(e);

@@ -13,6 +13,7 @@ import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.AssistanceFailedException;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 @Slf4j
@@ -28,17 +30,20 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
     private final IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload;
     private final IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening;
     private final IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing;
+    private final ITempFileManager tempFileManager;
     private UUID programInstanceId;
 
     private FileDisplayingControllable(
             IAssistanceInfo fileDisplayingInfo,
             IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload,
             IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening,
-            IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing) {
+            IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing,
+            ITempFileManager tempFileManager) {
         super(fileDisplayingInfo);
         this.dataDownload = dataDownload;
         this.fileOpening = fileOpening;
         this.fileClosing = fileClosing;
+        this.tempFileManager = tempFileManager;
     }
 
     @Override
@@ -58,11 +63,12 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
                     config.getProgramId(),
                     readAllBytes(downloadedFile));
         } catch (IOException e) {
-            String errorMessage = String.format("Could not read downloaded file %s", downloadedFile);
+            String errorMessage = format("Could not read downloaded file %s", downloadedFile);
             log.error(errorMessage);
             throw new AssistanceFailedException(errorMessage, e);
         }
         this.programInstanceId = this.fileOpening.submitExecution(actionService, fileOpeningArgs);
+        this.tempFileManager.markForCleaning(downloadedFile);
     }
 
     @Override
@@ -88,16 +94,19 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         private final IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload;
         private final IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening;
         private final IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing;
+        private final ITempFileManager tempFileManager;
 
         public Factory(
                 IAssistanceInfo fileDisplayingInfo,
                 IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload,
                 IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening,
-                IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing) {
+                IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing,
+                ITempFileManager tempFileManager) {
             super(fileDisplayingInfo);
             this.dataDownload = dataDownload;
             this.fileOpening = fileOpening;
             this.fileClosing = fileClosing;
+            this.tempFileManager = tempFileManager;
         }
 
         @Override
@@ -106,7 +115,8 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
                     this.assistanceInfo,
                     this.dataDownload,
                     this.fileOpening,
-                    this.fileClosing);
+                    this.fileClosing,
+                    this.tempFileManager);
         }
     }
 }
