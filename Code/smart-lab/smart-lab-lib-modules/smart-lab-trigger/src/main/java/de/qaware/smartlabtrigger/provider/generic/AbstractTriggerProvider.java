@@ -17,11 +17,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
+import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static java.util.stream.Collectors.toSet;
 
 @Slf4j
@@ -55,7 +54,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     public void start() {
         if(this.providingTriggers) throw new IllegalStateException("Already providing triggers");
         this.providingTriggers = true;
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = newSingleThreadExecutor();
         executor.submit(() -> {
             while(this.providingTriggers) {
                 provideTriggers();

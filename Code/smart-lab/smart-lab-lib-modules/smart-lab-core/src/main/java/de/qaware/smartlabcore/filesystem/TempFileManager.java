@@ -13,12 +13,12 @@ import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.*;
 import static java.util.Objects.isNull;
+import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 @Component
@@ -55,7 +55,7 @@ public class TempFileManager implements ITempFileManager, CommandLineRunner {
             return;
         }
         this.isCleaningObsoleteFiles = true;
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = newSingleThreadExecutor();
         executor.submit(() -> {
             while(this.isCleaningObsoleteFiles) {
                 cleanObsoleteFiles();
