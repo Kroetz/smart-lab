@@ -4,10 +4,11 @@ import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
-import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
-import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
+import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
+import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -42,6 +43,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY = DeviceId.of("blue-display");
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
     public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
+    public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
     public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", ROOM_ID_BLUE);
     public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", ROOM_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "blue-delegate";
@@ -49,17 +51,19 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;
+    private final IAssistanceInfo fileDisplayingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
 
     public CoastGuardDataFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo) {
+            IAssistanceInfo fileDisplayingInfo, IAssistanceInfo roomUnlockingInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
+        this.fileDisplayingInfo = fileDisplayingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
     }
 
@@ -125,6 +129,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
                 .build()));
+        whaleConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whale_slides.pptx")
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
+                .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
@@ -156,6 +165,11 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .build()));
+        whirlpoolConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whirlpool_slides.pptx")
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
