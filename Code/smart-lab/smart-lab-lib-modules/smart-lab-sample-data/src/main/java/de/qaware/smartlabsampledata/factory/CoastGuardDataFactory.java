@@ -221,6 +221,12 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .name("Web browser in Room Blue")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_BLUE_POWER_POINT)
+                .type("powerPoint")
+                .name("PowerPoint in Room Blue")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
+                .build());
         return devices;
     }
 }
