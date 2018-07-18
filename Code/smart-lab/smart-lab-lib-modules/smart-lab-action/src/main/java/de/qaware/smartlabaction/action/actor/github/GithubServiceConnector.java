@@ -83,19 +83,17 @@ public class GithubServiceConnector implements IGithubService {
     @Override
     public Path download(
             IKnowledgeBaseInfo knowledgeBaseInfo,
-            String dir,
-            String fileName) throws ServiceFailedException {
-        String path = dir + "/" + fileName;
+            String filePath) throws ServiceFailedException {
         try {
             acceptPendingRepoInvitations();
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
             Repo repository = this.github.repos().get(githubKnowledgeBaseInfo.getRepository());
-            Content file = repository.contents().get(path);
+            Content file = repository.contents().get(filePath);
             return this.tempFileManager.saveToTempFile(this.downloadedFilesTempSubDir, file.raw());
         }
         // Assertion errors are thrown by jcabi when the file to download does not exist
         catch(Exception | AssertionError e) {
-            String errorMessage = format("Could not download file %s", path);
+            String errorMessage = format("Could not download file %s", filePath);
             log.error(errorMessage, e);
             throw new ServiceFailedException(errorMessage, e);
         }

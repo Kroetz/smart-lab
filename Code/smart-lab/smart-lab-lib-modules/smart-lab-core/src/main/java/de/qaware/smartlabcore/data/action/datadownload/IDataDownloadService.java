@@ -10,6 +10,5 @@ public interface IDataDownloadService {
     String getServiceId();
     Path download(
             IKnowledgeBaseInfo knowledgeBaseInfo,
-            String dir,
-            String fileName) throws ServiceFailedException;
+            String filePath) throws ServiceFailedException;
 }

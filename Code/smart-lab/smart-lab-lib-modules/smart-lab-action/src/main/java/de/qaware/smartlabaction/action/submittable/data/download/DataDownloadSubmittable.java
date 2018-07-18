@@ -55,9 +55,6 @@ public class DataDownloadSubmittable extends AbstractActionSubmittable<DataDownl
         private IKnowledgeBaseInfo knowledgeBaseInfo;
 
         @NonNull
-        private String dir;
-
-        @NonNull
-        private String fileName;
+        private String filePath;
     }
 }

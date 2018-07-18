@@ -52,8 +52,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
                 .orElseThrow(UnknownServiceException::new);
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getKnowledgeBaseInfo(),
-                actionArgs.getDir(),
-                actionArgs.getFileName());
+                actionArgs.getFilePath());
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(downloadedFile));

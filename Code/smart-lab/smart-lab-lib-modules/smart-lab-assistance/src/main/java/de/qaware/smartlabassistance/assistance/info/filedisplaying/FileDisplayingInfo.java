@@ -2,6 +2,7 @@ package de.qaware.smartlabassistance.assistance.info.filedisplaying;
 
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -47,10 +48,22 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
     @Slf4j
     public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
+        public static final String CONFIG_PROPERTY_KEY_FILE = "file";
+        public static final String CONFIG_PROPERTY_KEY_PROGRAM_ID = "programId";
+
+        private String filePath;
+        private DeviceId programId;
+
         private Configuration(FileDisplayingInfo fileDisplayingInfo, Map<String, String> configProperties) {
             super(fileDisplayingInfo);
             for(String key : configProperties.keySet()) {
                 switch (key) {
+                    case CONFIG_PROPERTY_KEY_FILE:
+                        this.filePath = configProperties.get(key);
+                        break;
+                    case CONFIG_PROPERTY_KEY_PROGRAM_ID:
+                        this.programId = DeviceId.of(configProperties.get(key));
+                        break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());
                         break;
@@ -61,6 +74,8 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
         @Override
         public String toConfigLangString() {
             Map<String, String> configProperties = new HashMap<>();
+            configProperties.put(CONFIG_PROPERTY_KEY_FILE, this.filePath);
+            configProperties.put(CONFIG_PROPERTY_KEY_PROGRAM_ID, this.programId.getIdValue());
             return toConfigLangString(configProperties);
         }
     }
