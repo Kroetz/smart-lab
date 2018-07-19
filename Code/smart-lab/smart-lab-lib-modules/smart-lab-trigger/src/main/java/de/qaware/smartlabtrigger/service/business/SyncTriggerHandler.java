@@ -13,8 +13,14 @@ import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.function.BiConsumer;
+
+import static java.util.concurrent.CompletableFuture.allOf;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 @Component
 @Slf4j
@@ -41,9 +47,24 @@ public class SyncTriggerHandler implements ITriggerHandler {
         this.jobManagementService.markJobAsProcessing(jobId);
         try {
             Set<IAssistanceConfiguration> configs = meeting.getAssistanceConfigurations();
+            Set<CompletableFuture<Void>> assistanceTasks = new HashSet<>();
             for(IAssistanceConfiguration config : configs) {
-                triggerAssistance(config, meeting, triggerReaction, jobId);
+                /*
+                 * TODO: Rather than triggering the assistances here asynchronously it would be a better and cleaner way when the whole assistance service worked asynchronously (just like the trigger service).
+                 * The challenge here is that the trigger service must not mark his own async job as finished until all
+                 * assistances that he triggers (and that are also processed asynchronously by the assistance service)
+                 * have been processed themselves. So there must be some kind of waiting mechanism.
+                 * The current workaround is:
+                 *  - Execute the triggers asynchronously
+                 *  - Create CompletableFuture objects from the async tasks
+                 *  - Wait for all CompletableFuture objects to finish and finally mark the trigger service job as finished
+                 */
+                assistanceTasks.add(supplyAsync(() -> {
+                    triggerAssistance(config, meeting, triggerReaction, jobId);
+                    return null;
+                }));
             }
+            allOf(assistanceTasks.stream().toArray(CompletableFuture[]::new));
             this.jobManagementService.markJobAsFinished(jobId);
         }
         catch(Exception e) {
