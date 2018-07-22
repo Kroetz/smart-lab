@@ -1,0 +1,14 @@
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.csprojAssemblyReference.cache
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart_lab_display_identifier.DisplayNameBadge.resources
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart_lab_display_identifier.MainWindow.resources
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart_lab_display_identifier.Properties.Resources.resources
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.csproj.GenerateResource.cache
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.csproj.CoreCompileInputs.cache
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\bin\Debug\smart-lab-display-identifier.exe.config
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\bin\Debug\smart-lab-display-identifier.exe
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\bin\Debug\smart-lab-display-identifier.pdb
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.exe
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.pdb
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\bin\Debug\smart-lab-window-handling.dll
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\bin\Debug\smart-lab-window-handling.pdb
+c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-display-identifier\obj\Debug\smart-lab-display-identifier.csproj.CopyComplete
