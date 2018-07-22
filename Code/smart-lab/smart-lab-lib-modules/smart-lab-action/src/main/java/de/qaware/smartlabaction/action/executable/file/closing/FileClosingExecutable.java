@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.executable.file.closing;
 
-import de.qaware.smartlabaction.action.executable.deviceadapter.fileassociatedprogram.IFileAssociatedProgramAdapter;
+import de.qaware.smartlabaction.action.actor.fileassociatedprogram.IFileAssociatedProgramAdapter;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.file.closing.FileClosingInfo;
 import de.qaware.smartlabaction.action.result.VoidActionResult;

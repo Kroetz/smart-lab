@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.executable.webbrowser.opening;
 
-import de.qaware.smartlabaction.action.executable.deviceadapter.webbrowser.IWebBrowserAdapter;
+import de.qaware.smartlabaction.action.actor.webbrowser.IWebBrowserAdapter;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.webbrowser.opening.WebBrowserOpeningInfo;
 import de.qaware.smartlabaction.action.result.UuidActionResult;

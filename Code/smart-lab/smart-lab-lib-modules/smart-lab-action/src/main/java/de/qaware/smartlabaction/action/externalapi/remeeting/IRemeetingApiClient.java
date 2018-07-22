@@ -1,7 +1,7 @@
 package de.qaware.smartlabaction.action.externalapi.remeeting;
 
-import de.qaware.smartlabaction.action.executable.speechtotext.remeeting.QueryResultResponse;
-import de.qaware.smartlabaction.action.executable.speechtotext.remeeting.SubmitJobResponse;
+import de.qaware.smartlabaction.action.actor.speechtotext.remeeting.QueryResultResponse;
+import de.qaware.smartlabaction.action.actor.speechtotext.remeeting.SubmitJobResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
