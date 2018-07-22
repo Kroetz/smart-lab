@@ -1,6 +1,0 @@
-c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\bin\Debug\smart-lab-window-handling.dll
-c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\bin\Debug\smart-lab-window-handling.pdb
-c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\obj\Debug\smart-lab-window-handling.csproj.CoreCompileInputs.cache
-c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\obj\Debug\smart-lab-window-handling.dll
-c:\users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\obj\Debug\smart-lab-window-handling.pdb
-C:\Users\d.schock\source\repos\smart-lab-display-management\smart-lab-window-handling\obj\Debug\smart-lab-window-handling.csprojAssemblyReference.cache
