@@ -28,6 +28,8 @@
 		<jcabi-github.version>0.39</jcabi-github.version>
 		<speech-to-text.version>5.5.0</speech-to-text.version>
 		<selenium-java.version>3.13.0</selenium-java.version>
+		<jna.version>4.5.2</jna.version>
+		<jna-platform.version>4.5.2</jna-platform.version>
 	</properties>
 
 	<modules>
@@ -233,6 +235,20 @@
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
 				<version>${selenium-java.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+			<dependency>
+				<groupId>net.java.dev.jna</groupId>
+				<artifactId>jna</artifactId>
+				<version>${jna.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
+			<dependency>
+				<groupId>net.java.dev.jna</groupId>
+				<artifactId>jna-platform</artifactId>
+				<version>${jna-platform.version}</version>
 			</dependency>
 
 		</dependencies>
