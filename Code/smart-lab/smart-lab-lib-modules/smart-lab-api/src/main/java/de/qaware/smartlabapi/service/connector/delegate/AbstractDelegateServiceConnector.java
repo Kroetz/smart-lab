@@ -46,7 +46,7 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
             return response.getBody();
         }
         catch(RetryableException e) {
-            String errorMessage = format("Failed to connect to delegate \"%s\"", serviceName);
+            String errorMessage = format("Failed to connect to delegate \"%s\" to execute action \"%s\"", serviceName, actionId);
             log.error(errorMessage);
             throw new ConnectionFailedException(errorMessage);
         }
