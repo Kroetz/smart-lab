@@ -40,6 +40,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
         WebsiteDisplayingInfo.Configuration config = (WebsiteDisplayingInfo.Configuration) context.getAssistanceConfiguration();
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
+                config.getDisplayId(),
                 asList(config.getUrl()));
         this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }

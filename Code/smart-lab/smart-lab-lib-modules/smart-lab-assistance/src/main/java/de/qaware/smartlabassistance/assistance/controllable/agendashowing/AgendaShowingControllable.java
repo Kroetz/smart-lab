@@ -63,6 +63,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         }
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
+                config.getDisplayId(),
                 asList(meetingAgendaUrl));
         this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }

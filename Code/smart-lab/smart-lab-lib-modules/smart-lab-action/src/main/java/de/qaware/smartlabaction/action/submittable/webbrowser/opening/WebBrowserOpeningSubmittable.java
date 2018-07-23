@@ -40,6 +40,9 @@ public class WebBrowserOpeningSubmittable extends AbstractActionSubmittable<WebB
         private DeviceId webBrowserId;
 
         @NonNull
+        private DeviceId displayId;
+
+        @NonNull
         private List<URL> urlsToOpen;
     }
 }

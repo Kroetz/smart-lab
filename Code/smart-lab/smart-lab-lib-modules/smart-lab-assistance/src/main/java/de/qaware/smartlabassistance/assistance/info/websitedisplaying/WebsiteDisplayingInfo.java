@@ -54,9 +54,11 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
 
         public static final String CONFIG_PROPERTY_KEY_URL = "url";
         public static final String CONFIG_PROPERTY_KEY_WEB_BROWSER_ID = "webBrowserId";
+        public static final String CONFIG_PROPERTY_KEY_DISPLAY_ID = "displayId";
 
         private URL url;
         private DeviceId webBrowserId;
+        private DeviceId displayId;
 
         private Configuration(WebsiteDisplayingInfo websiteDisplayingInfo, Map<String, String> configProperties) {
             super(websiteDisplayingInfo);
@@ -75,6 +77,9 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
                     case CONFIG_PROPERTY_KEY_WEB_BROWSER_ID:
                         this.webBrowserId = DeviceId.of(configProperties.get(key));
                         break;
+                    case CONFIG_PROPERTY_KEY_DISPLAY_ID:
+                        this.displayId = DeviceId.of(configProperties.get(key));
+                        break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());
                         break;
@@ -87,6 +92,7 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
             Map<String, String> configProperties = new HashMap<>();
             configProperties.put(CONFIG_PROPERTY_KEY_URL, this.url.toString());
             configProperties.put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue());
+            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
             return toConfigLangString(configProperties);
         }
     }

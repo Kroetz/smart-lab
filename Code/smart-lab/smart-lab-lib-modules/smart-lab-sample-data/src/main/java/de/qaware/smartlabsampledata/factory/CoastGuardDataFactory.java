@@ -124,10 +124,12 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
                 .build()));
         whaleConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
                 .build()));
         whaleConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -161,10 +163,12 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

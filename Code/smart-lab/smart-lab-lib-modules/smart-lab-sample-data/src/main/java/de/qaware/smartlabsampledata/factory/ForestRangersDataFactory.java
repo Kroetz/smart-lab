@@ -106,10 +106,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY.getIdValue())
                 .build()));
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

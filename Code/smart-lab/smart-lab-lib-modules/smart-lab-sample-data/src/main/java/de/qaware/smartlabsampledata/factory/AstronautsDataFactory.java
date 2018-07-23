@@ -101,6 +101,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLACK_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLACK_DISPLAY.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

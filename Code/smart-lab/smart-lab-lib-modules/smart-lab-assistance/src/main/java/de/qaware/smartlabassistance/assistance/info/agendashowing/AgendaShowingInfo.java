@@ -49,8 +49,10 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
     public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
         public static final String CONFIG_PROPERTY_KEY_WEB_BROWSER_ID = "webBrowserId";
+        public static final String CONFIG_PROPERTY_KEY_DISPLAY_ID = "displayId";
 
         private DeviceId webBrowserId;
+        private DeviceId displayId;
 
         private Configuration(AgendaShowingInfo agendaShowingInfo, Map<String, String> configProperties) {
             super(agendaShowingInfo);
@@ -58,6 +60,9 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
                 switch (key) {
                     case CONFIG_PROPERTY_KEY_WEB_BROWSER_ID:
                         this.webBrowserId = DeviceId.of(configProperties.get(key));
+                        break;
+                    case CONFIG_PROPERTY_KEY_DISPLAY_ID:
+                        this.displayId = DeviceId.of(configProperties.get(key));
                         break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());
@@ -70,6 +75,7 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         public String toConfigLangString() {
             Map<String, String> configProperties = new HashMap<>();
             configProperties.put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue());
+            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
             return toConfigLangString(configProperties);
         }
     }

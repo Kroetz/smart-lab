@@ -45,10 +45,7 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance(actionArgs.getUrlsToOpen());
-
-        // TODO: Move to correct screen and maximize
-        //webBrowserAdapter.maximizeOnDisplay(webBrowserInstanceId, displayId);
-
+        webBrowserAdapter.maximizeOnDisplay(webBrowserInstanceId, actionArgs.getDisplayId());
         return UuidActionResult.of(webBrowserInstanceId);
     }
 

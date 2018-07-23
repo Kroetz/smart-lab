@@ -4,9 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
+import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
+import de.qaware.smartlabcore.data.device.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -37,6 +38,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_BRUCE = PersonId.of("fire-fighter-bruce");
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
     public static final RoomId ROOM_ID_RED = RoomId.of("red");
+    public static final DeviceId DEVICE_ID_RED_DISPLAY = DeviceId.of("red-display");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
     public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
@@ -112,6 +114,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_RED_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_RED_DISPLAY.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -143,6 +146,12 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     @Override
     public Set<IDevice> createDeviceSet() {
         Set<IDevice> devices = new HashSet<>();
+        devices.add(Device.builder()
+                .id(DEVICE_ID_RED_DISPLAY)
+                .type(DummyDisplay.DEVICE_TYPE)
+                .name("Display in Room Red")
+                .responsibleDelegate(DELEGATE_ID_RED)
+                .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_RED_MICROPHONE)
                 .type(DummyMicrophone.DEVICE_TYPE)
