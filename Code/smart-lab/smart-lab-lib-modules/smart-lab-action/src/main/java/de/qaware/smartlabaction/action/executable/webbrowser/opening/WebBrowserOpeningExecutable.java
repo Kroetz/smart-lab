@@ -44,8 +44,11 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 .resolve(webBrowserType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
-        webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
+        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance(actionArgs.getUrlsToOpen());
+
+        // TODO: Move to correct screen and maximize
+        //webBrowserAdapter.maximizeOnDisplay(webBrowserInstanceId, displayId);
+
         return UuidActionResult.of(webBrowserInstanceId);
     }
 
@@ -65,8 +68,7 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 webBrowserType,
                 actionArgs);
-        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance();
-        webBrowserAdapter.newTabs(webBrowserInstanceId, actionArgs.getUrlsToOpen());
+        UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance(actionArgs.getUrlsToOpen());
         return UuidActionResult.of(webBrowserInstanceId);
     }
 }

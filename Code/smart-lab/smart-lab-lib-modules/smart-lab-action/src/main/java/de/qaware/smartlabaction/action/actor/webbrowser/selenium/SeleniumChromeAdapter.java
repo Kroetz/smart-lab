@@ -1,6 +1,7 @@
 package de.qaware.smartlabaction.action.actor.webbrowser.selenium;
 
 import de.qaware.smartlabaction.action.actor.webbrowser.IHotkeys;
+import de.qaware.smartlabcore.windowhandling.IWindowHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,8 +27,8 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    public SeleniumChromeAdapter(Path seleniumChromeDriverFile) {
-        super(DEVICE_TYPE, HAS_LOCAL_API, () -> new ChromeDriver(), newTabHotkeys);
+    public SeleniumChromeAdapter(Path seleniumChromeDriverFile, IWindowHandler windowHandler) {
+        super(DEVICE_TYPE, HAS_LOCAL_API, ChromeDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal
         System.setProperty("webdriver.chrome.driver", seleniumChromeDriverFile.toString());
     }

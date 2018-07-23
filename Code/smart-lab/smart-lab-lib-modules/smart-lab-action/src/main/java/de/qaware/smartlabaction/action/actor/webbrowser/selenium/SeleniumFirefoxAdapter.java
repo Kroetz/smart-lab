@@ -1,6 +1,7 @@
 package de.qaware.smartlabaction.action.actor.webbrowser.selenium;
 
 import de.qaware.smartlabaction.action.actor.webbrowser.IHotkeys;
+import de.qaware.smartlabcore.windowhandling.IWindowHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -26,8 +27,8 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    public SeleniumFirefoxAdapter(Path seleniumGeckoDriverFile) {
-        super(DEVICE_TYPE, HAS_LOCAL_API, () -> new FirefoxDriver(), newTabHotkeys);
+    public SeleniumFirefoxAdapter(Path seleniumGeckoDriverFile, IWindowHandler windowHandler) {
+        super(DEVICE_TYPE, HAS_LOCAL_API, FirefoxDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal
         System.setProperty("webdriver.gecko.driver", seleniumGeckoDriverFile.toString());
     }
