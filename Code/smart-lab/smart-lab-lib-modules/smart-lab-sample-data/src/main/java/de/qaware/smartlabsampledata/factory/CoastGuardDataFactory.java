@@ -40,7 +40,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_BEN = PersonId.of("coast-guard-ben");
     public static final PersonId MEMBER_ID_CHARLIE = PersonId.of("coast-guard-charlie");
     public static final RoomId ROOM_ID_BLUE = RoomId.of("blue");
-    public static final DeviceId DEVICE_ID_BLUE_DISPLAY = DeviceId.of("blue-display");
+    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BIG = DeviceId.of("blue-display-big");
+    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_SMALL = DeviceId.of("blue-display-small");
+    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BEAMER = DeviceId.of("blue-display-beamer");
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
     public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
     public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
@@ -124,17 +126,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whaleConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whaleConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whale_slides.pptx")
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -163,17 +166,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whirlpool_slides.pptx")
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -194,7 +198,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public Set<IRoom> createRoomSet() {
         Set<IRoom> rooms = new HashSet<>();
         Set<DeviceId> blueRoomDevices = new HashSet<>();
-        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY);
+        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
+        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
+        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_BEAMER);
         blueRoomDevices.add(DEVICE_ID_BLUE_MICROPHONE);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLUE)
@@ -208,27 +214,39 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public Set<IDevice> createDeviceSet() {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_DISPLAY)
+                .id(DEVICE_ID_BLUE_DISPLAY_BIG)
                 .type(DummyDisplay.DEVICE_TYPE)
-                .name("Display in Room Blue")
+                .name("Big main display in room \"Blue\"")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_BLUE_DISPLAY_SMALL)
+                .type(DummyDisplay.DEVICE_TYPE)
+                .name("Small display next to the door in room \"Blue\"")
+                .responsibleDelegate(DELEGATE_ID_BLUE)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_BLUE_DISPLAY_BEAMER)
+                .type(DummyDisplay.DEVICE_TYPE)
+                .name("Beamer in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_MICROPHONE)
                 .type(ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE)
-                .name("Microphone in Room Blue")
+                .name("Microphone in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_WEB_BROWSER)
                 .type("firefox")
-                .name("Web browser in Room Blue")
+                .name("Web browser in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_POWER_POINT)
                 .type("powerPoint")
-                .name("PowerPoint in Room Blue")
+                .name("PowerPoint in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         return devices;

@@ -61,6 +61,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         try {
             fileOpeningArgs = FileOpeningSubmittable.ActionArgs.of(
                     config.getProgramId(),
+                    config.getDisplayId(),
                     readAllBytes(downloadedFile));
         } catch (IOException e) {
             String errorMessage = format("Could not read downloaded file %s", downloadedFile);

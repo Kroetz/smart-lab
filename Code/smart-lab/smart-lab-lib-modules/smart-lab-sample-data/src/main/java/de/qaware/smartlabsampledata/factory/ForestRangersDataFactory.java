@@ -36,7 +36,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_BARRY = PersonId.of("forest-ranger-barry");
     public static final PersonId MEMBER_ID_CAROLINE = PersonId.of("forest-ranger-caroline");
     public static final RoomId ROOM_ID_GREEN = RoomId.of("green");
-    public static final DeviceId DEVICE_ID_GREEN_DISPLAY = DeviceId.of("green-display");
+    public static final DeviceId DEVICE_ID_GREEN_DISPLAY_BIG = DeviceId.of("green-display-big");
+    public static final DeviceId DEVICE_ID_GREEN_DISPLAY_SMALL = DeviceId.of("green-display-small");
     public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
     public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "green-delegate";
@@ -106,12 +107,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY_BIG.getIdValue())
                 .build()));
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -131,7 +132,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public Set<IRoom> createRoomSet() {
         Set<IRoom> rooms = new HashSet<>();
         Set<DeviceId> greenRoomDevices = new HashSet<>();
-        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY);
+        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
+        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
         rooms.add(Room.builder()
                 .id(ROOM_ID_GREEN)
                 .name("Room Green")
@@ -144,15 +146,21 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public Set<IDevice> createDeviceSet() {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
-                .id(DEVICE_ID_GREEN_DISPLAY)
+                .id(DEVICE_ID_GREEN_DISPLAY_BIG)
                 .type(DummyDisplay.DEVICE_TYPE)
-                .name("Display in Room Green")
+                .name("Big main display in room \"Green\"")
+                .responsibleDelegate(DELEGATE_ID_GREEN)
+                .build());
+        devices.add(Device.builder()
+                .id(DEVICE_ID_GREEN_DISPLAY_SMALL)
+                .type(DummyDisplay.DEVICE_TYPE)
+                .name("Small display next to the door in room \"Green\"")
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_WEB_BROWSER)
                 .type("chrome")
-                .name("Web browser in Room Green")
+                .name("Web browser in room \"Green\"")
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         return devices;

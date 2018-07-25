@@ -1,5 +1,8 @@
 package de.qaware.smartlabcore.miscellaneous;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
+
 public abstract class StringUtils {
 
     public static final String EMPTY = "";
@@ -17,5 +20,15 @@ public abstract class StringUtils {
 
     public static String trimEnclosing(String s) {
         return s.substring(1, s.length() - 1);
+    }
+
+    public static String utf8ToBase64String(String s) {
+        try {
+            // TODO: String literal
+            return Base64.getEncoder().encodeToString(s.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            // TODO: Exception type & message
+            throw new RuntimeException("Base64 failed");
+        }
     }
 }

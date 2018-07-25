@@ -50,9 +50,11 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
 
         public static final String CONFIG_PROPERTY_KEY_FILE = "file";
         public static final String CONFIG_PROPERTY_KEY_PROGRAM_ID = "programId";
+        public static final String CONFIG_PROPERTY_KEY_DISPLAY_ID = "displayId";
 
         private String filePath;
         private DeviceId programId;
+        private DeviceId displayId;
 
         private Configuration(FileDisplayingInfo fileDisplayingInfo, Map<String, String> configProperties) {
             super(fileDisplayingInfo);
@@ -63,6 +65,9 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
                         break;
                     case CONFIG_PROPERTY_KEY_PROGRAM_ID:
                         this.programId = DeviceId.of(configProperties.get(key));
+                        break;
+                    case CONFIG_PROPERTY_KEY_DISPLAY_ID:
+                        this.displayId = DeviceId.of(configProperties.get(key));
                         break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());
@@ -76,6 +81,7 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
             Map<String, String> configProperties = new HashMap<>();
             configProperties.put(CONFIG_PROPERTY_KEY_FILE, this.filePath);
             configProperties.put(CONFIG_PROPERTY_KEY_PROGRAM_ID, this.programId.getIdValue());
+            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
             return toConfigLangString(configProperties);
         }
     }

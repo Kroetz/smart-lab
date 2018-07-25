@@ -35,7 +35,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_BEVERLY = PersonId.of("beverly");
     public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
     public static final RoomId ROOM_ID_BLACK = RoomId.of("black");
-    public static final DeviceId DEVICE_ID_BLACK_DISPLAY = DeviceId.of("black-display");
+    public static final DeviceId DEVICE_ID_BLACK_DISPLAY_BEAMER = DeviceId.of("black-display-beamer");
     public static final DeviceId DEVICE_ID_BLACK_WEB_BROWSER = DeviceId.of("black-web-browser");
     public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", ROOM_ID_BLACK);
     public static final String DELEGATE_ID_BLACK = "black-delegate";
@@ -101,7 +101,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLACK_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLACK_DISPLAY.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -121,7 +121,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public Set<IRoom> createRoomSet() {
         Set<IRoom> rooms = new HashSet<>();
         Set<DeviceId> blackRoomDevices = new HashSet<>();
-        blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY);
+        blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
         rooms.add(Room.builder()
                 .id(ROOM_ID_BLACK)
                 .name("Room Black")
@@ -134,9 +134,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public Set<IDevice> createDeviceSet() {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
-                .id(DEVICE_ID_BLACK_DISPLAY)
+                .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
                 .type(DummyDisplay.DEVICE_TYPE)
-                .name("Display in Room Black")
+                .name("Beamer in in room \"Black\"")
                 .responsibleDelegate(DELEGATE_ID_BLACK)
                 .build());
         return devices;

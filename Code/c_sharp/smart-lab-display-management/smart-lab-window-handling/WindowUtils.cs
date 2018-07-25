@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace smart_lab_window_handling
@@ -10,8 +12,10 @@ namespace smart_lab_window_handling
     public static class WindowUtils
     {
         [DllExport]
-        public static IntPtr FindWindowByTitle(string windowTitle)
+        public static IntPtr FindWindowByTitle(String windowTitleAsBase64)
         {
+            // See the reason for converting the string argument in the Java code of the main project where this method is called via JPA
+            String windowTitle = Encoding.UTF8.GetString(Convert.FromBase64String(windowTitleAsBase64));
             return FindWindow(null, windowTitle);
         }
 
@@ -35,6 +39,7 @@ namespace smart_lab_window_handling
 
         public static void MoveToFullScreen(IntPtr windowHandle, Screen screen)
         {
+            ShowWindowNormal(windowHandle);
             var monitor = screen.WorkingArea;
             MoveToScreen(
                     windowHandle,
@@ -61,6 +66,11 @@ namespace smart_lab_window_handling
                 0,  // Is ignored because of SWP.NOSIZE
                 SWP.NOSIZE,
                 screen);
+        }
+
+        public static void ShowWindowNormal(IntPtr windowHandle)
+        {
+            if (!ShowWindow(windowHandle, SW.SHOWNORMAL)) throw new Exception("Could not show window normal");
         }
 
         public static Rectangle WindowDimensions(IntPtr windowHandle)

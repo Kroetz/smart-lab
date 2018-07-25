@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -59,6 +60,7 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
             throw new ActionExecutionFailedException(e);
         }
         UUID programInstanceId = programAdapter.openFile(fileToOpen);
+        programAdapter.maximizeOnDisplay(programInstanceId, actionArgs.getDisplayId());
         return UuidActionResult.of(programInstanceId);
     }
 
@@ -86,6 +88,7 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
             throw new ActionExecutionFailedException(e);
         }
         UUID programInstanceId = programAdapter.openFile(fileToOpen);
+        programAdapter.maximizeOnDisplay(programInstanceId, actionArgs.getDisplayId());
         return UuidActionResult.of(programInstanceId);
     }
 }

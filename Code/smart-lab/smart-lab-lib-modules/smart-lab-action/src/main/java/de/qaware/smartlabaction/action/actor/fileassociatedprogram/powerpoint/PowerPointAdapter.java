@@ -1,9 +1,11 @@
 package de.qaware.smartlabaction.action.actor.fileassociatedprogram.powerpoint;
 
 import de.qaware.smartlabaction.action.actor.fileassociatedprogram.AbstractFileAssociatedProgramAdapter;
-import de.qaware.smartlabaction.action.actor.fileassociatedprogram.IProgramInstance;
-import de.qaware.smartlabaction.action.actor.fileassociatedprogram.ProgramInstance;
+import de.qaware.smartlabaction.action.actor.fileassociatedprogram.FileAssociatedProgramInstance;
+import de.qaware.smartlabaction.action.actor.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlabcore.exception.LocalDeviceException;
+import de.qaware.smartlabcore.windowhandling.IWindowHandler;
+import de.qaware.smartlabcore.windowhandling.IWindowInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -22,17 +24,17 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 
     private final Path powerPointExecutable;
 
-    public PowerPointAdapter(Path powerPointExecutable) {
-        super(PROGRAM_TYPE, HAS_LOCAL_API);
+    public PowerPointAdapter(IWindowHandler windowHandler, Path powerPointExecutable) {
+        super(PROGRAM_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
     }
 
     @Override
     public UUID openFile(Path fileToOpen) {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        Process powerPointInstance;
+        Process powerPointProcess;
         try {
-            powerPointInstance = processBuilder
+            powerPointProcess = processBuilder
                     // TODO: String literals
                     .command(
                             this.powerPointExecutable.toString(),
@@ -46,13 +48,19 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
             throw new LocalDeviceException(errorMessage, e);
         }
         UUID powerPointInstanceId = UUID.randomUUID();
-        this.programInstancesByID.put(powerPointInstanceId, ProgramInstance.of(powerPointInstance, fileToOpen));
+        IWindowInfo powerPointWindow = this.windowHandler.findPowerPointWindow(fileToOpen);
+        IFileAssociatedProgramInstance powerPointInstance = FileAssociatedProgramInstance.of(
+                powerPointInstanceId,
+                powerPointProcess,
+                fileToOpen,
+                powerPointWindow);
+        this.programInstancesByID.put(powerPointInstance.getId(), powerPointInstance);
         return powerPointInstanceId;
     }
 
     @Override
     public Path close(UUID powerPointInstanceId) {
-        IProgramInstance programInstance = resolveProgramInstance(powerPointInstanceId);
+        IFileAssociatedProgramInstance programInstance = resolveProgramInstance(powerPointInstanceId);
         programInstance.getProcess().destroy();
         this.programInstancesByID.remove(powerPointInstanceId);
         return programInstance.getOpenedFile();

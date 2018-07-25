@@ -38,7 +38,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_BRUCE = PersonId.of("fire-fighter-bruce");
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
     public static final RoomId ROOM_ID_RED = RoomId.of("red");
-    public static final DeviceId DEVICE_ID_RED_DISPLAY = DeviceId.of("red-display");
+    public static final DeviceId DEVICE_ID_RED_DISPLAY_BIG = DeviceId.of("red-display-big");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
     public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
@@ -114,7 +114,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_RED_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_RED_DISPLAY.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -147,15 +147,15 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public Set<IDevice> createDeviceSet() {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
-                .id(DEVICE_ID_RED_DISPLAY)
+                .id(DEVICE_ID_RED_DISPLAY_BIG)
                 .type(DummyDisplay.DEVICE_TYPE)
-                .name("Display in Room Red")
+                .name("Big display in room \"Red\"")
                 .responsibleDelegate(DELEGATE_ID_RED)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_RED_MICROPHONE)
                 .type(DummyMicrophone.DEVICE_TYPE)
-                .name("Microphone in Room Red")
+                .name("Microphone in room \"Red\"")
                 .responsibleDelegate(DELEGATE_ID_RED)
                 .build());
         return devices;
