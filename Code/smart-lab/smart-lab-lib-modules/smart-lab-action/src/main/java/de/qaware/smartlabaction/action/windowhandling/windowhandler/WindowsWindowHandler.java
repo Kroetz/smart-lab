@@ -30,11 +30,10 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
 
     /*
      * The time that must pass after a failed attempt before the Windows API is polled again to find a specific window.
-     * NOTE: This interval should be specified rather too big than too small because windows that are about to appear
-     * may reported as present by Windows. However trying to move them will result in their application to crash.
      */
-    private static final Duration FIND_WINDOW_RETRY_INTERVAL = Duration.ofMillis(1000);
+    private static final Duration FIND_WINDOW_RETRY_INTERVAL = Duration.ofMillis(100);
 
+    private static final Duration WINDOW_CREATION_DELAY = Duration.ofMillis(1000);
     private static final String FIREFOX_WINDOW_TITLE_TEMPLATE = "%s - Mozilla Firefox";
     private static final String CHROME_WINDOW_TITLE_TEMPLATE = "%s - Google Chrome";
     // TODO: This template is only valid for german versions of PowerPoint and will fail for other languages
@@ -80,20 +79,41 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
         Instant start = Instant.now();
         while(isNull(windowHandle) && Instant.now().isBefore(start.plus(this.findWindowTimeout))) {
             windowHandle = this.windowHandlingApi.FindWindowByTitle(windowTitleAsBase64);
-            try {
-                TimeUnit.MILLISECONDS.sleep(FIND_WINDOW_RETRY_INTERVAL.toMillis());
-            } catch (InterruptedException e) {
-                String errorMessage = format("Could not wait and retry to find a window with the title \"%s\"", windowTitle);
-                log.error(errorMessage, e);
-                throw new WindowHandlingException(errorMessage, e);
-            }
+            waitFindWindowRetryInterval(windowTitle);
         }
         if(isNull(windowHandle)) {
             String errorMessage = format("Could not find a window with the title \"%s\"", windowTitle);
             log.error(errorMessage);
             throw new WindowHandlingException(errorMessage);
         }
+        waitWindowCreationDelay(windowTitle);
         return WindowsWindowInfo.of(this, windowHandle);
+    }
+
+    private void waitFindWindowRetryInterval(String windowTitle) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(FIND_WINDOW_RETRY_INTERVAL.toMillis());
+        } catch (InterruptedException e) {
+            String errorMessage = format("Could not wait and retry to find a window with the title \"%s\"", windowTitle);
+            log.error(errorMessage, e);
+            throw new WindowHandlingException(errorMessage, e);
+        }
+    }
+
+    /**
+     * TODO: This method is a workaround
+     * Windows that are about to appear may be reported as present by the operating system. However trying to move
+     * them will result in their application to crash because they are not fully functional yet. This method adds a
+     * delay between finding a window and actually using it (e.g. moving) to mitigate this problem.
+     */
+    private void waitWindowCreationDelay(String windowTitle) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(WINDOW_CREATION_DELAY.toMillis());
+        } catch (InterruptedException e) {
+            String errorMessage = format("Could not wait until the window with the title \"%s\" is fully created", windowTitle);
+            log.error(errorMessage, e);
+            throw new WindowHandlingException(errorMessage, e);
+        }
     }
 
     @Override
