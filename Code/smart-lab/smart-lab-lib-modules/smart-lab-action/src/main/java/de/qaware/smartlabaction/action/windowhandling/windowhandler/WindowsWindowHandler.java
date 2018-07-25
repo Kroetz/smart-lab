@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.sun.jna.Native.loadLibrary;
+import static de.qaware.smartlabaction.action.actor.fileassociatedprogram.powerpoint.PowerPointAdapter.getWindowTitle;
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.utf8ToBase64String;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
@@ -36,8 +37,6 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
     private static final Duration WINDOW_CREATION_DELAY = Duration.ofMillis(1000);
     private static final String FIREFOX_WINDOW_TITLE_TEMPLATE = "%s - Mozilla Firefox";
     private static final String CHROME_WINDOW_TITLE_TEMPLATE = "%s - Google Chrome";
-    // TODO: This template is only valid for german versions of PowerPoint and will fail for other languages
-    private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE = "PowerPoint-Bildschirmpräsentation  -  %s";
 
     private final WindowsWindowHandlingApi windowHandlingApi;
 
@@ -60,7 +59,13 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
 
     @Override
     public IWindowInfo findPowerPointWindow(Path openedFile) throws WindowHandlingException {
-        String windowTitle = format(POWER_POINT_WINDOW_TITLE_TEMPLATE, openedFile.getFileName());
+        String windowTitle;
+        try {
+            windowTitle = getWindowTitle(openedFile);
+        }
+        catch(IllegalStateException e) {
+            throw new WindowHandlingException(e);
+        }
         return findWindowByTitle(windowTitle);
     }
 

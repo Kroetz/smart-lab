@@ -4,6 +4,7 @@ import de.qaware.smartlabaction.action.actor.fileassociatedprogram.AbstractFileA
 import de.qaware.smartlabaction.action.actor.fileassociatedprogram.FileAssociatedProgramInstance;
 import de.qaware.smartlabaction.action.actor.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlabcore.exception.LocalDeviceException;
+import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.windowhandling.IWindowHandler;
 import de.qaware.smartlabcore.windowhandling.IWindowInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.UUID;
 
 import static java.lang.String.format;
@@ -22,11 +24,29 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
     public static final String PROGRAM_TYPE = "powerPoint";
     private static final boolean HAS_LOCAL_API = true;
 
+    private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_DE_DE = "PowerPoint-Bildschirmpräsentation  -  %s";
+    private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_EN_US = "PowerPoint Slide Show  -  %s";
+
     private final Path powerPointExecutable;
 
     public PowerPointAdapter(IWindowHandler windowHandler, Path powerPointExecutable) {
         super(PROGRAM_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
+    }
+
+    public static String getWindowTitle(Path openedFile) throws IllegalStateException {
+        Language systemLanguage = Language.of(Locale.getDefault().toLanguageTag());
+        switch(systemLanguage) {
+            case EN_US:
+            case EN_GB:
+                return format(POWER_POINT_WINDOW_TITLE_TEMPLATE_EN_US, openedFile.getFileName());
+            case DE_DE:
+                return format(POWER_POINT_WINDOW_TITLE_TEMPLATE_DE_DE, openedFile.getFileName());
+            default:
+                String errorMessage = format("System language \"%s\" is not supported", systemLanguage.toString());
+                log.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+        }
     }
 
     @Override

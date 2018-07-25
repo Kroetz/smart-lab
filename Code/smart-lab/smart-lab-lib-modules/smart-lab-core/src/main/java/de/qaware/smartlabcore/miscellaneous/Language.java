@@ -18,7 +18,7 @@ public enum Language {
 
     public static Language of(String language) throws IllegalArgumentException {
         try {
-            return Language.valueOf(language.trim().toUpperCase());
+            return Language.valueOf(language.trim().toUpperCase().replace("-", "_"));
         }
         catch(IllegalArgumentException e) {
             log.error("Cannot create language from string \"{}\"", language);
