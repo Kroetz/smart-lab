@@ -1,6 +1,6 @@
-package de.qaware.smartlabaction.action.submittable.beamer.deactivation;
+package de.qaware.smartlabaction.action.submittable.device.deactivation;
 
-import de.qaware.smartlabaction.action.info.beamer.deactivation.BeamerDeactivationInfo;
+import de.qaware.smartlabaction.action.info.device.deactivation.DeviceDeactivationInfo;
 import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmittable;
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class BeamerDeactivationSubmittable extends AbstractActionSubmittable<BeamerDeactivationSubmittable.ActionArgs, Void> {
+public class DeviceDeactivationSubmittable extends AbstractActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> {
 
-    public BeamerDeactivationSubmittable(BeamerDeactivationInfo beamerDeactivationInfo) {
-        super(beamerDeactivationInfo);
+    public DeviceDeactivationSubmittable(DeviceDeactivationInfo deviceDeactivationInfo) {
+        super(deviceDeactivationInfo);
     }
 
     public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
@@ -32,6 +32,6 @@ public class BeamerDeactivationSubmittable extends AbstractActionSubmittable<Bea
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private DeviceId beamerId;
+        private DeviceId deviceId;
     }
 }

@@ -1,6 +1,6 @@
-package de.qaware.smartlabaction.action.submittable.beamer.activation;
+package de.qaware.smartlabaction.action.submittable.device.activation;
 
-import de.qaware.smartlabaction.action.info.beamer.activation.BeamerActivationInfo;
+import de.qaware.smartlabaction.action.info.device.activation.DeviceActivationInfo;
 import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmittable;
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class BeamerActivationSubmittable extends AbstractActionSubmittable<BeamerActivationSubmittable.ActionArgs, Void> {
+public class DeviceActivationSubmittable extends AbstractActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> {
 
-    public BeamerActivationSubmittable(BeamerActivationInfo beamerActivationInfo) {
-        super(beamerActivationInfo);
+    public DeviceActivationSubmittable(DeviceActivationInfo deviceActivationInfo) {
+        super(deviceActivationInfo);
     }
 
     public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
@@ -32,6 +32,6 @@ public class BeamerActivationSubmittable extends AbstractActionSubmittable<Beame
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private DeviceId beamerId;
+        private DeviceId deviceId;
     }
 }

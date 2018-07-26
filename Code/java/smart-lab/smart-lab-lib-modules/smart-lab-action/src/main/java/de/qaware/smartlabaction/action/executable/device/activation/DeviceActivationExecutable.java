@@ -1,10 +1,10 @@
-package de.qaware.smartlabaction.action.executable.beamer.deactivation;
+package de.qaware.smartlabaction.action.executable.device.activation;
 
-import de.qaware.smartlabaction.action.actor.beamer.IBeamerAdapter;
+import de.qaware.smartlabaction.action.actor.generic.IActivatable;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
-import de.qaware.smartlabaction.action.info.beamer.deactivation.BeamerDeactivationInfo;
+import de.qaware.smartlabaction.action.info.device.activation.DeviceActivationInfo;
 import de.qaware.smartlabaction.action.result.VoidActionResult;
-import de.qaware.smartlabaction.action.submittable.beamer.deactivation.BeamerDeactivationSubmittable;
+import de.qaware.smartlabaction.action.submittable.device.activation.DeviceActivationSubmittable;
 import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
 import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
@@ -17,17 +17,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class BeamerDeactivationExecutable extends AbstractActionExecutable {
+public class DeviceActivationExecutable extends AbstractActionExecutable {
 
-    private IResolver<String, IBeamerAdapter> beamerAdapterResolver;
+    private IResolver<String, IActivatable> activatableResolver;
     private IDeviceManagementService deviceManagementService;
 
-    public BeamerDeactivationExecutable(
-            BeamerDeactivationInfo beamerDeactivationInfo,
-            IResolver<String, IBeamerAdapter> beamerAdapterResolver,
+    public DeviceActivationExecutable(
+            DeviceActivationInfo deviceActivationInfo,
+            IResolver<String, IActivatable> activatableResolver,
             IDeviceManagementService deviceManagementService) {
-        super(beamerDeactivationInfo);
-        this.beamerAdapterResolver = beamerAdapterResolver;
+        super(deviceActivationInfo);
+        this.activatableResolver = activatableResolver;
         this.deviceManagementService = deviceManagementService;
     }
 
@@ -35,34 +35,34 @@ public class BeamerDeactivationExecutable extends AbstractActionExecutable {
     public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        BeamerDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
-                BeamerDeactivationSubmittable.ActionArgs.class,
+        DeviceActivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+                DeviceActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IBeamerAdapter beamerAdapter = this.beamerAdapterResolver
+        IActivatable activatable = this.activatableResolver
                 .resolve(deviceType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
-        if(!beamerAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        beamerAdapter.deactivate();
+        if(!activatable.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
+        activatable.activate();
         return VoidActionResult.instance();
     }
 
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        BeamerDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
-                BeamerDeactivationSubmittable.ActionArgs.class,
+        DeviceActivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+                DeviceActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice device = this.deviceManagementService.findOne(actionArgs.getBeamerId());
+        IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
         String deviceType = device.getType();
-        IBeamerAdapter beamerAdapter = this.beamerAdapterResolver
+        IActivatable activatable = this.activatableResolver
                 .resolve(deviceType)
                 .orElseThrow(UnknownDeviceAdapterException::new);
-        if(beamerAdapter.hasLocalApi()) return delegateService.executeAction(
+        if(activatable.hasLocalApi()) return delegateService.executeAction(
                 device.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
                 deviceType,
                 actionArgs);
-        beamerAdapter.deactivate();
+        activatable.activate();
         return VoidActionResult.instance();
     }
 }
