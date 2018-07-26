@@ -1,9 +1,6 @@
 package de.qaware.smartlabaction.action.actor.beamer;
 
-import de.qaware.smartlabcore.data.device.IDeviceAdapter;
+import de.qaware.smartlabaction.action.actor.generic.IActivatable;
+import de.qaware.smartlabaction.action.actor.generic.IDeactivatable;
 
-public interface IBeamerAdapter extends IDeviceAdapter {
-
-    void activate();
-    void deactivate();
-}
+public interface IBeamerAdapter extends IActivatable, IDeactivatable { }
