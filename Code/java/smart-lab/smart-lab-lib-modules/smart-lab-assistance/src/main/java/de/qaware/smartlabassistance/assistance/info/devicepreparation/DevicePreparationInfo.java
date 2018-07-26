@@ -1,4 +1,4 @@
-package de.qaware.smartlabassistance.assistance.info.devicepreparing;
+package de.qaware.smartlabassistance.assistance.info.devicepreparation;
 
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
@@ -20,19 +20,19 @@ import static java.util.stream.Stream.of;
 @Slf4j
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class DevicePreparingInfo extends AbstractAssistanceInfo {
+public class DevicePreparationInfo extends AbstractAssistanceInfo {
 
-    public static final String ASSISTANCE_ID = "devicePreparing";
+    public static final String ASSISTANCE_ID = "devicePreparation";
     // TODO: Simpler with Java 9 (see https://stackoverflow.com/questions/2041778/how-to-initialize-hashset-values-by-construction)
     public static final Set<String> ASSISTANCE_ID_ALIASES = of(
-            "device-preparing",
-            "device preparing").collect(toSet());
+            "device-preparation",
+            "device preparation").collect(toSet());
     public static final String ASSISTANCE_COMMAND = "prepareDevice";
     public static final Set<String> ASSISTANCE_COMMAND_ALIASES = of(
             "prepare-device",
             "prepare device").collect(toSet());
 
-    public DevicePreparingInfo() {
+    public DevicePreparationInfo() {
         super(ASSISTANCE_ID, ASSISTANCE_ID_ALIASES, ASSISTANCE_COMMAND, ASSISTANCE_COMMAND_ALIASES);
     }
 
@@ -52,8 +52,8 @@ public class DevicePreparingInfo extends AbstractAssistanceInfo {
 
         private DeviceId deviceId;
 
-        private Configuration(DevicePreparingInfo devicePreparingInfo, Map<String, String> configProperties) {
-            super(devicePreparingInfo);
+        private Configuration(DevicePreparationInfo devicePreparationInfo, Map<String, String> configProperties) {
+            super(devicePreparationInfo);
             for(String key : configProperties.keySet()) {
                 switch (key) {
                     case CONFIG_PROPERTY_KEY_DEVICE_ID:

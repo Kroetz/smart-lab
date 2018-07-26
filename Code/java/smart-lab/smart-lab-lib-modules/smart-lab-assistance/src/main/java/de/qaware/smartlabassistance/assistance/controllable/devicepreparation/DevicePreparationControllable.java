@@ -1,4 +1,4 @@
-package de.qaware.smartlabassistance.assistance.controllable.devicepreparing;
+package de.qaware.smartlabassistance.assistance.controllable.devicepreparation;
 
 import de.qaware.smartlabaction.action.submittable.device.activation.DeviceActivationSubmittable;
 import de.qaware.smartlabaction.action.submittable.device.deactivation.DeviceDeactivationSubmittable;
@@ -7,23 +7,23 @@ import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
-import de.qaware.smartlabassistance.assistance.info.devicepreparing.DevicePreparingInfo;
+import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-public class DevicePreparingControllable extends AbstractAssistanceControllable {
+public class DevicePreparationControllable extends AbstractAssistanceControllable {
 
     private final IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation;
     private final IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation;
 
-    private DevicePreparingControllable(
-            IAssistanceInfo devicePreparingInfo,
+    private DevicePreparationControllable(
+            IAssistanceInfo devicePreparationInfo,
             IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation,
             IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation) {
-        super(devicePreparingInfo);
+        super(devicePreparationInfo);
         this.deviceActivation = deviceActivation;
         this.deviceDeactivation = deviceDeactivation;
     }
@@ -32,7 +32,7 @@ public class DevicePreparingControllable extends AbstractAssistanceControllable 
     public void begin(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DevicePreparingInfo.Configuration config = (DevicePreparingInfo.Configuration) context.getAssistanceConfiguration();
+        DevicePreparationInfo.Configuration config = (DevicePreparationInfo.Configuration) context.getAssistanceConfiguration();
         final DeviceActivationSubmittable.ActionArgs deviceActivationArgs = DeviceActivationSubmittable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceActivation.submitExecution(actionService, deviceActivationArgs);
@@ -42,7 +42,7 @@ public class DevicePreparingControllable extends AbstractAssistanceControllable 
     public void end(IActionService actionService, IAssistanceContext context) {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
-        DevicePreparingInfo.Configuration config = (DevicePreparingInfo.Configuration) context.getAssistanceConfiguration();
+        DevicePreparationInfo.Configuration config = (DevicePreparationInfo.Configuration) context.getAssistanceConfiguration();
         final DeviceDeactivationSubmittable.ActionArgs deviceDeactivationArgs = DeviceDeactivationSubmittable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceDeactivation.submitExecution(actionService, deviceDeactivationArgs);
@@ -61,17 +61,17 @@ public class DevicePreparingControllable extends AbstractAssistanceControllable 
         private final IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation;
 
         public Factory(
-                IAssistanceInfo devicePreparingInfo,
+                IAssistanceInfo devicePreparationInfo,
                 IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation,
                 IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation) {
-            super(devicePreparingInfo);
+            super(devicePreparationInfo);
             this.deviceActivation = deviceActivation;
             this.deviceDeactivation = deviceDeactivation;
         }
 
         @Override
         public IAssistanceControllable newInstance() {
-            return new DevicePreparingControllable(
+            return new DevicePreparationControllable(
                     this.assistanceInfo,
                     this.deviceActivation,
                     this.deviceDeactivation);
