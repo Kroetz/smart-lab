@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.device;
+package de.qaware.smartlabaction.action.actor.generic;
 
 public interface IDeviceAdapter {
 

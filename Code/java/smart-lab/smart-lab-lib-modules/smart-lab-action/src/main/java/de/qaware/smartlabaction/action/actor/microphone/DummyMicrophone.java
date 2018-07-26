@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.device.microphone;
+package de.qaware.smartlabaction.action.actor.microphone;
 
 import de.qaware.smartlabcore.exception.LocalDeviceException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;

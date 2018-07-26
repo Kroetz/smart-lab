@@ -8,11 +8,11 @@ import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePrep
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.device.display.DummyDisplay;
+import de.qaware.smartlabaction.action.actor.display.DummyDisplay;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.device.microphone.DummyMicrophone;
+import de.qaware.smartlabaction.action.actor.microphone.DummyMicrophone;
 import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;

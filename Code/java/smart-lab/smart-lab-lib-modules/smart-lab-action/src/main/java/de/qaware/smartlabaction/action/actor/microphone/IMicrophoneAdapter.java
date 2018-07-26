@@ -1,6 +1,6 @@
-package de.qaware.smartlabcore.data.device.microphone;
+package de.qaware.smartlabaction.action.actor.microphone;
 
-import de.qaware.smartlabcore.data.device.IDeviceAdapter;
+import de.qaware.smartlabaction.action.actor.generic.IDeviceAdapter;
 
 import java.nio.file.Path;
 

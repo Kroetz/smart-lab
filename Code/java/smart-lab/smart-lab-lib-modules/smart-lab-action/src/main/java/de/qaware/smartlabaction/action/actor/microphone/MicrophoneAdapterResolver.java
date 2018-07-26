@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.device.microphone;
+package de.qaware.smartlabaction.action.actor.microphone;
 
 import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;

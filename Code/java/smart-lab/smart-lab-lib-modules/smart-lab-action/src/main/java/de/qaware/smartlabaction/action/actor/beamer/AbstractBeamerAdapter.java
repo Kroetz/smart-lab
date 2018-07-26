@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.actor.beamer;
 
-import de.qaware.smartlabcore.data.device.AbstractDeviceAdapter;
+import de.qaware.smartlabaction.action.actor.generic.AbstractDeviceAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

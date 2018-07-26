@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.actor.fileassociatedprogram;
 
-import de.qaware.smartlabcore.data.device.IDeviceAdapter;
+import de.qaware.smartlabaction.action.actor.generic.IDeviceAdapter;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 
 import java.nio.file.Path;

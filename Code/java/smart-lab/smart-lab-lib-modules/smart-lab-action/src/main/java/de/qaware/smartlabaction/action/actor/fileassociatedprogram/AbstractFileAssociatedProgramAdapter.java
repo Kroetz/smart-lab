@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.actor.fileassociatedprogram;
 
-import de.qaware.smartlabcore.data.device.AbstractDeviceAdapter;
+import de.qaware.smartlabaction.action.actor.generic.AbstractDeviceAdapter;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.exception.LocalDeviceException;
 import de.qaware.smartlabcore.windowhandling.IWindowHandler;
