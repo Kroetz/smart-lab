@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
+import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
@@ -47,15 +48,18 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo devicePreparationInfo;
 
     public FireFightersDataFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo) {
+            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo devicePreparationInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
+        this.devicePreparationInfo = devicePreparationInfo;
     }
 
     @Override
@@ -118,6 +122,10 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .build()));
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
+                .build()));
+        configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_TRUCK)

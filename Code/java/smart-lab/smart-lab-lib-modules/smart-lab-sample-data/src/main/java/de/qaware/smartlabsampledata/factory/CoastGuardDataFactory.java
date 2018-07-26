@@ -2,8 +2,10 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
+import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
+import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
@@ -55,18 +57,22 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo fileDisplayingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo devicePreparationInfo;
 
     public CoastGuardDataFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo fileDisplayingInfo, IAssistanceInfo roomUnlockingInfo) {
+            IAssistanceInfo fileDisplayingInfo,
+            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo devicePreparationInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.fileDisplayingInfo = fileDisplayingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
+        this.devicePreparationInfo = devicePreparationInfo;
     }
 
     @Override
@@ -142,6 +148,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
+        whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .build()));
+        whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .build()));
+        whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
+                .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHALES)
                 .title("Meeting about preventing illegal whale hunting")
@@ -181,6 +199,18 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .build()));
         whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
+                .build()));
+        whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .build()));
+        whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .build()));
+        whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_WHIRLPOOLS)
@@ -227,7 +257,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BEAMER)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyBeamerAdapter.DEVICE_TYPE)
                 .name("Beamer in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());

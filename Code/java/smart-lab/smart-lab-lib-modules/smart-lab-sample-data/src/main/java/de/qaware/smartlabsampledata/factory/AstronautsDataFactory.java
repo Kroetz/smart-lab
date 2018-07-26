@@ -2,11 +2,12 @@ package de.qaware.smartlabsampledata.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
+import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
-import de.qaware.smartlabcore.data.device.display.DummyDisplay;
+import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -42,13 +43,16 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo devicePreparationInfo;
 
     public AstronautsDataFactory(
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo) {
+            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo devicePreparationInfo) {
         super();
         this.agendaShowingInfo = agendaShowingInfo;
         this.roomUnlockingInfo = roomUnlockingInfo;
+        this.devicePreparationInfo = devicePreparationInfo;
     }
 
     @Override
@@ -106,6 +110,10 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
+        configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
+                .<String, String>builder()
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
+                .build()));
         meetings.add(Meeting.builder()
                 .id(MEETING_ID_MARS)
                 .title("Meeting about travelling to Mars")
@@ -135,7 +143,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyBeamerAdapter.DEVICE_TYPE)
                 .name("Beamer in in room \"Black\"")
                 .responsibleDelegate(DELEGATE_ID_BLACK)
                 .build());
