@@ -8,7 +8,7 @@ import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePrep
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabaction.action.actor.display.DummyDisplay;
+import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -159,13 +159,13 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_BIG)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyDisplayAdapter.DEVICE_TYPE)
                 .name("Big main display in room \"Green\"")
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_SMALL)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyDisplayAdapter.DEVICE_TYPE)
                 .name("Small display next to the door in room \"Green\"")
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());

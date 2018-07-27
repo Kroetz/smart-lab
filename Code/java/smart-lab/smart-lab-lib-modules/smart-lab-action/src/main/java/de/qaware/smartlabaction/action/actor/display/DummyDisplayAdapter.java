@@ -5,12 +5,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class DummyDisplay extends AbstractDisplayAdapter {
+public class DummyDisplayAdapter extends AbstractDisplayAdapter {
 
     public static final String DEVICE_TYPE = "dummy display";
     private static final boolean HAS_LOCAL_API = true;
 
-    public DummyDisplay() {
+    public DummyDisplayAdapter() {
         super(DEVICE_TYPE, HAS_LOCAL_API);
+    }
+
+    @Override
+    public void activate() {
+        log.info("Dummy dispaly activated");
+    }
+
+    @Override
+    public void deactivate() {
+        log.info("Dummy display deactivated");
     }
 }

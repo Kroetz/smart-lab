@@ -16,7 +16,7 @@ import static org.apache.commons.io.IOUtils.toByteArray;
 
 @Component
 @Slf4j
-public class DummyMicrophone extends AbstractMicrophoneAdapter {
+public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
 
     public static final String DEVICE_TYPE = "dummy microphone";
     private static final boolean HAS_LOCAL_API = true;
@@ -24,7 +24,7 @@ public class DummyMicrophone extends AbstractMicrophoneAdapter {
     private final ITempFileManager tempFileManager;
     private final Path resourcesTempFileSubDir;
 
-    public DummyMicrophone(
+    public DummyMicrophoneAdapter(
             ResourceLoader resourceLoader,
             ITempFileManager tempFileManager,
             Path resourcesTempFileSubDir) {

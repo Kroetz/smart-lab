@@ -11,7 +11,7 @@ import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabaction.action.actor.display.DummyDisplay;
+import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
@@ -245,13 +245,13 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BIG)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyDisplayAdapter.DEVICE_TYPE)
                 .name("Big main display in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_SMALL)
-                .type(DummyDisplay.DEVICE_TYPE)
+                .type(DummyDisplayAdapter.DEVICE_TYPE)
                 .name("Small display next to the door in room \"Blue\"")
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
