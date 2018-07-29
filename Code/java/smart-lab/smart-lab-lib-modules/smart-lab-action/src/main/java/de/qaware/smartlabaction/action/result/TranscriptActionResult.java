@@ -1,9 +1,10 @@
 package de.qaware.smartlabaction.action.result;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import lombok.*;
 
-@NoArgsConstructor
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -13,7 +14,8 @@ public class TranscriptActionResult extends AbstractActionResult<ITranscript> {
         super(value);
     }
 
-    public static TranscriptActionResult of(ITranscript value) {
+    @JsonCreator
+    public static TranscriptActionResult of(@JsonProperty(VALUE_FIELD_NAME) ITranscript value) {
         return new TranscriptActionResult(value);
     }
 }

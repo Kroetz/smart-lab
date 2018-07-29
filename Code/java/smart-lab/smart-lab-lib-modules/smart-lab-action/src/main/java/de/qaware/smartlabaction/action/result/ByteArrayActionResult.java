@@ -1,8 +1,11 @@
 package de.qaware.smartlabaction.action.result;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@NoArgsConstructor
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -12,7 +15,8 @@ public class ByteArrayActionResult extends AbstractActionResult<byte[]> {
         super(value);
     }
 
-    public static ByteArrayActionResult of(byte[] value) {
+    @JsonCreator
+    public static ByteArrayActionResult of(@JsonProperty(VALUE_FIELD_NAME) byte[] value) {
         return new ByteArrayActionResult(value);
     }
 }

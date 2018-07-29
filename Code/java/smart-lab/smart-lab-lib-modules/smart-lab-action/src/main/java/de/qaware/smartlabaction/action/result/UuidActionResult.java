@@ -1,10 +1,11 @@
 package de.qaware.smartlabaction.action.result;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.UUID;
 
-@NoArgsConstructor
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -14,7 +15,8 @@ public class UuidActionResult extends AbstractActionResult<UUID> {
         super(value);
     }
 
-    public static UuidActionResult of(UUID value) {
+    @JsonCreator
+    public static UuidActionResult of(@JsonProperty(VALUE_FIELD_NAME) UUID value) {
         return new UuidActionResult(value);
     }
 }

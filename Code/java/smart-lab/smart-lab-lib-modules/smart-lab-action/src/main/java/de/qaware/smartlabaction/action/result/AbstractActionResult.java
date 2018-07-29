@@ -7,12 +7,12 @@ import lombok.*;
 import java.util.Optional;
 import java.util.UUID;
 
-@NoArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
 public abstract class AbstractActionResult<T> implements IActionResult {
 
+    protected static final String VALUE_FIELD_NAME = "value";
     private T value;
 
     AbstractActionResult(T value) {
