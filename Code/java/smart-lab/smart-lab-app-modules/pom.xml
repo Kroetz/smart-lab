@@ -18,6 +18,7 @@
     </parent>
 
     <modules>
+        <module>smart-lab-config-microservice</module>
         <module>smart-lab-discovery-microservice</module>
         <module>smart-lab-job-microservice</module>
         <module>smart-lab-person-microservice</module>
