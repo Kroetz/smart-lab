@@ -2,14 +2,15 @@ package de.qaware.smartlabaction.action.result;
 
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@Data
 @NoArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
 public abstract class AbstractActionResult<T> implements IActionResult {
 
     private T value;

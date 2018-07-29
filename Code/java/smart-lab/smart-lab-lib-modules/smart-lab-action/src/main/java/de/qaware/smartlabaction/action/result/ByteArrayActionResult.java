@@ -1,10 +1,11 @@
 package de.qaware.smartlabaction.action.result;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class ByteArrayActionResult extends AbstractActionResult<byte[]> {
 
     private ByteArrayActionResult(byte[] value) {

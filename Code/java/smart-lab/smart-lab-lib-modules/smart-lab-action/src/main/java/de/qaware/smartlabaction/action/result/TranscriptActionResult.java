@@ -1,14 +1,15 @@
 package de.qaware.smartlabaction.action.result;
 
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class TranscriptActionResult extends AbstractActionResult<ITranscript> {
 
-    public TranscriptActionResult(ITranscript value) {
+    private TranscriptActionResult(ITranscript value) {
         super(value);
     }
 

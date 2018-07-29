@@ -1,15 +1,16 @@
 package de.qaware.smartlabaction.action.result;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
-@Data
 @NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class UuidActionResult extends AbstractActionResult<UUID> {
 
-    public UuidActionResult(UUID value) {
+    private UuidActionResult(UUID value) {
         super(value);
     }
 

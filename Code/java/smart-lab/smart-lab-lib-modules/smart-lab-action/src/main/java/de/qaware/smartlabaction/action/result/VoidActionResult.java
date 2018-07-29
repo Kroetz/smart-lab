@@ -1,11 +1,15 @@
 package de.qaware.smartlabaction.action.result;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Optional;
 
-@Data
-public class VoidActionResult extends AbstractActionResult {
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class VoidActionResult extends AbstractActionResult<Void> {
 
     private VoidActionResult() {
         super(null);
