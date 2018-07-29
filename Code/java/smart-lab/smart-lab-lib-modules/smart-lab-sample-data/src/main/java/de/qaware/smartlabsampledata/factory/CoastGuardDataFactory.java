@@ -118,9 +118,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
-        whaleMeetingAgenda.add(AgendaItem.builder().content("Show critical areas").build());
-        whaleMeetingAgenda.add(AgendaItem.builder().content("Explain whale anatomy").build());
-        whaleMeetingAgenda.add(AgendaItem.builder().content("Drink coffee").build());
+        whaleMeetingAgenda.add(AgendaItem.of("Show critical areas"));
+        whaleMeetingAgenda.add(AgendaItem.of("Explain whale anatomy"));
+        whaleMeetingAgenda.add(AgendaItem.of("Drink coffee"));
         Set<IAssistanceConfiguration> whaleConfigs = new HashSet<>();
         whaleConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -170,9 +170,9 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .end(timeBase.plusSeconds(300)).build());
 
         List<IAgendaItem> whirlpoolMeetingAgenda = new ArrayList<>();
-        whirlpoolMeetingAgenda.add(AgendaItem.builder().content("Explain how whirlpools develop").build());
-        whirlpoolMeetingAgenda.add(AgendaItem.builder().content("Show how you can escape whirlpools").build());
-        whirlpoolMeetingAgenda.add(AgendaItem.builder().content("Admire the fine weather").build());
+        whirlpoolMeetingAgenda.add(AgendaItem.of("Explain how whirlpools develop"));
+        whirlpoolMeetingAgenda.add(AgendaItem.of("Show how you can escape whirlpools"));
+        whirlpoolMeetingAgenda.add(AgendaItem.of("Admire the fine weather"));
         Set<IAssistanceConfiguration> whirlpoolConfigs = new HashSet<>();
         whirlpoolConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

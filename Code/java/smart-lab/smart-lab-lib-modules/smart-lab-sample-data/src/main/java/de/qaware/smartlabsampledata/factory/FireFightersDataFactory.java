@@ -105,9 +105,9 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> fireFightersMeetingAgenda = new ArrayList<>();
-        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Show how bad the old truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Show how great the new truck is").build());
-        fireFightersMeetingAgenda.add(AgendaItem.builder().content("Discuss how to pay for the new truck").build());
+        fireFightersMeetingAgenda.add(AgendaItem.of("Show how bad the old truck is"));
+        fireFightersMeetingAgenda.add(AgendaItem.of("Show how great the new truck is"));
+        fireFightersMeetingAgenda.add(AgendaItem.of("Discuss how to pay for the new truck"));
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

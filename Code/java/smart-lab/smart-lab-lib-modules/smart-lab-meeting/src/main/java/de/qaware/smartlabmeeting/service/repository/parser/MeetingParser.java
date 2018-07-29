@@ -139,9 +139,7 @@ public class MeetingParser implements IMeetingParser {
 
         @Override
         public IAgendaItem visitAgendaItem(MeetingConfigurationLanguageParser.AgendaItemContext ctx) {
-            return AgendaItem.builder()
-                    .content(ctx.content.getText())
-                    .build();
+            return AgendaItem.of(ctx.content.getText());
         }
     }
 

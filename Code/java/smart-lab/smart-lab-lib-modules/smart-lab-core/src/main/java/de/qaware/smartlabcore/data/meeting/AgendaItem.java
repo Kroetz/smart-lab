@@ -1,28 +1,28 @@
 package de.qaware.smartlabcore.data.meeting;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.DOUBLE_QUOTED_TEMPLATE;
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.NEW_LINE;
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.TAB;
+import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
 import static java.lang.String.format;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
 public class AgendaItem implements IAgendaItem {
 
-    // TODO: Still needed?
-    // Setting this field manually is needed due to a Jackson bug with Java Optionals (see https://stackoverflow.com/questions/49071166/jackson-java-util-optional-serialization-does-not-include-type-id)
-    @JsonProperty
-    private String type = this.getClass().getName();
+    private static final String CONTENT_FIELD_NAME = "content";
+    private final String content;
 
-    private String content;
+    private AgendaItem(String content) {
+        this.content = content;
+    }
+
+    @JsonCreator
+    public static AgendaItem of(@JsonProperty(CONTENT_FIELD_NAME) String content) {
+        return new AgendaItem(content);
+    }
 
     @Override
     public String toConfigLangString() {

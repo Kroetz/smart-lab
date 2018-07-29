@@ -103,9 +103,9 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
-        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show potential damage").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Show increase in population").build());
-        forestRangersMeetingAgenda.add(AgendaItem.builder().content("Laugh together").build());
+        forestRangersMeetingAgenda.add(AgendaItem.of("Show potential damage"));
+        forestRangersMeetingAgenda.add(AgendaItem.of("Show increase in population"));
+        forestRangersMeetingAgenda.add(AgendaItem.of("Laugh together"));
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()

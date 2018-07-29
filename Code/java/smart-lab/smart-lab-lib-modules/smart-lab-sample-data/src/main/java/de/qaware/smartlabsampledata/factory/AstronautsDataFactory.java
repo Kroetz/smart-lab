@@ -98,9 +98,9 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public Set<IMeeting> createMeetingSet() {
         Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
-        astronautsMeetingAgenda.add(AgendaItem.builder().content("Calculate journey duration").build());
-        astronautsMeetingAgenda.add(AgendaItem.builder().content("Discuss who may press the launch button of the rocket").build());
-        astronautsMeetingAgenda.add(AgendaItem.builder().content("Complain that this is all rocket science").build());
+        astronautsMeetingAgenda.add(AgendaItem.of("Calculate journey duration"));
+        astronautsMeetingAgenda.add(AgendaItem.of("Discuss who may press the launch button of the rocket"));
+        astronautsMeetingAgenda.add(AgendaItem.of("Complain that this is all rocket science"));
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
