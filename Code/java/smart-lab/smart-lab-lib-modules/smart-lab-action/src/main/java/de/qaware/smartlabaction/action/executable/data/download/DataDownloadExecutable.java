@@ -40,7 +40,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
     @Override
     public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 
     @Override

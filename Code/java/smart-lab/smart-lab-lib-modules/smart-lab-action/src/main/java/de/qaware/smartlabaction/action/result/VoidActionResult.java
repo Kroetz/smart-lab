@@ -15,7 +15,7 @@ public class VoidActionResult extends AbstractActionResult<Void> {
     }
 
     @JsonCreator
-    public static VoidActionResult instance() {
+    public static VoidActionResult newInstance() {
         return new VoidActionResult();
     }
 }

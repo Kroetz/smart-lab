@@ -29,7 +29,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
     @Override
     public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 
     @Override
@@ -48,6 +48,6 @@ public class DataUploadExecutable extends AbstractActionExecutable {
                 actionArgs.getDir(),
                 actionArgs.getFileName(),
                 actionArgs.getDataToUpload());
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 }

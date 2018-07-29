@@ -43,7 +43,7 @@ public class DeviceActivationExecutable extends AbstractActionExecutable {
                 .orElseThrow(UnknownDeviceAdapterException::new);
         if(!activatable.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         activatable.activate();
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
@@ -63,6 +63,6 @@ public class DeviceActivationExecutable extends AbstractActionExecutable {
                 deviceType,
                 actionArgs);
         activatable.activate();
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 }

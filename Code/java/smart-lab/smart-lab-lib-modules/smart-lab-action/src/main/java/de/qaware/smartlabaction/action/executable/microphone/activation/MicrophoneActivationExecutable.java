@@ -60,7 +60,7 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
             throw new ActionExecutionFailedException(e);
         }
         microphoneAdapter.activate(recordingTargetFile);
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
@@ -86,6 +86,6 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
             throw new ActionExecutionFailedException(e);
         }
         microphoneAdapter.activate(recordingTargetFile);
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 }

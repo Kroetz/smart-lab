@@ -50,7 +50,7 @@ public class FileClosingExecutable extends AbstractActionExecutable {
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
@@ -71,6 +71,6 @@ public class FileClosingExecutable extends AbstractActionExecutable {
                 actionArgs);
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);
-        return VoidActionResult.instance();
+        return VoidActionResult.newInstance();
     }
 }
