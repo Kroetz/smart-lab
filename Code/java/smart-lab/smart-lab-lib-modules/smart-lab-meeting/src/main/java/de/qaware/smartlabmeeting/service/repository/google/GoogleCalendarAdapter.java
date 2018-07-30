@@ -23,7 +23,8 @@ import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
-import de.qaware.smartlabmeeting.service.repository.generic.AbstractMeetingManagementRepository;
+import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepository;
+import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
 import de.qaware.smartlabmeeting.service.repository.parser.IMeetingParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,7 +53,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
         name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
 @Slf4j
-public class GoogleCalendarAdapter extends AbstractMeetingManagementRepository {
+public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
     private final Calendar service;
     private final BiMap<RoomId, String> calendarIdsByRoomId;

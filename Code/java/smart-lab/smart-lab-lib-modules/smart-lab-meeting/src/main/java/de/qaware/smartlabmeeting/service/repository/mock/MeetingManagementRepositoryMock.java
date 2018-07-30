@@ -11,7 +11,8 @@ import de.qaware.smartlabcore.result.DeletionResult;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
-import de.qaware.smartlabmeeting.service.repository.generic.AbstractMeetingManagementRepository;
+import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -30,7 +31,7 @@ import static java.util.stream.Collectors.toSet;
         name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.MeetingManagementRepository.MOCK)
 @Slf4j
-public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRepository {
+public class MeetingManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
     private Map<RoomId, Set<IMeeting>> meetingsByRoom;
 
@@ -99,7 +100,7 @@ public class MeetingManagementRepositoryMock extends AbstractMeetingManagementRe
 
     @Override
     public synchronized IMeeting create(IMeeting meeting) {
-        boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> areMeetingsColliding(meeting, m));
+        boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> m.isColliding(meeting));
         if(meetingCollision || exists(meeting.getId())) {
             log.error("Cannot create meeting {} because a meeting with that ID already exists", meeting);
             // TODO: Meaningful exception message

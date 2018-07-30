@@ -17,25 +17,16 @@ import static java.util.stream.Collectors.toList;
 
 @Repository
 @Slf4j
-public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementRepository<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> extends AbstractBasicEntityManagementRepository<EntityT, IdentifierT> {
 
     protected Set<EntityT> entities;
-    protected final Set<EntityT> initialData;
 
     public AbstractBasicEntityManagementRepositoryMock(Set<EntityT> initialData) {
-        this.initialData = initialData;
+        super(initialData);
+        this.entities = new HashSet<>();
     }
 
-    @PostConstruct
-    private void populateWithInitialData() {
-        try {
-            create(this.initialData);
-        }
-        catch(EntityCreationException e) {
-            log.error("Could not populate repository with initial data", e);
-        }
-    }
-
+    @Override
     protected boolean exists(IdentifierT entityId) {
         return this.entities.stream()
                 .anyMatch(entity -> entity.getId().equals(entityId));

@@ -35,28 +35,28 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     def setupDataForFindAll_withExisting() {
         crudService = deviceManagementService
         entitiesForFindAll_withExisting = new HashSet<>(asList(
-                coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY),
-                forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY),
+                coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG),
+                forestRangersDataFactory.createDeviceMap().get(forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY_BIG),
                 fireFightersDataFactory.createDeviceMap().get(fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE)))
     }
 
     @Override
     def setupDataForFindOne_withExisting() {
         crudService = deviceManagementService
-        entityForFindOne_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
+        entityForFindOne_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG)
     }
 
     @Override
     def setupDataForFindOne_withoutExisting() {
         crudService = deviceManagementService
-        entityIdForFindOne_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
+        entityIdForFindOne_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG
     }
 
     @Override
     def setupDataForFindMultiple_withExisting() {
         crudService = deviceManagementService
-        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
-        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY
+        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY_BIG
         def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE
         def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
         def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
@@ -67,8 +67,8 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     @Override
     def setupDataForFindMultiple_withoutExisting() {
         crudService = deviceManagementService
-        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
-        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY
+        def deviceId1 = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG
+        def deviceId2 = forestRangersDataFactory.DEVICE_ID_GREEN_DISPLAY_BIG
         def deviceId3 = fireFightersDataFactory.DEVICE_ID_RED_MICROPHONE
         def device1 = coastGuardDataFactory.createDeviceMap().get(deviceId1)
         def device2 = forestRangersDataFactory.createDeviceMap().get(deviceId2)
@@ -80,24 +80,24 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     @Override
     def setupDataForCreate_withoutConflict() {
         crudService = deviceManagementService
-        entityForCreate_withoutConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
+        entityForCreate_withoutConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG)
     }
 
     @Override
     def setupDataForCreate_withConflict() {
         crudService = deviceManagementService
-        entityForCreate_withConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
+        entityForCreate_withConflict = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG)
     }
 
     @Override
     def setupDataForDelete_withExisting() {
         crudService = deviceManagementService
-        entityForDelete_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY)
+        entityForDelete_withExisting = coastGuardDataFactory.createDeviceMap().get(coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG)
     }
 
     @Override
     def setupDataForDelete_withoutExisting() {
         crudService = deviceManagementService
-        entityIdForDelete_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY
+        entityIdForDelete_withoutExisting = coastGuardDataFactory.DEVICE_ID_BLUE_DISPLAY_BIG
     }
 }

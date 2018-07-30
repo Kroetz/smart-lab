@@ -29,6 +29,7 @@ public interface IMeeting extends IEntity<MeetingId> {
     Instant getEnd();
     Duration getDuration();
     boolean isInProgress();
+    boolean isColliding(IMeeting meeting);
     IMeeting copy();
     IMeeting merge(IMeeting meeting);
     String toConfigLangString();

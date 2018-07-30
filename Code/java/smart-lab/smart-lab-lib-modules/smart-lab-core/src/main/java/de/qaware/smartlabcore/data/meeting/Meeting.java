@@ -56,6 +56,16 @@ public class Meeting implements IMeeting {
     }
 
     @Override
+    public boolean isColliding(IMeeting meeting) {
+        return (this.getRoomId().equals(meeting.getRoomId())
+                && (this.getStart().equals(meeting.getStart()) && this.getEnd().equals(meeting.getEnd())
+                || this.getStart().isAfter(meeting.getStart()) && this.getStart().isBefore(meeting.getEnd())
+                || this.getEnd().isAfter(meeting.getStart()) && this.getEnd().isBefore(meeting.getEnd())
+                || meeting.getStart().isAfter(this.getStart()) && meeting.getStart().isBefore(this.getEnd())
+                || meeting.getEnd().isAfter(this.getStart()) && meeting.getEnd().isBefore(this.getEnd())));
+    }
+
+    @Override
     public IMeeting merge(IMeeting meeting) throws IllegalArgumentException {
         return Meeting.builder()
                 .id(getMergedFieldValue(meeting, IEntity::getId))
