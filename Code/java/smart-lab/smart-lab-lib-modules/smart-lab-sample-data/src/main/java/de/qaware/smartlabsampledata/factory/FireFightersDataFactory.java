@@ -43,7 +43,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
     public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
-    public static final String DELEGATE_ID_RED = "red-delegate";
+    public static final String DELEGATE_ID_RED = "smart-lab-red-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo agendaShowingInfo;

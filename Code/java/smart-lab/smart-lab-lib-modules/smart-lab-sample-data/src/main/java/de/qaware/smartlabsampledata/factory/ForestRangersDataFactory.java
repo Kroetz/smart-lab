@@ -41,7 +41,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY_SMALL = DeviceId.of("green-display-small");
     public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
     public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
-    public static final String DELEGATE_ID_GREEN = "green-delegate";
+    public static final String DELEGATE_ID_GREEN = "smart-lab-green-delegate-microservice";
 
     private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;

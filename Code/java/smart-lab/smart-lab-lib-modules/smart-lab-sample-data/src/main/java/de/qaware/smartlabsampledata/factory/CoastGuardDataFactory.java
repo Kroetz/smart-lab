@@ -50,7 +50,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
     public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", ROOM_ID_BLUE);
     public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", ROOM_ID_BLUE);
-    public static final String DELEGATE_ID_BLUE = "blue-delegate";
+    public static final String DELEGATE_ID_BLUE = "smart-lab-blue-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo websiteDisplayingInfo;

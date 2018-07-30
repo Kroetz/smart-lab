@@ -39,7 +39,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final DeviceId DEVICE_ID_BLACK_DISPLAY_BEAMER = DeviceId.of("black-display-beamer");
     public static final DeviceId DEVICE_ID_BLACK_WEB_BROWSER = DeviceId.of("black-web-browser");
     public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", ROOM_ID_BLACK);
-    public static final String DELEGATE_ID_BLACK = "black-delegate";
+    public static final String DELEGATE_ID_BLACK = "smart-lab-black-delegate-microservice";
 
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo roomUnlockingInfo;
