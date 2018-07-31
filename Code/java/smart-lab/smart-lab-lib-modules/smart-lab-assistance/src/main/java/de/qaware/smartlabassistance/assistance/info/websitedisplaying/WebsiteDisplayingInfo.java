@@ -70,7 +70,7 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
                         }
                         catch(MalformedURLException e) {
                             String errorMessage = format("Configured URL \"%s\" for the assistance \"%s\" is invalid", configProperties.get(key), getAssistanceId());
-                            log.error(errorMessage);
+                            log.error(errorMessage, e);
                             throw new ConfigurationException(errorMessage, e);
                         }
                         break;

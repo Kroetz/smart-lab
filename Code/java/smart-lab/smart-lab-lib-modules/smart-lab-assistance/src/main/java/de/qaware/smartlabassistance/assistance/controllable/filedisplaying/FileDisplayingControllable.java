@@ -65,7 +65,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
                     readAllBytes(downloadedFile));
         } catch (IOException e) {
             String errorMessage = format("Could not read downloaded file %s", downloadedFile);
-            log.error(errorMessage);
+            log.error(errorMessage, e);
             throw new AssistanceFailedException(errorMessage, e);
         }
         this.programInstanceId = this.fileOpening.submitExecution(actionService, fileOpeningArgs);

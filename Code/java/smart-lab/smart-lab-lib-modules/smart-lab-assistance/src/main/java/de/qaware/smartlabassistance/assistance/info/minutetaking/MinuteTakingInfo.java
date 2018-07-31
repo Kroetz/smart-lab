@@ -69,7 +69,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
                         }
                         catch(IllegalArgumentException e) {
                             String errorMessage = format("Configured language \"%s\" for the assistance \"%s\" is invalid", configProperties.get(key), getAssistanceId());
-                            log.error(errorMessage);
+                            log.error(errorMessage, e);
                             throw new ConfigurationException(errorMessage, e);
                         }
                         break;

@@ -64,7 +64,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
         }
         catch(IOException e) {
             String errorMessage = format("I/O error while opening file %s with PowerPoint", fileToOpen);
-            log.error(errorMessage);
+            log.error(errorMessage, e);
             throw new LocalDeviceException(errorMessage, e);
         }
         UUID powerPointInstanceId = UUID.randomUUID();
