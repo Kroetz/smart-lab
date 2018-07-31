@@ -16,7 +16,7 @@ public class DummyDisplayAdapter extends AbstractDisplayAdapter {
 
     @Override
     public void activate() {
-        log.info("Dummy dispaly activated");
+        log.info("Dummy display activated");
     }
 
     @Override
