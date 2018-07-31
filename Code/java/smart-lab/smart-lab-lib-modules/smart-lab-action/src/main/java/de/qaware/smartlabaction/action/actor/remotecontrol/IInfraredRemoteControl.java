@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.remotecontrol;
+package de.qaware.smartlabaction.action.actor.remotecontrol;
 
 public interface IInfraredRemoteControl {
 

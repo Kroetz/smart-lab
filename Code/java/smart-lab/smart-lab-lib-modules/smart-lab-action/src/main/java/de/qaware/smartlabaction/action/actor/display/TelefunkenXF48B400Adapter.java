@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.actor.display;
 
-import de.qaware.smartlabaction.action.remotecontrol.IInfraredRemoteControl;
+import de.qaware.smartlabaction.action.actor.remotecontrol.IInfraredRemoteControl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
