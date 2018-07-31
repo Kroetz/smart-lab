@@ -3,13 +3,11 @@ package de.qaware.smartlabtrigger.provider.setupmeeting;
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.miscellaneous.UrlUtils;
 import de.qaware.smartlabtrigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
@@ -31,7 +29,7 @@ public class SetUpMeetingTriggerProvider extends AbstractTriggerProvider {
             @Qualifier("setUpTriggerProviderCallbackUrl") URL callbackUrl) {
         super(
                 checkInterval,
-                meeting -> triggerService.setUpCurrentMeetingByRoomId(meeting.getRoomId(), callbackUrl),
+                meeting -> triggerService.setUpCurrentMeetingByLocationId(meeting.getLocationId(), callbackUrl),
                 TRIGGER_NAME);
         this.meetingManagementService = meetingManagementService;
     }

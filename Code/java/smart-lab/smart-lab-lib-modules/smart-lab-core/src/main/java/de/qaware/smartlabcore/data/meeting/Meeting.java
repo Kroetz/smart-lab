@@ -3,7 +3,7 @@ package de.qaware.smartlabcore.data.meeting;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.*;
 
@@ -36,7 +36,7 @@ public class Meeting implements IMeeting {
     private Instant end;
 
     @Override
-    public RoomId getRoomId() {
+    public LocationId getLocationId() {
         return this.id.getLocationIdPart();
     }
 
@@ -57,7 +57,7 @@ public class Meeting implements IMeeting {
 
     @Override
     public boolean isColliding(IMeeting meeting) {
-        return (this.getRoomId().equals(meeting.getRoomId())
+        return (this.getLocationId().equals(meeting.getLocationId())
                 && (this.getStart().equals(meeting.getStart()) && this.getEnd().equals(meeting.getEnd())
                 || this.getStart().isAfter(meeting.getStart()) && this.getStart().isBefore(meeting.getEnd())
                 || this.getEnd().isAfter(meeting.getStart()) && this.getEnd().isBefore(meeting.getEnd())

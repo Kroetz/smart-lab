@@ -2,7 +2,7 @@ package de.qaware.smartlabmonolith.service.connector.trigger;
 
 import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
@@ -27,13 +27,13 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId) {
-        return this.triggerController.setUpCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId) {
+        return this.triggerController.setUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
-        return this.triggerController.setUpCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.setUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
@@ -47,13 +47,13 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId) {
-        return this.triggerController.cleanUpCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId) {
+        return this.triggerController.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
-        return this.triggerController.cleanUpCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
@@ -67,13 +67,13 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId) {
-        return this.triggerController.startCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId) {
+        return this.triggerController.startCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
-        return this.triggerController.startCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.startCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
@@ -87,13 +87,13 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId) {
-        return this.triggerController.stopCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId) {
+        return this.triggerController.stopCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
-        return this.triggerController.stopCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.stopCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override

@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.data.ISampleDataProvider;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -44,8 +44,8 @@ public class SampleDataModuleConfiguration {
     }
 
     @Bean
-    public Set<IRoom> initialRooms() {
-        return this.sampleDataProvider.getRooms();
+    public Set<ILocation> initialLocations() {
+        return this.sampleDataProvider.getLocations();
     }
 
     @Bean

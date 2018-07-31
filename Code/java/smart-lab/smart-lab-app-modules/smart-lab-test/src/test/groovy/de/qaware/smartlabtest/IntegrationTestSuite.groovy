@@ -4,7 +4,7 @@ import de.qaware.smartlabtest.device.DeviceManagementApiIntegrationTest
 import de.qaware.smartlabtest.generic.SpringBootLoadContextTest
 import de.qaware.smartlabtest.meeting.MeetingManagementApiIntegrationTest
 import de.qaware.smartlabtest.person.PersonManagementApiIntegrationTest
-import de.qaware.smartlabtest.room.RoomManagementApiIntegrationTest
+import de.qaware.smartlabtest.location.LocationManagementApiIntegrationTest
 import de.qaware.smartlabtest.workgroup.WorkgroupManagementApiIntegrationTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
@@ -15,6 +15,6 @@ import org.junit.runners.Suite
         DeviceManagementApiIntegrationTest.class,
         MeetingManagementApiIntegrationTest.class,
         PersonManagementApiIntegrationTest.class,
-        RoomManagementApiIntegrationTest.class,
+        LocationManagementApiIntegrationTest.class,
         WorkgroupManagementApiIntegrationTest.class])
 class IntegrationTestSuite { }

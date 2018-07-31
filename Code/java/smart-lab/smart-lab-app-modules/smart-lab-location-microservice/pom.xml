@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>smart-lab-location-microservice</artifactId>
+	<packaging>jar</packaging>
+	<name>smart-lab-location-microservice</name>
+	<description>Module of the Smart-Lab project that runs the location microservice</description>
+
+	<parent>
+		<artifactId>smart-lab-microservice-dependencies</artifactId>
+		<groupId>de.qaware</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../smart-lab-bom-modules/smart-lab-microservice-dependencies/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-location</artifactId>
+		</dependency>
+
+	</dependencies>
+
+</project>

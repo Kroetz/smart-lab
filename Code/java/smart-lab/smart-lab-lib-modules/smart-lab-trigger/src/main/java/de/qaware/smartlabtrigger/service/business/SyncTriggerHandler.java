@@ -7,7 +7,7 @@ import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.function.BiConsumer;
 
 import static java.util.concurrent.CompletableFuture.allOf;
@@ -86,12 +85,12 @@ public class SyncTriggerHandler implements ITriggerHandler {
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
         IAssistanceContext context = this.contextFactory.of(config, meeting);
-        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
+        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
                 assistance.getAssistanceId(),
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         triggerReaction.accept(context, assistance);
-        log.info("Called assistance service for the trigger reaction of assistance \"{}\" in room with ID \"{}\"",
+        log.info("Called assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
                 assistance.getAssistanceId(),
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
     }
 }

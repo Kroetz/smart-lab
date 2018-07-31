@@ -6,7 +6,7 @@ import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.InvalidActionResultException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
@@ -52,7 +52,7 @@ public class MicrophoneDeactivationSubmittable extends AbstractActionSubmittable
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private RoomId roomId;
+        private LocationId locationId;
 
         @NonNull
         private DeviceId microphoneId;

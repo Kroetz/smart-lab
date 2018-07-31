@@ -2,7 +2,7 @@ package de.qaware.smartlabmeeting.service.repository.mock;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
@@ -33,24 +33,24 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 public class MeetingManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
-    private Map<RoomId, Set<IMeeting>> meetingsByRoom;
+    private Map<LocationId, Set<IMeeting>> meetingsByLocation;
 
     public MeetingManagementRepositoryMock(Set<IMeeting> initialMeetings) {
         super(initialMeetings);
-        this.meetingsByRoom = new HashMap<>();
+        this.meetingsByLocation = new HashMap<>();
     }
 
     @Override
     public Set<IMeeting> findAll() {
         Set<IMeeting> allMeetings = new HashSet<>();
-        this.meetingsByRoom.keySet()
-                .forEach(roomId -> allMeetings.addAll(this.meetingsByRoom.get(roomId)));
+        this.meetingsByLocation.keySet()
+                .forEach(locationId -> allMeetings.addAll(this.meetingsByLocation.get(locationId)));
         return allMeetings;
     }
 
     @Override
-    public Set<IMeeting> findAll(RoomId roomId) {
-        Set<IMeeting> meetings = this.meetingsByRoom.get(roomId);
+    public Set<IMeeting> findAll(LocationId locationId) {
+        Set<IMeeting> meetings = this.meetingsByLocation.get(locationId);
         return isNull(meetings) ? new HashSet<>() : meetings;
     }
 
@@ -70,8 +70,8 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     @Override
     public Optional<IMeeting> findOne(MeetingId meetingId) {
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
-        return isNull(meetingsInRoom) ? Optional.empty() : meetingsInRoom.stream()
+        Set<IMeeting> meetingsAtLocation = this.meetingsByLocation.get(meetingId.getLocationIdPart());
+        return isNull(meetingsAtLocation) ? Optional.empty() : meetingsAtLocation.stream()
                 .filter(entity -> entity.getId().equals(meetingId))
                 .findFirst();
     }
@@ -84,8 +84,8 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
     }
 
     @Override
-    public Optional<IMeeting> findCurrent(RoomId roomId) {
-        return findAll(roomId).stream()
+    public Optional<IMeeting> findCurrent(LocationId locationId) {
+        return findAll(locationId).stream()
                 .filter(IMeeting::isInProgress)
                 .findFirst();
     }
@@ -100,18 +100,18 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     @Override
     public synchronized IMeeting create(IMeeting meeting) {
-        boolean meetingCollision = findAll(meeting.getRoomId()).stream().anyMatch(m -> m.isColliding(meeting));
+        boolean meetingCollision = findAll(meeting.getLocationId()).stream().anyMatch(m -> m.isColliding(meeting));
         if(meetingCollision || exists(meeting.getId())) {
             log.error("Cannot create meeting {} because a meeting with that ID already exists", meeting);
             // TODO: Meaningful exception message
             throw new EntityConflictException();
         }
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meeting.getRoomId());
-        if(isNull(meetingsInRoom)) {
-            meetingsInRoom = new HashSet<>();
-            this.meetingsByRoom.put(meeting.getRoomId(), meetingsInRoom);
+        Set<IMeeting> meetingsAtLocation = this.meetingsByLocation.get(meeting.getLocationId());
+        if(isNull(meetingsAtLocation)) {
+            meetingsAtLocation = new HashSet<>();
+            this.meetingsByLocation.put(meeting.getLocationId(), meetingsAtLocation);
         }
-        if(meetingsInRoom.add(meeting)) {
+        if(meetingsAtLocation.add(meeting)) {
             return meeting;
         }
         log.error("Cannot create meeting {} because of unknown reason", meeting);
@@ -121,14 +121,14 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     @Override
     public synchronized DeletionResult delete(MeetingId meetingId) {
-        Set<IMeeting> meetingsInRoom = this.meetingsByRoom.get(meetingId.getLocationIdPart());
-        List<IMeeting> meetingsToDelete = isNull(meetingsInRoom) ? new ArrayList<>() : meetingsInRoom.stream()
+        Set<IMeeting> meetingsAtLocation = this.meetingsByLocation.get(meetingId.getLocationIdPart());
+        List<IMeeting> meetingsToDelete = isNull(meetingsAtLocation) ? new ArrayList<>() : meetingsAtLocation.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(toList());
-        if(isNull(meetingsInRoom) || meetingsToDelete.isEmpty()) {
+        if(isNull(meetingsAtLocation) || meetingsToDelete.isEmpty()) {
             return DeletionResult.NOT_FOUND;
         }
-        boolean deleted =  meetingsInRoom.removeAll(meetingsToDelete);
+        boolean deleted =  meetingsAtLocation.removeAll(meetingsToDelete);
         if(deleted) {
             return DeletionResult.SUCCESS;
         }

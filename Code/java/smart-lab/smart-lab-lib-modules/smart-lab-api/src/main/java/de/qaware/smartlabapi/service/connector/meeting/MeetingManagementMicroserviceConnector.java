@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.client.meeting.IMeetingManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -36,9 +36,9 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
     }
 
     @Override
-    public Set<IMeeting> findAll(RoomId roomId) {
+    public Set<IMeeting> findAll(LocationId locationId) {
         try {
-            return this.meetingManagementApiClient.findAllByRoomId(roomId.getIdValue());
+            return this.meetingManagementApiClient.findAllByLocationId(locationId.getIdValue());
         }
         catch(FeignException e) {
             throw new UnknownErrorException();
@@ -66,9 +66,9 @@ public class MeetingManagementMicroserviceConnector extends AbstractBasicEntityM
     }
 
     @Override
-    public IMeeting findCurrent(RoomId roomId) {
+    public IMeeting findCurrent(LocationId locationId) {
         try {
-            return this.meetingManagementApiClient.findCurrentByRoomId(roomId.getIdValue()).getBody();
+            return this.meetingManagementApiClient.findCurrentByLocationId(locationId.getIdValue()).getBody();
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

@@ -15,7 +15,7 @@ import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +61,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         // TODO: Check for casting exception and throw illegalstateexception
         MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
         final MicrophoneActivationSubmittable.ActionArgs microphoneActivationArgs = MicrophoneActivationSubmittable.ActionArgs.of(
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
         this.microphoneActivation.submitExecution(actionService, microphoneActivationArgs);
     }
@@ -72,7 +72,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         // TODO: Check for casting exception and throw illegalstateexception
         MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
         final MicrophoneDeactivationSubmittable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationSubmittable.ActionArgs.of(
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new),
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
         Path recordedAudio = this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
 

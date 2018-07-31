@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isBetween;
 import static java.util.stream.Collectors.toSet;
@@ -35,7 +34,7 @@ public class CleanUpMeetingTriggerProvider extends AbstractTriggerProvider {
             @Qualifier("cleanUpTriggerProviderCallbackUrl") URL callbackUrl) {
         super(
                 checkInterval,
-                meeting -> triggerService.cleanUpCurrentMeetingByRoomId(meeting.getRoomId(), callbackUrl),
+                meeting -> triggerService.cleanUpCurrentMeetingByLocationId(meeting.getLocationId(), callbackUrl),
                 TRIGGER_NAME);
         this.meetingManagementService = meetingManagementService;
         this.triggerThreshold = triggerThreshold;

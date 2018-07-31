@@ -3,7 +3,7 @@ package de.qaware.smartlabassistance.service.controller;
 import de.qaware.smartlabapi.service.constant.assistance.AssistanceApiConstants;
 import de.qaware.smartlabassistance.service.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
@@ -31,9 +31,9 @@ public class AssistanceController {
     public ResponseEntity<Void> beginAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IAssistanceContext context) {
-        log.info("Received call to begin assistance with ID \"{}\" in the room with ID \"{}\"",
+        log.info("Received call to begin assistance with ID \"{}\" at the location with ID \"{}\"",
                 assistanceId,
-                context.getRoom().map(IRoom::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.beginAssistance(assistanceId, context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());

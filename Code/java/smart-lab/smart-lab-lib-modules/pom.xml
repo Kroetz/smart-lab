@@ -25,7 +25,7 @@
         <module>smart-lab-person</module>
         <module>smart-lab-workgroup</module>
         <module>smart-lab-device</module>
-        <module>smart-lab-room</module>
+        <module>smart-lab-location</module>
         <module>smart-lab-meeting</module>
         <module>smart-lab-delegate</module>
         <module>smart-lab-action</module>

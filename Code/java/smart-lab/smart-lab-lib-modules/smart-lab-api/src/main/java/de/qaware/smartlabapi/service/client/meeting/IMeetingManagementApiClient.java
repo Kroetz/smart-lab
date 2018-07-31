@@ -18,10 +18,10 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
     @ResponseBody
     Set<IMeeting> findAll();
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_ROOM_ID)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_LOCATION_ID)
     @ResponseBody
-    Set<IMeeting> findAllByRoomId(
-            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
+    Set<IMeeting> findAllByLocationId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_WORKGROUP_ID)
     @ResponseBody
@@ -42,10 +42,10 @@ public interface IMeetingManagementApiClient extends IBasicEntityManagementApiCl
     ResponseEntity<Set<IMeeting>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_ROOM_ID)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_LOCATION_ID)
     @ResponseBody
-    ResponseEntity<IMeeting> findCurrentByRoomId(
-            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId);
+    ResponseEntity<IMeeting> findCurrentByLocationId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_WORKGROUP_ID)
     @ResponseBody

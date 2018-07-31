@@ -2,7 +2,7 @@ package de.qaware.smartlabmeeting.service.business;
 
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.miscellaneous.Constants;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,8 +27,8 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     }
 
     @Override
-    public Set<IMeeting> findAll(RoomId roomId) {
-        return this.meetingManagementRepository.findAll(roomId);
+    public Set<IMeeting> findAll(LocationId locationId) {
+        return this.meetingManagementRepository.findAll(locationId);
     }
 
     @Override
@@ -43,8 +42,8 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
     }
 
     @Override
-    public Optional<IMeeting> findCurrent(RoomId roomId) {
-        return this.meetingManagementRepository.findCurrent(roomId);
+    public Optional<IMeeting> findCurrent(LocationId locationId) {
+        return this.meetingManagementRepository.findCurrent(locationId);
     }
 
     @Override

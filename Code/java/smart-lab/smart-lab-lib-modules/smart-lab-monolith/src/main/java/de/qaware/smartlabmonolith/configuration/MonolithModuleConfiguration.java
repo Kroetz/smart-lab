@@ -9,7 +9,7 @@ import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabmeeting.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabperson.annotation.EnableSmartLabPersonService;
-import de.qaware.smartlabroom.annotation.EnableSmartLabRoomService;
+import de.qaware.smartlablocation.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
@@ -40,7 +40,7 @@ import java.util.Map;
 @EnableSmartLabPersonService
 @EnableSmartLabWorkgroupService
 @EnableSmartLabDeviceService
-@EnableSmartLabRoomService
+@EnableSmartLabLocationService
 @EnableSmartLabMeetingService
 @EnableSmartLabTriggerService
 @EnableSmartLabAssistanceService

@@ -6,8 +6,8 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
@@ -56,13 +56,13 @@ public abstract class AbstractSampleDataFactory implements ISampleDataFactory {
     }
 
     @Override
-    public abstract Set<IRoom> createRoomSet();
+    public abstract Set<ILocation> createLocationSet();
 
     @Override
-    public Map<RoomId, IRoom> createRoomMap() {
-        Set<IRoom> rooms = createRoomSet();
-        return rooms.stream()
-                .collect(toMap(IRoom::getId, room -> room));
+    public Map<LocationId, ILocation> createLocationMap() {
+        Set<ILocation> locations = createLocationSet();
+        return locations.stream()
+                .collect(toMap(ILocation::getId, location -> location));
     }
 
     @Override

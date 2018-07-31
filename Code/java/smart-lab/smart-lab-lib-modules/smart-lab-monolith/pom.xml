@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-room</artifactId>
+            <artifactId>smart-lab-location</artifactId>
         </dependency>
 
         <dependency>

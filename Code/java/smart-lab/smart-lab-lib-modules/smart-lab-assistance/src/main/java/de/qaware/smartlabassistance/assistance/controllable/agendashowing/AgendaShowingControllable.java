@@ -56,7 +56,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                     guiServiceBaseUrl.getProtocol(),
                     guiServiceBaseUrl.getHost(),
                     guiServiceBaseUrl.getPort(),
-                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_MEETING_AGENDA_PAGE, context.getRoom().map(room -> room.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
+                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_MEETING_AGENDA_PAGE, context.getLocation().map(location -> location.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
         } catch (MalformedURLException e) {
             // TODO: Logging and appropriate exception
             throw new RuntimeException(e);

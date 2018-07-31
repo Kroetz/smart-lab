@@ -4,8 +4,8 @@ import de.qaware.smartlabcore.data.ISampleDataProvider;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabsampledata.factory.ISampleDataFactory;
 
@@ -49,16 +49,16 @@ public abstract class AbstractSampleDataProvider implements ISampleDataProvider 
     }
 
     @Override
-    public Map<RoomId, Set<IMeeting>> getMeetingsByRoom() {
+    public Map<LocationId, Set<IMeeting>> getMeetingsByLocation() {
         Set<IMeeting> meetings = getEntities(ISampleDataFactory::createMeetingSet);
         return meetings.stream().collect(groupingBy(
-                IMeeting::getRoomId,
+                IMeeting::getLocationId,
                 toSet()));
     }
 
     @Override
-    public Set<IRoom> getRooms() {
-        return getEntities(ISampleDataFactory::createRoomSet);
+    public Set<ILocation> getLocations() {
+        return getEntities(ISampleDataFactory::createLocationSet);
     }
 
     @Override

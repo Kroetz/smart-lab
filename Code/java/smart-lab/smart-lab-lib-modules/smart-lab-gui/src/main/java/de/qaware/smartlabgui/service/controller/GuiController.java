@@ -1,7 +1,7 @@
 package de.qaware.smartlabgui.service.controller;
 
 import de.qaware.smartlabapi.service.constant.gui.GuiApiConstants;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
@@ -29,13 +29,13 @@ public class GuiController extends AbstractSmartLabController {
     }
 
     @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    public String getCurrentMeetingStatusPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
-        return this.guiBusinessLogic.getCurrentMeetingStatusPage(RoomId.of(roomId), model);
+    public String getCurrentMeetingStatusPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
+        return this.guiBusinessLogic.getCurrentMeetingStatusPage(LocationId.of(locationId), model);
     }
 
     @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_MEETING_AGENDA_PAGE)
-    public String getCurrentMeetingAgendaPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_ROOM_ID) String roomId, Model model) {
-        return this.guiBusinessLogic.getCurrentMeetingAgendaPage(RoomId.of(roomId), model);
+    public String getCurrentMeetingAgendaPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
+        return this.guiBusinessLogic.getCurrentMeetingAgendaPage(LocationId.of(locationId), model);
     }
 
     @RestController

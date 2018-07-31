@@ -1,10 +1,10 @@
 package de.qaware.smartlabgui.service.business;
 
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import org.springframework.ui.Model;
 
 public interface IGuiBusinessLogic {
 
-    String getCurrentMeetingStatusPage(RoomId roomId, Model model);
-    String getCurrentMeetingAgendaPage(RoomId roomId, Model model);
+    String getCurrentMeetingStatusPage(LocationId locationId, Model model);
+    String getCurrentMeetingAgendaPage(LocationId locationId, Model model);
 }

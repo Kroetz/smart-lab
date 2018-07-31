@@ -14,9 +14,9 @@ import java.net.URL;
 @FeignClient(name = TriggerApiConstants.FEIGN_CLIENT_NAME, path = TriggerApiConstants.MAPPING_BASE)
 public interface ITriggerApiClient {
 
-    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
-    ResponseEntity<IJobInfo> setUpCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_LOCATION_ID)
+    ResponseEntity<IJobInfo> setUpCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
@@ -24,9 +24,9 @@ public interface ITriggerApiClient {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
-    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID)
-    ResponseEntity<IJobInfo> cleanUpCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_LOCATION_ID)
+    ResponseEntity<IJobInfo> cleanUpCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
     @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
@@ -34,9 +34,9 @@ public interface ITriggerApiClient {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
-    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_ROOM_ID)
-    ResponseEntity<IJobInfo> startCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_LOCATION_ID)
+    ResponseEntity<IJobInfo> startCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
     @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID)
@@ -44,9 +44,9 @@ public interface ITriggerApiClient {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
-    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID)
-    ResponseEntity<IJobInfo> stopCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_LOCATION_ID)
+    ResponseEntity<IJobInfo> stopCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl);
 
     @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID)

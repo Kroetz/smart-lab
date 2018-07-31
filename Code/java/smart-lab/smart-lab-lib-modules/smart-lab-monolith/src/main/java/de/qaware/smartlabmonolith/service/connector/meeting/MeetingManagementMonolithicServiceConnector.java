@@ -3,7 +3,7 @@ package de.qaware.smartlabmonolith.service.connector.meeting;
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -34,8 +34,8 @@ public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEn
     }
 
     @Override
-    public Set<IMeeting> findAll(RoomId roomId) {
-        return this.meetingManagementController.findAllByRoomId(roomId.getIdValue());
+    public Set<IMeeting> findAll(LocationId locationId) {
+        return this.meetingManagementController.findAllByLocationId(locationId.getIdValue());
     }
 
     @Override
@@ -49,8 +49,8 @@ public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEn
     }
 
     @Override
-    public IMeeting findCurrent(RoomId roomId) {
-        ResponseEntity<IMeeting> response = this.meetingManagementController.findCurrentByRoomId(roomId.getIdValue());
+    public IMeeting findCurrent(LocationId locationId) {
+        ResponseEntity<IMeeting> response = this.meetingManagementController.findCurrentByLocationId(locationId.getIdValue());
         if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();

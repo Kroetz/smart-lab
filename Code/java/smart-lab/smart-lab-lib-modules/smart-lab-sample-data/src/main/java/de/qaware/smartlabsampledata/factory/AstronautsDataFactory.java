@@ -15,9 +15,9 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.Room;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -28,6 +28,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Component
 public class AstronautsDataFactory extends AbstractSampleDataFactory {
 
@@ -35,23 +37,23 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ALEX = PersonId.of("alex");
     public static final PersonId MEMBER_ID_BEVERLY = PersonId.of("beverly");
     public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
-    public static final RoomId ROOM_ID_BLACK = RoomId.of("black");
+    public static final LocationId LOCATION_ID_BLACK = LocationId.of("astronauts-workplace");
     public static final DeviceId DEVICE_ID_BLACK_DISPLAY_BEAMER = DeviceId.of("black-display-beamer");
     public static final DeviceId DEVICE_ID_BLACK_WEB_BROWSER = DeviceId.of("black-web-browser");
-    public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", ROOM_ID_BLACK);
+    public static final MeetingId MEETING_ID_MARS = MeetingId.of("mars", LOCATION_ID_BLACK);
     public static final String DELEGATE_ID_BLACK = "smart-lab-black-delegate-microservice";
 
     private final IAssistanceInfo agendaShowingInfo;
-    private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
     public AstronautsDataFactory(
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
         super();
         this.agendaShowingInfo = agendaShowingInfo;
-        this.roomUnlockingInfo = roomUnlockingInfo;
+        this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
     }
 
@@ -107,7 +109,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLACK_WEB_BROWSER.getIdValue())
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+        configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
@@ -126,16 +128,16 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IRoom> createRoomSet() {
-        Set<IRoom> rooms = new HashSet<>();
-        Set<DeviceId> blackRoomDevices = new HashSet<>();
-        blackRoomDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
-        rooms.add(Room.builder()
-                .id(ROOM_ID_BLACK)
-                .name("Room Black")
-                .deviceIds(blackRoomDevices)
+    public Set<ILocation> createLocationSet() {
+        Set<ILocation> locations = new HashSet<>();
+        Set<DeviceId> blackLocationDevices = new HashSet<>();
+        blackLocationDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
+        locations.add(Location.builder()
+                .id(LOCATION_ID_BLACK)
+                .name("Astronauts workplace")
+                .deviceIds(blackLocationDevices)
                 .build());
-        return rooms;
+        return locations;
     }
 
     @Override
@@ -144,7 +146,7 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
                 .type(DummyBeamerAdapter.DEVICE_TYPE)
-                .name("Beamer in in room \"Black\"")
+                .name(format("Beamer at location \"%s\"", LOCATION_ID_BLACK))
                 .responsibleDelegate(DELEGATE_ID_BLACK)
                 .build());
         return devices;

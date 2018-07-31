@@ -2,7 +2,7 @@ package de.qaware.smartlabassistance.context;
 
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabapi.service.connector.person.IPersonManagementService;
-import de.qaware.smartlabapi.service.connector.room.IRoomManagementService;
+import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
 import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
@@ -10,7 +10,7 @@ import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class AssistanceContext implements IAssistanceContext {
     private IMeeting meeting;
     private IWorkgroup workgroup;
     private Set<IPerson> persons;
-    private IRoom room;
+    private ILocation location;
 
     private AssistanceContext() { }
 
@@ -45,8 +45,8 @@ public class AssistanceContext implements IAssistanceContext {
     }
 
     @Override
-    public Optional<IRoom> getRoom() {
-        return Optional.ofNullable(this.room);
+    public Optional<ILocation> getLocation() {
+        return Optional.ofNullable(this.location);
     }
 
     @Component
@@ -55,17 +55,17 @@ public class AssistanceContext implements IAssistanceContext {
         private IMeetingManagementService meetingManagementService;
         private IWorkgroupManagementService workgroupManagementService;
         private IPersonManagementService personManagementService;
-        private IRoomManagementService roomManagementService;
+        private ILocationManagementService locationManagementService;
 
         public Factory(
                 IMeetingManagementService meetingManagementService,
                 IWorkgroupManagementService workgroupManagementService,
                 IPersonManagementService personManagementService,
-                IRoomManagementService roomManagementService) {
+                ILocationManagementService locationManagementService) {
             this.meetingManagementService = meetingManagementService;
             this.workgroupManagementService = workgroupManagementService;
             this.personManagementService = personManagementService;
-            this.roomManagementService = roomManagementService;
+            this.locationManagementService = locationManagementService;
         }
 
         public IAssistanceContext of(IAssistanceConfiguration config, IMeeting meeting) {
@@ -83,8 +83,8 @@ public class AssistanceContext implements IAssistanceContext {
             return addToContext(addToContext(new AssistanceContext(), config), persons);
         }
 
-        public IAssistanceContext of(IAssistanceConfiguration config, IRoom room) {
-            return addToContext(addToContext(new AssistanceContext(), config), room);
+        public IAssistanceContext of(IAssistanceConfiguration config, ILocation location) {
+            return addToContext(addToContext(new AssistanceContext(), config), location);
         }
 
         private AssistanceContext addToContext(AssistanceContext context, IAssistanceConfiguration config) {
@@ -95,8 +95,8 @@ public class AssistanceContext implements IAssistanceContext {
         private AssistanceContext addToContext(AssistanceContext context, IMeeting meeting) {
             context.setMeeting(meeting);
             IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-            IRoom room = roomManagementService.findOne(meeting.getRoomId());
-            return addToContext(addToContext(context, workgroup), room);
+            ILocation location = locationManagementService.findOne(meeting.getLocationId());
+            return addToContext(addToContext(context, workgroup), location);
         }
 
         private AssistanceContext addToContext(AssistanceContext context, IWorkgroup workgroup) {
@@ -112,8 +112,8 @@ public class AssistanceContext implements IAssistanceContext {
             return context;
         }
 
-        private AssistanceContext addToContext(AssistanceContext context, IRoom room) {
-            context.setRoom(room);
+        private AssistanceContext addToContext(AssistanceContext context, ILocation location) {
+            context.setLocation(location);
             return context;
         }
     }

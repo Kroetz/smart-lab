@@ -1,9 +1,9 @@
 package de.qaware.smartlabapi.service.connector.trigger;
 
 import de.qaware.smartlabapi.service.client.trigger.ITriggerApiClient;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.room.RoomId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
@@ -30,15 +30,15 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId) {
+    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+            return this.triggerApiClient.setUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(Exception e) {
             throw e;
         }
 
-
+        // TODO
         /*catch(RetryableException e) {
             throw e;
         }
@@ -48,9 +48,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
+    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.setUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(Exception e) {
             throw e;
@@ -84,9 +84,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId) {
+    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+            return this.triggerApiClient.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -97,9 +97,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
+    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -136,9 +136,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId) {
+    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+            return this.triggerApiClient.startCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -149,9 +149,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
+    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.startCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -188,9 +188,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId) {
+    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByRoomId(roomId.getIdValue(), null).getBody();
+            return this.triggerApiClient.stopCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -201,9 +201,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, URL callbackUrl) {
+    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByRoomId(roomId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.stopCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;

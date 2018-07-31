@@ -2,14 +2,14 @@ package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
-import de.qaware.smartlabapi.service.connector.room.IRoomManagementService;
+import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
 import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabassistance.assistance.triggerable.generic.IAssistanceTriggerable;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.extern.slf4j.Slf4j;
@@ -24,19 +24,19 @@ import java.util.function.BiConsumer;
 public class TriggerBusinessLogic implements ITriggerBusinessLogic {
 
     private final IAssistanceService assistanceService;
-    private final IRoomManagementService roomManagementService;
+    private final ILocationManagementService locationManagementService;
     private final IWorkgroupManagementService workgroupManagementService;
     private final ITriggerHandler asyncTriggerHandler;
     private final IJobManagementService jobManagementService;
 
     public TriggerBusinessLogic(
             IAssistanceService assistanceService,
-            IRoomManagementService roomManagementService,
+            ILocationManagementService locationManagementService,
             IWorkgroupManagementService workgroupManagementService,
             ITriggerHandler asyncTriggerHandler,
             IJobManagementService jobManagementService) {
         this.assistanceService = assistanceService;
-        this.roomManagementService = roomManagementService;
+        this.locationManagementService = locationManagementService;
         this.workgroupManagementService = workgroupManagementService;
         this.asyncTriggerHandler = asyncTriggerHandler;
         this.jobManagementService = jobManagementService;
@@ -67,13 +67,13 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return setUpMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return setUpMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo setUpCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
-        return setUpCurrentMeetingByRoomId(room.getId(), callbackUrl);
+    public IJobInfo setUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
+        return setUpCurrentMeetingByLocationId(location.getId(), callbackUrl);
     }
 
     @Override
@@ -99,13 +99,13 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return cleanUpMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return cleanUpMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
-        return cleanUpCurrentMeetingByRoomId(room.getId(), callbackUrl);
+    public IJobInfo cleanUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
+        return cleanUpCurrentMeetingByLocationId(location.getId(), callbackUrl);
     }
 
     // TODO: Introduce "Clean up LAST meeting" since there is no "current meeting" after a meeting has ended
@@ -133,13 +133,13 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return startMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return startMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo startCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
-        return startCurrentMeetingByRoomId(room.getId(), callbackUrl);
+    public IJobInfo startCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
+        return startCurrentMeetingByLocationId(location.getId(), callbackUrl);
     }
 
     @Override
@@ -165,13 +165,13 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByRoomId(RoomId roomId, @Nullable URL callbackUrl) {
-        return stopMeeting(this.roomManagementService.getCurrentMeeting(roomId), callbackUrl);
+    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return stopMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo stopCurrentMeeting(IRoom room, @Nullable URL callbackUrl) {
-        return stopCurrentMeetingByRoomId(room.getId(), callbackUrl);
+    public IJobInfo stopCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
+        return stopCurrentMeetingByLocationId(location.getId(), callbackUrl);
     }
 
     @Override

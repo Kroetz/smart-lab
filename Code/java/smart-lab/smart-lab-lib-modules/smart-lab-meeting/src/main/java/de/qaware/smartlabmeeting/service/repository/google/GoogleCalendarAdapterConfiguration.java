@@ -7,7 +7,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,6 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static java.nio.file.Files.exists;
@@ -81,9 +80,9 @@ public class GoogleCalendarAdapterConfiguration {
 
     @Bean
     // TODO: String literal
-    @Qualifier("googleCalendarRoomMapping")
-    public BiMap<RoomId, String> googleCalendarRoomMapping() {
-        return this.properties.getRoomMapping();
+    @Qualifier("googleCalendarLocationMapping")
+    public BiMap<LocationId, String> googleCalendarLocationMapping() {
+        return this.properties.getLocationMapping();
     }
 
     // TODO: String literal
@@ -98,13 +97,13 @@ public class GoogleCalendarAdapterConfiguration {
         private Path credentialsFile;
         private Collection<String> scopes;
         private String applicationName;
-        private Map<String, String> roomMapping;
+        private Map<String, String> locationMapping;
 
         public Properties() {
             this.credentialsFile = DEFAULT_CREDENTIALS_FILE;
             this.scopes = DEFAULT_SCOPES;
             this.applicationName = DEFAULT_APPLICATION_NAME;
-            this.roomMapping = new HashMap<>();
+            this.locationMapping = new HashMap<>();
         }
 
         public Path getCredentialsFile() {
@@ -131,15 +130,15 @@ public class GoogleCalendarAdapterConfiguration {
             this.applicationName = applicationName;
         }
 
-        public BiMap<RoomId, String> getRoomMapping() {
-            return this.roomMapping.keySet().stream().collect(
+        public BiMap<LocationId, String> getLocationMapping() {
+            return this.locationMapping.keySet().stream().collect(
                     HashBiMap::create,
-                    (biMap, roomId) -> biMap.put(RoomId.of(roomId), this.roomMapping.get(roomId)),
+                    (biMap, locationId) -> biMap.put(LocationId.of(locationId), this.locationMapping.get(locationId)),
                     BiMap::putAll);
         }
 
-        public void setRoomMapping(Map<String, String> roomMapping) {
-            this.roomMapping = roomMapping;
+        public void setLocationMapping(Map<String, String> locationMapping) {
+            this.locationMapping = locationMapping;
         }
 
         @Slf4j

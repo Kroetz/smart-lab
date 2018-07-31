@@ -13,7 +13,7 @@ import com.google.common.collect.BiMap;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
@@ -56,7 +56,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
     private final Calendar service;
-    private final BiMap<RoomId, String> calendarIdsByRoomId;
+    private final BiMap<LocationId, String> calendarIdsByLocationId;
     private final IMeetingParser meetingParser;
 
     public GoogleCalendarAdapter(
@@ -66,7 +66,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             String googleCalendarApplicationName,
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
-            @Qualifier("googleCalendarRoomMapping") BiMap<RoomId, String> googleCalendarRoomMapping,
+            @Qualifier("googleCalendarLocationMapping") BiMap<LocationId, String> googleCalendarLocationMapping,
             IMeetingParser meetingParser,
             Set<IMeeting> initialMeetings) throws IOException {
         super(initialMeetings);
@@ -80,25 +80,25 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                 credentials)
                 .setApplicationName(googleCalendarApplicationName)
                 .build();
-        this.calendarIdsByRoomId = googleCalendarRoomMapping;
+        this.calendarIdsByLocationId = googleCalendarLocationMapping;
         this.meetingParser = meetingParser;
     }
 
-    private String resolveCalendarId(RoomId roomId) throws IllegalArgumentException {
-        String calendarId = this.calendarIdsByRoomId.get(roomId);
+    private String resolveCalendarId(LocationId locationId) throws IllegalArgumentException {
+        String calendarId = this.calendarIdsByLocationId.get(locationId);
         if(nonNull(calendarId)) return calendarId;
-        throw new IllegalArgumentException(format("The room \"%s\" has no mapped calendar", roomId));
+        throw new IllegalArgumentException(format("The location \"%s\" has no mapped calendar", locationId));
     }
 
-    private RoomId resolveRoomId(String calendarId) throws IllegalArgumentException {
-        RoomId roomId = this.calendarIdsByRoomId.inverse().get(calendarId);
-        if(nonNull(roomId)) return roomId;
-        throw new IllegalArgumentException(format("The calendar \"%s\" has no mapped room", calendarId));
+    private LocationId resolveLocationId(String calendarId) throws IllegalArgumentException {
+        LocationId locationId = this.calendarIdsByLocationId.inverse().get(calendarId);
+        if(nonNull(locationId)) return locationId;
+        throw new IllegalArgumentException(format("The calendar \"%s\" has no mapped location", calendarId));
     }
 
-    private boolean hasMappedCalendar(RoomId roomId) {
+    private boolean hasMappedCalendar(LocationId locationId) {
         try {
-            resolveCalendarId(roomId);
+            resolveCalendarId(locationId);
             return true;
         }
         catch(IllegalArgumentException e) {
@@ -106,9 +106,9 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         }
     }
 
-    private boolean hasMappedRoom(String calendarId) {
+    private boolean hasMappedLocation(String calendarId) {
         try {
-            resolveRoomId(calendarId);
+            resolveLocationId(calendarId);
             return true;
         }
         catch(IllegalArgumentException e) {
@@ -126,27 +126,27 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         List<CalendarListEntry> calendars = findAllCalendars();
         for(CalendarListEntry calendar : calendars) {
             String calendarId = calendar.getId();
-            if(hasMappedRoom(calendarId)) {
+            if(hasMappedLocation(calendarId)) {
                 foundEvents.addAll(findAllGoogleCalEvents(calendarId));
             }
             else {
-                log.warn("Ignoring events from calendar \"{}\" since it has no mapped room ID", calendarId);
+                log.warn("Ignoring events from calendar \"{}\" since it has no mapped location ID", calendarId);
             }
         }
         return foundEvents;
     }
 
     @Override
-    public Set<IMeeting> findAll(RoomId roomId) {
-        return eventsToMeetings(findAllGoogleCalEvents(roomId));
+    public Set<IMeeting> findAll(LocationId locationId) {
+        return eventsToMeetings(findAllGoogleCalEvents(locationId));
     }
 
-    private Set<Event> findAllGoogleCalEvents(RoomId roomId) {
+    private Set<Event> findAllGoogleCalEvents(LocationId locationId) {
         try {
-            return findAllGoogleCalEvents(resolveCalendarId(roomId));
+            return findAllGoogleCalEvents(resolveCalendarId(locationId));
         }
         catch(IllegalArgumentException e) {
-            log.warn("Cannot find events in room \"{}\" since it has no mapped calendar ID", roomId, e);
+            log.warn("Cannot find events at location \"{}\" since it has no mapped calendar ID", locationId, e);
             return new HashSet<>();
         }
     }
@@ -208,7 +208,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             return findOne(meetingId.getNameIdPart(), calendarId);
         }
         catch(IllegalArgumentException e) {
-            log.warn("Cannot find meeting \"{}\" in room \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
+            log.warn("Cannot find meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
             return Optional.empty();
         }
     }
@@ -241,14 +241,14 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Optional<IMeeting> findCurrent(RoomId roomId) {
-        return findCurrentGoogleCalEvent(roomId)
+    public Optional<IMeeting> findCurrent(LocationId locationId) {
+        return findCurrentGoogleCalEvent(locationId)
                 .map(this::eventToMeeting)
                 .orElse(Optional.empty());
     }
 
-    private Optional<Event> findCurrentGoogleCalEvent(RoomId roomId) {
-        Set<Event> events = findAllGoogleCalEvents(roomId);
+    private Optional<Event> findCurrentGoogleCalEvent(LocationId locationId) {
+        Set<Event> events = findAllGoogleCalEvents(locationId);
         return events.stream()
                 .filter(this::isEventInProgress)
                 .findFirst();
@@ -273,7 +273,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             return eventToMeeting(createdEvent).orElseThrow(EntityCreationException::new);
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot create meeting \"{}\" in room \"{}\" since it has no mapped calendar ID", meeting, meeting.getRoomId());
+            log.error("Cannot create meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meeting, meeting.getLocationId());
             // TODO: Meaningful exception message
             throw new EntityCreationException(e);
         }
@@ -311,11 +311,11 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             return DeletionResult.SUCCESS;
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot delete meeting \"{}\" in room \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
+            log.error("Cannot delete meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
             return DeletionResult.ERROR;
         }
         catch(GoogleJsonResponseException e) {
-            log.error("Cannot delete meeting \"{}\" in room \"{}\" since it does not exist", meetingId, meetingId.getLocationIdPart(), e);
+            log.error("Cannot delete meeting \"{}\" at location \"{}\" since it does not exist", meetingId, meetingId.getLocationIdPart(), e);
             return DeletionResult.ERROR;
         }
         catch(IOException e) {
@@ -409,7 +409,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             return Optional.empty();
         }
         return Optional.of(Meeting.builder()
-                .id(MeetingId.of(event.getId(), RoomId.of(event.getLocation())))
+                .id(MeetingId.of(event.getId(), LocationId.of(event.getLocation())))
                 .title(event.getSummary())
                 .start(eventDateTimeToInstant(event.getStart()))
                 .end(eventDateTimeToInstant(event.getEnd()))
@@ -423,7 +423,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             .setSummary(meeting.getTitle())
             .setStart(instantToEventDateTime(meeting.getStart()))
             .setEnd(instantToEventDateTime(meeting.getEnd()))
-            .setLocation(meeting.getRoomId().getIdValue())
+            .setLocation(meeting.getLocationId().getIdValue())
             .setDescription(meetingConfigString);
     }
 

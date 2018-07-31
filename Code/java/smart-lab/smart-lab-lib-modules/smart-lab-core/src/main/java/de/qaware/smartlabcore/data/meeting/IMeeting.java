@@ -3,7 +3,7 @@ package de.qaware.smartlabcore.data.meeting;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 
@@ -20,7 +20,7 @@ public interface IMeeting extends IEntity<MeetingId> {
 
     String getTitle();
     WorkgroupId getWorkgroupId();
-    RoomId getRoomId();
+    LocationId getLocationId();
     List<IAgendaItem> getAgenda();
     Set<IAssistanceConfiguration> getAssistanceConfigurations();
     void setStart(Instant start);

@@ -6,7 +6,7 @@ import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -33,7 +33,7 @@ public class MicrophoneActivationSubmittable extends AbstractActionSubmittable<M
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private RoomId roomId;
+        private LocationId locationId;
 
         @NonNull
         private DeviceId microphoneId;

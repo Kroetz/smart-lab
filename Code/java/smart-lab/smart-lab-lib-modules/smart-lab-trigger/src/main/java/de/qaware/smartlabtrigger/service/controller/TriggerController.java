@@ -2,7 +2,7 @@ package de.qaware.smartlabtrigger.service.controller;
 
 import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
@@ -32,16 +32,16 @@ public class TriggerController {
         this.urlValidator = urlValidator;
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<IJobInfo> setUpCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> setUpCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
-        log.info("Received call to set up the current meeting in the room with ID \"{}\"", roomId);
+        log.info("Received call to set up the current meeting at the location with ID \"{}\"", locationId);
         ResponseEntity<IJobInfo> response;
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByRoomId(
-                    RoomId.of(roomId),
+            response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByLocationId(
+                    LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -66,14 +66,14 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByRoomId(
-                    RoomId.of(roomId),
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByLocationId(
+                    LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -96,14 +96,14 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<IJobInfo> startCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> startCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByRoomId(
-                    RoomId.of(roomId),
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByLocationId(
+                    LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message
@@ -126,14 +126,14 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_ROOM_ID)
-    public ResponseEntity<IJobInfo> stopCurrentMeetingByRoomId(
-            @PathVariable(TriggerApiConstants.PARAMETER_NAME_ROOM_ID) String roomId,
+    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> stopCurrentMeetingByLocationId(
+            @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByRoomId(
-                    RoomId.of(roomId),
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByLocationId(
+                    LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
             // TODO: Better exception and message

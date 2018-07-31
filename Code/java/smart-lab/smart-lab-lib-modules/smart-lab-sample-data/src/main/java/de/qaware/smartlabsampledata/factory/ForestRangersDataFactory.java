@@ -16,9 +16,9 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.Room;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.Location;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -29,6 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Component
 public class ForestRangersDataFactory extends AbstractSampleDataFactory {
 
@@ -36,27 +38,27 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ANNA = PersonId.of("forest-ranger-anna");
     public static final PersonId MEMBER_ID_BARRY = PersonId.of("forest-ranger-barry");
     public static final PersonId MEMBER_ID_CAROLINE = PersonId.of("forest-ranger-caroline");
-    public static final RoomId ROOM_ID_GREEN = RoomId.of("green");
+    public static final LocationId LOCATION_ID_GREEN = LocationId.of("forest-rangers-workplace");
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY_BIG = DeviceId.of("green-display-big");
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY_SMALL = DeviceId.of("green-display-small");
     public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
-    public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", ROOM_ID_GREEN);
+    public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", LOCATION_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "smart-lab-green-delegate-microservice";
 
     private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;
-    private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
     public ForestRangersDataFactory(
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
         super();
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
-        this.roomUnlockingInfo = roomUnlockingInfo;
+        this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
     }
 
@@ -118,7 +120,7 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
-        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+        configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
@@ -141,17 +143,17 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IRoom> createRoomSet() {
-        Set<IRoom> rooms = new HashSet<>();
-        Set<DeviceId> greenRoomDevices = new HashSet<>();
-        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
-        greenRoomDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
-        rooms.add(Room.builder()
-                .id(ROOM_ID_GREEN)
-                .name("Room Green")
-                .deviceIds(greenRoomDevices)
+    public Set<ILocation> createLocationSet() {
+        Set<ILocation> locations = new HashSet<>();
+        Set<DeviceId> greenLocationDevices = new HashSet<>();
+        greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
+        greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
+        locations.add(Location.builder()
+                .id(LOCATION_ID_GREEN)
+                .name("Forest rangers workplace")
+                .deviceIds(greenLocationDevices)
                 .build());
-        return rooms;
+        return locations;
     }
 
     @Override
@@ -160,19 +162,19 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name("Big main display in room \"Green\"")
+                .name(format("Big main display at location \"%s\"", LOCATION_ID_GREEN))
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_SMALL)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name("Small display next to the door in room \"Green\"")
+                .name(format("Small display next to the door at location \"%s\"", LOCATION_ID_GREEN))
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_WEB_BROWSER)
                 .type("chrome")
-                .name("Web browser in room \"Green\"")
+                .name(format("Web browser at location \"%s\"", LOCATION_ID_GREEN))
                 .responsibleDelegate(DELEGATE_ID_GREEN)
                 .build());
         return devices;

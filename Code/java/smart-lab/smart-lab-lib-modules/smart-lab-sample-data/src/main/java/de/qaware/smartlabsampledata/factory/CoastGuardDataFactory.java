@@ -20,9 +20,9 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.Room;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.Location;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -34,6 +34,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Component
 public class CoastGuardDataFactory extends AbstractSampleDataFactory {
 
@@ -41,22 +43,22 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ALICE = PersonId.of("coast-guard-alice");
     public static final PersonId MEMBER_ID_BEN = PersonId.of("coast-guard-ben");
     public static final PersonId MEMBER_ID_CHARLIE = PersonId.of("coast-guard-charlie");
-    public static final RoomId ROOM_ID_BLUE = RoomId.of("blue");
+    public static final LocationId LOCATION_ID_BLUE = LocationId.of("coast-guard-workplace");
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BIG = DeviceId.of("blue-display-big");
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY_SMALL = DeviceId.of("blue-display-small");
     public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BEAMER = DeviceId.of("blue-display-beamer");
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
     public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
     public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
-    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", ROOM_ID_BLUE);
-    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", ROOM_ID_BLUE);
+    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", LOCATION_ID_BLUE);
+    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", LOCATION_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "smart-lab-blue-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo websiteDisplayingInfo;
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo fileDisplayingInfo;
-    private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
     public CoastGuardDataFactory(
@@ -64,14 +66,14 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo fileDisplayingInfo,
-            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.fileDisplayingInfo = fileDisplayingInfo;
-        this.roomUnlockingInfo = roomUnlockingInfo;
+        this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
     }
 
@@ -145,7 +147,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        whaleConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+        whaleConfigs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
@@ -197,7 +199,7 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        whirlpoolConfigs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+        whirlpoolConfigs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
@@ -225,19 +227,19 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IRoom> createRoomSet() {
-        Set<IRoom> rooms = new HashSet<>();
-        Set<DeviceId> blueRoomDevices = new HashSet<>();
-        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
-        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
-        blueRoomDevices.add(DEVICE_ID_BLUE_DISPLAY_BEAMER);
-        blueRoomDevices.add(DEVICE_ID_BLUE_MICROPHONE);
-        rooms.add(Room.builder()
-                .id(ROOM_ID_BLUE)
-                .name("Room Blue")
-                .deviceIds(blueRoomDevices)
+    public Set<ILocation> createLocationSet() {
+        Set<ILocation> locations = new HashSet<>();
+        Set<DeviceId> blueLocationDevices = new HashSet<>();
+        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
+        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
+        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BEAMER);
+        blueLocationDevices.add(DEVICE_ID_BLUE_MICROPHONE);
+        locations.add(Location.builder()
+                .id(LOCATION_ID_BLUE)
+                .name("Coast guard workplace")
+                .deviceIds(blueLocationDevices)
                 .build());
-        return rooms;
+        return locations;
     }
 
     @Override
@@ -246,37 +248,37 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name("Big main display in room \"Blue\"")
+                .name(format("Big main display at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_SMALL)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name("Small display next to the door in room \"Blue\"")
+                .name(format("Small display next to the door at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BEAMER)
                 .type(DummyBeamerAdapter.DEVICE_TYPE)
-                .name("Beamer in room \"Blue\"")
+                .name(format("Beamer at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_MICROPHONE)
                 .type(ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE)
-                .name("Microphone in room \"Blue\"")
+                .name(format("Microphone at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_WEB_BROWSER)
                 .type("firefox")
-                .name("Web browser in room \"Blue\"")
+                .name(format("Web browser at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_POWER_POINT)
                 .type("powerPoint")
-                .name("PowerPoint in room \"Blue\"")
+                .name(format("PowerPoint at location \"%s\"", LOCATION_ID_BLUE))
                 .responsibleDelegate(DELEGATE_ID_BLUE)
                 .build());
         return devices;

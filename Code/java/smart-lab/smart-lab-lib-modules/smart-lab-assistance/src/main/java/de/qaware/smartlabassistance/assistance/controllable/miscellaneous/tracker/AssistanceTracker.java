@@ -112,7 +112,7 @@ public class AssistanceTracker implements IAssistanceTracker {
                     context.getPersons().map(persons -> persons.stream()
                             .map(IEntity::getId)
                             .collect(toSet())).orElse(null),
-                    context.getRoom().map(IEntity::getId).orElse(null)
+                    context.getLocation().map(IEntity::getId).orElse(null)
             );
         }
 

@@ -3,7 +3,7 @@ package de.qaware.smartlabmeeting.service.controller;
 import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConstants;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
@@ -42,11 +40,11 @@ public class MeetingManagementController extends AbstractSmartLabController impl
         return this.meetingManagementBusinessLogic.findAll();
     }
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_ROOM_ID)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_LOCATION_ID)
     @ResponseBody
-    public Set<IMeeting> findAllByRoomId(
-            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return this.meetingManagementBusinessLogic.findAll(RoomId.of(roomId));
+    public Set<IMeeting> findAllByLocationId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+        return this.meetingManagementBusinessLogic.findAll(LocationId.of(locationId));
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_WORKGROUP_ID)
@@ -81,11 +79,11 @@ public class MeetingManagementController extends AbstractSmartLabController impl
                         .collect(toSet())));
     }
 
-    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_ROOM_ID)
+    @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_LOCATION_ID)
     @ResponseBody
-    public ResponseEntity<IMeeting> findCurrentByRoomId(
-            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_ROOM_ID) String roomId) {
-        return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(RoomId.of(roomId)));
+    public ResponseEntity<IMeeting> findCurrentByLocationId(
+            @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+        return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(LocationId.of(locationId)));
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_WORKGROUP_ID)

@@ -17,9 +17,9 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.room.IRoom;
-import de.qaware.smartlabcore.data.room.Room;
-import de.qaware.smartlabcore.data.room.RoomId;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.Location;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -38,27 +38,27 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     public static final PersonId MEMBER_ID_ANTHONY = PersonId.of("fire-fighter-anthony");
     public static final PersonId MEMBER_ID_BRUCE = PersonId.of("fire-fighter-bruce");
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
-    public static final RoomId ROOM_ID_RED = RoomId.of("red");
+    public static final LocationId LOCATION_ID_RED = LocationId.of("fire-fighters-workplace");
     public static final DeviceId DEVICE_ID_RED_DISPLAY_BIG = DeviceId.of("red-display-big");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
-    public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", ROOM_ID_RED);
+    public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", LOCATION_ID_RED);
     public static final String DELEGATE_ID_RED = "smart-lab-red-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
     private final IAssistanceInfo agendaShowingInfo;
-    private final IAssistanceInfo roomUnlockingInfo;
+    private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
     public FireFightersDataFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo agendaShowingInfo,
-            IAssistanceInfo roomUnlockingInfo,
+            IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
         super();
         this.minuteTakingInfo = minuteTakingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
-        this.roomUnlockingInfo = roomUnlockingInfo;
+        this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
     }
 
@@ -120,7 +120,7 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_RED_WEB_BROWSER.getIdValue())
                 .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
-        configs.add(this.roomUnlockingInfo.createConfiguration(ImmutableMap
+        configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
@@ -139,16 +139,16 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IRoom> createRoomSet() {
-        Set<IRoom> rooms = new HashSet<>();
-        Set<DeviceId> redRoomDevices = new HashSet<>();
-        redRoomDevices.add(DEVICE_ID_RED_MICROPHONE);
-        rooms.add(Room.builder()
-                .id(ROOM_ID_RED)
-                .name("Room Red")
-                .deviceIds(redRoomDevices)
+    public Set<ILocation> createLocationSet() {
+        Set<ILocation> locations = new HashSet<>();
+        Set<DeviceId> redLocationDevices = new HashSet<>();
+        redLocationDevices.add(DEVICE_ID_RED_MICROPHONE);
+        locations.add(Location.builder()
+                .id(LOCATION_ID_RED)
+                .name("Fire fighters workplace")
+                .deviceIds(redLocationDevices)
                 .build());
-        return rooms;
+        return locations;
     }
 
     @Override
@@ -157,13 +157,13 @@ public class FireFightersDataFactory extends AbstractSampleDataFactory {
         devices.add(Device.builder()
                 .id(DEVICE_ID_RED_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name("Big display in room \"Red\"")
+                .name(String.format("Big display at location \"%s\"", LOCATION_ID_RED))
                 .responsibleDelegate(DELEGATE_ID_RED)
                 .build());
         devices.add(Device.builder()
                 .id(DEVICE_ID_RED_MICROPHONE)
                 .type(DummyMicrophoneAdapter.DEVICE_TYPE)
-                .name("Microphone in room \"Red\"")
+                .name(String.format("Microphone at location \"%s\"", LOCATION_ID_RED))
                 .responsibleDelegate(DELEGATE_ID_RED)
                 .build());
         return devices;

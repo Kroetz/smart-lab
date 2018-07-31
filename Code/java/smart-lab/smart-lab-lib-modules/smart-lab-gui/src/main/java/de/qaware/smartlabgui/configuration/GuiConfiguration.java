@@ -26,8 +26,8 @@ public class GuiConfiguration {
 
     @Bean
     // TODO: String literal
-    @Qualifier("roomStatusMeetingExtension")
-    public Duration roomStatusMeetingExtension() {
+    @Qualifier("locationStatusMeetingExtension")
+    public Duration locationStatusMeetingExtension() {
         return this.guiProperties.getCurrentMeetingExtensionInMinutes();
     }
 
