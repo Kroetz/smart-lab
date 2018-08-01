@@ -1,9 +1,11 @@
-package de.qaware.smartlabsampledata.factory;
+package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
+import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.actor.microphone.ThinkpadP50InternalMicrophoneAdapter;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;
@@ -11,21 +13,19 @@ import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabaction.action.actor.microphone.ThinkpadP50InternalMicrophoneAdapter;
-import de.qaware.smartlabcore.data.meeting.*;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.Person;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.meeting.AgendaItem;
+import de.qaware.smartlabcore.data.meeting.IAgendaItem;
+import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.person.Person;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.exception.DataSetException;
 import de.qaware.smartlabcore.miscellaneous.Language;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,9 @@ import java.util.Set;
 import static java.lang.String.format;
 
 @Component
-public class CoastGuardDataFactory extends AbstractSampleDataFactory {
+public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
+
+    public static final String ID = "sample-data-coast-guard";
 
     public static final WorkgroupId WORKGROUP_ID_COAST_GUARD = WorkgroupId.of("coast-guard");
     public static final PersonId MEMBER_ID_ALICE = PersonId.of("coast-guard-alice");
@@ -61,14 +63,14 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
-    public CoastGuardDataFactory(
+    public CoastGuardSampleDataSetFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo fileDisplayingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
-        super();
+        super(ID);
         this.minuteTakingInfo = minuteTakingInfo;
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
@@ -78,8 +80,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() {
-        Set<IWorkgroup> workgroups = new HashSet<>();
+    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
+        Set<Workgroup> workgroups = new HashSet<>();
         Set<PersonId> coastGuardMembers = new HashSet<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
@@ -96,8 +98,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() {
-        Set<IPerson> workgroupMembers = new HashSet<>();
+    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
+        Set<Person> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALICE)
                 .name("Coast Guard Alice")
@@ -117,8 +119,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() {
-        Set<IMeeting> meetings = new HashSet<>();
+    public Set<Meeting> createMeetingSet() throws DataSetException {
+        Set<Meeting> meetings = new HashSet<>();
         List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
         whaleMeetingAgenda.add(AgendaItem.of("Show critical areas"));
         whaleMeetingAgenda.add(AgendaItem.of("Explain whale anatomy"));
@@ -227,8 +229,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<ILocation> createLocationSet() {
-        Set<ILocation> locations = new HashSet<>();
+    public Set<Location> createLocationSet() throws DataSetException {
+        Set<Location> locations = new HashSet<>();
         Set<DeviceId> blueLocationDevices = new HashSet<>();
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
@@ -243,8 +245,8 @@ public class CoastGuardDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() {
-        Set<IDevice> devices = new HashSet<>();
+    public Set<Device> createDeviceSet() throws DataSetException {
+        Set<Device> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)

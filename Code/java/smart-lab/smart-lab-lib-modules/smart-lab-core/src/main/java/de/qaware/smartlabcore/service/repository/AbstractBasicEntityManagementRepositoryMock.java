@@ -21,7 +21,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
 
     protected Set<EntityT> entities;
 
-    public AbstractBasicEntityManagementRepositoryMock(Set<EntityT> initialData) {
+    public AbstractBasicEntityManagementRepositoryMock(Set<? extends EntityT> initialData) {
         super(initialData);
         this.entities = new HashSet<>();
     }

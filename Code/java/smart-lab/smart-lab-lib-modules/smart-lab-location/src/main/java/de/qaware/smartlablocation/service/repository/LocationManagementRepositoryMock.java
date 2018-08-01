@@ -1,6 +1,7 @@
 package de.qaware.smartlablocation.service.repository;
 
 import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class LocationManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<ILocation, LocationId> implements ILocationManagementRepository {
 
-    public LocationManagementRepositoryMock(Set<ILocation> initialLocations) {
+    public LocationManagementRepositoryMock(Set<Location> initialLocations) {
         super(initialLocations);
         this.entities = new HashSet<>();
     }

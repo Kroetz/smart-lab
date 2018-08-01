@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.Set;
 
 @Repository
@@ -15,8 +16,9 @@ public abstract class AbstractBasicEntityManagementRepository<EntityT extends IE
 
     protected final Set<EntityT> initialData;
 
-    public AbstractBasicEntityManagementRepository(Set<EntityT> initialData) {
-        this.initialData = initialData;
+    public AbstractBasicEntityManagementRepository(Set<? extends EntityT> initialData) {
+        this.initialData = new HashSet<>();
+        this.initialData.addAll(initialData);
     }
 
     @PostConstruct

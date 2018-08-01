@@ -1,6 +1,6 @@
-package de.qaware.smartlabsampledata.annotation;
+package de.qaware.smartlabdataset.annotation;
 
-import de.qaware.smartlabsampledata.configuration.SampleDataModuleConfiguration;
+import de.qaware.smartlabdataset.configuration.InitialDataConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 @Configuration
-@Import(SampleDataModuleConfiguration.class)
-public @interface EnableSmartLabSampleData { }
+@Import(InitialDataConfiguration.class)
+public @interface EnableSmartLabInitialData { }

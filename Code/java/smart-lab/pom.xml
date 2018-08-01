@@ -22,6 +22,7 @@
 		<commons-io.version>2.6</commons-io.version>
 		<commons-validator.version>1.6</commons-validator.version>
 		<jackson-annotations.version>2.9.4</jackson-annotations.version>
+		<jackson-databind.version>2.9.4</jackson-databind.version>
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
 		<antlr4.version>4.7.1</antlr4.version>
 		<guava.version>25.1-jre</guava.version>
@@ -192,6 +193,13 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
 				<version>${jackson-annotations.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson-databind.version}</version>
 			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->

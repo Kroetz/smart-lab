@@ -3,10 +3,10 @@ package de.qaware.smartlabtest.device
 import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService
 import de.qaware.smartlabcore.data.device.entity.DeviceId
 import de.qaware.smartlabcore.data.device.entity.IDevice
-import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
-import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
-import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
-import de.qaware.smartlabsampledata.factory.ForestRangersDataFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
+import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -20,16 +20,16 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     private IDeviceManagementService deviceManagementService
 
     @Autowired
-    private CoastGuardDataFactory coastGuardDataFactory
+    private AbstractDataSetFactory coastGuardDataFactory
 
     @Autowired
-    private ForestRangersDataFactory forestRangersDataFactory
+    private ForestRangersSampleDataSetFactory forestRangersDataFactory
 
     @Autowired
-    private FireFightersDataFactory fireFightersDataFactory
+    private FireFightersSampleDataSetFactory fireFightersDataFactory
 
     @Autowired
-    private AstronautsDataFactory astronautsDataFactory
+    private AstronautsSampleDataSetFactory astronautsDataFactory
 
     @Override
     def setupDataForFindAll_withExisting() {

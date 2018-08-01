@@ -39,6 +39,11 @@
             <artifactId>smart-lab-action</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <!-- TODO: This dependency should not be necessary -->
         <dependency>
             <groupId>com.jcabi</groupId>

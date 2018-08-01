@@ -1,4 +1,4 @@
-package de.qaware.smartlabsampledata.factory;
+package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
@@ -10,17 +10,17 @@ import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.meeting.*;
-import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.location.Location;
+import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.meeting.AgendaItem;
+import de.qaware.smartlabcore.data.meeting.IAgendaItem;
+import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.location.Location;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.exception.DataSetException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,7 +31,9 @@ import java.util.Set;
 import static java.lang.String.format;
 
 @Component
-public class AstronautsDataFactory extends AbstractSampleDataFactory {
+public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
+
+    public static final String ID = "sample-data-astronauts";
 
     public static final WorkgroupId WORKGROUP_ID_ASTRONAUTS = WorkgroupId.of("astronauts");
     public static final PersonId MEMBER_ID_ALEX = PersonId.of("alex");
@@ -47,19 +49,19 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
-    public AstronautsDataFactory(
+    public AstronautsSampleDataSetFactory(
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
-        super();
+        super(ID);
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() {
-        Set<IWorkgroup> workgroups = new HashSet<>();
+    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
+        Set<Workgroup> workgroups = new HashSet<>();
         Set<PersonId> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
@@ -76,8 +78,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() {
-        Set<IPerson> workgroupMembers = new HashSet<>();
+    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
+        Set<Person> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALEX)
                 .name("Astronaut Alex")
@@ -97,8 +99,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() {
-        Set<IMeeting> meetings = new HashSet<>();
+    public Set<Meeting> createMeetingSet() throws DataSetException {
+        Set<Meeting> meetings = new HashSet<>();
         List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
         astronautsMeetingAgenda.add(AgendaItem.of("Calculate journey duration"));
         astronautsMeetingAgenda.add(AgendaItem.of("Discuss who may press the launch button of the rocket"));
@@ -128,8 +130,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<ILocation> createLocationSet() {
-        Set<ILocation> locations = new HashSet<>();
+    public Set<Location> createLocationSet() throws DataSetException {
+        Set<Location> locations = new HashSet<>();
         Set<DeviceId> blackLocationDevices = new HashSet<>();
         blackLocationDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
         locations.add(Location.builder()
@@ -141,8 +143,8 @@ public class AstronautsDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() {
-        Set<IDevice> devices = new HashSet<>();
+    public Set<Device> createDeviceSet() throws DataSetException {
+        Set<Device> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
                 .type(DummyBeamerAdapter.DEVICE_TYPE)

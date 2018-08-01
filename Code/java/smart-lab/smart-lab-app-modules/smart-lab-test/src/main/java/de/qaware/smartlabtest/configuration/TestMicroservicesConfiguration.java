@@ -3,7 +3,7 @@ package de.qaware.smartlabtest.configuration;
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabsampledata.annotation.EnableSmartLabSampleData;
+import de.qaware.smartlabdataset.annotation.EnableSmartLabInitialData;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,5 +14,5 @@ import org.springframework.context.annotation.Configuration;
         havingValue = Property.Value.Modularity.MICROSERVICE)
 @EnableSmartLabCore
 @EnableSmartLabApi
-@EnableSmartLabSampleData
+@EnableSmartLabInitialData
 public class TestMicroservicesConfiguration { }

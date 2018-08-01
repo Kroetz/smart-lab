@@ -8,10 +8,10 @@ import de.qaware.smartlabcore.exception.MaximalDurationReachedException
 import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.MinimalDurationReachedException
 import de.qaware.smartlabcore.miscellaneous.Constants
-import de.qaware.smartlabsampledata.factory.AstronautsDataFactory
-import de.qaware.smartlabsampledata.factory.CoastGuardDataFactory
-import de.qaware.smartlabsampledata.factory.FireFightersDataFactory
-import de.qaware.smartlabsampledata.factory.ForestRangersDataFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
+import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -27,16 +27,16 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<Meeting
     private IMeetingManagementService meetingManagementService
 
     @Autowired
-    private CoastGuardDataFactory coastGuardDataFactory
+    private AbstractDataSetFactory coastGuardDataFactory
 
     @Autowired
-    private ForestRangersDataFactory forestRangersDataFactory
+    private ForestRangersSampleDataSetFactory forestRangersDataFactory
 
     @Autowired
-    private FireFightersDataFactory fireFightersDataFactory
+    private FireFightersSampleDataSetFactory fireFightersDataFactory
 
     @Autowired
-    private AstronautsDataFactory astronautsDataFactory
+    private AstronautsSampleDataSetFactory astronautsDataFactory
 
     @Override
     def setupDataForFindAll_withExisting() {

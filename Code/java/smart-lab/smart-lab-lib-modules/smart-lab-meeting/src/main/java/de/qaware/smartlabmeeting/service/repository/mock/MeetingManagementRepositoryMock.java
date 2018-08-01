@@ -1,8 +1,9 @@
 package de.qaware.smartlabmeeting.service.repository.mock;
 
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityCreationException;
@@ -35,7 +36,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     private Map<LocationId, Set<IMeeting>> meetingsByLocation;
 
-    public MeetingManagementRepositoryMock(Set<IMeeting> initialMeetings) {
+    public MeetingManagementRepositoryMock(Set<Meeting> initialMeetings) {
         super(initialMeetings);
         this.meetingsByLocation = new HashMap<>();
     }

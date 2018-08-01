@@ -1,5 +1,6 @@
 package de.qaware.smartlabdevice.service.repository;
 
+import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class DeviceManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IDevice, DeviceId> implements IDeviceManagementRepository {
 
-    public DeviceManagementRepositoryMock(Set<IDevice> initialDevices) {
+    public DeviceManagementRepositoryMock(Set<Device> initialDevices) {
         super(initialDevices);
         this.entities = new HashSet<>();
     }

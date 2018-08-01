@@ -1,27 +1,27 @@
-package de.qaware.smartlabsampledata.factory;
+package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import com.jcabi.github.Coordinates;
+import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.meeting.*;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.Person;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.meeting.AgendaItem;
+import de.qaware.smartlabcore.data.meeting.IAgendaItem;
+import de.qaware.smartlabcore.data.meeting.Meeting;
+import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.person.Person;
+import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.exception.DataSetException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -32,7 +32,9 @@ import java.util.Set;
 import static java.lang.String.format;
 
 @Component
-public class ForestRangersDataFactory extends AbstractSampleDataFactory {
+public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
+
+    public static final String ID = "sample-data-forest-rangers";
 
     public static final WorkgroupId WORKGROUP_ID_FOREST_RANGERS = WorkgroupId.of("forest-rangers");
     public static final PersonId MEMBER_ID_ANNA = PersonId.of("forest-ranger-anna");
@@ -50,12 +52,12 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
 
-    public ForestRangersDataFactory(
+    public ForestRangersSampleDataSetFactory(
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo) {
-        super();
+        super(ID);
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
@@ -63,8 +65,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() {
-        Set<IWorkgroup> workgroups = new HashSet<>();
+    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
+        Set<Workgroup> workgroups = new HashSet<>();
         Set<PersonId> forestRangerMembers = new HashSet<>();
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
@@ -81,8 +83,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() {
-        Set<IPerson> workgroupMembers = new HashSet<>();
+    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
+        Set<Person> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANNA)
                 .name("Forest Ranger Anna")
@@ -102,8 +104,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() {
-        Set<IMeeting> meetings = new HashSet<>();
+    public Set<Meeting> createMeetingSet() throws DataSetException {
+        Set<Meeting> meetings = new HashSet<>();
         List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
         forestRangersMeetingAgenda.add(AgendaItem.of("Show potential damage"));
         forestRangersMeetingAgenda.add(AgendaItem.of("Show increase in population"));
@@ -143,8 +145,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<ILocation> createLocationSet() {
-        Set<ILocation> locations = new HashSet<>();
+    public Set<Location> createLocationSet() throws DataSetException {
+        Set<Location> locations = new HashSet<>();
         Set<DeviceId> greenLocationDevices = new HashSet<>();
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
@@ -157,8 +159,8 @@ public class ForestRangersDataFactory extends AbstractSampleDataFactory {
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() {
-        Set<IDevice> devices = new HashSet<>();
+    public Set<Device> createDeviceSet() throws DataSetException {
+        Set<Device> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)
