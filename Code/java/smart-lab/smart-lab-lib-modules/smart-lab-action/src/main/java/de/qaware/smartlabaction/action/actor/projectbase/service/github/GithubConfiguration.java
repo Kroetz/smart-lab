@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.actor.github;
+package de.qaware.smartlabaction.action.actor.projectbase.service.github;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

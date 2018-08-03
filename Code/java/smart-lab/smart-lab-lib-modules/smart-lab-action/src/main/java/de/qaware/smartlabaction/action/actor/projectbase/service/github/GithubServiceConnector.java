@@ -1,10 +1,11 @@
-package de.qaware.smartlabaction.action.actor.github;
+package de.qaware.smartlabaction.action.actor.projectbase.service.github;
 
 import com.jcabi.github.*;
 import com.jcabi.http.Request;
 import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
+import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
@@ -60,6 +61,8 @@ public class GithubServiceConnector implements IGithubService {
             JsonObject committer = Json.createObjectBuilder()
                     .add("name", "Smart-Lab-Test")
                     .add("email", "hanswurst@byom.de").build();
+            // TODO: casting smells
+            // TODO: Check for casting exception and throw illegalstateexception
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
             Repo repository = this.github.repos().get(new Coordinates.Simple(
                     githubKnowledgeBaseInfo.getUser(),

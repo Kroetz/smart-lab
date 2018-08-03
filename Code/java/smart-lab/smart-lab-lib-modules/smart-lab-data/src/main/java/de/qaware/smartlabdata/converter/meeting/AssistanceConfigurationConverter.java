@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.meeting;
+package de.qaware.smartlabdata.converter.meeting;
 
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;

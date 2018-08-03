@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.location;
+package de.qaware.smartlabdata.converter.location;
 
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.ILocation;

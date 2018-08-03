@@ -4,6 +4,7 @@ import de.qaware.smartlabaction.annotation.EnableSmartLabActionService;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlabdata.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdevice.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
@@ -36,6 +37,7 @@ import java.util.Map;
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
 @ComponentScan(basePackageClasses = {de.qaware.smartlabmonolith.ComponentScanMarker.class})
+@EnableSmartLabDtoConverters
 @EnableSmartLabJobService
 @EnableSmartLabPersonService
 @EnableSmartLabWorkgroupService

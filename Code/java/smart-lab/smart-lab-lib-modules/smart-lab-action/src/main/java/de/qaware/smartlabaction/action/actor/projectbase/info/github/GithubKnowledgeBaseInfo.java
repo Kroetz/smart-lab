@@ -1,7 +1,8 @@
-package de.qaware.smartlabaction.action.actor.github;
+package de.qaware.smartlabaction.action.actor.projectbase.info.github;
 
 import com.google.common.collect.ImmutableMap;
-import de.qaware.smartlabaction.action.actor.generic.AbstractKnowledgeBaseInfoFactory;
+import de.qaware.smartlabaction.action.actor.projectbase.info.generic.AbstractKnowledgeBaseInfoFactory;
+import de.qaware.smartlabaction.action.actor.projectbase.service.github.GithubServiceConnector;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabaction.action.actor.generic;
+package de.qaware.smartlabaction.action.actor.projectbase.info.generic;
 
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
 
