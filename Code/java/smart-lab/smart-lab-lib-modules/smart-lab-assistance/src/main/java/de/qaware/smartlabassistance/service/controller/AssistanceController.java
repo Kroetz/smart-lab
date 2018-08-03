@@ -31,7 +31,7 @@ public class AssistanceController {
     public ResponseEntity<Void> beginAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IAssistanceContext context) {
-        log.info("Received call to begin assistance with ID \"{}\" at the location with ID \"{}\"",
+        log.info("Received call to begin assistance with ID \"{}\" at the location with SERVICE_ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.beginAssistance(assistanceId, context);

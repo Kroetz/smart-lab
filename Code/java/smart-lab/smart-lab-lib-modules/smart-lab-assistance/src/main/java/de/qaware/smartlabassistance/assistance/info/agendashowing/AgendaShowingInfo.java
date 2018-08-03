@@ -1,6 +1,9 @@
 package de.qaware.smartlabassistance.assistance.info.agendashowing;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
+import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.EqualsAndHashCode;
@@ -9,7 +12,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,6 +56,13 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         private DeviceId webBrowserId;
         private DeviceId displayId;
 
+        @JsonCreator
+        public Configuration(IAssistanceInfo assistanceInfo, DeviceId webBrowserId, DeviceId displayId) {
+            super(assistanceInfo);
+            this.webBrowserId = webBrowserId;
+            this.displayId = displayId;
+        }
+
         private Configuration(AgendaShowingInfo agendaShowingInfo, Map<String, String> configProperties) {
             super(agendaShowingInfo);
             for(String key : configProperties.keySet()) {
@@ -72,11 +81,11 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         }
 
         @Override
-        public String toConfigLangString() {
-            Map<String, String> configProperties = new HashMap<>();
-            configProperties.put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue());
-            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
-            return toConfigLangString(configProperties);
+        public Map<String, String> getConfigProperties() {
+            return ImmutableMap.<String, String>builder()
+                    .put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue())
+                    .put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue())
+                    .build();
         }
     }
 }

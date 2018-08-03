@@ -2,12 +2,10 @@ package de.qaware.smartlabcore.data.location;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.miscellaneous.Constants;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
@@ -17,5 +15,4 @@ public interface ILocation extends IEntity<LocationId> {
 
     String getName();
     Collection<DeviceId> getDeviceIds();        // TODO: Set?
-    Optional<IDevice> getMinuteTakingDevice();      // TODO: Still needed?
 }

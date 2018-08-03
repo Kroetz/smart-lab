@@ -3,13 +3,14 @@ package de.qaware.smartlabtest.meeting
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.meeting.MeetingId
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto
+import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
-import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.MinimalDurationReachedException
 import de.qaware.smartlabcore.miscellaneous.Constants
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
@@ -21,7 +22,7 @@ import java.time.Duration
 import static java.util.Arrays.asList
 
 @SpringBootTest
-class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<MeetingId, IMeeting> {
+class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<MeetingId, MeetingDto, IMeeting> {
 
     @Autowired
     private IMeetingManagementService meetingManagementService

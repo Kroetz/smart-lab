@@ -1,9 +1,11 @@
 package de.qaware.smartlabmeeting.service.controller;
 
 import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConstants;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
@@ -25,86 +27,113 @@ import static java.util.stream.Collectors.toSet;
 @RestController
 @RequestMapping(MeetingManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class MeetingManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IMeeting> {
+public class MeetingManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IMeeting, MeetingDto> {
 
     private final IMeetingManagementBusinessLogic meetingManagementBusinessLogic;
+    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
 
-    public MeetingManagementController(IMeetingManagementBusinessLogic meetingManagementBusinessLogic) {
+    public MeetingManagementController(
+            IMeetingManagementBusinessLogic meetingManagementBusinessLogic,
+            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
         this.meetingManagementBusinessLogic = meetingManagementBusinessLogic;
+        this.meetingConverter = meetingConverter;
     }
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
-    public Set<IMeeting> findAll() {
-        return this.meetingManagementBusinessLogic.findAll();
+    public Set<MeetingDto> findAll() {
+        return this.meetingManagementBusinessLogic.findAll().stream()
+                .map(this.meetingConverter::toDto)
+                .collect(toSet());
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_LOCATION_ID)
     @ResponseBody
-    public Set<IMeeting> findAllByLocationId(
+    public Set<MeetingDto> findAllByLocationId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return this.meetingManagementBusinessLogic.findAll(LocationId.of(locationId));
+        return this.meetingManagementBusinessLogic.findAll(LocationId.of(locationId)).stream()
+                .map(this.meetingConverter::toDto)
+                .collect(toSet());
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_WORKGROUP_ID)
     @ResponseBody
-    public Set<IMeeting> findAllByWorkgroupId(
+    public Set<MeetingDto> findAllByWorkgroupId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return this.meetingManagementBusinessLogic.findAll(WorkgroupId.of(workgroupId));
+        return this.meetingManagementBusinessLogic.findAll(WorkgroupId.of(workgroupId)).stream()
+                .map(this.meetingConverter::toDto)
+                .collect(toSet());
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_CURRENT)
     @ResponseBody
-    public Set<IMeeting> findAllCurrent() {
-        return this.meetingManagementBusinessLogic.findAllCurrent();
+    public Set<MeetingDto> findAllCurrent() {
+        return this.meetingManagementBusinessLogic.findAllCurrent().stream()
+                .map(this.meetingConverter::toDto)
+                .collect(toSet());
     }
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
-    public ResponseEntity<IMeeting> findOne(
+    public ResponseEntity<MeetingDto> findOne(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId) {
-        return responseFromOptional(this.meetingManagementBusinessLogic.findOne(MeetingId.of(meetingId)));
+        return responseFromEntityOptional(
+                this.meetingManagementBusinessLogic.findOne(MeetingId.of(meetingId)),
+                this.meetingConverter);
     }
 
     @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
     @ResponseBody
-    public ResponseEntity<Set<IMeeting>> findMultiple(
+    public ResponseEntity<Set<MeetingDto>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds) {
-        return responseFromOptionals(this.meetingManagementBusinessLogic.findMultiple(
-                stream(meetingIds)
+        return responseFromEntityOptionals(
+                this.meetingManagementBusinessLogic.findMultiple(stream(meetingIds)
                         .map(MeetingId::of)
-                        .collect(toSet())));
+                        .collect(toSet())),
+                this.meetingConverter);
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_LOCATION_ID)
     @ResponseBody
-    public ResponseEntity<IMeeting> findCurrentByLocationId(
+    public ResponseEntity<MeetingDto> findCurrentByLocationId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(LocationId.of(locationId)));
+        return responseFromEntityOptional(
+                this.meetingManagementBusinessLogic.findCurrent(LocationId.of(locationId)),
+                this.meetingConverter);
     }
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_WORKGROUP_ID)
     @ResponseBody
-    public ResponseEntity<IMeeting> findCurrentByWorkgroupId(
+    public ResponseEntity<MeetingDto> findCurrentByWorkgroupId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return responseFromOptional(this.meetingManagementBusinessLogic.findCurrent(WorkgroupId.of(workgroupId)));
+        return responseFromEntityOptional(
+                this.meetingManagementBusinessLogic.findCurrent(WorkgroupId.of(workgroupId)),
+                this.meetingConverter);
     }
 
     @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting) {
-        return ResponseEntity.ok(this.meetingManagementBusinessLogic.create(meeting));
+    public ResponseEntity<MeetingDto> create(@RequestBody MeetingDto meeting) {
+        IMeeting meetingToCreate = this.meetingConverter.toEntity(meeting);
+        MeetingDto createdMeeting = this.meetingConverter.toDto(this.meetingManagementBusinessLogic.create(meetingToCreate));
+        return ResponseEntity.ok(createdMeeting);
     }
 
     @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Set<IMeeting>> create(Set<IMeeting> meetings) {
-        return ResponseEntity.ok(this.meetingManagementBusinessLogic.create(meetings));
+    public ResponseEntity<Set<MeetingDto>> create(Set<MeetingDto> meetings) {
+        return ResponseEntity.ok(this.meetingManagementBusinessLogic.create(meetings
+                .stream()
+                .map(this.meetingConverter::toEntity)
+                .collect(toSet()))
+                .stream()
+                .map(this.meetingConverter::toDto)
+                .collect(toSet()));
     }
 
     @Override

@@ -3,8 +3,9 @@ package de.qaware.smartlabtest.person
 import de.qaware.smartlabapi.service.connector.person.IPersonManagementService
 import de.qaware.smartlabcore.data.person.IPerson
 import de.qaware.smartlabcore.data.person.PersonId
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlabcore.data.person.dto.PersonDto
 import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import static java.util.Arrays.asList
 
 @SpringBootTest
-class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId, IPerson> {
+class PersonManagementApiIntegrationTest extends CrudApiIntegrationTest<PersonId, PersonDto, IPerson> {
 
     @Autowired
     private IPersonManagementService personManagementService

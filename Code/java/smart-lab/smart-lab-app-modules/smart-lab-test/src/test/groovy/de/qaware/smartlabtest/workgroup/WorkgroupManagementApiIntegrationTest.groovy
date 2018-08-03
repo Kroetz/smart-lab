@@ -5,12 +5,13 @@ import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementSer
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId
+import de.qaware.smartlabcore.data.workgroup.dto.WorkgroupDto
+import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException
-import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.miscellaneous.Constants
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
@@ -22,7 +23,7 @@ import java.time.Duration
 import static java.util.Arrays.asList
 
 @SpringBootTest
-class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<WorkgroupId, IWorkgroup> {
+class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<WorkgroupId, WorkgroupDto, IWorkgroup> {
 
     @Autowired
     private IWorkgroupManagementService workgroupManagementService

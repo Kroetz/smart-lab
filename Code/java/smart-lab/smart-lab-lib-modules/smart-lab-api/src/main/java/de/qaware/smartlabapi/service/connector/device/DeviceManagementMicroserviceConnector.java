@@ -2,8 +2,10 @@ package de.qaware.smartlabapi.service.connector.device;
 
 import de.qaware.smartlabapi.service.client.device.IDeviceManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
+import de.qaware.smartlabcore.data.device.dto.DeviceDto;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
@@ -21,12 +23,14 @@ import java.net.URL;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class DeviceManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IDevice, DeviceId> implements IDeviceManagementService {
+public class DeviceManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IDevice, DeviceId, DeviceDto> implements IDeviceManagementService {
 
     private final IDeviceManagementApiClient deviceManagementApiClient;
 
-    public DeviceManagementMicroserviceConnector(IDeviceManagementApiClient deviceManagementApiClient) {
-        super(deviceManagementApiClient);
+    public DeviceManagementMicroserviceConnector(
+            IDeviceManagementApiClient deviceManagementApiClient,
+            IDtoConverter<IDevice, DeviceDto> deviceConverter) {
+        super(deviceManagementApiClient, deviceConverter);
         this.deviceManagementApiClient = deviceManagementApiClient;
     }
 

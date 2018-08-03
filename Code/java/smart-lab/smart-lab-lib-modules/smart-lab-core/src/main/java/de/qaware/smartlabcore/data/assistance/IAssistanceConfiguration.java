@@ -3,6 +3,8 @@ package de.qaware.smartlabcore.data.assistance;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 
+import java.util.Map;
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
@@ -11,5 +13,7 @@ public interface IAssistanceConfiguration {
 
     String getAssistanceId();
     String getAssistanceCommand();
+    Map<String, String> getConfigProperties();
     String toConfigLangString();
+    AssistanceConfigurationDto toDto();
 }

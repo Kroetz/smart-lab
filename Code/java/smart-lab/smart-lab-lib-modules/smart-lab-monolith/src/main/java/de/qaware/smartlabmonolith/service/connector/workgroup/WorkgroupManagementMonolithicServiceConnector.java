@@ -1,9 +1,12 @@
 package de.qaware.smartlabmonolith.service.connector.workgroup;
 
 import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.data.workgroup.dto.WorkgroupDto;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
@@ -21,24 +24,32 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IWorkgroup, WorkgroupId, WorkgroupDto> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;
+    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
 
-    public WorkgroupManagementMonolithicServiceConnector(WorkgroupManagementController workgroupManagementController) {
-        super(workgroupManagementController);
+    public WorkgroupManagementMonolithicServiceConnector(
+            WorkgroupManagementController workgroupManagementController,
+            IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
+            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+        super(workgroupManagementController, workgroupConverter);
         this.workgroupManagementController = workgroupManagementController;
+        this.meetingConverter = meetingConverter;
     }
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
-        ResponseEntity<Set<IMeeting>> response = this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<Set<MeetingDto>> response = this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.meetingConverter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
@@ -46,8 +57,8 @@ public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasic
 
     @Override
     public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
-        ResponseEntity<IMeeting> response = this.workgroupManagementController.getCurrentMeeting(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<MeetingDto> response = this.workgroupManagementController.getCurrentMeeting(workgroupId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.meetingConverter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();

@@ -1,6 +1,7 @@
 package de.qaware.smartlablocation.service.business;
 
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlabcore.data.location.dto.LocationDto;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;

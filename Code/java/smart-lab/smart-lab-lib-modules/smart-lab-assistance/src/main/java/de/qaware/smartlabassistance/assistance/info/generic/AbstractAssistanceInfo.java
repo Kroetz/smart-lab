@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance.info.generic;
 
+import de.qaware.smartlabcore.data.assistance.AssistanceConfigurationDto;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -75,6 +76,11 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
             return this.assistanceInfo.getAssistanceCommand();
         }
 
+        @Override
+        public String toConfigLangString() {
+            return toConfigLangString(getConfigProperties());
+        }
+
         protected String toConfigLangString(Map<String, String> configProperties) {
             return new StringBuilder()
                     .append(TAB).append(TAB)
@@ -103,6 +109,14 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
                     .append(SPACE)
                     .append(format(DOUBLE_QUOTED_TEMPLATE, configProperty.getValue()))
                     .toString();
+        }
+
+        @Override
+        public AssistanceConfigurationDto toDto() {
+            return AssistanceConfigurationDto.builder()
+                    .assistanceId(getAssistanceId())
+                    .configProperties(getConfigProperties())
+                    .build();
         }
     }
 }

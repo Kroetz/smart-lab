@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance.info.filedisplaying;
 
+import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -9,7 +10,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -77,12 +77,12 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
         }
 
         @Override
-        public String toConfigLangString() {
-            Map<String, String> configProperties = new HashMap<>();
-            configProperties.put(CONFIG_PROPERTY_KEY_FILE, this.filePath);
-            configProperties.put(CONFIG_PROPERTY_KEY_PROGRAM_ID, this.programId.getIdValue());
-            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
-            return toConfigLangString(configProperties);
+        public Map<String, String> getConfigProperties() {
+            return ImmutableMap.<String, String>builder()
+                    .put(CONFIG_PROPERTY_KEY_FILE, this.filePath)
+                    .put(CONFIG_PROPERTY_KEY_PROGRAM_ID, this.programId.getIdValue())
+                    .put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue())
+                    .build();
         }
     }
 }

@@ -1,8 +1,10 @@
 package de.qaware.smartlabmonolith.service.connector.person;
 
 import de.qaware.smartlabapi.service.connector.person.IPersonManagementService;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.dto.PersonDto;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
@@ -16,12 +18,14 @@ import org.springframework.stereotype.Component;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class PersonManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IPerson, PersonId> implements IPersonManagementService {
+public class PersonManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IPerson, PersonId, PersonDto> implements IPersonManagementService {
 
     private final PersonManagementController personManagementController;
 
-    public PersonManagementMonolithicServiceConnector(PersonManagementController personManagementController) {
-        super(personManagementController);
+    public PersonManagementMonolithicServiceConnector(
+            PersonManagementController personManagementController,
+            IDtoConverter<IPerson, PersonDto> personConverter) {
+        super(personManagementController, personConverter);
         this.personManagementController = personManagementController;
     }
 

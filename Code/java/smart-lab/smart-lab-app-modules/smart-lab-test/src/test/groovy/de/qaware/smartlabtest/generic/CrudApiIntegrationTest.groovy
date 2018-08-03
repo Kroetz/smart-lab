@@ -1,6 +1,7 @@
 package de.qaware.smartlabtest.generic
 
 import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService
+import de.qaware.smartlabcore.data.generic.IDto
 import de.qaware.smartlabcore.data.generic.IEntity
 import de.qaware.smartlabcore.data.generic.IIdentifier
 import de.qaware.smartlabcore.exception.EntityConflictException
@@ -9,9 +10,9 @@ import spock.lang.Specification
 
 import static java.util.stream.Collectors.toList
 
-abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, EntityT extends IEntity<IdentifierT>> extends Specification {
+abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT extends IDto, EntityT extends IEntity<IdentifierT, DtoT>> extends Specification {
 
-    protected IBasicEntityManagementService<EntityT, IdentifierT> crudService
+    protected IBasicEntityManagementService<EntityT, IdentifierT, DtoT> crudService
     protected Set<EntityT> entitiesForFindAll_withExisting
     protected EntityT entityForFindOne_withExisting
     protected IdentifierT entityIdForFindOne_withoutExisting

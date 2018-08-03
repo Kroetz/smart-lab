@@ -24,26 +24,26 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
     }
 
     public void beginAssistance(String assistanceId, final IAssistanceContext context) {
-        log.info("Executing begin stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executing begin stage of assistance (ID: \"{}\") at location with SERVICE_ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         IAssistanceControllable assistance = this.assistanceTracker.track(context);
         assistance.begin(this.actionService, context);
         this.assistanceTracker.updateTracked(context, assistance);
-        log.info("Executed begin stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executed begin stage of assistance (ID: \"{}\") at location with SERVICE_ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 
     public void endAssistance(String assistanceId, IAssistanceContext context) {
-        log.info("Executing end stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executing end stage of assistance (ID: \"{}\") at location with SERVICE_ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
         assistance.end(this.actionService, context);
         this.assistanceTracker.updateTracked(context, assistance);
         this.assistanceTracker.stopTracking(context);
-        log.info("Executed end stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executed end stage of assistance (ID: \"{}\") at location with SERVICE_ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }

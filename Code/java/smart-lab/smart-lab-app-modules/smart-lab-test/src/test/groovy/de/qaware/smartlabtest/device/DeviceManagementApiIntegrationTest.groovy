@@ -1,10 +1,11 @@
 package de.qaware.smartlabtest.device
 
 import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService
+import de.qaware.smartlabcore.data.device.dto.DeviceDto
 import de.qaware.smartlabcore.data.device.entity.DeviceId
 import de.qaware.smartlabcore.data.device.entity.IDevice
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
+import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import static java.util.Arrays.asList
 
 @SpringBootTest
-class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId, IDevice> {
+class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId, DeviceDto, IDevice> {
 
     @Autowired
     private IDeviceManagementService deviceManagementService

@@ -2,9 +2,12 @@ package de.qaware.smartlabapi.service.connector.workgroup;
 
 import de.qaware.smartlabapi.service.client.workgroup.IWorkgroupManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlabcore.data.workgroup.dto.WorkgroupDto;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
@@ -23,24 +26,34 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IWorkgroup, WorkgroupId> implements IWorkgroupManagementService {
+public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IWorkgroup, WorkgroupId, WorkgroupDto> implements IWorkgroupManagementService {
 
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
+    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
 
-    public WorkgroupManagementMicroserviceConnector(IWorkgroupManagementApiClient workgroupManagementApiClient) {
-        super(workgroupManagementApiClient);
+    public WorkgroupManagementMicroserviceConnector(
+            IWorkgroupManagementApiClient workgroupManagementApiClient,
+            IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
+            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+        super(workgroupManagementApiClient, workgroupConverter);
         this.workgroupManagementApiClient = workgroupManagementApiClient;
+        this.meetingConverter = meetingConverter;
     }
 
     @Override
     public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
         try {
-            return this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId.getIdValue()).getBody();
+            return requireNonNull(this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId.getIdValue()).getBody()).stream()
+                    .map(this.meetingConverter::toEntity)
+                    .collect(toSet());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -53,7 +66,9 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
     @Override
     public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
         try {
-            return this.workgroupManagementApiClient.getCurrentMeeting(workgroupId.getIdValue()).getBody();
+            MeetingDto currentMeeting = this.workgroupManagementApiClient.getCurrentMeeting(workgroupId.getIdValue()).getBody();
+            requireNonNull(currentMeeting);
+            return this.meetingConverter.toEntity(currentMeeting);
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

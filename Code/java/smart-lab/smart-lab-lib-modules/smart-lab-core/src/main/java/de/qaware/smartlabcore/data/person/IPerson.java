@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.data.person;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlabcore.miscellaneous.Constants;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,

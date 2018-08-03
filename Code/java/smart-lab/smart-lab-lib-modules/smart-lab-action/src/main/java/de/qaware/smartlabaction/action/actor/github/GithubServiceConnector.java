@@ -1,9 +1,6 @@
 package de.qaware.smartlabaction.action.actor.github;
 
-import com.jcabi.github.Content;
-import com.jcabi.github.Github;
-import com.jcabi.github.Repo;
-import com.jcabi.github.RtGithub;
+import com.jcabi.github.*;
 import com.jcabi.http.Request;
 import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
@@ -64,7 +61,9 @@ public class GithubServiceConnector implements IGithubService {
                     .add("name", "Smart-Lab-Test")
                     .add("email", "hanswurst@byom.de").build();
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
-            Repo repository = this.github.repos().get(githubKnowledgeBaseInfo.getRepository());
+            Repo repository = this.github.repos().get(new Coordinates.Simple(
+                    githubKnowledgeBaseInfo.getUser(),
+                    githubKnowledgeBaseInfo.getRepository()));
             JsonObject jsonObject = Json.createObjectBuilder()
                     .add("message", uploadMessage)
                     .add("path", path)
@@ -87,7 +86,9 @@ public class GithubServiceConnector implements IGithubService {
         try {
             acceptPendingRepoInvitations();
             GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
-            Repo repository = this.github.repos().get(githubKnowledgeBaseInfo.getRepository());
+            Repo repository = this.github.repos().get(new Coordinates.Simple(
+                    githubKnowledgeBaseInfo.getUser(),
+                    githubKnowledgeBaseInfo.getRepository()));
             Content file = repository.contents().get(filePath);
             return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, file.raw());
         }

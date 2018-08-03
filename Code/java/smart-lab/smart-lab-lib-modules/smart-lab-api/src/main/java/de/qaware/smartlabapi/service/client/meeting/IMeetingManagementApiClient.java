@@ -3,6 +3,7 @@ package de.qaware.smartlabapi.service.client.meeting;
 import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConstants;
 import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,54 +13,60 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = MeetingManagementApiConstants.FEIGN_CLIENT_NAME, path = MeetingManagementApiConstants.MAPPING_BASE)
-public interface IMeetingManagementApiClient extends IBasicEntityManagementApiClient<IMeeting> {
+public interface IMeetingManagementApiClient extends IBasicEntityManagementApiClient<IMeeting, MeetingDto> {
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
-    Set<IMeeting> findAll();
+    Set<MeetingDto> findAll();
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_LOCATION_ID)
     @ResponseBody
-    Set<IMeeting> findAllByLocationId(
+    Set<MeetingDto> findAllByLocationId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_BY_WORKGROUP_ID)
     @ResponseBody
-    Set<IMeeting> findAllByWorkgroupId(
+    Set<MeetingDto> findAllByWorkgroupId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ALL_CURRENT)
     @ResponseBody
-    Set<IMeeting> findAllCurrent();
+    Set<MeetingDto> findAllCurrent();
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
-    ResponseEntity<IMeeting> findOne(
+    ResponseEntity<MeetingDto> findOne(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_ID) String meetingId);
 
+    @Override
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_MULTIPLE)
     @ResponseBody
-    ResponseEntity<Set<IMeeting>> findMultiple(
+    ResponseEntity<Set<MeetingDto>> findMultiple(
             @RequestParam(MeetingManagementApiConstants.PARAMETER_NAME_MEETING_IDS) String[] meetingIds);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_LOCATION_ID)
     @ResponseBody
-    ResponseEntity<IMeeting> findCurrentByLocationId(
+    ResponseEntity<MeetingDto> findCurrentByLocationId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
     @GetMapping(MeetingManagementApiConstants.MAPPING_FIND_CURRENT_BY_WORKGROUP_ID)
     @ResponseBody
-    ResponseEntity<IMeeting> findCurrentByWorkgroupId(
+    ResponseEntity<MeetingDto> findCurrentByWorkgroupId(
             @PathVariable(MeetingManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
+    @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<IMeeting> create(@RequestBody IMeeting meeting);
+    ResponseEntity<MeetingDto> create(@RequestBody MeetingDto meeting);
 
+    @Override
     @PostMapping(value = MeetingManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<Set<IMeeting>> create(@RequestBody Set<IMeeting> meetings);
+    ResponseEntity<Set<MeetingDto>> create(@RequestBody Set<MeetingDto> meetings);
 
+    @Override
     @DeleteMapping(MeetingManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     ResponseEntity<Void> delete(

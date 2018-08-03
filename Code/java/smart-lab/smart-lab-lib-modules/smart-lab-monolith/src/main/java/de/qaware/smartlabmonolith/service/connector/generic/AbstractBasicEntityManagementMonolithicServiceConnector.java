@@ -1,6 +1,8 @@
 package de.qaware.smartlabmonolith.service.connector.generic;
 
 import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService;
+import de.qaware.smartlabcore.data.generic.IDto;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityConflictException;
@@ -13,24 +15,32 @@ import org.springframework.http.ResponseEntity;
 import java.util.Set;
 
 import static java.util.Arrays.stream;
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
 
-public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> implements IBasicEntityManagementService<EntityT, IdentifierT> {
+public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier, DtoT extends IDto> implements IBasicEntityManagementService<EntityT, IdentifierT, DtoT> {
 
-    protected final IBasicEntityManagementController<EntityT> entityManagementController;
+    protected final IBasicEntityManagementController<EntityT, DtoT> entityManagementController;
+    protected final IDtoConverter<EntityT, DtoT> converter;
 
-    public AbstractBasicEntityManagementMonolithicServiceConnector(IBasicEntityManagementController<EntityT> entityManagementController) {
+    public AbstractBasicEntityManagementMonolithicServiceConnector(
+            IBasicEntityManagementController<EntityT, DtoT> entityManagementController,
+            IDtoConverter<EntityT, DtoT> converter) {
         this.entityManagementController = entityManagementController;
+        this.converter = converter;
     }
 
     @Override
     public Set<EntityT> findAll() {
-        return this.entityManagementController.findAll();
+        return this.entityManagementController.findAll().stream()
+                .map(this.converter::toEntity)
+                .collect(toSet());
     }
 
     @Override
     public EntityT findOne(IdentifierT entityId) {
-        ResponseEntity<EntityT> response = this.entityManagementController.findOne(entityId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<DtoT> response = this.entityManagementController.findOne(entityId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
@@ -38,11 +48,11 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
 
     @Override
     public Set<EntityT> findMultiple(IdentifierT[] entityIds) {
-        ResponseEntity<Set<EntityT>> response = this.entityManagementController
+        ResponseEntity<Set<DtoT>> response = this.entityManagementController
                 .findMultiple(stream(entityIds)
                 .map(IIdentifier::getIdValue)
                 .toArray(String[]::new));
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
@@ -50,8 +60,8 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
 
     @Override
     public EntityT create(EntityT entity) {
-        ResponseEntity<EntityT> response = this.entityManagementController.create(entity);
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<DtoT> response = this.entityManagementController.create(this.converter.toDto(entity));
+        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();
@@ -59,8 +69,10 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
 
     @Override
     public Set<EntityT> create(Set<EntityT> entities) {
-        ResponseEntity<Set<EntityT>> response = this.entityManagementController.create(entities);
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<Set<DtoT>> response = this.entityManagementController.create(entities.stream()
+                .map(this.converter::toDto)
+                .collect(toSet()));
+        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());;
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();

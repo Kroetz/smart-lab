@@ -2,8 +2,10 @@ package de.qaware.smartlabapi.service.connector.person;
 
 import de.qaware.smartlabapi.service.client.person.IPersonManagementApiClient;
 import de.qaware.smartlabapi.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.dto.PersonDto;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
@@ -21,12 +23,14 @@ import java.net.URL;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class PersonManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IPerson, PersonId> implements IPersonManagementService {
+public class PersonManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IPerson, PersonId, PersonDto> implements IPersonManagementService {
 
     private final IPersonManagementApiClient personManagementApiClient;
 
-    public PersonManagementMicroserviceConnector(IPersonManagementApiClient personManagementApiClient) {
-        super(personManagementApiClient);
+    public PersonManagementMicroserviceConnector(
+            IPersonManagementApiClient personManagementApiClient,
+            IDtoConverter<IPerson, PersonDto> personConverter) {
+        super(personManagementApiClient, personConverter);
         this.personManagementApiClient = personManagementApiClient;
     }
 

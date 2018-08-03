@@ -1,7 +1,6 @@
 package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
-import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
 import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
@@ -62,6 +61,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo fileDisplayingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
+    private final GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory;
 
     public CoastGuardSampleDataSetFactory(
             IAssistanceInfo minuteTakingInfo,
@@ -69,7 +69,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo fileDisplayingInfo,
             IAssistanceInfo locationUnlockingInfo,
-            IAssistanceInfo devicePreparationInfo) {
+            IAssistanceInfo devicePreparationInfo,
+            GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory) {
         super(ID);
         this.minuteTakingInfo = minuteTakingInfo;
         this.websiteDisplayingInfo = websiteDisplayingInfo;
@@ -77,6 +78,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         this.fileDisplayingInfo = fileDisplayingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
+        this.githubKnowledgeBaseInfoFactory = githubKnowledgeBaseInfoFactory;
     }
 
     @Override
@@ -90,9 +92,11 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .id(WORKGROUP_ID_COAST_GUARD)
                 .name("Coast Guard")
                 .memberIds(coastGuardMembers)
-                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
-                        "Kroetz",
-                        "coastGuardRepo")).build())
+                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+                        .<String, String>builder()
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "coastGuardRepo")
+                        .build()))
                 .build());
         return workgroups;
     }

@@ -1,7 +1,6 @@
 package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
-import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
@@ -48,15 +47,18 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
+    private final GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory;
 
     public AstronautsSampleDataSetFactory(
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
-            IAssistanceInfo devicePreparationInfo) {
+            IAssistanceInfo devicePreparationInfo,
+            GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory) {
         super(ID);
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
+        this.githubKnowledgeBaseInfoFactory = githubKnowledgeBaseInfoFactory;
     }
 
     @Override
@@ -70,9 +72,11 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
                 .id(WORKGROUP_ID_ASTRONAUTS)
                 .name("Astronauts")
                 .memberIds(astronautsMembers)
-                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
-                        "Kroetz",
-                        "astronautsRepo")).build())
+                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+                        .<String, String>builder()
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "astronautsRepo")
+                        .build()))
                 .build());
         return workgroups;
     }

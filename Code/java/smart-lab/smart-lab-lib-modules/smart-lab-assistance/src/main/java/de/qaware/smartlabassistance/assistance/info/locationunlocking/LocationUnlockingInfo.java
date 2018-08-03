@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance.info.locationunlocking;
 
+import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,10 +53,9 @@ public class LocationUnlockingInfo extends AbstractAssistanceInfo {
         }
 
         @Override
-        public String toConfigLangString() {
-            // TODO
-            Map<String, String> configProperties = new HashMap<>();
-            return toConfigLangString(configProperties);
+        public Map<String, String> getConfigProperties() {
+            return ImmutableMap.<String, String>builder()
+                    .build();
         }
     }
 }

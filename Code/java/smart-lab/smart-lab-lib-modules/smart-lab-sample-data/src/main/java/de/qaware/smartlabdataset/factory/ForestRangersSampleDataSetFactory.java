@@ -1,7 +1,6 @@
 package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
-import com.jcabi.github.Coordinates;
 import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabaction.action.actor.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
@@ -51,17 +50,20 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
+    private final GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory;
 
     public ForestRangersSampleDataSetFactory(
             IAssistanceInfo websiteDisplayingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
-            IAssistanceInfo devicePreparationInfo) {
+            IAssistanceInfo devicePreparationInfo,
+            GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory) {
         super(ID);
         this.websiteDisplayingInfo = websiteDisplayingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
+        this.githubKnowledgeBaseInfoFactory = githubKnowledgeBaseInfoFactory;
     }
 
     @Override
@@ -75,9 +77,11 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
                 .id(WORKGROUP_ID_FOREST_RANGERS)
                 .name("Forest Rangers")
                 .memberIds(forestRangerMembers)
-                .knowledgeBaseInfo(GithubKnowledgeBaseInfo.builder().repository(new Coordinates.Simple(
-                        "Kroetz",
-                        "forestRangersRepo")).build())
+                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+                        .<String, String>builder()
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "forestRangersRepo")
+                        .build()))
                 .build());
         return workgroups;
     }

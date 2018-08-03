@@ -3,15 +3,12 @@ package de.qaware.smartlabcore.service.repository;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 import de.qaware.smartlabcore.exception.EntityConflictException;
-import de.qaware.smartlabcore.exception.EntityCreationException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

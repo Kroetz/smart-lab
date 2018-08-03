@@ -1,9 +1,12 @@
 package de.qaware.smartlablocation.service.controller;
 
 import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.location.dto.LocationDto;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
@@ -25,50 +28,69 @@ import static java.util.stream.Collectors.toSet;
 @Controller
 @RequestMapping(LocationManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class LocationManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<ILocation> {
+public class LocationManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<ILocation, LocationDto> {
 
     private final ILocationManagementBusinessLogic locationManagementBusinessLogic;
+    private final IDtoConverter<ILocation, LocationDto> locationConverter;
+    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
 
-    public LocationManagementController(ILocationManagementBusinessLogic locationManagementBusinessLogic) {
+    public LocationManagementController(
+            ILocationManagementBusinessLogic locationManagementBusinessLogic,
+            IDtoConverter<ILocation, LocationDto> locationConverter,
+            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
         this.locationManagementBusinessLogic = locationManagementBusinessLogic;
+        this.locationConverter = locationConverter;
+        this.meetingConverter = meetingConverter;
     }
 
     @Override
     @GetMapping(LocationManagementApiConstants.MAPPING_FIND_ALL)
     @ResponseBody
-    public Set<ILocation> findAll() {
-        return this.locationManagementBusinessLogic.findAll();
+    public Set<LocationDto> findAll() {
+        return this.locationManagementBusinessLogic.findAll().stream()
+                .map(this.locationConverter::toDto)
+                .collect(toSet());
     }
 
     @Override
     @GetMapping(LocationManagementApiConstants.MAPPING_FIND_ONE)
     @ResponseBody
-    public ResponseEntity<ILocation> findOne(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return responseFromOptional(this.locationManagementBusinessLogic.findOne(LocationId.of(locationId)));
+    public ResponseEntity<LocationDto> findOne(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+        return responseFromEntityOptional(
+                this.locationManagementBusinessLogic.findOne(LocationId.of(locationId)),
+                this.locationConverter);
     }
 
     @Override
     @GetMapping(LocationManagementApiConstants.MAPPING_FIND_MULTIPLE)
     @ResponseBody
-    public ResponseEntity<Set<ILocation>> findMultiple(@RequestParam(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_IDS) String[] locationIds) {
-        return responseFromOptionals(this.locationManagementBusinessLogic.findMultiple(
-                stream(locationIds)
+    public ResponseEntity<Set<LocationDto>> findMultiple(@RequestParam(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_IDS) String[] locationIds) {
+        return responseFromEntityOptionals(this.locationManagementBusinessLogic.findMultiple(stream(locationIds)
                         .map(LocationId::of)
-                        .collect(toSet())));
+                        .collect(toSet())),
+                this.locationConverter);
     }
 
     @Override
     @PostMapping(value = LocationManagementApiConstants.MAPPING_CREATE_SINGLE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ILocation> create(@RequestBody ILocation location) {
-        return ResponseEntity.ok(this.locationManagementBusinessLogic.create(location));
+    public ResponseEntity<LocationDto> create(@RequestBody LocationDto location) {
+        ILocation locationToCreate = this.locationConverter.toEntity(location);
+        LocationDto createdLocation = this.locationConverter.toDto(this.locationManagementBusinessLogic.create(locationToCreate));
+        return ResponseEntity.ok(createdLocation);
     }
 
     @Override
     @PostMapping(value = LocationManagementApiConstants.MAPPING_CREATE_MULTIPLE,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Set<ILocation>> create(@RequestBody Set<ILocation> locations) {
-        return ResponseEntity.ok(this.locationManagementBusinessLogic.create(locations));
+    public ResponseEntity<Set<LocationDto>> create(@RequestBody Set<LocationDto> locations) {
+        return ResponseEntity.ok(this.locationManagementBusinessLogic.create(locations
+                .stream()
+                .map(this.locationConverter::toEntity)
+                .collect(toSet()))
+                .stream()
+                .map(this.locationConverter::toDto)
+                .collect(toSet()));
     }
 
     @Override
@@ -80,14 +102,18 @@ public class LocationManagementController extends AbstractSmartLabController imp
 
     @GetMapping(LocationManagementApiConstants.MAPPING_GET_MEETINGS_AT_LOCATION)
     @ResponseBody
-    public ResponseEntity<Set<IMeeting>> getMeetingsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return responseFromOptional(this.locationManagementBusinessLogic.getMeetingsAtLocation(LocationId.of(locationId)));
+    public ResponseEntity<Set<MeetingDto>> getMeetingsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+        return responseFromEntityOptionals(
+                this.locationManagementBusinessLogic.getMeetingsAtLocation(LocationId.of(locationId)),
+                this.meetingConverter);
     }
 
     @GetMapping(LocationManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
     @ResponseBody
-    public ResponseEntity<IMeeting> getCurrentMeeting(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return responseFromOptional(this.locationManagementBusinessLogic.getCurrentMeeting(LocationId.of(locationId)));
+    public ResponseEntity<MeetingDto> getCurrentMeeting(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+        return responseFromEntityOptional(
+                this.locationManagementBusinessLogic.getCurrentMeeting(LocationId.of(locationId)),
+                this.meetingConverter);
     }
 
     @PostMapping(LocationManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)

@@ -1,11 +1,12 @@
 package de.qaware.smartlabapi.service.connector.generic;
 
+import de.qaware.smartlabcore.data.generic.IDto;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IIdentifier;
 
 import java.util.Set;
 
-public interface IBasicEntityManagementService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier> {
+public interface IBasicEntityManagementService<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier, DtoT extends IDto> {
 
     Set<EntityT> findAll();
     EntityT findOne(IdentifierT entityId);

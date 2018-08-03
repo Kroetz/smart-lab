@@ -1,5 +1,6 @@
 package de.qaware.smartlabassistance.assistance.info.websitedisplaying;
 
+import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -88,12 +88,12 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
         }
 
         @Override
-        public String toConfigLangString() {
-            Map<String, String> configProperties = new HashMap<>();
-            configProperties.put(CONFIG_PROPERTY_KEY_URL, this.url.toString());
-            configProperties.put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue());
-            configProperties.put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue());
-            return toConfigLangString(configProperties);
+        public Map<String, String> getConfigProperties() {
+            return ImmutableMap.<String, String>builder()
+                    .put(CONFIG_PROPERTY_KEY_URL, this.url.toString())
+                    .put(CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, this.webBrowserId.getIdValue())
+                    .put(CONFIG_PROPERTY_KEY_DISPLAY_ID, this.displayId.getIdValue())
+                    .build();
         }
     }
 }

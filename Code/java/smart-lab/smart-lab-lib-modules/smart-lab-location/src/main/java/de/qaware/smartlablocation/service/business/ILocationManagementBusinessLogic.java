@@ -1,10 +1,10 @@
 package de.qaware.smartlablocation.service.business;
 
-import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.service.business.IBasicEntityManagementBusinessLogic;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.result.ExtensionResult;
+import de.qaware.smartlabcore.service.business.IBasicEntityManagementBusinessLogic;
 
 import java.time.Duration;
 import java.util.Optional;

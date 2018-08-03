@@ -1,14 +1,16 @@
 package de.qaware.smartlabmonolith.service.connector.meeting;
 
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.location.LocationId;
+import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.*;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlabmeeting.service.controller.MeetingManagementController;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,39 +21,50 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
+
 @Component
 @ConditionalOnProperty(
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IMeeting, MeetingId> implements IMeetingManagementService {
+public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IMeeting, MeetingId, MeetingDto> implements IMeetingManagementService {
 
     private final MeetingManagementController meetingManagementController;
 
-    public MeetingManagementMonolithicServiceConnector(MeetingManagementController meetingManagementController) {
-        super(meetingManagementController);
+    public MeetingManagementMonolithicServiceConnector(
+            MeetingManagementController meetingManagementController,
+            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+        super(meetingManagementController, meetingConverter);
         this.meetingManagementController = meetingManagementController;
     }
 
     @Override
     public Set<IMeeting> findAll(LocationId locationId) {
-        return this.meetingManagementController.findAllByLocationId(locationId.getIdValue());
+        return this.meetingManagementController.findAllByLocationId(locationId.getIdValue()).stream()
+                .map(this.converter::toEntity)
+                .collect(toSet());
     }
 
     @Override
     public Set<IMeeting> findAll(WorkgroupId workgroupId) {
-        return this.meetingManagementController.findAllByWorkgroupId(workgroupId.getIdValue());
+        return this.meetingManagementController.findAllByWorkgroupId(workgroupId.getIdValue()).stream()
+                .map(this.converter::toEntity)
+                .collect(toSet());
     }
 
     @Override
     public Set<IMeeting> findAllCurrent() {
-        return this.meetingManagementController.findAllCurrent();
+        return this.meetingManagementController.findAllCurrent().stream()
+                .map(this.converter::toEntity)
+                .collect(toSet());
     }
 
     @Override
     public IMeeting findCurrent(LocationId locationId) {
-        ResponseEntity<IMeeting> response = this.meetingManagementController.findCurrentByLocationId(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<MeetingDto> response = this.meetingManagementController.findCurrentByLocationId(locationId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
@@ -59,8 +72,8 @@ public class MeetingManagementMonolithicServiceConnector extends AbstractBasicEn
 
     @Override
     public IMeeting findCurrent(WorkgroupId workgroupId) {
-        ResponseEntity<IMeeting> response = this.meetingManagementController.findCurrentByWorkgroupId(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return response.getBody();
+        ResponseEntity<MeetingDto> response = this.meetingManagementController.findCurrentByWorkgroupId(workgroupId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();

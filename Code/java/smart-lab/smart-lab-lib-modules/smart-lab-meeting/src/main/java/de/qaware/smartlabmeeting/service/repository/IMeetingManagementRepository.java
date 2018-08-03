@@ -1,8 +1,8 @@
 package de.qaware.smartlabmeeting.service.repository;
 
+import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
