@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.person;
 
-import de.qaware.smartlabapi.service.constant.person.PersonManagementApiConstants;
+import de.qaware.smartlabcore.service.constant.person.PersonManagementApiConstants;
 import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.dto.PersonDto;

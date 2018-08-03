@@ -47,6 +47,11 @@
 
 		<dependency>
 			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-microservice</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.qaware</groupId>
 			<artifactId>smart-lab-monolith</artifactId>
 		</dependency>
 

@@ -21,6 +21,11 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-microservice</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
             <artifactId>smart-lab-springfox-dependencies</artifactId>
             <type>pom</type>
         </dependency>

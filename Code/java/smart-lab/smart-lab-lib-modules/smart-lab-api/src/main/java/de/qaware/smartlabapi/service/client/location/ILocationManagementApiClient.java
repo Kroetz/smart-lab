@@ -1,7 +1,7 @@
 package de.qaware.smartlabapi.service.client.location;
 
 import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
+import de.qaware.smartlabcore.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.dto.LocationDto;
 import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;

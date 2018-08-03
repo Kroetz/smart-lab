@@ -1,11 +1,13 @@
 package de.qaware.smartlabtriggerprovidermicroservice;
 
+import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@EnableSmartLabMicroservice
 @EnableSmartLabSetUpMeetingTriggerProvider
 @EnableSmartLabCleanUpMeetingTriggerProvider
 public class SmartLabTriggerProviderMicroserviceApplication {

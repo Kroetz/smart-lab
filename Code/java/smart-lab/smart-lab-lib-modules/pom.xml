@@ -33,6 +33,7 @@
         <module>smart-lab-assistance</module>
         <module>smart-lab-trigger</module>
         <module>smart-lab-gui</module>
+        <module>smart-lab-microservice</module>
         <module>smart-lab-monolith</module>
     </modules>
 

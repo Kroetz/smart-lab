@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.action;
 
-import de.qaware.smartlabapi.service.constant.action.ActionApiConstants;
+import de.qaware.smartlabcore.service.constant.action.ActionApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import org.springframework.cloud.openfeign.FeignClient;
