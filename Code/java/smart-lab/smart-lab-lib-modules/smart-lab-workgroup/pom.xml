@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-sample-data</artifactId>
+            <artifactId>smart-lab-data</artifactId>
         </dependency>
 
     </dependencies>

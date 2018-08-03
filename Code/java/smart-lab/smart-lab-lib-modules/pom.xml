@@ -20,7 +20,7 @@
     <modules>
         <module>smart-lab-core</module>
         <module>smart-lab-api</module>
-        <module>smart-lab-sample-data</module>
+        <module>smart-lab-data</module>
         <module>smart-lab-job</module>
         <module>smart-lab-person</module>
         <module>smart-lab-workgroup</module>

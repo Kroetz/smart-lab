@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataset.provider;
+package de.qaware.smartlabdata.provider;
 
 import de.qaware.smartlabcore.data.IDataSetProvider;
 import de.qaware.smartlabcore.data.device.entity.Device;
@@ -10,8 +10,8 @@ import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.exception.DataSetException;
-import de.qaware.smartlabdataset.factory.FileSourcedDataSetFactory;
-import de.qaware.smartlabdataset.factory.IDataSetFactory;
+import de.qaware.smartlabdata.factory.FileSourcedDataSetFactory;
+import de.qaware.smartlabdata.factory.IDataSetFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

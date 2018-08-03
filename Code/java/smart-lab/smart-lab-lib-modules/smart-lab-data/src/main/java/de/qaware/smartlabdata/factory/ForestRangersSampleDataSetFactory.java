@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataset.factory;
+package de.qaware.smartlabdata.factory;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;

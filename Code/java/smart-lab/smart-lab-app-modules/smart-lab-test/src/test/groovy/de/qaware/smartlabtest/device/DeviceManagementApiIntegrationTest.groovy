@@ -4,10 +4,10 @@ import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService
 import de.qaware.smartlabcore.data.device.dto.DeviceDto
 import de.qaware.smartlabcore.data.device.entity.DeviceId
 import de.qaware.smartlabcore.data.device.entity.IDevice
-import de.qaware.smartlabdataset.factory.AbstractDataSetFactory
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
+import de.qaware.smartlabdata.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlabdata.factory.CoastGuardSampleDataSetFactory
+import de.qaware.smartlabdata.factory.FireFightersSampleDataSetFactory
+import de.qaware.smartlabdata.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlabtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,7 +21,7 @@ class DeviceManagementApiIntegrationTest extends CrudApiIntegrationTest<DeviceId
     private IDeviceManagementService deviceManagementService
 
     @Autowired
-    private AbstractDataSetFactory coastGuardDataFactory
+    private CoastGuardSampleDataSetFactory coastGuardDataFactory
 
     @Autowired
     private ForestRangersSampleDataSetFactory forestRangersDataFactory
