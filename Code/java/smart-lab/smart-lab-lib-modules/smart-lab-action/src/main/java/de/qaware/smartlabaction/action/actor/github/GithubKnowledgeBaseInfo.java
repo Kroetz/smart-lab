@@ -3,7 +3,6 @@ package de.qaware.smartlabaction.action.actor.github;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.generic.AbstractKnowledgeBaseInfoFactory;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
-import de.qaware.smartlabcore.data.workgroup.dto.ProjectBaseInfoDto;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -40,13 +39,6 @@ public class GithubKnowledgeBaseInfo implements IKnowledgeBaseInfo {
     @Override
     public String getServiceId() {
         return SERVICE_ID;
-    }
-
-    @Override
-    public ProjectBaseInfoDto toDto() {
-        return ProjectBaseInfoDto.builder()
-                .projectBaseProperties(getKnowledgeBaseProperties())
-                .build();
     }
 
     @Override

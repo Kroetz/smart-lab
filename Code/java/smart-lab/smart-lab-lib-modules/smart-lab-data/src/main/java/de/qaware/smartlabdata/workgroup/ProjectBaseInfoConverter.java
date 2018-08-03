@@ -1,9 +1,10 @@
-package de.qaware.smartlabaction.action.actor.generic;
+package de.qaware.smartlabdata.workgroup;
 
+import de.qaware.smartlabaction.action.actor.generic.IKnowledgeBaseInfoFactory;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
-import de.qaware.smartlabcore.data.workgroup.dto.ProjectBaseInfoDto;
+import de.qaware.smartlabcore.data.workgroup.ProjectBaseInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class ProjectBaseInfoConverter implements IDtoConverter<IKnowledgeBaseInf
 
     @Override
     public IKnowledgeBaseInfo toEntity(ProjectBaseInfoDto projectBaseInfo) {
-        // Exception message and type
+        // TODO: Exception message and type
         IKnowledgeBaseInfoFactory factory = this.knowledgeBaseInfoFactoryResolver
                 .resolve(projectBaseInfo.getServiceId())
                 .orElseThrow(RuntimeException::new);

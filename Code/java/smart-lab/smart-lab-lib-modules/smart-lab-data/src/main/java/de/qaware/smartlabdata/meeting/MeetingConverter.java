@@ -1,10 +1,8 @@
-package de.qaware.smartlabcore.data.meeting;
+package de.qaware.smartlabdata.meeting;
 
-import de.qaware.smartlabcore.data.assistance.AssistanceConfigurationDto;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.meeting.dto.AgendaItemDto;
-import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
+import de.qaware.smartlabcore.data.meeting.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +33,7 @@ public class MeetingConverter implements IDtoConverter<IMeeting, MeetingDto> {
                         .map(this.agendaItemConverter::toDto)
                         .collect(toList()))
                 .assistanceConfigurations(meeting.getAssistanceConfigurations().stream()
-                        .map(IAssistanceConfiguration::toDto)
+                        .map(this.assistanceConfigurationConverter::toDto)
                         .collect(toSet()))
                 .start(meeting.getStart())
                 .end(meeting.getEnd())

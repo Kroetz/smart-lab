@@ -1,8 +1,6 @@
-package de.qaware.smartlabcore.data.meeting.dto;
+package de.qaware.smartlabcore.data.meeting;
 
 import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
 import lombok.*;
 
 @Data

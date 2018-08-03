@@ -4,7 +4,7 @@ import de.qaware.smartlabaction.annotation.EnableSmartLabActionInfos;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabcore.data.IDataSetProvider;
-import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.person.Person;

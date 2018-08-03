@@ -1,8 +1,6 @@
-package de.qaware.smartlabcore.data.person.dto;
+package de.qaware.smartlabcore.data.person;
 
 import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.person.PersonRole;
 import lombok.*;
 
 @Data

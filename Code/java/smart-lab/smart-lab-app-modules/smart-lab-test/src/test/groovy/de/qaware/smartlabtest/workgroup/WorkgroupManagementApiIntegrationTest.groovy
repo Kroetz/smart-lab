@@ -5,7 +5,7 @@ import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementSer
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId
-import de.qaware.smartlabcore.data.workgroup.dto.WorkgroupDto
+import de.qaware.smartlabcore.data.workgroup.WorkgroupDto
 import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException

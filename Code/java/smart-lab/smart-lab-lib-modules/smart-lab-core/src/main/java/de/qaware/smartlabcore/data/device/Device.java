@@ -1,5 +1,7 @@
-package de.qaware.smartlabcore.data.device.entity;
+package de.qaware.smartlabcore.data.device;
 
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

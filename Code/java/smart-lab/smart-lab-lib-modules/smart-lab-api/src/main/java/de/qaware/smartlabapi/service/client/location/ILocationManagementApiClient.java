@@ -1,10 +1,10 @@
 package de.qaware.smartlabapi.service.client.location;
 
 import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabcore.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.dto.LocationDto;
-import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
+import de.qaware.smartlabcore.data.location.LocationDto;
+import de.qaware.smartlabcore.data.meeting.MeetingDto;
+import de.qaware.smartlabcore.service.constant.location.LocationManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

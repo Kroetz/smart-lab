@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.connector.location.ILocationManagementServi
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.location.ILocation
 import de.qaware.smartlabcore.data.location.LocationId
-import de.qaware.smartlabcore.data.location.dto.LocationDto
+import de.qaware.smartlabcore.data.location.LocationDto
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException

@@ -2,7 +2,7 @@ package de.qaware.smartlabmicroservice.service.connector.device;
 
 import de.qaware.smartlabapi.service.client.device.IDeviceManagementApiClient;
 import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService;
-import de.qaware.smartlabcore.data.device.dto.DeviceDto;
+import de.qaware.smartlabcore.data.device.DeviceDto;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;

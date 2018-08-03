@@ -15,5 +15,4 @@ public interface IAssistanceConfiguration {
     String getAssistanceCommand();
     Map<String, String> getConfigProperties();
     String toConfigLangString();
-    AssistanceConfigurationDto toDto();
 }

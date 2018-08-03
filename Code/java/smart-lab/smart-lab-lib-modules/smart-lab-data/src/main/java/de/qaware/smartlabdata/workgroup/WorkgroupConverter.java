@@ -1,8 +1,7 @@
-package de.qaware.smartlabcore.data.workgroup;
+package de.qaware.smartlabdata.workgroup;
 
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.workgroup.dto.ProjectBaseInfoDto;
-import de.qaware.smartlabcore.data.workgroup.dto.WorkgroupDto;
+import de.qaware.smartlabcore.data.workgroup.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

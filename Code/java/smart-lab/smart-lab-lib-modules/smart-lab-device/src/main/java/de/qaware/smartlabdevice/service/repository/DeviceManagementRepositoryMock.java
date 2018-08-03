@@ -1,6 +1,6 @@
 package de.qaware.smartlabdevice.service.repository;
 
-import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;

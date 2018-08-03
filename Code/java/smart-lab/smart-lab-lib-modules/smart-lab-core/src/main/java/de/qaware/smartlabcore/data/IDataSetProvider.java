@@ -1,6 +1,6 @@
 package de.qaware.smartlabcore.data;
 
-import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.Meeting;

@@ -1,6 +1,9 @@
 package de.qaware.smartlabcore.data.workgroup;
 
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

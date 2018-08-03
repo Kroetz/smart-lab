@@ -1,7 +1,6 @@
 package de.qaware.smartlabcore.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlabcore.data.meeting.dto.AgendaItemDto;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 
 @JsonTypeInfo(
@@ -12,5 +11,4 @@ public interface IAgendaItem {
 
     String getContent();
     String toConfigLangString();
-    AgendaItemDto toDto();
 }

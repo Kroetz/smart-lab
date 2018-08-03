@@ -4,9 +4,9 @@ import de.qaware.smartlabapi.service.connector.location.ILocationManagementServi
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.location.dto.LocationDto;
+import de.qaware.smartlabcore.data.location.LocationDto;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
+import de.qaware.smartlabcore.data.meeting.MeetingDto;
 import de.qaware.smartlabcore.exception.EntityConflictException;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException;

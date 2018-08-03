@@ -2,7 +2,7 @@ package de.qaware.smartlabdataset.factory;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.meeting.Meeting;

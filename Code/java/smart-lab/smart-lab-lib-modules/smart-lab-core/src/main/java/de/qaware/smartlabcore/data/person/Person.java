@@ -1,5 +1,8 @@
 package de.qaware.smartlabcore.data.person;
 
+import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.PersonRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

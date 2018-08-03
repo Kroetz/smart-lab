@@ -1,10 +1,10 @@
 package de.qaware.smartlabdevice.service.controller;
 
-import de.qaware.smartlabcore.service.constant.device.DeviceManagementApiConstants;
-import de.qaware.smartlabcore.data.device.dto.DeviceDto;
+import de.qaware.smartlabcore.data.device.DeviceDto;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
+import de.qaware.smartlabcore.service.constant.device.DeviceManagementApiConstants;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;

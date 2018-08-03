@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.assistance;
+package de.qaware.smartlabcore.data.meeting;
 
 import de.qaware.smartlabcore.data.generic.IDto;
 import lombok.*;

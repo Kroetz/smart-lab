@@ -1,8 +1,7 @@
-package de.qaware.smartlabcore.data.workgroup.dto;
+package de.qaware.smartlabcore.data.workgroup;
 
 import de.qaware.smartlabcore.data.generic.IDto;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.*;
 
 import java.util.Set;

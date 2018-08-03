@@ -3,7 +3,7 @@ package de.qaware.smartlabtest.person
 import de.qaware.smartlabapi.service.connector.person.IPersonManagementService
 import de.qaware.smartlabcore.data.person.IPerson
 import de.qaware.smartlabcore.data.person.PersonId
-import de.qaware.smartlabcore.data.person.dto.PersonDto
+import de.qaware.smartlabcore.data.person.PersonDto
 import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory

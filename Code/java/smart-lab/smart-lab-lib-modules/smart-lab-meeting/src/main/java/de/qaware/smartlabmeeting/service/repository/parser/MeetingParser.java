@@ -10,7 +10,6 @@ import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.InvalidSyntaxException;
 import de.qaware.smartlabcore.exception.UnknownAssistanceException;
-import de.qaware.smartlabcore.miscellaneous.StringUtils;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageLexer;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageParser;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_BEGIN;
 import static de.qaware.smartlabcore.miscellaneous.MeetingConfigurationLanguage.CONFIG_TAG_END;

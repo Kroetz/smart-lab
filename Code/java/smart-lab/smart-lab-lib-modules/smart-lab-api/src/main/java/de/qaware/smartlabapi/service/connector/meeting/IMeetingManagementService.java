@@ -3,8 +3,8 @@ package de.qaware.smartlabapi.service.connector.meeting;
 import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.meeting.MeetingDto;
 import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.meeting.dto.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 
 import java.time.Duration;

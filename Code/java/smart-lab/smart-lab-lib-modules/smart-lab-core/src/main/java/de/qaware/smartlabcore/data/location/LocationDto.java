@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.data.location.dto;
+package de.qaware.smartlabcore.data.location;
 
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.generic.IDto;

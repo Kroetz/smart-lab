@@ -4,7 +4,7 @@ import de.qaware.smartlabcore.service.constant.person.PersonManagementApiConstan
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.person.dto.PersonDto;
+import de.qaware.smartlabcore.data.person.PersonDto;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;

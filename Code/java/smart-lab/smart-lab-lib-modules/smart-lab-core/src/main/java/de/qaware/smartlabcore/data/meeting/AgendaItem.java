@@ -2,7 +2,6 @@ package de.qaware.smartlabcore.data.meeting;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlabcore.data.meeting.dto.AgendaItemDto;
 import lombok.*;
 
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
@@ -28,12 +27,5 @@ public class AgendaItem implements IAgendaItem {
     @Override
     public String toConfigLangString() {
         return TAB + TAB + format(DOUBLE_QUOTED_TEMPLATE, this.content) + NEW_LINE;
-    }
-
-    @Override
-    public AgendaItemDto toDto() {
-        return AgendaItemDto.builder()
-                .content(this.content)
-                .build();
     }
 }

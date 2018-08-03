@@ -1,8 +1,6 @@
-package de.qaware.smartlabcore.data.meeting.dto;
+package de.qaware.smartlabcore.data.meeting;
 
-import de.qaware.smartlabcore.data.assistance.AssistanceConfigurationDto;
 import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.*;
 

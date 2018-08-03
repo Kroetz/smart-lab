@@ -1,10 +1,10 @@
-package de.qaware.smartlabassistance.assistance.generic;
+package de.qaware.smartlabdata.meeting;
 
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
-import de.qaware.smartlabcore.data.assistance.AssistanceConfigurationDto;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlabcore.data.meeting.AssistanceConfigurationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class AssistanceConfigurationConverter implements IDtoConverter<IAssistan
 
     @Override
     public IAssistanceConfiguration toEntity(AssistanceConfigurationDto assistanceConfiguration) {
-        // Exception message and type
+        // TODO Exception message and type
         IAssistanceInfo assistanceInfo = this.assistanceInfoResolver
                 .resolve(assistanceConfiguration.getAssistanceId())
                 .orElseThrow(RuntimeException::new);

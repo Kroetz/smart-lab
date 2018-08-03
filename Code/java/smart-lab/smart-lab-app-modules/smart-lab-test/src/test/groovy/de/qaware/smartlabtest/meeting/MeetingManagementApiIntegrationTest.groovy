@@ -3,7 +3,7 @@ package de.qaware.smartlabtest.meeting
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.meeting.MeetingId
-import de.qaware.smartlabcore.data.meeting.dto.MeetingDto
+import de.qaware.smartlabcore.data.meeting.MeetingDto
 import de.qaware.smartlabcore.exception.EntityConflictException
 import de.qaware.smartlabcore.exception.EntityNotFoundException
 import de.qaware.smartlabcore.exception.MaximalDurationReachedException

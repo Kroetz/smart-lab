@@ -10,7 +10,7 @@ import spock.lang.Specification
 
 import static java.util.stream.Collectors.toList
 
-abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT extends IDto, EntityT extends IEntity<IdentifierT, DtoT>> extends Specification {
+abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT extends IDto, EntityT extends IEntity<IdentifierT>> extends Specification {
 
     protected IBasicEntityManagementService<EntityT, IdentifierT, DtoT> crudService
     protected Set<EntityT> entitiesForFindAll_withExisting

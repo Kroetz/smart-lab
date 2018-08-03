@@ -1,7 +1,7 @@
-package de.qaware.smartlabcore.data.device;
+package de.qaware.smartlabdata.device;
 
-import de.qaware.smartlabcore.data.device.dto.DeviceDto;
-import de.qaware.smartlabcore.data.device.entity.Device;
+import de.qaware.smartlabcore.data.device.Device;
+import de.qaware.smartlabcore.data.device.DeviceDto;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import lombok.extern.slf4j.Slf4j;
