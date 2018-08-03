@@ -5,10 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-workgroup</artifactId>
+    <artifactId>smart-lab-data-set</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-workgroup</name>
-    <description>Module of the Smart-Lab project that manages workgroups</description>
+    <name>smart-lab-data-set</name>
+    <description>Module that contains sample data and means to retrieve it for the other modules of the Smart-Lab project</description>
 
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
@@ -26,17 +26,27 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>de.qaware</groupId>
             <artifactId>smart-lab-data</artifactId>
         </dependency>
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-data-set</artifactId>
+            <artifactId>smart-lab-assistance</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-action</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
     </dependencies>

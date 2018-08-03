@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.factory;
+package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;

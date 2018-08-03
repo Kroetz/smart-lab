@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.factory;
+package de.qaware.smartlabdataset.factory;
 
 import de.qaware.smartlabcore.data.device.entity.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;

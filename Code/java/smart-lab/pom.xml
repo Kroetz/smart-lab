@@ -97,6 +97,12 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-data-set</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
 				<artifactId>smart-lab-job</artifactId>
 				<version>${project.version}</version>
 			</dependency>

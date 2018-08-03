@@ -1,3 +1,3 @@
-package de.qaware.smartlabdata;
+package de.qaware.smartlabdataset;
 
 public interface ComponentScanMarker { }

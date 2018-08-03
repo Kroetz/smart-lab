@@ -34,6 +34,11 @@
             <artifactId>smart-lab-data</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-data-set</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

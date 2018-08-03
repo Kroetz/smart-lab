@@ -8,7 +8,7 @@
     <artifactId>smart-lab-data</artifactId>
     <packaging>jar</packaging>
     <name>smart-lab-data</name>
-    <description>Module that contains data (conversion) classes and sample data for the other modules of the Smart-Lab project</description>
+    <description>Module that contains data and conversion classes for the other modules of the Smart-Lab project</description>
 
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
