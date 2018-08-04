@@ -51,7 +51,7 @@ public class TempFileManagerConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "temp")
+    @ConfigurationProperties(prefix = "smart-lab.temp")
     public static class TempFileProperties {
 
         private static final int DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS = 60;
