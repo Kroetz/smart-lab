@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AssistanceConfigurationConverter implements IDtoConverter<IAssistanceConfiguration, AssistanceConfigurationDto> {
 
+    /*
+     * TODO: Map fields automatically without breaking the immutability of the entity classes
+     * Maybe http://modelmapper.org/ is appropriate for this task
+     */
+
     private final IResolver<String, IAssistanceInfo> assistanceInfoResolver;
 
     public AssistanceConfigurationConverter(IResolver<String, IAssistanceInfo> assistanceInfoResolver) {

@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class WorkgroupConverter implements IDtoConverter<IWorkgroup, WorkgroupDto> {
 
+    /*
+     * TODO: Map fields automatically without breaking the immutability of the entity classes
+     * Maybe http://modelmapper.org/ is appropriate for this task
+     */
+
     private final IDtoConverter<IKnowledgeBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter;
 
     public WorkgroupConverter(IDtoConverter<IKnowledgeBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter) {

@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class PersonConverter implements IDtoConverter<IPerson, PersonDto> {
 
+    /*
+     * TODO: Map fields automatically without breaking the immutability of the entity classes
+     * Maybe http://modelmapper.org/ is appropriate for this task
+     */
+
     @Override
     public PersonDto toDto(IPerson person) {
         return PersonDto.builder()

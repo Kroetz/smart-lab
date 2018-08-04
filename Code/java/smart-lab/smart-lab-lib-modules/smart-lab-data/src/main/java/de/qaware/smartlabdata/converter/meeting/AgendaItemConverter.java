@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AgendaItemConverter implements IDtoConverter<IAgendaItem, AgendaItemDto> {
 
+    /*
+     * TODO: Map fields automatically without breaking the immutability of the entity classes
+     * Maybe http://modelmapper.org/ is appropriate for this task
+     */
+
     @Override
     public AgendaItemDto toDto(IAgendaItem agendaItem) {
         return AgendaItemDto.builder()

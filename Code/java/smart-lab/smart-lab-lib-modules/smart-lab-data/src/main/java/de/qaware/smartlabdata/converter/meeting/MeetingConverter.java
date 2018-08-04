@@ -13,6 +13,11 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 public class MeetingConverter implements IDtoConverter<IMeeting, MeetingDto> {
 
+    /*
+     * TODO: Map fields automatically without breaking the immutability of the entity classes
+     * Maybe http://modelmapper.org/ is appropriate for this task
+     */
+
     private final IDtoConverter<IAgendaItem, AgendaItemDto> agendaItemConverter;
     private final IDtoConverter<IAssistanceConfiguration, AssistanceConfigurationDto> assistanceConfigurationConverter;
 
