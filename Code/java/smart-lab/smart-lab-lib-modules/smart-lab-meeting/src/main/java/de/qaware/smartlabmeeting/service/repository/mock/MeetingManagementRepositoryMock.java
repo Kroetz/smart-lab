@@ -36,7 +36,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     private Map<LocationId, Set<IMeeting>> meetingsByLocation;
 
-    public MeetingManagementRepositoryMock(Set<Meeting> initialMeetings) {
+    public MeetingManagementRepositoryMock(Set<IMeeting> initialMeetings) {
         super(initialMeetings);
         this.meetingsByLocation = new HashMap<>();
     }

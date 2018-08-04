@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.meeting;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.generic.IDto;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AgendaItemDto implements IDto {
 
     private String content;

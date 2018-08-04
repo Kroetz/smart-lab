@@ -15,7 +15,7 @@ import java.util.Set;
 public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IWorkgroup, WorkgroupId> implements IWorkgroupManagementRepository {
 
     public WorkgroupManagementRepositoryMock(
-            Set<Workgroup> initialWorkgroups) {
+            Set<IWorkgroup> initialWorkgroups) {
         super(initialWorkgroups);
         this.entities = new HashSet<>();
     }

@@ -10,14 +10,15 @@ import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDis
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
-import de.qaware.smartlabcore.data.meeting.Meeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.meeting.*;
+import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.DataSetException;
@@ -67,8 +68,8 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
-        Set<Workgroup> workgroups = new HashSet<>();
+    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> forestRangerMembers = new HashSet<>();
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
@@ -87,8 +88,8 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
-        Set<Person> workgroupMembers = new HashSet<>();
+    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ANNA)
                 .name("Forest Ranger Anna")
@@ -108,8 +109,8 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Meeting> createMeetingSet() throws DataSetException {
-        Set<Meeting> meetings = new HashSet<>();
+    public Set<IMeeting> createMeetingSet() throws DataSetException {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
         forestRangersMeetingAgenda.add(AgendaItem.of("Show potential damage"));
         forestRangersMeetingAgenda.add(AgendaItem.of("Show increase in population"));
@@ -149,8 +150,8 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Location> createLocationSet() throws DataSetException {
-        Set<Location> locations = new HashSet<>();
+    public Set<ILocation> createLocationSet() throws DataSetException {
+        Set<ILocation> locations = new HashSet<>();
         Set<DeviceId> greenLocationDevices = new HashSet<>();
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
@@ -163,8 +164,8 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Device> createDeviceSet() throws DataSetException {
-        Set<Device> devices = new HashSet<>();
+    public Set<IDevice> createDeviceSet() throws DataSetException {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_GREEN_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)

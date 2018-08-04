@@ -14,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class DeviceManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IDevice, DeviceId> implements IDeviceManagementRepository {
 
-    public DeviceManagementRepositoryMock(Set<Device> initialDevices) {
+    public DeviceManagementRepositoryMock(Set<IDevice> initialDevices) {
         super(initialDevices);
         this.entities = new HashSet<>();
     }

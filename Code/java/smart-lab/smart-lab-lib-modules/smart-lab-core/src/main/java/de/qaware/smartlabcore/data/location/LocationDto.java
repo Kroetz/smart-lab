@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.location;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.generic.IDto;
 import de.qaware.smartlabcore.data.location.LocationId;
@@ -13,6 +14,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationDto implements IDto {
 
     private LocationId id;

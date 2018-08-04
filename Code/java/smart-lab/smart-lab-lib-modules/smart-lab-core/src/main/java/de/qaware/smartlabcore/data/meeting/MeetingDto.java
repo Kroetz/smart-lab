@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.meeting;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.generic.IDto;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MeetingDto implements IDto {
 
     private MeetingId id;

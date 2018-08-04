@@ -1,14 +1,19 @@
 package de.qaware.smartlabdataset.provider;
 
 import de.qaware.smartlabcore.data.IDataSetProvider;
-import de.qaware.smartlabcore.data.device.Device;
+import de.qaware.smartlabcore.data.device.DeviceDto;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.data.location.Location;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.location.LocationDto;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.Meeting;
-import de.qaware.smartlabcore.data.person.Person;
-import de.qaware.smartlabcore.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.data.meeting.MeetingDto;
+import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.person.PersonDto;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabcore.data.workgroup.WorkgroupDto;
 import de.qaware.smartlabcore.exception.DataSetException;
 import de.qaware.smartlabdataset.factory.FileSourcedDataSetFactory;
 import de.qaware.smartlabdataset.factory.IDataSetFactory;
@@ -55,35 +60,35 @@ public class DataSetProvider implements IDataSetProvider {
     }
 
     @Override
-    public Set<Meeting> getMeetings() throws DataSetException {
+    public Set<IMeeting> getMeetings() throws DataSetException {
         return getEntities(this.meetingFactories, IDataSetFactory::createMeetingSet);
     }
 
     @Override
-    public Map<LocationId, Set<Meeting>> getMeetingsByLocation() throws DataSetException {
-        Set<Meeting> meetings = getEntities(this.meetingFactories, IDataSetFactory::createMeetingSet);
+    public Map<LocationId, Set<IMeeting>> getMeetingsByLocation() throws DataSetException {
+        Set<IMeeting> meetings = getEntities(this.meetingFactories, IDataSetFactory::createMeetingSet);
         return meetings.stream().collect(groupingBy(
                 IMeeting::getLocationId,
                 toSet()));
     }
 
     @Override
-    public Set<Location> getLocations() throws DataSetException {
+    public Set<ILocation> getLocations() throws DataSetException {
         return getEntities(this.locationFactories, IDataSetFactory::createLocationSet);
     }
 
     @Override
-    public Set<Device> getDevices() throws DataSetException {
+    public Set<IDevice> getDevices() throws DataSetException {
         return getEntities(this.deviceFactories, IDataSetFactory::createDeviceSet);
     }
 
     @Override
-    public Set<Workgroup> getWorkgroups() throws DataSetException {
+    public Set<IWorkgroup> getWorkgroups() throws DataSetException {
         return getEntities(this.workgroupFactories, IDataSetFactory::createWorkgroupSet);
     }
 
     @Override
-    public Set<Person> getWorkgroupMembers() throws DataSetException {
+    public Set<IPerson> getWorkgroupMembers() throws DataSetException {
         return getEntities(this.personFactories, IDataSetFactory::createWorkgroupMemberSet);
     }
 
@@ -92,9 +97,25 @@ public class DataSetProvider implements IDataSetProvider {
     public static class Factory {
 
         private final IResolver<String, IDataSetFactory> dataSetFactoryResolver;
+        private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+        private final IDtoConverter<ILocation, LocationDto> locationConverter;
+        private final IDtoConverter<IDevice, DeviceDto> deviceConverter;
+        private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
+        private final IDtoConverter<IPerson, PersonDto> personConverter;
 
-        public Factory(IResolver<String, IDataSetFactory> dataSetFactoryResolver) {
+        public Factory(
+                IResolver<String, IDataSetFactory> dataSetFactoryResolver,
+                IDtoConverter<IMeeting, MeetingDto> meetingConverter,
+                IDtoConverter<ILocation, LocationDto> locationConverter,
+                IDtoConverter<IDevice, DeviceDto> deviceConverter,
+                IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
+                IDtoConverter<IPerson, PersonDto> personConverter) {
             this.dataSetFactoryResolver = dataSetFactoryResolver;
+            this.meetingConverter = meetingConverter;
+            this.locationConverter = locationConverter;
+            this.deviceConverter = deviceConverter;
+            this.workgroupConverter = workgroupConverter;
+            this.personConverter = personConverter;
         }
 
         public DataSetProvider of(
@@ -106,19 +127,19 @@ public class DataSetProvider implements IDataSetProvider {
             return new DataSetProvider(
                     dataSetFactoriesFromTokens(
                             meetingDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.meetingDataSource(get(dataSourceToken))),
+                            (builder, dataSourceToken) -> builder.meetingDataSource(get(dataSourceToken)).meetingConverter(this.meetingConverter)),
                     dataSetFactoriesFromTokens(
                             locationDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.locationDataSource(get(dataSourceToken))),
+                            (builder, dataSourceToken) -> builder.locationDataSource(get(dataSourceToken)).locationConverter(this.locationConverter)),
                     dataSetFactoriesFromTokens(
                             deviceDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.deviceDataSource(get(dataSourceToken))),
+                            (builder, dataSourceToken) -> builder.deviceDataSource(get(dataSourceToken)).deviceConverter(this.deviceConverter)),
                     dataSetFactoriesFromTokens(
                             workgroupDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.workgroupDataSource(get(dataSourceToken))),
+                            (builder, dataSourceToken) -> builder.workgroupDataSource(get(dataSourceToken)).workgroupConverter(this.workgroupConverter)),
                     dataSetFactoriesFromTokens(
                             personDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.personDataSource(get(dataSourceToken))));
+                            (builder, dataSourceToken) -> builder.personDataSource(get(dataSourceToken)).personConverter(this.personConverter)));
         }
 
         public DataSetProvider of(

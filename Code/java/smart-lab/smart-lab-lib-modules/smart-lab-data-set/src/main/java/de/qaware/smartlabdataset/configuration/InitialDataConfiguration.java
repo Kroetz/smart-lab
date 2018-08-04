@@ -4,11 +4,11 @@ import de.qaware.smartlabaction.annotation.EnableSmartLabActionInfos;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabcore.data.IDataSetProvider;
-import de.qaware.smartlabcore.data.device.Device;
-import de.qaware.smartlabcore.data.location.Location;
-import de.qaware.smartlabcore.data.meeting.Meeting;
-import de.qaware.smartlabcore.data.person.Person;
-import de.qaware.smartlabcore.data.workgroup.Workgroup;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.location.ILocation;
+import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlabcore.data.person.IPerson;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabdataset.ComponentScanMarker;
 import de.qaware.smartlabdataset.provider.DataSetProvider;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -52,27 +52,27 @@ public class InitialDataConfiguration {
     }
 
     @Bean
-    public Set<Meeting> initialMeetings() {
+    public Set<IMeeting> initialMeetings() {
         return this.dataSetProvider.getMeetings();
     }
 
     @Bean
-    public Set<Workgroup> initialWorkgroups() {
+    public Set<IWorkgroup> initialWorkgroups() {
         return this.dataSetProvider.getWorkgroups();
     }
 
     @Bean
-    public Set<Person> initialPersons() {
+    public Set<IPerson> initialPersons() {
         return this.dataSetProvider.getWorkgroupMembers();
     }
 
     @Bean
-    public Set<Location> initialLocations() {
+    public Set<ILocation> initialLocations() {
         return this.dataSetProvider.getLocations();
     }
 
     @Bean
-    public Set<Device> initialDevices() {
+    public Set<IDevice> initialDevices() {
         return this.dataSetProvider.getDevices();
     }
 

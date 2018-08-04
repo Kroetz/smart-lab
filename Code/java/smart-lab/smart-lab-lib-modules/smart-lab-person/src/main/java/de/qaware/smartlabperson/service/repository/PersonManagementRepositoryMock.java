@@ -14,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class PersonManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IPerson, PersonId> implements IPersonManagementRepository {
 
-    public PersonManagementRepositoryMock(Set<Person> initialPersons) {
+    public PersonManagementRepositoryMock(Set<IPerson> initialPersons) {
         super(initialPersons);
         this.entities = new HashSet<>();
     }

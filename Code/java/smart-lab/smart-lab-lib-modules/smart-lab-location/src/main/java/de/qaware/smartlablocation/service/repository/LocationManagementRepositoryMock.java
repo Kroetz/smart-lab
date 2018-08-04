@@ -14,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class LocationManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<ILocation, LocationId> implements ILocationManagementRepository {
 
-    public LocationManagementRepositoryMock(Set<Location> initialLocations) {
+    public LocationManagementRepositoryMock(Set<ILocation> initialLocations) {
         super(initialLocations);
         this.entities = new HashSet<>();
     }

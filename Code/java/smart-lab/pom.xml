@@ -23,6 +23,9 @@
 		<commons-validator.version>1.6</commons-validator.version>
 		<jackson-annotations.version>2.9.4</jackson-annotations.version>
 		<jackson-databind.version>2.9.4</jackson-databind.version>
+		<jackson-module-parameter-names.version>2.9.4</jackson-module-parameter-names.version>
+		<jackson-datatype-jdk8.version>2.9.4</jackson-datatype-jdk8.version>
+		<jackson-datatype-jsr310.version>2.9.4</jackson-datatype-jsr310.version>
 		<feign-okhttp.version>9.6.0</feign-okhttp.version>
 		<antlr4.version>4.7.1</antlr4.version>
 		<guava.version>25.1-jre</guava.version>
@@ -212,6 +215,27 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
 				<version>${jackson-databind.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-parameter-names -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-parameter-names</artifactId>
+				<version>${jackson-module-parameter-names.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jdk8</artifactId>
+				<version>${jackson-datatype-jdk8.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>${jackson-datatype-jsr310.version}</version>
 			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->

@@ -9,14 +9,15 @@ import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
-import de.qaware.smartlabcore.data.meeting.Meeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.meeting.*;
+import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.DataSetException;
@@ -62,8 +63,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
-        Set<Workgroup> workgroups = new HashSet<>();
+    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
@@ -82,8 +83,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
-        Set<Person> workgroupMembers = new HashSet<>();
+    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALEX)
                 .name("Astronaut Alex")
@@ -103,8 +104,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Meeting> createMeetingSet() throws DataSetException {
-        Set<Meeting> meetings = new HashSet<>();
+    public Set<IMeeting> createMeetingSet() throws DataSetException {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> astronautsMeetingAgenda = new ArrayList<>();
         astronautsMeetingAgenda.add(AgendaItem.of("Calculate journey duration"));
         astronautsMeetingAgenda.add(AgendaItem.of("Discuss who may press the launch button of the rocket"));
@@ -134,8 +135,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Location> createLocationSet() throws DataSetException {
-        Set<Location> locations = new HashSet<>();
+    public Set<ILocation> createLocationSet() throws DataSetException {
+        Set<ILocation> locations = new HashSet<>();
         Set<DeviceId> blackLocationDevices = new HashSet<>();
         blackLocationDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
         locations.add(Location.builder()
@@ -147,8 +148,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Device> createDeviceSet() throws DataSetException {
-        Set<Device> devices = new HashSet<>();
+    public Set<IDevice> createDeviceSet() throws DataSetException {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
                 .type(DummyBeamerAdapter.DEVICE_TYPE)

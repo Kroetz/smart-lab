@@ -3,8 +3,8 @@ package de.qaware.smartlabdataset.factory;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
 import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
-import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabaction.action.actor.microphone.ThinkpadP50InternalMicrophoneAdapter;
+import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;
@@ -14,14 +14,15 @@ import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDis
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
-import de.qaware.smartlabcore.data.meeting.Meeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
+import de.qaware.smartlabcore.data.meeting.*;
+import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.DataSetException;
@@ -82,8 +83,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Workgroup> createWorkgroupSet() throws DataSetException {
-        Set<Workgroup> workgroups = new HashSet<>();
+    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+        Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> coastGuardMembers = new HashSet<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
@@ -102,8 +103,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Person> createWorkgroupMemberSet() throws DataSetException {
-        Set<Person> workgroupMembers = new HashSet<>();
+    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+        Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.builder()
                 .id(MEMBER_ID_ALICE)
                 .name("Coast Guard Alice")
@@ -123,8 +124,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Meeting> createMeetingSet() throws DataSetException {
-        Set<Meeting> meetings = new HashSet<>();
+    public Set<IMeeting> createMeetingSet() throws DataSetException {
+        Set<IMeeting> meetings = new HashSet<>();
         List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
         whaleMeetingAgenda.add(AgendaItem.of("Show critical areas"));
         whaleMeetingAgenda.add(AgendaItem.of("Explain whale anatomy"));
@@ -233,8 +234,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Location> createLocationSet() throws DataSetException {
-        Set<Location> locations = new HashSet<>();
+    public Set<ILocation> createLocationSet() throws DataSetException {
+        Set<ILocation> locations = new HashSet<>();
         Set<DeviceId> blueLocationDevices = new HashSet<>();
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
@@ -249,8 +250,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<Device> createDeviceSet() throws DataSetException {
-        Set<Device> devices = new HashSet<>();
+    public Set<IDevice> createDeviceSet() throws DataSetException {
+        Set<IDevice> devices = new HashSet<>();
         devices.add(Device.builder()
                 .id(DEVICE_ID_BLUE_DISPLAY_BIG)
                 .type(DummyDisplayAdapter.DEVICE_TYPE)

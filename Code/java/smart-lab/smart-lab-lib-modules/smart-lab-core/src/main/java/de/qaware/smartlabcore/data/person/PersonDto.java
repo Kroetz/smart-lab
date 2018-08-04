@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.generic.IDto;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonDto implements IDto {
 
     private PersonId id;

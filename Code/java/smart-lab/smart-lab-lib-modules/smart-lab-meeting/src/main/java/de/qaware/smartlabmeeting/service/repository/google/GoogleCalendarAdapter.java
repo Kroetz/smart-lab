@@ -68,7 +68,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             JsonFactory googleCalendarJsonFactory,
             @Qualifier("googleCalendarLocationMapping") BiMap<LocationId, String> googleCalendarLocationMapping,
             IMeetingParser meetingParser,
-            Set<Meeting> initialMeetings) throws IOException {
+            Set<IMeeting> initialMeetings) throws IOException {
         super(initialMeetings);
         GoogleCredential credentials = GoogleCredential.fromStream(
                 newInputStream(googleCalendarCredentialFile),

@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.data.meeting;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.generic.IDto;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AssistanceConfigurationDto implements IDto {
 
     String assistanceId;
