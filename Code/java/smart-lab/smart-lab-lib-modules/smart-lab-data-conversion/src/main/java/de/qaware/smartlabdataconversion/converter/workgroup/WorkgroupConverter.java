@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.converter.workgroup;
+package de.qaware.smartlabdataconversion.converter.workgroup;
 
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.workgroup.*;

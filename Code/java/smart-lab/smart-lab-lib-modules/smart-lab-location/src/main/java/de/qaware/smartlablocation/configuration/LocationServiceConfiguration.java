@@ -2,7 +2,7 @@ package de.qaware.smartlablocation.configuration;
 
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
-import de.qaware.smartlabdata.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdataset.annotation.EnableSmartLabInitialData;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

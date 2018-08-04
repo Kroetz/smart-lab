@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.converter.meeting;
+package de.qaware.smartlabdataconversion.converter.meeting;
 
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;

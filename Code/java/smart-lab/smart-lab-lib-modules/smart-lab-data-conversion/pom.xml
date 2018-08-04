@@ -5,9 +5,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-data</artifactId>
+    <artifactId>smart-lab-data-conversion</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-data</name>
+    <name>smart-lab-data-conversion</name>
     <description>Module that contains data and conversion classes for the other modules of the Smart-Lab project</description>
 
     <parent>

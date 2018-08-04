@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.converter.workgroup;
+package de.qaware.smartlabdataconversion.converter.workgroup;
 
 import de.qaware.smartlabaction.action.actor.projectbase.info.generic.IKnowledgeBaseInfoFactory;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;

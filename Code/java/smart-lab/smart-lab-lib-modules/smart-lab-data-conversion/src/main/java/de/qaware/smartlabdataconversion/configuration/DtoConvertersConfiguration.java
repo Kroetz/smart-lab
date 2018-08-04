@@ -1,4 +1,4 @@
-package de.qaware.smartlabdata.configuration;
+package de.qaware.smartlabdataconversion.configuration;
 
 import de.qaware.smartlabaction.annotation.EnableSmartLabProjectBaseInfos;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = de.qaware.smartlabdata.converter.ComponentScanMarker.class)
+@ComponentScan(basePackageClasses = de.qaware.smartlabdataconversion.converter.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabAssistanceInfos
 @EnableSmartLabProjectBaseInfos

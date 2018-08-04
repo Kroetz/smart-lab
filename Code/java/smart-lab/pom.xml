@@ -94,7 +94,7 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
-				<artifactId>smart-lab-data</artifactId>
+				<artifactId>smart-lab-data-conversion</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

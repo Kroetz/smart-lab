@@ -2,7 +2,7 @@ package de.qaware.smartlabmicroservice.configuration;
 
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabdata.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
