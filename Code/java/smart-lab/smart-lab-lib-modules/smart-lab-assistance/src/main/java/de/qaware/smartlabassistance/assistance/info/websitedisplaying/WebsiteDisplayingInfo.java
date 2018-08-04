@@ -45,7 +45,6 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
         return new Configuration(this, configProperties);
     }
 
-    // TODO: Which annotation can be removed?
     @Getter
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = true)

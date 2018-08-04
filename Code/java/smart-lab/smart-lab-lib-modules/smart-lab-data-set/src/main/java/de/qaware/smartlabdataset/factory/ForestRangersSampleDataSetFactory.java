@@ -18,6 +18,7 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.PersonRole;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -74,37 +75,36 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
         forestRangerMembers.add(MEMBER_ID_ANNA);
         forestRangerMembers.add(MEMBER_ID_BARRY);
         forestRangerMembers.add(MEMBER_ID_CAROLINE);
-        workgroups.add(Workgroup.builder()
-                .id(WORKGROUP_ID_FOREST_RANGERS)
-                .name("Forest Rangers")
-                .memberIds(forestRangerMembers)
-                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+        workgroups.add(Workgroup.of(
+                WORKGROUP_ID_FOREST_RANGERS,
+                "Forest Rangers",
+                forestRangerMembers,
+                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "forestRangersRepo")
-                        .build()))
-                .build());
+                        .build())));
         return workgroups;
     }
 
     @Override
     public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
         Set<IPerson> workgroupMembers = new HashSet<>();
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_ANNA)
-                .name("Forest Ranger Anna")
-                .email("anna@forest-rangers.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_BARRY)
-                .name("Forest Ranger Barry")
-                .email("barry@forest-rangers.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_CAROLINE)
-                .name("Forest Ranger Caroline")
-                .email("caroline@forest-rangers.com")
-                .build());
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_ANNA,
+                "Forest Ranger Anna",
+                "anna@forest-rangers.com",
+                PersonRole.TEAM_LEADER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_BARRY,
+                "Forest Ranger Barry",
+                "barry@forest-rangers.com",
+                PersonRole.REGULAR_MEMBER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_CAROLINE,
+                "Forest Ranger Caroline",
+                "caroline@forest-rangers.com",
+                PersonRole.REGULAR_MEMBER));
         return workgroupMembers;
     }
 
@@ -138,14 +138,14 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
-        meetings.add(Meeting.builder()
-                .id(MEETING_ID_BARK_BEETLE)
-                .title("Meeting about the danger of the bark beetle")
-                .workgroupId(WORKGROUP_ID_FOREST_RANGERS)
-                .agenda(forestRangersMeetingAgenda)
-                .assistanceConfigurations(configs)
-                .start(timeBase.plusSeconds(60))
-                .end(timeBase.plusSeconds(360)).build());
+        meetings.add(Meeting.of(
+                MEETING_ID_BARK_BEETLE,
+                "Meeting about the danger of the bark beetle",
+                WORKGROUP_ID_FOREST_RANGERS,
+                forestRangersMeetingAgenda,
+                configs,
+                timeBase.plusSeconds(60),
+                timeBase.plusSeconds(360)));
         return meetings;
     }
 
@@ -155,35 +155,31 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
         Set<DeviceId> greenLocationDevices = new HashSet<>();
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
         greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
-        locations.add(Location.builder()
-                .id(LOCATION_ID_GREEN)
-                .name("Forest rangers workplace")
-                .deviceIds(greenLocationDevices)
-                .build());
+        locations.add(Location.of(
+                LOCATION_ID_GREEN,
+                "Forest rangers workplace",
+                greenLocationDevices));
         return locations;
     }
 
     @Override
     public Set<IDevice> createDeviceSet() throws DataSetException {
         Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.builder()
-                .id(DEVICE_ID_GREEN_DISPLAY_BIG)
-                .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name(format("Big main display at location \"%s\"", LOCATION_ID_GREEN))
-                .responsibleDelegate(DELEGATE_ID_GREEN)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_GREEN_DISPLAY_SMALL)
-                .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name(format("Small display next to the door at location \"%s\"", LOCATION_ID_GREEN))
-                .responsibleDelegate(DELEGATE_ID_GREEN)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_GREEN_WEB_BROWSER)
-                .type("chrome")
-                .name(format("Web browser at location \"%s\"", LOCATION_ID_GREEN))
-                .responsibleDelegate(DELEGATE_ID_GREEN)
-                .build());
+        devices.add(Device.of(
+                DEVICE_ID_GREEN_DISPLAY_BIG,
+                DummyDisplayAdapter.DEVICE_TYPE,
+                format("Big main display at location \"%s\"", LOCATION_ID_GREEN),
+                DELEGATE_ID_GREEN));
+        devices.add(Device.of(
+                DEVICE_ID_GREEN_DISPLAY_SMALL,
+                DummyDisplayAdapter.DEVICE_TYPE,
+                format("Small display next to the door at location \"%s\"", LOCATION_ID_GREEN),
+                DELEGATE_ID_GREEN));
+        devices.add(Device.of(
+                DEVICE_ID_GREEN_WEB_BROWSER,
+                "chrome",
+                format("Web browser at location \"%s\"", LOCATION_ID_GREEN),
+                DELEGATE_ID_GREEN));
         return devices;
     }
 }

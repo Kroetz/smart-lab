@@ -42,18 +42,17 @@ public class MeetingConverter implements IDtoConverter<IMeeting, MeetingDto> {
 
     @Override
     public IMeeting toEntity(MeetingDto meeting) {
-        return Meeting.builder()
-                .id(meeting.getId())
-                .title(meeting.getTitle())
-                .workgroupId(meeting.getWorkgroupId())
-                .agenda(meeting.getAgenda().stream()
+        return Meeting.of(
+                meeting.getId(),
+                meeting.getTitle(),
+                meeting.getWorkgroupId(),
+                meeting.getAgenda().stream()
                         .map(this.agendaItemConverter::toEntity)
-                        .collect(toList()))
-                .assistanceConfigurations(meeting.getAssistanceConfigurations().stream()
+                        .collect(toList()),
+                meeting.getAssistanceConfigurations().stream()
                         .map(this.assistanceConfigurationConverter::toEntity)
-                        .collect(toSet()))
-                .start(meeting.getStart())
-                .end(meeting.getEnd())
-                .build();
+                        .collect(toSet()),
+                meeting.getStart(),
+                meeting.getEnd());
     }
 }

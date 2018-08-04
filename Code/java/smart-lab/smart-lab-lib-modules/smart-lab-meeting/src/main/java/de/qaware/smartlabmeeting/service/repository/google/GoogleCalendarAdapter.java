@@ -326,13 +326,13 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
 
     @Override
     public ShorteningResult shortenMeeting(IMeeting meeting, Duration shortening) {
-        meeting.setEnd(meeting.getEnd().minus(shortening));
-        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        IMeeting shortenedMeeting = meeting.withEnd(meeting.getEnd().minus(shortening));
+        String calendarId = resolveCalendarId(shortenedMeeting.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    meeting.getId().getNameIdPart(),
-                    meetingToEvent(meeting)).execute();
+                    shortenedMeeting.getId().getNameIdPart(),
+                    meetingToEvent(shortenedMeeting)).execute();
         } catch (IOException e) {
             log.error("I/O error while shortening meeting \"{}\"", meeting, e);
             return ShorteningResult.ERROR;
@@ -342,14 +342,14 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
 
     @Override
     public ExtensionResult extendMeeting(IMeeting meeting, Duration extension) {
-        meeting.setEnd(meeting.getEnd().plus(extension));
-        if(isCollidingWithOtherMeetings(meeting)) return ExtensionResult.CONFLICT;
-        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        IMeeting extendedMeeting = meeting.withEnd(meeting.getEnd().plus(extension));
+        if(isCollidingWithOtherMeetings(extendedMeeting)) return ExtensionResult.CONFLICT;
+        String calendarId = resolveCalendarId(extendedMeeting.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    meeting.getId().getNameIdPart(),
-                    meetingToEvent(meeting)).execute();
+                    extendedMeeting.getId().getNameIdPart(),
+                    meetingToEvent(extendedMeeting)).execute();
         } catch (IOException e) {
             log.error("I/O error while extending meeting \"{}\"", meeting, e);
             return ExtensionResult.ERROR;
@@ -359,15 +359,16 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
 
     @Override
     public ShiftResult shiftMeeting(IMeeting meeting, Duration shift) {
-        meeting.setStart(meeting.getStart().plus(shift));
-        meeting.setEnd(meeting.getEnd().plus(shift));
-        if(isCollidingWithOtherMeetings(meeting)) return ShiftResult.CONFLICT;
-        String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
+        IMeeting shiftedMeeting = meeting.withStartAndEnd(
+                meeting.getStart().plus(shift),
+                meeting.getEnd().plus(shift));
+        if(isCollidingWithOtherMeetings(shiftedMeeting)) return ShiftResult.CONFLICT;
+        String calendarId = resolveCalendarId(shiftedMeeting.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    meeting.getId().getNameIdPart(),
-                    meetingToEvent(meeting)).execute();
+                    shiftedMeeting.getId().getNameIdPart(),
+                    meetingToEvent(shiftedMeeting)).execute();
         } catch (IOException e) {
             log.error("I/O error while shifting meeting \"{}\"", meeting, e);
             return ShiftResult.ERROR;

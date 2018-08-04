@@ -1,26 +1,21 @@
 package de.qaware.smartlabcore.data.meeting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
 import static java.lang.String.format;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@Slf4j
 @ToString
 @EqualsAndHashCode
 public class AgendaItem implements IAgendaItem {
 
-    private static final String CONTENT_FIELD_NAME = "content";
     private final String content;
 
-    private AgendaItem(String content) {
-        this.content = content;
-    }
-
-    @JsonCreator
-    public static AgendaItem of(@JsonProperty(CONTENT_FIELD_NAME) String content) {
+    public static AgendaItem of(String content) {
         return new AgendaItem(content);
     }
 

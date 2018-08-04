@@ -22,10 +22,9 @@ public class LocationConverter implements IDtoConverter<ILocation, LocationDto> 
 
     @Override
     public ILocation toEntity(LocationDto location) {
-        return Location.builder()
-                .id(location.getId())
-                .name(location.getName())
-                .deviceIds(location.getDeviceIds())
-                .build();
+        return Location.of(
+                location.getId(),
+                location.getName(),
+                location.getDeviceIds());
     }
 }

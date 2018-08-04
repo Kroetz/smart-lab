@@ -17,6 +17,7 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.PersonRole;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -69,37 +70,36 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
         astronautsMembers.add(MEMBER_ID_ALEX);
         astronautsMembers.add(MEMBER_ID_BEVERLY);
         astronautsMembers.add(MEMBER_ID_CHARLOTTE);
-        workgroups.add(Workgroup.builder()
-                .id(WORKGROUP_ID_ASTRONAUTS)
-                .name("Astronauts")
-                .memberIds(astronautsMembers)
-                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+        workgroups.add(Workgroup.of(
+                WORKGROUP_ID_ASTRONAUTS,
+                "Astronauts",
+                astronautsMembers,
+                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "astronautsRepo")
-                        .build()))
-                .build());
+                        .build())));
         return workgroups;
     }
 
     @Override
     public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
         Set<IPerson> workgroupMembers = new HashSet<>();
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_ALEX)
-                .name("Astronaut Alex")
-                .email("alex@astronauts.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_BEVERLY)
-                .name("Astronaut Beverly")
-                .email("beverly@astronauts.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_CHARLOTTE)
-                .name("Astronaut Charlotte")
-                .email("charlotte@astronauts.com")
-                .build());
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_ALEX,
+                "Astronaut Alex",
+                "alex@astronauts.com",
+                PersonRole.TEAM_LEADER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_BEVERLY,
+                "Astronaut Beverly",
+                "beverly@astronauts.com",
+                PersonRole.REGULAR_MEMBER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_CHARLOTTE,
+                "Astronaut Charlotte",
+                "charlotte@astronauts.com",
+                PersonRole.REGULAR_MEMBER));
         return workgroupMembers;
     }
 
@@ -123,14 +123,14 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        meetings.add(Meeting.builder()
-                .id(MEETING_ID_MARS)
-                .title("Meeting about travelling to Mars")
-                .workgroupId(WORKGROUP_ID_ASTRONAUTS)
-                .agenda(astronautsMeetingAgenda)
-                .assistanceConfigurations(configs)
-                .start(timeBase.plusSeconds(0))
-                .end(timeBase.plusSeconds(300)).build());
+        meetings.add(Meeting.of(
+                MEETING_ID_MARS,
+                "Meeting about travelling to Mars",
+                WORKGROUP_ID_ASTRONAUTS,
+                astronautsMeetingAgenda,
+                configs,
+                timeBase.plusSeconds(0),
+                timeBase.plusSeconds(300)));
         return meetings;
     }
 
@@ -139,23 +139,21 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
         Set<ILocation> locations = new HashSet<>();
         Set<DeviceId> blackLocationDevices = new HashSet<>();
         blackLocationDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
-        locations.add(Location.builder()
-                .id(LOCATION_ID_BLACK)
-                .name("Astronauts workplace")
-                .deviceIds(blackLocationDevices)
-                .build());
+        locations.add(Location.of(
+                LOCATION_ID_BLACK,
+                "Astronauts workplace",
+                blackLocationDevices));
         return locations;
     }
 
     @Override
     public Set<IDevice> createDeviceSet() throws DataSetException {
         Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLACK_DISPLAY_BEAMER)
-                .type(DummyBeamerAdapter.DEVICE_TYPE)
-                .name(format("Beamer at location \"%s\"", LOCATION_ID_BLACK))
-                .responsibleDelegate(DELEGATE_ID_BLACK)
-                .build());
+        devices.add(Device.of(
+                DEVICE_ID_BLACK_DISPLAY_BEAMER,
+                DummyBeamerAdapter.DEVICE_TYPE,
+                format("Beamer at location \"%s\"", LOCATION_ID_BLACK),
+                DELEGATE_ID_BLACK));
         return devices;
     }
 }

@@ -23,11 +23,10 @@ public class PersonConverter implements IDtoConverter<IPerson, PersonDto> {
 
     @Override
     public IPerson toEntity(PersonDto person) {
-        return Person.builder()
-                .id(person.getId())
-                .name(person.getName())
-                .email(person.getEmail())
-                .role(person.getRole())
-                .build();
+        return Person.of(
+                person.getId(),
+                person.getName(),
+                person.getEmail(),
+                person.getRole());
     }
 }

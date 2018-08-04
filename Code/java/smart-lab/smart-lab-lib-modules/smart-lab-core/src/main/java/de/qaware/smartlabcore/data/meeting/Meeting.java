@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -20,20 +21,21 @@ import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-@Data
-@Builder(toBuilder = true)
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+@Getter
 @ToString
+@EqualsAndHashCode
+@Slf4j
 public class Meeting implements IMeeting {
 
-    private MeetingId id;
-    private String title;
-    private WorkgroupId workgroupId;
-    private List<IAgendaItem> agenda;
-    private Set<IAssistanceConfiguration> assistanceConfigurations;
-    private Instant start;
-    private Instant end;
+    private final MeetingId id;
+    private final String title;
+    private final WorkgroupId workgroupId;
+    private final List<IAgendaItem> agenda;
+    private final Set<IAssistanceConfiguration> assistanceConfigurations;
+    private final Instant start;
+    private final Instant end;
 
     @Override
     public LocationId getLocationId() {
@@ -51,8 +53,27 @@ public class Meeting implements IMeeting {
     }
 
     @Override
-    public IMeeting copy() {
-        return toBuilder().build();
+    public IMeeting withEnd(Instant newEnd) {
+        return Meeting.of(
+                this.id,
+                this.title,
+                this.workgroupId,
+                this.agenda,
+                this.assistanceConfigurations,
+                this.start,
+                newEnd);
+    }
+
+    @Override
+    public IMeeting withStartAndEnd(Instant newStart, Instant newEnd) {
+        return Meeting.of(
+                this.id,
+                this.title,
+                this.workgroupId,
+                this.agenda,
+                this.assistanceConfigurations,
+                newStart,
+                newEnd);
     }
 
     @Override
@@ -67,15 +88,14 @@ public class Meeting implements IMeeting {
 
     @Override
     public IMeeting merge(IMeeting meeting) throws IllegalArgumentException {
-        return Meeting.builder()
-                .id(getMergedFieldValue(meeting, IEntity::getId))
-                .title(getMergedFieldValue(meeting, IMeeting::getTitle))
-                .workgroupId(getMergedFieldValue(meeting, IMeeting::getWorkgroupId))
-                .agenda(getMergedFieldValue(meeting, IMeeting::getAgenda))
-                .assistanceConfigurations(getMergedFieldValue(meeting, IMeeting::getAssistanceConfigurations))
-                .start(getMergedFieldValue(meeting, IMeeting::getStart))
-                .end(getMergedFieldValue(meeting, IMeeting::getEnd))
-                .build();
+        return Meeting.of(
+                getMergedFieldValue(meeting, IEntity::getId),
+                getMergedFieldValue(meeting, IMeeting::getTitle),
+                getMergedFieldValue(meeting, IMeeting::getWorkgroupId),
+                getMergedFieldValue(meeting, IMeeting::getAgenda),
+                getMergedFieldValue(meeting, IMeeting::getAssistanceConfigurations),
+                getMergedFieldValue(meeting, IMeeting::getStart),
+                getMergedFieldValue(meeting, IMeeting::getEnd));
     }
 
     private <FieldT> FieldT getMergedFieldValue(IMeeting meeting, Function<IMeeting, FieldT> fieldGetter) throws IllegalArgumentException {
@@ -115,7 +135,7 @@ public class Meeting implements IMeeting {
         return configLangBuilder.toString();
     }
 
-    private StringBuilder appendWorkgroupId(StringBuilder configLangBuilder) {
+    private void appendWorkgroupId(StringBuilder configLangBuilder) {
         if(nonNull(this.workgroupId)) {
             configLangBuilder
                     .append(TAB)
@@ -124,10 +144,9 @@ public class Meeting implements IMeeting {
                     .append(format(DOUBLE_QUOTED_TEMPLATE, this.workgroupId.getIdValue()))
                     .append(NEW_LINE);
         }
-        return configLangBuilder;
     }
 
-    private StringBuilder appendAgenda(StringBuilder configLangBuilder) {
+    private void appendAgenda(StringBuilder configLangBuilder) {
         if(nonNull(this.agenda)) {
             configLangBuilder.append(TAB).append(AGENDA_TAG_BEGIN).append(NEW_LINE);
             for(IAgendaItem agendaItem : this.agenda) {
@@ -135,10 +154,9 @@ public class Meeting implements IMeeting {
             }
             configLangBuilder.append(TAB).append(AGENDA_TAG_END).append(NEW_LINE);
         }
-        return configLangBuilder;
     }
 
-    private StringBuilder appendAssistanceConfigurations(StringBuilder configLangBuilder) {
+    private void appendAssistanceConfigurations(StringBuilder configLangBuilder) {
         if(nonNull(this.assistanceConfigurations)) {
             configLangBuilder.append(TAB).append(ASSISTANCES_TAG_BEGIN).append(NEW_LINE);
             for(IAssistanceConfiguration config : this.assistanceConfigurations) {
@@ -146,6 +164,20 @@ public class Meeting implements IMeeting {
             }
             configLangBuilder.append(TAB).append(ASSISTANCES_TAG_END).append(NEW_LINE);
         }
-        return configLangBuilder;
+    }
+
+    public static Meeting newInstance() {
+        return Meeting.builder().build();
+    }
+
+    public static Meeting of(
+            MeetingId id,
+            String title,
+            WorkgroupId workgroupId,
+            List<IAgendaItem> agenda,
+            Set<IAssistanceConfiguration> assistanceConfigurations,
+            Instant start,
+            Instant end) {
+        return new Meeting(id, title, workgroupId, agenda, assistanceConfigurations, start, end);
     }
 }

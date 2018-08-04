@@ -1,21 +1,21 @@
 package de.qaware.smartlabcore.data.person;
 
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.person.PersonRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@ToString
+@EqualsAndHashCode
+@Slf4j
 public class Person implements IPerson {
 
-    private PersonId id;
-    private String name;
-    private String email;
-    private PersonRole role;
+    private final PersonId id;
+    private final String name;
+    private final String email;
+    private final PersonRole role;
+
+    public static Person of(PersonId id, String name, String email, PersonRole role) {
+        return new Person(id, name, email, role);
+    }
 }

@@ -2,20 +2,27 @@ package de.qaware.smartlabcore.data.device;
 
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
-@Data
-@Builder
-@NoArgsConstructor // TODO: Really needed for objects being able to serialize/deserialize?
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@ToString
+@EqualsAndHashCode
+@Slf4j
 public class Device implements IDevice {
 
     // TODO: Fachliche Datentypen statt String-IDs
-    private DeviceId id;
-    private String type;
-    private String name;
-    private String responsibleDelegate;
+    private final DeviceId id;
+    private final String type;
+    private final String name;
+    private final String responsibleDelegate;
+
+    public static Device of(
+            DeviceId id,
+            String type,
+            String name,
+            String responsibleDelegate) {
+        return new Device(id, type, name, responsibleDelegate);
+    }
 }

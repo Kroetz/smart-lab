@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.projectbase.info.generic.AbstractKnowledgeBaseInfoFactory;
 import de.qaware.smartlabaction.action.actor.projectbase.service.github.GithubServiceConnector;
 import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
-import lombok.Getter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,8 @@ import java.util.Map;
 
 @Getter
 @Slf4j
+@ToString
+@EqualsAndHashCode
 public class GithubKnowledgeBaseInfo implements IKnowledgeBaseInfo {
 
     public static final String SERVICE_ID = GithubServiceConnector.SERVICE_ID;

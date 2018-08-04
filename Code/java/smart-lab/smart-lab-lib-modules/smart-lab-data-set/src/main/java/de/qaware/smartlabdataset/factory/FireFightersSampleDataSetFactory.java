@@ -19,6 +19,7 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.PersonRole;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static java.lang.String.format;
 
 @Component
 public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
@@ -74,37 +77,36 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
         fireFighterMembers.add(MEMBER_ID_ANTHONY);
         fireFighterMembers.add(MEMBER_ID_BRUCE);
         fireFighterMembers.add(MEMBER_ID_CARLOS);
-        workgroups.add(Workgroup.builder()
-                .id(WORKGROUP_ID_FIRE_FIGHTERS)
-                .name("Fire Fighters")
-                .memberIds(fireFighterMembers)
-                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+        workgroups.add(Workgroup.of(
+                WORKGROUP_ID_FIRE_FIGHTERS,
+                "Fire Fighters",
+                fireFighterMembers,
+                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "fireFightersRepo")
-                        .build()))
-                .build());
+                        .build())));
         return workgroups;
     }
 
     @Override
     public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
         Set<IPerson> workgroupMembers = new HashSet<>();
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_ANTHONY)
-                .name("Fire Fighter Anthony")
-                .email("anthony@fire-fighters.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_BRUCE)
-                .name("Fire Fighter Bruce")
-                .email("bruce@fire-fighters.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_CARLOS)
-                .name("Fire Fighter Carlos")
-                .email("carlos@fire-fighters.com")
-                .build());
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_ANTHONY,
+                "Fire Fighter Anthony",
+                "anthony@fire-fighters.com",
+                PersonRole.TEAM_LEADER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_BRUCE,
+                "Fire Fighter Bruce",
+                "bruce@fire-fighters.com",
+                PersonRole.REGULAR_MEMBER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_CARLOS,
+                "Fire Fighter Carlos",
+                "carlos@fire-fighters.com",
+                PersonRole.REGULAR_MEMBER));
         return workgroupMembers;
     }
 
@@ -134,14 +136,14 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
-        meetings.add(Meeting.builder()
-                .id(MEETING_ID_TRUCK)
-                .title("Meeting about the new fire truck \"Fire Exterminator 3000\"")
-                .workgroupId(WORKGROUP_ID_FIRE_FIGHTERS)
-                .agenda(fireFightersMeetingAgenda)
-                .assistanceConfigurations(configs)
-                .start(timeBase.plusSeconds(120))
-                .end(timeBase.plusSeconds(420)).build());
+        meetings.add(Meeting.of(
+                MEETING_ID_TRUCK,
+                "Meeting about the new fire truck \"Fire Exterminator 3000\"",
+                WORKGROUP_ID_FIRE_FIGHTERS,
+                fireFightersMeetingAgenda,
+                configs,
+                timeBase.plusSeconds(120),
+                timeBase.plusSeconds(420)));
         return meetings;
     }
 
@@ -150,29 +152,26 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
         Set<ILocation> locations = new HashSet<>();
         Set<DeviceId> redLocationDevices = new HashSet<>();
         redLocationDevices.add(DEVICE_ID_RED_MICROPHONE);
-        locations.add(Location.builder()
-                .id(LOCATION_ID_RED)
-                .name("Fire fighters workplace")
-                .deviceIds(redLocationDevices)
-                .build());
+        locations.add(Location.of(
+                LOCATION_ID_RED,
+                "Fire fighters workplace",
+                redLocationDevices));
         return locations;
     }
 
     @Override
     public Set<IDevice> createDeviceSet() throws DataSetException {
         Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.builder()
-                .id(DEVICE_ID_RED_DISPLAY_BIG)
-                .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name(String.format("Big display at location \"%s\"", LOCATION_ID_RED))
-                .responsibleDelegate(DELEGATE_ID_RED)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_RED_MICROPHONE)
-                .type(DummyMicrophoneAdapter.DEVICE_TYPE)
-                .name(String.format("Microphone at location \"%s\"", LOCATION_ID_RED))
-                .responsibleDelegate(DELEGATE_ID_RED)
-                .build());
+        devices.add(Device.of(
+                DEVICE_ID_RED_DISPLAY_BIG,
+                DummyDisplayAdapter.DEVICE_TYPE,
+                format("Big display at location \"%s\"", LOCATION_ID_RED),
+                DELEGATE_ID_RED));
+        devices.add(Device.of(
+                DEVICE_ID_RED_MICROPHONE,
+                DummyMicrophoneAdapter.DEVICE_TYPE,
+                format("Microphone at location \"%s\"", LOCATION_ID_RED),
+                DELEGATE_ID_RED));
         return devices;
     }
 }

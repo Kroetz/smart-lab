@@ -27,11 +27,10 @@ public class WorkgroupConverter implements IDtoConverter<IWorkgroup, WorkgroupDt
 
     @Override
     public IWorkgroup toEntity(WorkgroupDto workgroup) {
-        return Workgroup.builder()
-                .id(workgroup.getId())
-                .name(workgroup.getName())
-                .memberIds(workgroup.getMemberIds())
-                .knowledgeBaseInfo(this.projectBaseInfoConverter.toEntity(workgroup.getProjectBaseInfo()))
-                .build();
+        return Workgroup.of(
+                workgroup.getId(),
+                workgroup.getName(),
+                workgroup.getMemberIds(),
+                this.projectBaseInfoConverter.toEntity(workgroup.getProjectBaseInfo()));
     }
 }

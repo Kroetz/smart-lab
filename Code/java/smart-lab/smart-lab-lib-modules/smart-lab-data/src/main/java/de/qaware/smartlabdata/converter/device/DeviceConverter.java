@@ -23,11 +23,10 @@ public class DeviceConverter implements IDtoConverter<IDevice, DeviceDto> {
 
     @Override
     public IDevice toEntity(DeviceDto device) {
-        return Device.builder()
-                .id(device.getId())
-                .type(device.getType())
-                .name(device.getName())
-                .responsibleDelegate(device.getResponsibleDelegate())
-                .build();
+        return Device.of(
+                device.getId(),
+                device.getType(),
+                device.getName(),
+                device.getResponsibleDelegate());
     }
 }

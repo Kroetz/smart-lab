@@ -138,8 +138,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
     @Override
     public synchronized ShorteningResult shortenMeeting(@NonNull IMeeting meeting, Duration shortening) {
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
-            IMeeting shortenedMeeting = meeting.copy();
-            shortenedMeeting.setEnd(meeting.getEnd().minus(shortening));
+            IMeeting shortenedMeeting = meeting.withEnd(meeting.getEnd().minus(shortening));
             try {
                 create(shortenedMeeting);
                 return ShorteningResult.SUCCESS;
@@ -153,8 +152,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     @Override
     public synchronized ExtensionResult extendMeeting(@NonNull IMeeting meeting, Duration extension) {
-        IMeeting extendedMeeting = meeting.copy();
-        extendedMeeting.setEnd(meeting.getEnd().plus(extension));
+        IMeeting extendedMeeting = meeting.withEnd(meeting.getEnd().plus(extension));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             try {
                 create(extendedMeeting);
@@ -174,9 +172,9 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
 
     @Override
     public synchronized ShiftResult shiftMeeting(@NonNull IMeeting meeting, Duration shift) {
-        IMeeting shiftedMeeting = meeting.copy();
-        shiftedMeeting.setStart(meeting.getStart().plus(shift));
-        shiftedMeeting.setEnd(meeting.getEnd().plus(shift));
+        IMeeting shiftedMeeting = meeting.withStartAndEnd(
+                meeting.getStart().plus(shift),
+                meeting.getEnd().plus(shift));
         if(delete(meeting.getId()) == DeletionResult.SUCCESS) {
             try {
                 create(shiftedMeeting);

@@ -22,6 +22,7 @@ import de.qaware.smartlabcore.data.meeting.*;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.Person;
 import de.qaware.smartlabcore.data.person.PersonId;
+import de.qaware.smartlabcore.data.person.PersonRole;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
@@ -89,37 +90,36 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         coastGuardMembers.add(MEMBER_ID_ALICE);
         coastGuardMembers.add(MEMBER_ID_BEN);
         coastGuardMembers.add(MEMBER_ID_CHARLIE);
-        workgroups.add(Workgroup.builder()
-                .id(WORKGROUP_ID_COAST_GUARD)
-                .name("Coast Guard")
-                .memberIds(coastGuardMembers)
-                .knowledgeBaseInfo(this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+        workgroups.add(Workgroup.of(
+                WORKGROUP_ID_COAST_GUARD,
+                "Coast Guard",
+                coastGuardMembers,
+                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
                         .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "coastGuardRepo")
-                        .build()))
-                .build());
+                        .build())));
         return workgroups;
     }
 
     @Override
     public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
         Set<IPerson> workgroupMembers = new HashSet<>();
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_ALICE)
-                .name("Coast Guard Alice")
-                .email("alice@coast-guard.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_BEN)
-                .name("Coast Guard Ben")
-                .email("ben@coast-guard.com")
-                .build());
-        workgroupMembers.add(Person.builder()
-                .id(MEMBER_ID_CHARLIE)
-                .name("Coast Guard Charlie")
-                .email("charlie@coast-guard.com")
-                .build());
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_ALICE,
+                "Coast Guard Alice",
+                "alice@coast-guard.com",
+                PersonRole.TEAM_LEADER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_BEN,
+                "Coast Guard Ben",
+                "ben@coast-guard.com",
+                PersonRole.REGULAR_MEMBER));
+        workgroupMembers.add(Person.of(
+                MEMBER_ID_CHARLIE,
+                "Coast Guard Charlie",
+                "charlie@coast-guard.com",
+                PersonRole.REGULAR_MEMBER));
         return workgroupMembers;
     }
 
@@ -169,14 +169,14 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        meetings.add(Meeting.builder()
-                .id(MEETING_ID_WHALES)
-                .title("Meeting about preventing illegal whale hunting")
-                .workgroupId(WORKGROUP_ID_COAST_GUARD)
-                .agenda(whaleMeetingAgenda)
-                .assistanceConfigurations(whaleConfigs)
-                .start(timeBase.plusSeconds(0))
-                .end(timeBase.plusSeconds(300)).build());
+        meetings.add(Meeting.of(
+                MEETING_ID_WHALES,
+                "Meeting about preventing illegal whale hunting",
+                WORKGROUP_ID_COAST_GUARD,
+                whaleMeetingAgenda,
+                whaleConfigs,
+                timeBase.plusSeconds(0),
+                timeBase.plusSeconds(300)));
 
         List<IAgendaItem> whirlpoolMeetingAgenda = new ArrayList<>();
         whirlpoolMeetingAgenda.add(AgendaItem.of("Explain how whirlpools develop"));
@@ -221,14 +221,14 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        meetings.add(Meeting.builder()
-                .id(MEETING_ID_WHIRLPOOLS)
-                .title("Meeting about dangers of whirlpools")
-                .workgroupId(WORKGROUP_ID_COAST_GUARD)
-                .agenda(whirlpoolMeetingAgenda)
-                .assistanceConfigurations(whirlpoolConfigs)
-                .start(timeBase.plusSeconds(360))
-                .end(timeBase.plusSeconds(660)).build());
+        meetings.add(Meeting.of(
+                MEETING_ID_WHIRLPOOLS,
+                "Meeting about dangers of whirlpools",
+                WORKGROUP_ID_COAST_GUARD,
+                whirlpoolMeetingAgenda,
+                whirlpoolConfigs,
+                timeBase.plusSeconds(360),
+                timeBase.plusSeconds(660)));
 
         return meetings;
     }
@@ -241,53 +241,46 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
         blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BEAMER);
         blueLocationDevices.add(DEVICE_ID_BLUE_MICROPHONE);
-        locations.add(Location.builder()
-                .id(LOCATION_ID_BLUE)
-                .name("Coast guard workplace")
-                .deviceIds(blueLocationDevices)
-                .build());
+        locations.add(Location.of(
+                LOCATION_ID_BLUE,
+                "Coast guard workplace",
+                blueLocationDevices));
         return locations;
     }
 
     @Override
     public Set<IDevice> createDeviceSet() throws DataSetException {
         Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_DISPLAY_BIG)
-                .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name(format("Big main display at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_DISPLAY_SMALL)
-                .type(DummyDisplayAdapter.DEVICE_TYPE)
-                .name(format("Small display next to the door at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_DISPLAY_BEAMER)
-                .type(DummyBeamerAdapter.DEVICE_TYPE)
-                .name(format("Beamer at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_MICROPHONE)
-                .type(ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE)
-                .name(format("Microphone at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_WEB_BROWSER)
-                .type("firefox")
-                .name(format("Web browser at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
-        devices.add(Device.builder()
-                .id(DEVICE_ID_BLUE_POWER_POINT)
-                .type("powerPoint")
-                .name(format("PowerPoint at location \"%s\"", LOCATION_ID_BLUE))
-                .responsibleDelegate(DELEGATE_ID_BLUE)
-                .build());
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_DISPLAY_BIG,
+                DummyDisplayAdapter.DEVICE_TYPE,
+                format("Big main display at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_DISPLAY_SMALL,
+                DummyDisplayAdapter.DEVICE_TYPE,
+                format("Small display next to the door at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_DISPLAY_BEAMER,
+                DummyBeamerAdapter.DEVICE_TYPE,
+                format("Beamer at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_MICROPHONE,
+                ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE,
+                format("Microphone at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_WEB_BROWSER,
+                "firefox",
+                format("Web browser at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
+        devices.add(Device.of(
+                DEVICE_ID_BLUE_POWER_POINT,
+                "powerPoint",
+                format("PowerPoint at location \"%s\"", LOCATION_ID_BLUE),
+                DELEGATE_ID_BLUE));
         return devices;
     }
 }

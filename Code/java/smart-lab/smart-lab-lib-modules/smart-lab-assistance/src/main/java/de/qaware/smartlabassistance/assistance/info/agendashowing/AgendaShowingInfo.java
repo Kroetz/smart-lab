@@ -1,9 +1,7 @@
 package de.qaware.smartlabassistance.assistance.info.agendashowing;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabassistance.assistance.info.generic.AbstractAssistanceInfo;
-import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.EqualsAndHashCode;
@@ -43,7 +41,6 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
         return new Configuration(this, configProperties);
     }
 
-    // TODO: Which annotation can be removed?
     @Getter
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = true)
@@ -55,13 +52,6 @@ public class AgendaShowingInfo extends AbstractAssistanceInfo {
 
         private DeviceId webBrowserId;
         private DeviceId displayId;
-
-        @JsonCreator
-        public Configuration(IAssistanceInfo assistanceInfo, DeviceId webBrowserId, DeviceId displayId) {
-            super(assistanceInfo);
-            this.webBrowserId = webBrowserId;
-            this.displayId = displayId;
-        }
 
         private Configuration(AgendaShowingInfo agendaShowingInfo, Map<String, String> configProperties) {
             super(agendaShowingInfo);

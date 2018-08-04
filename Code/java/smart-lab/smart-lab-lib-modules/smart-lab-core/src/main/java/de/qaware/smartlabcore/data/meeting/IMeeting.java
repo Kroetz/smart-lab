@@ -23,14 +23,13 @@ public interface IMeeting extends IEntity<MeetingId> {
     LocationId getLocationId();
     List<IAgendaItem> getAgenda();
     Set<IAssistanceConfiguration> getAssistanceConfigurations();
-    void setStart(Instant start);
     Instant getStart();
-    void setEnd(Instant end);
     Instant getEnd();
     Duration getDuration();
     boolean isInProgress();
     boolean isColliding(IMeeting meeting);
-    IMeeting copy();
+    IMeeting withEnd(Instant newEnd);
+    IMeeting withStartAndEnd(Instant newStart, Instant newEnd);
     IMeeting merge(IMeeting meeting);
     String toConfigLangString();
 }
