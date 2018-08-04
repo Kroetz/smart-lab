@@ -3,9 +3,9 @@ package de.qaware.smartlabcore.miscellaneous;
 public abstract class Property {
 
     public static abstract class Prefix {
-        public static final String MODULARITY = "smartLab.app.";
-        public static final String MEETING_MANAGEMENT_REPOSITORY = "smartLab.app.meetingManagement";
-        public static final String SPEECH_TO_TEXT_SERVICE = "smartLab.action.speechToText.";
+        public static final String MODULARITY = "smart-lab.app.";
+        public static final String MEETING_MANAGEMENT_REPOSITORY = "smart-lab.app.meetingManagement";
+        public static final String SPEECH_TO_TEXT_SERVICE = "smart-lab.action.speechToText.";
     }
 
     public static abstract class Name {
