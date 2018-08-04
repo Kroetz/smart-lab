@@ -53,7 +53,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         FileDisplayingInfo.Configuration config = (FileDisplayingInfo.Configuration) context.getAssistanceConfiguration();
 
         final DataDownloadSubmittable.ActionArgs dataDownloadArgs = DataDownloadSubmittable.ActionArgs.of(
-                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
+                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getFilePath());
         Path downloadedFile = this.dataDownload.submitExecution(actionService, dataDownloadArgs);
 

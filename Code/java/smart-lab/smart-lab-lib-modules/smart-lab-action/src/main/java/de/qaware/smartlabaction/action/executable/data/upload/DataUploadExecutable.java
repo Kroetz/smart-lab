@@ -40,10 +40,10 @@ public class DataUploadExecutable extends AbstractActionExecutable {
                 DataUploadSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDataUploadService dataUploadService = this.dataUploadServiceResolver
-                .resolve(actionArgs.getKnowledgeBaseInfo().getServiceId())
+                .resolve(actionArgs.getProjectBaseInfo().getServiceId())
                 .orElseThrow(UnknownServiceException::new);
         dataUploadService.upload(
-                actionArgs.getKnowledgeBaseInfo(),
+                actionArgs.getProjectBaseInfo(),
                 actionArgs.getUploadMessage(),
                 actionArgs.getDir(),
                 actionArgs.getFileName(),

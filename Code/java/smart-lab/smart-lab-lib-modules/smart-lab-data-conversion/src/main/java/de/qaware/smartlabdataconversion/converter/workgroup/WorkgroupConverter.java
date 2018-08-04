@@ -14,9 +14,9 @@ public class WorkgroupConverter implements IDtoConverter<IWorkgroup, WorkgroupDt
      * Maybe http://modelmapper.org/ is appropriate for this task
      */
 
-    private final IDtoConverter<IKnowledgeBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter;
+    private final IDtoConverter<IProjectBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter;
 
-    public WorkgroupConverter(IDtoConverter<IKnowledgeBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter) {
+    public WorkgroupConverter(IDtoConverter<IProjectBaseInfo, ProjectBaseInfoDto> projectBaseInfoConverter) {
         this.projectBaseInfoConverter = projectBaseInfoConverter;
     }
 
@@ -26,7 +26,7 @@ public class WorkgroupConverter implements IDtoConverter<IWorkgroup, WorkgroupDt
                 .id(workgroup.getId())
                 .name(workgroup.getName())
                 .memberIds(workgroup.getMemberIds())
-                .projectBaseInfo(this.projectBaseInfoConverter.toDto(workgroup.getKnowledgeBaseInfo()))
+                .projectBaseInfo(this.projectBaseInfoConverter.toDto(workgroup.getProjectBaseInfo()))
                 .build();
     }
 

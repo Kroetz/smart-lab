@@ -86,7 +86,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         String fileName = LocalDateTime.now().format(formatter) + ".txt";
         final DataUploadSubmittable.ActionArgs dataUploadArgs = DataUploadSubmittable.ActionArgs.of(
-                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getKnowledgeBaseInfo(),
+                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getUploadDir(),
                 fileName,
                 uploadMessage,

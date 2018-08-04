@@ -15,5 +15,5 @@ public interface IWorkgroup extends IEntity<WorkgroupId> {
 
     String getName();
     Set<PersonId> getMemberIds();
-    IKnowledgeBaseInfo getKnowledgeBaseInfo();
+    IProjectBaseInfo getProjectBaseInfo();
 }

@@ -1,40 +1,40 @@
 package de.qaware.smartlabdataconversion.converter.workgroup;
 
-import de.qaware.smartlabaction.action.actor.projectbase.info.generic.IKnowledgeBaseInfoFactory;
+import de.qaware.smartlabaction.action.actor.projectbase.info.generic.IProjectBaseInfoFactory;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlabcore.data.workgroup.ProjectBaseInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class ProjectBaseInfoConverter implements IDtoConverter<IKnowledgeBaseInfo, ProjectBaseInfoDto> {
+public class ProjectBaseInfoConverter implements IDtoConverter<IProjectBaseInfo, ProjectBaseInfoDto> {
 
     /*
      * TODO: Map fields automatically without breaking the immutability of the entity classes
      * Maybe http://modelmapper.org/ is appropriate for this task
      */
 
-    private final IResolver<String, IKnowledgeBaseInfoFactory> knowledgeBaseInfoFactoryResolver;
+    private final IResolver<String, IProjectBaseInfoFactory> projectBaseInfoFactoryResolver;
 
-    public ProjectBaseInfoConverter(IResolver<String, IKnowledgeBaseInfoFactory> knowledgeBaseInfoFactoryResolver) {
-        this.knowledgeBaseInfoFactoryResolver = knowledgeBaseInfoFactoryResolver;
+    public ProjectBaseInfoConverter(IResolver<String, IProjectBaseInfoFactory> projectBaseInfoFactoryResolver) {
+        this.projectBaseInfoFactoryResolver = projectBaseInfoFactoryResolver;
     }
 
     @Override
-    public ProjectBaseInfoDto toDto(IKnowledgeBaseInfo projectBaseInfo) {
+    public ProjectBaseInfoDto toDto(IProjectBaseInfo projectBaseInfo) {
         return ProjectBaseInfoDto.builder()
                 .serviceId(projectBaseInfo.getServiceId())
-                .projectBaseProperties(projectBaseInfo.getKnowledgeBaseProperties())
+                .projectBaseProperties(projectBaseInfo.getProjectBaseProperties())
                 .build();
     }
 
     @Override
-    public IKnowledgeBaseInfo toEntity(ProjectBaseInfoDto projectBaseInfo) {
+    public IProjectBaseInfo toEntity(ProjectBaseInfoDto projectBaseInfo) {
         // TODO: Exception message and type
-        IKnowledgeBaseInfoFactory factory = this.knowledgeBaseInfoFactoryResolver
+        IProjectBaseInfoFactory factory = this.projectBaseInfoFactoryResolver
                 .resolve(projectBaseInfo.getServiceId())
                 .orElseThrow(RuntimeException::new);
         return factory.newInstance(projectBaseInfo.getProjectBaseProperties());

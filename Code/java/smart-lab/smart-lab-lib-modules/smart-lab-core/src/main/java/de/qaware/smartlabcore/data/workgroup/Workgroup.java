@@ -16,13 +16,13 @@ public class Workgroup implements IWorkgroup {
     private final WorkgroupId id;
     private final String name;
     private final Set<PersonId> memberIds;
-    private final IKnowledgeBaseInfo knowledgeBaseInfo;
+    private final IProjectBaseInfo projectBaseInfo;
 
     public static IWorkgroup of(
             WorkgroupId id,
             String name,
             Set<PersonId> memberIds,
-            IKnowledgeBaseInfo knowledgeBaseInfo) {
-        return new Workgroup(id, name, memberIds, knowledgeBaseInfo);
+            IProjectBaseInfo projectBaseInfo) {
+        return new Workgroup(id, name, memberIds, projectBaseInfo);
     }
 }

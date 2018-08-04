@@ -2,7 +2,7 @@ package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.beamer.DummyBeamerAdapter;
-import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubProjectBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
@@ -49,18 +49,18 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
-    private final GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory;
+    private final GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory;
 
     public AstronautsSampleDataSetFactory(
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo,
-            GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory) {
+            GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory) {
         super(ID);
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubKnowledgeBaseInfoFactory = githubKnowledgeBaseInfoFactory;
+        this.githubProjectBaseInfoFactory = githubProjectBaseInfoFactory;
     }
 
     @Override
@@ -74,10 +74,10 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
                 WORKGROUP_ID_ASTRONAUTS,
                 "Astronauts",
                 astronautsMembers,
-                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+                this.githubProjectBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
-                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
-                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "astronautsRepo")
+                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_REPOSITORY, "astronautsRepo")
                         .build())));
         return workgroups;
     }

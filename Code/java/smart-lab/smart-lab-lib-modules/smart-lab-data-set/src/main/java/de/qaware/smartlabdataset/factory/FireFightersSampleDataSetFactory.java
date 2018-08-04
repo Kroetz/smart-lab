@@ -3,7 +3,7 @@ package de.qaware.smartlabdataset.factory;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
 import de.qaware.smartlabaction.action.actor.microphone.DummyMicrophoneAdapter;
-import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubProjectBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
@@ -54,20 +54,20 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
-    private final GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory;
+    private final GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory;
 
     public FireFightersSampleDataSetFactory(
             IAssistanceInfo minuteTakingInfo,
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo,
-            GithubKnowledgeBaseInfo.Factory githubKnowledgeBaseInfoFactory) {
+            GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory) {
         super(ID);
         this.minuteTakingInfo = minuteTakingInfo;
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubKnowledgeBaseInfoFactory = githubKnowledgeBaseInfoFactory;
+        this.githubProjectBaseInfoFactory = githubProjectBaseInfoFactory;
     }
 
     @Override
@@ -81,10 +81,10 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
                 WORKGROUP_ID_FIRE_FIGHTERS,
                 "Fire Fighters",
                 fireFighterMembers,
-                this.githubKnowledgeBaseInfoFactory.newInstance(ImmutableMap
+                this.githubProjectBaseInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
-                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_USER, "Kroetz")
-                        .put(GithubKnowledgeBaseInfo.KNOWLEDGE_BASE_PROPERTY_KEY_REPOSITORY, "fireFightersRepo")
+                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_REPOSITORY, "fireFightersRepo")
                         .build())));
         return workgroups;
     }

@@ -13,15 +13,15 @@ import static java.util.stream.Collectors.toMap;
 
 @Component
 @Slf4j
-public class KnowledgeBaseInfoFactoryResolver extends AbstractResolver<String, IKnowledgeBaseInfoFactory> {
+public class ProjectBaseInfoFactoryResolver extends AbstractResolver<String, IProjectBaseInfoFactory> {
 
-    public KnowledgeBaseInfoFactoryResolver(List<IKnowledgeBaseInfoFactory> factories) {
-        super(getFactoriesByKnowledgeBaseId(factories));
+    public ProjectBaseInfoFactoryResolver(List<IProjectBaseInfoFactory> factories) {
+        super(getFactoriesByProjectBaseId(factories));
     }
 
-    private static Set<Map.Entry<String, IKnowledgeBaseInfoFactory>> getFactoriesByKnowledgeBaseId(List<IKnowledgeBaseInfoFactory> factories) {
+    private static Set<Map.Entry<String, IProjectBaseInfoFactory>> getFactoriesByProjectBaseId(List<IProjectBaseInfoFactory> factories) {
         return factories.stream()
-                .collect(toMap(IKnowledgeBaseInfoFactory::getServiceId, identity()))
+                .collect(toMap(IProjectBaseInfoFactory::getServiceId, identity()))
                 .entrySet();
     }
 }

@@ -51,10 +51,10 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
                 DataDownloadSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver
-                .resolve(actionArgs.getKnowledgeBaseInfo().getServiceId())
+                .resolve(actionArgs.getProjectBaseInfo().getServiceId())
                 .orElseThrow(UnknownServiceException::new);
         Path downloadedFile = dataDownloadService.download(
-                actionArgs.getKnowledgeBaseInfo(),
+                actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());
         IActionResult actionResult;
         try {

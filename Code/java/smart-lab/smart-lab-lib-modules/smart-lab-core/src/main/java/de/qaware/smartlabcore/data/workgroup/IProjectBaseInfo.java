@@ -2,8 +2,8 @@ package de.qaware.smartlabcore.data.workgroup;
 
 import java.util.Map;
 
-public interface IKnowledgeBaseInfo {
+public interface IProjectBaseInfo {
 
     String getServiceId();
-    Map<String, String> getKnowledgeBaseProperties();
+    Map<String, String> getProjectBaseProperties();
 }

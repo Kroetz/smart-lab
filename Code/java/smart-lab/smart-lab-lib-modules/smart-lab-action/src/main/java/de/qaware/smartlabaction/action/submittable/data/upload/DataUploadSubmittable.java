@@ -5,7 +5,7 @@ import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmitt
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -32,7 +32,7 @@ public class DataUploadSubmittable extends AbstractActionSubmittable<DataUploadS
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private IKnowledgeBaseInfo knowledgeBaseInfo;
+        private IProjectBaseInfo projectBaseInfo;
 
         @NonNull
         private String dir;

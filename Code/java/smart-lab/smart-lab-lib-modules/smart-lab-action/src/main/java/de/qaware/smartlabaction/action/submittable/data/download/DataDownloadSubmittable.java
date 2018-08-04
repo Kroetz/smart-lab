@@ -5,7 +5,7 @@ import de.qaware.smartlabaction.action.submittable.generic.AbstractActionSubmitt
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.exception.InvalidActionResultException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
@@ -52,7 +52,7 @@ public class DataDownloadSubmittable extends AbstractActionSubmittable<DataDownl
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private IKnowledgeBaseInfo knowledgeBaseInfo;
+        private IProjectBaseInfo projectBaseInfo;
 
         @NonNull
         private String filePath;

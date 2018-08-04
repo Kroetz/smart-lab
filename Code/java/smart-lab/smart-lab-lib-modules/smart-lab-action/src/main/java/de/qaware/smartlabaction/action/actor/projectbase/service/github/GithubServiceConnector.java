@@ -5,8 +5,8 @@ import com.jcabi.http.Request;
 import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
-import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubKnowledgeBaseInfo;
-import de.qaware.smartlabcore.data.workgroup.IKnowledgeBaseInfo;
+import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubProjectBaseInfo;
+import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class GithubServiceConnector implements IGithubService {
 
     @Override
     public void upload(
-            IKnowledgeBaseInfo knowledgeBaseInfo,
+            IProjectBaseInfo projectBaseInfo,
             String uploadMessage,
             String dir,
             String fileName,
@@ -63,10 +63,10 @@ public class GithubServiceConnector implements IGithubService {
                     .add("email", "hanswurst@byom.de").build();
             // TODO: casting smells
             // TODO: Check for casting exception and throw illegalstateexception
-            GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
+            GithubProjectBaseInfo githubProjectBaseInfo = (GithubProjectBaseInfo) projectBaseInfo;
             Repo repository = this.github.repos().get(new Coordinates.Simple(
-                    githubKnowledgeBaseInfo.getUser(),
-                    githubKnowledgeBaseInfo.getRepository()));
+                    githubProjectBaseInfo.getUser(),
+                    githubProjectBaseInfo.getRepository()));
             JsonObject jsonObject = Json.createObjectBuilder()
                     .add("message", uploadMessage)
                     .add("path", path)
@@ -84,14 +84,14 @@ public class GithubServiceConnector implements IGithubService {
 
     @Override
     public Path download(
-            IKnowledgeBaseInfo knowledgeBaseInfo,
+            IProjectBaseInfo projectBaseInfo,
             String filePath) throws ServiceFailedException {
         try {
             acceptPendingRepoInvitations();
-            GithubKnowledgeBaseInfo githubKnowledgeBaseInfo = (GithubKnowledgeBaseInfo) knowledgeBaseInfo;
+            GithubProjectBaseInfo githubProjectBaseInfo = (GithubProjectBaseInfo) projectBaseInfo;
             Repo repository = this.github.repos().get(new Coordinates.Simple(
-                    githubKnowledgeBaseInfo.getUser(),
-                    githubKnowledgeBaseInfo.getRepository()));
+                    githubProjectBaseInfo.getUser(),
+                    githubProjectBaseInfo.getRepository()));
             Content file = repository.contents().get(filePath);
             return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, file.raw());
         }
