@@ -3,7 +3,6 @@ package de.qaware.smartlabcore.data.location;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.location.LocationId;
 import lombok.*;
 
 import java.util.Collection;
