@@ -38,7 +38,7 @@ public class RemeetingConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.action.speech-to-text.remeeting")
+    @ConfigurationProperties(prefix = "smart-lab.actor.remeeting")
     public static class RemeetingProperties {
 
         private String apiKey;
