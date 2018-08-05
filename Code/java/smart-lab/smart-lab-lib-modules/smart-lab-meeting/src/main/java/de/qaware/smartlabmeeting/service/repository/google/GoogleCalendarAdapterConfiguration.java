@@ -86,7 +86,7 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "google.calendar")
+    @ConfigurationProperties(prefix = "smart-lab.meeting-management.google-calendar")
     @Validated
     public static class Properties {
 
