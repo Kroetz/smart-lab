@@ -1,8 +1,8 @@
 package de.qaware.smartlabactuatoradapter.actuator.windowhandling.configuration;
 
+import de.qaware.smartlabactuatoradapter.actuator.windowhandling.condition.ConditionalOnWindowsAndWindowHandlingEnabled;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.WindowsWindowHandler;
-import de.qaware.smartlabcore.condition.WindowsEnvironmentCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,7 +23,7 @@ import static java.nio.file.Files.exists;
 import static java.nio.file.Paths.get;
 
 @Configuration
-@Conditional(WindowsEnvironmentCondition.class)
+@Conditional(ConditionalOnWindowsAndWindowHandlingEnabled.class)
 @Slf4j
 @EnableConfigurationProperties(WindowsWindowHandlingConfiguration.Properties.class)
 public class WindowsWindowHandlingConfiguration {

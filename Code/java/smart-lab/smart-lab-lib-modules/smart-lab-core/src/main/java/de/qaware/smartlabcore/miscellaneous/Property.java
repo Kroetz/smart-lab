@@ -6,15 +6,19 @@ public abstract class Property {
         public static final String MODULARITY = "smart-lab.app.";
         public static final String MEETING_MANAGEMENT_REPOSITORY = "smart-lab.meeting-management";
         public static final String SPEECH_TO_TEXT_SERVICE = "smart-lab.action.speech-to-text.";
+        public static final String WINDOW_HANDLING = "smart-lab.delegate.window-handling";
     }
 
     public static abstract class Name {
         public static final String MODULARITY = "modularity";
         public static final String MEETING_MANAGEMENT_REPOSITORY = "repository";
         public static final String SPEECH_TO_TEXT_SERVICE = "service";
+        public static final String WINDOW_HANDLING = "enabled";
     }
 
     public static abstract class Value {
+        public static final String TRUE = "true";
+        public static final String FALSE = "false";
         public static abstract class Modularity {
             public static final String MICROSERVICE = "microservice";
             public static final String MONOLITH = "monolith";

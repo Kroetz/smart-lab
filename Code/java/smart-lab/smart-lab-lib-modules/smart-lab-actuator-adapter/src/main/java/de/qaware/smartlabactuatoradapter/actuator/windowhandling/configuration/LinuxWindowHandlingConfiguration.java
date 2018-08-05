@@ -1,8 +1,8 @@
 package de.qaware.smartlabactuatoradapter.actuator.windowhandling.configuration;
 
+import de.qaware.smartlabactuatoradapter.actuator.windowhandling.condition.ConditionalOnLinuxAndWindowHandlingEnabled;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.LinuxWindowHandler;
-import de.qaware.smartlabcore.condition.LinuxEnvironmentCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import java.time.Duration;
 import java.util.Map;
 
 @Configuration
-@Conditional(LinuxEnvironmentCondition.class)
+@Conditional(ConditionalOnLinuxAndWindowHandlingEnabled.class)
 @Slf4j
 public class LinuxWindowHandlingConfiguration {
 
