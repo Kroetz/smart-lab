@@ -32,7 +32,7 @@ public class GuiConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "gui")
+    @ConfigurationProperties(prefix = "smart-lab.gui")
     public static class GuiProperties {
 
         private static final int DEFAULT_CURRENT_MEETING_EXTENSION_IN_MINUTES = 1;

@@ -69,7 +69,7 @@ public class MonolithModuleConfiguration {
     // TODO: String literal
     @Qualifier("urlsByDelegateName")
     public Map<String, String> urlsByDelegateName() {
-        return this.delegateProperties.getUrls();
+        return this.delegateProperties.getDelegateUrls();
     }
 
     @Bean
@@ -98,30 +98,30 @@ public class MonolithModuleConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.monolith.delegate")
+    @ConfigurationProperties(prefix = "smart-lab.monolith")
     public static class DelegateProperties {
 
-        private Map<String, String> urls;
+        private Map<String, String> delegateUrls;
 
         public DelegateProperties() {
-            this.urls = new HashMap<>();
+            this.delegateUrls = new HashMap<>();
         }
 
-        public Map<String, String> getUrls() {
-            return this.urls;
+        public Map<String, String> getDelegateUrls() {
+            return this.delegateUrls;
         }
 
-        public void setUrls(Map<String, String> urls) {
+        public void setDelegateUrls(Map<String, String> delegateUrls) {
             final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
-            if(urls.values().stream().anyMatch(url -> !urlValidator.isValid(url))) {
+            if(delegateUrls.values().stream().anyMatch(url -> !urlValidator.isValid(url))) {
                 throw new ConfigurationException("The configured delegate URLs must be valid");
             }
-            this.urls = urls;
+            this.delegateUrls = delegateUrls;
         }
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "monolith")
+    @ConfigurationProperties(prefix = "smart-lab.monolith")
     public static class FallbackBaseUrlProperties {
 
         private final String DEFAULT_FALLBACK_BASE_URL = "http://localhost:8080";
