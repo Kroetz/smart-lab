@@ -21,7 +21,7 @@ public class GithubConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actor.github")
+    @ConfigurationProperties(prefix = "smart-lab.actuator.github")
     public static class GithubProperties {
 
         private String apiKey;

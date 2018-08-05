@@ -40,7 +40,7 @@ public class WatsonSpeechToTextConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actor.watson-speech-to-text")
+    @ConfigurationProperties(prefix = "smart-lab.actuator.watson-speech-to-text")
     public static class WatsonSpeechToTextProperties {
 
         private String userName;

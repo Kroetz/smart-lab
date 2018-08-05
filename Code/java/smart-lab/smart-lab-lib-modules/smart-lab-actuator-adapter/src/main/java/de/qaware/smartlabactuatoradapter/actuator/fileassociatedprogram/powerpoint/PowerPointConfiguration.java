@@ -36,7 +36,7 @@ public class PowerPointConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actor.power-point", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = "smart-lab.actuator.power-point", ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 

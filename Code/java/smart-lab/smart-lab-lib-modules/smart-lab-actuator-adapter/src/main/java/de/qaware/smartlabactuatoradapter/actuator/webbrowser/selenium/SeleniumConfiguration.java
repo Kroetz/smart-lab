@@ -41,7 +41,7 @@ public class SeleniumConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actor.selenium", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = "smart-lab.actuator.selenium", ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
