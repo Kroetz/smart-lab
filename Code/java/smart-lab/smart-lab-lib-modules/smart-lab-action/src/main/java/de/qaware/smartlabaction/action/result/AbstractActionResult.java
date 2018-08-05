@@ -2,10 +2,14 @@ package de.qaware.smartlabaction.action.result;
 
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import static de.qaware.smartlabcore.miscellaneous.Constants.VOID;
 
 @Getter
 @ToString
@@ -30,7 +34,7 @@ public abstract class AbstractActionResult<T> implements IActionResult {
 
     @Override
     public Void getVoidValue() {
-        return null;
+        return VOID;
     }
 
     @Override

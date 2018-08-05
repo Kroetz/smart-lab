@@ -10,6 +10,7 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
 import de.qaware.smartlabcore.exception.UnknownAssistanceException;
+import de.qaware.smartlabcore.miscellaneous.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
+import static de.qaware.smartlabcore.miscellaneous.Constants.VOID;
 import static java.util.concurrent.CompletableFuture.allOf;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
@@ -60,7 +62,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
                  */
                 assistanceTasks.add(supplyAsync(() -> {
                     triggerAssistance(config, meeting, triggerReaction, jobId);
-                    return null;
+                    return VOID;
                 }));
             }
             allOf(assistanceTasks.stream().toArray(CompletableFuture[]::new));

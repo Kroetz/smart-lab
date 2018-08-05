@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
+import static de.qaware.smartlabcore.miscellaneous.Constants.VOID;
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.stream;
 import static java.util.Objects.isNull;
@@ -85,7 +86,7 @@ public class GenericMicrophone implements AutoCloseable {
             log.info("Unlocking microphone");
             isMicrophoneLocked.set(false);
         }
-        return null;
+        return VOID;
     }
 
     public Optional<Path> stopRecording() {
