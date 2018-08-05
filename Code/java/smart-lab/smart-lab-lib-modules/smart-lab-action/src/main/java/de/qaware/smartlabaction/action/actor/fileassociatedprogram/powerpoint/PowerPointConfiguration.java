@@ -32,28 +32,28 @@ public class PowerPointConfiguration {
 
     @Bean
     public Path powerPointExecutable() {
-        return this.properties.getExecutablePath();
+        return this.properties.getExecutableFile();
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "power-point", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = "smart-lab.actor.power-point", ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
-        private static final Path DEFAULT_EXECUTABLE_PATH = get("C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE");
+        private static final Path DEFAULT_EXECUTABLE_FILE = get("C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE");
 
-        private Path executablePath;
+        private Path executableFile;
 
         public Properties() {
-            this.executablePath = DEFAULT_EXECUTABLE_PATH;
+            this.executableFile = DEFAULT_EXECUTABLE_FILE;
         }
 
-        public Path getExecutablePath() {
-            return this.executablePath;
+        public Path getExecutableFile() {
+            return this.executableFile;
         }
 
-        public void setExecutablePath(String executablePath) {
-            this.executablePath = get(executablePath);
+        public void setExecutableFile(String executableFile) {
+            this.executableFile = get(executableFile);
         }
 
         @Slf4j
@@ -67,12 +67,12 @@ public class PowerPointConfiguration {
             @Override
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
-                if(!exists(properties.getExecutablePath())) {
+                if(!exists(properties.getExecutableFile())) {
                     // TODO: String literals
                     String errorMessage = "The path of the PowerPoint executable file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "executablePath",
+                            "executableFile",
                             errorMessage);
                 }
             }
