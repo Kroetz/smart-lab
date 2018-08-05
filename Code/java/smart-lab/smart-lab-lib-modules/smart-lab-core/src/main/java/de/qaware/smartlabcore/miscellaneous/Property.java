@@ -4,7 +4,7 @@ public abstract class Property {
 
     public static abstract class Prefix {
         public static final String MODULARITY = "smart-lab.app.";
-        public static final String MEETING_MANAGEMENT_REPOSITORY = "smart-lab.app.meetingManagement";
+        public static final String MEETING_MANAGEMENT_REPOSITORY = "smart-lab.meeting-management";
         public static final String SPEECH_TO_TEXT_SERVICE = "smart-lab.action.speech-to-text.";
     }
 
