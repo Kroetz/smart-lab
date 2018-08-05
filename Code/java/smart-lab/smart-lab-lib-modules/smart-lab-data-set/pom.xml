@@ -26,6 +26,11 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-data-conversion</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.qaware</groupId>
             <artifactId>smart-lab-assistance</artifactId>
         </dependency>
 

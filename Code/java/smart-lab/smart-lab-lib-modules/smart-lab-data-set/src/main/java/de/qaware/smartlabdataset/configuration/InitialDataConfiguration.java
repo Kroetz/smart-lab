@@ -9,6 +9,7 @@ import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdataset.ComponentScanMarker;
 import de.qaware.smartlabdataset.provider.DataSetProvider;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -25,6 +26,7 @@ import java.util.Set;
 @Configuration
 @ComponentScan(basePackageClasses = ComponentScanMarker.class)
 @EnableSmartLabCore
+@EnableSmartLabDtoConverters
 @EnableSmartLabAssistanceInfos
 @EnableSmartLabActionInfos
 @EnableConfigurationProperties(InitialDataConfiguration.Properties.class)
