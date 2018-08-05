@@ -5,10 +5,10 @@ import de.qaware.smartlabcore.data.meeting.MeetingId;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import de.qaware.smartlabcore.result.*;
 import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -20,10 +20,15 @@ import java.util.Set;
 public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IMeeting, MeetingId> implements IMeetingManagementBusinessLogic {
 
     private final IMeetingManagementRepository meetingManagementRepository;
+    private final Duration maxMeetingDuration;
 
-    public MeetingManagementBusinessLogic(IMeetingManagementRepository meetingManagementRepository) {
+    public MeetingManagementBusinessLogic(
+            IMeetingManagementRepository meetingManagementRepository,
+            // TODO: String literal
+            @Qualifier("maxMeetingDuration") Duration maxMeetingDuration) {
         super(meetingManagementRepository);
         this.meetingManagementRepository = meetingManagementRepository;
+        this.maxMeetingDuration = maxMeetingDuration;
     }
 
     @Override
@@ -69,7 +74,7 @@ public class MeetingManagementBusinessLogic extends AbstractBasicEntityManagemen
             MeetingId meetingId,
             Duration extension) {
         return findOne(meetingId).map(meeting -> {
-            if(meeting.getDuration().plus(extension).compareTo(Constants.MAXIMAL_MEETING_DURATION) > 0) {
+            if(meeting.getDuration().plus(extension).compareTo(this.maxMeetingDuration) > 0) {
                 return ExtensionResult.MAXIMUM_REACHED_REACHED;
             }
             return this.meetingManagementRepository.extendMeeting(meeting, extension);

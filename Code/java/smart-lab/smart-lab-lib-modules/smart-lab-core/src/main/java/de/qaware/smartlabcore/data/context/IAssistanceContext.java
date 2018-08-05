@@ -2,9 +2,9 @@ package de.qaware.smartlabcore.data.context;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.miscellaneous.Constants;
 

@@ -7,7 +7,6 @@ import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -51,10 +50,7 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         }
         model.addAttribute("meetingTopic", currentMeeting.getTitle());
         model.addAttribute("minutesLeft", Duration.between(Instant.now(), currentMeeting.getEnd()).toMinutes());
-        model.addAttribute("secondsLeft", Duration.between(Instant.now(), currentMeeting.getEnd()).toMillis() / 1000);
-        model.addAttribute("startMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_LOCATION_ID, locationId));
-        model.addAttribute("stopMeetingUrl", "http://localhost:8081" + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_LOCATION_ID, locationId));
-        model.addAttribute("extendMeetingUrl", "http://localhost:8086" + format(LocationManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, locationId, Constants.DEFAULT_MEETING_EXTENSION.toMinutes()));
+        model.addAttribute("secondsLeft", Duration.between(Instant.now(), currentMeeting.getEnd()).getSeconds());
         model.addAttribute("startMeetingUrl", triggerServiceBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_START_CURRENT_MEETING_BY_LOCATION_ID, locationId.getIdValue()));
         model.addAttribute("stopMeetingUrl", triggerServiceBaseUrl + format(TriggerApiConstants.URL_TEMPLATE_STOP_CURRENT_MEETING_BY_LOCATION_ID, locationId.getIdValue()));
         model.addAttribute("extendMeetingUrl", triggerServiceBaseUrl + format(LocationManagementApiConstants.URL_TEMPLATE_EXTEND_CURRENT_MEETING, locationId.getIdValue(), this.locationStatusMeetingExtension.toMinutes()));
