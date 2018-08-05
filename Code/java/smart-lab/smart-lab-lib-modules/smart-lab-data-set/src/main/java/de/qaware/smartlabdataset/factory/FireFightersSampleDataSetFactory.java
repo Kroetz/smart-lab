@@ -1,9 +1,9 @@
 package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
-import de.qaware.smartlabaction.action.actor.display.DummyDisplayAdapter;
-import de.qaware.smartlabaction.action.actor.microphone.DummyMicrophoneAdapter;
-import de.qaware.smartlabaction.action.actor.projectbase.info.github.GithubProjectBaseInfo;
+import de.qaware.smartlabactuatoradapter.actuator.display.DummyDisplayAdapter;
+import de.qaware.smartlabactuatoradapter.actuator.microphone.DummyMicrophoneAdapter;
+import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.github.GithubProjectBaseInfo;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;

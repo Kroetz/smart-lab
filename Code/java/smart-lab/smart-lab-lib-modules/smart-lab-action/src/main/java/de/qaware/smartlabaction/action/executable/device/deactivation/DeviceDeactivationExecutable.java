@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.executable.device.deactivation;
 
-import de.qaware.smartlabaction.action.actor.generic.IDeactivatable;
+import de.qaware.smartlabactuatoradapter.actuator.generic.IDeactivatable;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.device.deactivation.DeviceDeactivationInfo;
 import de.qaware.smartlabaction.action.result.VoidActionResult;

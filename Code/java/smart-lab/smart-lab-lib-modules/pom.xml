@@ -28,6 +28,7 @@
         <module>smart-lab-device</module>
         <module>smart-lab-location</module>
         <module>smart-lab-meeting</module>
+        <module>smart-lab-actuator-adapter</module>
         <module>smart-lab-delegate</module>
         <module>smart-lab-action</module>
         <module>smart-lab-assistance</module>

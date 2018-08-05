@@ -30,19 +30,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-github</artifactId>
-            <classifier>jar-with-dependencies</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ibm.watson.developer_cloud</groupId>
-            <artifactId>speech-to-text</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
+            <groupId>de.qaware</groupId>
+            <artifactId>smart-lab-actuator-adapter</artifactId>
         </dependency>
 
     </dependencies>

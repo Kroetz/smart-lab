@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-action</artifactId>
+            <artifactId>smart-lab-actuator-adapter</artifactId>
         </dependency>
 
     </dependencies>

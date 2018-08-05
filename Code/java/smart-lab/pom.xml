@@ -142,6 +142,12 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
+				<artifactId>smart-lab-actuator-adapter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.qaware</groupId>
 				<artifactId>smart-lab-delegate</artifactId>
 				<version>${project.version}</version>
 			</dependency>

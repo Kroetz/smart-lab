@@ -1,6 +1,6 @@
 package de.qaware.smartlabdataconversion.configuration;
 
-import de.qaware.smartlabaction.annotation.EnableSmartLabProjectBaseInfos;
+import de.qaware.smartlabactuatoradapter.annotation.EnableSmartLabProjectBaseInfos;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import org.springframework.context.annotation.ComponentScan;

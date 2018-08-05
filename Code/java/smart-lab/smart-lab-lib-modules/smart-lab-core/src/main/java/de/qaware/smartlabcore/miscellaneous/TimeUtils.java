@@ -1,7 +1,5 @@
 package de.qaware.smartlabcore.miscellaneous;
 
-import org.openqa.selenium.InvalidArgumentException;
-
 import java.time.Instant;
 
 import static java.lang.String.format;
@@ -23,7 +21,7 @@ public abstract class TimeUtils {
     }
 
     public static boolean isNowInProgress(Instant start, Instant end) {
-        if(start.isAfter(end)) throw new InvalidArgumentException(format(
+        if(start.isAfter(end)) throw new IllegalArgumentException(format(
                 "The start %s must be prior to the end %s",
                 start.toString(),
                 end.toString()));

@@ -1,6 +1,6 @@
 package de.qaware.smartlabaction.action.executable.file.opening;
 
-import de.qaware.smartlabaction.action.actor.fileassociatedprogram.IFileAssociatedProgramAdapter;
+import de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.IFileAssociatedProgramAdapter;
 import de.qaware.smartlabaction.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlabaction.action.info.file.opening.FileOpeningInfo;
 import de.qaware.smartlabaction.action.result.UuidActionResult;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
