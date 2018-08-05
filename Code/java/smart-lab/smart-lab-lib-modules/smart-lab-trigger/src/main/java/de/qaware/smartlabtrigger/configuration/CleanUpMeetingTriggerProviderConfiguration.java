@@ -52,7 +52,7 @@ public class CleanUpMeetingTriggerProviderConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "trigger.provider.clean-up")
+    @ConfigurationProperties(prefix = "smart-lab.trigger-provider.clean-up")
     public static class Properties {
 
         private static final int DEFAULT_CHECK_INTERVAL_IN_SECONDS = 5;
