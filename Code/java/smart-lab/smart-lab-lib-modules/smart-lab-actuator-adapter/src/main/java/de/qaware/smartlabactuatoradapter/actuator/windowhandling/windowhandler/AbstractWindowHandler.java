@@ -1,7 +1,7 @@
 package de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler;
 
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowinfo.IWindowInfo;
+import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
