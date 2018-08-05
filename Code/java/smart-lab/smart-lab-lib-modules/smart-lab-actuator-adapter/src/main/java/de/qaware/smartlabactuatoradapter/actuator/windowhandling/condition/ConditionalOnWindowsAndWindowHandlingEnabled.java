@@ -1,6 +1,6 @@
 package de.qaware.smartlabactuatoradapter.actuator.windowhandling.condition;
 
-import de.qaware.smartlabcore.condition.WindowsEnvironmentCondition;
+import de.qaware.smartlabcore.condition.ConditionalOnWindows;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.AllNestedConditions;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,7 +12,7 @@ public class ConditionalOnWindowsAndWindowHandlingEnabled extends AllNestedCondi
         super(ConfigurationPhase.PARSE_CONFIGURATION);
     }
 
-    @Conditional(WindowsEnvironmentCondition.class)
+    @Conditional(ConditionalOnWindows.class)
     static class OnWindows { }
 
     @ConditionalOnProperty(
