@@ -75,7 +75,7 @@ public class WindowHandlerConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "delegate", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = "smart-lab.delegate", ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
