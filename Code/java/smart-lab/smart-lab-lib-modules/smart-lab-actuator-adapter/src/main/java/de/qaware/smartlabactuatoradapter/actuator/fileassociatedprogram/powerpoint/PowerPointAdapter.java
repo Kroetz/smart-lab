@@ -3,11 +3,13 @@ package de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.powerpo
 import de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.AbstractFileAssociatedProgramAdapter;
 import de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.FileAssociatedProgramInstance;
 import de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.IFileAssociatedProgramInstance;
-import de.qaware.smartlabcore.exception.LocalDeviceException;
-import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowinfo.IWindowInfo;
+import de.qaware.smartlabcore.exception.LocalDeviceException;
+import de.qaware.smartlabcore.miscellaneous.Language;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,6 +20,10 @@ import java.util.UUID;
 import static java.lang.String.format;
 
 @Component
+@ConditionalOnProperty(
+        prefix = Property.Prefix.POWER_POINT,
+        name = Property.Name.POWER_POINT,
+        havingValue = Property.Value.TRUE)
 @Slf4j
 public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 

@@ -1,6 +1,8 @@
 package de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.powerpoint;
 
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,10 @@ import static java.nio.file.Files.exists;
 import static java.nio.file.Paths.get;
 
 @Configuration
+@ConditionalOnProperty(
+        prefix = Property.Prefix.POWER_POINT,
+        name = Property.Name.POWER_POINT,
+        havingValue = Property.Value.TRUE)
 @EnableConfigurationProperties(PowerPointConfiguration.Properties.class)
 public class PowerPointConfiguration {
 
