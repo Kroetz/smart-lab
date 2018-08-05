@@ -35,7 +35,7 @@ public class CommonWindowHandlingConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.delegate", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = "smart-lab.delegate.window-handling", ignoreInvalidFields = true)
     public static class Properties {
 
         private static final int DEFAULT_FIND_WINDOW_TIMEOUT_IN_SECONDS = 5;
