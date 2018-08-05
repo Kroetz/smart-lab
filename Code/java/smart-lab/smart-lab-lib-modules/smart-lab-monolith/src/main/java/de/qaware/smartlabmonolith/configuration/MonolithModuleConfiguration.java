@@ -98,7 +98,7 @@ public class MonolithModuleConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "delegate")
+    @ConfigurationProperties(prefix = "smart-lab.monolith.delegate")
     public static class DelegateProperties {
 
         private Map<String, String> urls;
