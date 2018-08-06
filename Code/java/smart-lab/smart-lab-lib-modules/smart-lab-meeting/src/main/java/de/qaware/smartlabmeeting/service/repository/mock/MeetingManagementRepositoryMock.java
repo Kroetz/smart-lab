@@ -35,7 +35,7 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 public class MeetingManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IMeeting, MeetingId> implements IMeetingManagementRepository {
 
-    private Map<LocationId, Set<IMeeting>> meetingsByLocation;
+    private final Map<LocationId, Set<IMeeting>> meetingsByLocation;
 
     public MeetingManagementRepositoryMock(Set<IMeeting> initialMeetings) {
         super(initialMeetings);

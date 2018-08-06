@@ -16,9 +16,8 @@ public abstract class AbstractBasicEntityManagementRepository<EntityT extends IE
 
     protected final Set<EntityT> initialData;
 
-    public AbstractBasicEntityManagementRepository(Set<? extends EntityT> initialData) {
-        this.initialData = new HashSet<>();
-        this.initialData.addAll(initialData);
+    public AbstractBasicEntityManagementRepository(Set<EntityT> initialData) {
+        this.initialData = initialData;
     }
 
     @PostConstruct
