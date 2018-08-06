@@ -9,7 +9,9 @@ import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.github.Github
 import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import javax.json.Json;
@@ -24,6 +26,10 @@ import java.util.Set;
 import static java.lang.String.format;
 
 @Component
+@ConditionalOnProperty(
+        prefix = Property.Prefix.GITHUB,
+        name = Property.Name.GITHUB,
+        havingValue = Property.Value.TRUE)
 @Slf4j
 public class GithubServiceConnector implements IGithubService {
 

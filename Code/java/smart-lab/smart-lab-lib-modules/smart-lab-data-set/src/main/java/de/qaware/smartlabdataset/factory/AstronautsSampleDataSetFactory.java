@@ -2,7 +2,9 @@ package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabactuatoradapter.actuator.beamer.DummyBeamerAdapter;
+import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.generic.IProjectBaseInfoFactory;
 import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.github.GithubProjectBaseInfo;
+import de.qaware.smartlabactuatoradapter.actuator.projectbase.service.github.GithubServiceConnector;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.generic.IAssistanceInfo;
@@ -10,6 +12,7 @@ import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.device.Device;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.Location;
 import de.qaware.smartlabcore.data.location.LocationId;
@@ -22,6 +25,8 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.DataSetException;
+import de.qaware.smartlabcore.exception.UnknownServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -32,6 +37,7 @@ import java.util.Set;
 import static java.lang.String.format;
 
 @Component
+@Slf4j
 public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
 
     public static final String ID = "sample-data-astronauts";
@@ -49,18 +55,24 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo agendaShowingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
-    private final GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory;
+    private final IProjectBaseInfoFactory githubProjectBaseInfoFactory;
 
     public AstronautsSampleDataSetFactory(
             IAssistanceInfo agendaShowingInfo,
             IAssistanceInfo locationUnlockingInfo,
             IAssistanceInfo devicePreparationInfo,
-            GithubProjectBaseInfo.Factory githubProjectBaseInfoFactory) {
+            IResolver<String, IProjectBaseInfoFactory> projectBaseInfoFactoryResolver) {
         super(ID);
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubProjectBaseInfoFactory = githubProjectBaseInfoFactory;
+        this.githubProjectBaseInfoFactory = projectBaseInfoFactoryResolver
+                .resolve(GithubServiceConnector.SERVICE_ID)
+                .orElseGet(() -> {
+                    String errorMessage = format("The project base service \"%s\" is unknown", GithubServiceConnector.SERVICE_ID);
+                    log.error(errorMessage);
+                    throw new UnknownServiceException(errorMessage);
+                });
     }
 
     @Override

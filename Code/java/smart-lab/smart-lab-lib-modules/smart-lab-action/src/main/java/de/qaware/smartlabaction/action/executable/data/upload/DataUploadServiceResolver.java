@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
+import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -16,13 +18,16 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 public class DataUploadServiceResolver extends AbstractResolver<String, IDataUploadService> {
 
-    public DataUploadServiceResolver(List<IDataUploadService> dataUploadServices) {
+    public DataUploadServiceResolver(Optional<List<IDataUploadService>> dataUploadServices) {
         super(getDataUploadServicesById(dataUploadServices));
     }
 
-    private static Set<Map.Entry<String, IDataUploadService>> getDataUploadServicesById(List<IDataUploadService> dataUploadServices) {
-        return dataUploadServices.stream()
-                .collect(toMap(IDataUploadService::getServiceId, identity()))
-                .entrySet();
+    private static Set<Map.Entry<String, IDataUploadService>> getDataUploadServicesById(Optional<List<IDataUploadService>> dataUploadServices) {
+        return dataUploadServices
+                .map(services -> services
+                        .stream()
+                        .collect(toMap(IDataUploadService::getServiceId, identity()))
+                        .entrySet())
+                .orElse(emptySet());
     }
 }

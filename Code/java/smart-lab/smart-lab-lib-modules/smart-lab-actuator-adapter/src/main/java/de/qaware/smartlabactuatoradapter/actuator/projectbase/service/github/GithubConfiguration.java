@@ -1,11 +1,17 @@
 package de.qaware.smartlabactuatoradapter.actuator.projectbase.service.github;
 
+import de.qaware.smartlabcore.miscellaneous.Property;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnProperty(
+        prefix = Property.Prefix.GITHUB,
+        name = Property.Name.GITHUB,
+        havingValue = Property.Value.TRUE)
 @EnableConfigurationProperties(GithubConfiguration.GithubProperties.class)
 public class GithubConfiguration {
 

@@ -9,6 +9,7 @@ public abstract class Property {
         public static final String WINDOW_HANDLING = "smart-lab.delegate.window-handling";
         public static final String POWER_POINT = "smart-lab.actuator.power-point";
         public static final String SELENIUM = "smart-lab.actuator.selenium";
+        public static final String GITHUB = "smart-lab.actuator.github";
     }
 
     public static abstract class Name {
@@ -18,6 +19,7 @@ public abstract class Property {
         public static final String WINDOW_HANDLING = "enabled";
         public static final String POWER_POINT = "enabled";
         public static final String SELENIUM = "enabled";
+        public static final String GITHUB = "enabled";
     }
 
     public static abstract class Value {

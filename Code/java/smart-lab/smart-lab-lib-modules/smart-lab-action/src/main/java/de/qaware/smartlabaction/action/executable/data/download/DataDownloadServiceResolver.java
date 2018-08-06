@@ -5,10 +5,9 @@ import de.qaware.smartlabcore.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -16,13 +15,16 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 public class DataDownloadServiceResolver extends AbstractResolver<String, IDataDownloadService> {
 
-    public DataDownloadServiceResolver(List<IDataDownloadService> dataDownloadServices) {
+    public DataDownloadServiceResolver(Optional<List<IDataDownloadService>> dataDownloadServices) {
         super(getDataDownloadServicesById(dataDownloadServices));
     }
 
-    private static Set<Map.Entry<String, IDataDownloadService>> getDataDownloadServicesById(List<IDataDownloadService> dataDownloadServices) {
-        return dataDownloadServices.stream()
-                .collect(toMap(IDataDownloadService::getServiceId, identity()))
-                .entrySet();
+    private static Set<Map.Entry<String, IDataDownloadService>> getDataDownloadServicesById(Optional<List<IDataDownloadService>> dataDownloadServices) {
+        return dataDownloadServices
+                .map(services -> services
+                        .stream()
+                        .collect(toMap(IDataDownloadService::getServiceId, identity()))
+                        .entrySet())
+                .orElse(emptySet());
     }
 }

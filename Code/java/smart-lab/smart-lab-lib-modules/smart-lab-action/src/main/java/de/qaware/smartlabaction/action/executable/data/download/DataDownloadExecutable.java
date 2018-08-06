@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -50,9 +51,14 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
         DataDownloadSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 DataDownloadSubmittable.ActionArgs.class,
                 genericActionArgs);
+        String projectBaseService = actionArgs.getProjectBaseInfo().getServiceId();
         IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver
-                .resolve(actionArgs.getProjectBaseInfo().getServiceId())
-                .orElseThrow(UnknownServiceException::new);
+                .resolve(projectBaseService)
+                .orElseGet(() -> {
+                    String errorMessage = format("The project base service \"%s\" is unknown", projectBaseService);
+                    log.error(errorMessage);
+                    throw new UnknownServiceException(errorMessage);
+                });
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());

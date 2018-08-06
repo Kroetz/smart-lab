@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.generic.AbstractProjectBaseInfoFactory;
 import de.qaware.smartlabactuatoradapter.actuator.projectbase.service.github.GithubServiceConnector;
 import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -55,6 +57,10 @@ public class GithubProjectBaseInfo implements IProjectBaseInfo {
     }
 
     @Component
+    @ConditionalOnProperty(
+            prefix = Property.Prefix.GITHUB,
+            name = Property.Name.GITHUB,
+            havingValue = Property.Value.TRUE)
     @Slf4j
     public static class Factory extends AbstractProjectBaseInfoFactory {
 
