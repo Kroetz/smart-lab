@@ -25,9 +25,4 @@ public class FileAssociatedProgramAdapterResolver extends AbstractResolver<Strin
                         .entrySet())
                 .orElse(new HashSet<>());
     }
-
-    @Override
-    public Optional<IFileAssociatedProgramAdapter> resolve(String key) {
-        return super.resolve(key);
-    }
 }
