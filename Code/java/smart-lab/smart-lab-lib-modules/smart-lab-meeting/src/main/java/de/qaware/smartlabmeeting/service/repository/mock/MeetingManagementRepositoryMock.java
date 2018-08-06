@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import java.time.Duration;
 import java.util.*;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
@@ -123,7 +124,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
     @Override
     public synchronized DeletionResult delete(MeetingId meetingId) {
         Set<IMeeting> meetingsAtLocation = this.meetingsByLocation.get(meetingId.getLocationIdPart());
-        List<IMeeting> meetingsToDelete = isNull(meetingsAtLocation) ? new ArrayList<>() : meetingsAtLocation.stream()
+        List<IMeeting> meetingsToDelete = isNull(meetingsAtLocation) ? emptyList() : meetingsAtLocation.stream()
                 .filter(meeting -> meeting.getId().equals(meetingId))
                 .collect(toList());
         if(isNull(meetingsAtLocation) || meetingsToDelete.isEmpty()) {

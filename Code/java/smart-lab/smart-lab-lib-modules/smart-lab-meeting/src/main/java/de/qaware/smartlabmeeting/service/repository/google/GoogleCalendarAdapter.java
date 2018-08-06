@@ -42,6 +42,7 @@ import java.util.stream.Stream;
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.nio.file.Files.newInputStream;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -383,7 +384,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         }
         catch(IOException e) {
             log.error("I/O error while querying available calendars", e);
-            return new ArrayList<>();
+            return emptyList();
         }
     }
 
