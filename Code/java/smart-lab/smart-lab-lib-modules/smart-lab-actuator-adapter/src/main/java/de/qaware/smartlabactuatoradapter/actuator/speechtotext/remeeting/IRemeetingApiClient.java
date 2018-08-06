@@ -1,7 +1,5 @@
-package de.qaware.smartlabactuatoradapter.actuator.externalapi.remeeting;
+package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 
-import de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting.QueryResultResponse;
-import de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting.SubmitJobResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

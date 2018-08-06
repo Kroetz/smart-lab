@@ -1,12 +1,12 @@
 package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 
-import de.qaware.smartlabactuatoradapter.actuator.externalapi.remeeting.IRemeetingApiClient;
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
         name = Property.Name.SPEECH_TO_TEXT_SERVICE,
         havingValue = Property.Value.SpeechToTextService.REMEETING)
 @EnableConfigurationProperties(RemeetingConfiguration.RemeetingProperties.class)
+@EnableFeignClients(basePackageClasses = IRemeetingApiClient.class)
 public class RemeetingConfiguration {
 
     private final RemeetingProperties remeetingProperties;

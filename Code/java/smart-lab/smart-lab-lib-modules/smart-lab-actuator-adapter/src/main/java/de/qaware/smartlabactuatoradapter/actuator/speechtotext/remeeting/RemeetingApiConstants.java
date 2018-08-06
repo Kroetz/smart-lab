@@ -1,4 +1,4 @@
-package de.qaware.smartlabactuatoradapter.actuator.externalapi.remeeting;
+package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 
 public class RemeetingApiConstants {
 

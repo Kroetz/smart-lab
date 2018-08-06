@@ -1,6 +1,5 @@
 package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 
-import de.qaware.smartlabactuatoradapter.actuator.externalapi.remeeting.IRemeetingApiClient;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.miscellaneous.Language;
