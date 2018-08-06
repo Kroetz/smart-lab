@@ -6,7 +6,6 @@ import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRe
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Repository
@@ -16,6 +15,5 @@ public class WorkgroupManagementRepositoryMock extends AbstractBasicEntityManage
     public WorkgroupManagementRepositoryMock(
             Set<IWorkgroup> initialWorkgroups) {
         super(initialWorkgroups);
-        this.entities = new HashSet<>();
     }
 }

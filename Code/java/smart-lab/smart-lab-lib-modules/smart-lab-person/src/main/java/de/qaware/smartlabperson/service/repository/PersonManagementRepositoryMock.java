@@ -6,7 +6,6 @@ import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRe
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Repository
@@ -15,6 +14,5 @@ public class PersonManagementRepositoryMock extends AbstractBasicEntityManagemen
 
     public PersonManagementRepositoryMock(Set<IPerson> initialPersons) {
         super(initialPersons);
-        this.entities = new HashSet<>();
     }
 }
