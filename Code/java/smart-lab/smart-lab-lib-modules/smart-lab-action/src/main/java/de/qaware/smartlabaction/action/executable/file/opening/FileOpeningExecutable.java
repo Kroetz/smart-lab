@@ -76,7 +76,7 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
         IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
                 .resolve(programType)
                 .orElseGet(() -> {
-                    String errorMessage = format("The program \"%s\" is not valid for opening a file", programType);
+                    String errorMessage = format("The program type \"%s\" is unknown", programType);
                     log.error(errorMessage);
                     throw new UnknownDeviceAdapterException(errorMessage);
                 });
