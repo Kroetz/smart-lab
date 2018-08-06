@@ -42,6 +42,7 @@ import java.util.stream.Stream;
 import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.nio.file.Files.newInputStream;
+import static java.util.Collections.emptySet;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
@@ -147,7 +148,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         }
         catch(IllegalArgumentException e) {
             log.warn("Cannot find events at location \"{}\" since it has no mapped calendar ID", locationId, e);
-            return new HashSet<>();
+            return emptySet();
         }
     }
 
@@ -193,11 +194,11 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         }
         catch(GoogleJsonResponseException e) {
             log.info("Cannot find calendar \"{}\"", calendarId, e);
-            return new HashSet<>();
+            return emptySet();
         }
         catch (IOException e) {
             log.error("I/O error while querying events from calendar \"{}\"", calendarId, e);
-            return new HashSet<>();
+            return emptySet();
         }
     }
 

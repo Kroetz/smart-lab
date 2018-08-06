@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+import static java.util.Collections.emptySet;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static java.util.stream.Collectors.toSet;
 
@@ -122,7 +123,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         }
         catch(Exception e) {
             log.error("Could not get trigger candidates", e);
-            return new HashSet<>();
+            return emptySet();
         }
     }
 

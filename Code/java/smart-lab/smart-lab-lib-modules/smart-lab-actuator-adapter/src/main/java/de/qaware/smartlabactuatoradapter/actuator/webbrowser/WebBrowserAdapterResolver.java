@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -23,6 +24,6 @@ public class WebBrowserAdapterResolver extends AbstractResolver<String, IWebBrow
                         .stream()
                         .collect(toMap(IWebBrowserAdapter::getDeviceType, identity()))
                         .entrySet())
-                .orElse(new HashSet<>());
+                .orElse(emptySet());
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import java.time.Duration;
 import java.util.*;
 
+import static java.util.Collections.emptySet;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -51,7 +52,7 @@ public class MeetingManagementRepositoryMock extends AbstractBasicEntityManageme
     @Override
     public Set<IMeeting> findAll(LocationId locationId) {
         Set<IMeeting> meetings = this.meetingsByLocation.get(locationId);
-        return isNull(meetings) ? new HashSet<>() : meetings;
+        return isNull(meetings) ? emptySet() : meetings;
     }
 
     @Override
