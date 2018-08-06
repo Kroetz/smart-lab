@@ -2,9 +2,11 @@ package de.qaware.smartlabactuatoradapter.actuator.webbrowser.selenium;
 
 import de.qaware.smartlabactuatoradapter.actuator.webbrowser.IHotkeys;
 import de.qaware.smartlabactuatoradapter.actuator.windowhandling.windowhandler.IWindowHandler;
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
@@ -12,6 +14,10 @@ import java.nio.file.Path;
 import static org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
 
 @Component
+@ConditionalOnProperty(
+        prefix = Property.Prefix.SELENIUM,
+        name = Property.Name.SELENIUM,
+        havingValue = Property.Value.TRUE)
 @Slf4j
 public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
 

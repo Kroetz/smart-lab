@@ -1,6 +1,8 @@
 package de.qaware.smartlabactuatoradapter.actuator.webbrowser.selenium;
 
+import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,10 @@ import static java.nio.file.Files.exists;
 import static java.nio.file.Paths.get;
 
 @Configuration
+@ConditionalOnProperty(
+        prefix = Property.Prefix.SELENIUM,
+        name = Property.Name.SELENIUM,
+        havingValue = Property.Value.TRUE)
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
 public class SeleniumConfiguration {
 

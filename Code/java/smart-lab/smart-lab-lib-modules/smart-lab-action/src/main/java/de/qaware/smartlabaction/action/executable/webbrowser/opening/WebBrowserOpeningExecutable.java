@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+import static java.lang.String.format;
+
 @Component
 @Slf4j
 public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
@@ -59,7 +61,11 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
         String webBrowserType = webBrowser.getType();
         IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver
                 .resolve(webBrowserType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+                .orElseGet(() -> {
+                    String errorMessage = format("The web browser type \"%s\" is unknown", webBrowserType);
+                    log.error(errorMessage);
+                    throw new UnknownDeviceAdapterException(errorMessage);
+                });
         if(webBrowserAdapter.hasLocalApi()) return delegateService.executeAction(
                 webBrowser.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
