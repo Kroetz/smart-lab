@@ -3,6 +3,7 @@ package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 import de.qaware.smartlabactuatoradapter.actuator.externalapi.remeeting.IRemeetingApiClient;
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,6 +34,8 @@ public class RemeetingConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("remeetingApiKey")
     public String remeetingApiKey() {
         return this.remeetingProperties.getApiKey();
     }

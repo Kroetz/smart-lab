@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
+import static java.util.Objects.isNull;
 
 @Component
 @ConditionalOnProperty(
@@ -24,14 +26,23 @@ import static java.nio.file.Files.readAllBytes;
 @Slf4j
 public class RemeetingServiceConnector implements IRemeetingService {
 
-    private IRemeetingApiClient remeetingApiClient;
-    private String remeetingApiKey;
+    public static final String SERVICE_ID = "remeeting";
+
+    private final IRemeetingApiClient remeetingApiClient;
+    private final String remeetingApiKey;
 
     public RemeetingServiceConnector(
             IRemeetingApiClient remeetingApiClient,
-            String remeetingApiKey) {
+            // TODO: String literals
+            @Qualifier("remeetingApiKey") String remeetingApiKey) {
+        if(isNull(remeetingApiKey)) throw new NullPointerException(remeetingApiKey);
         this.remeetingApiClient = remeetingApiClient;
         this.remeetingApiKey = remeetingApiKey;
+    }
+
+    @Override
+    public String getServiceId() {
+        return RemeetingServiceConnector.SERVICE_ID;
     }
 
     @Override

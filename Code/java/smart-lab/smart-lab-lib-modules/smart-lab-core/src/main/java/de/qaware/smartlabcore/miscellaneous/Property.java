@@ -34,6 +34,7 @@ public abstract class Property {
             public static final String GOOGLE_CALENDAR = "googleCalendar";
         }
         public static abstract class SpeechToTextService {
+            // TODO: Reference to constants in speech-to-text service connextors
             public static final String WATSON = "watson";
             public static final String REMEETING = "remeeting";
         }

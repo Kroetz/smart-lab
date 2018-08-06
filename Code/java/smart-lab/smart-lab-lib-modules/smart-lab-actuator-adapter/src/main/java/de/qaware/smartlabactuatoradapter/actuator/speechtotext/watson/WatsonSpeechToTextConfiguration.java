@@ -2,6 +2,7 @@ package de.qaware.smartlabactuatoradapter.actuator.speechtotext.watson;
 
 import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
 import de.qaware.smartlabcore.miscellaneous.Property;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,11 +31,15 @@ public class WatsonSpeechToTextConfiguration {
     }
 
     @Bean
+    // TODO: String literal
+    @Qualifier("watsonSpeechToTextUserName")
     public String watsonSpeechToTextUserName() {
         return this.watsonSpeechToTextProperties.getUserName();
     }
 
     @Bean
+    // TODO: String literal
+    @Qualifier("watsonSpeechToTextPassword")
     public String watsonSpeechToTextPassword() {
         return this.watsonSpeechToTextProperties.getPassword();
     }

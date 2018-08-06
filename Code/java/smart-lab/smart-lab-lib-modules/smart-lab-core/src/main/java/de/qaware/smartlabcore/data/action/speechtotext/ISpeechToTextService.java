@@ -7,5 +7,6 @@ import java.nio.file.Path;
 
 public interface ISpeechToTextService {
 
+    String getServiceId();
     ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ServiceFailedException;
 }

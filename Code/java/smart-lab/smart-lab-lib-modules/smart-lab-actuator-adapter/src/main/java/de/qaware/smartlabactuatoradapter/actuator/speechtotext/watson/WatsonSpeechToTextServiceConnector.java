@@ -9,6 +9,7 @@ import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.lang.String.format;
+import static java.util.Objects.isNull;
 
 @Component
 @ConditionalOnProperty(
@@ -26,15 +28,25 @@ import static java.lang.String.format;
 @Slf4j
 public class WatsonSpeechToTextServiceConnector implements IWatsonSpeechToTextService {
 
+    private static final String SERVICE_ID = "watson";
+
     private final SpeechToText speechToTextService;
 
     public WatsonSpeechToTextServiceConnector(
-            String watsonSpeechToTextUserName,
-            String watsonSpeechToTextPassword) {
+            // TODO: String literals
+            @Qualifier("watsonSpeechToTextUserName") String watsonSpeechToTextUserName,
+            @Qualifier("watsonSpeechToTextPassword") String watsonSpeechToTextPassword) {
+        if(isNull(watsonSpeechToTextUserName)) throw new NullPointerException(watsonSpeechToTextUserName);
+        if(isNull(watsonSpeechToTextPassword)) throw new NullPointerException(watsonSpeechToTextPassword);
         this.speechToTextService = new SpeechToText(watsonSpeechToTextUserName, watsonSpeechToTextPassword);
         Map<String, String> defaultHeaders = new HashMap<>();
         // Set default headers, e.g. defaultHeaders.put(HttpHeaders.CONTENT_TYPE, HttpMediaType.AUDIO_WEBM);
         this.speechToTextService.setDefaultHeaders(defaultHeaders);
+    }
+
+    @Override
+    public String getServiceId() {
+        return WatsonSpeechToTextServiceConnector.SERVICE_ID;
     }
 
     @Override
@@ -67,7 +79,7 @@ public class WatsonSpeechToTextServiceConnector implements IWatsonSpeechToTextSe
             case FR_FR:
                 return "fr-FR_BroadbandModel";
             default:
-                String errorMessage = format("The language %s is not supported by IBM Watson speech to text", language);
+                String errorMessage = format("The language %s is not supported by IBM Watson speech-to-text", language);
                 log.error(errorMessage);
                 throw new ServiceFailedException(errorMessage);
         }
