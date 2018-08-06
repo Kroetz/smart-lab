@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import static java.lang.String.format;
+
 @Component
 @Slf4j
 public class FileOpeningExecutable extends AbstractActionExecutable {
@@ -73,7 +75,11 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
         String programType = fileAssociatedProgram.getType();
         IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
                 .resolve(programType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+                .orElseGet(() -> {
+                    String errorMessage = format("The program \"%s\" is not valid for opening a file", programType);
+                    log.error(errorMessage);
+                    throw new UnknownDeviceAdapterException(errorMessage);
+                });
         if(programAdapter.hasLocalApi()) return delegateService.executeAction(
                 fileAssociatedProgram.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
