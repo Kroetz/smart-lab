@@ -61,7 +61,12 @@ public class SyncTriggerHandler implements ITriggerHandler {
                  *  - Wait for all CompletableFuture objects to finish and finally mark the trigger service job as finished
                  */
                 assistanceTasks.add(supplyAsync(() -> {
-                    triggerAssistance(config, meeting, triggerReaction, jobId);
+                    try {
+                        triggerAssistance(config, meeting, triggerReaction, jobId);
+                    }
+                    catch(Exception e) {
+                        log.error("Could not process assistance with ID \"{}\"", config.getAssistanceId(), e);
+                    }
                     return VOID;
                 }));
             }
