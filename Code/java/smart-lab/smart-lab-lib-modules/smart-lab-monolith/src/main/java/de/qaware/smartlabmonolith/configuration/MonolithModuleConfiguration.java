@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.configuration;
 
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionService;
-import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceService;
+import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlabcore.exception.ConfigurationException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;

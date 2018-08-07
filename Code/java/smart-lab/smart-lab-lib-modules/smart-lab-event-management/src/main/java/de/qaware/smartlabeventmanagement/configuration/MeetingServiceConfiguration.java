@@ -1,7 +1,7 @@
 package de.qaware.smartlabeventmanagement.configuration;
 
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
-import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
+import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdataset.annotation.EnableSmartLabInitialData;

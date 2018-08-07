@@ -1,7 +1,7 @@
 package de.qaware.smartlabdataset.configuration;
 
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionInfos;
-import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceInfos;
+import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabcore.data.IDataSetProvider;
 import de.qaware.smartlabcore.data.device.entity.IDevice;

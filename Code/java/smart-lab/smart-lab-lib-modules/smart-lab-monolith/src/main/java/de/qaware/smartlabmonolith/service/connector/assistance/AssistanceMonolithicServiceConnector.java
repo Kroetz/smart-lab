@@ -1,7 +1,7 @@
 package de.qaware.smartlabmonolith.service.connector.assistance;
 
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
-import de.qaware.smartlabassistance.service.controller.AssistanceController;
+import de.qaware.smartlab.assistance.service.controller.AssistanceController;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
