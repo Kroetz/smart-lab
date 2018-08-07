@@ -1,4 +1,4 @@
-package de.qaware.smartlabeventmanagement.service.repository.parser;
+package de.qaware.smartlab.event.management.service.repository.parser;
 
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;

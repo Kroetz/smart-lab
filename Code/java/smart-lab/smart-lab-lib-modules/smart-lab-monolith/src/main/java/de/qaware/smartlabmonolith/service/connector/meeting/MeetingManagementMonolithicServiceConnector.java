@@ -10,7 +10,7 @@ import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.*;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabeventmanagement.service.controller.MeetingManagementController;
+import de.qaware.smartlab.event.management.service.controller.MeetingManagementController;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

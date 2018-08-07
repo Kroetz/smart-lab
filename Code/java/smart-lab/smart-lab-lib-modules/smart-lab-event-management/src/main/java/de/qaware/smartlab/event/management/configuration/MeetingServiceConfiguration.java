@@ -1,4 +1,4 @@
-package de.qaware.smartlabeventmanagement.configuration;
+package de.qaware.smartlab.event.management.configuration;
 
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {de.qaware.smartlabeventmanagement.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlab.event.management.service.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabDtoConverters

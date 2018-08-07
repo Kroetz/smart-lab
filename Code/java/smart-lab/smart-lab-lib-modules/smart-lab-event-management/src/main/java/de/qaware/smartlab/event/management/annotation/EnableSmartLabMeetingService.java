@@ -1,6 +1,6 @@
-package de.qaware.smartlabeventmanagement.annotation;
+package de.qaware.smartlab.event.management.annotation;
 
-import de.qaware.smartlabeventmanagement.configuration.MeetingServiceConfiguration;
+import de.qaware.smartlab.event.management.configuration.MeetingServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

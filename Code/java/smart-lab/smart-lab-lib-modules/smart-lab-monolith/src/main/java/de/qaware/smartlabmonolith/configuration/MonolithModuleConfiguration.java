@@ -8,7 +8,7 @@ import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters
 import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
-import de.qaware.smartlabeventmanagement.annotation.EnableSmartLabMeetingService;
+import de.qaware.smartlab.event.management.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;

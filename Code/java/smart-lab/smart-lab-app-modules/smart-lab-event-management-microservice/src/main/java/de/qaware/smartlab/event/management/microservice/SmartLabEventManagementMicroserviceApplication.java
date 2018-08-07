@@ -1,6 +1,6 @@
 package de.qaware.smartlab.event.management.microservice;
 
-import de.qaware.smartlabeventmanagement.annotation.EnableSmartLabMeetingService;
+import de.qaware.smartlab.event.management.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
