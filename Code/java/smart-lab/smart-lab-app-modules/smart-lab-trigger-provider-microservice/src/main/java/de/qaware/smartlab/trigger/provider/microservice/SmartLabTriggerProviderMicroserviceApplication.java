@@ -1,4 +1,4 @@
-package de.qaware.smartlabtriggerprovidermicroservice;
+package de.qaware.smartlab.trigger.provider.microservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;

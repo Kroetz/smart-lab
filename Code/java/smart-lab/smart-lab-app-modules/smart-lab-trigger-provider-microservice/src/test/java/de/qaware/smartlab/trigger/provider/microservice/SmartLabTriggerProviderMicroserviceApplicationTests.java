@@ -1,4 +1,4 @@
-package de.qaware.smartlabtriggerprovidermicroservice;
+package de.qaware.smartlab.trigger.provider.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
