@@ -1,4 +1,4 @@
-package de.qaware.smartlablocation.configuration;
+package de.qaware.smartlablocationmanagement.configuration;
 
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {de.qaware.smartlablocation.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlablocationmanagement.service.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabDtoConverters

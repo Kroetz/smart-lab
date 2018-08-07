@@ -1,4 +1,4 @@
-package de.qaware.smartlablocation.service.controller;
+package de.qaware.smartlablocationmanagement.service.controller;
 
 import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
@@ -11,7 +11,7 @@ import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
-import de.qaware.smartlablocation.service.business.ILocationManagementBusinessLogic;
+import de.qaware.smartlablocationmanagement.service.business.ILocationManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

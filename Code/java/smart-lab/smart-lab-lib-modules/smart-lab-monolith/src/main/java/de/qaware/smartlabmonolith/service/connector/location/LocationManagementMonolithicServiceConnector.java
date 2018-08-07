@@ -13,7 +13,7 @@ import de.qaware.smartlabcore.exception.MaximalDurationReachedException;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlablocation.service.controller.LocationManagementController;
+import de.qaware.smartlablocationmanagement.service.controller.LocationManagementController;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

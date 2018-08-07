@@ -1,4 +1,4 @@
-package de.qaware.smartlablocation.service.business;
+package de.qaware.smartlablocationmanagement.service.business;
 
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;

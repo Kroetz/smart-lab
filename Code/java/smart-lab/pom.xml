@@ -130,7 +130,7 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
-				<artifactId>smart-lab-location</artifactId>
+				<artifactId>smart-lab-location-management</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

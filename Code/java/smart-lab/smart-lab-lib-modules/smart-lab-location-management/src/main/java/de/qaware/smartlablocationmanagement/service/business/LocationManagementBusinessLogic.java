@@ -1,4 +1,4 @@
-package de.qaware.smartlablocation.service.business;
+package de.qaware.smartlablocationmanagement.service.business;
 
 import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -6,7 +6,7 @@ import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlablocation.service.repository.ILocationManagementRepository;
+import de.qaware.smartlablocationmanagement.service.repository.ILocationManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

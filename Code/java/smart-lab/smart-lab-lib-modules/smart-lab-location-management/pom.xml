@@ -5,9 +5,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-location</artifactId>
+    <artifactId>smart-lab-location-management</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-location</name>
+    <name>smart-lab-location-management</name>
     <description>Module of the Smart-Lab project that manages locations</description>
 
     <parent>
