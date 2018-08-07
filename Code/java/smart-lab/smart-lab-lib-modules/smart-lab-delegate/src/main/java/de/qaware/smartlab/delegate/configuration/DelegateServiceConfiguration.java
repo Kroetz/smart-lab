@@ -1,4 +1,4 @@
-package de.qaware.smartlabdelegate.configuration;
+package de.qaware.smartlab.delegate.configuration;
 
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionExecutables;
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {de.qaware.smartlabdelegate.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = {de.qaware.smartlab.delegate.service.ComponentScanMarker.class})
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabActionExecutables

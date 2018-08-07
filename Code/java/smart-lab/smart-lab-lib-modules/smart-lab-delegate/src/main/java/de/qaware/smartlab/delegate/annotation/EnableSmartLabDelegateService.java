@@ -1,6 +1,6 @@
-package de.qaware.smartlabdelegate.annotation;
+package de.qaware.smartlab.delegate.annotation;
 
-import de.qaware.smartlabdelegate.configuration.DelegateServiceConfiguration;
+import de.qaware.smartlab.delegate.configuration.DelegateServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

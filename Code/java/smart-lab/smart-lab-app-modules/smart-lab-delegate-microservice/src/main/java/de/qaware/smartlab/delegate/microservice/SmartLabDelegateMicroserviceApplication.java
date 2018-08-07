@@ -1,6 +1,6 @@
 package de.qaware.smartlab.delegate.microservice;
 
-import de.qaware.smartlabdelegate.annotation.EnableSmartLabDelegateService;
+import de.qaware.smartlab.delegate.annotation.EnableSmartLabDelegateService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

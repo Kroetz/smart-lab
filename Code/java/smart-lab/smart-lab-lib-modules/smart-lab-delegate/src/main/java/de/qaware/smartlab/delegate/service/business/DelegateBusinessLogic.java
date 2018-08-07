@@ -1,4 +1,4 @@
-package de.qaware.smartlabdelegate.service.business;
+package de.qaware.smartlab.delegate.service.business;
 
 import de.qaware.smartlab.action.actions.executable.generic.IActionExecutable;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
