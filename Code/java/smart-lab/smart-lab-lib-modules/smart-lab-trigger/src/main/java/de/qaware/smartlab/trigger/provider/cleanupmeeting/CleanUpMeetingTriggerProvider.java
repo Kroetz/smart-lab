@@ -1,9 +1,9 @@
-package de.qaware.smartlabtrigger.provider.cleanupmeeting;
+package de.qaware.smartlab.trigger.provider.cleanupmeeting;
 
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlabtrigger.provider.generic.AbstractTriggerProvider;
+import de.qaware.smartlab.trigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

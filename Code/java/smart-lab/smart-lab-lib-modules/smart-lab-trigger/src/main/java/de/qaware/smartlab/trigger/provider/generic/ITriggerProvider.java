@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.provider.generic;
+package de.qaware.smartlab.trigger.provider.generic;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
 

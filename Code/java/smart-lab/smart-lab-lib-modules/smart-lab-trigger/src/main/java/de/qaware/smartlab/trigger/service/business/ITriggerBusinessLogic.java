@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.service.business;
+package de.qaware.smartlab.trigger.service.business;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.meeting.IMeeting;

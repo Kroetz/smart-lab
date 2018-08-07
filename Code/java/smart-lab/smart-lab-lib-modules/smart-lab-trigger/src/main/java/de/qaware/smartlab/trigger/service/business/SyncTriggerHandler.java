@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.service.business;
+package de.qaware.smartlab.trigger.service.business;
 
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;

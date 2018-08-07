@@ -12,9 +12,9 @@ import de.qaware.smartlab.event.management.annotation.EnableSmartLabMeetingServi
 import de.qaware.smartlab.monolith.ComponentScanMarker;
 import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationService;
-import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
-import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
-import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
+import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
+import de.qaware.smartlab.trigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
+import de.qaware.smartlab.trigger.annotation.EnableSmartLabTriggerService;
 import de.qaware.smartlabworkgroupmanagement.annotation.EnableSmartLabWorkgroupService;
 import feign.Client;
 import feign.okhttp.OkHttpClient;

@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
-import de.qaware.smartlabtrigger.service.controller.TriggerController;
+import de.qaware.smartlab.trigger.service.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

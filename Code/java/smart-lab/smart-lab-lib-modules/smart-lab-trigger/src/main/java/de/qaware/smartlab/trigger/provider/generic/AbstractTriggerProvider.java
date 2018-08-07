@@ -1,4 +1,4 @@
-package de.qaware.smartlabtrigger.provider.generic;
+package de.qaware.smartlab.trigger.provider.generic;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

@@ -1,6 +1,6 @@
-package de.qaware.smartlabtrigger.annotation;
+package de.qaware.smartlab.trigger.annotation;
 
-import de.qaware.smartlabtrigger.configuration.TriggerServiceConfiguration;
+import de.qaware.smartlab.trigger.configuration.TriggerServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

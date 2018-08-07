@@ -1,7 +1,7 @@
-package de.qaware.smartlabtrigger.provider.cleanupmeeting;
+package de.qaware.smartlab.trigger.provider.cleanupmeeting;
 
 import de.qaware.smartlab.core.data.job.JobInfo;
-import de.qaware.smartlabtrigger.provider.generic.ITriggerProvider;
+import de.qaware.smartlab.trigger.provider.generic.ITriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
