@@ -18,8 +18,8 @@ public class SpeechToTextConfiguration {
 
     @Bean
     // TODO: String literal
-    @Qualifier("speechToTextService")
-    public String speechToTextService() {
+    @Qualifier("speechToTextServiceName")
+    public String speechToTextServiceName() {
         return this.properties.getService();
     }
 

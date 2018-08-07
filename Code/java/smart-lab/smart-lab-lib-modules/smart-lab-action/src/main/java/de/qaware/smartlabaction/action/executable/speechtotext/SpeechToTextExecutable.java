@@ -26,7 +26,7 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
             SpeechToTextInfo speechToTextInfo,
             IResolver<String, ISpeechToTextService> speechToTextServiceResolver,
             // TODO: String literal
-            @Qualifier("speechToTextService") String speechToTextService) {
+            @Qualifier("speechToTextServiceName") String speechToTextService) {
         super(speechToTextInfo);
         this.speechToTextServiceResolver = speechToTextServiceResolver;
         this.speechToTextService = speechToTextService;
