@@ -1,4 +1,4 @@
-package de.qaware.smartlabconfigmicroservice;
+package de.qaware.smartlab.config.microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
