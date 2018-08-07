@@ -1,7 +1,7 @@
 package de.qaware.smartlabworkgroupmicroservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
-import de.qaware.smartlabworkgroup.annotation.EnableSmartLabWorkgroupService;
+import de.qaware.smartlabworkgroupmanagement.annotation.EnableSmartLabWorkgroupService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

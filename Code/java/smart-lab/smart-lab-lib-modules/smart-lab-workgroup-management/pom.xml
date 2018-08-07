@@ -5,9 +5,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-workgroup</artifactId>
+    <artifactId>smart-lab-workgroup-management</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-workgroup</name>
+    <name>smart-lab-workgroup-management</name>
     <description>Module of the Smart-Lab project that manages workgroups</description>
 
     <parent>

@@ -14,7 +14,7 @@ import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationSer
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
-import de.qaware.smartlabworkgroup.annotation.EnableSmartLabWorkgroupService;
+import de.qaware.smartlabworkgroupmanagement.annotation.EnableSmartLabWorkgroupService;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
 import org.apache.commons.validator.routines.UrlValidator;

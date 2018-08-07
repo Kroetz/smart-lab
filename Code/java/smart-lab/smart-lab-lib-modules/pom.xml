@@ -24,7 +24,7 @@
         <module>smart-lab-data-set</module>
         <module>smart-lab-job</module>
         <module>smart-lab-person-management</module>
-        <module>smart-lab-workgroup</module>
+        <module>smart-lab-workgroup-management</module>
         <module>smart-lab-actuator-management</module>
         <module>smart-lab-location-management</module>
         <module>smart-lab-event-management</module>

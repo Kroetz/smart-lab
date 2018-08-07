@@ -21,7 +21,7 @@
 
 		<dependency>
 			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-workgroup</artifactId>
+			<artifactId>smart-lab-workgroup-management</artifactId>
 		</dependency>
 
 	</dependencies>

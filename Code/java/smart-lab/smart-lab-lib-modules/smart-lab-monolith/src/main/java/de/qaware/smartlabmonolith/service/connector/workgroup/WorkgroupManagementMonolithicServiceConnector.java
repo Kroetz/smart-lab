@@ -14,7 +14,7 @@ import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
-import de.qaware.smartlabworkgroup.service.controller.WorkgroupManagementController;
+import de.qaware.smartlabworkgroupmanagement.service.controller.WorkgroupManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
