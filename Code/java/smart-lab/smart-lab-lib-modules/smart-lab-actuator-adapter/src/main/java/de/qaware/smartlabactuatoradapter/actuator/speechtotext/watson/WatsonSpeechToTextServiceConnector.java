@@ -7,11 +7,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.miscellaneous.Language;
-import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -20,11 +16,6 @@ import java.util.Map;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
-@Component
-@ConditionalOnProperty(
-        prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
-        name = Property.Name.SPEECH_TO_TEXT_SERVICE,
-        havingValue = Property.Value.SpeechToTextService.WATSON)
 @Slf4j
 public class WatsonSpeechToTextServiceConnector implements IWatsonSpeechToTextService {
 
@@ -33,9 +24,8 @@ public class WatsonSpeechToTextServiceConnector implements IWatsonSpeechToTextSe
     private final SpeechToText speechToTextService;
 
     public WatsonSpeechToTextServiceConnector(
-            // TODO: String literals
-            @Qualifier("watsonSpeechToTextUserName") String watsonSpeechToTextUserName,
-            @Qualifier("watsonSpeechToTextPassword") String watsonSpeechToTextPassword) {
+            String watsonSpeechToTextUserName,
+            String watsonSpeechToTextPassword) {
         if(isNull(watsonSpeechToTextUserName)) throw new NullPointerException(watsonSpeechToTextUserName);
         if(isNull(watsonSpeechToTextPassword)) throw new NullPointerException(watsonSpeechToTextPassword);
         this.speechToTextService = new SpeechToText(watsonSpeechToTextUserName, watsonSpeechToTextPassword);

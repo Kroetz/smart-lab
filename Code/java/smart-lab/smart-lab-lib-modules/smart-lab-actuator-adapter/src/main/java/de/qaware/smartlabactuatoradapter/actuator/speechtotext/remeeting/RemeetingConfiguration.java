@@ -34,13 +34,6 @@ public class RemeetingConfiguration {
         return new RemeetingServiceConnector(this.remeetingApiClient, this.remeetingProperties.getApiKey());
     }
 
-    @Bean
-    // TODO: String literals
-    @Qualifier("remeetingApiKey")
-    public String remeetingApiKey() {
-        return this.remeetingProperties.getApiKey();
-    }
-
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.actuator.remeeting")
     public static class RemeetingProperties {

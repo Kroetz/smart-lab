@@ -17,11 +17,6 @@ import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Objects.isNull;
 
-@Component
-@ConditionalOnProperty(
-        prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
-        name = Property.Name.SPEECH_TO_TEXT_SERVICE,
-        havingValue = Property.Value.SpeechToTextService.REMEETING)
 @Slf4j
 public class RemeetingServiceConnector implements IRemeetingService {
 
@@ -32,8 +27,7 @@ public class RemeetingServiceConnector implements IRemeetingService {
 
     public RemeetingServiceConnector(
             IRemeetingApiClient remeetingApiClient,
-            // TODO: String literals
-            @Qualifier("remeetingApiKey") String remeetingApiKey) {
+            String remeetingApiKey) {
         if(isNull(remeetingApiKey)) throw new NullPointerException(remeetingApiKey);
         this.remeetingApiClient = remeetingApiClient;
         this.remeetingApiKey = remeetingApiKey;
