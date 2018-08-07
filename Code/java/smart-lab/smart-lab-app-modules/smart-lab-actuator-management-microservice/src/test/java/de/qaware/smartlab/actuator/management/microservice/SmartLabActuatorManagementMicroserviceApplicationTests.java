@@ -1,4 +1,4 @@
-package de.qaware.smartlabactuatormanagementmicroservice;
+package de.qaware.smartlab.actuator.management.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

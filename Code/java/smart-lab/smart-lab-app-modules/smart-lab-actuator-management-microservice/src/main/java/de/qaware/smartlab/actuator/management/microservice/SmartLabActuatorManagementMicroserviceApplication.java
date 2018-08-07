@@ -1,4 +1,4 @@
-package de.qaware.smartlabactuatormanagementmicroservice;
+package de.qaware.smartlab.actuator.management.microservice;
 
 import de.qaware.smartlabactuatormanagement.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
