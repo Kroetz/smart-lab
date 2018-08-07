@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-person-microservice</artifactId>
+	<artifactId>smart-lab-person-management-microservice</artifactId>
 	<packaging>jar</packaging>
-	<name>smart-lab-person-microservice</name>
-	<description>Module of the Smart-Lab project that runs the person microservice</description>
+	<name>smart-lab-person-management-microservice</name>
+	<description>Module of the Smart-Lab project that runs the person-management microservice</description>
 
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>

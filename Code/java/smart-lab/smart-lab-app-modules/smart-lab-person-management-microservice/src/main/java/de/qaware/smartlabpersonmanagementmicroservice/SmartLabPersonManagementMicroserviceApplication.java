@@ -1,4 +1,4 @@
-package de.qaware.smartlabpersonmicroservice;
+package de.qaware.smartlabpersonmanagementmicroservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;
@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSmartLabMicroservice
 @EnableSmartLabPersonService
 @EnableDiscoveryClient
-public class SmartLabPersonMicroserviceApplication {
+public class SmartLabPersonManagementMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabPersonMicroserviceApplication.class, args);
+		SpringApplication.run(SmartLabPersonManagementMicroserviceApplication.class, args);
 	}
 }
