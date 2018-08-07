@@ -1,4 +1,4 @@
-package de.qaware.smartlabdelegatemicroservice;
+package de.qaware.smartlab.delegate.microservice;
 
 import de.qaware.smartlabdelegate.annotation.EnableSmartLabDelegateService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;

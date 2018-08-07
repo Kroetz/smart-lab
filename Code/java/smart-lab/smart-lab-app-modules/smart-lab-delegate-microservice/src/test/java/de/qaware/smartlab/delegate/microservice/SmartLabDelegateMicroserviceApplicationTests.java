@@ -1,4 +1,4 @@
-package de.qaware.smartlabdelegatemicroservice;
+package de.qaware.smartlab.delegate.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
