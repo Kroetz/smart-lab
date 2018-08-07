@@ -1,6 +1,6 @@
-package de.qaware.smartlablocationmanagement.annotation;
+package de.qaware.smartlab.location.management.annotation;
 
-import de.qaware.smartlablocationmanagement.configuration.LocationServiceConfiguration;
+import de.qaware.smartlab.location.management.configuration.LocationServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

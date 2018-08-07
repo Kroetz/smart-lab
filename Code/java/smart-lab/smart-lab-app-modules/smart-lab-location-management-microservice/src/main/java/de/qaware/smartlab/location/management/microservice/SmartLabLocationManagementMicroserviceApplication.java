@@ -1,6 +1,6 @@
 package de.qaware.smartlab.location.management.microservice;
 
-import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationService;
+import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
