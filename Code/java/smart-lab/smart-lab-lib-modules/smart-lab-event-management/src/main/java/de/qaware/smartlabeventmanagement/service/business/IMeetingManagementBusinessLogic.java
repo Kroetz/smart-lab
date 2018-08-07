@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.service.business;
+package de.qaware.smartlabeventmanagement.service.business;
 
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;

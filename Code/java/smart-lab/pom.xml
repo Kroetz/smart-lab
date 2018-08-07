@@ -136,7 +136,7 @@
 
 			<dependency>
 				<groupId>de.qaware</groupId>
-				<artifactId>smart-lab-meeting</artifactId>
+				<artifactId>smart-lab-event-management</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

@@ -27,7 +27,7 @@
         <module>smart-lab-workgroup</module>
         <module>smart-lab-actuator-management</module>
         <module>smart-lab-location-management</module>
-        <module>smart-lab-meeting</module>
+        <module>smart-lab-event-management</module>
         <module>smart-lab-actuator-adapter</module>
         <module>smart-lab-delegate</module>
         <module>smart-lab-action</module>

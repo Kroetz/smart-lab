@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.service.repository.mock;
+package de.qaware.smartlabeventmanagement.service.repository.mock;
 
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
@@ -12,7 +12,7 @@ import de.qaware.smartlabcore.result.ExtensionResult;
 import de.qaware.smartlabcore.result.ShiftResult;
 import de.qaware.smartlabcore.result.ShorteningResult;
 import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
-import de.qaware.smartlabmeeting.service.repository.IMeetingManagementRepository;
+import de.qaware.smartlabeventmanagement.service.repository.IMeetingManagementRepository;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

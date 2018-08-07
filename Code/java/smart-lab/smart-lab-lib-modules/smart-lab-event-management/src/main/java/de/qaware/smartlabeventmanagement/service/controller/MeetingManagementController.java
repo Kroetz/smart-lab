@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeeting.service.controller;
+package de.qaware.smartlabeventmanagement.service.controller;
 
 import de.qaware.smartlabapi.service.constant.meeting.MeetingManagementApiConstants;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
@@ -11,7 +11,7 @@ import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
-import de.qaware.smartlabmeeting.service.business.IMeetingManagementBusinessLogic;
+import de.qaware.smartlabeventmanagement.service.business.IMeetingManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

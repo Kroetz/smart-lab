@@ -5,10 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-meeting</artifactId>
+    <artifactId>smart-lab-event-management</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-meeting</name>
-    <description>Module of the Smart-Lab project that manages meetings</description>
+    <name>smart-lab-event-management</name>
+    <description>Module of the Smart-Lab project that manages events</description>
 
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>
