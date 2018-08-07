@@ -1,4 +1,4 @@
-package de.qaware.smartlablocationmanagementmicroservice;
+package de.qaware.smartlab.location.management.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

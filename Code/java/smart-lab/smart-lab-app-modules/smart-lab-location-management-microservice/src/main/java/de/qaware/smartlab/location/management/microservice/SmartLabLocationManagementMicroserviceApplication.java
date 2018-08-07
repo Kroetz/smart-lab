@@ -1,4 +1,4 @@
-package de.qaware.smartlablocationmanagementmicroservice;
+package de.qaware.smartlab.location.management.microservice;
 
 import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
