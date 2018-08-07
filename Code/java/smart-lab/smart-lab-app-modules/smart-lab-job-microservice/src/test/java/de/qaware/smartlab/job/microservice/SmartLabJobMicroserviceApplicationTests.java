@@ -1,4 +1,4 @@
-package de.qaware.smartlabjobmicroservice;
+package de.qaware.smartlab.job.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

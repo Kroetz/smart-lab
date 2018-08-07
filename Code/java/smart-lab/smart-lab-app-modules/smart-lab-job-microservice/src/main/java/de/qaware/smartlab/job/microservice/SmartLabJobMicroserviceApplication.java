@@ -1,4 +1,4 @@
-package de.qaware.smartlabjobmicroservice;
+package de.qaware.smartlab.job.microservice;
 
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
