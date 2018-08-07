@@ -1,9 +1,9 @@
-package de.qaware.smartlabactuatormanagement.service.business;
+package de.qaware.smartlab.actuator.management.service.business;
 
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
-import de.qaware.smartlabactuatormanagement.service.repository.IDeviceManagementRepository;
+import de.qaware.smartlab.actuator.management.service.repository.IDeviceManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
