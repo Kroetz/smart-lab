@@ -1,6 +1,6 @@
-package de.qaware.smartlabgui.annotation;
+package de.qaware.smartlab.gui.annotation;
 
-import de.qaware.smartlabgui.configuration.GuiConfiguration;
+import de.qaware.smartlab.gui.configuration.GuiConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

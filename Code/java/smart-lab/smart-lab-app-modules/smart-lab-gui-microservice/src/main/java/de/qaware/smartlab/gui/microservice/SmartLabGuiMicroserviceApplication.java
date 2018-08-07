@@ -1,6 +1,6 @@
 package de.qaware.smartlab.gui.microservice;
 
-import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
+import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

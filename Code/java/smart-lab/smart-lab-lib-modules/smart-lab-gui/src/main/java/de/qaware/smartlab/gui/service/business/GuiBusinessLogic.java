@@ -1,4 +1,4 @@
-package de.qaware.smartlabgui.service.business;
+package de.qaware.smartlab.gui.service.business;
 
 import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlab.api.service.constant.trigger.TriggerApiConstants;
