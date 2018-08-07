@@ -5,10 +5,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>smart-lab-device</artifactId>
+    <artifactId>smart-lab-actuator-management</artifactId>
     <packaging>jar</packaging>
-    <name>smart-lab-device</name>
-    <description>Module of the Smart-Lab project that manages devices</description>
+    <name>smart-lab-actuator-management</name>
+    <description>Module of the Smart-Lab project that manages actuators</description>
 
     <parent>
         <artifactId>smart-lab-spring-dependencies</artifactId>

@@ -1,4 +1,4 @@
-package de.qaware.smartlabdevice.service.business;
+package de.qaware.smartlabactuatormanagement.service.business;
 
 import de.qaware.smartlabcore.data.device.entity.DeviceId;
 import de.qaware.smartlabcore.data.device.entity.IDevice;

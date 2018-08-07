@@ -21,7 +21,7 @@
 
 		<dependency>
 			<groupId>de.qaware</groupId>
-			<artifactId>smart-lab-device</artifactId>
+			<artifactId>smart-lab-actuator-management</artifactId>
 		</dependency>
 
 	</dependencies>

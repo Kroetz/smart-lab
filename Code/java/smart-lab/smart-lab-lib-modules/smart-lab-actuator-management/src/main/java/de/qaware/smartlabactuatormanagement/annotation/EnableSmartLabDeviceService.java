@@ -1,6 +1,6 @@
-package de.qaware.smartlabdevice.annotation;
+package de.qaware.smartlabactuatormanagement.annotation;
 
-import de.qaware.smartlabdevice.configuration.DeviceServiceConfiguration;
+import de.qaware.smartlabactuatormanagement.configuration.DeviceServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
