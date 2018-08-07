@@ -16,6 +16,7 @@ import de.qaware.smartlab.data.set.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlab.integrationtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
@@ -42,6 +43,11 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
 
     @Autowired
     private AstronautsSampleDataSetFactory astronautsDataFactory
+
+    @Autowired
+    // TODO: String literal
+    @Qualifier("maxMeetingDuration")
+    private Duration maxMeetingDuration;
 
     @Override
     def setupDataForFindAll_withExisting() {
@@ -327,7 +333,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         meetingManagementService.create(meeting)
 
         and: "The extension of the meeting is invalid"
-        def extension = Constants.MAXIMAL_MEETING_DURATION
+        def extension = this.maxMeetingDuration
 
         when: "The current meeting at the location is extended"
         locationManagementService.extendCurrentMeeting(locationId, extension)

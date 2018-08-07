@@ -15,6 +15,7 @@ import de.qaware.smartlab.data.set.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlab.integrationtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
@@ -38,6 +39,11 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<Meeting
 
     @Autowired
     private AstronautsSampleDataSetFactory astronautsDataFactory
+
+    @Autowired
+    // TODO: String literal
+    @Qualifier("maxMeetingDuration")
+    private Duration maxMeetingDuration;
 
     @Override
     def setupDataForFindAll_withExisting() {
@@ -185,7 +191,7 @@ class MeetingManagementApiIntegrationTest extends CrudApiIntegrationTest<Meeting
         def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
         def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
         meetingManagementService.create(meeting)
-        def extension = Constants.MAXIMAL_MEETING_DURATION
+        def extension = this.maxMeetingDuration
 
         when: "The meeting is extended beyond the maximum"
         meetingManagementService.extendMeeting(meetingId, extension)
