@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.executable.webbrowser.closing;
 
-import de.qaware.smartlabactuatoradapter.actuator.webbrowser.IWebBrowserAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IWebBrowserAdapter;
 import de.qaware.smartlab.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.info.webbrowser.closing.WebBrowserClosingInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;

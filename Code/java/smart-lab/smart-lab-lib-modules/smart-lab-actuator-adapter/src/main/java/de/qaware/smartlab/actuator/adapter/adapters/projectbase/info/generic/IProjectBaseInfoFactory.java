@@ -1,0 +1,11 @@
+package de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic;
+
+import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
+
+import java.util.Map;
+
+public interface IProjectBaseInfoFactory {
+
+    String getServiceId();
+    IProjectBaseInfo newInstance(Map<String, String> projectBaseProperties);
+}

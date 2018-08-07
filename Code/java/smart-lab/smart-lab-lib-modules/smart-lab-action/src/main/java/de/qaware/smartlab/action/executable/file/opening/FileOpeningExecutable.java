@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.executable.file.opening;
 
-import de.qaware.smartlabactuatoradapter.actuator.fileassociatedprogram.IFileAssociatedProgramAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramAdapter;
 import de.qaware.smartlab.action.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.info.file.opening.FileOpeningInfo;
 import de.qaware.smartlab.action.result.UuidActionResult;

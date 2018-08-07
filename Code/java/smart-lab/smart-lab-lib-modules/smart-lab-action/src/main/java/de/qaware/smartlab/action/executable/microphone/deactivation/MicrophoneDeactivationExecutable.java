@@ -9,7 +9,7 @@ import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabactuatoradapter.actuator.microphone.IMicrophoneAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;

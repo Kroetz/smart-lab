@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.configuration;
 
-import de.qaware.smartlabactuatoradapter.annotation.EnableSmartLabActuatorAdapters;
+import de.qaware.smartlab.actuator.adapter.annotation.EnableSmartLabActuatorAdapters;
 import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import org.springframework.context.annotation.ComponentScan;

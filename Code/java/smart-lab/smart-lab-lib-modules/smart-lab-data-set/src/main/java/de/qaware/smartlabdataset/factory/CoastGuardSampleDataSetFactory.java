@@ -1,12 +1,12 @@
 package de.qaware.smartlabdataset.factory;
 
 import com.google.common.collect.ImmutableMap;
-import de.qaware.smartlabactuatoradapter.actuator.beamer.DummyBeamerAdapter;
-import de.qaware.smartlabactuatoradapter.actuator.display.DummyDisplayAdapter;
-import de.qaware.smartlabactuatoradapter.actuator.microphone.ThinkpadP50InternalMicrophoneAdapter;
-import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.generic.IProjectBaseInfoFactory;
-import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.github.GithubProjectBaseInfo;
-import de.qaware.smartlabactuatoradapter.actuator.projectbase.service.github.GithubServiceConnector;
+import de.qaware.smartlab.actuator.adapter.adapters.beamer.DummyBeamerAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.display.DummyDisplayAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.microphone.ThinkpadP50InternalMicrophoneAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.IProjectBaseInfoFactory;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.github.GithubProjectBaseInfo;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubServiceConnector;
 import de.qaware.smartlabassistance.assistance.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlabassistance.assistance.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;

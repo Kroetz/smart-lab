@@ -1,6 +1,6 @@
 package de.qaware.smartlabdataconversion.converter.workgroup;
 
-import de.qaware.smartlabactuatoradapter.actuator.projectbase.info.generic.IProjectBaseInfoFactory;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.IProjectBaseInfoFactory;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;
