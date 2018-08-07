@@ -1,6 +1,6 @@
 package de.qaware.smartlabjob.configuration;
 
-import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
+import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import de.qaware.smartlabcore.data.job.JobInfo;
 import de.qaware.smartlabjob.service.repository.IJobManagementRepository;

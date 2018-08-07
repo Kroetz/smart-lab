@@ -1,6 +1,6 @@
 package de.qaware.smartlab.integrationtest.device
 
-import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService
+import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService
 import de.qaware.smartlabcore.data.device.DeviceDto
 import de.qaware.smartlabcore.data.device.entity.DeviceId
 import de.qaware.smartlabcore.data.device.entity.IDevice

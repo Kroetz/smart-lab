@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.assistance;
 
-import de.qaware.smartlabapi.service.client.assistance.IAssistanceApiClient;
-import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.api.service.client.assistance.IAssistanceApiClient;
+import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;

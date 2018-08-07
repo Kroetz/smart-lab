@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.job;
 
-import de.qaware.smartlabapi.service.client.job.IJobManagementApiClient;
-import de.qaware.smartlabapi.service.connector.job.IJobManagementService;
+import de.qaware.smartlab.api.service.client.job.IJobManagementApiClient;
+import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;

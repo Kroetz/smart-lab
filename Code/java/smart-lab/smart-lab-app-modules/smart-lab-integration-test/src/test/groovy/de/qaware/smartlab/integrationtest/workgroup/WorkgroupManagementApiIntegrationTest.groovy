@@ -1,7 +1,7 @@
 package de.qaware.smartlab.integrationtest.workgroup
 
-import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
-import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService
+import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
+import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService
 import de.qaware.smartlabcore.data.meeting.IMeeting
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId

@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.gui;
 
-import de.qaware.smartlabapi.service.client.gui.IGuiApiClient;
-import de.qaware.smartlabapi.service.connector.gui.IGuiService;
+import de.qaware.smartlab.api.service.client.gui.IGuiApiClient;
+import de.qaware.smartlab.api.service.connector.gui.IGuiService;
 import de.qaware.smartlabcore.exception.UnknownErrorException;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;

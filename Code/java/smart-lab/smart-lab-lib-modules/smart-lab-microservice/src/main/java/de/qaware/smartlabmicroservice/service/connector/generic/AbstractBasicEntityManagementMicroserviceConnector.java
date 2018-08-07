@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.generic;
 
-import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabapi.service.connector.generic.IBasicEntityManagementService;
+import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
+import de.qaware.smartlab.api.service.connector.generic.IBasicEntityManagementService;
 import de.qaware.smartlabcore.data.generic.IDto;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.generic.IEntity;

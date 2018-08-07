@@ -1,6 +1,6 @@
 package de.qaware.smartlabgui.service.controller;
 
-import de.qaware.smartlabapi.service.constant.gui.GuiApiConstants;
+import de.qaware.smartlab.api.service.constant.gui.GuiApiConstants;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;

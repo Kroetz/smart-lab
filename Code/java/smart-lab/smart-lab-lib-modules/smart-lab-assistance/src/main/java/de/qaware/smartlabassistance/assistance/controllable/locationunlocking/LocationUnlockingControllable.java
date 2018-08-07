@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.controllable.locationunlocking;
 
-import de.qaware.smartlabapi.service.connector.action.IActionService;
+import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;

@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.actions.submittable.data.download.DataDownloadS
 import de.qaware.smartlab.action.actions.submittable.file.closing.FileClosingSubmittable;
 import de.qaware.smartlab.action.actions.submittable.file.opening.FileOpeningSubmittable;
 import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
-import de.qaware.smartlabapi.service.connector.action.IActionService;
+import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;

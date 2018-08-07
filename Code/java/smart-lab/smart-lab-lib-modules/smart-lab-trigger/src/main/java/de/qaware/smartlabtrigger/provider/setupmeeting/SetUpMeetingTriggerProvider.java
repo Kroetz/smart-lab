@@ -1,7 +1,7 @@
 package de.qaware.smartlabtrigger.provider.setupmeeting;
 
-import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
-import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
+import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabtrigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.triggerable.miscellaneous.triggerreaction;
 
-import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.InsufficientContextException;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.configuration;
 
-import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
+import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlabassistance.annotation.EnableSmartLabAssistanceTriggerables;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import org.apache.commons.validator.routines.UrlValidator;

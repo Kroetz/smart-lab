@@ -1,6 +1,6 @@
 package de.qaware.smartlab.integrationtest.person
 
-import de.qaware.smartlabapi.service.connector.person.IPersonManagementService
+import de.qaware.smartlab.api.service.connector.person.IPersonManagementService
 import de.qaware.smartlabcore.data.person.IPerson
 import de.qaware.smartlabcore.data.person.PersonId
 import de.qaware.smartlabcore.data.person.PersonDto

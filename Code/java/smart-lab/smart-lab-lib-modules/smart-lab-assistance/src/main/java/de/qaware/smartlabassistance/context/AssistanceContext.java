@@ -1,9 +1,9 @@
 package de.qaware.smartlabassistance.context;
 
-import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
-import de.qaware.smartlabapi.service.connector.person.IPersonManagementService;
-import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
-import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
+import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
+import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;

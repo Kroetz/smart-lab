@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.triggerable.websitedisplaying;
 
-import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.triggerable.generic.AbstractAssistanceTriggerable;
 import de.qaware.smartlabassistance.assistance.triggerable.miscellaneous.triggerreaction.ITriggerReaction;

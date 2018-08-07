@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.configuration;
 
-import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
+import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

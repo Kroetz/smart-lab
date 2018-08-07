@@ -1,7 +1,7 @@
 package de.qaware.smartlabdelegate.configuration;
 
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionExecutables;
-import de.qaware.smartlabapi.annotation.EnableSmartLabApi;
+import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

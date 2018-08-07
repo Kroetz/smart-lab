@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.meeting;
 
-import de.qaware.smartlabapi.service.client.meeting.IMeetingManagementApiClient;
-import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlab.api.service.client.meeting.IMeetingManagementApiClient;
+import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.meeting.IMeeting;

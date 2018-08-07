@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.trigger;
 
-import de.qaware.smartlabapi.service.client.trigger.ITriggerApiClient;
-import de.qaware.smartlabapi.service.connector.trigger.ITriggerService;
+import de.qaware.smartlab.api.service.client.trigger.ITriggerApiClient;
+import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;

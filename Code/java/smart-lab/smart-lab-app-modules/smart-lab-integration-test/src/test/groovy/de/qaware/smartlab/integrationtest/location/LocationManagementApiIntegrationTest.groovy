@@ -1,7 +1,7 @@
 package de.qaware.smartlab.integrationtest.location
 
-import de.qaware.smartlabapi.service.connector.location.ILocationManagementService
-import de.qaware.smartlabapi.service.connector.meeting.IMeetingManagementService
+import de.qaware.smartlab.api.service.connector.location.ILocationManagementService
+import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlabcore.data.location.ILocation
 import de.qaware.smartlabcore.data.location.LocationId
 import de.qaware.smartlabcore.data.location.LocationDto

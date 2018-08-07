@@ -1,6 +1,6 @@
 package de.qaware.smartlabpersonmanagement.service.controller;
 
-import de.qaware.smartlabapi.service.constant.person.PersonManagementApiConstants;
+import de.qaware.smartlab.api.service.constant.person.PersonManagementApiConstants;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.triggerable.filedisplaying;
 
-import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.info.filedisplaying.FileDisplayingInfo;
 import de.qaware.smartlabassistance.assistance.triggerable.generic.AbstractAssistanceTriggerable;
 import de.qaware.smartlabassistance.assistance.triggerable.miscellaneous.triggerreaction.ITriggerReaction;

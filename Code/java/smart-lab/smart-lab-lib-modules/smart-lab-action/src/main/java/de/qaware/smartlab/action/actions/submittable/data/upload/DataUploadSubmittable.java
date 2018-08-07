@@ -2,7 +2,7 @@ package de.qaware.smartlab.action.actions.submittable.data.upload;
 
 import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.action.actions.submittable.generic.AbstractActionSubmittable;
-import de.qaware.smartlabapi.service.connector.action.IActionService;
+import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.workgroup.IProjectBaseInfo;

@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.service.connector.location;
 
-import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
+import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;

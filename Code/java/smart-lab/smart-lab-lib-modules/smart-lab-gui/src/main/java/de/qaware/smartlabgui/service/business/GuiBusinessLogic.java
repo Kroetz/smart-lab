@@ -1,10 +1,10 @@
 package de.qaware.smartlabgui.service.business;
 
-import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
-import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
+import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
+import de.qaware.smartlab.api.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
-import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;
+import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;

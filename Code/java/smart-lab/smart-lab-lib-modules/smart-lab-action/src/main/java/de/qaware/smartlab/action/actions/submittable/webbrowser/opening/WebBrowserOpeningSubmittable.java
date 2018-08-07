@@ -2,7 +2,7 @@ package de.qaware.smartlab.action.actions.submittable.webbrowser.opening;
 
 import de.qaware.smartlab.action.actions.info.webbrowser.opening.WebBrowserOpeningInfo;
 import de.qaware.smartlab.action.actions.submittable.generic.AbstractActionSubmittable;
-import de.qaware.smartlabapi.service.connector.action.IActionService;
+import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.DeviceId;

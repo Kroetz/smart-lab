@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.service.connector.workgroup;
 
-import de.qaware.smartlabapi.service.connector.workgroup.IWorkgroupManagementService;
+import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.MeetingDto;

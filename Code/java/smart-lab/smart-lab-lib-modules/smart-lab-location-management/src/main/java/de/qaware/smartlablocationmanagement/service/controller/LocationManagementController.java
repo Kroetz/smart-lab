@@ -1,6 +1,6 @@
 package de.qaware.smartlablocationmanagement.service.controller;
 
-import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
+import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.data.location.LocationId;

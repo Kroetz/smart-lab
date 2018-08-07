@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.assistance.triggerable.generic;
 
-import de.qaware.smartlabapi.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlabassistance.assistance.generic.IAssistanceCommandSupplier;
 import de.qaware.smartlabassistance.assistance.generic.IAssistanceConfigurationSupplier;
 import de.qaware.smartlabassistance.assistance.generic.IAssistanceIdSupplier;

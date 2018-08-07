@@ -4,8 +4,8 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.info.microphone.activation.MicrophoneActivationInfo;
 import de.qaware.smartlab.action.actions.submittable.microphone.activation.MicrophoneActivationSubmittable;
-import de.qaware.smartlabapi.service.connector.delegate.IDelegateService;
-import de.qaware.smartlabapi.service.connector.device.IDeviceManagementService;
+import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
+import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;

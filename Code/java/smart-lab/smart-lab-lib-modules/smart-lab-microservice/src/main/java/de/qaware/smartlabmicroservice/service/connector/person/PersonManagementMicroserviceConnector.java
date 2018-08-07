@@ -1,7 +1,7 @@
 package de.qaware.smartlabmicroservice.service.connector.person;
 
-import de.qaware.smartlabapi.service.client.person.IPersonManagementApiClient;
-import de.qaware.smartlabapi.service.connector.person.IPersonManagementService;
+import de.qaware.smartlab.api.service.client.person.IPersonManagementApiClient;
+import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
 import de.qaware.smartlabcore.data.generic.IDtoConverter;
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonDto;
