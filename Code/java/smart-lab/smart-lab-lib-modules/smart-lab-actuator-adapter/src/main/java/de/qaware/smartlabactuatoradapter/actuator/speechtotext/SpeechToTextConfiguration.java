@@ -24,7 +24,7 @@ public class SpeechToTextConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.action.speech-to-text")
+    @ConfigurationProperties(prefix = "smart-lab.actuator.speech-to-text")
     public static class Properties {
 
         private String service;
