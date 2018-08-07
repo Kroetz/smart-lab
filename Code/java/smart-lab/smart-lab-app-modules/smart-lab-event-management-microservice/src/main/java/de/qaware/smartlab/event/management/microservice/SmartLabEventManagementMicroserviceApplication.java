@@ -1,4 +1,4 @@
-package de.qaware.smartlabeventmanagementmicroservice;
+package de.qaware.smartlab.event.management.microservice;
 
 import de.qaware.smartlabeventmanagement.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;

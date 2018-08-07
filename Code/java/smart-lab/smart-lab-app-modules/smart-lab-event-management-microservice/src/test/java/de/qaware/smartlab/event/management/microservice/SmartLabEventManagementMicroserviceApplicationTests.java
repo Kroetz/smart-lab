@@ -1,4 +1,4 @@
-package de.qaware.smartlabeventmanagementmicroservice;
+package de.qaware.smartlab.event.management.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
