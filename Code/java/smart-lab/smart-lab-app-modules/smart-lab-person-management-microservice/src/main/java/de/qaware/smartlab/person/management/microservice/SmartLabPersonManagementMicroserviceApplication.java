@@ -1,4 +1,4 @@
-package de.qaware.smartlabpersonmanagementmicroservice;
+package de.qaware.smartlab.person.management.microservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;

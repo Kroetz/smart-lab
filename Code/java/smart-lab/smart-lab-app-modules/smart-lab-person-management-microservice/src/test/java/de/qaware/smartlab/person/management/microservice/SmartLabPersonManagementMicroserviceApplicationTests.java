@@ -1,4 +1,4 @@
-package de.qaware.smartlabpersonmanagementmicroservice;
+package de.qaware.smartlab.person.management.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
