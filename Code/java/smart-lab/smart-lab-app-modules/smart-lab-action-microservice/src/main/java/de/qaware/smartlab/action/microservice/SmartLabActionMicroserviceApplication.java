@@ -1,4 +1,4 @@
-package de.qaware.smartlabactionmicroservice;
+package de.qaware.smartlab.action.microservice;
 
 import de.qaware.smartlabaction.annotation.EnableSmartLabActionService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
