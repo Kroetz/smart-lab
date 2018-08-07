@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.workgroup;
 
 public abstract class WorkgroupManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "workgroup-management";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-workgroup-microservice";
 
     public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";
     public static final String PARAMETER_NAME_WORKGROUP_IDS = "workgroupIds";

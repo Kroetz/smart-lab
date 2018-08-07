@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.person;
 
 public abstract class PersonManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "person-management";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-person-microservice";
 
     public static final String PARAMETER_NAME_PERSON_ID = "personId";
     public static final String PARAMETER_NAME_PERSON_IDS = "personIds";

@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.action;
 
 public abstract class ActionApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "action";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-action-microservice";
 
     public static final String PARAMETER_NAME_ACTION_ID = "actionId";
 

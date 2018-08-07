@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.job;
 
 public abstract class JobManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "job-management";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-job-microservice";
 
     public static final String PARAMETER_NAME_JOB_ID = "jobId";
     public static final String PARAMETER_NAME_CALLBACK_URL = "callback-url";

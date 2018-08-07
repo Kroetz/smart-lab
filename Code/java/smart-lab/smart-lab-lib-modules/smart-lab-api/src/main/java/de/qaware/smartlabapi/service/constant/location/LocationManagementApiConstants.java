@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.location;
 
 public abstract class LocationManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "location-management";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-location-microservice";
 
     public static final String PARAMETER_NAME_LOCATION_ID = "locationId";
     public static final String PARAMETER_NAME_LOCATION_IDS = "locationIds";

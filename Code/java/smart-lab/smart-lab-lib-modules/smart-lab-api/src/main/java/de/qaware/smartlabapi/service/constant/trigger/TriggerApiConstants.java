@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.trigger;
 
 public abstract class TriggerApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "trigger";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-trigger-microservice";
 
     public static final String PARAMETER_NAME_LOCATION_ID = "locationId";
     public static final String PARAMETER_NAME_WORKGROUP_ID = "workgroupId";

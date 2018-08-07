@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.gui;
 
 public abstract class GuiApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "gui";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-gui-microservice";
 
     public static final String MAPPING_BASE = "/smart-lab/gui";
 

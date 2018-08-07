@@ -2,7 +2,7 @@ package de.qaware.smartlabapi.service.constant.device;
 
 public abstract class DeviceManagementApiConstants {
 
-    public static final String FEIGN_CLIENT_NAME = "device-management";
+    public static final String FEIGN_CLIENT_NAME = "smart-lab-device-microservice";
 
     public static final String PARAMETER_NAME_DEVICE_ID = "deviceId";
     public static final String PARAMETER_NAME_DEVICE_IDS = "deviceIds";
