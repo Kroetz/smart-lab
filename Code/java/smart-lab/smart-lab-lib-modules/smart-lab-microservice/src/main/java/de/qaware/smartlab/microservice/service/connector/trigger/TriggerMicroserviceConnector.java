@@ -31,9 +31,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId) {
+    public IJobInfo setUpCurrentEventByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+            return this.triggerApiClient.setUpCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(Exception e) {
             throw e;
@@ -49,9 +49,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+    public IJobInfo setUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.setUpCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(Exception e) {
             throw e;
@@ -59,9 +59,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
+    public IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+            return this.triggerApiClient.setUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -72,9 +72,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+    public IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.setUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.setUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -85,9 +85,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId) {
+    public IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+            return this.triggerApiClient.cleanUpCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -98,9 +98,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+    public IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.cleanUpCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -111,9 +111,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
+    public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+            return this.triggerApiClient.cleanUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -124,9 +124,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+    public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.cleanUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.cleanUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -137,9 +137,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId) {
+    public IJobInfo startCurrentEventByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+            return this.triggerApiClient.startCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -150,9 +150,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+    public IJobInfo startCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.startCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -163,9 +163,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
+    public IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+            return this.triggerApiClient.startCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -176,9 +176,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+    public IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.startCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.startCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -189,9 +189,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId) {
+    public IJobInfo stopCurrentEventByLocationId(LocationId locationId) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+            return this.triggerApiClient.stopCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -202,9 +202,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
+    public IJobInfo stopCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.stopCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -215,9 +215,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
+    public IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+            return this.triggerApiClient.stopCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
         }
         catch(RetryableException e) {
             throw e;
@@ -228,9 +228,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+    public IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
         try {
-            return this.triggerApiClient.stopCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+            return this.triggerApiClient.stopCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
         }
         catch(RetryableException e) {
             throw e;

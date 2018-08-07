@@ -1,13 +1,13 @@
 package de.qaware.smartlab.assistance.context;
 
-import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
+import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.location.ILocation;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class AssistanceContext implements IAssistanceContext {
 
     private IAssistanceConfiguration assistanceConfiguration;
-    private IMeeting meeting;
+    private IEvent event;
     private IWorkgroup workgroup;
     private Set<IPerson> persons;
     private ILocation location;
@@ -30,8 +30,8 @@ public class AssistanceContext implements IAssistanceContext {
     private AssistanceContext() { }
 
     @Override
-    public Optional<IMeeting> getMeeting() {
-        return Optional.ofNullable(this.meeting);
+    public Optional<IEvent> getEvent() {
+        return Optional.ofNullable(this.event);
     }
 
     @Override
@@ -52,27 +52,27 @@ public class AssistanceContext implements IAssistanceContext {
     @Component
     public static class Factory implements IAssistanceContextFactory {
 
-        private IMeetingManagementService meetingManagementService;
+        private IEventManagementService eventManagementService;
         private IWorkgroupManagementService workgroupManagementService;
         private IPersonManagementService personManagementService;
         private ILocationManagementService locationManagementService;
 
         public Factory(
-                IMeetingManagementService meetingManagementService,
+                IEventManagementService eventManagementService,
                 IWorkgroupManagementService workgroupManagementService,
                 IPersonManagementService personManagementService,
                 ILocationManagementService locationManagementService) {
-            this.meetingManagementService = meetingManagementService;
+            this.eventManagementService = eventManagementService;
             this.workgroupManagementService = workgroupManagementService;
             this.personManagementService = personManagementService;
             this.locationManagementService = locationManagementService;
         }
 
-        public IAssistanceContext of(IAssistanceConfiguration config, IMeeting meeting) {
-            if(!meeting.getAssistanceConfigurations().contains(config)) {
-                throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
+        public IAssistanceContext of(IAssistanceConfiguration config, IEvent event) {
+            if(!event.getAssistanceConfigurations().contains(config)) {
+                throw new IllegalStateException("The specified assistance configuration must be part of the specified event");
             }
-            return addToContext(addToContext(new AssistanceContext(), config), meeting);
+            return addToContext(addToContext(new AssistanceContext(), config), event);
         }
 
         public IAssistanceContext of(IAssistanceConfiguration config, IWorkgroup workgroup) {
@@ -92,10 +92,10 @@ public class AssistanceContext implements IAssistanceContext {
             return context;
         }
 
-        private AssistanceContext addToContext(AssistanceContext context, IMeeting meeting) {
-            context.setMeeting(meeting);
-            IWorkgroup workgroup = workgroupManagementService.findOne(meeting.getWorkgroupId());
-            ILocation location = locationManagementService.findOne(meeting.getLocationId());
+        private AssistanceContext addToContext(AssistanceContext context, IEvent event) {
+            context.setEvent(event);
+            IWorkgroup workgroup = workgroupManagementService.findOne(event.getWorkgroupId());
+            ILocation location = locationManagementService.findOne(event.getLocationId());
             return addToContext(addToContext(context, workgroup), location);
         }
 

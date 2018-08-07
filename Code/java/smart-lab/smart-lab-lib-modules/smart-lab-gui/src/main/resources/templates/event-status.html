@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event status</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="refresh" content="5">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Event Status</h1>
+
+<p th:text="'This is the event status page of location: ' + ${locationId}" />
+<p th:text="'The topic of this event is: ' + ${eventTopic}" />
+<p th:text="'Minutes left for your event: ' + ${minutesLeft}" />
+<p th:text="'Seconds left for your event: ' + ${secondsLeft}" />
+
+<button th:onclick="'postRequest(\'' + ${startEventUrl} + '\');'">
+    Start Event
+</button>
+
+<button th:onclick="'postRequest(\'' + ${stopEventUrl} + '\');'">
+    Stop Event
+</button>
+
+<button th:onclick="'postRequest(\'' + ${extendEventUrl} + '\');'">
+    Extend Event
+</button>
+
+<script language="javascript">
+    function postRequest(url){
+        console.log(url)
+        $.post(url);
+    }
+</script>
+
+</body>
+</html>

@@ -8,12 +8,12 @@ import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters
 import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
-import de.qaware.smartlab.event.management.annotation.EnableSmartLabMeetingService;
+import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventService;
 import de.qaware.smartlab.monolith.ComponentScanMarker;
 import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationService;
-import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
-import de.qaware.smartlab.trigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;
+import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpEventTriggerProvider;
+import de.qaware.smartlab.trigger.annotation.EnableSmartLabSetUpEventTriggerProvider;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabTriggerService;
 import de.qaware.smartlab.workgroup.management.annotation.EnableSmartLabWorkgroupService;
 import feign.Client;
@@ -44,13 +44,13 @@ import java.util.Map;
 @EnableSmartLabWorkgroupService
 @EnableSmartLabDeviceService
 @EnableSmartLabLocationService
-@EnableSmartLabMeetingService
+@EnableSmartLabEventService
 @EnableSmartLabTriggerService
 @EnableSmartLabAssistanceService
 @EnableSmartLabActionService
 @EnableSmartLabGui
-@EnableSmartLabSetUpMeetingTriggerProvider
-@EnableSmartLabCleanUpMeetingTriggerProvider
+@EnableSmartLabSetUpEventTriggerProvider
+@EnableSmartLabCleanUpEventTriggerProvider
 @EnableConfigurationProperties(value = {
         MonolithModuleConfiguration.DelegateProperties.class,
         MonolithModuleConfiguration.FallbackBaseUrlProperties.class})

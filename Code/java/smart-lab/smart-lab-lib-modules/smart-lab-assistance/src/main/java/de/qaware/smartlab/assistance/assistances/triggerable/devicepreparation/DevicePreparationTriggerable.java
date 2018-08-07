@@ -25,12 +25,12 @@ public class DevicePreparationTriggerable extends AbstractAssistanceTriggerable 
     }
 
     @Override
-    public void reactOnTriggerSetUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
+    public void reactOnTriggerSetUpEvent(IAssistanceService assistanceService, IAssistanceContext context) {
         this.beginAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 
     @Override
-    public void reactOnTriggerCleanUpMeeting(IAssistanceService assistanceService, IAssistanceContext context) {
+    public void reactOnTriggerCleanUpEvent(IAssistanceService assistanceService, IAssistanceContext context) {
         this.endAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 }

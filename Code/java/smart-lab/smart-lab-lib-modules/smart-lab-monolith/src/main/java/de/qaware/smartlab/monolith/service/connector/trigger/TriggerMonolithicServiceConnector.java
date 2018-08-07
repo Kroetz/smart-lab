@@ -27,83 +27,83 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId) {
-        return this.triggerController.setUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+    public IJobInfo setUpCurrentEventByLocationId(LocationId locationId) {
+        return this.triggerController.setUpCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
-        return this.triggerController.setUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo setUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.setUpCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
-        return this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+    public IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
+        return this.triggerController.setUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
-        return this.triggerController.setUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+        return this.triggerController.setUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId) {
-        return this.triggerController.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+    public IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId) {
+        return this.triggerController.cleanUpCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
-        return this.triggerController.cleanUpCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.cleanUpCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
-        return this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+    public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
+        return this.triggerController.cleanUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
-        return this.triggerController.cleanUpCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+        return this.triggerController.cleanUpCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId) {
-        return this.triggerController.startCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+    public IJobInfo startCurrentEventByLocationId(LocationId locationId) {
+        return this.triggerController.startCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
-        return this.triggerController.startCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo startCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.startCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
-        return this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+    public IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
+        return this.triggerController.startCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
-        return this.triggerController.startCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+        return this.triggerController.startCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId) {
-        return this.triggerController.stopCurrentMeetingByLocationId(locationId.getIdValue(), null).getBody();
+    public IJobInfo stopCurrentEventByLocationId(LocationId locationId) {
+        return this.triggerController.stopCurrentEventByLocationId(locationId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl) {
-        return this.triggerController.stopCurrentMeetingByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo stopCurrentEventByLocationId(LocationId locationId, URL callbackUrl) {
+        return this.triggerController.stopCurrentEventByLocationId(locationId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId) {
-        return this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), null).getBody();
+    public IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId) {
+        return this.triggerController.stopCurrentEventByWorkgroupId(workgroupId.getIdValue(), null).getBody();
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
-        return this.triggerController.stopCurrentMeetingByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
+    public IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl) {
+        return this.triggerController.stopCurrentEventByWorkgroupId(workgroupId.getIdValue(), callbackUrl.toString()).getBody();
     }
 
     @Component

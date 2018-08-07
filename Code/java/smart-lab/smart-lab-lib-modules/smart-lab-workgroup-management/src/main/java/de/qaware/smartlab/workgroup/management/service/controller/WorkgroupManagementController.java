@@ -2,8 +2,8 @@ package de.qaware.smartlab.workgroup.management.service.controller;
 
 import de.qaware.smartlab.api.service.constant.workgroup.WorkgroupManagementApiConstants;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
@@ -31,15 +31,15 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
 
     private final IWorkgroupManagementBusinessLogic workgroupManagementBusinessLogic;
     private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public WorkgroupManagementController(
             IWorkgroupManagementBusinessLogic workgroupManagementBusinessLogic,
             IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         this.workgroupManagementBusinessLogic = workgroupManagementBusinessLogic;
         this.workgroupConverter = workgroupConverter;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
@@ -101,28 +101,28 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
         return this.workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
     }
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_EVENTS_OF_WORKGROUP)
     @ResponseBody
-    public ResponseEntity<Set<MeetingDto>> getMeetingsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+    public ResponseEntity<Set<EventDto>> getEventsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromEntityOptionals(
-                this.workgroupManagementBusinessLogic.getMeetingsOfWorkgroup(WorkgroupId.of(workgroupId)),
-                this.meetingConverter);
+                this.workgroupManagementBusinessLogic.getEventsOfWorkgroup(WorkgroupId.of(workgroupId)),
+                this.eventConverter);
     }
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_EVENT)
     @ResponseBody
-    public ResponseEntity<MeetingDto> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
+    public ResponseEntity<EventDto> getCurrentEvent(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
         return responseFromEntityOptional(
-                this.workgroupManagementBusinessLogic.getCurrentMeeting(WorkgroupId.of(workgroupId)),
-                this.meetingConverter);
+                this.workgroupManagementBusinessLogic.getCurrentEvent(WorkgroupId.of(workgroupId)),
+                this.eventConverter);
     }
 
-    @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
+    @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_EVENT)
     @ResponseBody
-    public ResponseEntity<Void> extendCurrentMeeting(
+    public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.workgroupManagementBusinessLogic.extendCurrentMeeting(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.workgroupManagementBusinessLogic.extendCurrentEvent(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @RestController

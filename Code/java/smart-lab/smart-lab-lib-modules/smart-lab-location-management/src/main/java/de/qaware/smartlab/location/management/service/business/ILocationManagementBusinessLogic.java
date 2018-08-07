@@ -2,7 +2,7 @@ package de.qaware.smartlab.location.management.service.business;
 
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.service.business.IBasicEntityManagementBusinessLogic;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 
 public interface ILocationManagementBusinessLogic extends IBasicEntityManagementBusinessLogic<ILocation, LocationId> {
 
-    Optional<Set<IMeeting>> getMeetingsAtLocation(LocationId locationId);
-    Optional<IMeeting> getCurrentMeeting(LocationId locationId);
-    ExtensionResult extendCurrentMeeting(LocationId locationId, Duration extension);
+    Optional<Set<IEvent>> getEventsAtLocation(LocationId locationId);
+    Optional<IEvent> getCurrentEvent(LocationId locationId);
+    ExtensionResult extendCurrentEvent(LocationId locationId, Duration extension);
 }

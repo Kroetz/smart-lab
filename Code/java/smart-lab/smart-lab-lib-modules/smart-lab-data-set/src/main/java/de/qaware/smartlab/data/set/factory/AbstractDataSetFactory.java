@@ -4,8 +4,8 @@ import de.qaware.smartlab.core.data.device.DeviceId;
 import de.qaware.smartlab.core.data.device.IDevice;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -54,13 +54,13 @@ public abstract class AbstractDataSetFactory implements IDataSetFactory {
     }
 
     @Override
-    public abstract Set<IMeeting> createMeetingSet() throws DataSetException;
+    public abstract Set<IEvent> createEventSet() throws DataSetException;
 
     @Override
-    public Map<MeetingId, IMeeting> createMeetingMap() throws DataSetException {
-        Set<IMeeting> meetings = createMeetingSet();
-        return meetings.stream()
-                .collect(toMap(IMeeting::getId, meeting -> meeting));
+    public Map<EventId, IEvent> createEventMap() throws DataSetException {
+        Set<IEvent> events = createEventSet();
+        return events.stream()
+                .collect(toMap(IEvent::getId, event -> event));
     }
 
     @Override

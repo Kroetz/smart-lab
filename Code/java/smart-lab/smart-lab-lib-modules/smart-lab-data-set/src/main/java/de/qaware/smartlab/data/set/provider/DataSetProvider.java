@@ -8,8 +8,8 @@ import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -31,19 +31,19 @@ import static java.util.stream.Collectors.toSet;
 
 public class DataSetProvider implements IDataSetProvider {
 
-    private final Set<IDataSetFactory> meetingFactories;
+    private final Set<IDataSetFactory> eventFactories;
     private final Set<IDataSetFactory> locationFactories;
     private final Set<IDataSetFactory> deviceFactories;
     private final Set<IDataSetFactory> workgroupFactories;
     private final Set<IDataSetFactory> personFactories;
 
     private DataSetProvider(
-            Set<IDataSetFactory> meetingFactories,
+            Set<IDataSetFactory> eventFactories,
             Set<IDataSetFactory> locationFactories,
             Set<IDataSetFactory> deviceFactories,
             Set<IDataSetFactory> workgroupFactories,
             Set<IDataSetFactory> personFactories) {
-        this.meetingFactories = meetingFactories;
+        this.eventFactories = eventFactories;
         this.locationFactories = locationFactories;
         this.deviceFactories = deviceFactories;
         this.workgroupFactories = workgroupFactories;
@@ -61,15 +61,15 @@ public class DataSetProvider implements IDataSetProvider {
     }
 
     @Override
-    public Set<IMeeting> getMeetings() throws DataSetException {
-        return getEntities(this.meetingFactories, IDataSetFactory::createMeetingSet);
+    public Set<IEvent> getEvents() throws DataSetException {
+        return getEntities(this.eventFactories, IDataSetFactory::createEventSet);
     }
 
     @Override
-    public Map<LocationId, Set<IMeeting>> getMeetingsByLocation() throws DataSetException {
-        Set<IMeeting> meetings = getEntities(this.meetingFactories, IDataSetFactory::createMeetingSet);
-        return meetings.stream().collect(groupingBy(
-                IMeeting::getLocationId,
+    public Map<LocationId, Set<IEvent>> getEventsByLocation() throws DataSetException {
+        Set<IEvent> events = getEntities(this.eventFactories, IDataSetFactory::createEventSet);
+        return events.stream().collect(groupingBy(
+                IEvent::getLocationId,
                 toSet()));
     }
 
@@ -98,7 +98,7 @@ public class DataSetProvider implements IDataSetProvider {
     public static class Factory {
 
         private final IResolver<String, IDataSetFactory> dataSetFactoryResolver;
-        private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+        private final IDtoConverter<IEvent, EventDto> eventConverter;
         private final IDtoConverter<ILocation, LocationDto> locationConverter;
         private final IDtoConverter<IDevice, DeviceDto> deviceConverter;
         private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
@@ -106,13 +106,13 @@ public class DataSetProvider implements IDataSetProvider {
 
         public Factory(
                 IResolver<String, IDataSetFactory> dataSetFactoryResolver,
-                IDtoConverter<IMeeting, MeetingDto> meetingConverter,
+                IDtoConverter<IEvent, EventDto> eventConverter,
                 IDtoConverter<ILocation, LocationDto> locationConverter,
                 IDtoConverter<IDevice, DeviceDto> deviceConverter,
                 IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
                 IDtoConverter<IPerson, PersonDto> personConverter) {
             this.dataSetFactoryResolver = dataSetFactoryResolver;
-            this.meetingConverter = meetingConverter;
+            this.eventConverter = eventConverter;
             this.locationConverter = locationConverter;
             this.deviceConverter = deviceConverter;
             this.workgroupConverter = workgroupConverter;
@@ -120,15 +120,15 @@ public class DataSetProvider implements IDataSetProvider {
         }
 
         public DataSetProvider of(
-                List<String> meetingDataSourceTokens,
+                List<String> eventDataSourceTokens,
                 List<String> locationDataSourceTokens,
                 List<String> deviceDataSourceTokens,
                 List<String> workgroupDataSourceTokens,
                 List<String> personDataSourceTokens) {
             return new DataSetProvider(
                     dataSetFactoriesFromTokens(
-                            meetingDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.meetingDataSource(get(dataSourceToken)).meetingConverter(this.meetingConverter)),
+                            eventDataSourceTokens,
+                            (builder, dataSourceToken) -> builder.eventDataSource(get(dataSourceToken)).eventConverter(this.eventConverter)),
                     dataSetFactoriesFromTokens(
                             locationDataSourceTokens,
                             (builder, dataSourceToken) -> builder.locationDataSource(get(dataSourceToken)).locationConverter(this.locationConverter)),
@@ -144,13 +144,13 @@ public class DataSetProvider implements IDataSetProvider {
         }
 
         public DataSetProvider of(
-                Set<IDataSetFactory> meetingFactories,
+                Set<IDataSetFactory> eventFactories,
                 Set<IDataSetFactory> locationFactories,
                 Set<IDataSetFactory> deviceFactories,
                 Set<IDataSetFactory> workgroupFactories,
                 Set<IDataSetFactory> personFactories) {
             return new DataSetProvider(
-                    meetingFactories,
+                    eventFactories,
                     locationFactories,
                     deviceFactories,
                     workgroupFactories,

@@ -3,8 +3,8 @@ package de.qaware.smartlab.microservice.service.connector.workgroup;
 import de.qaware.smartlab.api.service.client.workgroup.IWorkgroupManagementApiClient;
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
@@ -38,22 +38,22 @@ import static java.util.stream.Collectors.toSet;
 public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IWorkgroup, WorkgroupId, WorkgroupDto> implements IWorkgroupManagementService {
 
     private final IWorkgroupManagementApiClient workgroupManagementApiClient;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public WorkgroupManagementMicroserviceConnector(
             IWorkgroupManagementApiClient workgroupManagementApiClient,
             IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         super(workgroupManagementApiClient, workgroupConverter);
         this.workgroupManagementApiClient = workgroupManagementApiClient;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
+    public Set<IEvent> getEventsOfWorkgroup(WorkgroupId workgroupId) {
         try {
-            return requireNonNull(this.workgroupManagementApiClient.getMeetingsOfWorkgroup(workgroupId.getIdValue()).getBody()).stream()
-                    .map(this.meetingConverter::toEntity)
+            return requireNonNull(this.workgroupManagementApiClient.getEventsOfWorkgroup(workgroupId.getIdValue()).getBody()).stream()
+                    .map(this.eventConverter::toEntity)
                     .collect(toSet());
         }
         catch(FeignException e) {
@@ -65,11 +65,11 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
     }
 
     @Override
-    public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
+    public IEvent getCurrentEvent(WorkgroupId workgroupId) {
         try {
-            MeetingDto currentMeeting = this.workgroupManagementApiClient.getCurrentMeeting(workgroupId.getIdValue()).getBody();
-            requireNonNull(currentMeeting);
-            return this.meetingConverter.toEntity(currentMeeting);
+            EventDto currentEvent = this.workgroupManagementApiClient.getCurrentEvent(workgroupId.getIdValue()).getBody();
+            requireNonNull(currentEvent);
+            return this.eventConverter.toEntity(currentEvent);
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -80,9 +80,9 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
     }
 
     @Override
-    public void extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
+    public void extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
         try {
-            this.workgroupManagementApiClient.extendCurrentMeeting(workgroupId.getIdValue(), extension.toMinutes());
+            this.workgroupManagementApiClient.extendCurrentEvent(workgroupId.getIdValue(), extension.toMinutes());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event agenda</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
+
+<h1>Event Agenda</h1>
+
+<p th:text="'This is the agenda of event: ' + ${eventId}" />
+<p th:text="'The topic of this event is: ' + ${eventTopic}" />
+
+<ul>
+    <li th:each="item : ${agendaItems}" th:text="${item.content}" />
+</ul>
+
+</body>
+</html>

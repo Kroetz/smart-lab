@@ -2,8 +2,8 @@ package de.qaware.smartlab.monolith.service.connector.workgroup;
 
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
@@ -35,38 +35,38 @@ import static java.util.stream.Collectors.toSet;
 public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<IWorkgroup, WorkgroupId, WorkgroupDto> implements IWorkgroupManagementService {
 
     private final WorkgroupManagementController workgroupManagementController;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public WorkgroupManagementMonolithicServiceConnector(
             WorkgroupManagementController workgroupManagementController,
             IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         super(workgroupManagementController, workgroupConverter);
         this.workgroupManagementController = workgroupManagementController;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
-        ResponseEntity<Set<MeetingDto>> response = this.workgroupManagementController.getMeetingsOfWorkgroup(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.meetingConverter::toEntity).collect(toSet());
+    public Set<IEvent> getEventsOfWorkgroup(WorkgroupId workgroupId) {
+        ResponseEntity<Set<EventDto>> response = this.workgroupManagementController.getEventsOfWorkgroup(workgroupId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
-    public IMeeting getCurrentMeeting(WorkgroupId workgroupId) {
-        ResponseEntity<MeetingDto> response = this.workgroupManagementController.getCurrentMeeting(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.meetingConverter.toEntity(requireNonNull(response.getBody()));
+    public IEvent getCurrentEvent(WorkgroupId workgroupId) {
+        ResponseEntity<EventDto> response = this.workgroupManagementController.getCurrentEvent(workgroupId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.eventConverter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
-    public void extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
-        ResponseEntity<Void> response = this.workgroupManagementController.extendCurrentMeeting(workgroupId.getIdValue(), extension.toMinutes());
+    public void extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
+        ResponseEntity<Void> response = this.workgroupManagementController.extendCurrentEvent(workgroupId.getIdValue(), extension.toMinutes());
         if(response.getStatusCode() == HttpStatus.OK) return;
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();

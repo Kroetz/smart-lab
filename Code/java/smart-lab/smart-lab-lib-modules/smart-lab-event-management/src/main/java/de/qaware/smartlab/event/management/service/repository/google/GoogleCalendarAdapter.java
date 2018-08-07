@@ -7,13 +7,12 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.CalendarListEntry;
-import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.common.collect.BiMap;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.Meeting;
-import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.event.Event;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityCreationException;
@@ -24,8 +23,8 @@ import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.result.ShorteningResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
-import de.qaware.smartlab.event.management.service.repository.IMeetingManagementRepository;
-import de.qaware.smartlab.event.management.service.repository.parser.IMeetingParser;
+import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
+import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -51,15 +50,15 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Repository
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
-        name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
-        havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
+        prefix = Property.Prefix.EVENT_MANAGEMENT_REPOSITORY,
+        name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
+        havingValue = Property.Value.EventManagementRepository.GOOGLE_CALENDAR)
 @Slf4j
-public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IMeeting, MeetingId> implements IMeetingManagementRepository {
+public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IEvent, EventId> implements IEventManagementRepository {
 
     private final Calendar service;
     private final BiMap<LocationId, String> calendarIdsByLocationId;
-    private final IMeetingParser meetingParser;
+    private final IEventParser eventParser;
 
     public GoogleCalendarAdapter(
             // TODO: String literals
@@ -71,9 +70,9 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
             @Qualifier("googleCalendarLocationMapping") BiMap<LocationId, String> googleCalendarLocationMapping,
-            IMeetingParser meetingParser,
-            Set<IMeeting> initialMeetings) throws IOException {
-        super(initialMeetings);
+            IEventParser eventParser,
+            Set<IEvent> initialEvents) throws IOException {
+        super(initialEvents);
         GoogleCredential credentials = GoogleCredential.fromStream(
                 newInputStream(googleCalendarCredentialFile),
                 googleCalendarHttpTransport,
@@ -85,7 +84,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                 .setApplicationName(googleCalendarApplicationName)
                 .build();
         this.calendarIdsByLocationId = googleCalendarLocationMapping;
-        this.meetingParser = meetingParser;
+        this.eventParser = eventParser;
     }
 
     private String resolveCalendarId(LocationId locationId) throws IllegalArgumentException {
@@ -121,12 +120,12 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Set<IMeeting> findAll() {
-        return eventsToMeetings(findAllGoogleCalEvents());
+    public Set<IEvent> findAll() {
+        return googleCalEventsToSmartLabEvents(findAllGoogleCalEvents());
     }
 
-    private Set<Event> findAllGoogleCalEvents() {
-        Set<Event> foundEvents = new HashSet<>();
+    private Set<com.google.api.services.calendar.model.Event> findAllGoogleCalEvents() {
+        Set<com.google.api.services.calendar.model.Event> foundEvents = new HashSet<>();
         List<CalendarListEntry> calendars = findAllCalendars();
         for(CalendarListEntry calendar : calendars) {
             String calendarId = calendar.getId();
@@ -141,11 +140,11 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Set<IMeeting> findAll(LocationId locationId) {
-        return eventsToMeetings(findAllGoogleCalEvents(locationId));
+    public Set<IEvent> findAll(LocationId locationId) {
+        return googleCalEventsToSmartLabEvents(findAllGoogleCalEvents(locationId));
     }
 
-    private Set<Event> findAllGoogleCalEvents(LocationId locationId) {
+    private Set<com.google.api.services.calendar.model.Event> findAllGoogleCalEvents(LocationId locationId) {
         try {
             return findAllGoogleCalEvents(resolveCalendarId(locationId));
         }
@@ -156,37 +155,37 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Set<IMeeting> findAll(WorkgroupId workgroupId) {
+    public Set<IEvent> findAll(WorkgroupId workgroupId) {
         return findAll().stream()
-                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .filter(event -> event.getWorkgroupId().equals(workgroupId))
                 .collect(toSet());
     }
 
     @Override
-    public Set<IMeeting> findAllCurrent() {
-        return eventsToMeetings(findAllCurrentGoogleCalEvents());
+    public Set<IEvent> findAllCurrent() {
+        return googleCalEventsToSmartLabEvents(findAllCurrentGoogleCalEvents());
     }
 
-    private Set<Event> findAllCurrentGoogleCalEvents() {
-        Set<Event> events = findAllGoogleCalEvents();
+    private Set<com.google.api.services.calendar.model.Event> findAllCurrentGoogleCalEvents() {
+        Set<com.google.api.services.calendar.model.Event> events = findAllGoogleCalEvents();
         return events.stream()
                 .filter(this::isEventInProgress)
                 .collect(toSet());
     }
 
-    private Set<IMeeting> findAll(String calendarId) {
-        return eventsToMeetings(findAllGoogleCalEvents(calendarId));
+    private Set<IEvent> findAll(String calendarId) {
+        return googleCalEventsToSmartLabEvents(findAllGoogleCalEvents(calendarId));
     }
 
-    private Set<Event> findAllGoogleCalEvents(String calendarId) {
+    private Set<com.google.api.services.calendar.model.Event> findAllGoogleCalEvents(String calendarId) {
         return findAllGoogleCalEvents(calendarId, null, null);
     }
 
-    private Set<IMeeting> findAll(String calendarId, @Nullable Instant from, @Nullable Instant until) {
-        return eventsToMeetings(findAllGoogleCalEvents(calendarId, from, until));
+    private Set<IEvent> findAll(String calendarId, @Nullable Instant from, @Nullable Instant until) {
+        return googleCalEventsToSmartLabEvents(findAllGoogleCalEvents(calendarId, from, until));
     }
 
-    private Set<Event> findAllGoogleCalEvents(String calendarId, @Nullable Instant from, @Nullable Instant until) {
+    private Set<com.google.api.services.calendar.model.Event> findAllGoogleCalEvents(String calendarId, @Nullable Instant from, @Nullable Instant until) {
         try {
             Calendar.Events.List listRequest = this.service.events().list(calendarId);
             if(nonNull(from)) listRequest.setTimeMin(instantToDateTime(from));
@@ -206,24 +205,24 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Optional<IMeeting> findOne(MeetingId meetingId) {
+    public Optional<IEvent> findOne(EventId eventId) {
         try {
-            String calendarId = resolveCalendarId(meetingId.getLocationIdPart());
-            return findOne(meetingId.getNameIdPart(), calendarId);
+            String calendarId = resolveCalendarId(eventId.getLocationIdPart());
+            return findOne(eventId.getNameIdPart(), calendarId);
         }
         catch(IllegalArgumentException e) {
-            log.warn("Cannot find meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
+            log.warn("Cannot find event \"{}\" at location \"{}\" since it has no mapped calendar ID", eventId, eventId.getLocationIdPart(), e);
             return Optional.empty();
         }
     }
 
-    private Optional<IMeeting> findOne(String eventId, String calendarId) {
+    private Optional<IEvent> findOne(String eventId, String calendarId) {
         try {
-            Event event = this.service.events()
+            com.google.api.services.calendar.model.Event event = this.service.events()
                     .get(calendarId, eventId)
                     .execute();
             log.info("Found event \"{}\" in calendar \"{}\"", eventId, calendarId);
-            return eventToMeeting(event);
+            return googleCalEventToSmartLabEvent(event);
         }
         catch(GoogleJsonResponseException e) {
             log.info("Cannot find event \"{}\" in calendar \"{}\"", eventId, calendarId, e);
@@ -236,145 +235,146 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public Map<MeetingId, Optional<IMeeting>> findMultiple(Set<MeetingId> meetingIds) {
-        Map<MeetingId, Optional<IMeeting>> meetings = new HashMap<>();
-        for(MeetingId meetingId : meetingIds) {
-            meetings.put(meetingId, findOne(meetingId));
+    public Map<EventId, Optional<IEvent>> findMultiple(Set<EventId> eventIds) {
+        Map<EventId, Optional<IEvent>> events = new HashMap<>();
+        for(EventId eventId : eventIds) {
+            events.put(eventId, findOne(eventId));
         }
-        return meetings;
+        return events;
     }
 
     @Override
-    public Optional<IMeeting> findCurrent(LocationId locationId) {
+    public Optional<IEvent> findCurrent(LocationId locationId) {
         return findCurrentGoogleCalEvent(locationId)
-                .map(this::eventToMeeting)
+                .map(this::googleCalEventToSmartLabEvent)
                 .orElse(Optional.empty());
     }
 
-    private Optional<Event> findCurrentGoogleCalEvent(LocationId locationId) {
-        Set<Event> events = findAllGoogleCalEvents(locationId);
+    private Optional<com.google.api.services.calendar.model.Event> findCurrentGoogleCalEvent(LocationId locationId) {
+        Set<com.google.api.services.calendar.model.Event> events = findAllGoogleCalEvents(locationId);
         return events.stream()
                 .filter(this::isEventInProgress)
                 .findFirst();
     }
 
     @Override
-    public Optional<IMeeting> findCurrent(WorkgroupId workgroupId) {
+    public Optional<IEvent> findCurrent(WorkgroupId workgroupId) {
         return findAllCurrent().stream()
-                .filter(meeting -> meeting.getWorkgroupId().equals(workgroupId))
+                .filter(event -> event.getWorkgroupId().equals(workgroupId))
                 .findFirst();
     }
 
     @Override
-    public IMeeting create(IMeeting meeting) {
+    public IEvent create(IEvent event) {
         try {
             // TODO: Meaningful exception message
-            if(isCollidingWithOtherMeetings(meeting)) throw new EntityConflictException();
-            String calendarId = resolveCalendarId(meeting.getId().getLocationIdPart());
-            Event createdEvent = this.service.events().insert(calendarId, meetingToEvent(meeting)).execute();
-            log.info("Created meeting \"{}\"", meeting);
+            if(isCollidingWithOtherEvents(event)) throw new EntityConflictException();
+            String calendarId = resolveCalendarId(event.getId().getLocationIdPart());
+            com.google.api.services.calendar.model.Event createdEvent =
+                    this.service.events().insert(calendarId, smartLabEventToGoolgeCalEvent(event)).execute();
+            log.info("Created event \"{}\"", event);
             // TODO: Meaningful exception message
-            return eventToMeeting(createdEvent).orElseThrow(EntityCreationException::new);
+            return googleCalEventToSmartLabEvent(createdEvent).orElseThrow(EntityCreationException::new);
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot create meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meeting, meeting.getLocationId());
+            log.error("Cannot create event \"{}\" at location \"{}\" since it has no mapped calendar ID", event, event.getLocationId());
             // TODO: Meaningful exception message
             throw new EntityCreationException(e);
         }
         catch(IOException e) {
-            log.error("I/O error while creating meeting \"{}\"", meeting);
+            log.error("I/O error while creating event \"{}\"", event);
             // TODO: Meaningful exception message
             throw new EntityCreationException(e);
         }
     }
 
-    private boolean isCollidingWithOtherMeetings(IMeeting meetingToCheck) throws IllegalArgumentException {
-        String calendarId = resolveCalendarId(meetingToCheck.getId().getLocationIdPart());
-        Set<IMeeting> collidingMeetings = findAll(calendarId, meetingToCheck.getStart(), meetingToCheck.getEnd())
+    private boolean isCollidingWithOtherEvents(IEvent eventToCheck) throws IllegalArgumentException {
+        String calendarId = resolveCalendarId(eventToCheck.getId().getLocationIdPart());
+        Set<IEvent> collidingEvents = findAll(calendarId, eventToCheck.getStart(), eventToCheck.getEnd())
                 .stream()
-                .filter(meeting -> !meeting.getId().equals(meetingToCheck.getId()))
+                .filter(event -> !event.getId().equals(eventToCheck.getId()))
                 .collect(toSet());
-        return !collidingMeetings.isEmpty();
+        return !collidingEvents.isEmpty();
     }
 
     @Override
-    public Set<IMeeting> create(Set<IMeeting> meetings) {
-        Set<IMeeting> createdMeetings = new HashSet<>();
-        for(IMeeting meeting : meetings) {
-            createdMeetings.add(create(meeting));
+    public Set<IEvent> create(Set<IEvent> events) {
+        Set<IEvent> createdEvents = new HashSet<>();
+        for(IEvent event : events) {
+            createdEvents.add(create(event));
         }
-        return createdMeetings;
+        return createdEvents;
     }
 
     @Override
-    public DeletionResult delete(MeetingId meetingId) {
+    public DeletionResult delete(EventId eventId) {
         try {
-            String calendarId = resolveCalendarId(meetingId.getLocationIdPart());
-            this.service.events().delete(calendarId, meetingId.getNameIdPart()).execute();
-            log.info("Deleted meeting \"{}\"", meetingId);
+            String calendarId = resolveCalendarId(eventId.getLocationIdPart());
+            this.service.events().delete(calendarId, eventId.getNameIdPart()).execute();
+            log.info("Deleted event \"{}\"", eventId);
             return DeletionResult.SUCCESS;
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot delete meeting \"{}\" at location \"{}\" since it has no mapped calendar ID", meetingId, meetingId.getLocationIdPart(), e);
+            log.error("Cannot delete event \"{}\" at location \"{}\" since it has no mapped calendar ID", eventId, eventId.getLocationIdPart(), e);
             return DeletionResult.ERROR;
         }
         catch(GoogleJsonResponseException e) {
-            log.error("Cannot delete meeting \"{}\" at location \"{}\" since it does not exist", meetingId, meetingId.getLocationIdPart(), e);
+            log.error("Cannot delete event \"{}\" at location \"{}\" since it does not exist", eventId, eventId.getLocationIdPart(), e);
             return DeletionResult.ERROR;
         }
         catch(IOException e) {
-            log.error("I/O error while deleting meeting \"{}\"", meetingId, e);
+            log.error("I/O error while deleting event \"{}\"", eventId, e);
             return DeletionResult.ERROR;
         }
     }
 
     @Override
-    public ShorteningResult shortenMeeting(IMeeting meeting, Duration shortening) {
-        IMeeting shortenedMeeting = meeting.withEnd(meeting.getEnd().minus(shortening));
-        String calendarId = resolveCalendarId(shortenedMeeting.getId().getLocationIdPart());
+    public ShorteningResult shortenEvent(IEvent event, Duration shortening) {
+        IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
+        String calendarId = resolveCalendarId(shortenedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    shortenedMeeting.getId().getNameIdPart(),
-                    meetingToEvent(shortenedMeeting)).execute();
+                    shortenedEvent.getId().getNameIdPart(),
+                    smartLabEventToGoolgeCalEvent(shortenedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while shortening meeting \"{}\"", meeting, e);
+            log.error("I/O error while shortening event \"{}\"", event, e);
             return ShorteningResult.ERROR;
         }
         return ShorteningResult.SUCCESS;
     }
 
     @Override
-    public ExtensionResult extendMeeting(IMeeting meeting, Duration extension) {
-        IMeeting extendedMeeting = meeting.withEnd(meeting.getEnd().plus(extension));
-        if(isCollidingWithOtherMeetings(extendedMeeting)) return ExtensionResult.CONFLICT;
-        String calendarId = resolveCalendarId(extendedMeeting.getId().getLocationIdPart());
+    public ExtensionResult extendEvent(IEvent event, Duration extension) {
+        IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
+        if(isCollidingWithOtherEvents(extendedEvent)) return ExtensionResult.CONFLICT;
+        String calendarId = resolveCalendarId(extendedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    extendedMeeting.getId().getNameIdPart(),
-                    meetingToEvent(extendedMeeting)).execute();
+                    extendedEvent.getId().getNameIdPart(),
+                    smartLabEventToGoolgeCalEvent(extendedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while extending meeting \"{}\"", meeting, e);
+            log.error("I/O error while extending event \"{}\"", event, e);
             return ExtensionResult.ERROR;
         }
         return ExtensionResult.SUCCESS;
     }
 
     @Override
-    public ShiftResult shiftMeeting(IMeeting meeting, Duration shift) {
-        IMeeting shiftedMeeting = meeting.withStartAndEnd(
-                meeting.getStart().plus(shift),
-                meeting.getEnd().plus(shift));
-        if(isCollidingWithOtherMeetings(shiftedMeeting)) return ShiftResult.CONFLICT;
-        String calendarId = resolveCalendarId(shiftedMeeting.getId().getLocationIdPart());
+    public ShiftResult shiftEvent(IEvent event, Duration shift) {
+        IEvent shiftedEvent = event.withStartAndEnd(
+                event.getStart().plus(shift),
+                event.getEnd().plus(shift));
+        if(isCollidingWithOtherEvents(shiftedEvent)) return ShiftResult.CONFLICT;
+        String calendarId = resolveCalendarId(shiftedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
                     calendarId,
-                    shiftedMeeting.getId().getNameIdPart(),
-                    meetingToEvent(shiftedMeeting)).execute();
+                    shiftedEvent.getId().getNameIdPart(),
+                    smartLabEventToGoolgeCalEvent(shiftedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while shifting meeting \"{}\"", meeting, e);
+            log.error("I/O error while shifting event \"{}\"", event, e);
             return ShiftResult.ERROR;
         }
         return ShiftResult.SUCCESS;
@@ -394,45 +394,45 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         return this.service.calendarList().get(calendarId).execute();
     }
 
-    private Set<IMeeting> eventsToMeetings(Set<Event> events) {
+    private Set<IEvent> googleCalEventsToSmartLabEvents(Set<com.google.api.services.calendar.model.Event> events) {
         return events
                 .stream()
-                .map(this::eventToMeeting)
+                .map(this::googleCalEventToSmartLabEvent)
                 .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
                 .collect(toSet());
     }
 
-    private Optional<IMeeting> eventToMeeting(Event event) {
+    private Optional<IEvent> googleCalEventToSmartLabEvent(com.google.api.services.calendar.model.Event event) {
         String description = event.getDescription();
         description = isNull(description) ? EMPTY : description;
-        IMeeting parsedMeeting;
+        IEvent parsedEvent;
         try {
-            parsedMeeting = this.meetingParser.parse(description);
+            parsedEvent = this.eventParser.parse(description);
         }
         catch(InvalidSyntaxException e) {
-            log.error("Failed to create Smart Lab meeting from Google calendar event {} because of invalid configuration syntax", event, e);
+            log.error("Failed to create Smart Lab event from Google calendar event {} because of invalid configuration syntax", event, e);
             return Optional.empty();
         }
-        return Optional.of(Meeting.builder()
-                .id(MeetingId.of(event.getId(), LocationId.of(event.getLocation())))
+        return Optional.of(Event.builder()
+                .id(EventId.of(event.getId(), LocationId.of(event.getLocation())))
                 .title(event.getSummary())
                 .start(eventDateTimeToInstant(event.getStart()))
                 .end(eventDateTimeToInstant(event.getEnd()))
                 .build()
-                .merge(parsedMeeting));
+                .merge(parsedEvent));
     }
 
-    private Event meetingToEvent(IMeeting meeting) {
-        String meetingConfigString = this.meetingParser.unparse(meeting);
-        return new Event()
-            .setSummary(meeting.getTitle())
-            .setStart(instantToEventDateTime(meeting.getStart()))
-            .setEnd(instantToEventDateTime(meeting.getEnd()))
-            .setLocation(meeting.getLocationId().getIdValue())
-            .setDescription(meetingConfigString);
+    private com.google.api.services.calendar.model.Event smartLabEventToGoolgeCalEvent(IEvent event) {
+        String eventConfigString = this.eventParser.unparse(event);
+        return new com.google.api.services.calendar.model.Event()
+            .setSummary(event.getTitle())
+            .setStart(instantToEventDateTime(event.getStart()))
+            .setEnd(instantToEventDateTime(event.getEnd()))
+            .setLocation(event.getLocationId().getIdValue())
+            .setDescription(eventConfigString);
     }
 
-    private boolean isEventInProgress(Event event) {
+    private boolean isEventInProgress(com.google.api.services.calendar.model.Event event) {
         return isNowInProgress(
                 eventDateTimeToInstant(event.getStart()),
                 eventDateTimeToInstant(event.getEnd()));

@@ -26,29 +26,29 @@ public class GuiConfiguration {
 
     @Bean
     // TODO: String literal
-    @Qualifier("locationStatusMeetingExtension")
-    public Duration locationStatusMeetingExtension() {
-        return this.guiProperties.getCurrentMeetingExtensionInMinutes();
+    @Qualifier("locationStatusEventExtension")
+    public Duration locationStatusEventExtension() {
+        return this.guiProperties.getCurrentEventExtensionInMinutes();
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.gui")
     public static class GuiProperties {
 
-        private static final int DEFAULT_CURRENT_MEETING_EXTENSION_IN_MINUTES = 1;
+        private static final int DEFAULT_CURRENT_EVENT_EXTENSION_IN_MINUTES = 1;
 
-        private int currentMeetingExtensionInMinutes;
+        private int currentEventExtensionInMinutes;
 
         public GuiProperties() {
-            this.currentMeetingExtensionInMinutes = DEFAULT_CURRENT_MEETING_EXTENSION_IN_MINUTES;
+            this.currentEventExtensionInMinutes = DEFAULT_CURRENT_EVENT_EXTENSION_IN_MINUTES;
         }
 
-        public Duration getCurrentMeetingExtensionInMinutes() {
-            return Duration.ofMinutes(this.currentMeetingExtensionInMinutes);
+        public Duration getCurrentEventExtensionInMinutes() {
+            return Duration.ofMinutes(this.currentEventExtensionInMinutes);
         }
 
-        public void setCurrentMeetingExtensionInMinutes(int currentMeetingExtensionInMinutes) {
-            this.currentMeetingExtensionInMinutes = currentMeetingExtensionInMinutes;
+        public void setCurrentEventExtensionInMinutes(int currentEventExtensionInMinutes) {
+            this.currentEventExtensionInMinutes = currentEventExtensionInMinutes;
         }
     }
 }

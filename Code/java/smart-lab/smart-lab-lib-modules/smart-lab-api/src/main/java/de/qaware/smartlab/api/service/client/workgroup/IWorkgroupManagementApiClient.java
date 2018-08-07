@@ -1,7 +1,7 @@
 package de.qaware.smartlab.api.service.client.workgroup;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.api.service.constant.workgroup.WorkgroupManagementApiConstants;
@@ -46,17 +46,17 @@ public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApi
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_MEETINGS_OF_WORKGROUP)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_EVENTS_OF_WORKGROUP)
     @ResponseBody
-    ResponseEntity<Set<MeetingDto>> getMeetingsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID)String workgroupId);
+    ResponseEntity<Set<EventDto>> getEventsOfWorkgroup(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID)String workgroupId);
 
-    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
+    @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_CURRENT_EVENT)
     @ResponseBody
-    ResponseEntity<MeetingDto> getCurrentMeeting(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
+    ResponseEntity<EventDto> getCurrentEvent(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId);
 
-    @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
+    @PostMapping(WorkgroupManagementApiConstants.MAPPING_EXTEND_CURRENT_EVENT)
     @ResponseBody
-    ResponseEntity<Void> extendCurrentMeeting(
+    ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
 

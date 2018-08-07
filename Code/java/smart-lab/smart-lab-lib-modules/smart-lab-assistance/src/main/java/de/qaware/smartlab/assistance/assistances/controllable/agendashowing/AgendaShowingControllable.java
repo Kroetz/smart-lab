@@ -50,13 +50,13 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
         // TODO: Exception message
         URL guiServiceBaseUrl = this.guiServiceBaseUrlGetter.getBaseUrl();
-        URL meetingAgendaUrl;
+        URL eventAgendaUrl;
         try {
-            meetingAgendaUrl = new URL(
+            eventAgendaUrl = new URL(
                     guiServiceBaseUrl.getProtocol(),
                     guiServiceBaseUrl.getHost(),
                     guiServiceBaseUrl.getPort(),
-                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_MEETING_AGENDA_PAGE, context.getLocation().map(location -> location.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
+                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_EVENT_AGENDA_PAGE, context.getLocation().map(location -> location.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
         } catch (MalformedURLException e) {
             // TODO: Logging and appropriate exception
             throw new RuntimeException(e);
@@ -64,7 +64,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 config.getDisplayId(),
-                asList(meetingAgendaUrl));
+                asList(eventAgendaUrl));
         this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
     }
 

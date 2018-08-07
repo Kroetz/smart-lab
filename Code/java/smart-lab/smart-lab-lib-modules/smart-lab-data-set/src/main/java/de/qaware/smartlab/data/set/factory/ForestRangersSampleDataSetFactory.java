@@ -17,7 +17,7 @@ import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.*;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -50,7 +50,7 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY_BIG = DeviceId.of("green-display-big");
     public static final DeviceId DEVICE_ID_GREEN_DISPLAY_SMALL = DeviceId.of("green-display-small");
     public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
-    public static final MeetingId MEETING_ID_BARK_BEETLE = MeetingId.of("bark-beetle", LOCATION_ID_GREEN);
+    public static final EventId EVENT_ID_BARK_BEETLE = EventId.of("bark-beetle", LOCATION_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "smart-lab-green-delegate-microservice";
 
     private final IAssistanceInfo websiteDisplayingInfo;
@@ -114,12 +114,12 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() throws DataSetException {
-        Set<IMeeting> meetings = new HashSet<>();
-        List<IAgendaItem> forestRangersMeetingAgenda = new ArrayList<>();
-        forestRangersMeetingAgenda.add(AgendaItem.of("Show potential damage"));
-        forestRangersMeetingAgenda.add(AgendaItem.of("Show increase in population"));
-        forestRangersMeetingAgenda.add(AgendaItem.of("Laugh together"));
+    public Set<IEvent> createEventSet() throws DataSetException {
+        Set<IEvent> events = new HashSet<>();
+        List<IAgendaItem> barkBeetleEventAgenda = new ArrayList<>();
+        barkBeetleEventAgenda.add(AgendaItem.of("Show potential damage"));
+        barkBeetleEventAgenda.add(AgendaItem.of("Show increase in population"));
+        barkBeetleEventAgenda.add(AgendaItem.of("Laugh together"));
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -143,15 +143,15 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
-        meetings.add(Meeting.of(
-                MEETING_ID_BARK_BEETLE,
+        events.add(Event.of(
+                EVENT_ID_BARK_BEETLE,
                 "Meeting about the danger of the bark beetle",
                 WORKGROUP_ID_FOREST_RANGERS,
-                forestRangersMeetingAgenda,
+                barkBeetleEventAgenda,
                 configs,
                 timeBase.plusSeconds(60),
                 timeBase.plusSeconds(360)));
-        return meetings;
+        return events;
     }
 
     @Override

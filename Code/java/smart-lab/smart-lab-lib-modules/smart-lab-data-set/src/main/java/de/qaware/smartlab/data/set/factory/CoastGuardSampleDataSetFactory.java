@@ -21,7 +21,7 @@ import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.*;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -58,8 +58,8 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
     public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
     public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
-    public static final MeetingId MEETING_ID_WHALES = MeetingId.of("whales", LOCATION_ID_BLUE);
-    public static final MeetingId MEETING_ID_WHIRLPOOLS = MeetingId.of("whirlpools", LOCATION_ID_BLUE);
+    public static final EventId EVENT_ID_WHALES = EventId.of("whales", LOCATION_ID_BLUE);
+    public static final EventId EVENT_ID_WHIRLPOOLS = EventId.of("whirlpools", LOCATION_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "smart-lab-blue-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
@@ -129,12 +129,12 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() throws DataSetException {
-        Set<IMeeting> meetings = new HashSet<>();
-        List<IAgendaItem> whaleMeetingAgenda = new ArrayList<>();
-        whaleMeetingAgenda.add(AgendaItem.of("Show critical areas"));
-        whaleMeetingAgenda.add(AgendaItem.of("Explain whale anatomy"));
-        whaleMeetingAgenda.add(AgendaItem.of("Drink coffee"));
+    public Set<IEvent> createEventSet() throws DataSetException {
+        Set<IEvent> events = new HashSet<>();
+        List<IAgendaItem> whaleEventAgenda = new ArrayList<>();
+        whaleEventAgenda.add(AgendaItem.of("Show critical areas"));
+        whaleEventAgenda.add(AgendaItem.of("Explain whale anatomy"));
+        whaleEventAgenda.add(AgendaItem.of("Drink coffee"));
         Set<IAssistanceConfiguration> whaleConfigs = new HashSet<>();
         whaleConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -174,19 +174,19 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        meetings.add(Meeting.of(
-                MEETING_ID_WHALES,
+        events.add(Event.of(
+                EVENT_ID_WHALES,
                 "Meeting about preventing illegal whale hunting",
                 WORKGROUP_ID_COAST_GUARD,
-                whaleMeetingAgenda,
+                whaleEventAgenda,
                 whaleConfigs,
                 timeBase.plusSeconds(0),
                 timeBase.plusSeconds(300)));
 
-        List<IAgendaItem> whirlpoolMeetingAgenda = new ArrayList<>();
-        whirlpoolMeetingAgenda.add(AgendaItem.of("Explain how whirlpools develop"));
-        whirlpoolMeetingAgenda.add(AgendaItem.of("Show how you can escape whirlpools"));
-        whirlpoolMeetingAgenda.add(AgendaItem.of("Admire the fine weather"));
+        List<IAgendaItem> whirlpoolEventAgenda = new ArrayList<>();
+        whirlpoolEventAgenda.add(AgendaItem.of("Explain how whirlpools develop"));
+        whirlpoolEventAgenda.add(AgendaItem.of("Show how you can escape whirlpools"));
+        whirlpoolEventAgenda.add(AgendaItem.of("Admire the fine weather"));
         Set<IAssistanceConfiguration> whirlpoolConfigs = new HashSet<>();
         whirlpoolConfigs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -226,16 +226,16 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
-        meetings.add(Meeting.of(
-                MEETING_ID_WHIRLPOOLS,
+        events.add(Event.of(
+                EVENT_ID_WHIRLPOOLS,
                 "Meeting about dangers of whirlpools",
                 WORKGROUP_ID_COAST_GUARD,
-                whirlpoolMeetingAgenda,
+                whirlpoolEventAgenda,
                 whirlpoolConfigs,
                 timeBase.plusSeconds(360),
                 timeBase.plusSeconds(660)));
 
-        return meetings;
+        return events;
     }
 
     @Override

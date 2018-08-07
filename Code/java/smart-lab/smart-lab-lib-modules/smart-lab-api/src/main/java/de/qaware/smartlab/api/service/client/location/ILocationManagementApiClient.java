@@ -3,7 +3,7 @@ package de.qaware.smartlab.api.service.client.location;
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -46,17 +46,17 @@ public interface ILocationManagementApiClient extends IBasicEntityManagementApiC
     @ResponseBody
     ResponseEntity<Void> delete(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
-    @GetMapping(LocationManagementApiConstants.MAPPING_GET_MEETINGS_AT_LOCATION)
+    @GetMapping(LocationManagementApiConstants.MAPPING_GET_EVENTS_AT_LOCATION)
     @ResponseBody
-    ResponseEntity<Set<MeetingDto>> getMeetingsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
+    ResponseEntity<Set<EventDto>> getEventsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
-    @GetMapping(LocationManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
+    @GetMapping(LocationManagementApiConstants.MAPPING_GET_CURRENT_EVENT)
     @ResponseBody
-    ResponseEntity<MeetingDto> getCurrentMeeting(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
+    ResponseEntity<EventDto> getCurrentEvent(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId);
 
-    @PostMapping(LocationManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
+    @PostMapping(LocationManagementApiConstants.MAPPING_EXTEND_CURRENT_EVENT)
     @ResponseBody
-    ResponseEntity<Void> extendCurrentMeeting(
+    ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(LocationManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes);
 

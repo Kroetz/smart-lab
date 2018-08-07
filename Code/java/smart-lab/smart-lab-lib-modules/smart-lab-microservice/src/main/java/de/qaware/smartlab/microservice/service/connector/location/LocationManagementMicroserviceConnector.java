@@ -6,8 +6,8 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
@@ -38,22 +38,22 @@ import static java.util.stream.Collectors.toSet;
 public class LocationManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<ILocation, LocationId, LocationDto> implements ILocationManagementService {
 
     private final ILocationManagementApiClient locationManagementApiClient;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public LocationManagementMicroserviceConnector(
             ILocationManagementApiClient locationManagementApiClient,
             IDtoConverter<ILocation, LocationDto> locationConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         super(locationManagementApiClient, locationConverter);
         this.locationManagementApiClient = locationManagementApiClient;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsAtLocation(LocationId locationId) {
+    public Set<IEvent> getEventsAtLocation(LocationId locationId) {
         try {
-            return requireNonNull(this.locationManagementApiClient.getMeetingsAtLocation(locationId.getIdValue()).getBody()).stream()
-                    .map(this.meetingConverter::toEntity)
+            return requireNonNull(this.locationManagementApiClient.getEventsAtLocation(locationId.getIdValue()).getBody()).stream()
+                    .map(this.eventConverter::toEntity)
                     .collect(toSet());
         }
         catch(FeignException e) {
@@ -65,11 +65,11 @@ public class LocationManagementMicroserviceConnector extends AbstractBasicEntity
     }
 
     @Override
-    public IMeeting getCurrentMeeting(LocationId locationId) {
+    public IEvent getCurrentEvent(LocationId locationId) {
         try {
-            MeetingDto currentMeeting = this.locationManagementApiClient.getCurrentMeeting(locationId.getIdValue()).getBody();
-            requireNonNull(currentMeeting);
-            return this.meetingConverter.toEntity(currentMeeting);
+            EventDto currentEvent = this.locationManagementApiClient.getCurrentEvent(locationId.getIdValue()).getBody();
+            requireNonNull(currentEvent);
+            return this.eventConverter.toEntity(currentEvent);
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {
@@ -80,9 +80,9 @@ public class LocationManagementMicroserviceConnector extends AbstractBasicEntity
     }
 
     @Override
-    public void extendCurrentMeeting(LocationId locationId, Duration extension) {
+    public void extendCurrentEvent(LocationId locationId, Duration extension) {
         try {
-            this.locationManagementApiClient.extendCurrentMeeting(locationId.getIdValue(), extension.toMinutes());
+            this.locationManagementApiClient.extendCurrentEvent(locationId.getIdValue(), extension.toMinutes());
         }
         catch(FeignException e) {
             if(e.status() == HttpStatus.NOT_FOUND.value()) {

@@ -25,12 +25,12 @@ public class MinuteTakingTriggerable extends AbstractAssistanceTriggerable {
     }
 
     @Override
-    public void reactOnTriggerStartMeeting(IAssistanceService assistanceService, final IAssistanceContext context) {
+    public void reactOnTriggerStartEvent(IAssistanceService assistanceService, final IAssistanceContext context) {
         this.beginAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 
     @Override
-    public void reactOnTriggerStopMeeting(IAssistanceService assistanceService, final IAssistanceContext context) {
+    public void reactOnTriggerStopEvent(IAssistanceService assistanceService, final IAssistanceContext context) {
         this.endAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
     }
 }

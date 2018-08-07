@@ -8,8 +8,8 @@ import de.qaware.smartlab.core.data.device.IDevice;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -32,12 +32,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     public static final String ID = "fileSourced";
 
     private final ObjectMapper mapper;
-    private final Path meetingDataSource;
+    private final Path eventDataSource;
     private final Path locationDataSource;
     private final Path deviceDataSource;
     private final Path workgroupDataSource;
     private final Path personDataSource;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
     private final IDtoConverter<ILocation, LocationDto> locationConverter;
     private final IDtoConverter<IDevice, DeviceDto> deviceConverter;
     private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
@@ -45,12 +45,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
 
     @Builder
     public FileSourcedDataSetFactory(
-            Path meetingDataSource,
+            Path eventDataSource,
             Path locationDataSource,
             Path deviceDataSource,
             Path workgroupDataSource,
             Path personDataSource,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter,
+            IDtoConverter<IEvent, EventDto> eventConverter,
             IDtoConverter<ILocation, LocationDto> locationConverter,
             IDtoConverter<IDevice, DeviceDto> deviceConverter,
             IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
@@ -63,12 +63,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
         this.mapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule());
         mapper.findAndRegisterModules();
-        this.meetingDataSource = meetingDataSource;
+        this.eventDataSource = eventDataSource;
         this.locationDataSource = locationDataSource;
         this.deviceDataSource = deviceDataSource;
         this.workgroupDataSource = workgroupDataSource;
         this.personDataSource = personDataSource;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
         this.locationConverter = locationConverter;
         this.deviceConverter = deviceConverter;
         this.workgroupConverter = workgroupConverter;
@@ -76,9 +76,9 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() throws DataSetException {
-        if(isNull(this.meetingDataSource)) return new HashSet<>();
-        return readMeetingsFromFile(this.meetingDataSource);
+    public Set<IEvent> createEventSet() throws DataSetException {
+        if(isNull(this.eventDataSource)) return new HashSet<>();
+        return readEventsFromFile(this.eventDataSource);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
         return readPersonsFromFile(this.personDataSource);
     }
 
-    private Set<IMeeting> readMeetingsFromFile(Path path) throws DataSetException {
-        return readEntitiesFromFile(path, MeetingDto.class, this.meetingConverter);
+    private Set<IEvent> readEventsFromFile(Path path) throws DataSetException {
+        return readEntitiesFromFile(path, EventDto.class, this.eventConverter);
     }
 
     private Set<ILocation> readLocationsFromFile(Path path) throws DataSetException {

@@ -5,6 +5,6 @@ import org.springframework.ui.Model;
 
 public interface IGuiBusinessLogic {
 
-    String getCurrentMeetingStatusPage(LocationId locationId, Model model);
-    String getCurrentMeetingAgendaPage(LocationId locationId, Model model);
+    String getCurrentEventStatusPage(LocationId locationId, Model model);
+    String getCurrentEventAgendaPage(LocationId locationId, Model model);
 }

@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
 import de.qaware.smartlab.core.data.IDataSetProvider;
 import de.qaware.smartlab.core.data.device.IDevice;
 import de.qaware.smartlab.core.data.location.ILocation;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
@@ -46,7 +46,7 @@ public class InitialDataConfiguration {
     @PostConstruct
     private void createDataSetProvider() {
         this.dataSetProvider = dataSetProviderFactory.of(
-                properties.getInitialMeetings(),
+                properties.getInitialEvents(),
                 properties.getInitialLocations(),
                 properties.getInitialDevices(),
                 properties.getInitialWorkgroups(),
@@ -54,8 +54,8 @@ public class InitialDataConfiguration {
     }
 
     @Bean
-    public Set<IMeeting> initialMeetings() {
-        return this.dataSetProvider.getMeetings();
+    public Set<IEvent> initialEvents() {
+        return this.dataSetProvider.getEvents();
     }
 
     @Bean
@@ -82,32 +82,32 @@ public class InitialDataConfiguration {
     @ConfigurationProperties(prefix = "smart-lab.app.data", ignoreInvalidFields = true)
     public static class Properties {
 
-        private static final List<String> DEFAULT_INITIAL_MEETINGS = Collections.emptyList();
+        private static final List<String> DEFAULT_INITIAL_EVENTS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_LOCATIONS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_DEVICES = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_WORKGROUPS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_PERSONS = Collections.emptyList();
 
-        private List<String> initialMeetings;
+        private List<String> initialEvents;
         private List<String> initialLocations;
         private List<String> initialDevices;
         private List<String> initialWorkgroups;
         private List<String> initialPersons;
 
         public Properties() {
-            this.initialMeetings = DEFAULT_INITIAL_MEETINGS;
+            this.initialEvents = DEFAULT_INITIAL_EVENTS;
             this.initialLocations = DEFAULT_INITIAL_LOCATIONS;
             this.initialDevices = DEFAULT_INITIAL_DEVICES;
             this.initialWorkgroups = DEFAULT_INITIAL_WORKGROUPS;
             this.initialPersons = DEFAULT_INITIAL_PERSONS;
         }
 
-        public List<String> getInitialMeetings() {
-            return initialMeetings;
+        public List<String> getInitialEvents() {
+            return initialEvents;
         }
 
-        public void setInitialMeetings(List<String> initialMeetings) {
-            this.initialMeetings = initialMeetings;
+        public void setInitialEvents(List<String> initialEvents) {
+            this.initialEvents = initialEvents;
         }
 
         public List<String> getInitialLocations() {

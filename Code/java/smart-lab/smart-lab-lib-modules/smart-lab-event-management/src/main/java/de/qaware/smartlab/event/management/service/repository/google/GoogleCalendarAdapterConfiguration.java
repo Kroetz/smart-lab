@@ -30,9 +30,9 @@ import static java.nio.file.Paths.get;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MEETING_MANAGEMENT_REPOSITORY,
-        name = Property.Name.MEETING_MANAGEMENT_REPOSITORY,
-        havingValue = Property.Value.MeetingManagementRepository.GOOGLE_CALENDAR)
+        prefix = Property.Prefix.EVENT_MANAGEMENT_REPOSITORY,
+        name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
+        havingValue = Property.Value.EventManagementRepository.GOOGLE_CALENDAR)
 @EnableConfigurationProperties(GoogleCalendarAdapterConfiguration.Properties.class)
 public class GoogleCalendarAdapterConfiguration {
 
@@ -90,7 +90,7 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.meeting-management.google-calendar")
+    @ConfigurationProperties(prefix = "smart-lab.event-management.google-calendar")
     @Validated
     public static class Properties {
 

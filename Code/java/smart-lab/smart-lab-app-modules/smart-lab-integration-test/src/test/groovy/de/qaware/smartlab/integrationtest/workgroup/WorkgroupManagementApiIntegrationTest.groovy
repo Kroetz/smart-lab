@@ -1,8 +1,8 @@
 package de.qaware.smartlab.integrationtest.workgroup
 
-import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
+import de.qaware.smartlab.api.service.connector.event.IEventManagementService
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService
-import de.qaware.smartlab.core.data.meeting.IMeeting
+import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto
@@ -30,7 +30,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
     private IWorkgroupManagementService workgroupManagementService
 
     @Autowired
-    private IMeetingManagementService meetingManagementService
+    private IEventManagementService eventManagementService
 
     @Autowired
     private CoastGuardSampleDataSetFactory coastGuardDataFactory
@@ -46,8 +46,8 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
 
     @Autowired
     // TODO: String literal
-    @Qualifier("maxMeetingDuration")
-    private Duration maxMeetingDuration;
+    @Qualifier("maxEventDuration")
+    private Duration maxEventDuration;
 
     @Override
     def setupDataForFindAll_withExisting() {
@@ -119,317 +119,317 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         entityIdForDelete_withoutExisting = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
     }
 
-    def "Get a set of all meetings of a specific workgroup when the workgroup has meetings"() {
+    def "Get a set of all events of a specific workgroup when the workgroup has events"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup and another workgroup have meetings"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsOfWorkgroup = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "The requested workgroup and another workgroup have events"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS),
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        def eventsOfWorkgroup = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings of the workgroup is requested"
-        def foundMeetings = workgroupManagementService.getMeetingsOfWorkgroup(workgroupId)
+        when: "The set of events of the workgroup is requested"
+        def foundEvents = workgroupManagementService.getEventsOfWorkgroup(workgroupId)
 
         then: "The returned set equals the appropriate part of that one that was used to populate the repository"
-        foundMeetings == meetingsOfWorkgroup
+        foundEvents == eventsOfWorkgroup
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get a set of all meetings of a specific workgroup when the workgroup has no meetings"() {
+    def "Get a set of all events of a specific workgroup when the workgroup has no events"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "Only other workgroups than the requested one have meetings"
-        def meetings = new HashSet<IMeeting>(asList(
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsOfWorkgroup = new HashSet<IMeeting>()
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "Only other workgroups than the requested one have events"
+        def events = new HashSet<IEvent>(asList(
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        def eventsOfWorkgroup = new HashSet<IEvent>()
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings of the workgroup is requested"
-        def foundMeetings = workgroupManagementService.getMeetingsOfWorkgroup(workgroupId)
+        when: "The set of events of the workgroup is requested"
+        def foundEvents = workgroupManagementService.getEventsOfWorkgroup(workgroupId)
 
         then: "The returned set is empty"
-        foundMeetings == meetingsOfWorkgroup
+        foundEvents == eventsOfWorkgroup
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get a set of all meetings of a specific workgroup when a workgroup with that ID does not exist"() {
+    def "Get a set of all events of a specific workgroup when a workgroup with that ID does not exist"() {
 
         given: "A workgroup with the requested workgroup ID does not exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
 
-        and: "Several other workgroups have meetings"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "Several other workgroups have events"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS),
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings of the workgroup is requested"
-        workgroupManagementService.getMeetingsOfWorkgroup(workgroupId)
+        when: "The set of events of the workgroup is requested"
+        workgroupManagementService.getEventsOfWorkgroup(workgroupId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get the current meeting of a specific workgroup when the workgroup currently has a meeting"() {
+    def "Get the current event of a specific workgroup when the workgroup currently has a event"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup and another workgroup currently have a meeting"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
-        def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "The requested workgroup and another workgroup currently have a event"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
+        def currentEvent = coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES)
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The current meeting of the workgroup is requested"
-        def foundMeeting = workgroupManagementService.getCurrentMeeting(workgroupId)
+        when: "The current event of the workgroup is requested"
+        def foundEvent = workgroupManagementService.getCurrentEvent(workgroupId)
 
-        then: "The meeting equals the appropriate one that was initially put into the repository"
-        foundMeeting == currentMeeting
+        then: "The event equals the appropriate one that was initially put into the repository"
+        foundEvent == currentEvent
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get the current meeting of a specific workgroup when the workgroup currently has no meeting"() {
+    def "Get the current event of a specific workgroup when the workgroup currently has no event"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "Another workgroup currently have a meeting"
-        def meetingId = astronautsDataFactory.MEETING_ID_MARS
-        def meeting = astronautsDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementService.create(meeting)
+        and: "Another workgroup currently have a event"
+        def eventId = astronautsDataFactory.EVENT_ID_MARS
+        def event = astronautsDataFactory.createEventMap().get(eventId)
+        eventManagementService.create(event)
 
-        when: "The current meeting of the workgroup is requested"
-        workgroupManagementService.getCurrentMeeting(workgroupId)
+        when: "The current event of the workgroup is requested"
+        workgroupManagementService.getCurrentEvent(workgroupId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        meetingManagementService.delete(meetingId)
+        eventManagementService.delete(eventId)
     }
 
-    def "Get the current meeting of a specific workgroup when a workgroup with that ID does not exist"() {
+    def "Get the current event of a specific workgroup when a workgroup with that ID does not exist"() {
 
         given: "A workgroup with the requested workgroup ID does not exist"
         def workgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
 
-        and: "Several other workgroups currently have meetings"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "Several other workgroups currently have events"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The current meeting of the workgroup is requested"
-        workgroupManagementService.getCurrentMeeting(workgroupId)
+        when: "The current event of the workgroup is requested"
+        workgroupManagementService.getCurrentEvent(workgroupId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Extend the duration of the current meeting of a specific workgroup by a valid duration"() {
+    def "Extend the duration of the current event of a specific workgroup by a valid duration"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup and another workgroup currently have a meeting"
-        def meetingIdOfWorkgroup = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingIdOfOtherWorkgroup = astronautsDataFactory.MEETING_ID_MARS
-        def meetingOfWorkgroup = coastGuardDataFactory.createMeetingMap().get(meetingIdOfWorkgroup)
-        def meetingOfOtherWorkgroup = astronautsDataFactory.createMeetingMap().get(meetingIdOfOtherWorkgroup)
-        meetingManagementService.create(meetingOfWorkgroup)
-        meetingManagementService.create(meetingOfOtherWorkgroup)
+        and: "The requested workgroup and another workgroup currently have a event"
+        def eventIdOfWorkgroup = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventIdOfOtherWorkgroup = astronautsDataFactory.EVENT_ID_MARS
+        def eventOfWorkgroup = coastGuardDataFactory.createEventMap().get(eventIdOfWorkgroup)
+        def eventOfOtherWorkgroup = astronautsDataFactory.createEventMap().get(eventIdOfOtherWorkgroup)
+        eventManagementService.create(eventOfWorkgroup)
+        eventManagementService.create(eventOfOtherWorkgroup)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting of the workgroup is extended"
-        workgroupManagementService.extendCurrentMeeting(workgroupId, extension)
+        when: "The current event of the workgroup is extended"
+        workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
-        then: "The current meeting of he workgroup is now longer than it was originally"
-        def extendedMeeting = workgroupManagementService.getCurrentMeeting(workgroupId)
-        extendedMeeting.getEnd() == meetingOfWorkgroup.getEnd() + extension
+        then: "The current event of he workgroup is now longer than it was originally"
+        def extendedEvent = workgroupManagementService.getCurrentEvent(workgroupId)
+        extendedEvent.getEnd() == eventOfWorkgroup.getEnd() + extension
 
-        and: "All other meetings still have their original duration"
-        def notExtendedMeeting = meetingManagementService.findOne(meetingIdOfOtherWorkgroup)
-        notExtendedMeeting.getEnd() == meetingOfOtherWorkgroup.getEnd()
+        and: "All other events still have their original duration"
+        def notExtendedEvent = eventManagementService.findOne(eventIdOfOtherWorkgroup)
+        notExtendedEvent.getEnd() == eventOfOtherWorkgroup.getEnd()
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        meetingManagementService.delete(meetingIdOfWorkgroup)
-        meetingManagementService.delete(meetingIdOfOtherWorkgroup)
+        eventManagementService.delete(eventIdOfWorkgroup)
+        eventManagementService.delete(eventIdOfOtherWorkgroup)
     }
 
-    def "Extend the duration of the current meeting of a specific workgroup so that it would be longer than the maximal duration"() {
+    def "Extend the duration of the current event of a specific workgroup so that it would be longer than the maximal duration"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup currently has a meeting"
-        def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementService.create(meeting)
+        and: "The requested workgroup currently has a event"
+        def eventId = coastGuardDataFactory.EVENT_ID_WHALES
+        def event = coastGuardDataFactory.createEventMap().get(eventId)
+        eventManagementService.create(event)
 
-        and: "The extension of the meeting is invalid"
-        def extension = this.maxMeetingDuration
+        and: "The extension of the event is invalid"
+        def extension = this.maxEventDuration
 
-        when: "The current meeting of the workgroup is extended"
-        workgroupManagementService.extendCurrentMeeting(workgroupId, extension)
+        when: "The current event of the workgroup is extended"
+        workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
         thrown(MaximalDurationReachedException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        meetingManagementService.delete(meetingId)
+        eventManagementService.delete(eventId)
     }
 
-    def "Extend the duration of the current meeting of a specific workgroup so that it would conflict with another meeting"() {
+    def "Extend the duration of the current event of a specific workgroup so that it would conflict with another event"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup currently has a meeting alongside with a follow up meeting"
-        def currentMeetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
-        def currentMeeting = coastGuardDataFactory.createMeetingMap().get(currentMeetingId)
-        def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementService.create(currentMeeting)
-        meetingManagementService.create(followUpMeeting)
+        and: "The requested workgroup currently has a event alongside with a follow up event"
+        def currentEventId = coastGuardDataFactory.EVENT_ID_WHALES
+        def followUpEventId = coastGuardDataFactory.EVENT_ID_WHIRLPOOLS
+        def currentEvent = coastGuardDataFactory.createEventMap().get(currentEventId)
+        def followUpEvent = coastGuardDataFactory.createEventMap().get(followUpEventId)
+        eventManagementService.create(currentEvent)
+        eventManagementService.create(followUpEvent)
 
-        and: "The extension of the meeting would lead to conflicts"
-        def extension = Duration.between(currentMeeting.getEnd(), followUpMeeting.getEnd())
+        and: "The extension of the event would lead to conflicts"
+        def extension = Duration.between(currentEvent.getEnd(), followUpEvent.getEnd())
 
-        when: "The current meeting of the workgroup is extended"
-        workgroupManagementService.extendCurrentMeeting(workgroupId, extension)
+        when: "The current event of the workgroup is extended"
+        workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
         thrown(EntityConflictException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        meetingManagementService.delete(currentMeetingId)
-        meetingManagementService.delete(followUpMeetingId)
+        eventManagementService.delete(currentEventId)
+        eventManagementService.delete(followUpEventId)
     }
 
-    def "Extend the duration of the current meeting of a specific workgroup when there is currently no meeting"() {
+    def "Extend the duration of the current event of a specific workgroup when there is currently no event"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
         def workgroup = forestRangersDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "Several other workgroups currently have a meeting"
-        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingId2 = astronautsDataFactory.MEETING_ID_MARS
-        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
-        def meeting2 = astronautsDataFactory.createMeetingMap().get(meetingId2)
-        meetingManagementService.create(meeting1)
-        meetingManagementService.create(meeting2)
+        and: "Several other workgroups currently have a event"
+        def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventId2 = astronautsDataFactory.EVENT_ID_MARS
+        def event1 = coastGuardDataFactory.createEventMap().get(eventId1)
+        def event2 = astronautsDataFactory.createEventMap().get(eventId2)
+        eventManagementService.create(event1)
+        eventManagementService.create(event2)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting of the workgroup is extended"
-        workgroupManagementService.extendCurrentMeeting(workgroupId, extension)
+        when: "The current event of the workgroup is extended"
+        workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
-        meetingManagementService.delete(meetingId1)
-        meetingManagementService.delete(meetingId2)
+        eventManagementService.delete(eventId1)
+        eventManagementService.delete(eventId2)
     }
 
-    def "Extend the duration of the current meeting of a specific workgroup when a workgroup with that ID does not exist"() {
+    def "Extend the duration of the current event of a specific workgroup when a workgroup with that ID does not exist"() {
 
         given: "A workgroup with the requested workgroup ID does not exist"
-        def wokgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
+        def workgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
 
-        and: "Several other workgroups currently have a meeting"
-        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingId2 = astronautsDataFactory.MEETING_ID_MARS
-        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
-        def meeting2 = astronautsDataFactory.createMeetingMap().get(meetingId2)
-        meetingManagementService.create(meeting1)
-        meetingManagementService.create(meeting2)
+        and: "Several other workgroups currently have a event"
+        def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventId2 = astronautsDataFactory.EVENT_ID_MARS
+        def event1 = coastGuardDataFactory.createEventMap().get(eventId1)
+        def event2 = astronautsDataFactory.createEventMap().get(eventId2)
+        eventManagementService.create(event1)
+        eventManagementService.create(event2)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting of the workgroup is extended"
-        workgroupManagementService.extendCurrentMeeting(wokgroupId, extension)
+        when: "The current event of the workgroup is extended"
+        workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        meetingManagementService.delete(meetingId1)
-        meetingManagementService.delete(meetingId2)
+        eventManagementService.delete(eventId1)
+        eventManagementService.delete(eventId2)
     }
 }

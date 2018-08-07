@@ -18,7 +18,7 @@ import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.*;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -52,7 +52,7 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
     public static final DeviceId DEVICE_ID_RED_DISPLAY_BIG = DeviceId.of("red-display-big");
     public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
     public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
-    public static final MeetingId MEETING_ID_TRUCK = MeetingId.of("truck", LOCATION_ID_RED);
+    public static final EventId EVENT_ID_TRUCK = EventId.of("truck", LOCATION_ID_RED);
     public static final String DELEGATE_ID_RED = "smart-lab-red-delegate-microservice";
 
     private final IAssistanceInfo minuteTakingInfo;
@@ -116,12 +116,12 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IMeeting> createMeetingSet() throws DataSetException {
-        Set<IMeeting> meetings = new HashSet<>();
-        List<IAgendaItem> fireFightersMeetingAgenda = new ArrayList<>();
-        fireFightersMeetingAgenda.add(AgendaItem.of("Show how bad the old truck is"));
-        fireFightersMeetingAgenda.add(AgendaItem.of("Show how great the new truck is"));
-        fireFightersMeetingAgenda.add(AgendaItem.of("Discuss how to pay for the new truck"));
+    public Set<IEvent> createEventSet() throws DataSetException {
+        Set<IEvent> events = new HashSet<>();
+        List<IAgendaItem> truckEventAgenda = new ArrayList<>();
+        truckEventAgenda.add(AgendaItem.of("Show how bad the old truck is"));
+        truckEventAgenda.add(AgendaItem.of("Show how great the new truck is"));
+        truckEventAgenda.add(AgendaItem.of("Discuss how to pay for the new truck"));
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.minuteTakingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
@@ -141,15 +141,15 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
-        meetings.add(Meeting.of(
-                MEETING_ID_TRUCK,
+        events.add(Event.of(
+                EVENT_ID_TRUCK,
                 "Meeting about the new fire truck \"Fire Exterminator 3000\"",
                 WORKGROUP_ID_FIRE_FIGHTERS,
-                fireFightersMeetingAgenda,
+                truckEventAgenda,
                 configs,
                 timeBase.plusSeconds(120),
                 timeBase.plusSeconds(420)));
-        return meetings;
+        return events;
     }
 
     @Override

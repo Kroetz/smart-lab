@@ -5,8 +5,8 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
@@ -35,38 +35,38 @@ import static java.util.stream.Collectors.toSet;
 public class LocationManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<ILocation, LocationId, LocationDto> implements ILocationManagementService {
 
     private final LocationManagementController locationManagementController;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public LocationManagementMonolithicServiceConnector(
             LocationManagementController locationManagementController,
             IDtoConverter<ILocation, LocationDto> locationConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         super(locationManagementController, locationConverter);
         this.locationManagementController = locationManagementController;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
-    public Set<IMeeting> getMeetingsAtLocation(LocationId locationId) {
-        ResponseEntity<Set<MeetingDto>> response = this.locationManagementController.getMeetingsAtLocation(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.meetingConverter::toEntity).collect(toSet());
+    public Set<IEvent> getEventsAtLocation(LocationId locationId) {
+        ResponseEntity<Set<EventDto>> response = this.locationManagementController.getEventsAtLocation(locationId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
-    public IMeeting getCurrentMeeting(LocationId locationId) {
-        ResponseEntity<MeetingDto> response = this.locationManagementController.getCurrentMeeting(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.meetingConverter.toEntity(requireNonNull(response.getBody()));
+    public IEvent getCurrentEvent(LocationId locationId) {
+        ResponseEntity<EventDto> response = this.locationManagementController.getCurrentEvent(locationId.getIdValue());
+        if(response.getStatusCode() == HttpStatus.OK) return this.eventConverter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
-    public void extendCurrentMeeting(LocationId locationId, Duration extension) {
-        ResponseEntity<Void> response = this.locationManagementController.extendCurrentMeeting(locationId.getIdValue(), extension.toMinutes());
+    public void extendCurrentEvent(LocationId locationId, Duration extension) {
+        ResponseEntity<Void> response = this.locationManagementController.extendCurrentEvent(locationId.getIdValue(), extension.toMinutes());
         if(response.getStatusCode() == HttpStatus.OK) return;
         // TODO: Meaningful exception messages
         if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();

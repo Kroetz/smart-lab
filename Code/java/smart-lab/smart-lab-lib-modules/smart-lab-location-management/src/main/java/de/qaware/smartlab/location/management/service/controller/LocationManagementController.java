@@ -5,8 +5,8 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
@@ -32,15 +32,15 @@ public class LocationManagementController extends AbstractSmartLabController imp
 
     private final ILocationManagementBusinessLogic locationManagementBusinessLogic;
     private final IDtoConverter<ILocation, LocationDto> locationConverter;
-    private final IDtoConverter<IMeeting, MeetingDto> meetingConverter;
+    private final IDtoConverter<IEvent, EventDto> eventConverter;
 
     public LocationManagementController(
             ILocationManagementBusinessLogic locationManagementBusinessLogic,
             IDtoConverter<ILocation, LocationDto> locationConverter,
-            IDtoConverter<IMeeting, MeetingDto> meetingConverter) {
+            IDtoConverter<IEvent, EventDto> eventConverter) {
         this.locationManagementBusinessLogic = locationManagementBusinessLogic;
         this.locationConverter = locationConverter;
-        this.meetingConverter = meetingConverter;
+        this.eventConverter = eventConverter;
     }
 
     @Override
@@ -100,28 +100,28 @@ public class LocationManagementController extends AbstractSmartLabController imp
         return this.locationManagementBusinessLogic.delete(LocationId.of(locationId)).toResponseEntity();
     }
 
-    @GetMapping(LocationManagementApiConstants.MAPPING_GET_MEETINGS_AT_LOCATION)
+    @GetMapping(LocationManagementApiConstants.MAPPING_GET_EVENTS_AT_LOCATION)
     @ResponseBody
-    public ResponseEntity<Set<MeetingDto>> getMeetingsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+    public ResponseEntity<Set<EventDto>> getEventsAtLocation(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
         return responseFromEntityOptionals(
-                this.locationManagementBusinessLogic.getMeetingsAtLocation(LocationId.of(locationId)),
-                this.meetingConverter);
+                this.locationManagementBusinessLogic.getEventsAtLocation(LocationId.of(locationId)),
+                this.eventConverter);
     }
 
-    @GetMapping(LocationManagementApiConstants.MAPPING_GET_CURRENT_MEETING)
+    @GetMapping(LocationManagementApiConstants.MAPPING_GET_CURRENT_EVENT)
     @ResponseBody
-    public ResponseEntity<MeetingDto> getCurrentMeeting(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
+    public ResponseEntity<EventDto> getCurrentEvent(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
         return responseFromEntityOptional(
-                this.locationManagementBusinessLogic.getCurrentMeeting(LocationId.of(locationId)),
-                this.meetingConverter);
+                this.locationManagementBusinessLogic.getCurrentEvent(LocationId.of(locationId)),
+                this.eventConverter);
     }
 
-    @PostMapping(LocationManagementApiConstants.MAPPING_EXTEND_CURRENT_MEETING)
+    @PostMapping(LocationManagementApiConstants.MAPPING_EXTEND_CURRENT_EVENT)
     @ResponseBody
-    public ResponseEntity<Void> extendCurrentMeeting(
+    public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(LocationManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.locationManagementBusinessLogic.extendCurrentMeeting(LocationId.of(locationId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.locationManagementBusinessLogic.extendCurrentEvent(LocationId.of(locationId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @RestController

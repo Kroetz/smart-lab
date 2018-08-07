@@ -1,11 +1,11 @@
 package de.qaware.smartlab.integrationtest.location
 
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService
-import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
+import de.qaware.smartlab.api.service.connector.event.IEventManagementService
 import de.qaware.smartlab.core.data.location.ILocation
 import de.qaware.smartlab.core.data.location.LocationId
 import de.qaware.smartlab.core.data.location.LocationDto
-import de.qaware.smartlab.core.data.meeting.IMeeting
+import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.exception.EntityConflictException
 import de.qaware.smartlab.core.exception.EntityNotFoundException
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException
@@ -30,7 +30,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
     private ILocationManagementService locationManagementService
 
     @Autowired
-    private IMeetingManagementService meetingManagementService
+    private IEventManagementService eventManagementService
 
     @Autowired
     private CoastGuardSampleDataSetFactory coastGuardDataFactory
@@ -46,8 +46,8 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
 
     @Autowired
     // TODO: String literal
-    @Qualifier("maxMeetingDuration")
-    private Duration maxMeetingDuration;
+    @Qualifier("maxEventDuration")
+    private Duration maxEventDuration;
 
     @Override
     def setupDataForFindAll_withExisting() {
@@ -119,317 +119,317 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         entityIdForDelete_withoutExisting = coastGuardDataFactory.LOCATION_ID_BLUE
     }
 
-    def "Get a set of all meetings at a specific location when there are meetings"() {
+    def "Get a set of all events at a specific location when there are events"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There are meetings at the requested location and other locations"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsAtLocation = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "There are events at the requested location and other locations"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS),
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        def eventsAtLocation = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings at the location is requested"
-        def foundMeetings = locationManagementService.getMeetingsAtLocation(locationId)
+        when: "The set of events at the location is requested"
+        def foundEvents = locationManagementService.getEventsAtLocation(locationId)
 
         then: "The returned set equals the appropriate part of that one that was used to populate the repository"
-        foundMeetings == meetingsAtLocation
+        foundEvents == eventsAtLocation
 
         cleanup:
         locationManagementService.delete(locationId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get a set of all meetings at a specific location when there are no meetings"() {
+    def "Get a set of all events at a specific location when there are no events"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There are only meetings at other locations than the requested one"
-        def meetings = new HashSet<IMeeting>(asList(
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        def meetingsAtLocation = new HashSet<IMeeting>()
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "There are only events at other locations than the requested one"
+        def events = new HashSet<IEvent>(asList(
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        def eventsAtLocation = new HashSet<IEvent>()
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings at the location is requested"
-        def foundMeetings = locationManagementService.getMeetingsAtLocation(locationId)
+        when: "The set of events at the location is requested"
+        def foundEvents = locationManagementService.getEventsAtLocation(locationId)
 
         then: "The returned set is empty"
-        foundMeetings == meetingsAtLocation
+        foundEvents == eventsAtLocation
 
         cleanup:
         locationManagementService.delete(locationId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get a set of all meetings at a specific location when a location with that ID does not exist"() {
+    def "Get a set of all events at a specific location when a location with that ID does not exist"() {
 
         given: "A location with the requested location ID does not exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
 
-        and: "There are meetings at several locations"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHIRLPOOLS),
-                forestRangersDataFactory.createMeetingMap().get(forestRangersDataFactory.MEETING_ID_BARK_BEETLE),
-                fireFightersDataFactory.createMeetingMap().get(fireFightersDataFactory.MEETING_ID_TRUCK)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "There are events at several locations"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHIRLPOOLS),
+                forestRangersDataFactory.createEventMap().get(forestRangersDataFactory.EVENT_ID_BARK_BEETLE),
+                fireFightersDataFactory.createEventMap().get(fireFightersDataFactory.EVENT_ID_TRUCK)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The set of meetings at the location is requested"
-        locationManagementService.getMeetingsAtLocation(locationId)
+        when: "The set of events at the location is requested"
+        locationManagementService.getEventsAtLocation(locationId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get the current meeting at a specific location when there is currently a meeting"() {
+    def "Get the current event at a specific location when there is currently a event"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a meeting at the requested location and another location"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
-        def currentMeeting = coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES)
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "There is currently a event at the requested location and another location"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
+        def currentEvent = coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES)
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The current meeting at the location is requested"
-        def foundMeeting = locationManagementService.getCurrentMeeting(locationId)
+        when: "The current event at the location is requested"
+        def foundEvent = locationManagementService.getCurrentEvent(locationId)
 
-        then: "The meeting equals the appropriate one that was initially put into the repository"
-        foundMeeting == currentMeeting
+        then: "The event equals the appropriate one that was initially put into the repository"
+        foundEvent == currentEvent
 
         cleanup:
         locationManagementService.delete(locationId)
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Get the current meeting at a specific location when there is currently no meeting"() {
+    def "Get the current event at a specific location when there is currently no event"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a meeting at another location"
-        def meetingId = astronautsDataFactory.MEETING_ID_MARS
-        def meeting = astronautsDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementService.create(meeting)
+        and: "There is currently a event at another location"
+        def eventId = astronautsDataFactory.EVENT_ID_MARS
+        def event = astronautsDataFactory.createEventMap().get(eventId)
+        eventManagementService.create(event)
 
-        when: "The current meeting at the location is requested"
-        locationManagementService.getCurrentMeeting(locationId)
+        when: "The current event at the location is requested"
+        locationManagementService.getCurrentEvent(locationId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
         locationManagementService.delete(locationId)
-        meetingManagementService.delete(meetingId)
+        eventManagementService.delete(eventId)
     }
 
-    def "Get the current meeting at a specific location when a location with that ID does not exist"() {
+    def "Get the current event at a specific location when a location with that ID does not exist"() {
 
         given: "A location with the requested location ID does not exist"
         def locationId = forestRangersDataFactory.LOCATION_ID_GREEN
 
-        and: "There are currently meetings at several locations"
-        def meetings = new HashSet<IMeeting>(asList(
-                coastGuardDataFactory.createMeetingMap().get(coastGuardDataFactory.MEETING_ID_WHALES),
-                astronautsDataFactory.createMeetingMap().get(astronautsDataFactory.MEETING_ID_MARS)))
-        for(def meeting : meetings) {
-            meetingManagementService.create(meeting)
+        and: "There are currently events at several locations"
+        def events = new HashSet<IEvent>(asList(
+                coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
+                astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
+        for(def event : events) {
+            eventManagementService.create(event)
         }
 
-        when: "The current meeting at the location is requested"
-        locationManagementService.getCurrentMeeting(locationId)
+        when: "The current event at the location is requested"
+        locationManagementService.getCurrentEvent(locationId)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        for(def meeting : meetings) {
-            meetingManagementService.delete(meeting.getId())
+        for(def event : events) {
+            eventManagementService.delete(event.getId())
         }
     }
 
-    def "Extend the duration of the current meeting at a specific location by a valid duration"() {
+    def "Extend the duration of the current event at a specific location by a valid duration"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a meeting at the requested location and another location"
-        def meetingIdAtLocation = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingIdAtOtherLocation = astronautsDataFactory.MEETING_ID_MARS
-        def meetingAtLocation = coastGuardDataFactory.createMeetingMap().get(meetingIdAtLocation)
-        def meetingAtOtherLocation = astronautsDataFactory.createMeetingMap().get(meetingIdAtOtherLocation)
-        meetingManagementService.create(meetingAtLocation)
-        meetingManagementService.create(meetingAtOtherLocation)
+        and: "There is currently a event at the requested location and another location"
+        def eventIdAtLocation = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventIdAtOtherLocation = astronautsDataFactory.EVENT_ID_MARS
+        def eventAtLocation = coastGuardDataFactory.createEventMap().get(eventIdAtLocation)
+        def eventAtOtherLocation = astronautsDataFactory.createEventMap().get(eventIdAtOtherLocation)
+        eventManagementService.create(eventAtLocation)
+        eventManagementService.create(eventAtOtherLocation)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting at the location is extended"
-        locationManagementService.extendCurrentMeeting(locationId, extension)
+        when: "The current event at the location is extended"
+        locationManagementService.extendCurrentEvent(locationId, extension)
 
-        then: "The current meeting at the location is now longer than it was originally"
-        def extendedMeeting = locationManagementService.getCurrentMeeting(locationId)
-        extendedMeeting.getEnd() == meetingAtLocation.getEnd() + extension
+        then: "The current event at the location is now longer than it was originally"
+        def extendedEvent = locationManagementService.getCurrentEvent(locationId)
+        extendedEvent.getEnd() == eventAtLocation.getEnd() + extension
 
-        and: "All other meetings still have their original duration"
-        def notExtendedMeeting = meetingManagementService.findOne(meetingIdAtOtherLocation)
-        notExtendedMeeting.getEnd() == meetingAtOtherLocation.getEnd()
+        and: "All other events still have their original duration"
+        def notExtendedEvent = eventManagementService.findOne(eventIdAtOtherLocation)
+        notExtendedEvent.getEnd() == eventAtOtherLocation.getEnd()
 
         cleanup:
         locationManagementService.delete(locationId)
-        meetingManagementService.delete(meetingIdAtLocation)
-        meetingManagementService.delete(meetingIdAtOtherLocation)
+        eventManagementService.delete(eventIdAtLocation)
+        eventManagementService.delete(eventIdAtOtherLocation)
     }
 
-    def "Extend the duration of the current meeting at a specific location so that it would be longer than the maximal duration"() {
+    def "Extend the duration of the current event at a specific location so that it would be longer than the maximal duration"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a meeting at the requested location"
-        def meetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def meeting = coastGuardDataFactory.createMeetingMap().get(meetingId)
-        meetingManagementService.create(meeting)
+        and: "There is currently a event at the requested location"
+        def eventId = coastGuardDataFactory.EVENT_ID_WHALES
+        def event = coastGuardDataFactory.createEventMap().get(eventId)
+        eventManagementService.create(event)
 
-        and: "The extension of the meeting is invalid"
-        def extension = this.maxMeetingDuration
+        and: "The extension of the event is invalid"
+        def extension = this.maxEventDuration
 
-        when: "The current meeting at the location is extended"
-        locationManagementService.extendCurrentMeeting(locationId, extension)
+        when: "The current event at the location is extended"
+        locationManagementService.extendCurrentEvent(locationId, extension)
 
         then: "An exception is thrown"
         thrown(MaximalDurationReachedException)
 
         cleanup:
         locationManagementService.delete(locationId)
-        meetingManagementService.delete(meetingId)
+        eventManagementService.delete(eventId)
     }
 
-    def "Extend the duration of the current meeting at a specific location so that it would conflict with another meeting"() {
+    def "Extend the duration of the current event at a specific location so that it would conflict with another event"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a meeting at the requested location alongside with a follow up meeting"
-        def currentMeetingId = coastGuardDataFactory.MEETING_ID_WHALES
-        def followUpMeetingId = coastGuardDataFactory.MEETING_ID_WHIRLPOOLS
-        def currentMeeting = coastGuardDataFactory.createMeetingMap().get(currentMeetingId)
-        def followUpMeeting = coastGuardDataFactory.createMeetingMap().get(followUpMeetingId)
-        meetingManagementService.create(currentMeeting)
-        meetingManagementService.create(followUpMeeting)
+        and: "There is currently a event at the requested location alongside with a follow up event"
+        def currentEventId = coastGuardDataFactory.EVENT_ID_WHALES
+        def followUpEventId = coastGuardDataFactory.EVENT_ID_WHIRLPOOLS
+        def currentEvent = coastGuardDataFactory.createEventMap().get(currentEventId)
+        def followUpEvent = coastGuardDataFactory.createEventMap().get(followUpEventId)
+        eventManagementService.create(currentEvent)
+        eventManagementService.create(followUpEvent)
 
-        and: "The extension of the meeting would lead to conflicts"
-        def extension = Duration.between(currentMeeting.getEnd(), followUpMeeting.getEnd())
+        and: "The extension of the event would lead to conflicts"
+        def extension = Duration.between(currentEvent.getEnd(), followUpEvent.getEnd())
 
-        when: "The current meeting at the location is extended"
-        locationManagementService.extendCurrentMeeting(locationId, extension)
+        when: "The current event at the location is extended"
+        locationManagementService.extendCurrentEvent(locationId, extension)
 
         then: "An exception is thrown"
         thrown(EntityConflictException)
 
         cleanup:
         locationManagementService.delete(locationId)
-        meetingManagementService.delete(currentMeetingId)
-        meetingManagementService.delete(followUpMeetingId)
+        eventManagementService.delete(currentEventId)
+        eventManagementService.delete(followUpEventId)
     }
 
-    def "Extend the duration of the current meeting at a specific location when there is currently no meeting"() {
+    def "Extend the duration of the current event at a specific location when there is currently no event"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = forestRangersDataFactory.LOCATION_ID_GREEN
         def location = forestRangersDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There are currently meeting at several other locations"
-        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingId2 = astronautsDataFactory.MEETING_ID_MARS
-        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
-        def meeting2 = astronautsDataFactory.createMeetingMap().get(meetingId2)
-        meetingManagementService.create(meeting1)
-        meetingManagementService.create(meeting2)
+        and: "There are currently event at several other locations"
+        def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventId2 = astronautsDataFactory.EVENT_ID_MARS
+        def event1 = coastGuardDataFactory.createEventMap().get(eventId1)
+        def event2 = astronautsDataFactory.createEventMap().get(eventId2)
+        eventManagementService.create(event1)
+        eventManagementService.create(event2)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting at the location is extended"
-        locationManagementService.extendCurrentMeeting(locationId, extension)
+        when: "The current event at the location is extended"
+        locationManagementService.extendCurrentEvent(locationId, extension)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
         locationManagementService.delete(locationId)
-        meetingManagementService.delete(meetingId1)
-        meetingManagementService.delete(meetingId2)
+        eventManagementService.delete(eventId1)
+        eventManagementService.delete(eventId2)
     }
 
-    def "Extend the duration of the current meeting at a specific location when a location with that ID does not exist"() {
+    def "Extend the duration of the current event at a specific location when a location with that ID does not exist"() {
 
         given: "A location with the requested location ID does not exist"
         def locationId = forestRangersDataFactory.LOCATION_ID_GREEN
 
-        and: "There are currently meeting at several other locations"
-        def meetingId1 = coastGuardDataFactory.MEETING_ID_WHALES
-        def meetingId2 = astronautsDataFactory.MEETING_ID_MARS
-        def meeting1 = coastGuardDataFactory.createMeetingMap().get(meetingId1)
-        def meeting2 = astronautsDataFactory.createMeetingMap().get(meetingId2)
-        meetingManagementService.create(meeting1)
-        meetingManagementService.create(meeting2)
+        and: "There are currently event at several other locations"
+        def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
+        def eventId2 = astronautsDataFactory.EVENT_ID_MARS
+        def event1 = coastGuardDataFactory.createEventMap().get(eventId1)
+        def event2 = astronautsDataFactory.createEventMap().get(eventId2)
+        eventManagementService.create(event1)
+        eventManagementService.create(event2)
 
-        and: "The extension of the meeting is valid"
+        and: "The extension of the event is valid"
         def extension = Duration.ofMinutes(1)
 
-        when: "The current meeting at the location is extended"
-        locationManagementService.extendCurrentMeeting(locationId, extension)
+        when: "The current event at the location is extended"
+        locationManagementService.extendCurrentEvent(locationId, extension)
 
         then: "An exception is thrown"
         thrown(EntityNotFoundException)
 
         cleanup:
-        meetingManagementService.delete(meetingId1)
-        meetingManagementService.delete(meetingId2)
+        eventManagementService.delete(eventId1)
+        eventManagementService.delete(eventId2)
     }
 }

@@ -3,10 +3,10 @@ package de.qaware.smartlab.trigger.provider.generic;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.job.IJobInfo;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.exception.TriggerProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -33,13 +33,13 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     /**
      * Contains all current trigger candidates and if they have already been triggered.
      */
-    private final BiMap<MeetingId, IJobInfo> triggerJobInfoCache;
-    private final Function<IMeeting, IJobInfo> triggerCall;
+    private final BiMap<EventId, IJobInfo> triggerJobInfoCache;
+    private final Function<IEvent, IJobInfo> triggerCall;
     private final String triggerName;
 
     public AbstractTriggerProvider(
             Duration checkInterval,
-            Function<IMeeting, IJobInfo> triggerCall,
+            Function<IEvent, IJobInfo> triggerCall,
             String triggerName) {
         this.checkInterval = checkInterval;
         this.triggerCall = triggerCall;
@@ -78,7 +78,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
 
     @Override
     public void updateTriggerJob(IJobInfo newTriggerJobInfo) {
-        BiMap<IJobInfo, MeetingId> inversedCache = this.triggerJobInfoCache.inverse();
+        BiMap<IJobInfo, EventId> inversedCache = this.triggerJobInfoCache.inverse();
         Set<IJobInfo> oldTriggerJobInfos = inversedCache.keySet();
         synchronized(this.triggerJobInfoCache) {  // Manual synchronization is necessary (See https://stackoverflow.com/questions/44050911/synchronization-for-inverse-view-of-synchronized-bimap)
             Set<IJobInfo> triggerJobInfosWithSameId = oldTriggerJobInfos.stream()
@@ -89,8 +89,8 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
             // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
             if(oldTriggerJobInfoOptional.isPresent()) {
                 IJobInfo oldTriggerJobInfo = oldTriggerJobInfoOptional.get();
-                MeetingId meetingId = inversedCache.get(oldTriggerJobInfo);
-                this.triggerJobInfoCache.put(meetingId, newTriggerJobInfo);
+                EventId eventId = inversedCache.get(oldTriggerJobInfo);
+                this.triggerJobInfoCache.put(eventId, newTriggerJobInfo);
                 log.info("Updated trigger job info {} to {}", oldTriggerJobInfo, newTriggerJobInfo);
             }
             else {
@@ -100,24 +100,24 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     }
 
     private synchronized void provideTriggers() {
-        log.info("Providing trigger \"{}\" for all suitable meetings", this.triggerName);
+        log.info("Providing trigger \"{}\" for all suitable events", this.triggerName);
         this.currentCheck = Instant.now();
-        Set<IMeeting> triggerCandidates = getTriggerCandidates();
+        Set<IEvent> triggerCandidates = getTriggerCandidates();
         cleanTriggerJobInfoCache(triggerCandidates);
         triggerCandidates = removeAlreadyTriggered(triggerCandidates);
-        log.info("{} meeting(s) suitable for trigger \"{}\"", triggerCandidates.size(), this.triggerName);
-        for(IMeeting triggerCandidate : triggerCandidates) {
+        log.info("{} event(s) suitable for trigger \"{}\"", triggerCandidates.size(), this.triggerName);
+        for(IEvent triggerCandidate : triggerCandidates) {
             provideTrigger(triggerCandidate);
         }
     }
 
-    private Set<IMeeting> removeAlreadyTriggered(Set<IMeeting> triggerCandidates) {
+    private Set<IEvent> removeAlreadyTriggered(Set<IEvent> triggerCandidates) {
         return triggerCandidates.stream()
                 .filter(this::isNotYetTriggered)
                 .collect(toSet());
     }
 
-    private Set<IMeeting> getTriggerCandidates() {
+    private Set<IEvent> getTriggerCandidates() {
         try {
             return findTriggerCandidates();
         }
@@ -127,23 +127,23 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         }
     }
 
-    protected abstract Set<IMeeting> findTriggerCandidates();
+    protected abstract Set<IEvent> findTriggerCandidates();
 
-    private void provideTrigger(IMeeting triggerCandidate) {
+    private void provideTrigger(IEvent triggerCandidate) {
         if(!isAlreadyTriggered(triggerCandidate)) {
             try {
-                log.info("Providing trigger \"{}\" for meeting {}", this.triggerName, triggerCandidate);
+                log.info("Providing trigger \"{}\" for event {}", this.triggerName, triggerCandidate);
                 IJobInfo triggerJobInfo = triggerCall.apply(triggerCandidate);
                 this.triggerJobInfoCache.put(triggerCandidate.getId(), triggerJobInfo);
-                log.info("Successfully provided trigger \"{}\" for meeting {}", this.triggerName, triggerCandidate);
+                log.info("Successfully provided trigger \"{}\" for event {}", this.triggerName, triggerCandidate);
             }
             catch(Exception e) {
-                log.error("Providing trigger \"{}\" for meeting {} failed", this.triggerName, triggerCandidate, e);
+                log.error("Providing trigger \"{}\" for event {} failed", this.triggerName, triggerCandidate, e);
             }
         }
     }
 
-    private boolean isAlreadyTriggered(IMeeting triggerCandidate) {
+    private boolean isAlreadyTriggered(IEvent triggerCandidate) {
         if(this.triggerJobInfoCache.containsKey(triggerCandidate.getId())) {
             IJobInfo triggerJobInfo = this.triggerJobInfoCache.get(triggerCandidate.getId());
             switch (triggerJobInfo.getStatus()) {
@@ -160,20 +160,20 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         return false;
     }
 
-    private boolean isNotYetTriggered(IMeeting triggerCandidate) {
+    private boolean isNotYetTriggered(IEvent triggerCandidate) {
         return !isAlreadyTriggered(triggerCandidate);
     }
 
-    private void cleanTriggerJobInfoCache(Set<IMeeting> newTriggerCandidates) {
+    private void cleanTriggerJobInfoCache(Set<IEvent> newTriggerCandidates) {
         log.info("Cleaning up trigger job info cache");
-        Set<MeetingId> newTriggerCandidateIds = newTriggerCandidates.stream()
+        Set<EventId> newTriggerCandidateIds = newTriggerCandidates.stream()
                 .map(IEntity::getId)
                 .collect(toSet());
         synchronized(this.triggerJobInfoCache) {  // Manual synchronization is necessary (See https://stackoverflow.com/questions/44050911/synchronization-for-inverse-view-of-synchronized-bimap)
-            Set<MeetingId> cacheItemsToRemove = new HashSet<>();
-            for (MeetingId meetingId : this.triggerJobInfoCache.keySet()) {
-                if (!newTriggerCandidateIds.contains(meetingId)) {
-                    cacheItemsToRemove.add(meetingId);
+            Set<EventId> cacheItemsToRemove = new HashSet<>();
+            for (EventId eventId : this.triggerJobInfoCache.keySet()) {
+                if (!newTriggerCandidateIds.contains(eventId)) {
+                    cacheItemsToRemove.add(eventId);
                 }
             }
             log.info("Found {} cache item(s) that can be cleared", cacheItemsToRemove.size());
@@ -181,8 +181,8 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
              * Do not manipulate the map while iterating over its key set! Perform manipulations outside of the loop
              * or otherwise undefined behavior may occur.
              */
-            for(MeetingId cacheItemToRemove : cacheItemsToRemove) {
-                log.info("Clearing trigger job info of meeting {}", cacheItemToRemove);
+            for(EventId cacheItemToRemove : cacheItemsToRemove) {
+                log.info("Clearing trigger job info of event {}", cacheItemToRemove);
                 this.triggerJobInfoCache.remove(cacheItemToRemove);
             }
         }

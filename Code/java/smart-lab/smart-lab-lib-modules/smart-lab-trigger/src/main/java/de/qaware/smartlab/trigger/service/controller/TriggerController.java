@@ -32,15 +32,15 @@ public class TriggerController {
         this.urlValidator = urlValidator;
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_LOCATION_ID)
-    public ResponseEntity<IJobInfo> setUpCurrentMeetingByLocationId(
+    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_EVENT_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> setUpCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
-        log.info("Received call to set up the current meeting at the location with ID \"{}\"", locationId);
+        log.info("Received call to set up the current event at the location with ID \"{}\"", locationId);
         ResponseEntity<IJobInfo> response;
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByLocationId(
+            response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentEventByLocationId(
                     LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -51,13 +51,13 @@ public class TriggerController {
         return response;
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<IJobInfo> setUpCurrentMeetingByWorkgroupId(
+    @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_EVENT_BY_WORKGROUP_ID)
+    public ResponseEntity<IJobInfo> setUpCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentEventByWorkgroupId(
                     WorkgroupId.of(workgroupId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -66,13 +66,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_LOCATION_ID)
-    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByLocationId(
+    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_EVENT_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> cleanUpCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByLocationId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentEventByLocationId(
                     LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -81,13 +81,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<IJobInfo> cleanUpCurrentMeetingByWorkgroupId(
+    @PostMapping(TriggerApiConstants.MAPPING_CLEAN_UP_CURRENT_EVENT_BY_WORKGROUP_ID)
+    public ResponseEntity<IJobInfo> cleanUpCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentEventByWorkgroupId(
                     WorkgroupId.of(workgroupId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -96,13 +96,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_LOCATION_ID)
-    public ResponseEntity<IJobInfo> startCurrentMeetingByLocationId(
+    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_EVENT_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> startCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByLocationId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentEventByLocationId(
                     LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -111,13 +111,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<IJobInfo> startCurrentMeetingByWorkgroupId(
+    @PostMapping(TriggerApiConstants.MAPPING_START_CURRENT_EVENT_BY_WORKGROUP_ID)
+    public ResponseEntity<IJobInfo> startCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentEventByWorkgroupId(
                     WorkgroupId.of(workgroupId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -126,13 +126,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_LOCATION_ID)
-    public ResponseEntity<IJobInfo> stopCurrentMeetingByLocationId(
+    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_EVENT_BY_LOCATION_ID)
+    public ResponseEntity<IJobInfo> stopCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByLocationId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentEventByLocationId(
                     LocationId.of(locationId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {
@@ -141,13 +141,13 @@ public class TriggerController {
         }
     }
 
-    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_MEETING_BY_WORKGROUP_ID)
-    public ResponseEntity<IJobInfo> stopCurrentMeetingByWorkgroupId(
+    @PostMapping(TriggerApiConstants.MAPPING_STOP_CURRENT_EVENT_BY_WORKGROUP_ID)
+    public ResponseEntity<IJobInfo> stopCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
-            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentMeetingByWorkgroupId(
+            return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentEventByWorkgroupId(
                     WorkgroupId.of(workgroupId),
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
         } catch (MalformedURLException e) {

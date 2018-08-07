@@ -28,14 +28,14 @@ public class GuiController extends AbstractSmartLabController {
         this.guiBusinessLogic = guiBusinessLogic;
     }
 
-    @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_MEETING_STATUS_PAGE)
-    public String getCurrentMeetingStatusPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
-        return this.guiBusinessLogic.getCurrentMeetingStatusPage(LocationId.of(locationId), model);
+    @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_EVENT_STATUS_PAGE)
+    public String getCurrentEventStatusPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
+        return this.guiBusinessLogic.getCurrentEventStatusPage(LocationId.of(locationId), model);
     }
 
-    @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_MEETING_AGENDA_PAGE)
-    public String getCurrentMeetingAgendaPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
-        return this.guiBusinessLogic.getCurrentMeetingAgendaPage(LocationId.of(locationId), model);
+    @GetMapping(GuiApiConstants.MAPPING_GET_CURRENT_EVENT_AGENDA_PAGE)
+    public String getCurrentEventAgendaPage(@PathVariable(GuiApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId, Model model) {
+        return this.guiBusinessLogic.getCurrentEventAgendaPage(LocationId.of(locationId), model);
     }
 
     @RestController

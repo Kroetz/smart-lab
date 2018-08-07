@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
 import de.qaware.smartlab.core.data.generic.IResolver;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -40,12 +40,12 @@ public class SyncTriggerHandler implements ITriggerHandler {
 
     @Override
     public void triggerAssistances(
-            IMeeting meeting,
+            IEvent event,
             BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
         this.jobManagementService.markJobAsProcessing(jobId);
         try {
-            Set<IAssistanceConfiguration> configs = meeting.getAssistanceConfigurations();
+            Set<IAssistanceConfiguration> configs = event.getAssistanceConfigurations();
             Set<CompletableFuture<Void>> assistanceTasks = new HashSet<>();
             for(IAssistanceConfiguration config : configs) {
                 /*
@@ -60,7 +60,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
                  */
                 assistanceTasks.add(supplyAsync(() -> {
                     try {
-                        triggerAssistance(config, meeting, triggerReaction, jobId);
+                        triggerAssistance(config, event, triggerReaction, jobId);
                     }
                     catch(Exception e) {
                         log.error("Could not process assistance with ID \"{}\"", config.getAssistanceId(), e);
@@ -80,16 +80,16 @@ public class SyncTriggerHandler implements ITriggerHandler {
     @Override
     public void triggerAssistance(
             IAssistanceConfiguration config,
-            IMeeting meeting,
+            IEvent event,
             BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             Long jobId) {
-        if(!meeting.getAssistanceConfigurations().contains(config)) {
-            throw new IllegalStateException("The specified assistance configuration must be part of the specified meeting");
+        if(!event.getAssistanceConfigurations().contains(config)) {
+            throw new IllegalStateException("The specified assistance configuration must be part of the specified event");
         }
         String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId);
-        IAssistanceContext context = this.contextFactory.of(config, meeting);
+        IAssistanceContext context = this.contextFactory.of(config, event);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
                 assistance.getAssistanceId(),
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));

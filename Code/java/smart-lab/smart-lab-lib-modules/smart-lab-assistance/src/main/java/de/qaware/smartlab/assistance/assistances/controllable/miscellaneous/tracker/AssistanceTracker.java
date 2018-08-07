@@ -88,7 +88,7 @@ public class AssistanceTracker implements IAssistanceTracker {
     /**
      * This special tracking ID class is needed because an assistance context cannot be used as a key for the
      * assistance tracker. Properties of the context's content may change during the execution of an assistance
-     * (e.g. the end time of a meeting) so that the tracker would not work anymore.
+     * (e.g. the end time of an event) so that the tracker would not work anymore.
      */
     @Getter
     @Slf4j
@@ -105,7 +105,7 @@ public class AssistanceTracker implements IAssistanceTracker {
         private int calculateIdValue(IAssistanceContext context) {
             return hash(
                     context.getAssistanceConfiguration(),
-                    context.getMeeting().map(IEntity::getId).orElse(null),
+                    context.getEvent().map(IEntity::getId).orElse(null),
                     context.getWorkgroup().map(IEntity::getId).orElse(null),
                     context.getPersons().map(persons -> persons.stream()
                             .map(IEntity::getId)

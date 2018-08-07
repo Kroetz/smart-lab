@@ -4,8 +4,8 @@ import de.qaware.smartlab.core.data.device.DeviceId;
 import de.qaware.smartlab.core.data.device.IDevice;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
-import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -18,8 +18,8 @@ import java.util.Set;
 public interface IDataSetFactory {
 
     String getId();
-    Set<IMeeting> createMeetingSet() throws DataSetException;
-    Map<MeetingId, IMeeting> createMeetingMap() throws DataSetException ;
+    Set<IEvent> createEventSet() throws DataSetException;
+    Map<EventId, IEvent> createEventMap() throws DataSetException ;
     Set<ILocation> createLocationSet() throws DataSetException ;
     Map<LocationId, ILocation> createLocationMap() throws DataSetException ;
     Set<IDevice> createDeviceSet() throws DataSetException ;

@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,30 +42,30 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
     }
 
     @Override
-    public void reactOnTriggerSetUpMeeting(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring set-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+    public void reactOnTriggerSetUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
+        log.info("Ignoring set-up-event trigger for assistance \"{}\" of event with ID \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
-    public void reactOnTriggerCleanUpMeeting(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring clean-up-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+    public void reactOnTriggerCleanUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
+        log.info("Ignoring clean-up-event trigger for assistance \"{}\" of event with ID \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
-    public void reactOnTriggerStartMeeting(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring start-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+    public void reactOnTriggerStartEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
+        log.info("Ignoring start-event trigger for assistance \"{}\" of event with ID \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
-    public void reactOnTriggerStopMeeting(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring stop-meeting trigger for assistance \"{}\" of meeting with ID \"{}\"",
+    public void reactOnTriggerStopEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
+        log.info("Ignoring stop-event trigger for assistance \"{}\" of event with ID \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getMeeting().map(IMeeting::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 }

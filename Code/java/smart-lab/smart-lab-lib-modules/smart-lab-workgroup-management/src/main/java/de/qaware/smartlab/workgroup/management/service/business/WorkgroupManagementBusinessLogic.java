@@ -1,7 +1,7 @@
 package de.qaware.smartlab.workgroup.management.service.business;
 
-import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.result.ExtensionResult;
@@ -19,38 +19,38 @@ import java.util.Set;
 public class WorkgroupManagementBusinessLogic extends AbstractBasicEntityManagementBusinessLogic<IWorkgroup, WorkgroupId> implements IWorkgroupManagementBusinessLogic {
 
     private final IWorkgroupManagementRepository workgroupManagementRepository;
-    private final IMeetingManagementService meetingManagementService;
+    private final IEventManagementService eventManagementService;
 
     public WorkgroupManagementBusinessLogic(
             IWorkgroupManagementRepository workgroupManagementRepository,
-            IMeetingManagementService meetingManagementService) {
+            IEventManagementService eventManagementService) {
         super(workgroupManagementRepository);
         this.workgroupManagementRepository = workgroupManagementRepository;
-        this.meetingManagementService = meetingManagementService;
+        this.eventManagementService = eventManagementService;
     }
 
     @Override
-    public Optional<Set<IMeeting>> getMeetingsOfWorkgroup(WorkgroupId workgroupId) {
+    public Optional<Set<IEvent>> getEventsOfWorkgroup(WorkgroupId workgroupId) {
         return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> Optional.of(this.meetingManagementService.findAll(workgroup.getId())))
+                .map(workgroup -> Optional.of(this.eventManagementService.findAll(workgroup.getId())))
                 .orElse(Optional.empty());
     }
 
     @Override
-    public Optional<IMeeting> getCurrentMeeting(WorkgroupId workgroupId) {
+    public Optional<IEvent> getCurrentEvent(WorkgroupId workgroupId) {
         return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> Optional.of(this.meetingManagementService.findCurrent(workgroup.getId())))
+                .map(workgroup -> Optional.of(this.eventManagementService.findCurrent(workgroup.getId())))
                 .orElse(Optional.empty());
     }
 
     @Override
-    public ExtensionResult extendCurrentMeeting(WorkgroupId workgroupId, Duration extension) {
+    public ExtensionResult extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
         return this.workgroupManagementRepository.findOne(workgroupId)
                 .map(workgroup -> {
                     try {
-                        return getCurrentMeeting(workgroup.getId())
-                                .map(meeting -> {
-                                    this.meetingManagementService.extendMeeting(meeting.getId(), extension);
+                        return getCurrentEvent(workgroup.getId())
+                                .map(event -> {
+                                    this.eventManagementService.extendEvent(event.getId(), extension);
                                     return ExtensionResult.SUCCESS;})
                                 .orElse(ExtensionResult.NOT_FOUND);
                     }

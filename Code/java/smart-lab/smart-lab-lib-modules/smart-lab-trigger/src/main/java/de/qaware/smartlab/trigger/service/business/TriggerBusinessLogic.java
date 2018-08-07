@@ -7,7 +7,7 @@ import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementSe
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.job.IJobInfo;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -43,144 +43,144 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     }
 
     private IJobInfo triggerAssistances(
-            IMeeting meeting,
+            IEvent event,
             BiConsumer<IAssistanceContext, IAssistanceTriggerable> triggerReaction,
             @Nullable URL callbackUrl) {
         IJobInfo jobInfo = this.jobManagementService.recordNewJob(callbackUrl);
         this.asyncTriggerHandler.triggerAssistances(
-                meeting,
+                event,
                 triggerReaction,
                 jobInfo.getId());
         return jobInfo;
     }
 
     @Override
-    public IJobInfo setUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to set up meeting {}", meeting);
+    public IJobInfo setUpEvent(IEvent event, @Nullable URL callbackUrl) {
+        log.info("Processing trigger to set up event {}", event);
         IJobInfo jobInfo = triggerAssistances(
-                meeting,
-                (context, assistance) -> assistance.reactOnTriggerSetUpMeeting(this.assistanceService, context),
+                event,
+                (context, assistance) -> assistance.reactOnTriggerSetUpEvent(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to set up meeting {}", meeting);
+        log.info("Processed trigger to set up event {}", event);
         // TODO: Return type necessary?
         return jobInfo;
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
-        return setUpMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
+    public IJobInfo setUpCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return setUpEvent(this.locationManagementService.getCurrentEvent(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo setUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
-        return setUpCurrentMeetingByLocationId(location.getId(), callbackUrl);
+    public IJobInfo setUpCurrentEvent(ILocation location, @Nullable URL callbackUrl) {
+        return setUpCurrentEventByLocationId(location.getId(), callbackUrl);
     }
 
     @Override
-    public IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return setUpMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+    public IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
+        return setUpEvent(this.workgroupManagementService.getCurrentEvent(workgroupId), callbackUrl);
     }
 
     @Override
-    public IJobInfo setUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
-        return setUpCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
+    public IJobInfo setUpCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return setUpCurrentEventByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 
     @Override
-    public IJobInfo cleanUpMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to clean up meeting {}", meeting);
+    public IJobInfo cleanUpEvent(IEvent event, @Nullable URL callbackUrl) {
+        log.info("Processing trigger to clean up event {}", event);
         IJobInfo jobInfo = triggerAssistances(
-                meeting,
-                (context, assistance) -> assistance.reactOnTriggerCleanUpMeeting(this.assistanceService, context),
+                event,
+                (context, assistance) -> assistance.reactOnTriggerCleanUpEvent(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to clean up meeting {}", meeting);
+        log.info("Processed trigger to clean up event {}", event);
         // TODO: Return type necessary?
         return jobInfo;
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
-        return cleanUpMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
+    public IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return cleanUpEvent(this.locationManagementService.getCurrentEvent(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo cleanUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
-        return cleanUpCurrentMeetingByLocationId(location.getId(), callbackUrl);
+    public IJobInfo cleanUpCurrentEvent(ILocation location, @Nullable URL callbackUrl) {
+        return cleanUpCurrentEventByLocationId(location.getId(), callbackUrl);
     }
 
-    // TODO: Introduce "Clean up LAST meeting" since there is no "current meeting" after a meeting has ended
+    // TODO: Introduce "Clean up LAST event" since there is no "current event" after a event has ended
 
     @Override
-    public IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return cleanUpMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
-    }
-
-    @Override
-    public IJobInfo cleanUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
-        return cleanUpCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
+    public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
+        return cleanUpEvent(this.workgroupManagementService.getCurrentEvent(workgroupId), callbackUrl);
     }
 
     @Override
-    public IJobInfo startMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to start meeting {}", meeting);
+    public IJobInfo cleanUpCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return cleanUpCurrentEventByWorkgroupId(workgroup.getId(), callbackUrl);
+    }
+
+    @Override
+    public IJobInfo startEvent(IEvent event, @Nullable URL callbackUrl) {
+        log.info("Processing trigger to start event {}", event);
         IJobInfo jobInfo = triggerAssistances(
-                meeting,
-                (context, assistance) -> assistance.reactOnTriggerStartMeeting(this.assistanceService, context),
+                event,
+                (context, assistance) -> assistance.reactOnTriggerStartEvent(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to start meeting {}", meeting);
+        log.info("Processed trigger to start event {}", event);
         // TODO: Return type necessary?
         return jobInfo;
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
-        return startMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
+    public IJobInfo startCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return startEvent(this.locationManagementService.getCurrentEvent(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo startCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
-        return startCurrentMeetingByLocationId(location.getId(), callbackUrl);
+    public IJobInfo startCurrentEvent(ILocation location, @Nullable URL callbackUrl) {
+        return startCurrentEventByLocationId(location.getId(), callbackUrl);
     }
 
     @Override
-    public IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return startMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+    public IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
+        return startEvent(this.workgroupManagementService.getCurrentEvent(workgroupId), callbackUrl);
     }
 
     @Override
-    public IJobInfo startCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
-        return startCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
+    public IJobInfo startCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return startCurrentEventByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 
     @Override
-    public IJobInfo stopMeeting(IMeeting meeting, @Nullable URL callbackUrl) {
-        log.info("Processing trigger to stop meeting {}", meeting);
+    public IJobInfo stopEvent(IEvent event, @Nullable URL callbackUrl) {
+        log.info("Processing trigger to stop event {}", event);
         IJobInfo jobInfo = triggerAssistances(
-                meeting,
-                (context, assistance) -> assistance.reactOnTriggerStopMeeting(this.assistanceService, context),
+                event,
+                (context, assistance) -> assistance.reactOnTriggerStopEvent(this.assistanceService, context),
                 callbackUrl);
-        log.info("Processed trigger to stop meeting {}", meeting);
+        log.info("Processed trigger to stop event {}", event);
         // TODO: Return type necessary?
         return jobInfo;
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
-        return stopMeeting(this.locationManagementService.getCurrentMeeting(locationId), callbackUrl);
+    public IJobInfo stopCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl) {
+        return stopEvent(this.locationManagementService.getCurrentEvent(locationId), callbackUrl);
     }
 
     @Override
-    public IJobInfo stopCurrentMeeting(ILocation location, @Nullable URL callbackUrl) {
-        return stopCurrentMeetingByLocationId(location.getId(), callbackUrl);
+    public IJobInfo stopCurrentEvent(ILocation location, @Nullable URL callbackUrl) {
+        return stopCurrentEventByLocationId(location.getId(), callbackUrl);
     }
 
     @Override
-    public IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
-        return stopMeeting(this.workgroupManagementService.getCurrentMeeting(workgroupId), callbackUrl);
+    public IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
+        return stopEvent(this.workgroupManagementService.getCurrentEvent(workgroupId), callbackUrl);
     }
 
     @Override
-    public IJobInfo stopCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl) {
-        return stopCurrentMeetingByWorkgroupId(workgroup.getId(), callbackUrl);
+    public IJobInfo stopCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl) {
+        return stopCurrentEventByWorkgroupId(workgroup.getId(), callbackUrl);
     }
 }

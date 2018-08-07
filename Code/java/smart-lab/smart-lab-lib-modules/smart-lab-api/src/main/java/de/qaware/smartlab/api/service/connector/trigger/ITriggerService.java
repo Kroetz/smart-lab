@@ -8,23 +8,23 @@ import java.net.URL;
 
 public interface ITriggerService {
 
-    IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId);
-    IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl);
-    IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
-    IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
+    IJobInfo setUpCurrentEventByLocationId(LocationId locationId);
+    IJobInfo setUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl);
+    IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId);
-    IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl);
-    IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
-    IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
+    IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId);
+    IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId, URL callbackUrl);
+    IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo startCurrentMeetingByLocationId(LocationId locationId);
-    IJobInfo startCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl);
-    IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
-    IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
+    IJobInfo startCurrentEventByLocationId(LocationId locationId);
+    IJobInfo startCurrentEventByLocationId(LocationId locationId, URL callbackUrl);
+    IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 
-    IJobInfo stopCurrentMeetingByLocationId(LocationId locationId);
-    IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, URL callbackUrl);
-    IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId);
-    IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
+    IJobInfo stopCurrentEventByLocationId(LocationId locationId);
+    IJobInfo stopCurrentEventByLocationId(LocationId locationId, URL callbackUrl);
+    IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId);
+    IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId, URL callbackUrl);
 }

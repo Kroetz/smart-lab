@@ -1,7 +1,7 @@
 package de.qaware.smartlab.trigger.service.business;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
-import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
@@ -12,27 +12,27 @@ import java.net.URL;
 
 public interface ITriggerBusinessLogic {
 
-    IJobInfo setUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl);
-    IJobInfo setUpMeeting(IMeeting meeting, @Nullable URL callbackUrl);
-    IJobInfo setUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl);
-    IJobInfo setUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
-    IJobInfo setUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl);
+    IJobInfo setUpCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl);
+    IJobInfo setUpEvent(IEvent event, @Nullable URL callbackUrl);
+    IJobInfo setUpCurrentEvent(ILocation location, @Nullable URL callbackUrl);
+    IJobInfo setUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
+    IJobInfo setUpCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl);
 
-    IJobInfo cleanUpCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl);
-    IJobInfo cleanUpMeeting(IMeeting meeting, @Nullable URL callbackUrl);
-    IJobInfo cleanUpCurrentMeeting(ILocation location, @Nullable URL callbackUrl);
-    IJobInfo cleanUpCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
-    IJobInfo cleanUpCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl);
+    IJobInfo cleanUpCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl);
+    IJobInfo cleanUpEvent(IEvent event, @Nullable URL callbackUrl);
+    IJobInfo cleanUpCurrentEvent(ILocation location, @Nullable URL callbackUrl);
+    IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
+    IJobInfo cleanUpCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl);
 
-    IJobInfo startCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl);
-    IJobInfo startMeeting(IMeeting meeting, @Nullable URL callbackUrl);
-    IJobInfo startCurrentMeeting(ILocation location, @Nullable URL callbackUrl);
-    IJobInfo startCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
-    IJobInfo startCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl);
+    IJobInfo startCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl);
+    IJobInfo startEvent(IEvent event, @Nullable URL callbackUrl);
+    IJobInfo startCurrentEvent(ILocation location, @Nullable URL callbackUrl);
+    IJobInfo startCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
+    IJobInfo startCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl);
 
-    IJobInfo stopCurrentMeetingByLocationId(LocationId locationId, @Nullable URL callbackUrl);
-    IJobInfo stopMeeting(IMeeting meeting, @Nullable URL callbackUrl);
-    IJobInfo stopCurrentMeeting(ILocation location, @Nullable URL callbackUrl);
-    IJobInfo stopCurrentMeetingByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
-    IJobInfo stopCurrentMeeting(IWorkgroup workgroup, @Nullable URL callbackUrl);
+    IJobInfo stopCurrentEventByLocationId(LocationId locationId, @Nullable URL callbackUrl);
+    IJobInfo stopEvent(IEvent event, @Nullable URL callbackUrl);
+    IJobInfo stopCurrentEvent(ILocation location, @Nullable URL callbackUrl);
+    IJobInfo stopCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl);
+    IJobInfo stopCurrentEvent(IWorkgroup workgroup, @Nullable URL callbackUrl);
 }
