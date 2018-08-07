@@ -1,4 +1,4 @@
-package de.qaware.smartlabassistancemicroservice;
+package de.qaware.smartlab.assistance.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
