@@ -1,4 +1,4 @@
-package de.qaware.smartlabdiscoverymicroservice;
+package de.qaware.smartlab.discovery.microservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

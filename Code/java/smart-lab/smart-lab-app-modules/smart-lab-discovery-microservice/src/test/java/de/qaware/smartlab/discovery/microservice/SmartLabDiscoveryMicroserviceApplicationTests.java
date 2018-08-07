@@ -1,4 +1,4 @@
-package de.qaware.smartlabdiscoverymicroservice;
+package de.qaware.smartlab.discovery.microservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
