@@ -33,7 +33,7 @@
         <module>smart-lab-gui-microservice</module>
         <module>smart-lab-trigger-provider-microservice</module>
         <module>smart-lab-monolithic-service</module>
-        <module>smart-lab-test</module>
+        <module>smart-lab-integration-test</module>
     </modules>
 
 </project>
