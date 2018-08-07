@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.gui;
+package de.qaware.smartlabapi.service.constant.gui;
 
 public abstract class GuiApiConstants {
 

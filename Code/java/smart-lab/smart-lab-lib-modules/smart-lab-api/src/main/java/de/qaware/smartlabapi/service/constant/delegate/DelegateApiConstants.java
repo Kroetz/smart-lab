@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.delegate;
+package de.qaware.smartlabapi.service.constant.delegate;
 
 public abstract class DelegateApiConstants {
 

@@ -1,7 +1,7 @@
 package de.qaware.smartlabgui.service.business;
 
-import de.qaware.smartlabcore.service.constant.location.LocationManagementApiConstants;
-import de.qaware.smartlabcore.service.constant.trigger.TriggerApiConstants;
+import de.qaware.smartlabapi.service.constant.location.LocationManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.location.LocationId;
 import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlabapi.service.connector.location.ILocationManagementService;

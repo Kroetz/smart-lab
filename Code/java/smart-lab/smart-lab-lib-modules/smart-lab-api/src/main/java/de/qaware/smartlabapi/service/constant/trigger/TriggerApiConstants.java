@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.trigger;
+package de.qaware.smartlabapi.service.constant.trigger;
 
 public abstract class TriggerApiConstants {
 

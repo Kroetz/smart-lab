@@ -1,6 +1,6 @@
 package de.qaware.smartlabassistance.service.controller;
 
-import de.qaware.smartlabcore.service.constant.assistance.AssistanceApiConstants;
+import de.qaware.smartlabapi.service.constant.assistance.AssistanceApiConstants;
 import de.qaware.smartlabassistance.service.business.IAssistanceBusinessLogic;
 import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.location.ILocation;

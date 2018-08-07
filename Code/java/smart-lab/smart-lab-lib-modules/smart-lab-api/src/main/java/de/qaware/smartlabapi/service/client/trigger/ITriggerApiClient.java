@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.trigger;
 
-import de.qaware.smartlabcore.service.constant.trigger.TriggerApiConstants;
+import de.qaware.smartlabapi.service.constant.trigger.TriggerApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

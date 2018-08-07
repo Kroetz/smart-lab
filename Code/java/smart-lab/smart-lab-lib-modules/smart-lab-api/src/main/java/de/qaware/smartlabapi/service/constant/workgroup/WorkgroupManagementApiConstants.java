@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.workgroup;
+package de.qaware.smartlabapi.service.constant.workgroup;
 
 public abstract class WorkgroupManagementApiConstants {
 

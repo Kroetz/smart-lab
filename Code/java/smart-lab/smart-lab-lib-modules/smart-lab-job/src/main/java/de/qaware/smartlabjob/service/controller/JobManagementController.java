@@ -1,6 +1,6 @@
 package de.qaware.smartlabjob.service.controller;
 
-import de.qaware.smartlabcore.service.constant.job.JobManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.job.JobManagementApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
 import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;

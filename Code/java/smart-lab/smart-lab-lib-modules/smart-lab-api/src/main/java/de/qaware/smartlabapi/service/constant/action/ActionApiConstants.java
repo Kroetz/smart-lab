@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.action;
+package de.qaware.smartlabapi.service.constant.action;
 
 public abstract class ActionApiConstants {
 

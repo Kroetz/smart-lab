@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.delegate;
 
-import de.qaware.smartlabcore.service.constant.delegate.DelegateApiConstants;
+import de.qaware.smartlabapi.service.constant.delegate.DelegateApiConstants;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import feign.Headers;

@@ -4,7 +4,7 @@ import de.qaware.smartlabapi.service.client.generic.IBasicEntityManagementApiCli
 import de.qaware.smartlabcore.data.meeting.MeetingDto;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupDto;
-import de.qaware.smartlabcore.service.constant.workgroup.WorkgroupManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.workgroup.WorkgroupManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

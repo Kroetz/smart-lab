@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.assistance;
+package de.qaware.smartlabapi.service.constant.assistance;
 
 public abstract class AssistanceApiConstants {
 

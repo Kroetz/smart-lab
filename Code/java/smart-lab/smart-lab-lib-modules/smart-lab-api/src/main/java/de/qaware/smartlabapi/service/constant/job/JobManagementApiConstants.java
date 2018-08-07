@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.job;
+package de.qaware.smartlabapi.service.constant.job;
 
 public abstract class JobManagementApiConstants {
 

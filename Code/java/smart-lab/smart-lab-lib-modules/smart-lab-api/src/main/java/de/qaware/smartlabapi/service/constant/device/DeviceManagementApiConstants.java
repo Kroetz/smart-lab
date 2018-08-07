@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.device;
+package de.qaware.smartlabapi.service.constant.device;
 
 public abstract class DeviceManagementApiConstants {
 

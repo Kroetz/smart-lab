@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.meeting;
+package de.qaware.smartlabapi.service.constant.meeting;
 
 public abstract class MeetingManagementApiConstants {
 

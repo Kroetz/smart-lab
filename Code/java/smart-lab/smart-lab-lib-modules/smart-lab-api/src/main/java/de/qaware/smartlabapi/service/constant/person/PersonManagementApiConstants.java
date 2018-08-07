@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.person;
+package de.qaware.smartlabapi.service.constant.person;
 
 public abstract class PersonManagementApiConstants {
 

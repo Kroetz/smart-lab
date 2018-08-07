@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.gui;
 
-import de.qaware.smartlabcore.service.constant.gui.GuiApiConstants;
+import de.qaware.smartlabapi.service.constant.gui.GuiApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

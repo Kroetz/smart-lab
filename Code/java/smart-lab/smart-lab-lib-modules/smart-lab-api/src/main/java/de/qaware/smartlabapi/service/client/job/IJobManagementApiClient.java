@@ -1,6 +1,6 @@
 package de.qaware.smartlabapi.service.client.job;
 
-import de.qaware.smartlabcore.service.constant.job.JobManagementApiConstants;
+import de.qaware.smartlabapi.service.constant.job.JobManagementApiConstants;
 import de.qaware.smartlabcore.data.job.IJobInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

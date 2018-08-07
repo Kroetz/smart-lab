@@ -1,4 +1,4 @@
-package de.qaware.smartlabcore.service.constant.location;
+package de.qaware.smartlabapi.service.constant.location;
 
 public abstract class LocationManagementApiConstants {
 
