@@ -3,7 +3,7 @@ package de.qaware.smartlabmonolith.service.connector.job;
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlabjob.service.controller.JobManagementController;
+import de.qaware.smartlab.job.service.controller.JobManagementController;
 import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

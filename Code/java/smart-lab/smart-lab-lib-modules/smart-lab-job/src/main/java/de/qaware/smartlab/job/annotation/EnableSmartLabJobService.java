@@ -1,6 +1,6 @@
-package de.qaware.smartlabjob.annotation;
+package de.qaware.smartlab.job.annotation;
 
-import de.qaware.smartlabjob.configuration.JobServiceConfiguration;
+import de.qaware.smartlab.job.configuration.JobServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

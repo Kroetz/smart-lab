@@ -1,3 +1,3 @@
-package de.qaware.smartlabjob.service;
+package de.qaware.smartlab.job.service;
 
 public interface ComponentScanMarker { }

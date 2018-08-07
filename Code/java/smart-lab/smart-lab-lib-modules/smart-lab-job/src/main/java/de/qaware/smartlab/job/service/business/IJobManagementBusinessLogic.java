@@ -1,4 +1,4 @@
-package de.qaware.smartlabjob.service.business;
+package de.qaware.smartlab.job.service.business;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
 

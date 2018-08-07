@@ -1,6 +1,6 @@
 package de.qaware.smartlab.job.microservice;
 
-import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
+import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,9 +1,9 @@
-package de.qaware.smartlabjob.service.business;
+package de.qaware.smartlab.job.service.business;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.job.JobStatus;
 import de.qaware.smartlab.core.data.job.JobInfo;
-import de.qaware.smartlabjob.service.repository.IJobManagementRepository;
+import de.qaware.smartlab.job.service.repository.IJobManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
