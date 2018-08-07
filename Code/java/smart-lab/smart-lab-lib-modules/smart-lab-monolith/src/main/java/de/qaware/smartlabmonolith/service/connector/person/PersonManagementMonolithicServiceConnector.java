@@ -8,7 +8,7 @@ import de.qaware.smartlabcore.data.person.PersonDto;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
-import de.qaware.smartlabperson.service.controller.PersonManagementController;
+import de.qaware.smartlabpersonmanagement.service.controller.PersonManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

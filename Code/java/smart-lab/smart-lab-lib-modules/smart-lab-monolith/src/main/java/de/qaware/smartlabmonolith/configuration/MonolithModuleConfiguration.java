@@ -9,7 +9,7 @@ import de.qaware.smartlabactuatormanagement.annotation.EnableSmartLabDeviceServi
 import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;
 import de.qaware.smartlabeventmanagement.annotation.EnableSmartLabMeetingService;
-import de.qaware.smartlabperson.annotation.EnableSmartLabPersonService;
+import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;

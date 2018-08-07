@@ -1,6 +1,6 @@
-package de.qaware.smartlabperson.annotation;
+package de.qaware.smartlabpersonmanagement.annotation;
 
-import de.qaware.smartlabperson.configuration.PersonServiceConfiguration;
+import de.qaware.smartlabpersonmanagement.configuration.PersonServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

@@ -1,4 +1,4 @@
-package de.qaware.smartlabperson.service.business;
+package de.qaware.smartlabpersonmanagement.service.business;
 
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;

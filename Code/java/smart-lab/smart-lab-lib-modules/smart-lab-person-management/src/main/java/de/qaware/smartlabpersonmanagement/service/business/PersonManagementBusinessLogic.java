@@ -1,9 +1,9 @@
-package de.qaware.smartlabperson.service.business;
+package de.qaware.smartlabpersonmanagement.service.business;
 
 import de.qaware.smartlabcore.data.person.IPerson;
 import de.qaware.smartlabcore.data.person.PersonId;
 import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
-import de.qaware.smartlabperson.service.repository.IPersonManagementRepository;
+import de.qaware.smartlabpersonmanagement.service.repository.IPersonManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

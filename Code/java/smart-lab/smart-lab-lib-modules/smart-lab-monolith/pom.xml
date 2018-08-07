@@ -46,7 +46,7 @@
 
         <dependency>
             <groupId>de.qaware</groupId>
-            <artifactId>smart-lab-person</artifactId>
+            <artifactId>smart-lab-person-management</artifactId>
         </dependency>
 
         <dependency>
