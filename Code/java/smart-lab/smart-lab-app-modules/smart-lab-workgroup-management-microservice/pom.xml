@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-workgroup-microservice</artifactId>
+	<artifactId>smart-lab-workgroup-management-microservice</artifactId>
 	<packaging>jar</packaging>
-	<name>smart-lab-workgroup-microservice</name>
-	<description>Module of the Smart-Lab project that runs the workgroup microservice</description>
+	<name>smart-lab-workgroup-management-microservice</name>
+	<description>Module of the Smart-Lab project that runs the workgroup-management microservice</description>
 
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>

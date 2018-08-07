@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroupmicroservice;
+package de.qaware.smartlabworkgroupmanagementmicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SmartLabWorkgroupMicroserviceApplicationTests {
+public class SmartLabWorkgroupManagementMicroserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {

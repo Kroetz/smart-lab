@@ -22,7 +22,7 @@
         <module>smart-lab-discovery-microservice</module>
         <module>smart-lab-job-microservice</module>
         <module>smart-lab-person-management-microservice</module>
-        <module>smart-lab-workgroup-microservice</module>
+        <module>smart-lab-workgroup-management-microservice</module>
         <module>smart-lab-actuator-management-microservice</module>
         <module>smart-lab-location-management-microservice</module>
         <module>smart-lab-event-management-microservice</module>
