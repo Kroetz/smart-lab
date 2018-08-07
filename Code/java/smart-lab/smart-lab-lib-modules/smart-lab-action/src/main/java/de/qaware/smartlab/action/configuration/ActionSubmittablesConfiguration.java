@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackageClasses = {
-        de.qaware.smartlab.action.info.ComponentScanMarker.class,
-        de.qaware.smartlab.action.submittable.ComponentScanMarker.class})
+        de.qaware.smartlab.action.actions.info.ComponentScanMarker.class,
+        de.qaware.smartlab.action.actions.submittable.ComponentScanMarker.class})
 @EnableSmartLabCore
 public class ActionSubmittablesConfiguration { }

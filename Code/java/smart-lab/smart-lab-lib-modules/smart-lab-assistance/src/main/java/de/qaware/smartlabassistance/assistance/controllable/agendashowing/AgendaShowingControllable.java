@@ -1,8 +1,8 @@
 package de.qaware.smartlabassistance.assistance.controllable.agendashowing;
 
-import de.qaware.smartlab.action.submittable.generic.IActionSubmittable;
-import de.qaware.smartlab.action.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
-import de.qaware.smartlab.action.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
+import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
+import de.qaware.smartlab.action.actions.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
+import de.qaware.smartlab.action.actions.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
 import de.qaware.smartlabapi.service.constant.gui.GuiApiConstants;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
