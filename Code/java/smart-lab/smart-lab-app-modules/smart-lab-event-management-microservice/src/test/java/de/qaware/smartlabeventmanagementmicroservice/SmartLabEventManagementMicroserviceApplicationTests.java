@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeetingmicroservice;
+package de.qaware.smartlabeventmanagementmicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SmartLabMeetingMicroserviceApplicationTests {
+public class SmartLabEventManagementMicroserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {

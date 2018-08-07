@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-meeting-microservice</artifactId>
+	<artifactId>smart-lab-event-management-microservice</artifactId>
 	<packaging>jar</packaging>
-	<name>smart-lab-meeting-microservice</name>
-	<description>Module of the Smart-Lab project that runs the meeting microservice</description>
+	<name>smart-lab-event-management-microservice</name>
+	<description>Module of the Smart-Lab project that runs the event-management microservice</description>
 
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>

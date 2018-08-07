@@ -1,4 +1,4 @@
-package de.qaware.smartlabmeetingmicroservice;
+package de.qaware.smartlabeventmanagementmicroservice;
 
 import de.qaware.smartlabeventmanagement.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSmartLabMicroservice
 @SpringBootApplication
 @EnableSmartLabMeetingService
-public class SmartLabMeetingMicroserviceApplication {
+public class SmartLabEventManagementMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabMeetingMicroserviceApplication.class, args);
+		SpringApplication.run(SmartLabEventManagementMicroserviceApplication.class, args);
 	}
 }
