@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo;
 
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlab.core.data.device.DeviceId;
 
 public interface IWindowInfo {
 

@@ -1,9 +1,9 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlab.core.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.assistance.assistances.triggerable.miscellaneous.resolver;
 
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;
-import de.qaware.smartlabcore.data.generic.AbstractResolver;
+import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

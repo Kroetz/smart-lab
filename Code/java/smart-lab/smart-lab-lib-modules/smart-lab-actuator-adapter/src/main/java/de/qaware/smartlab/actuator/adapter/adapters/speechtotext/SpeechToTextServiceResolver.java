@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext;
 
-import de.qaware.smartlabcore.data.action.speechtotext.ISpeechToTextService;
-import de.qaware.smartlabcore.data.generic.AbstractResolver;
+import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextService;
+import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

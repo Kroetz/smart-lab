@@ -2,9 +2,9 @@ package de.qaware.smartlab.assistance.assistances.info.websitedisplaying;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.exception.ConfigurationException;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.exception.ConfigurationException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

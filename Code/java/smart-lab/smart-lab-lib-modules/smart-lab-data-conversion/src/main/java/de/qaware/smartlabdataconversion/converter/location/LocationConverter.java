@@ -1,9 +1,9 @@
 package de.qaware.smartlabdataconversion.converter.location;
 
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.Location;
-import de.qaware.smartlabcore.data.location.LocationDto;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.data.location.Location;
+import de.qaware.smartlab.core.data.location.LocationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

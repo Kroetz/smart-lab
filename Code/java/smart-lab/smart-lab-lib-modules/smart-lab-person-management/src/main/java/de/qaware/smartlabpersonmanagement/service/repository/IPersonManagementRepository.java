@@ -1,7 +1,7 @@
 package de.qaware.smartlabpersonmanagement.service.repository;
 
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.service.repository.IBasicEntityManagementRepository;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.service.repository.IBasicEntityManagementRepository;
 
 public interface IPersonManagementRepository extends IBasicEntityManagementRepository<IPerson, PersonId> { }

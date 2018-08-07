@@ -2,11 +2,11 @@ package de.qaware.smartlabgui.service.business;
 
 import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
 import de.qaware.smartlab.api.service.constant.trigger.TriggerApiConstants;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

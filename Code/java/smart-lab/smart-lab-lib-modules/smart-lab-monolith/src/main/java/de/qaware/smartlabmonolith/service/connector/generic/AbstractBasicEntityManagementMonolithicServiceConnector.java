@@ -1,14 +1,14 @@
 package de.qaware.smartlabmonolith.service.connector.generic;
 
 import de.qaware.smartlab.api.service.connector.generic.IBasicEntityManagementService;
-import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.generic.IIdentifier;
-import de.qaware.smartlabcore.exception.EntityConflictException;
-import de.qaware.smartlabcore.exception.EntityNotFoundException;
-import de.qaware.smartlabcore.exception.UnknownErrorException;
-import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
+import de.qaware.smartlab.core.data.generic.IDto;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.generic.IEntity;
+import de.qaware.smartlab.core.data.generic.IIdentifier;
+import de.qaware.smartlab.core.exception.EntityConflictException;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

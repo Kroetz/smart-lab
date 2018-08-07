@@ -1,12 +1,12 @@
 package de.qaware.smartlabmonolith.service.connector.person;
 
 import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.person.PersonDto;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.data.person.PersonDto;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlabpersonmanagement.service.controller.PersonManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,16 +1,16 @@
 package de.qaware.smartlabeventmanagement.service.controller;
 
 import de.qaware.smartlab.api.service.constant.meeting.MeetingManagementApiConstants;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.meeting.MeetingDto;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
-import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
+import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
+import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlabeventmanagement.service.business.IMeetingManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

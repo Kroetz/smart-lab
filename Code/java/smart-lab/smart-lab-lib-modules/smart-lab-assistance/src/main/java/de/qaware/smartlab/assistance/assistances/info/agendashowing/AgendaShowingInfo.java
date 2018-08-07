@@ -2,8 +2,8 @@ package de.qaware.smartlab.assistance.assistances.info.agendashowing;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.device.DeviceId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

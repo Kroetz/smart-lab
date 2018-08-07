@@ -1,11 +1,11 @@
 package de.qaware.smartlabworkgroupmanagement.service.business;
 
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.service.business.AbstractBasicEntityManagementBusinessLogic;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.result.ExtensionResult;
+import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlabworkgroupmanagement.service.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

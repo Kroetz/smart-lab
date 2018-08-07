@@ -1,6 +1,6 @@
 package de.qaware.smartlab.assistance.assistances.info.generic;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.*;
+import static de.qaware.smartlab.core.miscellaneous.StringUtils.*;
 import static java.lang.String.format;
 
 @Slf4j

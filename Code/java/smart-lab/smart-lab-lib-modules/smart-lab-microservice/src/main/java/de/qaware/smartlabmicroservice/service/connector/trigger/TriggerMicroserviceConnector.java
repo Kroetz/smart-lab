@@ -2,12 +2,12 @@ package de.qaware.smartlabmicroservice.service.connector.trigger;
 
 import de.qaware.smartlab.api.service.client.trigger.ITriggerApiClient;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.exception.UnknownErrorException;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
 import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;

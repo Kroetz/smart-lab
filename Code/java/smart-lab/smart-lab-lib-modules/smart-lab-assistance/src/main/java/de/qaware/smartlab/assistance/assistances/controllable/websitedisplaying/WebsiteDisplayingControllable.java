@@ -9,7 +9,7 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAs
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.websitedisplaying.WebsiteDisplayingInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

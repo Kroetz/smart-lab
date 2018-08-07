@@ -1,6 +1,6 @@
 package de.qaware.smartlabjob.service.business;
 
-import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.job.IJobInfo;
 
 import java.net.URL;
 import java.util.Optional;

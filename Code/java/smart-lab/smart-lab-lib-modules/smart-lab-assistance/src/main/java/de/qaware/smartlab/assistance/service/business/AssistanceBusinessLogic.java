@@ -3,9 +3,9 @@ package de.qaware.smartlab.assistance.service.business;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.tracker.IAssistanceTracker;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

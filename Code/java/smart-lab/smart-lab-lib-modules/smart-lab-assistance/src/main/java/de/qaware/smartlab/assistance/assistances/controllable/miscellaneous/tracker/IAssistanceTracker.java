@@ -1,7 +1,7 @@
 package de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.tracker;
 
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
 
 public interface IAssistanceTracker {
 

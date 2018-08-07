@@ -1,14 +1,14 @@
 package de.qaware.smartlab.actuator.management.service.controller;
 
-import de.qaware.smartlabcore.data.device.DeviceDto;
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.device.DeviceDto;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.api.service.constant.device.DeviceManagementApiConstants;
-import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.service.controller.IBasicEntityManagementController;
-import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
+import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
+import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
+import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.actuator.management.service.business.IDeviceManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

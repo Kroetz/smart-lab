@@ -1,15 +1,15 @@
 package de.qaware.smartlabmonolith.service.connector.meeting;
 
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.meeting.MeetingDto;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.exception.*;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.*;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabeventmanagement.service.controller.MeetingManagementController;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;

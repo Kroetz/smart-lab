@@ -1,6 +1,6 @@
 package de.qaware.smartlabtrigger.provider.generic;
 
-import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.job.IJobInfo;
 
 public interface ITriggerProvider {
 

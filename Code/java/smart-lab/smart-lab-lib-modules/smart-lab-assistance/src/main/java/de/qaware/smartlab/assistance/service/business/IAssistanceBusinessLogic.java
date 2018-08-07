@@ -1,6 +1,6 @@
 package de.qaware.smartlab.assistance.service.business;
 
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
 
 public interface IAssistanceBusinessLogic {
 

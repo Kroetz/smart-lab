@@ -2,10 +2,10 @@ package de.qaware.smartlabmicroservice.service.connector.job;
 
 import de.qaware.smartlab.api.service.client.job.IJobManagementApiClient;
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.exception.UnknownErrorException;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
 import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;

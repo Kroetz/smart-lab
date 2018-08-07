@@ -1,12 +1,12 @@
 package de.qaware.smartlabmonolith.service.connector.device;
 
 import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
-import de.qaware.smartlabcore.data.device.DeviceDto;
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.core.data.device.DeviceDto;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.actuator.management.service.controller.DeviceManagementController;
 import de.qaware.smartlabmonolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;

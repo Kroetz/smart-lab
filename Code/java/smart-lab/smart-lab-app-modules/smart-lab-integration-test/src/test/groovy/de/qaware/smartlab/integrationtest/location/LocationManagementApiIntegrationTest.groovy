@@ -2,13 +2,13 @@ package de.qaware.smartlab.integrationtest.location
 
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
-import de.qaware.smartlabcore.data.location.ILocation
-import de.qaware.smartlabcore.data.location.LocationId
-import de.qaware.smartlabcore.data.location.LocationDto
-import de.qaware.smartlabcore.data.meeting.IMeeting
-import de.qaware.smartlabcore.exception.EntityConflictException
-import de.qaware.smartlabcore.exception.EntityNotFoundException
-import de.qaware.smartlabcore.exception.MaximalDurationReachedException
+import de.qaware.smartlab.core.data.location.ILocation
+import de.qaware.smartlab.core.data.location.LocationId
+import de.qaware.smartlab.core.data.location.LocationDto
+import de.qaware.smartlab.core.data.meeting.IMeeting
+import de.qaware.smartlab.core.exception.EntityConflictException
+import de.qaware.smartlab.core.exception.EntityNotFoundException
+import de.qaware.smartlab.core.exception.MaximalDurationReachedException
 
 import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory

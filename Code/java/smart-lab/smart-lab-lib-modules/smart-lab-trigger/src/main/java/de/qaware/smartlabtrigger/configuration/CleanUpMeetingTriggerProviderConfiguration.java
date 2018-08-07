@@ -1,7 +1,7 @@
 package de.qaware.smartlabtrigger.configuration;
 
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
-import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
+import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
-import static de.qaware.smartlabcore.miscellaneous.UrlUtils.of;
+import static de.qaware.smartlab.core.miscellaneous.UrlUtils.of;
 import static de.qaware.smartlabtrigger.provider.cleanupmeeting.CleanUpMeetingCallbackController.MAPPING_CALLBACK;
 
 @Configuration

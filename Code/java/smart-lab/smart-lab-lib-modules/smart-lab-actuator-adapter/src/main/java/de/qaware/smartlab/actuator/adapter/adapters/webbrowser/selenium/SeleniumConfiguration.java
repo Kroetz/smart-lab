@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

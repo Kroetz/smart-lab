@@ -1,6 +1,6 @@
 package de.qaware.smartlab.assistance.assistances.generic;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 
 import java.util.Map;
 

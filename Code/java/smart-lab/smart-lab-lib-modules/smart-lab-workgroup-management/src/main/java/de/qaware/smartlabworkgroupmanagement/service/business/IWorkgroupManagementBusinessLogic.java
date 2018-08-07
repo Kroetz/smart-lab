@@ -1,10 +1,10 @@
 package de.qaware.smartlabworkgroupmanagement.service.business;
 
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.service.business.IBasicEntityManagementBusinessLogic;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.result.ExtensionResult;
+import de.qaware.smartlab.core.service.business.IBasicEntityManagementBusinessLogic;
 
 import java.time.Duration;
 import java.util.Optional;

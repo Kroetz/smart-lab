@@ -7,12 +7,12 @@ import de.qaware.smartlab.action.result.UuidActionResult;
 import de.qaware.smartlab.action.actions.submittable.file.opening.FileOpeningSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
-import de.qaware.smartlabcore.data.action.generic.IActionArgs;
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
-import de.qaware.smartlabcore.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.data.action.generic.IActionArgs;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
+import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

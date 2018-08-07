@@ -1,10 +1,10 @@
 package de.qaware.smartlabjob.service.controller;
 
 import de.qaware.smartlab.api.service.constant.job.JobManagementApiConstants;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.service.controller.AbstractSmartLabController;
-import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
+import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlabjob.service.business.IJobManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;

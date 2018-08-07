@@ -5,9 +5,9 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.FileAs
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.IWindowInfo;
-import de.qaware.smartlabcore.exception.LocalDeviceException;
-import de.qaware.smartlabcore.miscellaneous.Language;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.miscellaneous.Language;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

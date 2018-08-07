@@ -6,13 +6,13 @@ import de.qaware.smartlab.action.actions.submittable.webbrowser.opening.WebBrows
 import de.qaware.smartlab.api.service.constant.gui.GuiApiConstants;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
-import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

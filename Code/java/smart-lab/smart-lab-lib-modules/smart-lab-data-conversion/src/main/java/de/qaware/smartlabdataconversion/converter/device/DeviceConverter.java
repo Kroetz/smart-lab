@@ -1,9 +1,9 @@
 package de.qaware.smartlabdataconversion.converter.device;
 
-import de.qaware.smartlabcore.data.device.Device;
-import de.qaware.smartlabcore.data.device.DeviceDto;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.device.Device;
+import de.qaware.smartlab.core.data.device.DeviceDto;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

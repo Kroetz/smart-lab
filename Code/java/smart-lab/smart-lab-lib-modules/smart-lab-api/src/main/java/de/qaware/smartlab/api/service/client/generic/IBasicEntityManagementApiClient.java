@@ -1,7 +1,7 @@
 package de.qaware.smartlab.api.service.client.generic;
 
-import de.qaware.smartlabcore.data.generic.IDto;
-import de.qaware.smartlabcore.data.generic.IEntity;
+import de.qaware.smartlab.core.data.generic.IDto;
+import de.qaware.smartlab.core.data.generic.IEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Set;

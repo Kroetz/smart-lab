@@ -3,8 +3,8 @@ package de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowhandle
 import com.sun.jna.platform.win32.WinDef;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.nativeapi.WindowsWindowHandlingApi;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.WindowsWindowInfo;
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.exception.WindowHandlingException;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.exception.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.IWindowInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.sun.jna.Native.loadLibrary;
 import static de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.powerpoint.PowerPointAdapter.getWindowTitle;
-import static de.qaware.smartlabcore.miscellaneous.StringUtils.utf8ToBase64String;
+import static de.qaware.smartlab.core.miscellaneous.StringUtils.utf8ToBase64String;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
 

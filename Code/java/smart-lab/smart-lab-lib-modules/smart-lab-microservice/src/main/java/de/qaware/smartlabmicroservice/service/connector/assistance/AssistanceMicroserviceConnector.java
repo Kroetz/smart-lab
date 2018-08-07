@@ -2,10 +2,10 @@ package de.qaware.smartlabmicroservice.service.connector.assistance;
 
 import de.qaware.smartlab.api.service.client.assistance.IAssistanceApiClient;
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.exception.UnknownErrorException;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.IServiceBaseUrlGetter;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import feign.FeignException;
 import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,9 @@
 package de.qaware.smartlabmonolith.service.connector.gui;
 
 import de.qaware.smartlab.api.service.connector.gui.IGuiService;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlabgui.service.controller.GuiController;
-import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

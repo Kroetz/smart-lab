@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
 
-import de.qaware.smartlabcore.exception.ConfigurationException;
+import de.qaware.smartlab.core.exception.ConfigurationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.api.service.client.assistance;
 
 import de.qaware.smartlab.api.service.constant.assistance.AssistanceApiConstants;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
 package de.qaware.smartlab.integrationtest.device
 
 import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService
-import de.qaware.smartlabcore.data.device.DeviceDto
-import de.qaware.smartlabcore.data.device.entity.DeviceId
-import de.qaware.smartlabcore.data.device.entity.IDevice
+import de.qaware.smartlab.core.data.device.DeviceDto
+import de.qaware.smartlab.core.data.device.DeviceId
+import de.qaware.smartlab.core.data.device.IDevice
 import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory

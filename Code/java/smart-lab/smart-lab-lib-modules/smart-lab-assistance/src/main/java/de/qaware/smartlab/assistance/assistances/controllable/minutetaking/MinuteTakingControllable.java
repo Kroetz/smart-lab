@@ -11,13 +11,13 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanc
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
-import de.qaware.smartlabcore.data.action.speechtotext.ITextPassagesBuilder;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
-import de.qaware.smartlabcore.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

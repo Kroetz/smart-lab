@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowhandler;
 
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.exception.WindowHandlingException;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.exception.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.IWindowInfo;
 import org.openqa.selenium.WebDriver;
 

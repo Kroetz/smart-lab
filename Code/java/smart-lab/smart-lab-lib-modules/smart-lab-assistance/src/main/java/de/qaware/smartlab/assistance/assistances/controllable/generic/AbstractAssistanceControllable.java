@@ -1,6 +1,6 @@
 package de.qaware.smartlab.assistance.assistances.controllable.generic;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import lombok.extern.slf4j.Slf4j;
 

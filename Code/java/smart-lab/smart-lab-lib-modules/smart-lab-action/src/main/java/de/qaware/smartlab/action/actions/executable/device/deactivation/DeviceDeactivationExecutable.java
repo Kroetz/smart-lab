@@ -7,10 +7,10 @@ import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.submittable.device.deactivation.DeviceDeactivationSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
-import de.qaware.smartlabcore.data.action.generic.IActionArgs;
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlab.core.data.action.generic.IActionArgs;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

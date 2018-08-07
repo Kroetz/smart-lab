@@ -1,9 +1,9 @@
 package de.qaware.smartlab.api.service.client.workgroup;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabcore.data.meeting.MeetingDto;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupDto;
+import de.qaware.smartlab.core.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.api.service.constant.workgroup.WorkgroupManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

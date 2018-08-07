@@ -1,9 +1,9 @@
 package de.qaware.smartlabdataconversion.converter.person;
 
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.Person;
-import de.qaware.smartlabcore.data.person.PersonDto;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.Person;
+import de.qaware.smartlab.core.data.person.PersonDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
 package de.qaware.smartlab.api.service.connector.trigger;
 
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 
 import java.net.URL;
 

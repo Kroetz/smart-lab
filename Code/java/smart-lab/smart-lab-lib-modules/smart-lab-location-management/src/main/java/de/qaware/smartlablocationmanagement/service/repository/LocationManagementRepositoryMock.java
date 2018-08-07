@@ -1,8 +1,8 @@
 package de.qaware.smartlablocationmanagement.service.repository;
 
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

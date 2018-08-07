@@ -1,8 +1,8 @@
 package de.qaware.smartlab.integrationtest.configuration;
 
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
-import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlabdataset.annotation.EnableSmartLabInitialData;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

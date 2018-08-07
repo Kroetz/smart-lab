@@ -2,8 +2,8 @@ package de.qaware.smartlabmonolith.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
-import de.qaware.smartlabcore.exception.UnknownDelegateException;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.exception.UnknownDelegateException;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;

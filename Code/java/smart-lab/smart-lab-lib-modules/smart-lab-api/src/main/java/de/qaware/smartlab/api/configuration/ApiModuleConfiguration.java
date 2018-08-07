@@ -1,6 +1,6 @@
 package de.qaware.smartlab.api.configuration;
 
-import de.qaware.smartlabcore.annotation.EnableSmartLabCore;
+import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 

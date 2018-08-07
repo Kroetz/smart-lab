@@ -2,7 +2,7 @@ package de.qaware.smartlabmicroservice.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;

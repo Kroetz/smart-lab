@@ -1,9 +1,9 @@
 package de.qaware.smartlabdataconversion.converter.meeting;
 
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.meeting.AgendaItem;
-import de.qaware.smartlabcore.data.meeting.AgendaItemDto;
-import de.qaware.smartlabcore.data.meeting.IAgendaItem;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.meeting.AgendaItem;
+import de.qaware.smartlab.core.data.meeting.AgendaItemDto;
+import de.qaware.smartlab.core.data.meeting.IAgendaItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

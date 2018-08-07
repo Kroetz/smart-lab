@@ -1,6 +1,6 @@
 package de.qaware.smartlab.api.service.connector.job;
 
-import de.qaware.smartlabcore.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.job.IJobInfo;
 import org.springframework.lang.Nullable;
 
 import java.net.URL;

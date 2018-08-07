@@ -1,8 +1,8 @@
 package de.qaware.smartlab.api.service.client.meeting;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingDto;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingDto;
 import de.qaware.smartlab.api.service.constant.meeting.MeetingManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

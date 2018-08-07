@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.AbstractAssistanceTriggerable;
 import de.qaware.smartlab.assistance.assistances.triggerable.miscellaneous.triggerreaction.ITriggerReaction;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
 package de.qaware.smartlabpersonmanagement.service.repository;
 
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

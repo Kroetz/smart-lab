@@ -1,6 +1,6 @@
 package de.qaware.smartlabeventmanagement.service.repository.parser;
 
-import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
 
 public interface IMeetingParser {
 

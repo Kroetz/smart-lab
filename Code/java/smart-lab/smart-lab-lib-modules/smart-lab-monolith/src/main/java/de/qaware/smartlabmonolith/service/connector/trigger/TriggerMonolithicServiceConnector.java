@@ -1,11 +1,11 @@
 package de.qaware.smartlabmonolith.service.connector.trigger;
 
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.miscellaneous.Property;
-import de.qaware.smartlabcore.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlabtrigger.service.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

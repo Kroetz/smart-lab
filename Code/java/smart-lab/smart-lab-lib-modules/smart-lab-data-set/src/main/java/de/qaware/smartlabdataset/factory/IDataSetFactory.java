@@ -1,16 +1,16 @@
 package de.qaware.smartlabdataset.factory;
 
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.exception.DataSetException;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.DataSetException;
 
 import java.util.Map;
 import java.util.Set;

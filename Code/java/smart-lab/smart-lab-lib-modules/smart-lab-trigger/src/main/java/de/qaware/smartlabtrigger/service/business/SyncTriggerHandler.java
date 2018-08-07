@@ -2,13 +2,13 @@ package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
-import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.exception.InsufficientContextException;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
+import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.exception.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static de.qaware.smartlabcore.miscellaneous.Constants.VOID;
+import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
 import static java.util.concurrent.CompletableFuture.allOf;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 

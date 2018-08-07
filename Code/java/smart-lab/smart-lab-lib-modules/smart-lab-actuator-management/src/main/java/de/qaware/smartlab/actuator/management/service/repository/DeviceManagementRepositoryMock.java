@@ -1,8 +1,8 @@
 package de.qaware.smartlab.actuator.management.service.repository;
 
-import de.qaware.smartlabcore.data.device.entity.DeviceId;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
-import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

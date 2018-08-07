@@ -1,10 +1,10 @@
 package de.qaware.smartlab.api.service.connector.location;
 
 import de.qaware.smartlab.api.service.connector.generic.IBasicEntityManagementService;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.location.LocationDto;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.data.location.LocationDto;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
 
 import java.time.Duration;
 import java.util.Set;

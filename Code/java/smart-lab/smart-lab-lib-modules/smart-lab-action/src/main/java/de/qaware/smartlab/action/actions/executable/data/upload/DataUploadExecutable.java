@@ -5,10 +5,10 @@ import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.submittable.data.upload.DataUploadSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;
-import de.qaware.smartlabcore.data.action.generic.IActionArgs;
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlab.core.data.action.dataupload.IDataUploadService;
+import de.qaware.smartlab.core.data.action.generic.IActionArgs;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

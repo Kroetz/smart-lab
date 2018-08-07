@@ -1,9 +1,9 @@
 package de.qaware.smartlabtrigger.service.business;
 
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

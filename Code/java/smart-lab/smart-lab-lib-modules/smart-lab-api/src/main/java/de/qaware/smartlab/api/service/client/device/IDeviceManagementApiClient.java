@@ -1,8 +1,8 @@
 package de.qaware.smartlab.api.service.client.device;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlabcore.data.device.DeviceDto;
-import de.qaware.smartlabcore.data.device.entity.IDevice;
+import de.qaware.smartlab.core.data.device.DeviceDto;
+import de.qaware.smartlab.core.data.device.IDevice;
 import de.qaware.smartlab.api.service.constant.device.DeviceManagementApiConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

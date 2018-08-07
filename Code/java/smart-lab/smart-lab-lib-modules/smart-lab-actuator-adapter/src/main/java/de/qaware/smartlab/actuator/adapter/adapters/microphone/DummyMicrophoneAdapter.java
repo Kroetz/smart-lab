@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
-import de.qaware.smartlabcore.exception.LocalDeviceException;
-import de.qaware.smartlabcore.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import static de.qaware.smartlabcore.miscellaneous.ResourcePaths.DUMMY_SPEECH;
+import static de.qaware.smartlab.core.miscellaneous.ResourcePaths.DUMMY_SPEECH;
 import static org.apache.commons.io.IOUtils.toByteArray;
 
 @Component

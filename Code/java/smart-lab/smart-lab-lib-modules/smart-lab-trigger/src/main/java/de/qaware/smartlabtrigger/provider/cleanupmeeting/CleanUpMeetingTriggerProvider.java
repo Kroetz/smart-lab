@@ -2,7 +2,7 @@ package de.qaware.smartlabtrigger.provider.cleanupmeeting;
 
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
 import de.qaware.smartlabtrigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +12,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
-import static de.qaware.smartlabcore.miscellaneous.TimeUtils.isBetween;
+import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isBetween;
 import static java.util.stream.Collectors.toSet;
 
 @Component

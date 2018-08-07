@@ -3,11 +3,11 @@ package de.qaware.smartlabtrigger.provider.generic;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
-import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.exception.TriggerProviderException;
+import de.qaware.smartlab.core.data.generic.IEntity;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.exception.TriggerProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 

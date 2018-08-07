@@ -1,7 +1,7 @@
 package de.qaware.smartlab.action.result;
 
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -9,7 +9,7 @@ import lombok.ToString;
 import java.util.Optional;
 import java.util.UUID;
 
-import static de.qaware.smartlabcore.miscellaneous.Constants.VOID;
+import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
 
 @Getter
 @ToString

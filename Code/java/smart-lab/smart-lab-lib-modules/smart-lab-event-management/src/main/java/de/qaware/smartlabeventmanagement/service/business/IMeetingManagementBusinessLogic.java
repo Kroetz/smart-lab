@@ -1,13 +1,13 @@
 package de.qaware.smartlabeventmanagement.service.business;
 
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.meeting.MeetingId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.result.ExtensionResult;
-import de.qaware.smartlabcore.result.ShiftResult;
-import de.qaware.smartlabcore.result.ShorteningResult;
-import de.qaware.smartlabcore.service.business.IBasicEntityManagementBusinessLogic;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.meeting.MeetingId;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.result.ExtensionResult;
+import de.qaware.smartlab.core.result.ShiftResult;
+import de.qaware.smartlab.core.result.ShorteningResult;
+import de.qaware.smartlab.core.service.business.IBasicEntityManagementBusinessLogic;
 
 import java.time.Duration;
 import java.util.Optional;

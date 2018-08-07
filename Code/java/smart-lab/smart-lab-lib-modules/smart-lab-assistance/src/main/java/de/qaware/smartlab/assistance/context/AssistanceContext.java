@@ -4,14 +4,14 @@ import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementServic
 import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.context.IAssistanceContextFactory;
-import de.qaware.smartlabcore.data.meeting.IMeeting;
-import de.qaware.smartlabcore.data.person.IPerson;
-import de.qaware.smartlabcore.data.person.PersonId;
-import de.qaware.smartlabcore.data.location.ILocation;
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
+import de.qaware.smartlab.core.data.meeting.IMeeting;
+import de.qaware.smartlab.core.data.person.IPerson;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

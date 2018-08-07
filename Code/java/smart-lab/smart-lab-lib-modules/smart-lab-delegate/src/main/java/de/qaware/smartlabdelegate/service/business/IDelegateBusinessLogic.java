@@ -1,7 +1,7 @@
 package de.qaware.smartlabdelegate.service.business;
 
-import de.qaware.smartlabcore.data.action.generic.IActionArgs;
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.action.generic.IActionArgs;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 
 public interface IDelegateBusinessLogic {
 

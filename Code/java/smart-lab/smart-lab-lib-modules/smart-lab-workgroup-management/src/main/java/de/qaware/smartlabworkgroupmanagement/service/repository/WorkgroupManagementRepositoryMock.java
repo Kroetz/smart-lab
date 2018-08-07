@@ -1,8 +1,8 @@
 package de.qaware.smartlabworkgroupmanagement.service.repository;
 
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

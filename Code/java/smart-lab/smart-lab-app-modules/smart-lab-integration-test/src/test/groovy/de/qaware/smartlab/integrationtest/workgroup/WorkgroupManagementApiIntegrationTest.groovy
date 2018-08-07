@@ -2,13 +2,13 @@ package de.qaware.smartlab.integrationtest.workgroup
 
 import de.qaware.smartlab.api.service.connector.meeting.IMeetingManagementService
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService
-import de.qaware.smartlabcore.data.meeting.IMeeting
-import de.qaware.smartlabcore.data.workgroup.IWorkgroup
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId
-import de.qaware.smartlabcore.data.workgroup.WorkgroupDto
-import de.qaware.smartlabcore.exception.EntityConflictException
-import de.qaware.smartlabcore.exception.EntityNotFoundException
-import de.qaware.smartlabcore.exception.MaximalDurationReachedException
+import de.qaware.smartlab.core.data.meeting.IMeeting
+import de.qaware.smartlab.core.data.workgroup.IWorkgroup
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId
+import de.qaware.smartlab.core.data.workgroup.WorkgroupDto
+import de.qaware.smartlab.core.exception.EntityConflictException
+import de.qaware.smartlab.core.exception.EntityNotFoundException
+import de.qaware.smartlab.core.exception.MaximalDurationReachedException
 
 import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory

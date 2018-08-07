@@ -1,7 +1,7 @@
 package de.qaware.smartlab.action.actions.executable.data.download;
 
-import de.qaware.smartlabcore.data.action.datadownload.IDataDownloadService;
-import de.qaware.smartlabcore.data.generic.AbstractResolver;
+import de.qaware.smartlab.core.data.action.datadownload.IDataDownloadService;
+import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

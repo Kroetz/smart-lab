@@ -1,7 +1,7 @@
 package de.qaware.smartlabdataconversion.converter.workgroup;
 
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.workgroup.*;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.workgroup.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -2,10 +2,10 @@ package de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.tra
 
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.IAssistanceControllableFactory;
-import de.qaware.smartlabcore.data.context.IAssistanceContext;
-import de.qaware.smartlabcore.data.generic.IEntity;
-import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.AssistanceTrackingException;
+import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.data.generic.IEntity;
+import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.AssistanceTrackingException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

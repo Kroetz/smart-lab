@@ -1,8 +1,8 @@
 package de.qaware.smartlabdataconversion.converter.meeting;
 
-import de.qaware.smartlabcore.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlabcore.data.generic.IDtoConverter;
-import de.qaware.smartlabcore.data.meeting.*;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
+import de.qaware.smartlab.core.data.meeting.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
 import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IHotkeys;
 import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowhandler.IWindowHandler;
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;

@@ -2,9 +2,9 @@ package de.qaware.smartlab.action.service.business;
 
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.action.actions.executable.generic.IActionExecutable;
-import de.qaware.smartlabcore.data.action.generic.IActionArgs;
-import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
-import de.qaware.smartlabcore.data.generic.IResolver;
+import de.qaware.smartlab.core.data.action.generic.IActionArgs;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

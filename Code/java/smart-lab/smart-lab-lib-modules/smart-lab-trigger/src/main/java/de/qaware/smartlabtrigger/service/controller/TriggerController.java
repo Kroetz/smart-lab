@@ -1,11 +1,11 @@
 package de.qaware.smartlabtrigger.service.controller;
 
 import de.qaware.smartlab.api.service.constant.trigger.TriggerApiConstants;
-import de.qaware.smartlabcore.data.job.IJobInfo;
-import de.qaware.smartlabcore.data.location.LocationId;
-import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
-import de.qaware.smartlabcore.service.controller.url.AbstractBaseUrlController;
-import de.qaware.smartlabcore.service.url.IBaseUrlDetector;
+import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlabtrigger.service.business.ITriggerBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.action.actions.submittable.speechtotext;
 
-import de.qaware.smartlabcore.data.action.speechtotext.ITextPassage;
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscriptTextBuilder;
+import de.qaware.smartlab.core.data.action.speechtotext.ITextPassage;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

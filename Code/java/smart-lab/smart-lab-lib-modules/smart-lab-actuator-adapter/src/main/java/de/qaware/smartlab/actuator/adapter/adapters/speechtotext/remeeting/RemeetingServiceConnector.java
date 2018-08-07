@@ -1,8 +1,8 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
-import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
-import de.qaware.smartlabcore.exception.ServiceFailedException;
-import de.qaware.smartlabcore.miscellaneous.Language;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.exception.ServiceFailedException;
+import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;

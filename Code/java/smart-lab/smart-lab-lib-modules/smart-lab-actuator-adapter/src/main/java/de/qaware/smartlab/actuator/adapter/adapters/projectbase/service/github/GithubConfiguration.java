@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github;
 
-import de.qaware.smartlabcore.miscellaneous.Property;
+import de.qaware.smartlab.core.miscellaneous.Property;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;

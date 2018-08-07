@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
-import de.qaware.smartlabcore.exception.LocalDeviceException;
+import de.qaware.smartlab.core.exception.LocalDeviceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
