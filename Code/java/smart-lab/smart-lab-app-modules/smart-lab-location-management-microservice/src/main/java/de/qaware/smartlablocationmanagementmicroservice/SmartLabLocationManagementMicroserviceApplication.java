@@ -1,4 +1,4 @@
-package de.qaware.smartlablocationmicroservice;
+package de.qaware.smartlablocationmanagementmicroservice;
 
 import de.qaware.smartlablocationmanagement.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSmartLabMicroservice
 @EnableSmartLabLocationService
 @EnableDiscoveryClient
-public class SmartLabLocationMicroserviceApplication {
+public class SmartLabLocationManagementMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabLocationMicroserviceApplication.class, args);
+		SpringApplication.run(SmartLabLocationManagementMicroserviceApplication.class, args);
 	}
 }

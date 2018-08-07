@@ -24,7 +24,7 @@
         <module>smart-lab-person-microservice</module>
         <module>smart-lab-workgroup-microservice</module>
         <module>smart-lab-actuator-management-microservice</module>
-        <module>smart-lab-location-microservice</module>
+        <module>smart-lab-location-management-microservice</module>
         <module>smart-lab-meeting-microservice</module>
         <module>smart-lab-delegate-microservice</module>
         <module>smart-lab-action-microservice</module>

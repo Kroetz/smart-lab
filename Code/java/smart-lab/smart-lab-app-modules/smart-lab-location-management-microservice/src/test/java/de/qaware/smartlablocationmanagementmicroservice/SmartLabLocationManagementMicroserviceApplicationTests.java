@@ -1,4 +1,4 @@
-package de.qaware.smartlablocationmicroservice;
+package de.qaware.smartlablocationmanagementmicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SmartLabLocationMicroserviceApplicationTests {
+public class SmartLabLocationManagementMicroserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {

@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-location-microservice</artifactId>
+	<artifactId>smart-lab-location-management-microservice</artifactId>
 	<packaging>jar</packaging>
-	<name>smart-lab-location-microservice</name>
-	<description>Module of the Smart-Lab project that runs the location microservice</description>
+	<name>smart-lab-location-management-microservice</name>
+	<description>Module of the Smart-Lab project that runs the location-management microservice</description>
 
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>
