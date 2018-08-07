@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataconversion.converter.person;
+package de.qaware.smartlab.data.conversion.converter.person;
 
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.person.IPerson;

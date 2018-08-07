@@ -1,6 +1,6 @@
-package de.qaware.smartlabdataconversion.annotation;
+package de.qaware.smartlab.data.conversion.annotation;
 
-import de.qaware.smartlabdataconversion.configuration.DtoConvertersConfiguration;
+import de.qaware.smartlab.data.conversion.configuration.DtoConvertersConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataconversion.converter.device;
+package de.qaware.smartlab.data.conversion.converter.device;
 
 import de.qaware.smartlab.core.data.device.Device;
 import de.qaware.smartlab.core.data.device.DeviceDto;

@@ -9,7 +9,7 @@ import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.meeting.IMeeting;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
-import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdataset.ComponentScanMarker;
 import de.qaware.smartlabdataset.provider.DataSetProvider;
 import org.springframework.boot.context.properties.ConfigurationProperties;

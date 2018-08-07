@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.annotation.EnableSmartLabActionService;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlab.core.exception.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabjob.annotation.EnableSmartLabJobService;

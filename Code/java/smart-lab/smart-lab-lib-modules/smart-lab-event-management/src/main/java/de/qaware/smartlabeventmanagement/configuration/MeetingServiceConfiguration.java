@@ -3,7 +3,7 @@ package de.qaware.smartlabeventmanagement.configuration;
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
-import de.qaware.smartlabdataconversion.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlabdataset.annotation.EnableSmartLabInitialData;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
