@@ -5,17 +5,17 @@ import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlab.core.exception.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
-import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabDeviceService;
+import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabActuatorManagementService;
 import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
-import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventService;
+import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventManagementService;
 import de.qaware.smartlab.monolith.ComponentScanMarker;
-import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonService;
-import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationService;
+import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonManagementService;
+import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationManagementService;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpEventTriggerProvider;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabSetUpEventTriggerProvider;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabTriggerService;
-import de.qaware.smartlab.workgroup.management.annotation.EnableSmartLabWorkgroupService;
+import de.qaware.smartlab.workgroup.management.annotation.EnableSmartLabWorkgroupManagementService;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -40,11 +40,11 @@ import java.util.Map;
 @ComponentScan(basePackageClasses = {ComponentScanMarker.class})
 @EnableSmartLabDtoConverters
 @EnableSmartLabJobService
-@EnableSmartLabPersonService
-@EnableSmartLabWorkgroupService
-@EnableSmartLabDeviceService
-@EnableSmartLabLocationService
-@EnableSmartLabEventService
+@EnableSmartLabPersonManagementService
+@EnableSmartLabWorkgroupManagementService
+@EnableSmartLabActuatorManagementService
+@EnableSmartLabLocationManagementService
+@EnableSmartLabEventManagementService
 @EnableSmartLabTriggerService
 @EnableSmartLabAssistanceService
 @EnableSmartLabActionService

@@ -21,12 +21,12 @@ import java.time.Duration;
 @EnableSmartLabDtoConverters
 @EnableSmartLabInitialData
 @EnableSmartLabAssistanceInfos
-@EnableConfigurationProperties(EventServiceConfiguration.Properties.class)
-public class EventServiceConfiguration {
+@EnableConfigurationProperties(EventManagementServiceConfiguration.Properties.class)
+public class EventManagementServiceConfiguration {
 
     private final Properties properties;
 
-    public EventServiceConfiguration(Properties properties) {
+    public EventManagementServiceConfiguration(Properties properties) {
         this.properties = properties;
     }
 

@@ -13,4 +13,4 @@ import org.springframework.context.annotation.Configuration;
 @EnableSmartLabApi
 @EnableSmartLabDtoConverters
 @EnableSmartLabInitialData
-public class WorkgroupServiceConfiguration { }
+public class WorkgroupManagementServiceConfiguration { }
