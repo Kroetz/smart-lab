@@ -1,4 +1,4 @@
-package de.qaware.smartlabguimicroservice;
+package de.qaware.smartlab.gui.microservice;
 
 import de.qaware.smartlabgui.annotation.EnableSmartLabGui;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
