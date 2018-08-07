@@ -1,4 +1,4 @@
-package de.qaware.smartlabtriggermicroservice;
+package de.qaware.smartlab.trigger.microservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabTriggerService;
