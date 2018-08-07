@@ -62,10 +62,12 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     private final IMeetingParser meetingParser;
 
     public GoogleCalendarAdapter(
-            Path googleCalendarCredentialFile,
+            // TODO: String literals
+            @Qualifier("googleCalendarCredentialFile") Path googleCalendarCredentialFile,
             // TODO: String literal
             @Qualifier("googleCalendarScopes") Collection<String> googleCalendarScopes,
-            String googleCalendarApplicationName,
+            // TODO: String literals
+            @Qualifier("googleCalendarApplicationName") String googleCalendarApplicationName,
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
             @Qualifier("googleCalendarLocationMapping") BiMap<LocationId, String> googleCalendarLocationMapping,

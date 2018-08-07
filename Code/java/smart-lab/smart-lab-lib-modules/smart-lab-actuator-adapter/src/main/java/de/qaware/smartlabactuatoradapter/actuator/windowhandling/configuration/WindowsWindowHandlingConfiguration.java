@@ -36,7 +36,8 @@ public class WindowsWindowHandlingConfiguration {
             Properties properties,
             // TODO: String literal
             @Qualifier("localDisplaysBySmartLabDisplayIds") Map<String, String> localDisplaysBySmartLabDisplayId,
-            Duration findWindowTimeout) {
+            // TODO: String literals
+            @Qualifier("findWindowTimeout") Duration findWindowTimeout) {
         this.properties = properties;
         this.localDisplaysBySmartLabDisplayId = localDisplaysBySmartLabDisplayId;
         this.findWindowTimeout = findWindowTimeout;
@@ -56,6 +57,8 @@ public class WindowsWindowHandlingConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("windowHandlingDll")
     public Path windowHandlingDll() {
         return this.properties.getWindowHandlingDll();
     }

@@ -3,11 +3,7 @@ package de.qaware.smartlabactuatoradapter.actuator.speechtotext.remeeting;
 import de.qaware.smartlabcore.data.action.speechtotext.ITranscript;
 import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.miscellaneous.Language;
-import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.util.Base64;

@@ -30,6 +30,8 @@ public class CommonWindowHandlingConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("findWindowTimeout")
     public Duration findWindowTimeout() {
         return this.properties.getFindWindowTimeoutInSeconds();
     }

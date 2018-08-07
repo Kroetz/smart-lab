@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,10 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    public SeleniumFirefoxAdapter(Path seleniumGeckoDriverFile, IWindowHandler windowHandler) {
+    public SeleniumFirefoxAdapter(
+            // TODO: String literals
+            @Qualifier("seleniumGeckoDriverFile") Path seleniumGeckoDriverFile,
+            IWindowHandler windowHandler) {
         super(DEVICE_TYPE, HAS_LOCAL_API, FirefoxDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal
         System.setProperty("webdriver.gecko.driver", seleniumGeckoDriverFile.toString());

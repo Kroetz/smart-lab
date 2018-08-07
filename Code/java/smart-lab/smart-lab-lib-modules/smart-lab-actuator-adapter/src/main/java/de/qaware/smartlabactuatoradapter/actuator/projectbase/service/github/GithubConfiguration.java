@@ -1,6 +1,7 @@
 package de.qaware.smartlabactuatoradapter.actuator.projectbase.service.github;
 
 import de.qaware.smartlabcore.miscellaneous.Property;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,6 +23,8 @@ public class GithubConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("githubApiKey")
     public String githubApiKey() {
         return this.githubProperties.getApiKey();
     }

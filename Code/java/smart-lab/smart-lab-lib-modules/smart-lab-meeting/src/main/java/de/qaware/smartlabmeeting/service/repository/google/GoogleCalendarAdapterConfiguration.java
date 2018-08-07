@@ -48,6 +48,8 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("googleCalendarCredentialFile")
     public Path googleCalendarCredentialFile() {
         return this.properties.getCredentialsFile();
     }
@@ -60,6 +62,8 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("googleCalendarApplicationName")
     public String googleCalendarApplicationName() {
         return this.properties.getApplicationName();
     }

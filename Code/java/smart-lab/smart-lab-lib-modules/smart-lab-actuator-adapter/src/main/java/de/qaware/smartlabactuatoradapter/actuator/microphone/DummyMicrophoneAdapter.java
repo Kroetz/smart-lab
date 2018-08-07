@@ -3,6 +3,7 @@ package de.qaware.smartlabactuatoradapter.actuator.microphone;
 import de.qaware.smartlabcore.exception.LocalDeviceException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,8 @@ public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
     public DummyMicrophoneAdapter(
             ResourceLoader resourceLoader,
             ITempFileManager tempFileManager,
-            Path resourcesTempFileSubDir) {
+            // TODO: String literals
+            @Qualifier("resourcesTempFileSubDir") Path resourcesTempFileSubDir) {
         super(DEVICE_TYPE, HAS_LOCAL_API);
         this.resourceLoader = resourceLoader;
         this.tempFileManager = tempFileManager;

@@ -2,6 +2,7 @@ package de.qaware.smartlabactuatoradapter.actuator.webbrowser.selenium;
 
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -37,11 +38,15 @@ public class SeleniumConfiguration {
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("seleniumGeckoDriverFile")
     public Path seleniumGeckoDriverFile() {
         return this.properties.getGeckoDriverFile();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("seleniumChromeDriverFile")
     public Path seleniumChromeDriverFile() {
         return this.properties.getChromeDriverFile();
     }

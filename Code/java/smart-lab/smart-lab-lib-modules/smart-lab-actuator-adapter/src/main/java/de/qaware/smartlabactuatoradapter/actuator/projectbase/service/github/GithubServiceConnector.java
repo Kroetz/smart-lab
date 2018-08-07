@@ -11,6 +11,7 @@ import de.qaware.smartlabcore.exception.ServiceFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -40,9 +41,11 @@ public class GithubServiceConnector implements IGithubService {
     private final Path downloadsTempFileSubDir;
 
     public GithubServiceConnector(
-            String githubApiKey,
+            // TODO: String literals
+            @Qualifier("githubApiKey") String githubApiKey,
             ITempFileManager tempFileManager,
-            Path downloadsTempFileSubDir) {
+            // TODO: String literals
+            @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir) {
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;

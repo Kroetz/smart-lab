@@ -6,6 +6,7 @@ import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,10 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
         }
     };
 
-    public SeleniumChromeAdapter(Path seleniumChromeDriverFile, IWindowHandler windowHandler) {
+    public SeleniumChromeAdapter(
+            // TODO: String literals
+            @Qualifier("seleniumChromeDriverFile") Path seleniumChromeDriverFile,
+            IWindowHandler windowHandler) {
         super(DEVICE_TYPE, HAS_LOCAL_API, ChromeDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal
         System.setProperty("webdriver.chrome.driver", seleniumChromeDriverFile.toString());

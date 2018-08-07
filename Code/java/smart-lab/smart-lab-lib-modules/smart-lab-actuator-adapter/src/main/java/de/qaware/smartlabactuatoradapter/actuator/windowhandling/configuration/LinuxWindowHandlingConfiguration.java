@@ -23,7 +23,8 @@ public class LinuxWindowHandlingConfiguration {
     public LinuxWindowHandlingConfiguration(
             // TODO: String literal
             @Qualifier("localDisplaysBySmartLabDisplayIds") Map<String, String> localDisplaysBySmartLabDisplayId,
-            Duration findWindowTimeout) {
+            // TODO: String literals
+            @Qualifier("findWindowTimeout") Duration findWindowTimeout) {
         this.localDisplaysBySmartLabDisplayId = localDisplaysBySmartLabDisplayId;
         this.findWindowTimeout = findWindowTimeout;
     }

@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,7 +30,8 @@ public class MicrophoneDeactivationSubmittable extends AbstractActionSubmittable
 
     public MicrophoneDeactivationSubmittable(
             MicrophoneDeactivationInfo microphoneDeactivationInfo,
-            Path recordedAudioTempFileSubDir,
+            // TODO: String literals
+            @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(microphoneDeactivationInfo);
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;

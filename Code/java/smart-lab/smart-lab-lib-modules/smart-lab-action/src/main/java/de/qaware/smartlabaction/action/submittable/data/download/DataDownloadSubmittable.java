@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class DataDownloadSubmittable extends AbstractActionSubmittable<DataDownl
 
     public DataDownloadSubmittable(
             DataDownloadInfo dataDownloadInfo,
-            Path downloadsTempFileSubDir,
+            // TODO: String literals
+            @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(dataDownloadInfo);
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;

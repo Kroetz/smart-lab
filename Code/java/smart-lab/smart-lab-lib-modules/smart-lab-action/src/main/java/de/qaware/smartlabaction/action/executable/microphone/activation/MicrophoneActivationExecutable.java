@@ -14,6 +14,7 @@ import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -32,7 +33,8 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
             MicrophoneActivationInfo microphoneActivationInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
             IDeviceManagementService deviceManagementService,
-            Path recordedAudioTempFileSubDir,
+            // TODO: String literals
+            @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(microphoneActivationInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;

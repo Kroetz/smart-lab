@@ -2,6 +2,7 @@ package de.qaware.smartlabcore.filesystem;
 
 import de.qaware.smartlabcore.exception.TempFileManagerException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -33,10 +34,11 @@ public class TempFileManager implements ITempFileManager, CommandLineRunner {
     private final String tempFileNameSuffix;
 
     public TempFileManager(
-            Duration obsoleteFileCleaningInterval,
-            Path tempFileBaseDir,
-            String tempFileNamePrefix,
-            String tempFileNameSuffix) {
+            // TODO: String literal
+            @Qualifier("obsoleteFileCleaningInterval") Duration obsoleteFileCleaningInterval,
+            @Qualifier("tempFileBaseDir") Path tempFileBaseDir,
+            @Qualifier("tempFileNamePrefix") String tempFileNamePrefix,
+            @Qualifier("tempFileNameSuffix") String tempFileNameSuffix) {
         this.filesToClean = ConcurrentHashMap.newKeySet();  // This creates a concurrent set in Java 8. In more recent versions there may be a more intuitive way.
         this.obsoleteFileCleaningInterval = obsoleteFileCleaningInterval;
         this.tempFileBaseDir = tempFileBaseDir;

@@ -1,5 +1,6 @@
 package de.qaware.smartlabcore.filesystem;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -21,31 +22,43 @@ public class TempFileManagerConfiguration {
     }
 
     @Bean
+    // TODO: String literal
+    @Qualifier("obsoleteFileCleaningInterval")
     public Duration obsoleteFileCleaningInterval() {
         return this.tempFileProperties.getObsoleteFileCleaningIntervalInSeconds();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("tempFileBaseDir")
     public Path tempFileBaseDir() {
         return this.tempFileProperties.getBaseDir();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("tempFileNamePrefix")
     public String tempFileNamePrefix() {
         return this.tempFileProperties.getFileNamePrefix();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("tempFileNameSuffix")
     public String tempFileNameSuffix() {
         return this.tempFileProperties.getFileNameSuffix();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("recordedAudioTempFileSubDir")
     public Path recordedAudioTempFileSubDir() {
         return this.tempFileProperties.getAudioSubDir();
     }
 
     @Bean
+    // TODO: String literals
+    @Qualifier("downloadsTempFileSubDir")
     public Path downloadsTempFileSubDir() {
         return this.tempFileProperties.getDownloadSubDir();
     }

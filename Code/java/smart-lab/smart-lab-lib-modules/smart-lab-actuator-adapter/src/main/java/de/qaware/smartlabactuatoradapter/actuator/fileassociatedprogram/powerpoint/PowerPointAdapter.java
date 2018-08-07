@@ -9,6 +9,7 @@ import de.qaware.smartlabcore.exception.LocalDeviceException;
 import de.qaware.smartlabcore.miscellaneous.Language;
 import de.qaware.smartlabcore.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,10 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 
     private final Path powerPointExecutable;
 
-    public PowerPointAdapter(IWindowHandler windowHandler, Path powerPointExecutable) {
+    public PowerPointAdapter(
+            IWindowHandler windowHandler,
+            // TODO: String literals
+            @Qualifier("powerPointExecutable") Path powerPointExecutable) {
         super(PROGRAM_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
     }
