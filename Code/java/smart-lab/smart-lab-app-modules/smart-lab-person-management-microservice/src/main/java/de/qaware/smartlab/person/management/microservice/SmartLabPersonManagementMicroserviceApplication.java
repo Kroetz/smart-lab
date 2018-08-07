@@ -1,6 +1,6 @@
 package de.qaware.smartlab.person.management.microservice;
 
-import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
+import de.qaware.smartlab.microservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,11 +1,11 @@
-package de.qaware.smartlab.integrationtest.configuration;
+package de.qaware.smartlab.microservice.configuration;
 
 import de.qaware.smartlab.api.annotation.EnableSmartLabApi;
-import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.data.set.annotation.EnableSmartLabInitialData;
-import de.qaware.smartlab.microservice.annotation.EnableSmartLabMicroservice;
+import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlab.microservice.ComponentScanMarker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -13,8 +13,7 @@ import org.springframework.context.annotation.Configuration;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-@EnableSmartLabCore
+@ComponentScan(basePackageClasses = {ComponentScanMarker.class})
 @EnableSmartLabApi
-@EnableSmartLabInitialData
-@EnableSmartLabMicroservice
-public class TestMicroservicesConfiguration { }
+@EnableSmartLabDtoConverters
+public class MicroserviceModuleConfiguration { }
