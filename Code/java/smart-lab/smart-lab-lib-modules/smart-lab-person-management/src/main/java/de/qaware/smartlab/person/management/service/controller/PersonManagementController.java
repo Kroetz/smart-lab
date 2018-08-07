@@ -1,4 +1,4 @@
-package de.qaware.smartlabpersonmanagement.service.controller;
+package de.qaware.smartlab.person.management.service.controller;
 
 import de.qaware.smartlab.api.service.constant.person.PersonManagementApiConstants;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
@@ -9,7 +9,7 @@ import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
-import de.qaware.smartlabpersonmanagement.service.business.IPersonManagementBusinessLogic;
+import de.qaware.smartlab.person.management.service.business.IPersonManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

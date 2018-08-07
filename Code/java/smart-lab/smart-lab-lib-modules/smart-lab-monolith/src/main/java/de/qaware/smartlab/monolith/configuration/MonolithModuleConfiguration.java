@@ -10,7 +10,7 @@ import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
 import de.qaware.smartlab.event.management.annotation.EnableSmartLabMeetingService;
 import de.qaware.smartlab.monolith.ComponentScanMarker;
-import de.qaware.smartlabpersonmanagement.annotation.EnableSmartLabPersonService;
+import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonService;
 import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationService;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabCleanUpMeetingTriggerProvider;
 import de.qaware.smartlabtrigger.annotation.EnableSmartLabSetUpMeetingTriggerProvider;

@@ -1,4 +1,4 @@
-package de.qaware.smartlabpersonmanagement.service.repository;
+package de.qaware.smartlab.person.management.service.repository;
 
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
