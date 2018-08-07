@@ -1,7 +1,7 @@
 package de.qaware.smartlab.monolith.service;
 
 import com.fasterxml.classmate.TypeResolver;
-import de.qaware.smartlabmonolith.annotation.EnableSmartLabMonolith;
+import de.qaware.smartlab.monolith.annotation.EnableSmartLabMonolith;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
