@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.data.generic;
 
-import java.util.Optional;
+import de.qaware.smartlabcore.exception.ResolverException;
 
 public interface IResolver<KeyT, ValueT> {
 
-    Optional<ValueT> resolve(KeyT key);
+    ValueT resolve(KeyT key) throws ResolverException;
 }

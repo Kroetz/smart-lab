@@ -9,8 +9,6 @@ import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.location.ILocation;
 import de.qaware.smartlabcore.exception.InsufficientContextException;
-import de.qaware.smartlabcore.exception.UnknownAssistanceException;
-import de.qaware.smartlabcore.miscellaneous.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -90,7 +88,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
         }
         String assistanceId = config.getAssistanceId();
         log.info("Processing assistance with ID \"{}\"", assistanceId);
-        IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId).orElseThrow(UnknownAssistanceException::new);
+        IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId);
         IAssistanceContext context = this.contextFactory.of(config, meeting);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
                 assistance.getAssistanceId(),

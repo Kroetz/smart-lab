@@ -12,7 +12,6 @@ import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -49,9 +48,7 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
         FileOpeningSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 FileOpeningSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
-                .resolve(programType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path fileToOpen;
         try {
@@ -73,13 +70,7 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice fileAssociatedProgram = this.deviceManagementService.findOne(actionArgs.getProgramId());
         String programType = fileAssociatedProgram.getType();
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
-                .resolve(programType)
-                .orElseGet(() -> {
-                    String errorMessage = format("The program type \"%s\" is unknown", programType);
-                    log.error(errorMessage);
-                    throw new UnknownDeviceAdapterException(errorMessage);
-                });
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
         if(programAdapter.hasLocalApi()) return delegateService.executeAction(
                 fileAssociatedProgram.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

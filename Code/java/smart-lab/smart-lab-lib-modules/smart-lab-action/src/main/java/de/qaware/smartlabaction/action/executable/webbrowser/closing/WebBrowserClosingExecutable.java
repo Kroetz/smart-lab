@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -38,9 +37,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
         WebBrowserClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 WebBrowserClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver
-                .resolve(webBrowserType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver.resolve(webBrowserType);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         webBrowserAdapter.closeUnchangedAutoOpenedTabs(actionArgs.getWebBrowserInstanceId());
         return VoidActionResult.newInstance();
@@ -54,9 +51,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice webBrowser = this.deviceManagementService.findOne(actionArgs.getWebBrowserId());
         String webBrowserType = webBrowser.getType();
-        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver
-                .resolve(webBrowserType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver.resolve(webBrowserType);
         if(webBrowserAdapter.hasLocalApi()) return delegateService.executeAction(
                 webBrowser.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

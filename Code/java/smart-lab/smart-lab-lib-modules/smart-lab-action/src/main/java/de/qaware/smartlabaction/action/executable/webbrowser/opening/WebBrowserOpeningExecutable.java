@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -42,9 +41,7 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
         WebBrowserOpeningSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 WebBrowserOpeningSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver
-                .resolve(webBrowserType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver.resolve(webBrowserType);
         if(!webBrowserAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         UUID webBrowserInstanceId = webBrowserAdapter.newWebBrowserInstance(actionArgs.getUrlsToOpen());
         webBrowserAdapter.maximizeOnDisplay(webBrowserInstanceId, actionArgs.getDisplayId());
@@ -59,13 +56,7 @@ public class WebBrowserOpeningExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice webBrowser = this.deviceManagementService.findOne(actionArgs.getWebBrowserId());
         String webBrowserType = webBrowser.getType();
-        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver
-                .resolve(webBrowserType)
-                .orElseGet(() -> {
-                    String errorMessage = format("The web browser type \"%s\" is unknown", webBrowserType);
-                    log.error(errorMessage);
-                    throw new UnknownDeviceAdapterException(errorMessage);
-                });
+        IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver.resolve(webBrowserType);
         if(webBrowserAdapter.hasLocalApi()) return delegateService.executeAction(
                 webBrowser.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

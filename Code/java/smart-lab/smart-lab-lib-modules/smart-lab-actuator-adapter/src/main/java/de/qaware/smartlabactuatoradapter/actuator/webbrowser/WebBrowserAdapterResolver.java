@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -25,5 +26,10 @@ public class WebBrowserAdapterResolver extends AbstractResolver<String, IWebBrow
                         .collect(toMap(IWebBrowserAdapter::getDeviceType, identity()))
                         .entrySet())
                 .orElse(emptySet());
+    }
+
+    @Override
+    protected String getErrorMessage(String webBrowserType) {
+        return format("The web browser type \"%s\" is unknown", webBrowserType);
     }
 }

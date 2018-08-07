@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -23,5 +24,10 @@ public class DataSetFactoryResolver extends AbstractResolver<String, IDataSetFac
         return factories.stream()
                 .collect(toMap(IDataSetFactory::getId, identity()))
                 .entrySet();
+    }
+
+    @Override
+    protected String getErrorMessage(String dataSetFactoryId) {
+        return format("The data set factory \"%s\" is unknown", dataSetFactoryId);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -23,5 +24,10 @@ public class MicrophoneAdapterResolver extends AbstractResolver<String, IMicroph
         return microphoneAdapters.stream()
                 .collect(toMap(IMicrophoneAdapter::getDeviceType, identity()))
                 .entrySet();
+    }
+
+    @Override
+    protected String getErrorMessage(String microphoneType) {
+        return format("The microphone type \"%s\" is unknown", microphoneType);
     }
 }

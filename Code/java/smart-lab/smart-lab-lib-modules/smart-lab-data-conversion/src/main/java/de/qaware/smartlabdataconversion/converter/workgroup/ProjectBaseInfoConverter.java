@@ -33,10 +33,7 @@ public class ProjectBaseInfoConverter implements IDtoConverter<IProjectBaseInfo,
 
     @Override
     public IProjectBaseInfo toEntity(ProjectBaseInfoDto projectBaseInfo) {
-        // TODO: Exception message and type
-        IProjectBaseInfoFactory factory = this.projectBaseInfoFactoryResolver
-                .resolve(projectBaseInfo.getServiceId())
-                .orElseThrow(RuntimeException::new);
+        IProjectBaseInfoFactory factory = this.projectBaseInfoFactoryResolver.resolve(projectBaseInfo.getServiceId());
         return factory.newInstance(projectBaseInfo.getProjectBaseProperties());
     }
 }

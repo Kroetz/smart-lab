@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -44,9 +43,7 @@ public class FileClosingExecutable extends AbstractActionExecutable {
         FileClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 FileClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
-                .resolve(programType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);
@@ -61,9 +58,7 @@ public class FileClosingExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice fileAssociatedProgram = this.deviceManagementService.findOne(actionArgs.getProgramId());
         String programType = fileAssociatedProgram.getType();
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver
-                .resolve(programType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
         if(programAdapter.hasLocalApi()) return delegateService.executeAction(
                 fileAssociatedProgram.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

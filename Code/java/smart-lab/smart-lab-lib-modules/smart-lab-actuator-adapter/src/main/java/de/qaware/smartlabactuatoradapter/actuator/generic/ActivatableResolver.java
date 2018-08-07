@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -23,5 +24,10 @@ public class ActivatableResolver extends AbstractResolver<String, IActivatable> 
         return activatables.stream()
                 .collect(toMap(IActivatable::getDeviceType, identity()))
                 .entrySet();
+    }
+
+    @Override
+    protected String getErrorMessage(String activatableType) {
+        return format("The activatable actuator type \"%s\" is unknown", activatableType);
     }
 }

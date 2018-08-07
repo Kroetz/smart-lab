@@ -1,9 +1,15 @@
 package de.qaware.smartlabcore.data.generic;
 
-import java.util.*;
+import de.qaware.smartlabcore.exception.ResolverException;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static java.lang.String.format;
 
+@Slf4j
 public abstract class AbstractResolver<KeyT, ValueT> implements IResolver<KeyT, ValueT> {
 
     private final Map<KeyT, ValueT> valuesByKey;
@@ -18,7 +24,12 @@ public abstract class AbstractResolver<KeyT, ValueT> implements IResolver<KeyT, 
         }
     }
 
-    public Optional<ValueT> resolve(KeyT key) {
-        return Optional.ofNullable(this.valuesByKey.get(key));
+    public ValueT resolve(KeyT key) throws ResolverException {
+        if(this.valuesByKey.containsKey(key)) return this.valuesByKey.get(key);
+        String errorMessage = getErrorMessage(key);
+        log.error(errorMessage);
+        throw new ResolverException(errorMessage);
     }
+
+    protected abstract String getErrorMessage(KeyT key);
 }

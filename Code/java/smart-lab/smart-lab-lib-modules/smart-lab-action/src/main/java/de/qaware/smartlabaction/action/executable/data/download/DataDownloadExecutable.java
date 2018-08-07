@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
-import de.qaware.smartlabcore.exception.UnknownServiceException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -52,13 +50,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
                 DataDownloadSubmittable.ActionArgs.class,
                 genericActionArgs);
         String projectBaseService = actionArgs.getProjectBaseInfo().getServiceId();
-        IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver
-                .resolve(projectBaseService)
-                .orElseGet(() -> {
-                    String errorMessage = format("The project base service \"%s\" is unknown", projectBaseService);
-                    log.error(errorMessage);
-                    throw new UnknownServiceException(errorMessage);
-                });
+        IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(projectBaseService);
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());

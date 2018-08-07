@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -25,5 +26,10 @@ public class FileAssociatedProgramAdapterResolver extends AbstractResolver<Strin
                         .collect(toMap(IFileAssociatedProgramAdapter::getDeviceType, identity()))
                         .entrySet())
                 .orElse(emptySet());
+    }
+
+    @Override
+    protected String getErrorMessage(String programType) {
+        return format("The file-associated program \"%s\" is unknown", programType);
     }
 }

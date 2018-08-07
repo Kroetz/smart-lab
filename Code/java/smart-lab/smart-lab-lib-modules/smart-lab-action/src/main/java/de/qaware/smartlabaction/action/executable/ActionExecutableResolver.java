@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -24,5 +25,10 @@ public class ActionExecutableResolver extends AbstractResolver<String, IActionEx
         return actions.stream()
                 .collect(toMap(IActionExecutable::getActionId, identity()))
                 .entrySet();
+    }
+
+    @Override
+    protected String getErrorMessage(String actionId) {
+        return format("The action \"%s\" is unknown", actionId);
     }
 }

@@ -33,10 +33,7 @@ public class AssistanceConfigurationConverter implements IDtoConverter<IAssistan
 
     @Override
     public IAssistanceConfiguration toEntity(AssistanceConfigurationDto assistanceConfiguration) {
-        // TODO Exception message and type
-        IAssistanceInfo assistanceInfo = this.assistanceInfoResolver
-                .resolve(assistanceConfiguration.getAssistanceId())
-                .orElseThrow(RuntimeException::new);
+        IAssistanceInfo assistanceInfo = this.assistanceInfoResolver.resolve(assistanceConfiguration.getAssistanceId());
         return assistanceInfo.createConfiguration(assistanceConfiguration.getConfigProperties());
     }
 }

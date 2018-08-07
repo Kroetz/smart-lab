@@ -27,7 +27,6 @@ import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.Workgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.DataSetException;
-import de.qaware.smartlabcore.exception.UnknownServiceException;
 import de.qaware.smartlabcore.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -73,13 +72,7 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubProjectBaseInfoFactory = projectBaseInfoFactoryResolver
-                .resolve(GithubServiceConnector.SERVICE_ID)
-                .orElseGet(() -> {
-                    String errorMessage = format("The project base service \"%s\" is unknown", GithubServiceConnector.SERVICE_ID);
-                    log.error(errorMessage);
-                    throw new UnknownServiceException(errorMessage);
-                });
+        this.githubProjectBaseInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubServiceConnector.SERVICE_ID);
     }
 
     @Override

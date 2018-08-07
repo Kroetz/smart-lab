@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -26,5 +27,10 @@ public class DataDownloadServiceResolver extends AbstractResolver<String, IDataD
                         .collect(toMap(IDataDownloadService::getServiceId, identity()))
                         .entrySet())
                 .orElse(emptySet());
+    }
+
+    @Override
+    protected String getErrorMessage(String dataDownloadService) {
+        return format("The data download service \"%s\" is unknown", dataDownloadService);
     }
 }

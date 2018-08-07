@@ -6,7 +6,6 @@ import de.qaware.smartlabcore.data.context.IAssistanceContext;
 import de.qaware.smartlabcore.data.generic.IEntity;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.AssistanceTrackingException;
-import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -45,8 +44,7 @@ public class AssistanceTracker implements IAssistanceTracker {
     @Override
     public IAssistanceControllable track(IAssistanceContext context) throws AssistanceTrackingException {
         IAssistanceControllableFactory factory = this.assistanceControllableFactoryResolver
-                .resolve(context.getAssistanceConfiguration().getAssistanceId())
-                .orElseThrow(UnknownAssistanceException::new);
+                .resolve(context.getAssistanceConfiguration().getAssistanceId());
         IAssistanceControllable assistance = factory.newInstance();
         IAssistanceControllable alreadyTracked = this.trackedAssistances.putIfAbsent(
                 AssistanceTrackingId.of(context),

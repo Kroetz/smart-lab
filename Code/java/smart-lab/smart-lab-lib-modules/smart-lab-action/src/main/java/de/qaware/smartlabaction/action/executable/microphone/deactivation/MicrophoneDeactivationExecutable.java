@@ -12,7 +12,6 @@ import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabactuatoradapter.actuator.microphone.IMicrophoneAdapter;
 import de.qaware.smartlabcore.data.generic.IResolver;
 import de.qaware.smartlabcore.exception.ActionExecutionFailedException;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import de.qaware.smartlabcore.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -48,9 +47,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         MicrophoneDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 MicrophoneDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver
-                .resolve(deviceType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path recordedAudio = microphoneAdapter.deactivate();
         IActionResult actionResult;
@@ -72,9 +69,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice device = this.deviceManagementService.findOne(actionArgs.getMicrophoneId());
         String deviceType = device.getType();
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver
-                .resolve(deviceType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
         if(microphoneAdapter.hasLocalApi()) return delegateService.executeAction(
                 device.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

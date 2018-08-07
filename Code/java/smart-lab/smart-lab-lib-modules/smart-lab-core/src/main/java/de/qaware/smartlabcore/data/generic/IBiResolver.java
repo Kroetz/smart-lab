@@ -1,8 +1,8 @@
 package de.qaware.smartlabcore.data.generic;
 
-import java.util.Optional;
+import de.qaware.smartlabcore.exception.ResolverException;
 
 public interface IBiResolver<KeyT, ValueT> extends IResolver<KeyT, ValueT> {
 
-    Optional<KeyT> inverseResolve(ValueT key);
+    KeyT inverseResolve(ValueT key) throws ResolverException;
 }

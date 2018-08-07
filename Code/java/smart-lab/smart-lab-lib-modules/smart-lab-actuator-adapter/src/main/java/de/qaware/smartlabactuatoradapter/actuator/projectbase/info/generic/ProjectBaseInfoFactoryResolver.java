@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -25,5 +26,10 @@ public class ProjectBaseInfoFactoryResolver extends AbstractResolver<String, IPr
                             .collect(toMap(IProjectBaseInfoFactory::getServiceId, identity()))
                             .entrySet())
                 .orElse(emptySet());
+    }
+
+    @Override
+    protected String getErrorMessage(String projectBaseService) {
+        return format("The project base service \"%s\" is unknown", projectBaseService);
     }
 }

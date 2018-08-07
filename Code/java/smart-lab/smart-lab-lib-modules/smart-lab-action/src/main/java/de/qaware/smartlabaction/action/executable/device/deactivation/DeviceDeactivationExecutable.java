@@ -11,7 +11,6 @@ import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.device.entity.IDevice;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownDeviceAdapterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -38,9 +37,7 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable {
         DeviceDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 DeviceDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDeactivatable deactivatable = this.deactivatableResolver
-                .resolve(deviceType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IDeactivatable deactivatable = this.deactivatableResolver.resolve(deviceType);
         if(!deactivatable.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         deactivatable.deactivate();
         return VoidActionResult.newInstance();
@@ -54,9 +51,7 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
         String deviceType = device.getType();
-        IDeactivatable deactivatable = this.deactivatableResolver
-                .resolve(deviceType)
-                .orElseThrow(UnknownDeviceAdapterException::new);
+        IDeactivatable deactivatable = this.deactivatableResolver.resolve(deviceType);
         if(deactivatable.hasLocalApi()) return delegateService.executeAction(
                 device.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),

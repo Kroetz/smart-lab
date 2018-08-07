@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptySet;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
@@ -29,5 +30,10 @@ public class SpeechToTextServiceResolver extends AbstractResolver<String, ISpeec
                         .collect(toMap(ISpeechToTextService::getServiceId, identity()))
                         .entrySet())
                 .orElse(emptySet());
+    }
+
+    @Override
+    protected String getErrorMessage(String speechToTextService) {
+        return format("The speech-to-text service \"%s\" is unknown", speechToTextService);
     }
 }

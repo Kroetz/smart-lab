@@ -9,7 +9,6 @@ import de.qaware.smartlabcore.data.meeting.IMeeting;
 import de.qaware.smartlabcore.data.meeting.Meeting;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupId;
 import de.qaware.smartlabcore.exception.InvalidSyntaxException;
-import de.qaware.smartlabcore.exception.UnknownAssistanceException;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageBaseVisitor;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageLexer;
 import de.qaware.smartlabcore.parser.antlr.generated.MeetingConfigurationLanguageParser;
@@ -58,7 +57,7 @@ public class MeetingParser implements IMeetingParser {
             parseTree = parser.meetingConfiguration();
             meeting = this.meetingConfigurationVisitor.visit(parseTree);
         }
-        catch(ParseCancellationException | UnknownAssistanceException e) {
+        catch(ParseCancellationException e) {
             log.error("Could not parse the following string: {}", trimmed);
             throw new InvalidSyntaxException("The syntax of the meeting configuration must be valid", e);
         }
@@ -159,10 +158,7 @@ public class MeetingParser implements IMeetingParser {
         public IAssistanceConfiguration visitAssistance(MeetingConfigurationLanguageParser.AssistanceContext ctx) {
             String id = ctx.assistanceCommand.getText();
             Map<String, String> args = ctx.assistanceArgs().accept(this.assistanceArgsVisitor);
-            // TODO: Better exception
-            IAssistanceInfo assistance = this.assistanceInfoResolver
-                    .resolve(id)
-                    .orElseThrow(() -> new UnknownAssistanceException(id));
+            IAssistanceInfo assistance = this.assistanceInfoResolver.resolve(id);
             return assistance.createConfiguration(args);
         }
     }

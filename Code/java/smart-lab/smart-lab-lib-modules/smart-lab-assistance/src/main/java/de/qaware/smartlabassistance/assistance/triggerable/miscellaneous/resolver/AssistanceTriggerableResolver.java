@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import static java.lang.String.format;
+
 @Component
 @Slf4j
 public class AssistanceTriggerableResolver extends AbstractResolver<String, IAssistanceTriggerable> {
@@ -26,5 +28,10 @@ public class AssistanceTriggerableResolver extends AbstractResolver<String, IAss
             }
         }
         return assistancesById;
+    }
+
+    @Override
+    protected String getErrorMessage(String assistanceId) {
+        return format("The assistance \"%s\" is unknown", assistanceId);
     }
 }

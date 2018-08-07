@@ -4,7 +4,6 @@ import de.qaware.smartlabaction.action.executable.generic.IActionExecutable;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ public class DelegateBusinessLogic implements IDelegateBusinessLogic {
     @Override
     public IActionResult executeAction(String actionId, String deviceType, IActionArgs actionArgs) {
         log.info("Executing action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
-        IActionExecutable action = this.actionResolver.resolve(actionId).orElseThrow(UnknownActionException::new);
+        IActionExecutable action = this.actionResolver.resolve(actionId);
         IActionResult actionResult = action.execute(deviceType, actionArgs);
         log.info("Executed action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
         return actionResult;

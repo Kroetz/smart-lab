@@ -9,11 +9,8 @@ import de.qaware.smartlabcore.data.action.dataupload.IDataUploadService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;
 import de.qaware.smartlabcore.data.generic.IResolver;
-import de.qaware.smartlabcore.exception.UnknownServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import static java.lang.String.format;
 
 @Component
 @Slf4j
@@ -42,13 +39,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
                 DataUploadSubmittable.ActionArgs.class,
                 genericActionArgs);
         String projectBaseService = actionArgs.getProjectBaseInfo().getServiceId();
-        IDataUploadService dataUploadService = this.dataUploadServiceResolver
-                .resolve(projectBaseService)
-                .orElseGet(() -> {
-                    String errorMessage = format("The project base service \"%s\" is unknown", projectBaseService);
-                    log.error(errorMessage);
-                    throw new UnknownServiceException(errorMessage);
-                });
+        IDataUploadService dataUploadService = this.dataUploadServiceResolver.resolve(projectBaseService);
         dataUploadService.upload(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getUploadMessage(),

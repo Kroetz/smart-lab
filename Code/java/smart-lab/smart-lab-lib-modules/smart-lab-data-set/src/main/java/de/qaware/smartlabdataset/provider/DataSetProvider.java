@@ -15,6 +15,7 @@ import de.qaware.smartlabcore.data.person.PersonDto;
 import de.qaware.smartlabcore.data.workgroup.IWorkgroup;
 import de.qaware.smartlabcore.data.workgroup.WorkgroupDto;
 import de.qaware.smartlabcore.exception.DataSetException;
+import de.qaware.smartlabcore.exception.ResolverException;
 import de.qaware.smartlabdataset.factory.FileSourcedDataSetFactory;
 import de.qaware.smartlabdataset.factory.IDataSetFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -161,10 +162,12 @@ public class DataSetProvider implements IDataSetProvider {
                 BiConsumer<FileSourcedDataSetFactory.FileSourcedDataSetFactoryBuilder, String> dataSourceSetter) {
             Set<IDataSetFactory> factories = new HashSet<>();
             for(String dataSourceToken : dataSourceTokens) {
-                Optional<IDataSetFactory> factory = this.dataSetFactoryResolver.resolve(dataSourceToken);
-                if(factory.isPresent()) factories.add(factory.get());
-                else {
-                    FileSourcedDataSetFactory.FileSourcedDataSetFactoryBuilder builder = FileSourcedDataSetFactory.builder();
+                try {
+                    factories.add(this.dataSetFactoryResolver.resolve(dataSourceToken));
+                }
+                catch(ResolverException e) {
+                    FileSourcedDataSetFactory.FileSourcedDataSetFactoryBuilder builder =
+                            FileSourcedDataSetFactory.builder();
                     dataSourceSetter.accept(builder, dataSourceToken);
                     factories.add(builder.build());
                 }
