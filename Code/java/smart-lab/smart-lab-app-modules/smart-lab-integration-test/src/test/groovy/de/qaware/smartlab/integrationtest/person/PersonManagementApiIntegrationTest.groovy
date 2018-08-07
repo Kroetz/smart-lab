@@ -4,10 +4,10 @@ import de.qaware.smartlab.api.service.connector.person.IPersonManagementService
 import de.qaware.smartlab.core.data.person.IPerson
 import de.qaware.smartlab.core.data.person.PersonId
 import de.qaware.smartlab.core.data.person.PersonDto
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.FireFightersSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlab.integrationtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

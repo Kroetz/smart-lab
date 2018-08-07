@@ -1,6 +1,6 @@
-package de.qaware.smartlabdataset.annotation;
+package de.qaware.smartlab.data.set.annotation;
 
-import de.qaware.smartlabdataset.configuration.InitialDataConfiguration;
+import de.qaware.smartlab.data.set.configuration.InitialDataConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

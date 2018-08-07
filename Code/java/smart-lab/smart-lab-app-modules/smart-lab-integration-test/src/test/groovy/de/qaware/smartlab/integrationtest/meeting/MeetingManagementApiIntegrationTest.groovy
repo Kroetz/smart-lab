@@ -9,10 +9,10 @@ import de.qaware.smartlab.core.exception.EntityNotFoundException
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException
 import de.qaware.smartlab.core.exception.MinimalDurationReachedException
 
-import de.qaware.smartlabdataset.factory.AstronautsSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.CoastGuardSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.FireFightersSampleDataSetFactory
-import de.qaware.smartlabdataset.factory.ForestRangersSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.FireFightersSampleDataSetFactory
+import de.qaware.smartlab.data.set.factory.ForestRangersSampleDataSetFactory
 import de.qaware.smartlab.integrationtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

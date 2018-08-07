@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataset.factory;
+package de.qaware.smartlab.data.set.factory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;

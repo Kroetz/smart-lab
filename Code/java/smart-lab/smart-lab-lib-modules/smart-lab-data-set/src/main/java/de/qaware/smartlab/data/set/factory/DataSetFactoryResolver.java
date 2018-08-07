@@ -1,4 +1,4 @@
-package de.qaware.smartlabdataset.factory;
+package de.qaware.smartlab.data.set.factory;
 
 import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
