@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.microservice;
 
-import de.qaware.smartlabaction.annotation.EnableSmartLabActionService;
+import de.qaware.smartlab.action.annotation.EnableSmartLabActionService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

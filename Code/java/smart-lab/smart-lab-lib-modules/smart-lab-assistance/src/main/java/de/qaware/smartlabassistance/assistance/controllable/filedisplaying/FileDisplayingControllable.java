@@ -1,9 +1,9 @@
 package de.qaware.smartlabassistance.assistance.controllable.filedisplaying;
 
-import de.qaware.smartlabaction.action.submittable.data.download.DataDownloadSubmittable;
-import de.qaware.smartlabaction.action.submittable.file.closing.FileClosingSubmittable;
-import de.qaware.smartlabaction.action.submittable.file.opening.FileOpeningSubmittable;
-import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
+import de.qaware.smartlab.action.submittable.data.download.DataDownloadSubmittable;
+import de.qaware.smartlab.action.submittable.file.closing.FileClosingSubmittable;
+import de.qaware.smartlab.action.submittable.file.opening.FileOpeningSubmittable;
+import de.qaware.smartlab.action.submittable.generic.IActionSubmittable;
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;

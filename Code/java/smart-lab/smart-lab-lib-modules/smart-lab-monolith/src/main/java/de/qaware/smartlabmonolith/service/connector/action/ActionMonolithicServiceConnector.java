@@ -1,6 +1,6 @@
 package de.qaware.smartlabmonolith.service.connector.action;
 
-import de.qaware.smartlabaction.service.controller.ActionController;
+import de.qaware.smartlab.action.service.controller.ActionController;
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabcore.data.action.generic.IActionArgs;
 import de.qaware.smartlabcore.data.action.generic.result.IActionResult;

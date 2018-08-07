@@ -1,8 +1,8 @@
 package de.qaware.smartlabassistance.assistance.controllable.devicepreparation;
 
-import de.qaware.smartlabaction.action.submittable.device.activation.DeviceActivationSubmittable;
-import de.qaware.smartlabaction.action.submittable.device.deactivation.DeviceDeactivationSubmittable;
-import de.qaware.smartlabaction.action.submittable.generic.IActionSubmittable;
+import de.qaware.smartlab.action.submittable.device.activation.DeviceActivationSubmittable;
+import de.qaware.smartlab.action.submittable.device.deactivation.DeviceDeactivationSubmittable;
+import de.qaware.smartlab.action.submittable.generic.IActionSubmittable;
 import de.qaware.smartlabapi.service.connector.action.IActionService;
 import de.qaware.smartlabassistance.assistance.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlabassistance.assistance.controllable.generic.IAssistanceControllable;
