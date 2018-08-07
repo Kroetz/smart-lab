@@ -1,4 +1,4 @@
-package de.qaware.smartlabdevicemicroservice;
+package de.qaware.smartlabactuatormanagementmicroservice;
 
 import de.qaware.smartlabactuatormanagement.annotation.EnableSmartLabDeviceService;
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSmartLabMicroservice
 @EnableSmartLabDeviceService
 @EnableDiscoveryClient
-public class SmartLabDeviceMicroserviceApplication {
+public class SmartLabActuatorManagementMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabDeviceMicroserviceApplication.class, args);
+		SpringApplication.run(SmartLabActuatorManagementMicroserviceApplication.class, args);
 	}
 }

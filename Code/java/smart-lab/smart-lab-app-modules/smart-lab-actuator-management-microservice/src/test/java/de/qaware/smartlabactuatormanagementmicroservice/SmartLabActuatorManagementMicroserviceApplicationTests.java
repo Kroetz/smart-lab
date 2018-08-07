@@ -1,4 +1,4 @@
-package de.qaware.smartlabdevicemicroservice;
+package de.qaware.smartlabactuatormanagementmicroservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SmartLabDeviceMicroserviceApplicationTests {
+public class SmartLabActuatorManagementMicroserviceApplicationTests {
 
 	@Test
 	public void contextLoads() {

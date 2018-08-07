@@ -5,10 +5,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>smart-lab-device-microservice</artifactId>
+	<artifactId>smart-lab-actuator-management-microservice</artifactId>
 	<packaging>jar</packaging>
-	<name>smart-lab-device-microservice</name>
-	<description>Module of the Smart-Lab project that runs the device microservice</description>
+	<name>smart-lab-actuator-management-microservice</name>
+	<description>Module of the Smart-Lab project that runs the actuator-management microservice</description>
 
 	<parent>
 		<artifactId>smart-lab-microservice-dependencies</artifactId>
