@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroupmanagementmicroservice;
+package de.qaware.smartlab.workgroup.management.microservice;
 
 import de.qaware.smartlabmicroservice.annotation.EnableSmartLabMicroservice;
 import de.qaware.smartlabworkgroupmanagement.annotation.EnableSmartLabWorkgroupService;
@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableSmartLabMicroservice
 @EnableSmartLabWorkgroupService
 @EnableDiscoveryClient
-public class SmartLabWorkgroupManagementMicroserviceApplication {
+public class WorkgroupManagementMicroserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabWorkgroupManagementMicroserviceApplication.class, args);
+		SpringApplication.run(WorkgroupManagementMicroserviceApplication.class, args);
 	}
 }
