@@ -1,4 +1,4 @@
-package de.qaware.smartlabworkgroupmanagement.service.repository;
+package de.qaware.smartlab.workgroup.management.service.repository;
 
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;

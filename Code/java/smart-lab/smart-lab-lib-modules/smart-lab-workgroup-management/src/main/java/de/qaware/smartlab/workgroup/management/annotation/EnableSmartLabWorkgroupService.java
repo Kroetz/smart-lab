@@ -1,6 +1,6 @@
-package de.qaware.smartlabworkgroupmanagement.annotation;
+package de.qaware.smartlab.workgroup.management.annotation;
 
-import de.qaware.smartlabworkgroupmanagement.configuration.WorkgroupServiceConfiguration;
+import de.qaware.smartlab.workgroup.management.configuration.WorkgroupServiceConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
