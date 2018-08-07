@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolithicservice;
+package de.qaware.smartlab.monolith.service;
 
 import com.fasterxml.classmate.TypeResolver;
 import de.qaware.smartlabmonolith.annotation.EnableSmartLabMonolith;

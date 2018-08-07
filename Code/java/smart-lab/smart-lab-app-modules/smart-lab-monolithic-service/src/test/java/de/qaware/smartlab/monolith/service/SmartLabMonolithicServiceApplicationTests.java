@@ -1,4 +1,4 @@
-package de.qaware.smartlabmonolithicservice;
+package de.qaware.smartlab.monolith.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
