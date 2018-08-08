@@ -1,4 +1,4 @@
-package de.qaware.smartlab.action.actions.executable;
+package de.qaware.smartlab.action.actions.executable.miscellaneous.resolver;
 
 import de.qaware.smartlab.action.actions.executable.generic.IActionExecutable;
 import de.qaware.smartlab.core.data.generic.AbstractResolver;
