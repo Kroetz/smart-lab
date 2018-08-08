@@ -10,5 +10,5 @@ public interface IAssistanceControllable extends IAssistanceIdSupplier, IAssista
 
     void begin(IActionService actionService, IAssistanceContext context);
     void end(IActionService actionService, IAssistanceContext context);
-    void update(IActionService actionService, IAssistanceContext context);
+    void during(IActionService actionService, IAssistanceContext context);
 }

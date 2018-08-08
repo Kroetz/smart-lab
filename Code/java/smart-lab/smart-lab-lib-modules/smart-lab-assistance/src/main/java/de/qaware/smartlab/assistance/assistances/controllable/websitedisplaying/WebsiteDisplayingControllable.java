@@ -57,7 +57,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
     }
 
     @Override
-    public void update(IActionService actionService, IAssistanceContext context) {
+    public void during(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
     }
 

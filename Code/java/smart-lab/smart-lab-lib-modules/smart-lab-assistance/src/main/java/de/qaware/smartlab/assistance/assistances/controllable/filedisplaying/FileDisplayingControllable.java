@@ -96,7 +96,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void update(IActionService actionService, IAssistanceContext context) {
+    public void during(IActionService actionService, IAssistanceContext context) {
         // TODO: Implementation
     }
 
