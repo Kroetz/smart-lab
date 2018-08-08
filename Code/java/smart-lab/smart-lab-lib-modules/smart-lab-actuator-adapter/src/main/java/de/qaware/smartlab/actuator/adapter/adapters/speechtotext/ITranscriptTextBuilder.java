@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.action.speechtotext;
+package de.qaware.smartlab.actuator.adapter.adapters.speechtotext;
 
 import java.util.List;
 

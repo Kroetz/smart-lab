@@ -25,10 +25,12 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
     private static final boolean HAS_LOCAL_API = false;
 
     private final SpeechToText service;
+    private final WatsonSpeechToTextTranscript.Factory transcriptFactory;
 
     public WatsonSpeechToTextAdapter(
             String watsonSpeechToTextUserName,
-            String watsonSpeechToTextPassword) {
+            String watsonSpeechToTextPassword,
+            WatsonSpeechToTextTranscript.Factory transcriptFactory) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         if(isNull(watsonSpeechToTextUserName)) throw new NullPointerException(watsonSpeechToTextUserName);
         if(isNull(watsonSpeechToTextPassword)) throw new NullPointerException(watsonSpeechToTextPassword);
@@ -36,6 +38,7 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
         Map<String, String> defaultHeaders = new HashMap<>();
         // Set default headers, e.g. defaultHeaders.put(HttpHeaders.CONTENT_TYPE, HttpMediaType.AUDIO_WEBM);
         this.service.setDefaultHeaders(defaultHeaders);
+        this.transcriptFactory = transcriptFactory;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
                     .audio(audioFile.toFile())
                     .build();
             SpeechRecognitionResults speechRecognitionResults = this.service.recognize(options).execute();
-            return WatsonSpeechToTextTranscript.of(speechRecognitionResults);
+            return this.transcriptFactory.of(speechRecognitionResults);
         }
         catch (Exception e) {
             // TODO: exception message

@@ -1,12 +1,12 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.watson;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import de.qaware.smartlab.core.data.action.speechtotext.ITextPassage;
-import de.qaware.smartlab.core.data.action.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITextPassage;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITextPassagesBuilder;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlab.core.miscellaneous.StartedDuration;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -18,19 +18,20 @@ import static java.util.stream.Collectors.toMap;
 public class WatsonSpeechToTextTranscript implements ITranscript {
 
     private final SpeechRecognitionResults speechRecognitionResults;
+    private final ITranscriptTextBuilder transcriptTextBuilder;
+    private final ITextPassagesBuilder textPassagesBuilder;
 
-    private WatsonSpeechToTextTranscript(SpeechRecognitionResults speechRecognitionResults) {
+    private WatsonSpeechToTextTranscript(
+            SpeechRecognitionResults speechRecognitionResults,
+            ITranscriptTextBuilder transcriptTextBuilder,
+            ITextPassagesBuilder textPassagesBuilder) {
         this.speechRecognitionResults = speechRecognitionResults;
-    }
-
-    public static WatsonSpeechToTextTranscript of(SpeechRecognitionResults speechRecognitionResults) {
-        return new WatsonSpeechToTextTranscript(speechRecognitionResults);
+        this.transcriptTextBuilder = transcriptTextBuilder;
+        this.textPassagesBuilder = textPassagesBuilder;
     }
 
     @Override
-    public String toHumanReadable(
-            ITranscriptTextBuilder transcriptTextBuilder,
-            ITextPassagesBuilder textPassagesBuilder) {
+    public String toHumanReadable() {
         log.info("Converting Watson speech-to-text transcript into human readable form");
         if(this.speechRecognitionResults.getResults().size() < 1 || isNull(this.speechRecognitionResults.getSpeakerLabels())) {
             log.info("Transcript cannot be converted because it is empty");
@@ -114,6 +115,28 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
         @Override
         public int hashCode() {
             return Objects.hash(start, end);
+        }
+    }
+
+    @Component
+    @Slf4j
+    public static class Factory {
+
+        private final ITranscriptTextBuilder transcriptTextBuilder;
+        private final ITextPassagesBuilder textPassagesBuilder;
+
+        public Factory(
+                ITranscriptTextBuilder transcriptTextBuilder,
+                ITextPassagesBuilder textPassagesBuilder) {
+            this.transcriptTextBuilder = transcriptTextBuilder;
+            this.textPassagesBuilder = textPassagesBuilder;
+        }
+
+        public WatsonSpeechToTextTranscript of(SpeechRecognitionResults speechRecognitionResults) {
+            return new WatsonSpeechToTextTranscript(
+                    speechRecognitionResults,
+                    this.transcriptTextBuilder,
+                    this.textPassagesBuilder);
         }
     }
 }

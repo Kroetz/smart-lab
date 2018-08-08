@@ -17,16 +17,21 @@ import org.springframework.context.annotation.Configuration;
 public class WatsonSpeechToTextConfiguration {
 
     private final WatsonSpeechToTextProperties watsonSpeechToTextProperties;
+    private final WatsonSpeechToTextTranscript.Factory transcriptFactory;
 
-    public WatsonSpeechToTextConfiguration(WatsonSpeechToTextProperties watsonSpeechToTextProperties) {
+    public WatsonSpeechToTextConfiguration(
+            WatsonSpeechToTextProperties watsonSpeechToTextProperties,
+            WatsonSpeechToTextTranscript.Factory transcriptFactory) {
         this.watsonSpeechToTextProperties = watsonSpeechToTextProperties;
+        this.transcriptFactory = transcriptFactory;
     }
 
     @Bean
     public ISpeechToTextAdapter speechToTextAdapter() {
         return new WatsonSpeechToTextAdapter(
                 this.watsonSpeechToTextProperties.getUserName(),
-                this.watsonSpeechToTextProperties.getPassword());
+                this.watsonSpeechToTextProperties.getPassword(),
+                this.transcriptFactory);
     }
 
     // TODO: String literal

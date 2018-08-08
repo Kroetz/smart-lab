@@ -1,9 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlab.core.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +30,7 @@ public class QueryResultResponse implements ITranscript {
     private String status;
 
     @Override
-    public String toHumanReadable(ITranscriptTextBuilder transcriptTextBuilder, ITextPassagesBuilder textPassagesBuilder) {
+    public String toHumanReadable() {
         // TODO: Build a readable string
         return results.toString();
     }

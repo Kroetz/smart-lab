@@ -11,9 +11,7 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanc
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
-import de.qaware.smartlab.core.data.action.speechtotext.ITextPassagesBuilder;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptTextBuilder;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
@@ -32,8 +30,6 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     private final IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation;
     private final IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText;
     private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
-    private final ITranscriptTextBuilder transcriptTextBuilder;
-    private final ITextPassagesBuilder textPassagesBuilder;
     private final ITempFileManager tempFileManager;
 
     private MinuteTakingControllable(
@@ -42,16 +38,12 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
             IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
             IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
-            ITranscriptTextBuilder transcriptTextBuilder,
-            ITextPassagesBuilder textPassagesBuilder,
             ITempFileManager tempFileManager) {
         super(minuteTakingInfo);
         this.microphoneActivation = microphoneActivation;
         this.microphoneDeactivation = microphoneDeactivation;
         this.speechToText = speechToText;
         this.dataUpload = dataUpload;
-        this.transcriptTextBuilder = transcriptTextBuilder;
-        this.textPassagesBuilder = textPassagesBuilder;
         this.tempFileManager = tempFileManager;
     }
 
@@ -112,7 +104,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 config.getUploadDir(),
                 fileName,
                 uploadMessage,
-                transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
+                transcript.toHumanReadable());
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
     }
 
@@ -124,8 +116,6 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         private final IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation;
         private final IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText;
         private final IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload;
-        private final ITranscriptTextBuilder transcriptTextBuilder;
-        private final ITextPassagesBuilder textPassagesBuilder;
         private final ITempFileManager tempFileManager;
 
         public Factory(
@@ -134,16 +124,12 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 IActionSubmittable<MicrophoneDeactivationSubmittable.ActionArgs, Path> microphoneDeactivation,
                 IActionSubmittable<SpeechToTextSubmittable.ActionArgs, ITranscript> speechToText,
                 IActionSubmittable<DataUploadSubmittable.ActionArgs, Void> dataUpload,
-                ITranscriptTextBuilder transcriptTextBuilder,
-                ITextPassagesBuilder textPassagesBuilder,
                 ITempFileManager tempFileManager) {
             super(minuteTakingInfo);
             this.microphoneActivation = microphoneActivation;
             this.microphoneDeactivation = microphoneDeactivation;
             this.speechToText = speechToText;
             this.dataUpload = dataUpload;
-            this.transcriptTextBuilder = transcriptTextBuilder;
-            this.textPassagesBuilder = textPassagesBuilder;
             this.tempFileManager = tempFileManager;
         }
 
@@ -155,8 +141,6 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                     this.microphoneDeactivation,
                     this.speechToText,
                     this.dataUpload,
-                    this.transcriptTextBuilder,
-                    this.textPassagesBuilder,
                     this.tempFileManager);
         }
     }
