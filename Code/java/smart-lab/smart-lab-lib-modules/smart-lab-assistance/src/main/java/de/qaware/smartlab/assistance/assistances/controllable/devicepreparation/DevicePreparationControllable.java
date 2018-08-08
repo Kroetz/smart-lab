@@ -48,11 +48,6 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
         this.deviceDeactivation.submitExecution(actionService, deviceDeactivationArgs);
     }
 
-    @Override
-    public void during(IActionService actionService, IAssistanceContext context) {
-        // TODO: Implementation
-    }
-
     @Component
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {

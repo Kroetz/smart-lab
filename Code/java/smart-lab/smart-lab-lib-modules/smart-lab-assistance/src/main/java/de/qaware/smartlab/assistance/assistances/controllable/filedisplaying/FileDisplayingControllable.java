@@ -95,11 +95,6 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         this.fileClosing.submitExecution(actionService, fileClosingArgs);
     }
 
-    @Override
-    public void during(IActionService actionService, IAssistanceContext context) {
-        // TODO: Implementation
-    }
-
     @Component
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {

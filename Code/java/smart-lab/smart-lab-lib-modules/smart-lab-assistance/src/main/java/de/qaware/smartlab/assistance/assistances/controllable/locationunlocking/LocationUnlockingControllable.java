@@ -26,11 +26,6 @@ public class LocationUnlockingControllable extends AbstractAssistanceControllabl
         // TODO: Implementation
     }
 
-    @Override
-    public void during(IActionService actionService, IAssistanceContext context) {
-        // TODO: Implementation
-    }
-
     @Component
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
