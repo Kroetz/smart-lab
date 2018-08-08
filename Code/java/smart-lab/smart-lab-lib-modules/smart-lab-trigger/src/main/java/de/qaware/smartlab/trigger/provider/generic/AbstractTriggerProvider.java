@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toSet;
 public abstract class AbstractTriggerProvider implements ITriggerProvider, CommandLineRunner {
 
     private final Duration checkInterval;
-    private boolean providingTriggers;
+    private boolean isProvidingTriggers;
     protected Instant currentCheck;
     /**
      * Contains all current trigger candidates and if they have already been triggered.
@@ -52,12 +52,15 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         start();
     }
 
-    public void start() {
-        if(this.providingTriggers) throw new IllegalStateException("Already providing triggers");
-        this.providingTriggers = true;
+    public synchronized void start() {
+        if(this.isProvidingTriggers) {
+            log.warn("Ignoring call to start providing triggers since triggers are already provided");
+            return;
+        }
+        this.isProvidingTriggers = true;
         ExecutorService executor = newSingleThreadExecutor();
         executor.submit(() -> {
-            while(this.providingTriggers) {
+            while(this.isProvidingTriggers) {
                 provideTriggers();
                 try {
                     TimeUnit.SECONDS.sleep(this.checkInterval.getSeconds());
@@ -72,8 +75,12 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
         });
     }
 
-    public void stop() {
-        this.providingTriggers = false;
+    public synchronized void stop() {
+        if(this.isProvidingTriggers) {
+            log.warn("Ignoring call to stop providing triggers since triggers are currently not provided");
+            return;
+        }
+        this.isProvidingTriggers = false;
     }
 
     @Override

@@ -47,11 +47,11 @@ public class TempFileManager implements ITempFileManager, CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         startCleaningObsoleteFiles();
     }
 
-    public void startCleaningObsoleteFiles() {
+    public synchronized void startCleaningObsoleteFiles() {
         if(this.isCleaningObsoleteFiles) {
             log.warn("Ignoring call to start cleaning obsolete temp files since cleaning is already in progress");
             return;
@@ -74,7 +74,7 @@ public class TempFileManager implements ITempFileManager, CommandLineRunner {
         });
     }
 
-    public void stopCleaningObsoleteFiles() {
+    public synchronized void stopCleaningObsoleteFiles() {
         if(this.isCleaningObsoleteFiles) {
             log.warn("Ignoring call to stop cleaning obsolete temp files since cleaning is not in progress");
             return;
