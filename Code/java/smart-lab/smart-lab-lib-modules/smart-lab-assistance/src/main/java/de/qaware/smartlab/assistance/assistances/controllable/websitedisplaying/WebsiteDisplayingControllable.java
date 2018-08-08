@@ -35,9 +35,9 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        WebsiteDisplayingInfo.Configuration config = (WebsiteDisplayingInfo.Configuration) context.getAssistanceConfiguration();
+        WebsiteDisplayingInfo.Configuration config = toSpecificConfigType(
+                WebsiteDisplayingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 config.getDisplayId(),
@@ -47,9 +47,9 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        WebsiteDisplayingInfo.Configuration config = (WebsiteDisplayingInfo.Configuration) context.getAssistanceConfiguration();
+        WebsiteDisplayingInfo.Configuration config = toSpecificConfigType(
+                WebsiteDisplayingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);

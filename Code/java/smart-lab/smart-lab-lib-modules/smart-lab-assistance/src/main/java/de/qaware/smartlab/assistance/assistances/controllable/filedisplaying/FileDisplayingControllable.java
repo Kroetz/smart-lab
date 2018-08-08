@@ -48,9 +48,9 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        FileDisplayingInfo.Configuration config = (FileDisplayingInfo.Configuration) context.getAssistanceConfiguration();
+        FileDisplayingInfo.Configuration config = toSpecificConfigType(
+                FileDisplayingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         Path downloadedFile = downloadFile(actionService, context, config);
         openFile(actionService, config, downloadedFile);
     }
@@ -86,9 +86,9 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        FileDisplayingInfo.Configuration config = (FileDisplayingInfo.Configuration) context.getAssistanceConfiguration();
+        FileDisplayingInfo.Configuration config = toSpecificConfigType(
+                FileDisplayingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final FileClosingSubmittable.ActionArgs fileClosingArgs = FileClosingSubmittable.ActionArgs.of(
                 config.getProgramId(),
                 this.programInstanceId);

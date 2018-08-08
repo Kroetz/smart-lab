@@ -30,9 +30,9 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        DevicePreparationInfo.Configuration config = (DevicePreparationInfo.Configuration) context.getAssistanceConfiguration();
+        DevicePreparationInfo.Configuration config = toSpecificConfigType(
+                DevicePreparationInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final DeviceActivationSubmittable.ActionArgs deviceActivationArgs = DeviceActivationSubmittable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceActivation.submitExecution(actionService, deviceActivationArgs);
@@ -40,9 +40,9 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        DevicePreparationInfo.Configuration config = (DevicePreparationInfo.Configuration) context.getAssistanceConfiguration();
+        DevicePreparationInfo.Configuration config = toSpecificConfigType(
+                DevicePreparationInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final DeviceDeactivationSubmittable.ActionArgs deviceDeactivationArgs = DeviceDeactivationSubmittable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceDeactivation.submitExecution(actionService, deviceDeactivationArgs);

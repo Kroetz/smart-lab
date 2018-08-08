@@ -40,6 +40,22 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
         return this.assistanceInfo.getAssistanceCommandAliases();
     }
 
+    protected <ConfigT extends IAssistanceConfiguration> ConfigT toSpecificConfigType(
+            Class<ConfigT> targetConfigClass,
+            IAssistanceConfiguration genericConfig) throws IllegalStateException {
+        try {
+            return targetConfigClass.cast(genericConfig);
+        }
+        catch(ClassCastException e) {
+            String errorMessage = String.format(
+                    "The assistance configuration %s must be of the type %s",
+                    genericConfig.toString(),
+                    targetConfigClass.getName());
+            log.error(errorMessage, e);
+            throw new IllegalStateException(errorMessage, e);
+        }
+    }
+
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
         log.info("Ignoring stage \"begin\" of assistance \"{}\" of event with ID \"{}\" because it has no functionality",

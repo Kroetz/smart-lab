@@ -3,16 +3,16 @@ package de.qaware.smartlab.assistance.assistances.controllable.agendashowing;
 import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
 import de.qaware.smartlab.action.actions.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
 import de.qaware.smartlab.action.actions.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
-import de.qaware.smartlab.api.service.constant.gui.GuiApiConstants;
-import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
-import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
-import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
+import de.qaware.smartlab.api.service.constant.gui.GuiApiConstants;
+import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
+import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -45,9 +45,9 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
+        AgendaShowingInfo.Configuration config = toSpecificConfigType(
+                AgendaShowingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         // TODO: Exception message
         URL guiServiceBaseUrl = this.guiServiceBaseUrlGetter.getBaseUrl();
         URL eventAgendaUrl;
@@ -70,9 +70,9 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        AgendaShowingInfo.Configuration config = (AgendaShowingInfo.Configuration) context.getAssistanceConfiguration();
+        AgendaShowingInfo.Configuration config = toSpecificConfigType(
+                AgendaShowingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);

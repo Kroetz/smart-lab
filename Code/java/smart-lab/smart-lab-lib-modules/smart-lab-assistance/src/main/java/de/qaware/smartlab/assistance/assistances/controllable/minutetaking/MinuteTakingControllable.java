@@ -57,9 +57,9 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
+        MinuteTakingInfo.Configuration config = toSpecificConfigType(
+                MinuteTakingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         final MicrophoneActivationSubmittable.ActionArgs microphoneActivationArgs = MicrophoneActivationSubmittable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
@@ -68,9 +68,9 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: casting smells
-        // TODO: Check for casting exception and throw illegalstateexception
-        MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
+        MinuteTakingInfo.Configuration config = toSpecificConfigType(
+                MinuteTakingInfo.Configuration.class,
+                context.getAssistanceConfiguration());
         Path recordedAudio = stopRecording(actionService, context, config);
         ITranscript transcript = speechToText(actionService, config, recordedAudio);
         uploadMinutes(actionService, context, config, transcript);
