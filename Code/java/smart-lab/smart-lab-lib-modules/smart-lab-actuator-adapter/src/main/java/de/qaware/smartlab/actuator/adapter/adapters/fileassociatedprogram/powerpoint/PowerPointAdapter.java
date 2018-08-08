@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import static java.lang.String.format;
+import static java.util.UUID.randomUUID;
 
 @Component
 @ConditionalOnProperty(
@@ -77,7 +78,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
             log.error(errorMessage, e);
             throw new LocalDeviceException(errorMessage, e);
         }
-        UUID powerPointInstanceId = UUID.randomUUID();
+        UUID powerPointInstanceId = randomUUID();
         IWindowInfo powerPointWindow = this.windowHandler.findPowerPointWindow(fileToOpen);
         IFileAssociatedProgramInstance powerPointInstance = FileAssociatedProgramInstance.of(
                 powerPointInstanceId,

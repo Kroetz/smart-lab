@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 
 import static java.util.Collections.singletonList;
 import static java.util.Objects.isNull;
+import static java.util.UUID.randomUUID;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
@@ -61,7 +62,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
 
     @Override
     public UUID newWebBrowserInstance(List<URL> urls) {
-        UUID webBrowserInstanceId = UUID.randomUUID();
+        UUID webBrowserInstanceId = randomUUID();
         WebDriver webDriver = this.webDriverSupplier.get();
         newTabs(webDriver, webBrowserInstanceId, urls);
         IWindowInfo webBrowserWindow = this.windowHandler.findWebBrowserWindow(webDriver);
