@@ -51,12 +51,24 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         FileDisplayingInfo.Configuration config = (FileDisplayingInfo.Configuration) context.getAssistanceConfiguration();
+        Path downloadedFile = downloadFile(actionService, context, config);
+        openFile(actionService, config, downloadedFile);
+    }
 
+    private Path downloadFile(
+            IActionService actionService,
+            IAssistanceContext context,
+            FileDisplayingInfo.Configuration config) {
         final DataDownloadSubmittable.ActionArgs dataDownloadArgs = DataDownloadSubmittable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getFilePath());
-        Path downloadedFile = this.dataDownload.submitExecution(actionService, dataDownloadArgs);
+        return this.dataDownload.submitExecution(actionService, dataDownloadArgs);
+    }
 
+    private void openFile(
+            IActionService actionService,
+            FileDisplayingInfo.Configuration config,
+            Path downloadedFile) {
         final FileOpeningSubmittable.ActionArgs fileOpeningArgs;
         try {
             fileOpeningArgs = FileOpeningSubmittable.ActionArgs.of(

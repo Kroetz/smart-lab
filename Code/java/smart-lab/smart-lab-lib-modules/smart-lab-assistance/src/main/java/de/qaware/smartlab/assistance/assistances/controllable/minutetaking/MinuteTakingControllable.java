@@ -71,16 +71,38 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         // TODO: casting smells
         // TODO: Check for casting exception and throw illegalstateexception
         MinuteTakingInfo.Configuration config = (MinuteTakingInfo.Configuration) context.getAssistanceConfiguration();
+        Path recordedAudio = stopRecording(actionService, context, config);
+        ITranscript transcript = speechToText(actionService, config, recordedAudio);
+        uploadMinutes(actionService, context, config, transcript);
+        // TODO: Delete temp file
+        //this.tempFileManager.markForCleaning(recordedAudio);
+    }
+
+    private Path stopRecording(
+            IActionService actionService,
+            IAssistanceContext context,
+            MinuteTakingInfo.Configuration config) {
         final MicrophoneDeactivationSubmittable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationSubmittable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
-        Path recordedAudio = this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
+        return this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
+    }
 
+    private ITranscript speechToText(
+            IActionService actionService,
+            MinuteTakingInfo.Configuration config,
+            Path recordedAudio) {
         final SpeechToTextSubmittable.ActionArgs speechToTextArgs = SpeechToTextSubmittable.ActionArgs.of(
                 recordedAudio,
                 config.getSpokenLanguage());
-        ITranscript transcript = this.speechToText.submitExecution(actionService, speechToTextArgs);
+        return this.speechToText.submitExecution(actionService, speechToTextArgs);
+    }
 
+    private void uploadMinutes(
+            IActionService actionService,
+            IAssistanceContext context,
+            MinuteTakingInfo.Configuration config,
+            ITranscript transcript) {
         // TODO: String literals
         String uploadMessage = "Upload minutes taken by Smart-Lab";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
@@ -92,9 +114,6 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 uploadMessage,
                 transcript.toHumanReadable(this.transcriptTextBuilder, this.textPassagesBuilder));
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
-
-        // TODO: Delete temp file
-        //this.tempFileManager.markForCleaning(recordedAudio);
     }
 
     @Override
