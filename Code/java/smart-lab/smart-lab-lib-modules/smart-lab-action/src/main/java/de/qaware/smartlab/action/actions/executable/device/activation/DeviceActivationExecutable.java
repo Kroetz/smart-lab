@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.actions.executable.device.activation;
 
-import de.qaware.smartlab.actuator.adapter.adapters.generic.IActivatable;
+import de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.IActivatable;
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.device.activation.DeviceActivationInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;

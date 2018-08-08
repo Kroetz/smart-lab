@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram;
 
-import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.IWindowInfo;
+import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

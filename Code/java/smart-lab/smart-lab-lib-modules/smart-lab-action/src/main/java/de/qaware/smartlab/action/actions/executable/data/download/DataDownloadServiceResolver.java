@@ -24,7 +24,7 @@ public class DataDownloadServiceResolver extends AbstractResolver<String, IDataD
         return dataDownloadServices
                 .map(services -> services
                         .stream()
-                        .collect(toMap(IDataDownloadService::getServiceId, identity()))
+                        .collect(toMap(IDataDownloadService::getDeviceType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }

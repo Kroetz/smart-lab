@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser;
 
-import de.qaware.smartlab.actuator.adapter.adapters.generic.IDeviceAdapter;
+import de.qaware.smartlab.core.data.actuator.IDeviceAdapter;
 import de.qaware.smartlab.core.data.device.DeviceId;
 
 import java.net.URL;

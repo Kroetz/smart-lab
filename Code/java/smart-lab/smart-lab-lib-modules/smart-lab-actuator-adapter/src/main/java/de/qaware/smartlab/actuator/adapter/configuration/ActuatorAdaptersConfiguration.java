@@ -5,6 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = de.qaware.smartlab.actuator.adapter.adapters.ComponentScanMarker.class)
+@ComponentScan(basePackageClasses = {
+        de.qaware.smartlab.actuator.adapter.adapters.ComponentScanMarker.class,
+        de.qaware.smartlab.actuator.adapter.windowhandling.ComponentScanMarker.class})
 @EnableSmartLabCore
 public class ActuatorAdaptersConfiguration { }

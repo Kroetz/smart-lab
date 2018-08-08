@@ -27,7 +27,7 @@ public class DataUploadServiceResolver extends AbstractResolver<String, IDataUpl
         return dataUploadServices
                 .map(services -> services
                         .stream()
-                        .collect(toMap(IDataUploadService::getServiceId, identity()))
+                        .collect(toMap(IDataUploadService::getDeviceType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }

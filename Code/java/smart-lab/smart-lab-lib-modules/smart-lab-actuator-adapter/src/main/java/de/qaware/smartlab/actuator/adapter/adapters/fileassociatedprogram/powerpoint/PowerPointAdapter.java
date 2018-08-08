@@ -3,8 +3,8 @@ package de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.power
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.AbstractFileAssociatedProgramAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.FileAssociatedProgramInstance;
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramInstance;
-import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowhandler.IWindowHandler;
-import de.qaware.smartlab.actuator.adapter.adapters.windowhandling.windowinfo.IWindowInfo;
+import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
+import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import de.qaware.smartlab.core.exception.LocalDeviceException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import de.qaware.smartlab.core.miscellaneous.Property;

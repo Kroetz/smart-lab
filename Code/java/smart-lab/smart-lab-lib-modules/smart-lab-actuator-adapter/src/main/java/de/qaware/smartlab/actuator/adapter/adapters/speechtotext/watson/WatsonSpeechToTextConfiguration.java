@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.watson;
 
-import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextService;
+import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,8 +23,8 @@ public class WatsonSpeechToTextConfiguration {
     }
 
     @Bean
-    public ISpeechToTextService speechToTextService() {
-        return new WatsonSpeechToTextServiceConnector(
+    public ISpeechToTextAdapter speechToTextAdapter() {
+        return new WatsonSpeechToTextAdapter(
                 this.watsonSpeechToTextProperties.getUserName(),
                 this.watsonSpeechToTextProperties.getPassword());
     }

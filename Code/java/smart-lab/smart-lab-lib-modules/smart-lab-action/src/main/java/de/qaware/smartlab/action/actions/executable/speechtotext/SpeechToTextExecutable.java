@@ -8,7 +8,7 @@ import de.qaware.smartlab.action.actions.submittable.speechtotext.SpeechToTextSu
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextService;
+import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -19,17 +19,17 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SpeechToTextExecutable extends AbstractActionExecutable {
 
-    private final IResolver<String, ISpeechToTextService> speechToTextServiceResolver;
-    private final String speechToTextService;
+    private final IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver;
+    private final String speechToTextServiceName;
 
     public SpeechToTextExecutable(
             SpeechToTextInfo speechToTextInfo,
-            IResolver<String, ISpeechToTextService> speechToTextServiceResolver,
+            IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver,
             // TODO: String literal
-            @Qualifier("speechToTextServiceName") String speechToTextService) {
+            @Qualifier("speechToTextServiceName") String speechToTextServiceName) {
         super(speechToTextInfo);
-        this.speechToTextServiceResolver = speechToTextServiceResolver;
-        this.speechToTextService = speechToTextService;
+        this.speechToTextAdapterResolver = speechToTextAdapterResolver;
+        this.speechToTextServiceName = speechToTextServiceName;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
         SpeechToTextSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 SpeechToTextSubmittable.ActionArgs.class,
                 genericActionArgs);
-        ISpeechToTextService speechToTextService = this.speechToTextServiceResolver.resolve(this.speechToTextService);
-        ITranscript transcript = speechToTextService.speechToText(
+        ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.speechToTextServiceName);
+        ITranscript transcript = speechToTextAdapter.speechToText(
                 actionArgs.getAudioFile(),
                 actionArgs.getSpokenLanguage());
         return TranscriptActionResult.of(transcript);

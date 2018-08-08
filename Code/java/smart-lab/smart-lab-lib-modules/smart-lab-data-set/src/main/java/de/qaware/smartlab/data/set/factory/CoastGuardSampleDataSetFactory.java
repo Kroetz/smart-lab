@@ -5,8 +5,8 @@ import de.qaware.smartlab.actuator.adapter.adapters.beamer.DummyBeamerAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.display.DummyDisplayAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.microphone.ThinkpadP50InternalMicrophoneAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.IProjectBaseInfoFactory;
-import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.github.GithubProjectBaseInfo;
-import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubServiceConnector;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.github.GithubInfo;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubAdapter;
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.filedisplaying.FileDisplayingInfo;
@@ -68,7 +68,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     private final IAssistanceInfo fileDisplayingInfo;
     private final IAssistanceInfo locationUnlockingInfo;
     private final IAssistanceInfo devicePreparationInfo;
-    private final IProjectBaseInfoFactory githubProjectBaseInfoFactory;
+    private final IProjectBaseInfoFactory githubInfoFactory;
 
     public CoastGuardSampleDataSetFactory(
             IAssistanceInfo minuteTakingInfo,
@@ -85,7 +85,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         this.fileDisplayingInfo = fileDisplayingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubProjectBaseInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubServiceConnector.SERVICE_ID);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.SERVICE_ID);
     }
 
     @Override
@@ -99,10 +99,10 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 WORKGROUP_ID_COAST_GUARD,
                 "Coast Guard",
                 coastGuardMembers,
-                this.githubProjectBaseInfoFactory.newInstance(ImmutableMap
+                this.githubInfoFactory.newInstance(ImmutableMap
                         .<String, String>builder()
-                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_USER, "Kroetz")
-                        .put(GithubProjectBaseInfo.PROJECT_BASE_PROPERTY_KEY_REPOSITORY, "coastGuardRepo")
+                        .put(GithubInfo.PROJECT_BASE_PROPERTY_KEY_USER, "Kroetz")
+                        .put(GithubInfo.PROJECT_BASE_PROPERTY_KEY_REPOSITORY, "coastGuardRepo")
                         .build())));
         return workgroups;
     }

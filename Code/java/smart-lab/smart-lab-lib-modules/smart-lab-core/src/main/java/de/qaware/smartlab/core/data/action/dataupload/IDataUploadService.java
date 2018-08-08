@@ -1,11 +1,11 @@
 package de.qaware.smartlab.core.data.action.dataupload;
 
+import de.qaware.smartlab.core.data.actuator.IDeviceAdapter;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlab.core.exception.ServiceFailedException;
 
-public interface IDataUploadService {
+public interface IDataUploadService extends IDeviceAdapter {
 
-    String getServiceId();
     void upload(
             IProjectBaseInfo projectBaseInfo,
             String uploadMessage,
