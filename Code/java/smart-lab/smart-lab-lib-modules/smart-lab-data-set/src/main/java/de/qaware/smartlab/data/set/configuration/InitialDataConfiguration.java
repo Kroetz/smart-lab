@@ -10,7 +10,6 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
-import de.qaware.smartlab.data.set.ComponentScanMarker;
 import de.qaware.smartlab.data.set.provider.DataSetProvider;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 @Configuration
-@ComponentScan(basePackageClasses = ComponentScanMarker.class)
+@ComponentScan(basePackageClasses = de.qaware.smartlab.data.set.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabDtoConverters
 @EnableSmartLabAssistanceInfos

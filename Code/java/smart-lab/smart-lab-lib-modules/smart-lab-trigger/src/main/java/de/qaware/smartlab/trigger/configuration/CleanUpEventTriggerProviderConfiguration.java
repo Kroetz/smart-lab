@@ -18,8 +18,7 @@ import static de.qaware.smartlab.trigger.provider.cleanupevent.CleanUpEventCallb
 import static java.time.Duration.ofSeconds;
 
 @Configuration
-@ComponentScan(basePackageClasses = {
-        de.qaware.smartlab.trigger.provider.cleanupevent.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlab.trigger.provider.cleanupevent.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableConfigurationProperties(CleanUpEventTriggerProviderConfiguration.Properties.class)

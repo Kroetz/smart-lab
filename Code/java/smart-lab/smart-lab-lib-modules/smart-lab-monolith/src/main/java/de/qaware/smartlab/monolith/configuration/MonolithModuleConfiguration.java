@@ -9,7 +9,6 @@ import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabActuatorM
 import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
 import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventManagementService;
-import de.qaware.smartlab.monolith.ComponentScanMarker;
 import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonManagementService;
 import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationManagementService;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpEventTriggerProvider;
@@ -37,7 +36,7 @@ import java.util.Map;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MONOLITH)
-@ComponentScan(basePackageClasses = {ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlab.monolith.ComponentScanMarker.class)
 @EnableSmartLabDtoConverters
 @EnableSmartLabJobService
 @EnableSmartLabPersonManagementService

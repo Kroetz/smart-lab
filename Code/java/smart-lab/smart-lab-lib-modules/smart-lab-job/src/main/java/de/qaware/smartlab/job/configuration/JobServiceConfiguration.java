@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan(basePackageClasses = {de.qaware.smartlab.job.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlab.job.service.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableJpaRepositories(basePackageClasses = IJobManagementRepository.class)

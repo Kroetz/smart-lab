@@ -18,8 +18,7 @@ import static de.qaware.smartlab.trigger.provider.setupevent.SetUpEventCallbackC
 import static java.time.Duration.ofSeconds;
 
 @Configuration
-@ComponentScan(basePackageClasses = {
-        de.qaware.smartlab.trigger.provider.setupevent.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlab.trigger.provider.setupevent.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableConfigurationProperties(SetUpEventTriggerProviderConfiguration.Properties.class)

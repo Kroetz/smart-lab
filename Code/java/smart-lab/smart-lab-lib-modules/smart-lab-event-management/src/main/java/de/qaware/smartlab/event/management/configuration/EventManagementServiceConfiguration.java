@@ -17,7 +17,7 @@ import java.time.Duration;
 import static java.time.Duration.ofMinutes;
 
 @Configuration
-@ComponentScan(basePackageClasses = {de.qaware.smartlab.event.management.service.ComponentScanMarker.class})
+@ComponentScan(basePackageClasses = de.qaware.smartlab.event.management.service.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabApi
 @EnableSmartLabDtoConverters
