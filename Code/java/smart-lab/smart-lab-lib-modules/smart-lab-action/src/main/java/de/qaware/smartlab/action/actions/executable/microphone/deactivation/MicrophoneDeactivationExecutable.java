@@ -49,7 +49,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
                 genericActionArgs);
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        Path recordedAudio = microphoneAdapter.deactivate();
+        Path recordedAudio = microphoneAdapter.stopRecording();
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
@@ -75,7 +75,7 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 deviceType,
                 actionArgs);
-        Path recordedAudio = microphoneAdapter.deactivate();
+        Path recordedAudio = microphoneAdapter.stopRecording();
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));

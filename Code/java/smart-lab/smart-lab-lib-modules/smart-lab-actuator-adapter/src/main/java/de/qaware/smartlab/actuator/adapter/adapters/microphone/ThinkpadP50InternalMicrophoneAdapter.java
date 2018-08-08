@@ -34,13 +34,13 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
     }
 
     @Override
-    public void activate(Path recordingTargetFile) {
+    public void startRecording(Path recordingTargetFile) {
         // TODO: Get format from application properties
         this.genericMicrophone.startRecording(recordingTargetFile, AUDIO_FILE_FORMAT);
     }
 
     @Override
-    public Path deactivate() {
+    public Path stopRecording() {
         return this.genericMicrophone.stopRecording().orElseThrow(LocalDeviceException::new);
     }
 }

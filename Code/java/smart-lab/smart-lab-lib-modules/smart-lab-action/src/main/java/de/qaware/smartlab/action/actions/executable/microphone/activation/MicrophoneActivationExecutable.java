@@ -58,7 +58,7 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
-        microphoneAdapter.activate(recordingTargetFile);
+        microphoneAdapter.startRecording(recordingTargetFile);
         return VoidActionResult.newInstance();
     }
 
@@ -82,7 +82,7 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
-        microphoneAdapter.activate(recordingTargetFile);
+        microphoneAdapter.startRecording(recordingTargetFile);
         return VoidActionResult.newInstance();
     }
 }
