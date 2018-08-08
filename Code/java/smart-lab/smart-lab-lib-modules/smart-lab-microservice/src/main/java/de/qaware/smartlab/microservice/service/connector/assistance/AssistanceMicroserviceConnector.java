@@ -49,9 +49,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     }
 
     @Override
-    public void updateAssistance(String assistanceId, IAssistanceContext context) {
+    public void duringAssistance(String assistanceId, IAssistanceContext context) {
         try {
-            this.assistanceApiClient.updateAssistance(assistanceId, context);
+            this.assistanceApiClient.duringAssistance(assistanceId, context);
         }
         catch(FeignException e) {
             throw new UnknownErrorException();

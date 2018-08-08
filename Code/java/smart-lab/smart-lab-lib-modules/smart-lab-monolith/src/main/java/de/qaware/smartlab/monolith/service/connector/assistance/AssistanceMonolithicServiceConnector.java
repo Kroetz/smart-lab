@@ -33,8 +33,8 @@ public class AssistanceMonolithicServiceConnector implements IAssistanceService 
     }
 
     @Override
-    public void updateAssistance(String assistanceId, IAssistanceContext context) {
-        this.assistanceController.updateAssistance(assistanceId, context);
+    public void duringAssistance(String assistanceId, IAssistanceContext context) {
+        this.assistanceController.duringAssistance(assistanceId, context);
     }
 
     @Component

@@ -6,5 +6,5 @@ public interface IAssistanceService {
 
     void beginAssistance(String assistanceId, IAssistanceContext context);
     void endAssistance(String assistanceId, IAssistanceContext context);
-    void updateAssistance(String assistanceId, IAssistanceContext context);
+    void duringAssistance(String assistanceId, IAssistanceContext context);
 }

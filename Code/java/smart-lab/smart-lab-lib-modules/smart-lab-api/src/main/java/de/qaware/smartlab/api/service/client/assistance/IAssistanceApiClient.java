@@ -30,9 +30,9 @@ public interface IAssistanceApiClient {
             @RequestBody IAssistanceContext context);
 
     @PostMapping(
-            value = AssistanceApiConstants.MAPPING_UPDATE,
+            value = AssistanceApiConstants.MAPPING_DURING,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> updateAssistance(
+    ResponseEntity<Void> duringAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IAssistanceContext context);
 

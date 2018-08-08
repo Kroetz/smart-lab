@@ -53,12 +53,12 @@ public class AssistanceController {
     }
 
     @PostMapping(
-            value = AssistanceApiConstants.MAPPING_UPDATE,
+            value = AssistanceApiConstants.MAPPING_DURING,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateAssistance(
+    public ResponseEntity<Void> duringAssistance(
             @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
             @RequestBody IAssistanceContext context) {
-        this.assistanceBusinessLogic.updateAssistance(assistanceId, context);
+        this.assistanceBusinessLogic.duringAssistance(assistanceId, context);
         // TODO
         return ResponseEntity.ok().build();
     }

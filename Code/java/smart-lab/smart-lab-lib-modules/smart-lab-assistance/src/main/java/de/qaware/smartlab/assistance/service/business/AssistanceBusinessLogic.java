@@ -24,32 +24,39 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
     }
 
     public void beginAssistance(String assistanceId, final IAssistanceContext context) {
-        log.info("Executing begin stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executing stage \"begin\" of assistance (ID: \"{}\") at location with ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         IAssistanceControllable assistance = this.assistanceTracker.track(context);
         assistance.begin(this.actionService, context);
         this.assistanceTracker.updateTracked(context, assistance);
-        log.info("Executed begin stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executed stage \"begin\" of assistance (ID: \"{}\") at location with ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 
     public void endAssistance(String assistanceId, IAssistanceContext context) {
-        log.info("Executing end stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executing stage \"end\" of assistance (ID: \"{}\") at location with ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
         assistance.end(this.actionService, context);
         this.assistanceTracker.updateTracked(context, assistance);
         this.assistanceTracker.stopTracking(context);
-        log.info("Executed end stage of assistance (ID: \"{}\") at location with ID \"{}\"",
+        log.info("Executed stage \"end\" of assistance (ID: \"{}\") at location with ID \"{}\"",
                 assistanceId,
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public void updateAssistance(String assistanceId, IAssistanceContext context) {
-
-        // TODO: Implementation
+    public void duringAssistance(String assistanceId, IAssistanceContext context) {
+        log.info("Executing stage \"during\" of assistance (ID: \"{}\") at location with ID \"{}\"",
+                assistanceId,
+                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+        IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
+        assistance.during(this.actionService, context);
+        this.assistanceTracker.updateTracked(context, assistance);
+        log.info("Executed stage \"during\" of assistance (ID: \"{}\") at location with ID \"{}\"",
+                assistanceId,
+                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 }
