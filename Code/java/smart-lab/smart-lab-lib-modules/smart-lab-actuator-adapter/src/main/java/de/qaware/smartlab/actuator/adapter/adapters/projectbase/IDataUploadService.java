@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.action.dataupload;
+package de.qaware.smartlab.actuator.adapter.adapters.projectbase;
 
 import de.qaware.smartlab.core.data.actuator.IActuatorAdapter;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;

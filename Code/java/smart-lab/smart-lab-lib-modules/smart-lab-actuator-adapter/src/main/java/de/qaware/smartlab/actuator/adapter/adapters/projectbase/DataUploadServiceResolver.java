@@ -1,6 +1,5 @@
-package de.qaware.smartlab.action.actions.executable.data.upload;
+package de.qaware.smartlab.actuator.adapter.adapters.projectbase;
 
-import de.qaware.smartlab.core.data.action.dataupload.IDataUploadService;
 import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

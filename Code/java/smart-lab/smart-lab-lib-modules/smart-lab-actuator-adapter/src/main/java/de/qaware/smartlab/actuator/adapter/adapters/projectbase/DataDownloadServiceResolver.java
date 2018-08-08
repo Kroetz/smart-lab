@@ -1,11 +1,13 @@
-package de.qaware.smartlab.action.actions.executable.data.download;
+package de.qaware.smartlab.actuator.adapter.adapters.projectbase;
 
-import de.qaware.smartlab.core.data.action.datadownload.IDataDownloadService;
 import de.qaware.smartlab.core.data.generic.AbstractResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptySet;

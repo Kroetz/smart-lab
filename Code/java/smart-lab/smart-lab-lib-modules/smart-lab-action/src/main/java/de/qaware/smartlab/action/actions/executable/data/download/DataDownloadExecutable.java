@@ -6,7 +6,7 @@ import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.submittable.data.download.DataDownloadSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.core.data.action.datadownload.IDataDownloadService;
+import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataDownloadService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
