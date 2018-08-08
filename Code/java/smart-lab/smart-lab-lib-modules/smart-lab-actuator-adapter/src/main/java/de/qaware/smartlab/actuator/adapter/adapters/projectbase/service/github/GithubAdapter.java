@@ -36,7 +36,7 @@ import static java.lang.String.format;
 @Slf4j
 public class GithubAdapter extends AbstractDeviceAdapter implements IProjectBaseAdapter {
 
-    public static final String SERVICE_ID = "github";
+    public static final String DEVICE_TYPE = "github";
     private static final boolean HAS_LOCAL_API = false;
 
     private final Github github;
@@ -49,7 +49,7 @@ public class GithubAdapter extends AbstractDeviceAdapter implements IProjectBase
             ITempFileManager tempFileManager,
             // TODO: String literals
             @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir) {
-        super(SERVICE_ID, HAS_LOCAL_API);
+        super(DEVICE_TYPE, HAS_LOCAL_API);
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;

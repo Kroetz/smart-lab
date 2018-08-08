@@ -85,7 +85,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         this.fileDisplayingInfo = fileDisplayingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.SERVICE_ID);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.DEVICE_TYPE);
     }
 
     @Override

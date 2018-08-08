@@ -28,7 +28,7 @@ import static java.lang.String.format;
 @Slf4j
 public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 
-    public static final String PROGRAM_TYPE = "powerPoint";
+    public static final String DEVICE_TYPE = "powerPoint";
     private static final boolean HAS_LOCAL_API = true;
 
     private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_DE_DE = "PowerPoint-Bildschirmpräsentation  -  %s";
@@ -40,7 +40,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
             IWindowHandler windowHandler,
             // TODO: String literals
             @Qualifier("powerPointExecutable") Path powerPointExecutable) {
-        super(PROGRAM_TYPE, HAS_LOCAL_API, windowHandler);
+        super(DEVICE_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
     }
 

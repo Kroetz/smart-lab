@@ -49,7 +49,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
         DataDownloadSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 DataDownloadSubmittable.ActionArgs.class,
                 genericActionArgs);
-        String projectBaseService = actionArgs.getProjectBaseInfo().getServiceId();
+        String projectBaseService = actionArgs.getProjectBaseInfo().getDeviceType();
         IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(projectBaseService);
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),

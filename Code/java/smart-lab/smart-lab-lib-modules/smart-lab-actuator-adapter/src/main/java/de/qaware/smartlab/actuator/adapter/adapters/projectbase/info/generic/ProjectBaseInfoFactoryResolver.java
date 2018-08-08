@@ -23,7 +23,7 @@ public class ProjectBaseInfoFactoryResolver extends AbstractResolver<String, IPr
         return projectBaseInfoFactories
                 .map(factories -> factories
                             .stream()
-                            .collect(toMap(IProjectBaseInfoFactory::getServiceId, identity()))
+                            .collect(toMap(IProjectBaseInfoFactory::getDeviceType, identity()))
                             .entrySet())
                 .orElse(emptySet());
     }

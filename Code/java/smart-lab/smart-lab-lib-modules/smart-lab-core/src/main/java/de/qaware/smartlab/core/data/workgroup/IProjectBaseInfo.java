@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface IProjectBaseInfo {
 
-    String getServiceId();
+    String getDeviceType();
     Map<String, String> getProjectBaseProperties();
 }

@@ -20,10 +20,10 @@ public abstract class AbstractFileAssociatedProgramAdapter extends AbstractDevic
     protected final IWindowHandler windowHandler;
 
     public AbstractFileAssociatedProgramAdapter(
-            String programType,
+            String deviceType,
             boolean hasLocalApi,
             IWindowHandler windowHandler) {
-        super(programType, hasLocalApi);
+        super(deviceType, hasLocalApi);
         this.programInstancesByID = new HashMap<>();
         this.windowHandler = windowHandler;
     }

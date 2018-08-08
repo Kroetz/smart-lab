@@ -38,7 +38,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
         DataUploadSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
                 DataUploadSubmittable.ActionArgs.class,
                 genericActionArgs);
-        String projectBaseService = actionArgs.getProjectBaseInfo().getServiceId();
+        String projectBaseService = actionArgs.getProjectBaseInfo().getDeviceType();
         IDataUploadService dataUploadService = this.dataUploadServiceResolver.resolve(projectBaseService);
         dataUploadService.upload(
                 actionArgs.getProjectBaseInfo(),

@@ -21,7 +21,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class WatsonSpeechToTextAdapter extends AbstractDeviceAdapter implements ISpeechToTextAdapter {
 
-    private static final String SERVICE_ID = "watson";
+    private static final String DEVICE_TYPE = "watson";
     private static final boolean HAS_LOCAL_API = false;
 
     private final SpeechToText service;
@@ -29,7 +29,7 @@ public class WatsonSpeechToTextAdapter extends AbstractDeviceAdapter implements 
     public WatsonSpeechToTextAdapter(
             String watsonSpeechToTextUserName,
             String watsonSpeechToTextPassword) {
-        super(SERVICE_ID, HAS_LOCAL_API);
+        super(DEVICE_TYPE, HAS_LOCAL_API);
         if(isNull(watsonSpeechToTextUserName)) throw new NullPointerException(watsonSpeechToTextUserName);
         if(isNull(watsonSpeechToTextPassword)) throw new NullPointerException(watsonSpeechToTextPassword);
         this.service = new SpeechToText(watsonSpeechToTextUserName, watsonSpeechToTextPassword);

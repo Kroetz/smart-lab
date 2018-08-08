@@ -18,7 +18,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class RemeetingAdapter extends AbstractDeviceAdapter implements ISpeechToTextAdapter {
 
-    public static final String SERVICE_ID = "remeeting";
+    public static final String DEVICE_TYPE = "remeeting";
     private static final boolean HAS_LOCAL_API = false;
 
     private final IRemeetingApiClient remeetingApiClient;
@@ -27,7 +27,7 @@ public class RemeetingAdapter extends AbstractDeviceAdapter implements ISpeechTo
     public RemeetingAdapter(
             IRemeetingApiClient remeetingApiClient,
             String remeetingApiKey) {
-        super(SERVICE_ID, HAS_LOCAL_API);
+        super(DEVICE_TYPE, HAS_LOCAL_API);
         if(isNull(remeetingApiKey)) throw new NullPointerException(remeetingApiKey);
         this.remeetingApiClient = remeetingApiClient;
         this.remeetingApiKey = remeetingApiKey;

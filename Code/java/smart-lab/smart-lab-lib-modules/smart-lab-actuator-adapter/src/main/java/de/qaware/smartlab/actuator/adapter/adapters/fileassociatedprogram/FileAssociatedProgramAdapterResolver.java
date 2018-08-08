@@ -29,7 +29,7 @@ public class FileAssociatedProgramAdapterResolver extends AbstractResolver<Strin
     }
 
     @Override
-    protected String getErrorMessage(String programType) {
-        return format("The file-associated program \"%s\" is unknown", programType);
+    protected String getErrorMessage(String deviceType) {
+        return format("The file-associated program \"%s\" is unknown", deviceType);
     }
 }

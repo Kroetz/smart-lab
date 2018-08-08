@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractProjectBaseInfoFactory implements IProjectBaseInfoFactory {
 
-    protected final String serviceId;
+    protected final String deviceType;
 
-    public AbstractProjectBaseInfoFactory(String serviceId) {
-        this.serviceId = serviceId;
+    public AbstractProjectBaseInfoFactory(String deviceType) {
+        this.deviceType = deviceType;
     }
 
     @Override
-    public String getServiceId() {
-        return this.serviceId;
+    public String getDeviceType() {
+        return this.deviceType;
     }
 }
