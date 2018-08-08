@@ -11,6 +11,8 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.time.Duration.ofSeconds;
+
 @Configuration
 @Slf4j
 @EnableConfigurationProperties(CommonWindowHandlingConfiguration.Properties.class)
@@ -59,7 +61,7 @@ public class CommonWindowHandlingConfiguration {
         }
 
         public Duration getFindWindowTimeoutInSeconds() {
-            return Duration.ofSeconds(this.findWindowTimeoutInSeconds);
+            return ofSeconds(this.findWindowTimeoutInSeconds);
         }
 
         public void setFindWindowTimeoutInSeconds(int findWindowTimeoutInSeconds) {

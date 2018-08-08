@@ -21,6 +21,7 @@ import static com.sun.jna.Native.loadLibrary;
 import static de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.powerpoint.PowerPointAdapter.getWindowTitle;
 import static de.qaware.smartlab.core.miscellaneous.StringUtils.utf8ToBase64String;
 import static java.lang.String.format;
+import static java.time.Duration.ofMillis;
 import static java.util.Objects.isNull;
 
 /**
@@ -32,9 +33,9 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
     /*
      * The time that must pass after a failed attempt before the Windows API is polled again to find a specific window.
      */
-    private static final Duration FIND_WINDOW_RETRY_INTERVAL = Duration.ofMillis(100);
+    private static final Duration FIND_WINDOW_RETRY_INTERVAL = ofMillis(100);
 
-    private static final Duration WINDOW_CREATION_DELAY = Duration.ofMillis(1000);
+    private static final Duration WINDOW_CREATION_DELAY = ofMillis(1000);
     private static final String FIREFOX_WINDOW_TITLE_TEMPLATE = "%s - Mozilla Firefox";
     private static final String CHROME_WINDOW_TITLE_TEMPLATE = "%s - Google Chrome";
 

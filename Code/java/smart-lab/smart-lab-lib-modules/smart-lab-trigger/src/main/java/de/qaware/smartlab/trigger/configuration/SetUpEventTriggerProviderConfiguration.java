@@ -15,6 +15,7 @@ import java.time.Duration;
 
 import static de.qaware.smartlab.core.miscellaneous.UrlUtils.of;
 import static de.qaware.smartlab.trigger.provider.setupevent.SetUpEventCallbackController.MAPPING_CALLBACK;
+import static java.time.Duration.ofSeconds;
 
 @Configuration
 @ComponentScan(basePackageClasses = {
@@ -60,7 +61,7 @@ public class SetUpEventTriggerProviderConfiguration {
         }
 
         public Duration getCheckIntervalInSeconds() {
-            return Duration.ofSeconds(this.checkIntervalInSeconds);
+            return ofSeconds(this.checkIntervalInSeconds);
         }
 
         public void setCheckIntervalInSeconds(int checkIntervalInSeconds) {

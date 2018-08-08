@@ -21,6 +21,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.time.Duration.ofMinutes;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
 
@@ -122,7 +123,7 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
     public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.workgroupManagementBusinessLogic.extendCurrentEvent(WorkgroupId.of(workgroupId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.workgroupManagementBusinessLogic.extendCurrentEvent(WorkgroupId.of(workgroupId), ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @RestController

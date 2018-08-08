@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
+import static java.time.Duration.ofMinutes;
+
 @Configuration
 @ComponentScan(basePackageClasses = {de.qaware.smartlab.event.management.service.ComponentScanMarker.class})
 @EnableSmartLabCore
@@ -50,7 +52,7 @@ public class EventManagementServiceConfiguration {
         }
 
         public Duration getMaxEventDurationInMinutes() {
-            return Duration.ofMinutes(this.maxEventDurationInMinutes);
+            return ofMinutes(this.maxEventDurationInMinutes);
         }
 
         public void setMaxEventDurationInMinutes(int maxEventDurationInMinutes) {

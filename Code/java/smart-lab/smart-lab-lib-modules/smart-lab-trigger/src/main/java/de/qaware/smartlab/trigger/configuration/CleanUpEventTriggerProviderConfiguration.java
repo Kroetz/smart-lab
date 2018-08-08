@@ -15,6 +15,7 @@ import java.time.Duration;
 
 import static de.qaware.smartlab.core.miscellaneous.UrlUtils.of;
 import static de.qaware.smartlab.trigger.provider.cleanupevent.CleanUpEventCallbackController.MAPPING_CALLBACK;
+import static java.time.Duration.ofSeconds;
 
 @Configuration
 @ComponentScan(basePackageClasses = {
@@ -70,7 +71,7 @@ public class CleanUpEventTriggerProviderConfiguration {
         }
 
         public Duration getCheckIntervalInSeconds() {
-            return Duration.ofSeconds(this.checkIntervalInSeconds);
+            return ofSeconds(this.checkIntervalInSeconds);
         }
 
         public void setCheckIntervalInSeconds(int checkIntervalInSeconds) {
@@ -78,7 +79,7 @@ public class CleanUpEventTriggerProviderConfiguration {
         }
 
         public Duration getTriggerThresholdInSeconds() {
-            return Duration.ofSeconds(this.triggerThresholdInSeconds);
+            return ofSeconds(this.triggerThresholdInSeconds);
         }
 
         public void setTriggerThresholdInSeconds(int triggerThresholdInSeconds) {

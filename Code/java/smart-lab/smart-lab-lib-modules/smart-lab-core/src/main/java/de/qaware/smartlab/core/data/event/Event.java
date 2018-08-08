@@ -18,6 +18,7 @@ import static de.qaware.smartlab.core.miscellaneous.EventConfigurationLanguage.*
 import static de.qaware.smartlab.core.miscellaneous.StringUtils.*;
 import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
+import static java.time.Duration.between;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -44,7 +45,7 @@ public class Event implements IEvent {
 
     @Override
     public Duration getDuration() {
-        return Duration.between(getStart(), getEnd());
+        return between(getStart(), getEnd());
     }
 
     @Override

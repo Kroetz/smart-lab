@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
+import static java.time.Duration.ofMinutes;
+
 @Configuration
 @ComponentScan(basePackageClasses = {de.qaware.smartlab.gui.service.ComponentScanMarker.class})
 @EnableSmartLabCore
@@ -44,7 +46,7 @@ public class GuiConfiguration {
         }
 
         public Duration getCurrentEventExtensionInMinutes() {
-            return Duration.ofMinutes(this.currentEventExtensionInMinutes);
+            return ofMinutes(this.currentEventExtensionInMinutes);
         }
 
         public void setCurrentEventExtensionInMinutes(int currentEventExtensionInMinutes) {

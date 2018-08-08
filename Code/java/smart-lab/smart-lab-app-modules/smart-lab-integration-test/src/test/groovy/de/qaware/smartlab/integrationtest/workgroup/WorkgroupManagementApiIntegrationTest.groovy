@@ -21,6 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
 
+import static java.time.Duration.between
+import static java.time.Duration.ofMinutes
 import static java.util.Arrays.asList
 
 @SpringBootTest
@@ -301,7 +303,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         eventManagementService.create(eventOfOtherWorkgroup)
 
         and: "The extension of the event is valid"
-        def extension = Duration.ofMinutes(1)
+        def extension = ofMinutes(1)
 
         when: "The current event of the workgroup is extended"
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
@@ -362,7 +364,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         eventManagementService.create(followUpEvent)
 
         and: "The extension of the event would lead to conflicts"
-        def extension = Duration.between(currentEvent.getEnd(), followUpEvent.getEnd())
+        def extension = between(currentEvent.getEnd(), followUpEvent.getEnd())
 
         when: "The current event of the workgroup is extended"
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
@@ -392,7 +394,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         eventManagementService.create(event2)
 
         and: "The extension of the event is valid"
-        def extension = Duration.ofMinutes(1)
+        def extension = ofMinutes(1)
 
         when: "The current event of the workgroup is extended"
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
@@ -420,7 +422,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         eventManagementService.create(event2)
 
         and: "The extension of the event is valid"
-        def extension = Duration.ofMinutes(1)
+        def extension = ofMinutes(1)
 
         when: "The current event of the workgroup is extended"
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+import static de.qaware.smartlab.core.miscellaneous.StartedDuration.ofSeconds;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
 
@@ -74,7 +75,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
                 throw new RuntimeException();
             }
             textPassagesBuilder.addTextPassage(
-                    StartedDuration.ofSeconds(start, end),
+                    ofSeconds(start, end),
                     // TODO: Move string literal to constant
                     "Speaker " + speakerId,
                     timestamp.getWord());

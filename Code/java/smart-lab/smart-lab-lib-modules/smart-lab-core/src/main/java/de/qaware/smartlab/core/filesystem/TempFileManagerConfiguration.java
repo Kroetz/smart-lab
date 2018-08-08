@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 
 import static java.nio.file.Paths.get;
+import static java.time.Duration.ofSeconds;
 
 @Configuration
 @EnableConfigurationProperties(TempFileManagerConfiguration.TempFileProperties.class)
@@ -91,7 +92,7 @@ public class TempFileManagerConfiguration {
         }
 
         public Duration getObsoleteFileCleaningIntervalInSeconds() {
-            return Duration.ofSeconds(this.obsoleteFileCleaningIntervalInSeconds);
+            return ofSeconds(this.obsoleteFileCleaningIntervalInSeconds);
         }
 
         public void setObsoleteFileCleaningIntervalInSeconds(int obsoleteFileCleaningIntervalInSeconds) {

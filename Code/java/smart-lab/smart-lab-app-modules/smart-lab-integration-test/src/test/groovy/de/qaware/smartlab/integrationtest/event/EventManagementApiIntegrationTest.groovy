@@ -20,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.Duration
 
+import static java.time.Duration.between
+import static java.time.Duration.ofMinutes
 import static java.util.Arrays.asList
 
 @SpringBootTest
@@ -121,7 +123,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
-        def shortening = (event.getDuration() - Duration.ofMinutes(1))
+        def shortening = (event.getDuration() - ofMinutes(1))
 
         when: "The event is shortened"
         eventManagementService.shortenEvent(eventId, shortening)
@@ -157,7 +159,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         given: "The event to shorten does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
-        def shortening = (event.getDuration() - Duration.ofMinutes(1))
+        def shortening = (event.getDuration() - ofMinutes(1))
 
         when: "The event is shortened"
         eventManagementService.shortenEvent(eventId, shortening)
@@ -172,7 +174,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
-        def extension = Duration.ofMinutes(1)
+        def extension = ofMinutes(1)
 
         when: "The event is extended"
         eventManagementService.extendEvent(eventId, extension)
@@ -212,7 +214,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         def followUpEvent = coastGuardDataFactory.createEventMap().get(followUpEventId)
         eventManagementService.create(eventToExtend)
         eventManagementService.create(followUpEvent)
-        def extension = Duration.between(eventToExtend.getEnd(), followUpEvent.getEnd())
+        def extension = between(eventToExtend.getEnd(), followUpEvent.getEnd())
 
         when: "The event is extended"
         eventManagementService.extendEvent(eventToExtendId, extension)
@@ -229,7 +231,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
 
         given: "The event to extend does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
-        def extension = Duration.ofMinutes(1)
+        def extension = ofMinutes(1)
 
         when: "The event is extended"
         eventManagementService.extendEvent(eventId, extension)
@@ -244,7 +246,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
-        def shift = Duration.ofMinutes(1)
+        def shift = ofMinutes(1)
 
         when: "The event is shifted"
         eventManagementService.shiftEvent(eventId, shift)
@@ -267,7 +269,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         def followUpEvent = coastGuardDataFactory.createEventMap().get(followUpEventId)
         eventManagementService.create(eventToShift)
         eventManagementService.create(followUpEvent)
-        def shift = Duration.between(eventToShift.getEnd(), followUpEvent.getEnd())
+        def shift = between(eventToShift.getEnd(), followUpEvent.getEnd())
 
         when: "The event is shifted"
         eventManagementService.shiftEvent(eventToShiftId, shift)
@@ -284,7 +286,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
 
         given: "The event to shift does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
-        def shift = Duration.ofMinutes(1)
+        def shift = ofMinutes(1)
 
         when: "The event is shifted"
         eventManagementService.shiftEvent(eventId, shift)

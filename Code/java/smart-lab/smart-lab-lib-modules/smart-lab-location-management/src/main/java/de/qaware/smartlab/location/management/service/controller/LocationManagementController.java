@@ -22,6 +22,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.time.Duration.ofMinutes;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
 
@@ -121,7 +122,7 @@ public class LocationManagementController extends AbstractSmartLabController imp
     public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(LocationManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.locationManagementBusinessLogic.extendCurrentEvent(LocationId.of(locationId), Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+        return this.locationManagementBusinessLogic.extendCurrentEvent(LocationId.of(locationId), ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @RestController

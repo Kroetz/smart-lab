@@ -21,6 +21,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
+import static java.time.Duration.ofMinutes;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toSet;
 
@@ -151,7 +152,7 @@ public class EventManagementController extends AbstractSmartLabController implem
             @RequestParam(EventManagementApiConstants.PARAMETER_NAME_SHORTENING_IN_MINUTES) long shorteningInMinutes) {
         return this.eventManagementBusinessLogic.shortenEvent(
                 EventId.of(eventId),
-                Duration.ofMinutes(shorteningInMinutes)).toResponseEntity();
+                ofMinutes(shorteningInMinutes)).toResponseEntity();
     }
 
     @PutMapping(EventManagementApiConstants.MAPPING_EXTEND_EVENT)
@@ -161,7 +162,7 @@ public class EventManagementController extends AbstractSmartLabController implem
             @RequestParam(EventManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
         return this.eventManagementBusinessLogic.extendEvent(
                 EventId.of(eventId),
-                Duration.ofMinutes(extensionInMinutes)).toResponseEntity();
+                ofMinutes(extensionInMinutes)).toResponseEntity();
     }
 
     @PutMapping(EventManagementApiConstants.MAPPING_SHIFT_EVENT)
@@ -171,7 +172,7 @@ public class EventManagementController extends AbstractSmartLabController implem
             @RequestParam(EventManagementApiConstants.PARAMETER_NAME_SHIFT_IN_MINUTES) long shiftInMinutes) {
         return this.eventManagementBusinessLogic.shiftEvent(
                 EventId.of(eventId),
-                Duration.ofMinutes(shiftInMinutes)).toResponseEntity();
+                ofMinutes(shiftInMinutes)).toResponseEntity();
     }
 
     @RestController
