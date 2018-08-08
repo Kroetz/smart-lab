@@ -42,7 +42,7 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        SpeechToTextSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        SpeechToTextSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 SpeechToTextSubmittable.ActionArgs.class,
                 genericActionArgs);
         ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.speechToTextServiceName);

@@ -35,7 +35,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DataUploadSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        DataUploadSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DataUploadSubmittable.ActionArgs.class,
                 genericActionArgs);
         String projectBaseService = actionArgs.getProjectBaseInfo().getDeviceType();

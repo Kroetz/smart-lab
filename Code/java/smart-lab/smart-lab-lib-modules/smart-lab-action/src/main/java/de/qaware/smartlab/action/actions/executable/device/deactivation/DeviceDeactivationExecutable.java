@@ -34,7 +34,7 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable {
     public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DeviceDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        DeviceDeactivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DeviceDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDeactivatable deactivatable = this.deactivatableResolver.resolve(deviceType);
@@ -46,7 +46,7 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DeviceDeactivationSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        DeviceDeactivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DeviceDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());

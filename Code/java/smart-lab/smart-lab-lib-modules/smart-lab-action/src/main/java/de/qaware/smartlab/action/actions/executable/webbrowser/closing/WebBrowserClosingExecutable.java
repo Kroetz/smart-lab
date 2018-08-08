@@ -34,7 +34,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
     public IActionResult execute(String webBrowserType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        WebBrowserClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        WebBrowserClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 WebBrowserClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
         IWebBrowserAdapter webBrowserAdapter = this.webBrowserAdapterResolver.resolve(webBrowserType);
@@ -46,7 +46,7 @@ public class WebBrowserClosingExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        WebBrowserClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        WebBrowserClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 WebBrowserClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDevice webBrowser = this.deviceManagementService.findOne(actionArgs.getWebBrowserId());

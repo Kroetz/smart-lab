@@ -40,7 +40,7 @@ public class FileClosingExecutable extends AbstractActionExecutable {
     public IActionResult execute(String programType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        FileClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        FileClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 FileClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
         IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
@@ -53,7 +53,7 @@ public class FileClosingExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        FileClosingSubmittable.ActionArgs actionArgs = convertToSpecificActionArgs(
+        FileClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 FileClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
         IDevice fileAssociatedProgram = this.deviceManagementService.findOne(actionArgs.getProgramId());

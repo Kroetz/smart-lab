@@ -2,7 +2,6 @@ package de.qaware.smartlab.action.actions.executable.generic;
 
 import de.qaware.smartlab.action.actions.info.generic.IActionInfo;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.exception.UnmatchingActionArgsTypeException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,15 +17,19 @@ public abstract class AbstractActionExecutable implements IActionExecutable {
         return this.actionInfo.getActionId();
     }
 
-    // TODO: better method name
-    protected <U extends IActionArgs> U convertToSpecificActionArgs(
-            Class<U> targetActionArgsClass,
-            IActionArgs genericActionArgs) throws UnmatchingActionArgsTypeException {
+    protected <ArgsT extends IActionArgs> ArgsT toSpecificArgsType(
+            Class<ArgsT> targetArgsClass,
+            IActionArgs genericArgs) throws IllegalStateException {
         try {
-            return targetActionArgsClass.cast(genericActionArgs);
+            return targetArgsClass.cast(genericArgs);
         }
         catch(ClassCastException e) {
-            throw new UnmatchingActionArgsTypeException(e);
+            String errorMessage = String.format(
+                    "The action args %s must be of the type %s",
+                    genericArgs.toString(),
+                    targetArgsClass.getName());
+            log.error(errorMessage, e);
+            throw new IllegalStateException(errorMessage, e);
         }
     }
 }
