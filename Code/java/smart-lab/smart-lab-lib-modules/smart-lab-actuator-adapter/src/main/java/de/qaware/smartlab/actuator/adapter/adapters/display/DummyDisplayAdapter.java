@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DummyDisplayAdapter extends AbstractDisplayAdapter {
 
-    public static final String DEVICE_TYPE = "dummy display";
+    public static final String ACTUATOR_TYPE = "dummy display";
     private static final boolean HAS_LOCAL_API = true;
 
     public DummyDisplayAdapter() {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
     }
 
     @Override

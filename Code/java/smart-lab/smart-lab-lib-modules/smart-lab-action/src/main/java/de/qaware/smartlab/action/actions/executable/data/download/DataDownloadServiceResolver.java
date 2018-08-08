@@ -17,20 +17,20 @@ import static java.util.stream.Collectors.toMap;
 public class DataDownloadServiceResolver extends AbstractResolver<String, IDataDownloadService> {
 
     public DataDownloadServiceResolver(Optional<List<IDataDownloadService>> dataDownloadServices) {
-        super(getDataDownloadServicesById(dataDownloadServices));
+        super(getDataDownloadServicesByActuatorType(dataDownloadServices));
     }
 
-    private static Set<Map.Entry<String, IDataDownloadService>> getDataDownloadServicesById(Optional<List<IDataDownloadService>> dataDownloadServices) {
+    private static Set<Map.Entry<String, IDataDownloadService>> getDataDownloadServicesByActuatorType(Optional<List<IDataDownloadService>> dataDownloadServices) {
         return dataDownloadServices
                 .map(services -> services
                         .stream()
-                        .collect(toMap(IDataDownloadService::getDeviceType, identity()))
+                        .collect(toMap(IDataDownloadService::getActuatorType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String dataDownloadService) {
-        return format("The data download service \"%s\" is unknown", dataDownloadService);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The data download service type \"%s\" is unknown", actuatorType);
     }
 }

@@ -17,17 +17,17 @@ import static java.util.stream.Collectors.toMap;
 public class BeamerAdapterResolver extends AbstractResolver<String, IBeamerAdapter> {
 
     public BeamerAdapterResolver(List<IBeamerAdapter> beamerAdapters) {
-        super(getBeamerAdaptersByType(beamerAdapters));
+        super(getBeamerAdaptersByActuatorType(beamerAdapters));
     }
 
-    private static Set<Map.Entry<String, IBeamerAdapter>> getBeamerAdaptersByType(List<IBeamerAdapter> beamerAdapters) {
+    private static Set<Map.Entry<String, IBeamerAdapter>> getBeamerAdaptersByActuatorType(List<IBeamerAdapter> beamerAdapters) {
         return beamerAdapters.stream()
-                .collect(toMap(IBeamerAdapter::getDeviceType, identity()))
+                .collect(toMap(IBeamerAdapter::getActuatorType, identity()))
                 .entrySet();
     }
 
     @Override
-    protected String getErrorMessage(String beamerType) {
-        return format("The beamer type \"%s\" is unknown", beamerType);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The beamer type \"%s\" is unknown", actuatorType);
     }
 }

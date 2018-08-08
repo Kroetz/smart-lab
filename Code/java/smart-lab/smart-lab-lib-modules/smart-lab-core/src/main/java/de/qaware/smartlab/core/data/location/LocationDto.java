@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.location;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.generic.IDto;
 import lombok.*;
 
@@ -18,5 +18,5 @@ public class LocationDto implements IDto {
 
     private LocationId id;
     private String name;
-    private Collection<DeviceId> deviceIds;
+    private Collection<ActuatorId> actuatorIds;
 }

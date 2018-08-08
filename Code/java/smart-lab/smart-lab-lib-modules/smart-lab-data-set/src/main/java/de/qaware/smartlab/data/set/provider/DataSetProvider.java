@@ -1,8 +1,8 @@
 package de.qaware.smartlab.data.set.provider;
 
 import de.qaware.smartlab.core.data.IDataSetProvider;
-import de.qaware.smartlab.core.data.device.DeviceDto;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.ActuatorDto;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
@@ -33,19 +33,19 @@ public class DataSetProvider implements IDataSetProvider {
 
     private final Set<IDataSetFactory> eventFactories;
     private final Set<IDataSetFactory> locationFactories;
-    private final Set<IDataSetFactory> deviceFactories;
+    private final Set<IDataSetFactory> actuatorFactories;
     private final Set<IDataSetFactory> workgroupFactories;
     private final Set<IDataSetFactory> personFactories;
 
     private DataSetProvider(
             Set<IDataSetFactory> eventFactories,
             Set<IDataSetFactory> locationFactories,
-            Set<IDataSetFactory> deviceFactories,
+            Set<IDataSetFactory> actuatorFactories,
             Set<IDataSetFactory> workgroupFactories,
             Set<IDataSetFactory> personFactories) {
         this.eventFactories = eventFactories;
         this.locationFactories = locationFactories;
-        this.deviceFactories = deviceFactories;
+        this.actuatorFactories = actuatorFactories;
         this.workgroupFactories = workgroupFactories;
         this.personFactories = personFactories;
     }
@@ -79,8 +79,8 @@ public class DataSetProvider implements IDataSetProvider {
     }
 
     @Override
-    public Set<IDevice> getDevices() throws DataSetException {
-        return getEntities(this.deviceFactories, IDataSetFactory::createDeviceSet);
+    public Set<IActuator> getActuators() throws DataSetException {
+        return getEntities(this.actuatorFactories, IDataSetFactory::createActuatorSet);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class DataSetProvider implements IDataSetProvider {
         private final IResolver<String, IDataSetFactory> dataSetFactoryResolver;
         private final IDtoConverter<IEvent, EventDto> eventConverter;
         private final IDtoConverter<ILocation, LocationDto> locationConverter;
-        private final IDtoConverter<IDevice, DeviceDto> deviceConverter;
+        private final IDtoConverter<IActuator, ActuatorDto> actuatorConverter;
         private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
         private final IDtoConverter<IPerson, PersonDto> personConverter;
 
@@ -108,13 +108,13 @@ public class DataSetProvider implements IDataSetProvider {
                 IResolver<String, IDataSetFactory> dataSetFactoryResolver,
                 IDtoConverter<IEvent, EventDto> eventConverter,
                 IDtoConverter<ILocation, LocationDto> locationConverter,
-                IDtoConverter<IDevice, DeviceDto> deviceConverter,
+                IDtoConverter<IActuator, ActuatorDto> actuatorConverter,
                 IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
                 IDtoConverter<IPerson, PersonDto> personConverter) {
             this.dataSetFactoryResolver = dataSetFactoryResolver;
             this.eventConverter = eventConverter;
             this.locationConverter = locationConverter;
-            this.deviceConverter = deviceConverter;
+            this.actuatorConverter = actuatorConverter;
             this.workgroupConverter = workgroupConverter;
             this.personConverter = personConverter;
         }
@@ -122,7 +122,7 @@ public class DataSetProvider implements IDataSetProvider {
         public DataSetProvider of(
                 List<String> eventDataSourceTokens,
                 List<String> locationDataSourceTokens,
-                List<String> deviceDataSourceTokens,
+                List<String> actuatorDataSourceTokens,
                 List<String> workgroupDataSourceTokens,
                 List<String> personDataSourceTokens) {
             return new DataSetProvider(
@@ -133,8 +133,8 @@ public class DataSetProvider implements IDataSetProvider {
                             locationDataSourceTokens,
                             (builder, dataSourceToken) -> builder.locationDataSource(get(dataSourceToken)).locationConverter(this.locationConverter)),
                     dataSetFactoriesFromTokens(
-                            deviceDataSourceTokens,
-                            (builder, dataSourceToken) -> builder.deviceDataSource(get(dataSourceToken)).deviceConverter(this.deviceConverter)),
+                            actuatorDataSourceTokens,
+                            (builder, dataSourceToken) -> builder.actuatorDataSource(get(dataSourceToken)).actuatorConverter(this.actuatorConverter)),
                     dataSetFactoriesFromTokens(
                             workgroupDataSourceTokens,
                             (builder, dataSourceToken) -> builder.workgroupDataSource(get(dataSourceToken)).workgroupConverter(this.workgroupConverter)),
@@ -146,13 +146,13 @@ public class DataSetProvider implements IDataSetProvider {
         public DataSetProvider of(
                 Set<IDataSetFactory> eventFactories,
                 Set<IDataSetFactory> locationFactories,
-                Set<IDataSetFactory> deviceFactories,
+                Set<IDataSetFactory> actuatorFactories,
                 Set<IDataSetFactory> workgroupFactories,
                 Set<IDataSetFactory> personFactories) {
             return new DataSetProvider(
                     eventFactories,
                     locationFactories,
-                    deviceFactories,
+                    actuatorFactories,
                     workgroupFactories,
                     personFactories);
         }

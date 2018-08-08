@@ -3,7 +3,7 @@ package de.qaware.smartlab.assistance.assistances.info.minutetaking;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.EqualsAndHashCode;
@@ -56,7 +56,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
 
         private Language spokenLanguage;
         private String uploadDir;
-        private DeviceId microphoneId;
+        private ActuatorId microphoneId;
 
         private Configuration(MinuteTakingInfo minuteTakingInfo, Map<String, String> configProperties) {
             super(minuteTakingInfo);
@@ -73,7 +73,7 @@ public class MinuteTakingInfo extends AbstractAssistanceInfo {
                         }
                         break;
                     case CONFIG_PROPERTY_KEY_MICROPHONE_ID:
-                        this.microphoneId = DeviceId.of(configProperties.get(key));
+                        this.microphoneId = ActuatorId.of(configProperties.get(key));
                         break;
                     case CONFIG_PROPERTY_KEY_UPLOAD_DIR:
                         this.uploadDir = configProperties.get(key);

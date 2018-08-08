@@ -1,13 +1,13 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser;
 
-import de.qaware.smartlab.core.data.actuator.IDeviceAdapter;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.IActuatorAdapter;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 
 import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
-public interface IWebBrowserAdapter extends IDeviceAdapter {
+public interface IWebBrowserAdapter extends IActuatorAdapter {
 
     UUID newWebBrowserInstance(URL url);
     UUID newWebBrowserInstance(List<URL> urls);
@@ -17,5 +17,5 @@ public interface IWebBrowserAdapter extends IDeviceAdapter {
     void closeUnchangedAutoOpenedTabs(UUID browserInstanceId);
     void closeTab(UUID browserInstanceId, IWebBrowserTab tab);
     void closeAllTabs(UUID browserInstanceId);
-    void maximizeOnDisplay(UUID browserInstanceId, DeviceId displayId);
+    void maximizeOnDisplay(UUID browserInstanceId, ActuatorId displayId);
 }

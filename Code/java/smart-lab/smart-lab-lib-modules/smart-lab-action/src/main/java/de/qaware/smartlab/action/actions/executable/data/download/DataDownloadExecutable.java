@@ -37,7 +37,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
     }
 
     @Override
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
         return VoidActionResult.newInstance();
     }
@@ -49,8 +49,8 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
         DataDownloadSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DataDownloadSubmittable.ActionArgs.class,
                 genericActionArgs);
-        String projectBaseService = actionArgs.getProjectBaseInfo().getDeviceType();
-        IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(projectBaseService);
+        String actuatorType = actionArgs.getProjectBaseInfo().getActuatorType();
+        IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(actuatorType);
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());

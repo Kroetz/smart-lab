@@ -2,11 +2,11 @@ package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
 
 public interface IInfraredRemoteControl {
 
-    void on(String deviceType);
-    void off(String deviceType);
-    void ok(String deviceType);
-    void up(String deviceType);
-    void right(String deviceType);
-    void down(String deviceType);
-    void left(String deviceType);
+    void on(String actuatorType);
+    void off(String actuatorType);
+    void ok(String actuatorType);
+    void up(String actuatorType);
+    void right(String actuatorType);
+    void down(String actuatorType);
+    void left(String actuatorType);
 }

@@ -21,7 +21,7 @@ public class LocationConverter implements IDtoConverter<ILocation, LocationDto> 
         return LocationDto.builder()
                 .id(location.getId())
                 .name(location.getName())
-                .deviceIds(location.getDeviceIds())
+                .actuatorIds(location.getActuatorIds())
                 .build();
     }
 
@@ -30,6 +30,6 @@ public class LocationConverter implements IDtoConverter<ILocation, LocationDto> 
         return Location.of(
                 location.getId(),
                 location.getName(),
-                location.getDeviceIds());
+                location.getActuatorIds());
     }
 }

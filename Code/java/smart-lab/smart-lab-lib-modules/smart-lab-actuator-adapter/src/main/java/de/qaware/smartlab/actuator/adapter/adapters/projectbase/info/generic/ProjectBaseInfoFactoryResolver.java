@@ -16,20 +16,20 @@ import static java.util.stream.Collectors.toMap;
 public class ProjectBaseInfoFactoryResolver extends AbstractResolver<String, IProjectBaseInfoFactory> {
 
     public ProjectBaseInfoFactoryResolver(Optional<List<IProjectBaseInfoFactory>> factories) {
-        super(getFactoriesByProjectBaseId(factories));
+        super(getFactoriesByActuatorType(factories));
     }
 
-    private static Set<Map.Entry<String, IProjectBaseInfoFactory>> getFactoriesByProjectBaseId(Optional<List<IProjectBaseInfoFactory>> projectBaseInfoFactories) {
+    private static Set<Map.Entry<String, IProjectBaseInfoFactory>> getFactoriesByActuatorType(Optional<List<IProjectBaseInfoFactory>> projectBaseInfoFactories) {
         return projectBaseInfoFactories
                 .map(factories -> factories
                             .stream()
-                            .collect(toMap(IProjectBaseInfoFactory::getDeviceType, identity()))
+                            .collect(toMap(IProjectBaseInfoFactory::getActuatorType, identity()))
                             .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String projectBaseService) {
-        return format("The project base service \"%s\" is unknown", projectBaseService);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The project base type \"%s\" is unknown", actuatorType);
     }
 }

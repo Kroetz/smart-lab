@@ -1,7 +1,7 @@
 package de.qaware.smartlab.data.set.factory;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
@@ -22,8 +22,8 @@ public interface IDataSetFactory {
     Map<EventId, IEvent> createEventMap() throws DataSetException ;
     Set<ILocation> createLocationSet() throws DataSetException ;
     Map<LocationId, ILocation> createLocationMap() throws DataSetException ;
-    Set<IDevice> createDeviceSet() throws DataSetException ;
-    Map<DeviceId, IDevice> createDeviceMap() throws DataSetException ;
+    Set<IActuator> createActuatorSet() throws DataSetException ;
+    Map<ActuatorId, IActuator> createActuatorMap() throws DataSetException ;
     Set<IWorkgroup> createWorkgroupSet() throws DataSetException ;
     Map<WorkgroupId, IWorkgroup> createWorkgroupMap() throws DataSetException ;
     Set<IPerson> createWorkgroupMemberSet() throws DataSetException ;

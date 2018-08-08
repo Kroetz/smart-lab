@@ -5,8 +5,8 @@ import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IHotkeys;
 import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IWebBrowserTab;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.exception.LocalActuatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
@@ -46,7 +46,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     private SeleniumWebBrowserInstance resolveWebBrowserInstance(UUID webBrowserInstanceId) {
         SeleniumWebBrowserInstance webBrowserInstance = this.webBrowserInstancesById.get(webBrowserInstanceId);
         // TODO: Exception message
-        if(isNull(webBrowserInstance)) throw new LocalDeviceException("The specified web browser instance does not exist");
+        if(isNull(webBrowserInstance)) throw new LocalActuatorException("The specified web browser instance does not exist");
         return webBrowserInstance;
     }
 
@@ -161,7 +161,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void maximizeOnDisplay(UUID browserInstanceId, DeviceId displayId) {
+    public void maximizeOnDisplay(UUID browserInstanceId, ActuatorId displayId) {
         SeleniumWebBrowserInstance webBrowserInstance = resolveWebBrowserInstance(browserInstanceId);
         webBrowserInstance.getWindow().maximizeOnDisplay(displayId);
     }

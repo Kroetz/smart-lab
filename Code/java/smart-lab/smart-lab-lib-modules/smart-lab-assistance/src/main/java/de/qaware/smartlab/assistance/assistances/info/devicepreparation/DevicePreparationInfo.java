@@ -3,7 +3,7 @@ package de.qaware.smartlab.assistance.assistances.info.devicepreparation;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -49,14 +49,14 @@ public class DevicePreparationInfo extends AbstractAssistanceInfo {
 
         public static final String CONFIG_PROPERTY_KEY_DEVICE_ID = "deviceId";
 
-        private DeviceId deviceId;
+        private ActuatorId deviceId;
 
         private Configuration(DevicePreparationInfo devicePreparationInfo, Map<String, String> configProperties) {
             super(devicePreparationInfo);
             for(String key : configProperties.keySet()) {
                 switch (key) {
                     case CONFIG_PROPERTY_KEY_DEVICE_ID:
-                        this.deviceId = DeviceId.of(configProperties.get(key));
+                        this.deviceId = ActuatorId.of(configProperties.get(key));
                         break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());

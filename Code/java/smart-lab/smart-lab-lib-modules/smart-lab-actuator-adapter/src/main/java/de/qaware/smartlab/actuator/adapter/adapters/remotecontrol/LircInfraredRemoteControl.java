@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
 
-import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.exception.LocalActuatorException;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.String.format;
@@ -28,58 +28,58 @@ public class LircInfraredRemoteControl extends AbstractInfraredRemoteControl {
         return new LircInfraredRemoteControl();
     }
 
-    private void executeLircCommand(String key, String deviceType) {
-        log.info(format("Executing LIRC command \"%s %s %s %s\"", IRSEND, SEND_ONCE, deviceType, key));
+    private void executeLircCommand(String key, String actuatorType) {
+        log.info(format("Executing LIRC command \"%s %s %s %s\"", IRSEND, SEND_ONCE, actuatorType, key));
         ProcessBuilder processBuilder = new ProcessBuilder();
         try {
-            processBuilder.command(IRSEND, SEND_ONCE, deviceType, key).start().waitFor();
+            processBuilder.command(IRSEND, SEND_ONCE, actuatorType, key).start().waitFor();
         }
         catch(Exception e) {
             String errorMessage = "Could not execute LIRC command";
             log.error(errorMessage, e);
-            throw new LocalDeviceException(errorMessage, e);
+            throw new LocalActuatorException(errorMessage, e);
         }
     }
 
     @Override
-    public void on(String deviceType) {
-        super.on(deviceType);
-        executeLircCommand(KEY_ON, deviceType);
+    public void on(String actuatorType) {
+        super.on(actuatorType);
+        executeLircCommand(KEY_ON, actuatorType);
     }
 
     @Override
-    public void off(String deviceType) {
-        super.off(deviceType);
-        executeLircCommand(KEY_OFF, deviceType);
+    public void off(String actuatorType) {
+        super.off(actuatorType);
+        executeLircCommand(KEY_OFF, actuatorType);
     }
 
     @Override
-    public void ok(String deviceType) {
-        super.ok(deviceType);
-        executeLircCommand(KEY_OK, deviceType);
+    public void ok(String actuatorType) {
+        super.ok(actuatorType);
+        executeLircCommand(KEY_OK, actuatorType);
     }
 
     @Override
-    public void up(String deviceType) {
-        super.up(deviceType);
-        executeLircCommand(KEY_UP, deviceType);
+    public void up(String actuatorType) {
+        super.up(actuatorType);
+        executeLircCommand(KEY_UP, actuatorType);
     }
 
     @Override
-    public void right(String deviceType) {
-        super.right(deviceType);
-        executeLircCommand(KEY_RIGHT, deviceType);
+    public void right(String actuatorType) {
+        super.right(actuatorType);
+        executeLircCommand(KEY_RIGHT, actuatorType);
     }
 
     @Override
-    public void down(String deviceType) {
-        super.down(deviceType);
-        executeLircCommand(KEY_DOWN, deviceType);
+    public void down(String actuatorType) {
+        super.down(actuatorType);
+        executeLircCommand(KEY_DOWN, actuatorType);
     }
 
     @Override
-    public void left(String deviceType) {
-        super.left(deviceType);
-        executeLircCommand(KEY_LEFT, deviceType);
+    public void left(String actuatorType) {
+        super.left(actuatorType);
+        executeLircCommand(KEY_LEFT, actuatorType);
     }
 }

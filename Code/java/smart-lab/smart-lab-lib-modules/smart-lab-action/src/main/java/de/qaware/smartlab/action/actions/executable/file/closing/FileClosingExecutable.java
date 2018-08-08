@@ -6,10 +6,10 @@ import de.qaware.smartlab.action.actions.info.file.closing.FileClosingInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.submittable.file.closing.FileClosingSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
@@ -21,29 +21,29 @@ import java.nio.file.Path;
 @Slf4j
 public class FileClosingExecutable extends AbstractActionExecutable {
 
-    private final IDeviceManagementService deviceManagementService;
+    private final IActuatorManagementService actuatorManagementService;
     private final IResolver<String, IFileAssociatedProgramAdapter> programAdapterResolver;
     private final ITempFileManager tempFileManager;
 
     public FileClosingExecutable(
             FileClosingInfo fileClosingInfo,
-            IDeviceManagementService deviceManagementService,
+            IActuatorManagementService actuatorManagementService,
             IResolver<String, IFileAssociatedProgramAdapter> fileAssociatedProgramAdapterResolver,
             ITempFileManager tempFileManager) {
         super(fileClosingInfo);
-        this.deviceManagementService = deviceManagementService;
+        this.actuatorManagementService = actuatorManagementService;
         this.programAdapterResolver = fileAssociatedProgramAdapterResolver;
         this.tempFileManager = tempFileManager;
     }
 
     // TODO: too much code duplicates
-    public IActionResult execute(String programType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
         FileClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 FileClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(actuatorType);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);
@@ -56,13 +56,13 @@ public class FileClosingExecutable extends AbstractActionExecutable {
         FileClosingSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 FileClosingSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice fileAssociatedProgram = this.deviceManagementService.findOne(actionArgs.getProgramId());
-        String programType = fileAssociatedProgram.getType();
-        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(programType);
+        IActuator fileAssociatedProgram = this.actuatorManagementService.findOne(actionArgs.getProgramId());
+        String actuatorType = fileAssociatedProgram.getType();
+        IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(actuatorType);
         if(programAdapter.hasLocalApi()) return delegateService.executeAction(
                 fileAssociatedProgram.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
-                programType,
+                actuatorType,
                 actionArgs);
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);

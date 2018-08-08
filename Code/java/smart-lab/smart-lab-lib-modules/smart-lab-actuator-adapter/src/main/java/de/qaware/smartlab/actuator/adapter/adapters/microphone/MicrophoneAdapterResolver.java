@@ -17,17 +17,17 @@ import static java.util.stream.Collectors.toMap;
 public class MicrophoneAdapterResolver extends AbstractResolver<String, IMicrophoneAdapter> {
 
     public MicrophoneAdapterResolver(List<IMicrophoneAdapter> microphoneAdapters) {
-        super(getMicrophoneAdaptersByType(microphoneAdapters));
+        super(getMicrophoneAdaptersByActuatorType(microphoneAdapters));
     }
 
-    private static Set<Map.Entry<String, IMicrophoneAdapter>> getMicrophoneAdaptersByType(List<IMicrophoneAdapter> microphoneAdapters) {
+    private static Set<Map.Entry<String, IMicrophoneAdapter>> getMicrophoneAdaptersByActuatorType(List<IMicrophoneAdapter> microphoneAdapters) {
         return microphoneAdapters.stream()
-                .collect(toMap(IMicrophoneAdapter::getDeviceType, identity()))
+                .collect(toMap(IMicrophoneAdapter::getActuatorType, identity()))
                 .entrySet();
     }
 
     @Override
-    protected String getErrorMessage(String microphoneType) {
-        return format("The microphone type \"%s\" is unknown", microphoneType);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The microphone type \"%s\" is unknown", actuatorType);
     }
 }

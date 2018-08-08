@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
-import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.exception.LocalActuatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.nio.file.Path;
 @Slf4j
 public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdapter {
 
-    public static final String DEVICE_TYPE = "thinkpad p50 internal microphone";
+    public static final String ACTUATOR_TYPE = "thinkpad p50 internal microphone";
     private static final boolean HAS_LOCAL_API = true;
     // TODO: Do not use microphone name for identification but rather something like manufacturer (not affected by localization)
     private static final String MICROPHONE_NAME = "Mikrofonarray (Realtek High Def";
@@ -29,8 +29,8 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
     private final GenericMicrophone genericMicrophone;
 
     public ThinkpadP50InternalMicrophoneAdapter() {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
-        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT).orElseThrow(LocalDeviceException::new);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
+        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT).orElseThrow(LocalActuatorException::new);
     }
 
     @Override
@@ -41,6 +41,6 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
 
     @Override
     public Path stopRecording() {
-        return this.genericMicrophone.stopRecording().orElseThrow(LocalDeviceException::new);
+        return this.genericMicrophone.stopRecording().orElseThrow(LocalActuatorException::new);
     }
 }

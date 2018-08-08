@@ -26,7 +26,7 @@ public class DataUploadExecutable extends AbstractActionExecutable {
     }
 
     @Override
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
         return VoidActionResult.newInstance();
     }
@@ -38,8 +38,8 @@ public class DataUploadExecutable extends AbstractActionExecutable {
         DataUploadSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DataUploadSubmittable.ActionArgs.class,
                 genericActionArgs);
-        String projectBaseService = actionArgs.getProjectBaseInfo().getDeviceType();
-        IDataUploadService dataUploadService = this.dataUploadServiceResolver.resolve(projectBaseService);
+        String actuatorType = actionArgs.getProjectBaseInfo().getActuatorType();
+        IDataUploadService dataUploadService = this.dataUploadServiceResolver.resolve(actuatorType);
         dataUploadService.upload(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getUploadMessage(),

@@ -3,8 +3,8 @@ package de.qaware.smartlab.data.set.factory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import de.qaware.smartlab.core.data.device.DeviceDto;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.ActuatorDto;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
@@ -34,12 +34,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     private final ObjectMapper mapper;
     private final Path eventDataSource;
     private final Path locationDataSource;
-    private final Path deviceDataSource;
+    private final Path actuatorDataSource;
     private final Path workgroupDataSource;
     private final Path personDataSource;
     private final IDtoConverter<IEvent, EventDto> eventConverter;
     private final IDtoConverter<ILocation, LocationDto> locationConverter;
-    private final IDtoConverter<IDevice, DeviceDto> deviceConverter;
+    private final IDtoConverter<IActuator, ActuatorDto> actuatorConverter;
     private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;
     private final IDtoConverter<IPerson, PersonDto> personConverter;
 
@@ -47,12 +47,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     public FileSourcedDataSetFactory(
             Path eventDataSource,
             Path locationDataSource,
-            Path deviceDataSource,
+            Path actuatorDataSource,
             Path workgroupDataSource,
             Path personDataSource,
             IDtoConverter<IEvent, EventDto> eventConverter,
             IDtoConverter<ILocation, LocationDto> locationConverter,
-            IDtoConverter<IDevice, DeviceDto> deviceConverter,
+            IDtoConverter<IActuator, ActuatorDto> actuatorConverter,
             IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter,
             IDtoConverter<IPerson, PersonDto> personConverter) {
         super(ID);
@@ -65,12 +65,12 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
         mapper.findAndRegisterModules();
         this.eventDataSource = eventDataSource;
         this.locationDataSource = locationDataSource;
-        this.deviceDataSource = deviceDataSource;
+        this.actuatorDataSource = actuatorDataSource;
         this.workgroupDataSource = workgroupDataSource;
         this.personDataSource = personDataSource;
         this.eventConverter = eventConverter;
         this.locationConverter = locationConverter;
-        this.deviceConverter = deviceConverter;
+        this.actuatorConverter = actuatorConverter;
         this.workgroupConverter = workgroupConverter;
         this.personConverter = personConverter;
     }
@@ -88,9 +88,9 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() throws DataSetException {
-        if(isNull(this.deviceDataSource)) return new HashSet<>();
-        return readDevicesFromFile(this.deviceDataSource);
+    public Set<IActuator> createActuatorSet() throws DataSetException {
+        if(isNull(this.actuatorDataSource)) return new HashSet<>();
+        return readActuatorsFromFile(this.actuatorDataSource);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
         return readEntitiesFromFile(path, LocationDto.class, this.locationConverter);
     }
 
-    private Set<IDevice> readDevicesFromFile(Path path) throws DataSetException {
-        return readEntitiesFromFile(path, DeviceDto.class, this.deviceConverter);
+    private Set<IActuator> readActuatorsFromFile(Path path) throws DataSetException {
+        return readEntitiesFromFile(path, ActuatorDto.class, this.actuatorConverter);
     }
 
     private Set<IWorkgroup> readWorkgroupsFromFile(Path path) throws DataSetException {

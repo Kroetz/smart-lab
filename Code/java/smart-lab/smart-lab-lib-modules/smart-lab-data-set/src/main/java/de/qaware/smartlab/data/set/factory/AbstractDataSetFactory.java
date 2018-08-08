@@ -1,7 +1,7 @@
 package de.qaware.smartlab.data.set.factory;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
@@ -74,12 +74,12 @@ public abstract class AbstractDataSetFactory implements IDataSetFactory {
     }
 
     @Override
-    public abstract Set<IDevice> createDeviceSet() throws DataSetException;
+    public abstract Set<IActuator> createActuatorSet() throws DataSetException;
 
     @Override
-    public Map<DeviceId, IDevice> createDeviceMap() throws DataSetException {
-        Set<IDevice> devices = createDeviceSet();
-        return devices.stream()
-                .collect(toMap(IDevice::getId, device -> device));
+    public Map<ActuatorId, IActuator> createActuatorMap() throws DataSetException {
+        Set<IActuator> actuators = createActuatorSet();
+        return actuators.stream()
+                .collect(toMap(IActuator::getId, actuator -> actuator));
     }
 }

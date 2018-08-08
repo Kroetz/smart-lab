@@ -1,8 +1,8 @@
 package de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 
 public interface IWindowInfo {
 
-    void maximizeOnDisplay(DeviceId displayId);
+    void maximizeOnDisplay(ActuatorId displayId);
 }

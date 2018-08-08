@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DummyBeamerAdapter extends AbstractBeamerAdapter {
 
-    public static final String DEVICE_TYPE = "dummy beamer";
+    public static final String ACTUATOR_TYPE = "dummy beamer";
     private static final boolean HAS_LOCAL_API = true;
 
     public DummyBeamerAdapter() {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
     }
 
     @Override

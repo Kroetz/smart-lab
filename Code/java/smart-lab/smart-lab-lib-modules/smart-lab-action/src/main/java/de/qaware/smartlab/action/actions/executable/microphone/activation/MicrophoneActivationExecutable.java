@@ -5,10 +5,10 @@ import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.info.microphone.activation.MicrophoneActivationInfo;
 import de.qaware.smartlab.action.actions.submittable.microphone.activation.MicrophoneActivationSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapter;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
@@ -25,32 +25,32 @@ import java.nio.file.Path;
 public class MicrophoneActivationExecutable extends AbstractActionExecutable {
 
     private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private IDeviceManagementService deviceManagementService;
+    private IActuatorManagementService actuatorManagementService;
     private final Path recordedAudioTempFileSubDir;
     private final ITempFileManager tempFileManager;
 
     public MicrophoneActivationExecutable(
             MicrophoneActivationInfo microphoneActivationInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
-            IDeviceManagementService deviceManagementService,
+            IActuatorManagementService actuatorManagementService,
             // TODO: String literals
             @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(microphoneActivationInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
-        this.deviceManagementService = deviceManagementService;
+        this.actuatorManagementService = actuatorManagementService;
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
         this.tempFileManager = tempFileManager;
     }
 
     // TODO: too much code duplicates
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
         MicrophoneActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 MicrophoneActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path recordingTargetFile;
         try {
@@ -68,13 +68,13 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
         MicrophoneActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 MicrophoneActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice device = this.deviceManagementService.findOne(actionArgs.getMicrophoneId());
-        String deviceType = device.getType();
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
+        IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getMicrophoneId());
+        String actuatorType = actuator.getType();
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(microphoneAdapter.hasLocalApi()) return delegateService.executeAction(
-                device.getResponsibleDelegate(),
+                actuator.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
-                deviceType,
+                actuatorType,
                 actionArgs);
         Path recordingTargetFile;
         try {

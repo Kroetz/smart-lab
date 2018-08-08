@@ -20,20 +20,20 @@ import static java.util.stream.Collectors.toMap;
 public class DataUploadServiceResolver extends AbstractResolver<String, IDataUploadService> {
 
     public DataUploadServiceResolver(Optional<List<IDataUploadService>> dataUploadServices) {
-        super(getDataUploadServicesById(dataUploadServices));
+        super(getDataUploadServicesByActuatorType(dataUploadServices));
     }
 
-    private static Set<Map.Entry<String, IDataUploadService>> getDataUploadServicesById(Optional<List<IDataUploadService>> dataUploadServices) {
+    private static Set<Map.Entry<String, IDataUploadService>> getDataUploadServicesByActuatorType(Optional<List<IDataUploadService>> dataUploadServices) {
         return dataUploadServices
                 .map(services -> services
                         .stream()
-                        .collect(toMap(IDataUploadService::getDeviceType, identity()))
+                        .collect(toMap(IDataUploadService::getActuatorType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String dataUploadService) {
-        return format("The data upload service \"%s\" is unknown", dataUploadService);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The data upload service type \"%s\" is unknown", actuatorType);
     }
 }

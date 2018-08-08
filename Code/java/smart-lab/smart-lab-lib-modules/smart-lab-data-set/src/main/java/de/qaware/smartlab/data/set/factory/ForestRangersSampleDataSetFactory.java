@@ -9,15 +9,15 @@ import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowin
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.websitedisplaying.WebsiteDisplayingInfo;
+import de.qaware.smartlab.core.data.actuator.Actuator;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.Device;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -47,9 +47,9 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     public static final PersonId MEMBER_ID_BARRY = PersonId.of("forest-ranger-barry");
     public static final PersonId MEMBER_ID_CAROLINE = PersonId.of("forest-ranger-caroline");
     public static final LocationId LOCATION_ID_GREEN = LocationId.of("forest-rangers-workplace");
-    public static final DeviceId DEVICE_ID_GREEN_DISPLAY_BIG = DeviceId.of("green-display-big");
-    public static final DeviceId DEVICE_ID_GREEN_DISPLAY_SMALL = DeviceId.of("green-display-small");
-    public static final DeviceId DEVICE_ID_GREEN_WEB_BROWSER = DeviceId.of("green-web-browser");
+    public static final ActuatorId ACTUATOR_ID_GREEN_DISPLAY_BIG = ActuatorId.of("green-display-big");
+    public static final ActuatorId ACTUATOR_ID_GREEN_DISPLAY_SMALL = ActuatorId.of("green-display-small");
+    public static final ActuatorId ACTUATOR_ID_GREEN_WEB_BROWSER = ActuatorId.of("green-web-browser");
     public static final EventId EVENT_ID_BARK_BEETLE = EventId.of("bark-beetle", LOCATION_ID_GREEN);
     public static final String DELEGATE_ID_GREEN = "smart-lab-green-delegate-microservice";
 
@@ -70,7 +70,7 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.DEVICE_TYPE);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.ACTUATOR_TYPE);
     }
 
     @Override
@@ -124,24 +124,24 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
         configs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Bark_beetle")
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY_BIG.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_GREEN_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_GREEN_DISPLAY_BIG.getIdValue())
                 .build()));
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_GREEN_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_GREEN_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
         configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_GREEN_DISPLAY_BIG.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_GREEN_DISPLAY_BIG.getIdValue())
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_GREEN_DISPLAY_SMALL.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_GREEN_DISPLAY_SMALL.getIdValue())
                 .build()));
         events.add(Event.of(
                 EVENT_ID_BARK_BEETLE,
@@ -157,34 +157,34 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataSetException {
         Set<ILocation> locations = new HashSet<>();
-        Set<DeviceId> greenLocationDevices = new HashSet<>();
-        greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_BIG);
-        greenLocationDevices.add(DEVICE_ID_GREEN_DISPLAY_SMALL);
+        Set<ActuatorId> greenLocationActuators = new HashSet<>();
+        greenLocationActuators.add(ACTUATOR_ID_GREEN_DISPLAY_BIG);
+        greenLocationActuators.add(ACTUATOR_ID_GREEN_DISPLAY_SMALL);
         locations.add(Location.of(
                 LOCATION_ID_GREEN,
                 "Forest rangers workplace",
-                greenLocationDevices));
+                greenLocationActuators));
         return locations;
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() throws DataSetException {
-        Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.of(
-                DEVICE_ID_GREEN_DISPLAY_BIG,
-                DummyDisplayAdapter.DEVICE_TYPE,
+    public Set<IActuator> createActuatorSet() throws DataSetException {
+        Set<IActuator> actuators = new HashSet<>();
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_GREEN_DISPLAY_BIG,
+                DummyDisplayAdapter.ACTUATOR_TYPE,
                 format("Big main display at location \"%s\"", LOCATION_ID_GREEN),
                 DELEGATE_ID_GREEN));
-        devices.add(Device.of(
-                DEVICE_ID_GREEN_DISPLAY_SMALL,
-                DummyDisplayAdapter.DEVICE_TYPE,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_GREEN_DISPLAY_SMALL,
+                DummyDisplayAdapter.ACTUATOR_TYPE,
                 format("Small display next to the door at location \"%s\"", LOCATION_ID_GREEN),
                 DELEGATE_ID_GREEN));
-        devices.add(Device.of(
-                DEVICE_ID_GREEN_WEB_BROWSER,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_GREEN_WEB_BROWSER,
                 "chrome",
                 format("Web browser at location \"%s\"", LOCATION_ID_GREEN),
                 DELEGATE_ID_GREEN));
-        return devices;
+        return actuators;
     }
 }

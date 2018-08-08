@@ -8,50 +8,50 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WindowsCompatibleInfraredRemoteControl extends AbstractInfraredRemoteControl {
 
-    private void executeCommand(String deviceType) {
+    private void executeCommand(String actuatorType) {
         // TODO: Implement infrared remote control for Microsoft Windows operating systems
         log.warn("Infrared remote control commands are not yet implemented for Microsoft Windows");
     }
 
     @Override
-    public void on(String deviceType) {
-        super.on(deviceType);
-        executeCommand(deviceType);
+    public void on(String actuatorType) {
+        super.on(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void off(String deviceType) {
-        super.off(deviceType);
-        executeCommand(deviceType);
+    public void off(String actuatorType) {
+        super.off(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void ok(String deviceType) {
-        super.ok(deviceType);
-        executeCommand(deviceType);
+    public void ok(String actuatorType) {
+        super.ok(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void up(String deviceType) {
-        super.up(deviceType);
-        executeCommand(deviceType);
+    public void up(String actuatorType) {
+        super.up(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void right(String deviceType) {
-        super.right(deviceType);
-        executeCommand(deviceType);
+    public void right(String actuatorType) {
+        super.right(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void down(String deviceType) {
-        super.down(deviceType);
-        executeCommand(deviceType);
+    public void down(String actuatorType) {
+        super.down(actuatorType);
+        executeCommand(actuatorType);
     }
 
     @Override
-    public void left(String deviceType) {
-        super.left(deviceType);
-        executeCommand(deviceType);
+    public void left(String actuatorType) {
+        super.left(actuatorType);
+        executeCommand(actuatorType);
     }
 }

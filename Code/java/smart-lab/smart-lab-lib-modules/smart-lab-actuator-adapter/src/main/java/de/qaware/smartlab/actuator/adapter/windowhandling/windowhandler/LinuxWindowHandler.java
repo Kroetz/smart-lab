@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.LinuxWindowInfo;
@@ -38,7 +38,7 @@ public class LinuxWindowHandler extends AbstractWindowHandler<LinuxWindowInfo> {
     }
 
     @Override
-    public void maximizeOnDisplay(IWindowInfo window, DeviceId displayId) throws WindowHandlingException {
+    public void maximizeOnDisplay(IWindowInfo window, ActuatorId displayId) throws WindowHandlingException {
         // TODO: Implement maximizing windows on Linux operating systems
         log.warn("Maximizing windows is not yet implemented for Linux");
     }

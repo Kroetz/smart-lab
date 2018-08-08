@@ -20,20 +20,20 @@ import static java.util.stream.Collectors.toMap;
 public class SpeechToTextAdapterResolver extends AbstractResolver<String, ISpeechToTextAdapter> {
 
     public SpeechToTextAdapterResolver(Optional<List<ISpeechToTextAdapter>> speechToTextAdapters) {
-        super(getSpeechToTextAdaptersById(speechToTextAdapters));
+        super(getSpeechToTextAdaptersByActuatorType(speechToTextAdapters));
     }
 
-    private static Set<Map.Entry<String, ISpeechToTextAdapter>> getSpeechToTextAdaptersById(Optional<List<ISpeechToTextAdapter>> speechToTextAdapters) {
+    private static Set<Map.Entry<String, ISpeechToTextAdapter>> getSpeechToTextAdaptersByActuatorType(Optional<List<ISpeechToTextAdapter>> speechToTextAdapters) {
         return speechToTextAdapters
                 .map(adapters -> adapters
                         .stream()
-                        .collect(toMap(ISpeechToTextAdapter::getDeviceType, identity()))
+                        .collect(toMap(ISpeechToTextAdapter::getActuatorType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String speechToTextServiceName) {
-        return format("The speech-to-text service \"%s\" is unknown", speechToTextServiceName);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The speech-to-text service type \"%s\" is unknown", actuatorType);
     }
 }

@@ -26,7 +26,7 @@ public class ProjectBaseInfoConverter implements IDtoConverter<IProjectBaseInfo,
     @Override
     public ProjectBaseInfoDto toDto(IProjectBaseInfo projectBaseInfo) {
         return ProjectBaseInfoDto.builder()
-                .serviceId(projectBaseInfo.getDeviceType())
+                .serviceId(projectBaseInfo.getActuatorType())
                 .projectBaseProperties(projectBaseInfo.getProjectBaseProperties())
                 .build();
     }

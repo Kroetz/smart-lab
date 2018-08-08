@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.device;
+package de.qaware.smartlab.core.data.actuator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.qaware.smartlab.core.data.generic.IDto;
@@ -11,9 +11,9 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DeviceDto implements IDto {
+public class ActuatorDto implements IDto {
 
-    private DeviceId id;
+    private ActuatorId id;
     private String type;
     private String name;
     private String responsibleDelegate;

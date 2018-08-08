@@ -3,7 +3,7 @@ package de.qaware.smartlab.assistance.assistances.info.websitedisplaying;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.ConfigurationException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -56,8 +56,8 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
         public static final String CONFIG_PROPERTY_KEY_DISPLAY_ID = "displayId";
 
         private URL url;
-        private DeviceId webBrowserId;
-        private DeviceId displayId;
+        private ActuatorId webBrowserId;
+        private ActuatorId displayId;
 
         private Configuration(WebsiteDisplayingInfo websiteDisplayingInfo, Map<String, String> configProperties) {
             super(websiteDisplayingInfo);
@@ -74,10 +74,10 @@ public class WebsiteDisplayingInfo extends AbstractAssistanceInfo {
                         }
                         break;
                     case CONFIG_PROPERTY_KEY_WEB_BROWSER_ID:
-                        this.webBrowserId = DeviceId.of(configProperties.get(key));
+                        this.webBrowserId = ActuatorId.of(configProperties.get(key));
                         break;
                     case CONFIG_PROPERTY_KEY_DISPLAY_ID:
-                        this.displayId = DeviceId.of(configProperties.get(key));
+                        this.displayId = ActuatorId.of(configProperties.get(key));
                         break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());

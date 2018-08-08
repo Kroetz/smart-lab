@@ -3,7 +3,7 @@ package de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler;
 import com.sun.jna.platform.win32.WinDef;
 import de.qaware.smartlab.actuator.adapter.windowhandling.nativeapi.WindowsWindowHandlingApi;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.WindowsWindowInfo;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -123,7 +123,7 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
     }
 
     @Override
-    public void maximizeOnDisplay(IWindowInfo window, DeviceId displayId) {
+    public void maximizeOnDisplay(IWindowInfo window, ActuatorId displayId) {
         WindowsWindowInfo windowsWindow = castWindow(window, WindowsWindowInfo.class);
         this.windowHandlingApi.MoveToFullScreen(windowsWindow.getWindowHandle(), resolveLocalDisplay(displayId));
     }

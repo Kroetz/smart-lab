@@ -3,7 +3,7 @@ package de.qaware.smartlab.assistance.assistances.info.filedisplaying;
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -52,8 +52,8 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
         public static final String CONFIG_PROPERTY_KEY_DISPLAY_ID = "displayId";
 
         private String filePath;
-        private DeviceId programId;
-        private DeviceId displayId;
+        private ActuatorId programId;
+        private ActuatorId displayId;
 
         private Configuration(FileDisplayingInfo fileDisplayingInfo, Map<String, String> configProperties) {
             super(fileDisplayingInfo);
@@ -63,10 +63,10 @@ public class FileDisplayingInfo extends AbstractAssistanceInfo {
                         this.filePath = configProperties.get(key);
                         break;
                     case CONFIG_PROPERTY_KEY_PROGRAM_ID:
-                        this.programId = DeviceId.of(configProperties.get(key));
+                        this.programId = ActuatorId.of(configProperties.get(key));
                         break;
                     case CONFIG_PROPERTY_KEY_DISPLAY_ID:
-                        this.displayId = DeviceId.of(configProperties.get(key));
+                        this.displayId = ActuatorId.of(configProperties.get(key));
                         break;
                     default:
                         log.warn("Ignoring config property {} since it is not relevant for the assistance {}", key, getAssistanceId());

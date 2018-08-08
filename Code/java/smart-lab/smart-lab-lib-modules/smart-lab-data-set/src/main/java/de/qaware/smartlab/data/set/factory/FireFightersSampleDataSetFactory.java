@@ -10,15 +10,15 @@ import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowin
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
+import de.qaware.smartlab.core.data.actuator.Actuator;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.Device;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -49,9 +49,9 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
     public static final PersonId MEMBER_ID_BRUCE = PersonId.of("fire-fighter-bruce");
     public static final PersonId MEMBER_ID_CARLOS = PersonId.of("fire-fighter-carlos");
     public static final LocationId LOCATION_ID_RED = LocationId.of("fire-fighters-workplace");
-    public static final DeviceId DEVICE_ID_RED_DISPLAY_BIG = DeviceId.of("red-display-big");
-    public static final DeviceId DEVICE_ID_RED_MICROPHONE = DeviceId.of("red-microphone");
-    public static final DeviceId DEVICE_ID_RED_WEB_BROWSER = DeviceId.of("red-web-browser");
+    public static final ActuatorId ACTUATOR_ID_RED_DISPLAY_BIG = ActuatorId.of("red-display-big");
+    public static final ActuatorId ACTUATOR_ID_RED_MICROPHONE = ActuatorId.of("red-microphone");
+    public static final ActuatorId ACTUATOR_ID_RED_WEB_BROWSER = ActuatorId.of("red-web-browser");
     public static final EventId EVENT_ID_TRUCK = EventId.of("truck", LOCATION_ID_RED);
     public static final String DELEGATE_ID_RED = "smart-lab-red-delegate-microservice";
 
@@ -72,7 +72,7 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.DEVICE_TYPE);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.ACTUATOR_TYPE);
     }
 
     @Override
@@ -127,19 +127,19 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
-                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_RED_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, ACTUATOR_ID_RED_MICROPHONE.getIdValue())
                 .build()));
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_RED_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_RED_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
         configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_RED_DISPLAY_BIG.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_RED_DISPLAY_BIG.getIdValue())
                 .build()));
         events.add(Event.of(
                 EVENT_ID_TRUCK,
@@ -155,28 +155,28 @@ public class FireFightersSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataSetException {
         Set<ILocation> locations = new HashSet<>();
-        Set<DeviceId> redLocationDevices = new HashSet<>();
-        redLocationDevices.add(DEVICE_ID_RED_MICROPHONE);
+        Set<ActuatorId> redLocationActuators = new HashSet<>();
+        redLocationActuators.add(ACTUATOR_ID_RED_MICROPHONE);
         locations.add(Location.of(
                 LOCATION_ID_RED,
                 "Fire fighters workplace",
-                redLocationDevices));
+                redLocationActuators));
         return locations;
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() throws DataSetException {
-        Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.of(
-                DEVICE_ID_RED_DISPLAY_BIG,
-                DummyDisplayAdapter.DEVICE_TYPE,
+    public Set<IActuator> createActuatorSet() throws DataSetException {
+        Set<IActuator> actuators = new HashSet<>();
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_RED_DISPLAY_BIG,
+                DummyDisplayAdapter.ACTUATOR_TYPE,
                 format("Big display at location \"%s\"", LOCATION_ID_RED),
                 DELEGATE_ID_RED));
-        devices.add(Device.of(
-                DEVICE_ID_RED_MICROPHONE,
-                DummyMicrophoneAdapter.DEVICE_TYPE,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_RED_MICROPHONE,
+                DummyMicrophoneAdapter.ACTUATOR_TYPE,
                 format("Microphone at location \"%s\"", LOCATION_ID_RED),
                 DELEGATE_ID_RED));
-        return devices;
+        return actuators;
     }
 }

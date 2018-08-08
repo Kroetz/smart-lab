@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.device;
+package de.qaware.smartlab.core.data.actuator;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -8,19 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode
 @Slf4j
-public class Device implements IDevice {
+public class Actuator implements IActuator {
 
     // TODO: Fachliche Datentypen statt String-IDs
-    private final DeviceId id;
+    private final ActuatorId id;
     private final String type;
     private final String name;
     private final String responsibleDelegate;
 
-    public static Device of(
-            DeviceId id,
+    public static Actuator of(
+            ActuatorId id,
             String type,
             String name,
             String responsibleDelegate) {
-        return new Device(id, type, name, responsibleDelegate);
+        return new Actuator(id, type, name, responsibleDelegate);
     }
 }

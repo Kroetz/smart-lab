@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.device;
+package de.qaware.smartlab.core.data.actuator;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlab.core.data.generic.IEntity;
@@ -8,7 +8,7 @@ import de.qaware.smartlab.core.miscellaneous.Constants;
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
         property = Constants.JSON_TYPE_PROPERTY_NAME)
-public interface IDevice extends IEntity<DeviceId> {
+public interface IActuator extends IEntity<ActuatorId> {
 
     String getType();
     String getName();

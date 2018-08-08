@@ -5,7 +5,7 @@ import com.jcabi.http.Request;
 import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
-import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractDeviceAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.github.GithubInfo;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.generic.IProjectBaseAdapter;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
@@ -34,9 +34,9 @@ import static java.lang.String.format;
         name = Property.Name.GITHUB,
         havingValue = Property.Value.TRUE)
 @Slf4j
-public class GithubAdapter extends AbstractDeviceAdapter implements IProjectBaseAdapter {
+public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBaseAdapter {
 
-    public static final String DEVICE_TYPE = "github";
+    public static final String ACTUATOR_TYPE = "github";
     private static final boolean HAS_LOCAL_API = false;
 
     private final Github github;
@@ -49,7 +49,7 @@ public class GithubAdapter extends AbstractDeviceAdapter implements IProjectBase
             ITempFileManager tempFileManager,
             // TODO: String literals
             @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir) {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;

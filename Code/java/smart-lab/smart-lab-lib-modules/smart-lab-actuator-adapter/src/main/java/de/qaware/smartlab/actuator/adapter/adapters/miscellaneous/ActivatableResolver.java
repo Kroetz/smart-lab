@@ -17,17 +17,17 @@ import static java.util.stream.Collectors.toMap;
 public class ActivatableResolver extends AbstractResolver<String, IActivatable> {
 
     public ActivatableResolver(List<IActivatable> activatables) {
-        super(getActivatablesByType(activatables));
+        super(getActivatablesByActuatorType(activatables));
     }
 
-    private static Set<Map.Entry<String, IActivatable>> getActivatablesByType(List<IActivatable> activatables) {
+    private static Set<Map.Entry<String, IActivatable>> getActivatablesByActuatorType(List<IActivatable> activatables) {
         return activatables.stream()
-                .collect(toMap(IActivatable::getDeviceType, identity()))
+                .collect(toMap(IActivatable::getActuatorType, identity()))
                 .entrySet();
     }
 
     @Override
-    protected String getErrorMessage(String activatableType) {
-        return format("The activatable actuator type \"%s\" is unknown", activatableType);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The activatable type \"%s\" is unknown", actuatorType);
     }
 }

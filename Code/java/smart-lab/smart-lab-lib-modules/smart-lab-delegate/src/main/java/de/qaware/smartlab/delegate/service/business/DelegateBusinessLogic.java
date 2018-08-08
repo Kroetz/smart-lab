@@ -18,11 +18,11 @@ public class DelegateBusinessLogic implements IDelegateBusinessLogic {
     }
 
     @Override
-    public IActionResult executeAction(String actionId, String deviceType, IActionArgs actionArgs) {
-        log.info("Executing action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
+    public IActionResult executeAction(String actionId, String actuatorType, IActionArgs actionArgs) {
+        log.info("Executing action (ID: \"{}\") with actuator \"{}\"", actionId, actuatorType);
         IActionExecutable action = this.actionResolver.resolve(actionId);
-        IActionResult actionResult = action.execute(deviceType, actionArgs);
-        log.info("Executed action (ID: \"{}\") with device \"{}\"", actionId, deviceType);
+        IActionResult actionResult = action.execute(actuatorType, actionArgs);
+        log.info("Executed action (ID: \"{}\") with actuator \"{}\"", actionId, actuatorType);
         return actionResult;
     }
 }

@@ -5,5 +5,5 @@ import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 
 public interface IDelegateService {
 
-    IActionResult executeAction(String delegateId, String actionId, String deviceType, IActionArgs actionArgs);
+    IActionResult executeAction(String delegateId, String actionId, String actuatorType, IActionArgs actionArgs);
 }

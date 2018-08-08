@@ -16,20 +16,20 @@ import static java.util.stream.Collectors.toMap;
 public class WebBrowserAdapterResolver extends AbstractResolver<String, IWebBrowserAdapter> {
 
     public WebBrowserAdapterResolver(Optional<List<IWebBrowserAdapter>> webBrowserAdapters) {
-        super(getWebBrowserAdaptersByType(webBrowserAdapters));
+        super(getWebBrowserAdaptersByActuatorType(webBrowserAdapters));
     }
 
-    private static Set<Map.Entry<String, IWebBrowserAdapter>> getWebBrowserAdaptersByType(Optional<List<IWebBrowserAdapter>> webBrowserAdapters) {
+    private static Set<Map.Entry<String, IWebBrowserAdapter>> getWebBrowserAdaptersByActuatorType(Optional<List<IWebBrowserAdapter>> webBrowserAdapters) {
         return webBrowserAdapters
                 .map(adapters -> adapters
                         .stream()
-                        .collect(toMap(IWebBrowserAdapter::getDeviceType, identity()))
+                        .collect(toMap(IWebBrowserAdapter::getActuatorType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String webBrowserType) {
-        return format("The web browser type \"%s\" is unknown", webBrowserType);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The web browser type \"%s\" is unknown", actuatorType);
     }
 }

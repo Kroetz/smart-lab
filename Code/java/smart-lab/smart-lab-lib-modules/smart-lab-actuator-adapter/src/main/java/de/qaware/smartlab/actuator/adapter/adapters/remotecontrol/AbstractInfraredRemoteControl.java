@@ -8,37 +8,37 @@ import static java.lang.String.format;
 public abstract class AbstractInfraredRemoteControl implements IInfraredRemoteControl {
 
     @Override
-    public void on(String deviceType) {
-        log.info(format("Switching on device \"%s\"", deviceType));
+    public void on(String actuatorType) {
+        log.info(format("Switching on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void off(String deviceType) {
-        log.info(format("Switching off device \"%s\"", deviceType));
+    public void off(String actuatorType) {
+        log.info(format("Switching off actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void ok(String deviceType) {
-        log.info(format("Confirming on device \"%s\"", deviceType));
+    public void ok(String actuatorType) {
+        log.info(format("Confirming on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void up(String deviceType) {
-        log.info(format("Navigating up on device \"%s\"", deviceType));
+    public void up(String actuatorType) {
+        log.info(format("Navigating up on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void right(String deviceType) {
-        log.info(format("Navigating right on device \"%s\"", deviceType));
+    public void right(String actuatorType) {
+        log.info(format("Navigating right on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void down(String deviceType) {
-        log.info(format("Navigating down on device \"%s\"", deviceType));
+    public void down(String actuatorType) {
+        log.info(format("Navigating down on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void left(String deviceType) {
-        log.info(format("Navigating left on device \"%s\"", deviceType));
+    public void left(String actuatorType) {
+        log.info(format("Navigating left on actuator of type \"%s\"", actuatorType));
     }
 }

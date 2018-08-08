@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class SpeechToTextExecutable extends AbstractActionExecutable {
 
     private final IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver;
-    private final String speechToTextServiceName;
+    private final String actuatorType;
 
     public SpeechToTextExecutable(
             SpeechToTextInfo speechToTextInfo,
@@ -29,11 +29,11 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
             @Qualifier("speechToTextServiceName") String speechToTextServiceName) {
         super(speechToTextInfo);
         this.speechToTextAdapterResolver = speechToTextAdapterResolver;
-        this.speechToTextServiceName = speechToTextServiceName;
+        this.actuatorType = speechToTextServiceName;
     }
 
     @Override
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // TODO: Is never needed because there is no local execution for a web service.
         return VoidActionResult.newInstance();
     }
@@ -45,7 +45,7 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
         SpeechToTextSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 SpeechToTextSubmittable.ActionArgs.class,
                 genericActionArgs);
-        ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.speechToTextServiceName);
+        ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.actuatorType);
         ITranscript transcript = speechToTextAdapter.speechToText(
                 actionArgs.getAudioFile(),
                 actionArgs.getSpokenLanguage());

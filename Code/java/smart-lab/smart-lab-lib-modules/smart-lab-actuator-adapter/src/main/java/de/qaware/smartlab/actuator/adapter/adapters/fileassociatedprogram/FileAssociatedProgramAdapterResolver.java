@@ -16,20 +16,20 @@ import static java.util.stream.Collectors.toMap;
 public class FileAssociatedProgramAdapterResolver extends AbstractResolver<String, IFileAssociatedProgramAdapter> {
 
     public FileAssociatedProgramAdapterResolver(Optional<List<IFileAssociatedProgramAdapter>> programAdapters) {
-        super(getFileAssociatedProgramAdaptersByType(programAdapters));
+        super(getFileAssociatedProgramAdaptersByActuatorType(programAdapters));
     }
 
-    private static Set<Map.Entry<String, IFileAssociatedProgramAdapter>> getFileAssociatedProgramAdaptersByType(Optional<List<IFileAssociatedProgramAdapter>> programAdapters) {
+    private static Set<Map.Entry<String, IFileAssociatedProgramAdapter>> getFileAssociatedProgramAdaptersByActuatorType(Optional<List<IFileAssociatedProgramAdapter>> programAdapters) {
         return programAdapters
                 .map(adapters -> adapters
                         .stream()
-                        .collect(toMap(IFileAssociatedProgramAdapter::getDeviceType, identity()))
+                        .collect(toMap(IFileAssociatedProgramAdapter::getActuatorType, identity()))
                         .entrySet())
                 .orElse(emptySet());
     }
 
     @Override
-    protected String getErrorMessage(String deviceType) {
-        return format("The file-associated program \"%s\" is unknown", deviceType);
+    protected String getErrorMessage(String actuatorType) {
+        return format("The file-associated program type \"%s\" is unknown", actuatorType);
     }
 }

@@ -1,18 +1,18 @@
 package de.qaware.smartlab.actuator.adapter.adapters.generic;
 
-import de.qaware.smartlab.core.data.actuator.IDeviceAdapter;
+import de.qaware.smartlab.core.data.actuator.IActuatorAdapter;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
-public class AbstractDeviceAdapter implements IDeviceAdapter {
+public class AbstractActuatorAdapter implements IActuatorAdapter {
 
-    protected final String deviceType;
+    protected final String actuatorType;
     protected final boolean hasLocalApi;
 
-    public AbstractDeviceAdapter(String deviceType, boolean hasLocalApi) {
-        this.deviceType = deviceType;
+    public AbstractActuatorAdapter(String actuatorType, boolean hasLocalApi) {
+        this.actuatorType = actuatorType;
         this.hasLocalApi = hasLocalApi;
     }
 

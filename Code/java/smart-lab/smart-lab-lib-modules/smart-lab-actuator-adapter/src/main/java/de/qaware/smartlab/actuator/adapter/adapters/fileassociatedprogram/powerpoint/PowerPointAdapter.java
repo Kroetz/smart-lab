@@ -5,7 +5,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.FileAs
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
-import de.qaware.smartlab.core.exception.LocalDeviceException;
+import de.qaware.smartlab.core.exception.LocalActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import static java.util.UUID.randomUUID;
 @Slf4j
 public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 
-    public static final String DEVICE_TYPE = "powerPoint";
+    public static final String ACTUATOR_TYPE = "powerPoint";
     private static final boolean HAS_LOCAL_API = true;
 
     private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_DE_DE = "PowerPoint-Bildschirmpräsentation  -  %s";
@@ -41,7 +41,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
             IWindowHandler windowHandler,
             // TODO: String literals
             @Qualifier("powerPointExecutable") Path powerPointExecutable) {
-        super(DEVICE_TYPE, HAS_LOCAL_API, windowHandler);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
     }
 
@@ -76,7 +76,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
         catch(IOException e) {
             String errorMessage = format("I/O error while opening file %s with PowerPoint", fileToOpen);
             log.error(errorMessage, e);
-            throw new LocalDeviceException(errorMessage, e);
+            throw new LocalActuatorException(errorMessage, e);
         }
         UUID powerPointInstanceId = randomUUID();
         IWindowInfo powerPointWindow = this.windowHandler.findPowerPointWindow(fileToOpen);

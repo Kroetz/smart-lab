@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.device;
+package de.qaware.smartlab.core.data.actuator;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,14 +8,14 @@ import lombok.ToString;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class DeviceId extends AbstractIdentifier {
+public class ActuatorId extends AbstractIdentifier {
 
-    private DeviceId(String idValue) {
+    private ActuatorId(String idValue) {
         super(idValue);
     }
 
     @JsonCreator
-    public static DeviceId of(@JsonProperty(ID_VALUE_FIELD_NAME) String idValue) {
-        return new DeviceId(idValue);
+    public static ActuatorId of(@JsonProperty(ID_VALUE_FIELD_NAME) String idValue) {
+        return new ActuatorId(idValue);
     }
 }

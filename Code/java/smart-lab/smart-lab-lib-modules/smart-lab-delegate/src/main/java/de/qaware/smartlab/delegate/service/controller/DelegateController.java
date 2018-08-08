@@ -25,10 +25,10 @@ public class DelegateController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<IActionResult> executeAction(
             @PathVariable(DelegateApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
-            @PathVariable(DelegateApiConstants.PARAMETER_NAME_DEVICE_TYPE) String deviceType,
+            @PathVariable(DelegateApiConstants.PARAMETER_NAME_ACTUATOR_TYPE) String actuatorType,
             @RequestBody IActionArgs actionArgs) {
         log.info("Received call to execute action with ID \"{}\"", actionId);
-        IActionResult actionResult = this.delegateBusinessLogic.executeAction(actionId, deviceType, actionArgs);
+        IActionResult actionResult = this.delegateBusinessLogic.executeAction(actionId, actuatorType, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO: Proper response

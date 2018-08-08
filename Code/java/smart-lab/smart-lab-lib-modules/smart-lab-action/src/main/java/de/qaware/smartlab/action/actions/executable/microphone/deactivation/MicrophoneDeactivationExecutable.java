@@ -5,10 +5,10 @@ import de.qaware.smartlab.action.actions.info.microphone.deactivation.Microphone
 import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.action.actions.submittable.microphone.deactivation.MicrophoneDeactivationSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapter;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
@@ -26,28 +26,28 @@ import static java.nio.file.Files.readAllBytes;
 public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
 
     private final IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private final IDeviceManagementService deviceManagementService;
+    private final IActuatorManagementService actuatorManagementService;
     private final ITempFileManager tempFileManager;
 
     public MicrophoneDeactivationExecutable(
             MicrophoneDeactivationInfo microphoneDeactivationInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
-            IDeviceManagementService deviceManagementService,
+            IActuatorManagementService actuatorManagementService,
             ITempFileManager tempFileManager) {
         super(microphoneDeactivationInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
-        this.deviceManagementService = deviceManagementService;
+        this.actuatorManagementService = actuatorManagementService;
         this.tempFileManager = tempFileManager;
     }
 
     @Override
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
         MicrophoneDeactivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 MicrophoneDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         Path recordedAudio = microphoneAdapter.stopRecording();
         IActionResult actionResult;
@@ -67,13 +67,13 @@ public class MicrophoneDeactivationExecutable extends AbstractActionExecutable {
         MicrophoneDeactivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 MicrophoneDeactivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice device = this.deviceManagementService.findOne(actionArgs.getMicrophoneId());
-        String deviceType = device.getType();
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(deviceType);
+        IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getMicrophoneId());
+        String actuatorType = actuator.getType();
+        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(microphoneAdapter.hasLocalApi()) return delegateService.executeAction(
-                device.getResponsibleDelegate(),
+                actuator.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
-                deviceType,
+                actuatorType,
                 actionArgs);
         Path recordedAudio = microphoneAdapter.stopRecording();
         IActionResult actionResult;

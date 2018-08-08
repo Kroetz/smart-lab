@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.annotation.EnableSmartLabActionInfos;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
 import de.qaware.smartlab.core.data.IDataSetProvider;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
@@ -47,7 +47,7 @@ public class InitialDataConfiguration {
         this.dataSetProvider = dataSetProviderFactory.of(
                 properties.getInitialEvents(),
                 properties.getInitialLocations(),
-                properties.getInitialDevices(),
+                properties.getInitialActuators(),
                 properties.getInitialWorkgroups(),
                 properties.getInitialPersons());
     }
@@ -73,8 +73,8 @@ public class InitialDataConfiguration {
     }
 
     @Bean
-    public Set<IDevice> initialDevices() {
-        return this.dataSetProvider.getDevices();
+    public Set<IActuator> initialActuators() {
+        return this.dataSetProvider.getActuators();
     }
 
     // TODO: String literal
@@ -83,20 +83,20 @@ public class InitialDataConfiguration {
 
         private static final List<String> DEFAULT_INITIAL_EVENTS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_LOCATIONS = Collections.emptyList();
-        private static final List<String> DEFAULT_INITIAL_DEVICES = Collections.emptyList();
+        private static final List<String> DEFAULT_INITIAL_ACTUATORS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_WORKGROUPS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_PERSONS = Collections.emptyList();
 
         private List<String> initialEvents;
         private List<String> initialLocations;
-        private List<String> initialDevices;
+        private List<String> initialActuators;
         private List<String> initialWorkgroups;
         private List<String> initialPersons;
 
         public Properties() {
             this.initialEvents = DEFAULT_INITIAL_EVENTS;
             this.initialLocations = DEFAULT_INITIAL_LOCATIONS;
-            this.initialDevices = DEFAULT_INITIAL_DEVICES;
+            this.initialActuators = DEFAULT_INITIAL_ACTUATORS;
             this.initialWorkgroups = DEFAULT_INITIAL_WORKGROUPS;
             this.initialPersons = DEFAULT_INITIAL_PERSONS;
         }
@@ -117,12 +117,12 @@ public class InitialDataConfiguration {
             this.initialLocations = initialLocations;
         }
 
-        public List<String> getInitialDevices() {
-            return initialDevices;
+        public List<String> getInitialActuators() {
+            return initialActuators;
         }
 
-        public void setInitialDevices(List<String> initialDevices) {
-            this.initialDevices = initialDevices;
+        public void setInitialActuators(List<String> initialActuators) {
+            this.initialActuators = initialActuators;
         }
 
         public List<String> getInitialWorkgroups() {

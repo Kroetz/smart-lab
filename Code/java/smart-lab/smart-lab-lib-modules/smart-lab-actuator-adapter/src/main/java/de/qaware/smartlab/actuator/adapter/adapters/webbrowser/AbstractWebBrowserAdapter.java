@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser;
 
-import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractDeviceAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import static java.util.Objects.isNull;
 
-public abstract class AbstractWebBrowserAdapter extends AbstractDeviceAdapter implements IWebBrowserAdapter {
+public abstract class AbstractWebBrowserAdapter extends AbstractActuatorAdapter implements IWebBrowserAdapter {
 
     protected final ConcurrentMap<UUID, Set<IWebBrowserTab>> autoOpenedTabsByWebBrowserInstanceId;
 

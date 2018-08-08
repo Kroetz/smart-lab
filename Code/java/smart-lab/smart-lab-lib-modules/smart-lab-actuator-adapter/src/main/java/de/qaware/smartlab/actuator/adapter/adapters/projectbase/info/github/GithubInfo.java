@@ -20,7 +20,7 @@ import java.util.Map;
 @EqualsAndHashCode
 public class GithubInfo implements IProjectBaseInfo {
 
-    public static final String DEVICE_TYPE = GithubAdapter.DEVICE_TYPE;
+    public static final String ACTUATOR_TYPE = GithubAdapter.ACTUATOR_TYPE;
     public static final String PROJECT_BASE_PROPERTY_KEY_USER = "user";
     public static final String PROJECT_BASE_PROPERTY_KEY_REPOSITORY = "repository";
 
@@ -37,15 +37,15 @@ public class GithubInfo implements IProjectBaseInfo {
                     this.repository = projectBaseProperties.get(key);
                     break;
                 default:
-                    log.warn("Ignoring property \"{}\" since it is not relevant for the project base service \"{}\"", key, getDeviceType());
+                    log.warn("Ignoring property \"{}\" since it is not relevant for the project base service \"{}\"", key, getActuatorType());
                     break;
             }
         }
     }
 
     @Override
-    public String getDeviceType() {
-        return DEVICE_TYPE;
+    public String getActuatorType() {
+        return ACTUATOR_TYPE;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class GithubInfo implements IProjectBaseInfo {
     public static class Factory extends AbstractProjectBaseInfoFactory {
 
         public Factory() {
-            super(GithubInfo.DEVICE_TYPE);
+            super(GithubInfo.ACTUATOR_TYPE);
         }
 
         @Override

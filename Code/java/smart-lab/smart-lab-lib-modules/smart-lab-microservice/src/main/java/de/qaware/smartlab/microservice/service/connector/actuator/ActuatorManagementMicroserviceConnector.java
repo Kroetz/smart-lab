@@ -1,10 +1,10 @@
-package de.qaware.smartlab.microservice.service.connector.device;
+package de.qaware.smartlab.microservice.service.connector.actuator;
 
-import de.qaware.smartlab.api.service.client.device.IDeviceManagementApiClient;
-import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
-import de.qaware.smartlab.core.data.device.DeviceDto;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.api.service.client.actuator.IActuatorManagementApiClient;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.ActuatorDto;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
@@ -24,20 +24,20 @@ import java.net.URL;
         prefix = Property.Prefix.MODULARITY,
         name = Property.Name.MODULARITY,
         havingValue = Property.Value.Modularity.MICROSERVICE)
-public class DeviceManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IDevice, DeviceId, DeviceDto> implements IDeviceManagementService {
+public class ActuatorManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IActuator, ActuatorId, ActuatorDto> implements IActuatorManagementService {
 
-    private final IDeviceManagementApiClient deviceManagementApiClient;
+    private final IActuatorManagementApiClient actuatorManagementApiClient;
 
-    public DeviceManagementMicroserviceConnector(
-            IDeviceManagementApiClient deviceManagementApiClient,
-            IDtoConverter<IDevice, DeviceDto> deviceConverter) {
-        super(deviceManagementApiClient, deviceConverter);
-        this.deviceManagementApiClient = deviceManagementApiClient;
+    public ActuatorManagementMicroserviceConnector(
+            IActuatorManagementApiClient actuatorManagementApiClient,
+            IDtoConverter<IActuator, ActuatorDto> actuatorConverter) {
+        super(actuatorManagementApiClient, actuatorConverter);
+        this.actuatorManagementApiClient = actuatorManagementApiClient;
     }
 
     @Component
     // TODO: String literal
-    @Qualifier("deviceManagementServiceBaseUrlGetter")
+    @Qualifier("actuatorManagementServiceBaseUrlGetter")
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,
@@ -45,17 +45,17 @@ public class DeviceManagementMicroserviceConnector extends AbstractBasicEntityMa
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 
-        private final IDeviceManagementApiClient deviceManagementApiClient;
+        private final IActuatorManagementApiClient actuatorManagementApiClient;
 
-        public BaseUrlGetter(IDeviceManagementApiClient deviceManagementApiClient) {
-            this.deviceManagementApiClient = deviceManagementApiClient;
+        public BaseUrlGetter(IActuatorManagementApiClient actuatorManagementApiClient) {
+            this.actuatorManagementApiClient = actuatorManagementApiClient;
         }
 
         @Override
         public URL getBaseUrl() {
             // TODO: Exceptions
             try {
-                return this.deviceManagementApiClient.getBaseUrl().getBody();
+                return this.actuatorManagementApiClient.getBaseUrl().getBody();
             }
             catch(RetryableException e) {
                 throw e;

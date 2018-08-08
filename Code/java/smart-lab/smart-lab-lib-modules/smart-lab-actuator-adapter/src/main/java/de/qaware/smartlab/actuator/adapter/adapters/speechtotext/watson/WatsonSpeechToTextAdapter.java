@@ -4,7 +4,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractDeviceAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.exception.ServiceFailedException;
@@ -19,9 +19,9 @@ import static java.lang.String.format;
 import static java.util.Objects.isNull;
 
 @Slf4j
-public class WatsonSpeechToTextAdapter extends AbstractDeviceAdapter implements ISpeechToTextAdapter {
+public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implements ISpeechToTextAdapter {
 
-    private static final String DEVICE_TYPE = "watson";
+    private static final String ACTUATOR_TYPE = "watson";
     private static final boolean HAS_LOCAL_API = false;
 
     private final SpeechToText service;
@@ -29,7 +29,7 @@ public class WatsonSpeechToTextAdapter extends AbstractDeviceAdapter implements 
     public WatsonSpeechToTextAdapter(
             String watsonSpeechToTextUserName,
             String watsonSpeechToTextPassword) {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
         if(isNull(watsonSpeechToTextUserName)) throw new NullPointerException(watsonSpeechToTextUserName);
         if(isNull(watsonSpeechToTextPassword)) throw new NullPointerException(watsonSpeechToTextPassword);
         this.service = new SpeechToText(watsonSpeechToTextUserName, watsonSpeechToTextPassword);

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler;
 
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
@@ -23,10 +23,10 @@ public abstract class AbstractWindowHandler<WindowT extends IWindowInfo> impleme
         this.findWindowTimeout = findWindowTimeout;
     }
 
-    protected String resolveLocalDisplay(DeviceId displayId) {
+    protected String resolveLocalDisplay(ActuatorId displayId) {
         String localDisplay = this.localDisplaysBySmartLabDisplayIds.get(displayId.getIdValue());
         if(isNull(localDisplay)) throw new IllegalArgumentException(format(
-                "The display \"%s\" cannot be resolved to a local device", displayId.getIdValue()));
+                "The display \"%s\" cannot be resolved to a local physical device", displayId.getIdValue()));
         return localDisplay;
     }
 

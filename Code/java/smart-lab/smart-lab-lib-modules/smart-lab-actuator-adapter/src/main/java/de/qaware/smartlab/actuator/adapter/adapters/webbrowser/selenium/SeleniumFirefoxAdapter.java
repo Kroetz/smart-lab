@@ -22,7 +22,7 @@ import static org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
 @Slf4j
 public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
 
-    public static final String DEVICE_TYPE = "firefox";
+    public static final String ACTUATOR_TYPE = "firefox";
     private static final boolean HAS_LOCAL_API = true;
     private static final IHotkeys newTabHotkeys = new IHotkeys() {
         @Override
@@ -38,7 +38,7 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
             // TODO: String literals
             @Qualifier("seleniumGeckoDriverFile") Path seleniumGeckoDriverFile,
             IWindowHandler windowHandler) {
-        super(DEVICE_TYPE, HAS_LOCAL_API, FirefoxDriver::new, newTabHotkeys, windowHandler);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API, FirefoxDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal
         System.setProperty("webdriver.gecko.driver", seleniumGeckoDriverFile.toString());
     }

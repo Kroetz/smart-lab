@@ -9,9 +9,9 @@ import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowin
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.Device;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.Actuator;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
@@ -46,8 +46,8 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     public static final PersonId MEMBER_ID_BEVERLY = PersonId.of("beverly");
     public static final PersonId MEMBER_ID_CHARLOTTE = PersonId.of("charlotte");
     public static final LocationId LOCATION_ID_BLACK = LocationId.of("astronauts-workplace");
-    public static final DeviceId DEVICE_ID_BLACK_DISPLAY_BEAMER = DeviceId.of("black-display-beamer");
-    public static final DeviceId DEVICE_ID_BLACK_WEB_BROWSER = DeviceId.of("black-web-browser");
+    public static final ActuatorId ACTUATOR_ID_BLACK_DISPLAY_BEAMER = ActuatorId.of("black-display-beamer");
+    public static final ActuatorId ACTUATOR_ID_BLACK_WEB_BROWSER = ActuatorId.of("black-web-browser");
     public static final EventId EVENT_ID_MARS = EventId.of("mars", LOCATION_ID_BLACK);
     public static final String DELEGATE_ID_BLACK = "smart-lab-black-delegate-microservice";
 
@@ -65,7 +65,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
         this.agendaShowingInfo = agendaShowingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.DEVICE_TYPE);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.ACTUATOR_TYPE);
     }
 
     @Override
@@ -118,15 +118,15 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
         Set<IAssistanceConfiguration> configs = new HashSet<>();
         configs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLACK_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_BLACK_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLACK_DISPLAY_BEAMER.getIdValue())
                 .build()));
         configs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         configs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLACK_DISPLAY_BEAMER.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLACK_DISPLAY_BEAMER.getIdValue())
                 .build()));
         events.add(Event.of(
                 EVENT_ID_MARS,
@@ -142,23 +142,23 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataSetException {
         Set<ILocation> locations = new HashSet<>();
-        Set<DeviceId> blackLocationDevices = new HashSet<>();
-        blackLocationDevices.add(DEVICE_ID_BLACK_DISPLAY_BEAMER);
+        Set<ActuatorId> blackLocationActuators = new HashSet<>();
+        blackLocationActuators.add(ACTUATOR_ID_BLACK_DISPLAY_BEAMER);
         locations.add(Location.of(
                 LOCATION_ID_BLACK,
                 "Astronauts workplace",
-                blackLocationDevices));
+                blackLocationActuators));
         return locations;
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() throws DataSetException {
-        Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.of(
-                DEVICE_ID_BLACK_DISPLAY_BEAMER,
-                DummyBeamerAdapter.DEVICE_TYPE,
+    public Set<IActuator> createActuatorSet() throws DataSetException {
+        Set<IActuator> actuators = new HashSet<>();
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLACK_DISPLAY_BEAMER,
+                DummyBeamerAdapter.ACTUATOR_TYPE,
                 format("Beamer at location \"%s\"", LOCATION_ID_BLACK),
                 DELEGATE_ID_BLACK));
-        return devices;
+        return actuators;
     }
 }

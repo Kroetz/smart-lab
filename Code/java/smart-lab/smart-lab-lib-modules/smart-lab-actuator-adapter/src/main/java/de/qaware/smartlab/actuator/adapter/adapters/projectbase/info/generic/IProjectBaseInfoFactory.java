@@ -6,6 +6,6 @@ import java.util.Map;
 
 public interface IProjectBaseInfoFactory {
 
-    String getDeviceType();
+    String getActuatorType();
     IProjectBaseInfo newInstance(Map<String, String> projectBaseProperties);
 }

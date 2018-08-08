@@ -6,10 +6,10 @@ import de.qaware.smartlab.action.actions.info.device.activation.DeviceActivation
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.submittable.device.activation.DeviceActivationSubmittable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.api.service.connector.device.IDeviceManagementService;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,25 +19,25 @@ import org.springframework.stereotype.Component;
 public class DeviceActivationExecutable extends AbstractActionExecutable {
 
     private IResolver<String, IActivatable> activatableResolver;
-    private IDeviceManagementService deviceManagementService;
+    private IActuatorManagementService actuatorManagementService;
 
     public DeviceActivationExecutable(
             DeviceActivationInfo deviceActivationInfo,
             IResolver<String, IActivatable> activatableResolver,
-            IDeviceManagementService deviceManagementService) {
+            IActuatorManagementService actuatorManagementService) {
         super(deviceActivationInfo);
         this.activatableResolver = activatableResolver;
-        this.deviceManagementService = deviceManagementService;
+        this.actuatorManagementService = actuatorManagementService;
     }
 
     // TODO: too much code duplicates
-    public IActionResult execute(String deviceType, IActionArgs genericActionArgs) {
+    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
         DeviceActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DeviceActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IActivatable activatable = this.activatableResolver.resolve(deviceType);
+        IActivatable activatable = this.activatableResolver.resolve(actuatorType);
         if(!activatable.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
         activatable.activate();
         return VoidActionResult.newInstance();
@@ -49,13 +49,13 @@ public class DeviceActivationExecutable extends AbstractActionExecutable {
         DeviceActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
                 DeviceActivationSubmittable.ActionArgs.class,
                 genericActionArgs);
-        IDevice device = this.deviceManagementService.findOne(actionArgs.getDeviceId());
-        String deviceType = device.getType();
-        IActivatable activatable = this.activatableResolver.resolve(deviceType);
+        IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getDeviceId());
+        String actuatorType = actuator.getType();
+        IActivatable activatable = this.activatableResolver.resolve(actuatorType);
         if(activatable.hasLocalApi()) return delegateService.executeAction(
-                device.getResponsibleDelegate(),
+                actuator.getResponsibleDelegate(),
                 this.actionInfo.getActionId(),
-                deviceType,
+                actuatorType,
                 actionArgs);
         activatable.activate();
         return VoidActionResult.newInstance();

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.location;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.miscellaneous.Constants;
 
@@ -14,5 +14,5 @@ import java.util.Collection;
 public interface ILocation extends IEntity<LocationId> {
 
     String getName();
-    Collection<DeviceId> getDeviceIds();        // TODO: Set?
+    Collection<ActuatorId> getActuatorIds();        // TODO: Set?
 }

@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.data.location;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,12 +15,12 @@ public class Location implements ILocation {
 
     private final LocationId id;
     private final String name;
-    private final Collection<DeviceId> deviceIds;
+    private final Collection<ActuatorId> actuatorIds;
 
     public static Location of(
             LocationId id,
             String name,
-            Collection<DeviceId> deviceIds) {
-        return new Location(id, name, deviceIds);
+            Collection<ActuatorId> actuatorIds) {
+        return new Location(id, name, actuatorIds);
     }
 }

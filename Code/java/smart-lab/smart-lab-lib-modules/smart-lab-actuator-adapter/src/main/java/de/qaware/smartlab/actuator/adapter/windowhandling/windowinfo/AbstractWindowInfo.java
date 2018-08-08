@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo;
 
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -18,7 +18,7 @@ public abstract class AbstractWindowInfo implements IWindowInfo {
     }
 
     @Override
-    public void maximizeOnDisplay(DeviceId displayId) {
+    public void maximizeOnDisplay(ActuatorId displayId) {
         this.windowHandler.maximizeOnDisplay(this, displayId);
     }
 }

@@ -16,6 +16,6 @@ public interface IDelegateApiClient {
     @Headers("Content-Type: " + MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IActionResult> executeAction(
             @Param(DelegateApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
-            @Param(DelegateApiConstants.PARAMETER_NAME_DEVICE_TYPE) String deviceType,
+            @Param(DelegateApiConstants.PARAMETER_NAME_ACTUATOR_TYPE) String actuatorType,
             IActionArgs actionArgs);
 }

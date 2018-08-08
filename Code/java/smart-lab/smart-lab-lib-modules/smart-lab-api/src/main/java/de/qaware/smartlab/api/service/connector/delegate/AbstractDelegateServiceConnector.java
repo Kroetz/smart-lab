@@ -38,11 +38,11 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
     }
 
     @Override
-    public IActionResult executeAction(String serviceName, String actionId, String deviceType, IActionArgs actionArgs) {
+    public IActionResult executeAction(String serviceName, String actionId, String actuatorType, IActionArgs actionArgs) {
         IDelegateApiClient delegateApiClient = this.clientsByServiceName.get(serviceName);
         if(isNull(delegateApiClient)) delegateApiClient = createNewClient(serviceName);
         try {
-            ResponseEntity<IActionResult> response = delegateApiClient.executeAction(actionId, deviceType, actionArgs);
+            ResponseEntity<IActionResult> response = delegateApiClient.executeAction(actionId, actuatorType, actionArgs);
             return response.getBody();
         }
         catch(RetryableException e) {

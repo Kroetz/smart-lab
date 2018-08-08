@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
-import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractDeviceAdapter;
+import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.exception.ServiceFailedException;
@@ -16,9 +16,9 @@ import static java.nio.file.Files.readAllBytes;
 import static java.util.Objects.isNull;
 
 @Slf4j
-public class RemeetingAdapter extends AbstractDeviceAdapter implements ISpeechToTextAdapter {
+public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeechToTextAdapter {
 
-    public static final String DEVICE_TYPE = "remeeting";
+    public static final String ACTUATOR_TYPE = "remeeting";
     private static final boolean HAS_LOCAL_API = false;
 
     private final IRemeetingApiClient remeetingApiClient;
@@ -27,7 +27,7 @@ public class RemeetingAdapter extends AbstractDeviceAdapter implements ISpeechTo
     public RemeetingAdapter(
             IRemeetingApiClient remeetingApiClient,
             String remeetingApiKey) {
-        super(DEVICE_TYPE, HAS_LOCAL_API);
+        super(ACTUATOR_TYPE, HAS_LOCAL_API);
         if(isNull(remeetingApiKey)) throw new NullPointerException(remeetingApiKey);
         this.remeetingApiClient = remeetingApiClient;
         this.remeetingApiKey = remeetingApiKey;

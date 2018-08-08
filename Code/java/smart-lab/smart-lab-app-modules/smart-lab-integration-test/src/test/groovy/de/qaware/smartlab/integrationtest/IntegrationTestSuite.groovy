@@ -1,6 +1,6 @@
 package de.qaware.smartlab.integrationtest
 
-import de.qaware.smartlab.integrationtest.device.DeviceManagementApiIntegrationTest
+import de.qaware.smartlab.integrationtest.actuator.ActuatorManagementApiIntegrationTest
 import de.qaware.smartlab.integrationtest.generic.SpringBootLoadContextTest
 import de.qaware.smartlab.integrationtest.event.EventManagementApiIntegrationTest
 import de.qaware.smartlab.integrationtest.person.PersonManagementApiIntegrationTest
@@ -12,7 +12,7 @@ import org.junit.runners.Suite
 @RunWith(Suite.class)
 @Suite.SuiteClasses([
         SpringBootLoadContextTest.class,
-        DeviceManagementApiIntegrationTest.class,
+        ActuatorManagementApiIntegrationTest.class,
         EventManagementApiIntegrationTest.class,
         PersonManagementApiIntegrationTest.class,
         LocationManagementApiIntegrationTest.class,

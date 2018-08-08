@@ -13,15 +13,15 @@ import de.qaware.smartlab.assistance.assistances.info.filedisplaying.FileDisplay
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlab.assistance.assistances.info.websitedisplaying.WebsiteDisplayingInfo;
+import de.qaware.smartlab.core.data.actuator.Actuator;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
-import de.qaware.smartlab.core.data.device.Device;
-import de.qaware.smartlab.core.data.device.DeviceId;
-import de.qaware.smartlab.core.data.device.IDevice;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -52,12 +52,12 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     public static final PersonId MEMBER_ID_BEN = PersonId.of("coast-guard-ben");
     public static final PersonId MEMBER_ID_CHARLIE = PersonId.of("coast-guard-charlie");
     public static final LocationId LOCATION_ID_BLUE = LocationId.of("coast-guard-workplace");
-    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BIG = DeviceId.of("blue-display-big");
-    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_SMALL = DeviceId.of("blue-display-small");
-    public static final DeviceId DEVICE_ID_BLUE_DISPLAY_BEAMER = DeviceId.of("blue-display-beamer");
-    public static final DeviceId DEVICE_ID_BLUE_MICROPHONE = DeviceId.of("blue-microphone");
-    public static final DeviceId DEVICE_ID_BLUE_WEB_BROWSER = DeviceId.of("blue-web-browser");
-    public static final DeviceId DEVICE_ID_BLUE_POWER_POINT = DeviceId.of("blue-power-point");
+    public static final ActuatorId ACTUATOR_ID_BLUE_DISPLAY_BIG = ActuatorId.of("blue-display-big");
+    public static final ActuatorId ACTUATOR_ID_BLUE_DISPLAY_SMALL = ActuatorId.of("blue-display-small");
+    public static final ActuatorId ACTUATOR_ID_BLUE_DISPLAY_BEAMER = ActuatorId.of("blue-display-beamer");
+    public static final ActuatorId ACTUATOR_ID_BLUE_MICROPHONE = ActuatorId.of("blue-microphone");
+    public static final ActuatorId ACTUATOR_ID_BLUE_WEB_BROWSER = ActuatorId.of("blue-web-browser");
+    public static final ActuatorId ACTUATOR_ID_BLUE_POWER_POINT = ActuatorId.of("blue-power-point");
     public static final EventId EVENT_ID_WHALES = EventId.of("whales", LOCATION_ID_BLUE);
     public static final EventId EVENT_ID_WHIRLPOOLS = EventId.of("whirlpools", LOCATION_ID_BLUE);
     public static final String DELEGATE_ID_BLUE = "smart-lab-blue-delegate-microservice";
@@ -85,7 +85,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
         this.fileDisplayingInfo = fileDisplayingInfo;
         this.locationUnlockingInfo = locationUnlockingInfo;
         this.devicePreparationInfo = devicePreparationInfo;
-        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.DEVICE_TYPE);
+        this.githubInfoFactory = projectBaseInfoFactoryResolver.resolve(GithubAdapter.ACTUATOR_TYPE);
     }
 
     @Override
@@ -140,39 +140,39 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
-                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, ACTUATOR_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whaleConfigs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whale")
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whaleConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whaleConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whale_slides.pptx")
-                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
-                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, ACTUATOR_ID_BLUE_POWER_POINT.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         whaleConfigs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whaleConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         events.add(Event.of(
                 EVENT_ID_WHALES,
@@ -192,39 +192,39 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
                 .<String, String>builder()
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_SPOKEN_LANGUAGE, Language.EN_US.toString())
                 .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_UPLOAD_DIR, "/sampleDataMinutes")
-                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, DEVICE_ID_BLUE_MICROPHONE.getIdValue())
+                .put(MinuteTakingInfo.Configuration.CONFIG_PROPERTY_KEY_MICROPHONE_ID, ACTUATOR_ID_BLUE_MICROPHONE.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.websiteDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_URL, "https://en.wikipedia.org/wiki/Whirlpool")
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(WebsiteDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.agendaShowingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, DEVICE_ID_BLUE_WEB_BROWSER.getIdValue())
-                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_WEB_BROWSER_ID, ACTUATOR_ID_BLUE_WEB_BROWSER.getIdValue())
+                .put(AgendaShowingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.fileDisplayingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_FILE, "slides/whirlpool_slides.pptx")
-                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, DEVICE_ID_BLUE_POWER_POINT.getIdValue())
-                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_PROGRAM_ID, ACTUATOR_ID_BLUE_POWER_POINT.getIdValue())
+                .put(FileDisplayingInfo.Configuration.CONFIG_PROPERTY_KEY_DISPLAY_ID, ACTUATOR_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.locationUnlockingInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
                 .build()));
         whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BIG.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_BIG.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_SMALL.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_SMALL.getIdValue())
                 .build()));
         whirlpoolConfigs.add(this.devicePreparationInfo.createConfiguration(ImmutableMap
                 .<String, String>builder()
-                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, DEVICE_ID_BLUE_DISPLAY_BEAMER.getIdValue())
+                .put(DevicePreparationInfo.Configuration.CONFIG_PROPERTY_KEY_DEVICE_ID, ACTUATOR_ID_BLUE_DISPLAY_BEAMER.getIdValue())
                 .build()));
         events.add(Event.of(
                 EVENT_ID_WHIRLPOOLS,
@@ -241,51 +241,51 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataSetException {
         Set<ILocation> locations = new HashSet<>();
-        Set<DeviceId> blueLocationDevices = new HashSet<>();
-        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BIG);
-        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_SMALL);
-        blueLocationDevices.add(DEVICE_ID_BLUE_DISPLAY_BEAMER);
-        blueLocationDevices.add(DEVICE_ID_BLUE_MICROPHONE);
+        Set<ActuatorId> blueLocationActuators = new HashSet<>();
+        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_BIG);
+        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_SMALL);
+        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_BEAMER);
+        blueLocationActuators.add(ACTUATOR_ID_BLUE_MICROPHONE);
         locations.add(Location.of(
                 LOCATION_ID_BLUE,
                 "Coast guard workplace",
-                blueLocationDevices));
+                blueLocationActuators));
         return locations;
     }
 
     @Override
-    public Set<IDevice> createDeviceSet() throws DataSetException {
-        Set<IDevice> devices = new HashSet<>();
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_DISPLAY_BIG,
-                DummyDisplayAdapter.DEVICE_TYPE,
+    public Set<IActuator> createActuatorSet() throws DataSetException {
+        Set<IActuator> actuators = new HashSet<>();
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_DISPLAY_BIG,
+                DummyDisplayAdapter.ACTUATOR_TYPE,
                 format("Big main display at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_DISPLAY_SMALL,
-                DummyDisplayAdapter.DEVICE_TYPE,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_DISPLAY_SMALL,
+                DummyDisplayAdapter.ACTUATOR_TYPE,
                 format("Small display next to the door at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_DISPLAY_BEAMER,
-                DummyBeamerAdapter.DEVICE_TYPE,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_DISPLAY_BEAMER,
+                DummyBeamerAdapter.ACTUATOR_TYPE,
                 format("Beamer at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_MICROPHONE,
-                ThinkpadP50InternalMicrophoneAdapter.DEVICE_TYPE,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_MICROPHONE,
+                ThinkpadP50InternalMicrophoneAdapter.ACTUATOR_TYPE,
                 format("Microphone at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_WEB_BROWSER,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_WEB_BROWSER,
                 "firefox",
                 format("Web browser at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        devices.add(Device.of(
-                DEVICE_ID_BLUE_POWER_POINT,
+        actuators.add(Actuator.of(
+                ACTUATOR_ID_BLUE_POWER_POINT,
                 "powerPoint",
                 format("PowerPoint at location \"%s\"", LOCATION_ID_BLUE),
                 DELEGATE_ID_BLUE));
-        return devices;
+        return actuators;
     }
 }

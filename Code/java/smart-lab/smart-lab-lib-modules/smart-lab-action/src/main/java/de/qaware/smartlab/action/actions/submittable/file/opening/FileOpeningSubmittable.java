@@ -5,7 +5,7 @@ import de.qaware.smartlab.action.actions.submittable.generic.AbstractActionSubmi
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,10 +35,10 @@ public class FileOpeningSubmittable extends AbstractActionSubmittable<FileOpenin
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private DeviceId programId;
+        private ActuatorId programId;
 
         @NonNull
-        private DeviceId displayId;
+        private ActuatorId displayId;
 
         @NonNull
         private byte[] fileToOpen;

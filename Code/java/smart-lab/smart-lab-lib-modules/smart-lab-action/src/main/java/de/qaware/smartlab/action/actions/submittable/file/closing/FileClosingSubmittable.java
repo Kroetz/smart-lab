@@ -5,7 +5,7 @@ import de.qaware.smartlab.action.actions.submittable.generic.AbstractActionSubmi
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.device.DeviceId;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -34,7 +34,7 @@ public class FileClosingSubmittable extends AbstractActionSubmittable<FileClosin
     public static class ActionArgs implements IActionArgs {
 
         @NonNull
-        private DeviceId programId;
+        private ActuatorId programId;
 
         @NonNull
         private UUID programInstanceId;
