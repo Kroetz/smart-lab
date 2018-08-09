@@ -8,10 +8,7 @@ import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
-import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.exception.*;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.microservice.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
@@ -59,11 +56,9 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
                     .map(this.eventConverter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -74,11 +69,9 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
             requireNonNull(currentEvent);
             return this.eventConverter.toEntity(currentEvent);
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -87,18 +80,9 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
         try {
             this.workgroupManagementApiClient.extendCurrentEvent(workgroupId.getIdValue(), extension.toMinutes());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            if(e.status() == CONFLICT.value()) {
-                // TODO: Incorporate information about the conflict
-                throw new EntityConflictException();
-            }
-            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
-                throw new MaximalDurationReachedException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -120,15 +104,12 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.workgroupManagementApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }

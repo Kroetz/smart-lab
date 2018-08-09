@@ -3,6 +3,7 @@ package de.qaware.smartlab.microservice.service.connector.assistance;
 import de.qaware.smartlab.api.service.client.assistance.IAssistanceApiClient;
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
@@ -33,8 +34,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
         try {
             this.assistanceApiClient.beginAssistance(assistanceId, context);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -43,8 +45,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
         try {
             this.assistanceApiClient.endAssistance(assistanceId, context);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -53,8 +56,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
         try {
             this.assistanceApiClient.duringAssistance(assistanceId, context);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -76,15 +80,12 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.assistanceApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }

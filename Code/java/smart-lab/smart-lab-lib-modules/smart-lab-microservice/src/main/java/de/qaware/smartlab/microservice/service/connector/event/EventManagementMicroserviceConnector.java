@@ -2,22 +2,22 @@ package de.qaware.smartlab.microservice.service.connector.event;
 
 import de.qaware.smartlab.api.service.client.event.IEventManagementApiClient;
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.event.EventId;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.*;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.SmartLabException;
+import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.microservice.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
-import feign.FeignException;
-import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -26,9 +26,6 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Component
 @ConditionalOnProperty(
@@ -53,8 +50,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -65,8 +63,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -77,8 +76,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -89,11 +89,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
             requireNonNull(currentEvent);
             return this.converter.toEntity(currentEvent);
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -104,11 +102,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
             requireNonNull(currentEvent);
             return this.converter.toEntity(currentEvent);
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -120,14 +116,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     eventId.getIdValue(),
                     shortening.toMinutes());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
-                throw new MinimalDurationReachedException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -138,18 +129,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     eventId.getIdValue(),
                     extension.toMinutes());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            if(e.status() == CONFLICT.value()) {
-                // TODO: Incorporate information about the conflict
-                throw new EntityConflictException();
-            }
-            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
-                throw new MaximalDurationReachedException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -160,15 +142,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     eventId.getIdValue(),
                     shift.toMinutes());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            if(e.status() == CONFLICT.value()) {
-                // TODO: Incorporate information about the conflict
-                throw new EntityConflictException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -194,11 +170,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
             try {
                 return this.eventManagementApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }

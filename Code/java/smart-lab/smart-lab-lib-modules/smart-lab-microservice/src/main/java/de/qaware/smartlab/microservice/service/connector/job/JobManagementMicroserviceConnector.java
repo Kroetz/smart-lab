@@ -3,6 +3,7 @@ package de.qaware.smartlab.microservice.service.connector.job;
 import de.qaware.smartlab.api.service.client.job.IJobManagementApiClient;
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
@@ -37,8 +38,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
         try {
             return this.jobManagementApiClient.findAll();
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -47,8 +49,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
         try {
             return this.jobManagementApiClient.findOne(jobId).getBody();
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -58,8 +61,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
             return this.jobManagementApiClient.recordNewJob(
                     nonNull(callbackUrl) ? callbackUrl.toString() : null).getBody();
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -68,8 +72,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
         try {
             this.jobManagementApiClient.markJobAsProcessing(jobId);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -78,8 +83,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
         try {
             this.jobManagementApiClient.markJobAsFinished(jobId);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -88,8 +94,9 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
         try {
             this.jobManagementApiClient.markJobAsFailed(jobId, errorMessage);
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException(e);
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -111,15 +118,12 @@ public class JobManagementMicroserviceConnector implements IJobManagementService
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.jobManagementApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }

@@ -6,6 +6,7 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
@@ -53,15 +54,12 @@ public class PersonManagementMicroserviceConnector extends AbstractBasicEntityMa
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.personManagementApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }

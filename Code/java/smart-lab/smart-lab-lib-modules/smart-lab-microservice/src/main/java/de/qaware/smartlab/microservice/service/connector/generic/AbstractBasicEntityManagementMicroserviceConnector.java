@@ -6,19 +6,13 @@ import de.qaware.smartlab.core.data.generic.IDto;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.UnknownErrorException;
-import feign.FeignException;
-import org.springframework.http.HttpStatus;
+import de.qaware.smartlab.core.exception.SmartLabException;
 
 import java.util.Set;
 
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public abstract class AbstractBasicEntityManagementMicroserviceConnector<
         EntityT extends IEntity<IdentifierT>,
@@ -42,8 +36,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -54,11 +49,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
             requireNonNull(foundEntity);
             return this.converter.toEntity(foundEntity);
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -73,12 +66,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                // TODO: Incorporate the IDs of the entities that were not found
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -89,12 +79,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
             requireNonNull(createdEntity);
             return this.converter.toEntity(createdEntity);
         }
-        catch(FeignException e) {
-            if(e.status() == CONFLICT.value()) {
-                // TODO: Incorporate information about the conflict
-                throw new EntityConflictException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -108,12 +95,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
                     .map(this.converter::toEntity)
                     .collect(toSet());
         }
-        catch(FeignException e) {
-            if(e.status() == CONFLICT.value()) {
-                // TODO: Incorporate information about the conflict
-                throw new EntityConflictException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 
@@ -122,11 +106,9 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
         try {
             this.entityManagementApiClient.delete(entityId.getIdValue());
         }
-        catch(FeignException e) {
-            if(e.status() == NOT_FOUND.value()) {
-                throw new EntityNotFoundException();
-            }
-            throw new UnknownErrorException();
+        // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+        catch (Exception e) {
+            throw new SmartLabException(e);
         }
     }
 }

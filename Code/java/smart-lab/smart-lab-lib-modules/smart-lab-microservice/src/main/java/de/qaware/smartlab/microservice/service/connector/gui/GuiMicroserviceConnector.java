@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.gui;
 
 import de.qaware.smartlab.api.service.client.gui.IGuiApiClient;
 import de.qaware.smartlab.api.service.connector.gui.IGuiService;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
@@ -39,15 +40,12 @@ public class GuiMicroserviceConnector implements IGuiService {
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.guiApiClient.getBaseUrl().getBody();
             }
-            catch(RetryableException e) {
-                throw e;
-            }
-            catch(FeignException e) {
-                throw new UnknownErrorException();
+            // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
+            catch (Exception e) {
+                throw new SmartLabException(e);
             }
         }
     }
