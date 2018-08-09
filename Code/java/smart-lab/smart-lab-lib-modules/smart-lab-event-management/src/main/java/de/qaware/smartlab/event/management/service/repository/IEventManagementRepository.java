@@ -4,7 +4,6 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.repository.IBasicEntityManagementRepository;
 import lombok.NonNull;
 
@@ -25,7 +24,7 @@ public interface IEventManagementRepository extends IBasicEntityManagementReposi
     void extendEvent(
             @NonNull IEvent event,
             Duration extension);
-    ShiftResult shiftEvent(
+    void shiftEvent(
             @NonNull IEvent event,
             Duration shift);
 }

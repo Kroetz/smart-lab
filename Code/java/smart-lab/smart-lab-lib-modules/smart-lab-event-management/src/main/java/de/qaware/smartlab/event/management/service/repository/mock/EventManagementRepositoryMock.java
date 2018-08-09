@@ -8,7 +8,6 @@ import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.NonNull;
@@ -146,22 +145,11 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     }
 
     @Override
-    public synchronized ShiftResult shiftEvent(@NonNull IEvent event, Duration shift) {
+    public synchronized void shiftEvent(@NonNull IEvent event, Duration shift) {
         IEvent shiftedEvent = event.withStartAndEnd(
                 event.getStart().plus(shift),
                 event.getEnd().plus(shift));
         delete(event.getId());
-        try {
-            create(shiftedEvent);
-            return ShiftResult.SUCCESS;
-        }
-        catch(EntityConflictException e) {
-            create(event);
-            return ShiftResult.CONFLICT;
-        }
-        catch(Exception e) {
-            create(event);
-            return ShiftResult.ERROR;
-        }
+        create(shiftedEvent);
     }
 }

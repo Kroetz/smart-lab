@@ -19,7 +19,6 @@ import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.InvalidSyntaxException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
@@ -368,11 +367,11 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public ShiftResult shiftEvent(IEvent event, Duration shift) {
+    public void shiftEvent(IEvent event, Duration shift) {
         IEvent shiftedEvent = event.withStartAndEnd(
                 event.getStart().plus(shift),
                 event.getEnd().plus(shift));
-        if(isCollidingWithOtherEvents(shiftedEvent)) return ShiftResult.CONFLICT;
+        if(isCollidingWithOtherEvents(shiftedEvent)) throw new EntityConflictException(event.getId().getIdValue());
         String calendarId = resolveCalendarId(shiftedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
@@ -380,10 +379,10 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     shiftedEvent.getId().getNameIdPart(),
                     smartLabEventToGoolgeCalEvent(shiftedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while shifting event \"{}\"", event, e);
-            return ShiftResult.ERROR;
+            String errorMessage = format("I/O error while shifting event \"%s\"", event);
+            log.error(errorMessage, e);
+            throw new EntityException(errorMessage, e);
         }
-        return ShiftResult.SUCCESS;
     }
 
     private List<CalendarListEntry> findAllCalendars() {

@@ -7,7 +7,6 @@ import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
 import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
-import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -95,11 +94,16 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
     }
 
     @Override
-    public ShiftResult shiftEvent(
+    public void shiftEvent(
             EventId eventId,
             Duration shift) {
-        return findOne(eventId)
-                .map(event -> this.eventManagementRepository.shiftEvent(event, shift))
-                .orElse(ShiftResult.NOT_FOUND);
+        // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<IEvent> eventOptional = findOne(eventId);
+        if(eventOptional.isPresent()) {
+            IEvent event = eventOptional.get();
+            this.eventManagementRepository.shiftEvent(event, shift);
+            return;
+        }
+        throw new EntityNotFoundException(eventId.getIdValue());
     }
 }
