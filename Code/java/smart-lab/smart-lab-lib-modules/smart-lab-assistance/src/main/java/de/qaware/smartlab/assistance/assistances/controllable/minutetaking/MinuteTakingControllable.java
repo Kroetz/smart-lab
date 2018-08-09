@@ -1,9 +1,9 @@
 package de.qaware.smartlab.assistance.assistances.controllable.minutetaking;
 
-import de.qaware.smartlab.action.actions.callable.data.upload.DataUploadCallable;
-import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
 import de.qaware.smartlab.action.actions.callable.audio.recordingstart.AudioRecordingStartCallable;
 import de.qaware.smartlab.action.actions.callable.audio.recordingstop.AudioRecordingStopCallable;
+import de.qaware.smartlab.action.actions.callable.data.upload.DataUploadCallable;
+import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
 import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
@@ -14,14 +14,19 @@ import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingI
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.location.ILocation;
+import de.qaware.smartlab.core.exception.AssistanceFailedException;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
 
 @Slf4j
 public class MinuteTakingControllable extends AbstractAssistanceControllable {
@@ -65,7 +70,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 context.getAssistanceConfiguration());
         Path recordedAudio = stopRecording(actionService, context, config);
         ITranscript transcript = speechToText(actionService, config, recordedAudio);
-        uploadMinutes(actionService, context, config, transcript);
+        uploadAudio(actionService, context, config, recordedAudio);
+        uploadTranscript(actionService, context, config, transcript);
         // TODO: Delete temp file
         //this.tempFileManager.markForCleaning(recordedAudio);
     }
@@ -90,21 +96,46 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         return this.speechToText.submitExecution(actionService, speechToTextArgs);
     }
 
-    private void uploadMinutes(
+    private void uploadAudio(
+            IActionService actionService,
+            IAssistanceContext context,
+            MinuteTakingInfo.Configuration config,
+            Path recordedAudio) {
+        // TODO: String literals
+        String uploadMessage = "Upload minutes (audio) taken by Smart-Lab";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        String fileName = LocalDateTime.now().format(formatter) + "_audio.wav";
+        final DataUploadCallable.ActionArgs dataUploadArgs;
+        try {
+            dataUploadArgs = DataUploadCallable.ActionArgs.of(
+                    context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
+                    config.getUploadDir(),
+                    fileName,
+                    uploadMessage,
+                    readAllBytes(recordedAudio));
+        } catch (IOException e) {
+            String errorMessage = format("Could not read recorded audio file %s", recordedAudio);
+            log.error(errorMessage, e);
+            throw new AssistanceFailedException(errorMessage, e);
+        }
+        this.dataUpload.submitExecution(actionService, dataUploadArgs);
+    }
+
+    private void uploadTranscript(
             IActionService actionService,
             IAssistanceContext context,
             MinuteTakingInfo.Configuration config,
             ITranscript transcript) {
         // TODO: String literals
-        String uploadMessage = "Upload minutes taken by Smart-Lab";
+        String uploadMessage = "Upload minutes (transcript) taken by Smart-Lab";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-        String fileName = LocalDateTime.now().format(formatter) + ".txt";
+        String fileName = LocalDateTime.now().format(formatter) + "_transcript.txt";
         final DataUploadCallable.ActionArgs dataUploadArgs = DataUploadCallable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getUploadDir(),
                 fileName,
                 uploadMessage,
-                transcript.toHumanReadable());
+                transcript.toHumanReadable().getBytes());
         this.dataUpload.submitExecution(actionService, dataUploadArgs);
     }
 

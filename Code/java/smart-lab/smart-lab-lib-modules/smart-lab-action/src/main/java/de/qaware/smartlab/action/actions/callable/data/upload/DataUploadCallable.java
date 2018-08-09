@@ -44,6 +44,6 @@ public class DataUploadCallable extends AbstractActionCallable<DataUploadCallabl
         private String uploadMessage;
 
         @NonNull
-        private String dataToUpload;
+        private byte[] dataToUpload;
     }
 }

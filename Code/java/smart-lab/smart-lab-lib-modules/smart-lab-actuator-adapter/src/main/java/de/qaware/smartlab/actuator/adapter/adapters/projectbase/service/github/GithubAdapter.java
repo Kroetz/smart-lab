@@ -61,7 +61,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
             String uploadMessage,
             String dir,
             String fileName,
-            String dataToUpload) throws ServiceFailedException {
+            byte[] dataToUpload) throws ServiceFailedException {
         String path = dir + "/" + fileName;
         try {
             acceptPendingRepoInvitations();
@@ -79,7 +79,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
                     .add("message", uploadMessage)
                     .add("path", path)
                     .add("committer", committer)
-                    .add("content", Base64.getEncoder().encodeToString((dataToUpload).getBytes("utf-8")))
+                    .add("content", Base64.getEncoder().encodeToString(dataToUpload))
                     .build();
             repository.contents().create(jsonObject);
         }

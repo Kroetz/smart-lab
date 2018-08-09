@@ -11,5 +11,5 @@ public interface IDataUploadService extends IActuatorAdapter {
             String uploadMessage,
             String dir,
             String fileName,
-            String dataToUpload) throws ServiceFailedException;
+            byte[] dataToUpload) throws ServiceFailedException;
 }
