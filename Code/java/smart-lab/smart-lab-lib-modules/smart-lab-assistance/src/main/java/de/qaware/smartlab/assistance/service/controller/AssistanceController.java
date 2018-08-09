@@ -29,7 +29,7 @@ public class AssistanceController {
             value = AssistanceApiConstants.MAPPING_BEGIN,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> beginAssistance(@RequestBody IAssistanceContext context) {
-        log.info("Received call to begin assistance with ID \"{}\" at the location with ID \"{}\"",
+        log.info("Received call to execute stage \"begin\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.beginAssistance(context);
@@ -43,18 +43,28 @@ public class AssistanceController {
             value = AssistanceApiConstants.MAPPING_END,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> endAssistance(@RequestBody IAssistanceContext context) {
+        log.info("Received call to execute stage \"end\" of assistance \"{}\" at the location \"{}\"",
+                context.getAssistanceConfiguration().getAssistanceId(),
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.endAssistance(context);
+        ResponseEntity<Void> response = ResponseEntity.ok().build();
+        log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO
-        return ResponseEntity.ok().build();
+        return response;
     }
 
     @PostMapping(
             value = AssistanceApiConstants.MAPPING_DURING,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> duringAssistance(@RequestBody IAssistanceContext context) {
+        log.info("Received call to execute stage \"during\" of assistance \"{}\" at the location \"{}\"",
+                context.getAssistanceConfiguration().getAssistanceId(),
+                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         this.assistanceBusinessLogic.duringAssistance(context);
+        ResponseEntity<Void> response = ResponseEntity.ok().build();
+        log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO
-        return ResponseEntity.ok().build();
+        return response;
     }
 
     @RestController
