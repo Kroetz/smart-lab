@@ -72,8 +72,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         ITranscript transcript = speechToText(actionService, config, recordedAudio);
         uploadAudio(actionService, context, config, recordedAudio);
         uploadTranscript(actionService, context, config, transcript);
-        // TODO: Delete temp file
-        //this.tempFileManager.markForCleaning(recordedAudio);
+        this.tempFileManager.markForCleaning(recordedAudio);
     }
 
     private Path stopRecording(
