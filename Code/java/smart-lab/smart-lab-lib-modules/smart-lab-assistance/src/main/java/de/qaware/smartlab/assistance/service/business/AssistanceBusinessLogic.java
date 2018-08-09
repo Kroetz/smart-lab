@@ -24,9 +24,9 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         this.assistanceTracker = assistanceTracker;
     }
 
-    public void beginAssistance(String assistanceId, final IAssistanceContext context) {
+    public void beginAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"begin\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         try {
             IAssistanceControllable assistance = this.assistanceTracker.track(context);
@@ -38,13 +38,13 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
             return;
         }
         log.info("Executed stage \"begin\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public void endAssistance(String assistanceId, IAssistanceContext context) {
+    public void endAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"end\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         try {
             IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
@@ -57,13 +57,13 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
             return;
         }
         log.info("Executed stage \"end\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 
-    public void duringAssistance(String assistanceId, IAssistanceContext context) {
+    public void duringAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"during\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
         try {
             IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
@@ -75,7 +75,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
             return;
         }
         log.info("Executed stage \"during\" of assistance (ID: \"{}\") at location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
     }
 }

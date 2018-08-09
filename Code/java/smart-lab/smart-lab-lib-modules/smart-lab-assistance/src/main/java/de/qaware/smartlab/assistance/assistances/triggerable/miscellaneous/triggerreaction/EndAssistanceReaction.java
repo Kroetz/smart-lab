@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 public class EndAssistanceReaction implements ITriggerReaction {
 
     @Override
-    public void react(IAssistanceService assistanceService, String assistanceId, IAssistanceContext context) {
+    public void react(IAssistanceService assistanceService, IAssistanceContext context) {
         log.info("Trigger ends assistance \"{}\" of event \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
-        assistanceService.endAssistance(assistanceId, context);
+        assistanceService.endAssistance(context);
     }
 }

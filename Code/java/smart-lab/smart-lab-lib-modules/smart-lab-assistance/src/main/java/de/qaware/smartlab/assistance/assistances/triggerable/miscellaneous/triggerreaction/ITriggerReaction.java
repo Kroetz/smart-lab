@@ -5,5 +5,5 @@ import de.qaware.smartlab.core.data.context.IAssistanceContext;
 
 public interface ITriggerReaction {
 
-    void react(IAssistanceService assistanceService, String assistanceId, IAssistanceContext context);
+    void react(IAssistanceService assistanceService, IAssistanceContext context);
 }

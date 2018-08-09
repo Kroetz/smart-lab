@@ -4,7 +4,7 @@ import de.qaware.smartlab.core.data.context.IAssistanceContext;
 
 public interface IAssistanceBusinessLogic {
 
-    void beginAssistance(String assistanceId, IAssistanceContext context);
-    void endAssistance(String assistanceId, IAssistanceContext context);
-    void duringAssistance(String assistanceId, IAssistanceContext context);
+    void beginAssistance(IAssistanceContext context);
+    void endAssistance(IAssistanceContext context);
+    void duringAssistance(IAssistanceContext context);
 }

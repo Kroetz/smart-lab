@@ -27,9 +27,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     }
 
     @Override
-    public void beginAssistance(String assistanceId, IAssistanceContext context) {
+    public void beginAssistance(IAssistanceContext context) {
         try {
-            this.assistanceApiClient.beginAssistance(assistanceId, context);
+            this.assistanceApiClient.beginAssistance(context);
         }
         // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
         catch (Exception e) {
@@ -38,9 +38,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     }
 
     @Override
-    public void endAssistance(String assistanceId, IAssistanceContext context) {
+    public void endAssistance(IAssistanceContext context) {
         try {
-            this.assistanceApiClient.endAssistance(assistanceId, context);
+            this.assistanceApiClient.endAssistance(context);
         }
         // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
         catch (Exception e) {
@@ -49,9 +49,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     }
 
     @Override
-    public void duringAssistance(String assistanceId, IAssistanceContext context) {
+    public void duringAssistance(IAssistanceContext context) {
         try {
-            this.assistanceApiClient.duringAssistance(assistanceId, context);
+            this.assistanceApiClient.duringAssistance(context);
         }
         // TODO: Use a Feign ErrorDecoder for mapping exceptions appropriately. Manual mapping of all exceptions to SmartLabException is just a workaround.
         catch (Exception e) {

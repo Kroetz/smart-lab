@@ -23,18 +23,18 @@ public class AssistanceMonolithicServiceConnector implements IAssistanceService 
     }
 
     @Override
-    public void beginAssistance(String assistanceId, IAssistanceContext context) {
-        this.assistanceController.beginAssistance(assistanceId, context);
+    public void beginAssistance(IAssistanceContext context) {
+        this.assistanceController.beginAssistance(context);
     }
 
     @Override
-    public void endAssistance(String assistanceId, IAssistanceContext context) {
-        this.assistanceController.endAssistance(assistanceId, context);
+    public void endAssistance(IAssistanceContext context) {
+        this.assistanceController.endAssistance(context);
     }
 
     @Override
-    public void duringAssistance(String assistanceId, IAssistanceContext context) {
-        this.assistanceController.duringAssistance(assistanceId, context);
+    public void duringAssistance(IAssistanceContext context) {
+        this.assistanceController.duringAssistance(context);
     }
 
     @Component

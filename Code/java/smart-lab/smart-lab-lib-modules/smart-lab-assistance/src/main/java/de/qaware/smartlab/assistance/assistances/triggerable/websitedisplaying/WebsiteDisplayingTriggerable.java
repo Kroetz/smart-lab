@@ -26,11 +26,11 @@ public class WebsiteDisplayingTriggerable extends AbstractAssistanceTriggerable 
 
     @Override
     public void reactOnTriggerSetUpEvent(IAssistanceService assistanceService, IAssistanceContext context) {
-        this.beginAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
+        this.beginAssistanceReaction.react(assistanceService, context);
     }
 
     @Override
     public void reactOnTriggerCleanUpEvent(IAssistanceService assistanceService, IAssistanceContext context) {
-        this.endAssistanceReaction.react(assistanceService, this.assistanceInfo.getAssistanceId(), context);
+        this.endAssistanceReaction.react(assistanceService, context);
     }
 }

@@ -28,13 +28,11 @@ public class AssistanceController {
     @PostMapping(
             value = AssistanceApiConstants.MAPPING_BEGIN,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> beginAssistance(
-            @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IAssistanceContext context) {
+    public ResponseEntity<Void> beginAssistance(@RequestBody IAssistanceContext context) {
         log.info("Received call to begin assistance with ID \"{}\" at the location with ID \"{}\"",
-                assistanceId,
+                context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
-        this.assistanceBusinessLogic.beginAssistance(assistanceId, context);
+        this.assistanceBusinessLogic.beginAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
         // TODO
@@ -44,10 +42,8 @@ public class AssistanceController {
     @PostMapping(
             value = AssistanceApiConstants.MAPPING_END,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> endAssistance(
-            @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IAssistanceContext context) {
-        this.assistanceBusinessLogic.endAssistance(assistanceId, context);
+    public ResponseEntity<Void> endAssistance(@RequestBody IAssistanceContext context) {
+        this.assistanceBusinessLogic.endAssistance(context);
         // TODO
         return ResponseEntity.ok().build();
     }
@@ -55,10 +51,8 @@ public class AssistanceController {
     @PostMapping(
             value = AssistanceApiConstants.MAPPING_DURING,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> duringAssistance(
-            @PathVariable(AssistanceApiConstants.PARAMETER_NAME_ASSISTANCE_ID) String assistanceId,
-            @RequestBody IAssistanceContext context) {
-        this.assistanceBusinessLogic.duringAssistance(assistanceId, context);
+    public ResponseEntity<Void> duringAssistance(@RequestBody IAssistanceContext context) {
+        this.assistanceBusinessLogic.duringAssistance(context);
         // TODO
         return ResponseEntity.ok().build();
     }
