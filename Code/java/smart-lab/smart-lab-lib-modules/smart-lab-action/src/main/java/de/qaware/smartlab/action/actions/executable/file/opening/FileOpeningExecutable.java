@@ -4,7 +4,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileA
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.file.opening.FileOpeningInfo;
 import de.qaware.smartlab.action.result.UuidActionResult;
-import de.qaware.smartlab.action.actions.submittable.file.opening.FileOpeningSubmittable;
+import de.qaware.smartlab.action.actions.callable.file.opening.FileOpeningCallable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -45,8 +45,8 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
     public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        FileOpeningSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                FileOpeningSubmittable.ActionArgs.class,
+        FileOpeningCallable.ActionArgs actionArgs = toSpecificArgsType(
+                FileOpeningCallable.ActionArgs.class,
                 genericActionArgs);
         IFileAssociatedProgramAdapter programAdapter = this.programAdapterResolver.resolve(actuatorType);
         if(!programAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
@@ -65,8 +65,8 @@ public class FileOpeningExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        FileOpeningSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                FileOpeningSubmittable.ActionArgs.class,
+        FileOpeningCallable.ActionArgs actionArgs = toSpecificArgsType(
+                FileOpeningCallable.ActionArgs.class,
                 genericActionArgs);
         IActuator fileAssociatedProgram = this.actuatorManagementService.findOne(actionArgs.getProgramId());
         String actuatorType = fileAssociatedProgram.getType();

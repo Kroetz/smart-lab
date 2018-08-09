@@ -1,8 +1,8 @@
 package de.qaware.smartlab.assistance.assistances.controllable.websitedisplaying;
 
-import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
-import de.qaware.smartlab.action.actions.submittable.webbrowser.closing.WebBrowserClosingSubmittable;
-import de.qaware.smartlab.action.actions.submittable.webbrowser.opening.WebBrowserOpeningSubmittable;
+import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
+import de.qaware.smartlab.action.actions.callable.webbrowser.closing.WebBrowserClosingCallable;
+import de.qaware.smartlab.action.actions.callable.webbrowser.opening.WebBrowserOpeningCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
@@ -20,14 +20,14 @@ import static java.util.Arrays.asList;
 @Slf4j
 public class WebsiteDisplayingControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
-    private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
+    private final IActionCallable<WebBrowserOpeningCallable.ActionArgs, UUID> webBrowserOpening;
+    private final IActionCallable<WebBrowserClosingCallable.ActionArgs, Void> webBrowserClosing;
     private UUID webBrowserInstanceId;
 
     private WebsiteDisplayingControllable(
             IAssistanceInfo websiteDisplayingInfo,
-            IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
-            IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
+            IActionCallable<WebBrowserOpeningCallable.ActionArgs, UUID> webBrowserOpening,
+            IActionCallable<WebBrowserClosingCallable.ActionArgs, Void> webBrowserClosing) {
         super(websiteDisplayingInfo);
         this.webBrowserOpening = webBrowserOpening;
         this.webBrowserClosing = webBrowserClosing;
@@ -38,7 +38,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
         WebsiteDisplayingInfo.Configuration config = toSpecificConfigType(
                 WebsiteDisplayingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final WebBrowserOpeningSubmittable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningSubmittable.ActionArgs.of(
+        final WebBrowserOpeningCallable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningCallable.ActionArgs.of(
                 config.getWebBrowserId(),
                 config.getDisplayId(),
                 asList(config.getUrl()));
@@ -50,7 +50,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
         WebsiteDisplayingInfo.Configuration config = toSpecificConfigType(
                 WebsiteDisplayingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final WebBrowserClosingSubmittable.ActionArgs webBrowserClosingArgs = WebBrowserClosingSubmittable.ActionArgs.of(
+        final WebBrowserClosingCallable.ActionArgs webBrowserClosingArgs = WebBrowserClosingCallable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);
         this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);
@@ -60,13 +60,13 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening;
-        private final IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing;
+        private final IActionCallable<WebBrowserOpeningCallable.ActionArgs, UUID> webBrowserOpening;
+        private final IActionCallable<WebBrowserClosingCallable.ActionArgs, Void> webBrowserClosing;
 
         public Factory(
                 IAssistanceInfo websiteDisplayingInfo,
-                IActionSubmittable<WebBrowserOpeningSubmittable.ActionArgs, UUID> webBrowserOpening,
-                IActionSubmittable<WebBrowserClosingSubmittable.ActionArgs, Void> webBrowserClosing) {
+                IActionCallable<WebBrowserOpeningCallable.ActionArgs, UUID> webBrowserOpening,
+                IActionCallable<WebBrowserClosingCallable.ActionArgs, Void> webBrowserClosing) {
             super(websiteDisplayingInfo);
             this.webBrowserOpening = webBrowserOpening;
             this.webBrowserClosing = webBrowserClosing;

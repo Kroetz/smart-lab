@@ -1,8 +1,8 @@
 package de.qaware.smartlab.assistance.assistances.controllable.devicepreparation;
 
-import de.qaware.smartlab.action.actions.submittable.device.activation.DeviceActivationSubmittable;
-import de.qaware.smartlab.action.actions.submittable.device.deactivation.DeviceDeactivationSubmittable;
-import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
+import de.qaware.smartlab.action.actions.callable.device.activation.DeviceActivationCallable;
+import de.qaware.smartlab.action.actions.callable.device.deactivation.DeviceDeactivationCallable;
+import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DevicePreparationControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation;
-    private final IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation;
+    private final IActionCallable<DeviceActivationCallable.ActionArgs, Void> deviceActivation;
+    private final IActionCallable<DeviceDeactivationCallable.ActionArgs, Void> deviceDeactivation;
 
     private DevicePreparationControllable(
             IAssistanceInfo devicePreparationInfo,
-            IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation,
-            IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation) {
+            IActionCallable<DeviceActivationCallable.ActionArgs, Void> deviceActivation,
+            IActionCallable<DeviceDeactivationCallable.ActionArgs, Void> deviceDeactivation) {
         super(devicePreparationInfo);
         this.deviceActivation = deviceActivation;
         this.deviceDeactivation = deviceDeactivation;
@@ -33,7 +33,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
         DevicePreparationInfo.Configuration config = toSpecificConfigType(
                 DevicePreparationInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final DeviceActivationSubmittable.ActionArgs deviceActivationArgs = DeviceActivationSubmittable.ActionArgs.of(
+        final DeviceActivationCallable.ActionArgs deviceActivationArgs = DeviceActivationCallable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceActivation.submitExecution(actionService, deviceActivationArgs);
     }
@@ -43,7 +43,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
         DevicePreparationInfo.Configuration config = toSpecificConfigType(
                 DevicePreparationInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final DeviceDeactivationSubmittable.ActionArgs deviceDeactivationArgs = DeviceDeactivationSubmittable.ActionArgs.of(
+        final DeviceDeactivationCallable.ActionArgs deviceDeactivationArgs = DeviceDeactivationCallable.ActionArgs.of(
                 config.getDeviceId());
         this.deviceDeactivation.submitExecution(actionService, deviceDeactivationArgs);
     }
@@ -52,13 +52,13 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation;
-        private final IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation;
+        private final IActionCallable<DeviceActivationCallable.ActionArgs, Void> deviceActivation;
+        private final IActionCallable<DeviceDeactivationCallable.ActionArgs, Void> deviceDeactivation;
 
         public Factory(
                 IAssistanceInfo devicePreparationInfo,
-                IActionSubmittable<DeviceActivationSubmittable.ActionArgs, Void> deviceActivation,
-                IActionSubmittable<DeviceDeactivationSubmittable.ActionArgs, Void> deviceDeactivation) {
+                IActionCallable<DeviceActivationCallable.ActionArgs, Void> deviceActivation,
+                IActionCallable<DeviceDeactivationCallable.ActionArgs, Void> deviceDeactivation) {
             super(devicePreparationInfo);
             this.deviceActivation = deviceActivation;
             this.deviceDeactivation = deviceDeactivation;

@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlab.action.result.TranscriptActionResult;
 import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.submittable.speechtotext.SpeechToTextSubmittable;
+import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCallable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -42,8 +42,8 @@ public class SpeechToTextExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        SpeechToTextSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                SpeechToTextSubmittable.ActionArgs.class,
+        SpeechToTextCallable.ActionArgs actionArgs = toSpecificArgsType(
+                SpeechToTextCallable.ActionArgs.class,
                 genericActionArgs);
         ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.actuatorType);
         ITranscript transcript = speechToTextAdapter.speechToText(

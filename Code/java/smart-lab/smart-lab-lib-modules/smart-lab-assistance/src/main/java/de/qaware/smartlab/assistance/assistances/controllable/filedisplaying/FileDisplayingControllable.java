@@ -1,9 +1,9 @@
 package de.qaware.smartlab.assistance.assistances.controllable.filedisplaying;
 
-import de.qaware.smartlab.action.actions.submittable.data.download.DataDownloadSubmittable;
-import de.qaware.smartlab.action.actions.submittable.file.closing.FileClosingSubmittable;
-import de.qaware.smartlab.action.actions.submittable.file.opening.FileOpeningSubmittable;
-import de.qaware.smartlab.action.actions.submittable.generic.IActionSubmittable;
+import de.qaware.smartlab.action.actions.callable.data.download.DataDownloadCallable;
+import de.qaware.smartlab.action.actions.callable.file.closing.FileClosingCallable;
+import de.qaware.smartlab.action.actions.callable.file.opening.FileOpeningCallable;
+import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
@@ -27,17 +27,17 @@ import static java.nio.file.Files.readAllBytes;
 @Slf4j
 public class FileDisplayingControllable extends AbstractAssistanceControllable {
 
-    private final IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload;
-    private final IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening;
-    private final IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing;
+    private final IActionCallable<DataDownloadCallable.ActionArgs, Path> dataDownload;
+    private final IActionCallable<FileOpeningCallable.ActionArgs, UUID> fileOpening;
+    private final IActionCallable<FileClosingCallable.ActionArgs, Void> fileClosing;
     private final ITempFileManager tempFileManager;
     private UUID programInstanceId;
 
     private FileDisplayingControllable(
             IAssistanceInfo fileDisplayingInfo,
-            IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload,
-            IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening,
-            IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing,
+            IActionCallable<DataDownloadCallable.ActionArgs, Path> dataDownload,
+            IActionCallable<FileOpeningCallable.ActionArgs, UUID> fileOpening,
+            IActionCallable<FileClosingCallable.ActionArgs, Void> fileClosing,
             ITempFileManager tempFileManager) {
         super(fileDisplayingInfo);
         this.dataDownload = dataDownload;
@@ -59,7 +59,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
             IActionService actionService,
             IAssistanceContext context,
             FileDisplayingInfo.Configuration config) {
-        final DataDownloadSubmittable.ActionArgs dataDownloadArgs = DataDownloadSubmittable.ActionArgs.of(
+        final DataDownloadCallable.ActionArgs dataDownloadArgs = DataDownloadCallable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getFilePath());
         return this.dataDownload.submitExecution(actionService, dataDownloadArgs);
@@ -69,9 +69,9 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
             IActionService actionService,
             FileDisplayingInfo.Configuration config,
             Path downloadedFile) {
-        final FileOpeningSubmittable.ActionArgs fileOpeningArgs;
+        final FileOpeningCallable.ActionArgs fileOpeningArgs;
         try {
-            fileOpeningArgs = FileOpeningSubmittable.ActionArgs.of(
+            fileOpeningArgs = FileOpeningCallable.ActionArgs.of(
                     config.getProgramId(),
                     config.getDisplayId(),
                     readAllBytes(downloadedFile));
@@ -89,7 +89,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         FileDisplayingInfo.Configuration config = toSpecificConfigType(
                 FileDisplayingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final FileClosingSubmittable.ActionArgs fileClosingArgs = FileClosingSubmittable.ActionArgs.of(
+        final FileClosingCallable.ActionArgs fileClosingArgs = FileClosingCallable.ActionArgs.of(
                 config.getProgramId(),
                 this.programInstanceId);
         this.fileClosing.submitExecution(actionService, fileClosingArgs);
@@ -99,16 +99,16 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload;
-        private final IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening;
-        private final IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing;
+        private final IActionCallable<DataDownloadCallable.ActionArgs, Path> dataDownload;
+        private final IActionCallable<FileOpeningCallable.ActionArgs, UUID> fileOpening;
+        private final IActionCallable<FileClosingCallable.ActionArgs, Void> fileClosing;
         private final ITempFileManager tempFileManager;
 
         public Factory(
                 IAssistanceInfo fileDisplayingInfo,
-                IActionSubmittable<DataDownloadSubmittable.ActionArgs, Path> dataDownload,
-                IActionSubmittable<FileOpeningSubmittable.ActionArgs, UUID> fileOpening,
-                IActionSubmittable<FileClosingSubmittable.ActionArgs, Void> fileClosing,
+                IActionCallable<DataDownloadCallable.ActionArgs, Path> dataDownload,
+                IActionCallable<FileOpeningCallable.ActionArgs, UUID> fileOpening,
+                IActionCallable<FileClosingCallable.ActionArgs, Void> fileClosing,
                 ITempFileManager tempFileManager) {
             super(fileDisplayingInfo);
             this.dataDownload = dataDownload;

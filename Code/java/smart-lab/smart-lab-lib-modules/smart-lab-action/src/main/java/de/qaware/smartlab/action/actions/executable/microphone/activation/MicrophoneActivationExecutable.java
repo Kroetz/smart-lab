@@ -3,7 +3,7 @@ package de.qaware.smartlab.action.actions.executable.microphone.activation;
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.action.actions.info.microphone.activation.MicrophoneActivationInfo;
-import de.qaware.smartlab.action.actions.submittable.microphone.activation.MicrophoneActivationSubmittable;
+import de.qaware.smartlab.action.actions.callable.microphone.activation.MicrophoneActivationCallable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -47,8 +47,8 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
     public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        MicrophoneActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                MicrophoneActivationSubmittable.ActionArgs.class,
+        MicrophoneActivationCallable.ActionArgs actionArgs = toSpecificArgsType(
+                MicrophoneActivationCallable.ActionArgs.class,
                 genericActionArgs);
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
@@ -65,8 +65,8 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        MicrophoneActivationSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                MicrophoneActivationSubmittable.ActionArgs.class,
+        MicrophoneActivationCallable.ActionArgs actionArgs = toSpecificArgsType(
+                MicrophoneActivationCallable.ActionArgs.class,
                 genericActionArgs);
         IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getMicrophoneId());
         String actuatorType = actuator.getType();

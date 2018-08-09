@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
 import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.submittable.data.download.DataDownloadSubmittable;
+import de.qaware.smartlab.action.actions.callable.data.download.DataDownloadCallable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataDownloadService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -46,8 +46,8 @@ public class DataDownloadExecutable extends AbstractActionExecutable {
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DataDownloadSubmittable.ActionArgs actionArgs = toSpecificArgsType(
-                DataDownloadSubmittable.ActionArgs.class,
+        DataDownloadCallable.ActionArgs actionArgs = toSpecificArgsType(
+                DataDownloadCallable.ActionArgs.class,
                 genericActionArgs);
         String actuatorType = actionArgs.getProjectBaseInfo().getActuatorType();
         IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(actuatorType);
