@@ -7,10 +7,6 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
-import de.qaware.smartlab.core.exception.UnknownErrorException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
@@ -25,7 +21,6 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.*;
 
 @Component
 @ConditionalOnProperty(
@@ -49,30 +44,18 @@ public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasic
     @Override
     public Set<IEvent> getEventsOfWorkgroup(WorkgroupId workgroupId) {
         ResponseEntity<Set<EventDto>> response = this.workgroupManagementController.getEventsOfWorkgroup(workgroupId.getIdValue());
-        if(response.getStatusCode() == OK) return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
-        // TODO: Meaningful exception message
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        throw new UnknownErrorException();
+        return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
     }
 
     @Override
     public IEvent getCurrentEvent(WorkgroupId workgroupId) {
         ResponseEntity<EventDto> response = this.workgroupManagementController.getCurrentEvent(workgroupId.getIdValue());
-        if(response.getStatusCode() == OK) return this.eventConverter.toEntity(requireNonNull(response.getBody()));
-        // TODO: Meaningful exception message
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        throw new UnknownErrorException();
+        return this.eventConverter.toEntity(requireNonNull(response.getBody()));
     }
 
     @Override
     public void extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
-        ResponseEntity<Void> response = this.workgroupManagementController.extendCurrentEvent(workgroupId.getIdValue(), extension.toMinutes());
-        if(response.getStatusCode() == OK) return;
-        // TODO: Meaningful exception messages
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
-        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
-        throw new UnknownErrorException();
+        this.workgroupManagementController.extendCurrentEvent(workgroupId.getIdValue(), extension.toMinutes());
     }
 
     @Component

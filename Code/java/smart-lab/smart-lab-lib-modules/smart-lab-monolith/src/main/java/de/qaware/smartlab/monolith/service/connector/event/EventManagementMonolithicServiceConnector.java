@@ -7,7 +7,6 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.*;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.event.management.service.controller.EventManagementController;
@@ -22,7 +21,6 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.*;
 
 @Component
 @ConditionalOnProperty(
@@ -64,56 +62,34 @@ public class EventManagementMonolithicServiceConnector extends AbstractBasicEnti
     @Override
     public IEvent findCurrent(LocationId locationId) {
         ResponseEntity<EventDto> response = this.eventManagementController.findCurrentByLocationId(locationId.getIdValue());
-        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
-        // TODO: Meaningful exception message
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        throw new UnknownErrorException();
+        return this.converter.toEntity(requireNonNull(response.getBody()));
     }
 
     @Override
     public IEvent findCurrent(WorkgroupId workgroupId) {
         ResponseEntity<EventDto> response = this.eventManagementController.findCurrentByWorkgroupId(workgroupId.getIdValue());
-        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
-        // TODO: Meaningful exception message
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        throw new UnknownErrorException();
+        return this.converter.toEntity(requireNonNull(response.getBody()));
     }
 
     @Override
     public void shortenEvent(EventId eventId, Duration shortening) {
-        ResponseEntity<Void> response = this.eventManagementController.shortenEvent(
+        this.eventManagementController.shortenEvent(
                 eventId.getIdValue(),
                 shortening.toMinutes());
-        if(response.getStatusCode() == OK) return;
-        // TODO: Meaningful exception messages
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MinimalDurationReachedException();
-        throw new UnknownErrorException();
     }
 
     @Override
     public void extendEvent(EventId eventId, Duration extension) {
-        ResponseEntity<Void> response = this.eventManagementController.extendEvent(
+        this.eventManagementController.extendEvent(
                 eventId.getIdValue(),
                 extension.toMinutes());
-        if(response.getStatusCode() == OK) return;
-        // TODO: Meaningful exception messages
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
-        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
-        throw new UnknownErrorException();
     }
 
     @Override
     public void shiftEvent(EventId eventId, Duration shift) {
-        ResponseEntity<Void> response = this.eventManagementController.shiftEvent(
+        this.eventManagementController.shiftEvent(
                 eventId.getIdValue(),
                 shift.toMinutes());
-        if(response.getStatusCode() == OK) return;
-        // TODO: Meaningful exception messages
-        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
-        throw new UnknownErrorException();
     }
 
     @Component
