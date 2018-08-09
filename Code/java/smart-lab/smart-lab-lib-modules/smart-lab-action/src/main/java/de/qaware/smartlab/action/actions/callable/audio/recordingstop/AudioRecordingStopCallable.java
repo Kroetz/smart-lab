@@ -1,6 +1,6 @@
-package de.qaware.smartlab.action.actions.callable.microphone.deactivation;
+package de.qaware.smartlab.action.actions.callable.audio.recordingstop;
 
-import de.qaware.smartlab.action.actions.info.microphone.deactivation.MicrophoneDeactivationInfo;
+import de.qaware.smartlab.action.actions.info.audio.recordingstop.AudioRecordingStopInfo;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -23,17 +23,17 @@ import java.nio.file.Path;
 
 @Component
 @Slf4j
-public class MicrophoneDeactivationCallable extends AbstractActionCallable<MicrophoneDeactivationCallable.ActionArgs, Path> {
+public class AudioRecordingStopCallable extends AbstractActionCallable<AudioRecordingStopCallable.ActionArgs, Path> {
 
     private final Path recordedAudioTempFileSubDir;
     private final ITempFileManager tempFileManager;
 
-    public MicrophoneDeactivationCallable(
-            MicrophoneDeactivationInfo microphoneDeactivationInfo,
+    public AudioRecordingStopCallable(
+            AudioRecordingStopInfo audioRecordingStopInfo,
             // TODO: String literals
             @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
-        super(microphoneDeactivationInfo);
+        super(audioRecordingStopInfo);
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
         this.tempFileManager = tempFileManager;
     }

@@ -1,9 +1,9 @@
-package de.qaware.smartlab.action.actions.executable.microphone.activation;
+package de.qaware.smartlab.action.actions.executable.audio.recordingstop;
 
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
-import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.info.microphone.activation.MicrophoneActivationInfo;
-import de.qaware.smartlab.action.actions.callable.microphone.activation.MicrophoneActivationCallable;
+import de.qaware.smartlab.action.actions.info.audio.recordingstop.AudioRecordingStopInfo;
+import de.qaware.smartlab.action.result.ByteArrayActionResult;
+import de.qaware.smartlab.action.actions.callable.audio.recordingstop.AudioRecordingStopCallable;
 import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -14,59 +14,58 @@ import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
+import static java.nio.file.Files.readAllBytes;
+
 @Component
 @Slf4j
-public class MicrophoneActivationExecutable extends AbstractActionExecutable {
+public class AudioRecordingStopExecutable extends AbstractActionExecutable {
 
-    private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private IActuatorManagementService actuatorManagementService;
-    private final Path recordedAudioTempFileSubDir;
+    private final IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
+    private final IActuatorManagementService actuatorManagementService;
     private final ITempFileManager tempFileManager;
 
-    public MicrophoneActivationExecutable(
-            MicrophoneActivationInfo microphoneActivationInfo,
+    public AudioRecordingStopExecutable(
+            AudioRecordingStopInfo audioRecordingStopInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
             IActuatorManagementService actuatorManagementService,
-            // TODO: String literals
-            @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
-        super(microphoneActivationInfo);
+        super(audioRecordingStopInfo);
         this.microphoneAdapterResolver = microphoneAdapterResolver;
         this.actuatorManagementService = actuatorManagementService;
-        this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
         this.tempFileManager = tempFileManager;
     }
 
-    // TODO: too much code duplicates
+    @Override
     public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        MicrophoneActivationCallable.ActionArgs actionArgs = toSpecificArgsType(
-                MicrophoneActivationCallable.ActionArgs.class,
+        AudioRecordingStopCallable.ActionArgs actionArgs = toSpecificArgsType(
+                AudioRecordingStopCallable.ActionArgs.class,
                 genericActionArgs);
         IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
         if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        Path recordingTargetFile;
+        Path recordedAudio = microphoneAdapter.stopRecording();
+        IActionResult actionResult;
         try {
-            recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
+            this.tempFileManager.markForCleaning(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
-        microphoneAdapter.startRecording(recordingTargetFile);
-        return VoidActionResult.newInstance();
+        return actionResult;
     }
 
+    @Override
     public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
         // Every action can only handle its own specific argument type.
         // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        MicrophoneActivationCallable.ActionArgs actionArgs = toSpecificArgsType(
-                MicrophoneActivationCallable.ActionArgs.class,
+        AudioRecordingStopCallable.ActionArgs actionArgs = toSpecificArgsType(
+                AudioRecordingStopCallable.ActionArgs.class,
                 genericActionArgs);
         IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getMicrophoneId());
         String actuatorType = actuator.getType();
@@ -76,13 +75,14 @@ public class MicrophoneActivationExecutable extends AbstractActionExecutable {
                 this.actionInfo.getActionId(),
                 actuatorType,
                 actionArgs);
-        Path recordingTargetFile;
+        Path recordedAudio = microphoneAdapter.stopRecording();
+        IActionResult actionResult;
         try {
-            recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
+            actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
+            this.tempFileManager.markForCleaning(recordedAudio);
         } catch (IOException e) {
             throw new ActionExecutionFailedException(e);
         }
-        microphoneAdapter.startRecording(recordingTargetFile);
-        return VoidActionResult.newInstance();
+        return actionResult;
     }
 }

@@ -38,12 +38,12 @@ public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
 
     @Override
     public void startRecording(Path recordingTargetFile) {
-        log.info("Dummy microphone activated");
+        log.info("Dummy microphone started recording");
     }
 
     @Override
     public Path stopRecording() {
-        log.info("Dummy microphone deactivated");
+        log.info("Dummy microphone stopped recording");
         try {
             Resource dummySpeechResource = resourceLoader.getResource(DUMMY_SPEECH);
             InputStream resourceInputStream = dummySpeechResource.getInputStream();

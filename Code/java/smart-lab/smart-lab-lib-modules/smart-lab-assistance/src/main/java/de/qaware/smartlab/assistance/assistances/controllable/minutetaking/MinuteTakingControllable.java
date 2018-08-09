@@ -2,8 +2,8 @@ package de.qaware.smartlab.assistance.assistances.controllable.minutetaking;
 
 import de.qaware.smartlab.action.actions.callable.data.upload.DataUploadCallable;
 import de.qaware.smartlab.action.actions.callable.generic.IActionCallable;
-import de.qaware.smartlab.action.actions.callable.microphone.activation.MicrophoneActivationCallable;
-import de.qaware.smartlab.action.actions.callable.microphone.deactivation.MicrophoneDeactivationCallable;
+import de.qaware.smartlab.action.actions.callable.audio.recordingstart.AudioRecordingStartCallable;
+import de.qaware.smartlab.action.actions.callable.audio.recordingstop.AudioRecordingStopCallable;
 import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.controllable.generic.AbstractAssistanceControllable;
@@ -26,22 +26,22 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
-    private final IActionCallable<MicrophoneActivationCallable.ActionArgs, Void> microphoneActivation;
-    private final IActionCallable<MicrophoneDeactivationCallable.ActionArgs, Path> microphoneDeactivation;
+    private final IActionCallable<AudioRecordingStartCallable.ActionArgs, Void> audioRecordingStart;
+    private final IActionCallable<AudioRecordingStopCallable.ActionArgs, Path> audioRecordingStop;
     private final IActionCallable<SpeechToTextCallable.ActionArgs, ITranscript> speechToText;
     private final IActionCallable<DataUploadCallable.ActionArgs, Void> dataUpload;
     private final ITempFileManager tempFileManager;
 
     private MinuteTakingControllable(
             IAssistanceInfo minuteTakingInfo,
-            IActionCallable<MicrophoneActivationCallable.ActionArgs, Void> microphoneActivation,
-            IActionCallable<MicrophoneDeactivationCallable.ActionArgs, Path> microphoneDeactivation,
+            IActionCallable<AudioRecordingStartCallable.ActionArgs, Void> audioRecordingStart,
+            IActionCallable<AudioRecordingStopCallable.ActionArgs, Path> audioRecordingStop,
             IActionCallable<SpeechToTextCallable.ActionArgs, ITranscript> speechToText,
             IActionCallable<DataUploadCallable.ActionArgs, Void> dataUpload,
             ITempFileManager tempFileManager) {
         super(minuteTakingInfo);
-        this.microphoneActivation = microphoneActivation;
-        this.microphoneDeactivation = microphoneDeactivation;
+        this.audioRecordingStart = audioRecordingStart;
+        this.audioRecordingStop = audioRecordingStop;
         this.speechToText = speechToText;
         this.dataUpload = dataUpload;
         this.tempFileManager = tempFileManager;
@@ -52,10 +52,10 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         MinuteTakingInfo.Configuration config = toSpecificConfigType(
                 MinuteTakingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final MicrophoneActivationCallable.ActionArgs microphoneActivationArgs = MicrophoneActivationCallable.ActionArgs.of(
+        final AudioRecordingStartCallable.ActionArgs audioRecordingStartArgs = AudioRecordingStartCallable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
-        this.microphoneActivation.submitExecution(actionService, microphoneActivationArgs);
+        this.audioRecordingStart.submitExecution(actionService, audioRecordingStartArgs);
     }
 
     @Override
@@ -74,10 +74,10 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IActionService actionService,
             IAssistanceContext context,
             MinuteTakingInfo.Configuration config) {
-        final MicrophoneDeactivationCallable.ActionArgs microphoneDeactivationArgs = MicrophoneDeactivationCallable.ActionArgs.of(
+        final AudioRecordingStopCallable.ActionArgs audioRecordingStopArgs = AudioRecordingStopCallable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
-        return this.microphoneDeactivation.submitExecution(actionService, microphoneDeactivationArgs);
+        return this.audioRecordingStop.submitExecution(actionService, audioRecordingStopArgs);
     }
 
     private ITranscript speechToText(
@@ -112,22 +112,22 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
     @Slf4j
     public static class Factory extends AbstractAssistanceControllableFactory {
 
-        private final IActionCallable<MicrophoneActivationCallable.ActionArgs, Void> microphoneActivation;
-        private final IActionCallable<MicrophoneDeactivationCallable.ActionArgs, Path> microphoneDeactivation;
+        private final IActionCallable<AudioRecordingStartCallable.ActionArgs, Void> audioRecordingStart;
+        private final IActionCallable<AudioRecordingStopCallable.ActionArgs, Path> audioRecordingStop;
         private final IActionCallable<SpeechToTextCallable.ActionArgs, ITranscript> speechToText;
         private final IActionCallable<DataUploadCallable.ActionArgs, Void> dataUpload;
         private final ITempFileManager tempFileManager;
 
         public Factory(
                 IAssistanceInfo minuteTakingInfo,
-                IActionCallable<MicrophoneActivationCallable.ActionArgs, Void> microphoneActivation,
-                IActionCallable<MicrophoneDeactivationCallable.ActionArgs, Path> microphoneDeactivation,
+                IActionCallable<AudioRecordingStartCallable.ActionArgs, Void> audioRecordingStart,
+                IActionCallable<AudioRecordingStopCallable.ActionArgs, Path> audioRecordingStop,
                 IActionCallable<SpeechToTextCallable.ActionArgs, ITranscript> speechToText,
                 IActionCallable<DataUploadCallable.ActionArgs, Void> dataUpload,
                 ITempFileManager tempFileManager) {
             super(minuteTakingInfo);
-            this.microphoneActivation = microphoneActivation;
-            this.microphoneDeactivation = microphoneDeactivation;
+            this.audioRecordingStart = audioRecordingStart;
+            this.audioRecordingStop = audioRecordingStop;
             this.speechToText = speechToText;
             this.dataUpload = dataUpload;
             this.tempFileManager = tempFileManager;
@@ -137,8 +137,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         public IAssistanceControllable newInstance() {
             return new MinuteTakingControllable(
                     this.assistanceInfo,
-                    this.microphoneActivation,
-                    this.microphoneDeactivation,
+                    this.audioRecordingStart,
+                    this.audioRecordingStop,
                     this.speechToText,
                     this.dataUpload,
                     this.tempFileManager);

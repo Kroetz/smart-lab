@@ -1,6 +1,6 @@
-package de.qaware.smartlab.action.actions.callable.microphone.activation;
+package de.qaware.smartlab.action.actions.callable.audio.recordingstart;
 
-import de.qaware.smartlab.action.actions.info.microphone.activation.MicrophoneActivationInfo;
+import de.qaware.smartlab.action.actions.info.audio.recordingstart.AudioRecordingStartInfo;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class MicrophoneActivationCallable extends AbstractActionCallable<MicrophoneActivationCallable.ActionArgs, Void> {
+public class AudioRecordingStartCallable extends AbstractActionCallable<AudioRecordingStartCallable.ActionArgs, Void> {
 
-    public MicrophoneActivationCallable(MicrophoneActivationInfo microphoneActivationInfo) {
-        super(microphoneActivationInfo);
+    public AudioRecordingStartCallable(AudioRecordingStartInfo audioRecordingStartInfo) {
+        super(audioRecordingStartInfo);
     }
 
     public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
