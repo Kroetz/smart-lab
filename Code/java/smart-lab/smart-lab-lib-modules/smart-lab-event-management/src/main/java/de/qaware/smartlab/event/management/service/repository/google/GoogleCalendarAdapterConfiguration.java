@@ -90,7 +90,7 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.event-management.google-calendar")
+    @ConfigurationProperties(prefix = "smart-lab.event-management.google-calendar", ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
@@ -158,9 +158,11 @@ public class GoogleCalendarAdapterConfiguration {
                 Properties properties = (Properties) o;
                 if(!exists(properties.getCredentialsFile())) {
                     // TODO: String literals
+                    String errorMessage = "The path of the Google calendar credentials file must be valid";
+                    log.error(errorMessage);
                     errors.rejectValue(
                             "credentialsFile",
-                            "The path of the Google calendar credentials file must be valid");
+                            errorMessage);
                 }
             }
         }
