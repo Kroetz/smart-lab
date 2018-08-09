@@ -1,12 +1,9 @@
 package de.qaware.smartlab.action.actions.executable.speechtotext;
 
+import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCallable;
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlab.action.result.TranscriptActionResult;
-import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCallable;
-import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
@@ -15,37 +12,26 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @Slf4j
-public class SpeechToTextExecutable extends AbstractActionExecutable {
-
-    private final IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver;
-    private final String actuatorType;
+public class SpeechToTextExecutable extends AbstractActionExecutable<SpeechToTextCallable.ActionArgs, ISpeechToTextAdapter> {
 
     public SpeechToTextExecutable(
             SpeechToTextInfo speechToTextInfo,
             IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver,
             // TODO: String literal
             @Qualifier("speechToTextServiceName") String speechToTextServiceName) {
-        super(speechToTextInfo);
-        this.speechToTextAdapterResolver = speechToTextAdapterResolver;
-        this.actuatorType = speechToTextServiceName;
+        super(
+                speechToTextInfo,
+                speechToTextAdapterResolver,
+                actionArgs -> speechToTextServiceName,
+                actionArgs -> Optional.empty());
     }
 
     @Override
-    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
-        // TODO: Is never needed because there is no local execution for a web service.
-        return VoidActionResult.newInstance();
-    }
-
-    @Override
-    public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
-        // Every action can only handle its own specific argument type.
-        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        SpeechToTextCallable.ActionArgs actionArgs = toSpecificArgsType(
-                SpeechToTextCallable.ActionArgs.class,
-                genericActionArgs);
-        ISpeechToTextAdapter speechToTextAdapter = this.speechToTextAdapterResolver.resolve(this.actuatorType);
+    protected IActionResult execute(ISpeechToTextAdapter speechToTextAdapter, SpeechToTextCallable.ActionArgs actionArgs) {
         ITranscript transcript = speechToTextAdapter.speechToText(
                 actionArgs.getAudioFile(),
                 actionArgs.getSpokenLanguage());

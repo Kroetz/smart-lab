@@ -1,15 +1,12 @@
 package de.qaware.smartlab.action.actions.executable.audio.recordingstart;
 
-import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
-import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.info.audio.recordingstart.AudioRecordingStartInfo;
 import de.qaware.smartlab.action.actions.callable.audio.recordingstart.AudioRecordingStartCallable;
-import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
-import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.actuator.IActuator;
+import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
+import de.qaware.smartlab.action.actions.info.audio.recordingstart.AudioRecordingStartInfo;
+import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapter;
+import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
+import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
@@ -19,13 +16,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 @Component
 @Slf4j
-public class AudioRecordingStartExecutable extends AbstractActionExecutable {
+public class AudioRecordingStartExecutable extends AbstractActionExecutable<AudioRecordingStartCallable.ActionArgs, IMicrophoneAdapter> {
 
-    private IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver;
-    private IActuatorManagementService actuatorManagementService;
     private final Path recordedAudioTempFileSubDir;
     private final ITempFileManager tempFileManager;
 
@@ -36,50 +32,22 @@ public class AudioRecordingStartExecutable extends AbstractActionExecutable {
             // TODO: String literals
             @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
-        super(audioRecordingStartInfo);
-        this.microphoneAdapterResolver = microphoneAdapterResolver;
-        this.actuatorManagementService = actuatorManagementService;
+        super(
+                audioRecordingStartInfo,
+                microphoneAdapterResolver,
+                actionArgs -> actuatorManagementService.findOne(actionArgs.getMicrophoneId()).getType(),
+                actionArgs -> Optional.of(actuatorManagementService.findOne(actionArgs.getMicrophoneId()).getResponsibleDelegate()));
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
         this.tempFileManager = tempFileManager;
     }
 
-    // TODO: too much code duplicates
-    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
-        // Every action can only handle its own specific argument type.
-        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        AudioRecordingStartCallable.ActionArgs actionArgs = toSpecificArgsType(
-                AudioRecordingStartCallable.ActionArgs.class,
-                genericActionArgs);
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
-        if(!microphoneAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
+    @Override
+    protected IActionResult execute(IMicrophoneAdapter microphoneAdapter, AudioRecordingStartCallable.ActionArgs actionArgs) {
         Path recordingTargetFile;
         try {
             recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
         } catch (IOException e) {
-            throw new ActionExecutionFailedException(e);
-        }
-        microphoneAdapter.startRecording(recordingTargetFile);
-        return VoidActionResult.newInstance();
-    }
-
-    public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
-        // Every action can only handle its own specific argument type.
-        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        AudioRecordingStartCallable.ActionArgs actionArgs = toSpecificArgsType(
-                AudioRecordingStartCallable.ActionArgs.class,
-                genericActionArgs);
-        IActuator actuator = this.actuatorManagementService.findOne(actionArgs.getMicrophoneId());
-        String actuatorType = actuator.getType();
-        IMicrophoneAdapter microphoneAdapter = this.microphoneAdapterResolver.resolve(actuatorType);
-        if(microphoneAdapter.hasLocalApi()) return delegateService.executeAction(
-                actuator.getResponsibleDelegate(),
-                this.actionInfo.getActionId(),
-                actuatorType,
-                actionArgs);
-        Path recordingTargetFile;
-        try {
-            recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
-        } catch (IOException e) {
+            // TODO: Exception message
             throw new ActionExecutionFailedException(e);
         }
         microphoneAdapter.startRecording(recordingTargetFile);

@@ -26,7 +26,7 @@ public class ActionBusinessLogic implements IActionBusinessLogic {
     public IActionResult executeAction(String actionId, IActionArgs actionArgs) {
         log.info("Executing action (ID: \"{}\")", actionId);
         IActionExecutable action = this.actionResolver.resolve(actionId);
-        IActionResult actionResult = action.execute(actionArgs, this.delegateService);
+        IActionResult actionResult = action.executeRemotely(actionArgs, this.delegateService);
         log.info("Executed action (ID: \"{}\")", actionId);
         return actionResult;
     }

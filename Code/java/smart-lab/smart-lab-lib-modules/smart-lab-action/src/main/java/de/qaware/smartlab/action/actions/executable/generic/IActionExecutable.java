@@ -7,6 +7,6 @@ import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 
 public interface IActionExecutable extends IActionInfo {
 
-    IActionResult execute(String actuatorType, IActionArgs genericActionArgs);
-    IActionResult execute(IActionArgs actionArgs, IDelegateService delegateService);
+    IActionResult executeLocally(String actuatorType, IActionArgs genericActionArgs);
+    IActionResult executeRemotely(IActionArgs actionArgs, IDelegateService delegateService);
 }

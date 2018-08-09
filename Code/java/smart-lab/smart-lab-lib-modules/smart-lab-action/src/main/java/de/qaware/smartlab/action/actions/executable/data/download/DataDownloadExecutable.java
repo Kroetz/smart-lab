@@ -1,13 +1,10 @@
 package de.qaware.smartlab.action.actions.executable.data.download;
 
+import de.qaware.smartlab.action.actions.callable.data.download.DataDownloadCallable;
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
 import de.qaware.smartlab.action.result.ByteArrayActionResult;
-import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.callable.data.download.DataDownloadCallable;
-import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataDownloadService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
@@ -17,40 +14,30 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import static java.nio.file.Files.readAllBytes;
 
 @Component
 @Slf4j
-public class DataDownloadExecutable extends AbstractActionExecutable {
+public class DataDownloadExecutable extends AbstractActionExecutable<DataDownloadCallable.ActionArgs, IDataDownloadService> {
 
-    private IResolver<String, IDataDownloadService> dataDownloadServiceResolver;
     private final ITempFileManager tempFileManager;
 
     public DataDownloadExecutable(
             DataDownloadInfo dataDownloadInfo,
             IResolver<String, IDataDownloadService> dataDownloadServiceResolver,
             ITempFileManager tempFileManager) {
-        super(dataDownloadInfo);
-        this.dataDownloadServiceResolver = dataDownloadServiceResolver;
+        super(
+                dataDownloadInfo,
+                dataDownloadServiceResolver,
+                actionArgs -> actionArgs.getProjectBaseInfo().getActuatorType(),
+                actionArgs -> Optional.empty());
         this.tempFileManager = tempFileManager;
     }
 
     @Override
-    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
-        // TODO: Is never needed because there is no local execution for a web service.
-        return VoidActionResult.newInstance();
-    }
-
-    @Override
-    public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
-        // Every action can only handle its own specific argument type.
-        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DataDownloadCallable.ActionArgs actionArgs = toSpecificArgsType(
-                DataDownloadCallable.ActionArgs.class,
-                genericActionArgs);
-        String actuatorType = actionArgs.getProjectBaseInfo().getActuatorType();
-        IDataDownloadService dataDownloadService = this.dataDownloadServiceResolver.resolve(actuatorType);
+    protected IActionResult execute(IDataDownloadService dataDownloadService, DataDownloadCallable.ActionArgs actionArgs) {
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());

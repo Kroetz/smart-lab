@@ -1,45 +1,33 @@
 package de.qaware.smartlab.action.actions.executable.data.upload;
 
+import de.qaware.smartlab.action.actions.callable.data.upload.DataUploadCallable;
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.action.actions.callable.data.upload.DataUploadCallable;
-import de.qaware.smartlab.api.service.connector.delegate.IDelegateService;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataUploadService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @Slf4j
-public class DataUploadExecutable extends AbstractActionExecutable {
-
-    private IResolver<String, IDataUploadService> dataUploadServiceResolver;
+public class DataUploadExecutable extends AbstractActionExecutable<DataUploadCallable.ActionArgs, IDataUploadService> {
 
     public DataUploadExecutable(
             DataUploadInfo dataUploadInfo,
             IResolver<String, IDataUploadService> dataUploadServiceResolver) {
-        super(dataUploadInfo);
-        this.dataUploadServiceResolver = dataUploadServiceResolver;
+        super(
+                dataUploadInfo,
+                dataUploadServiceResolver,
+                actionArgs -> actionArgs.getProjectBaseInfo().getActuatorType(),
+                actionArgs -> Optional.empty());
     }
 
     @Override
-    public IActionResult execute(String actuatorType, IActionArgs genericActionArgs) {
-        // TODO: Is never needed because there is no local execution for a web service.
-        return VoidActionResult.newInstance();
-    }
-
-    @Override
-    public IActionResult execute(IActionArgs genericActionArgs, IDelegateService delegateService) {
-        // Every action can only handle its own specific argument type.
-        // TODO: Move this call somewhere else so that this method always gets the right action args type (parameterized?)
-        DataUploadCallable.ActionArgs actionArgs = toSpecificArgsType(
-                DataUploadCallable.ActionArgs.class,
-                genericActionArgs);
-        String actuatorType = actionArgs.getProjectBaseInfo().getActuatorType();
-        IDataUploadService dataUploadService = this.dataUploadServiceResolver.resolve(actuatorType);
+    protected IActionResult execute(IDataUploadService dataUploadService, DataUploadCallable.ActionArgs actionArgs) {
         dataUploadService.upload(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getUploadMessage(),
