@@ -37,7 +37,7 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
         this.tempFileManager = tempFileManager;
     }
 
-    public Path submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public Path call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         byte[] downloadedData = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
         try {

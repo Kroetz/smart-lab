@@ -42,7 +42,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
                 config.getWebBrowserId(),
                 config.getDisplayId(),
                 asList(config.getUrl()));
-        this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
+        this.webBrowserInstanceId = this.webBrowserOpening.call(actionService, webBrowserOpeningArgs);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class WebsiteDisplayingControllable extends AbstractAssistanceControllabl
         final WebBrowserClosingCallable.ActionArgs webBrowserClosingArgs = WebBrowserClosingCallable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);
-        this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);
+        this.webBrowserClosing.call(actionService, webBrowserClosingArgs);
     }
 
     @Component

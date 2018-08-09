@@ -62,7 +62,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         final DataDownloadCallable.ActionArgs dataDownloadArgs = DataDownloadCallable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getFilePath());
-        return this.dataDownload.submitExecution(actionService, dataDownloadArgs);
+        return this.dataDownload.call(actionService, dataDownloadArgs);
     }
 
     private void openFile(
@@ -80,7 +80,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
             log.error(errorMessage, e);
             throw new AssistanceFailedException(errorMessage, e);
         }
-        this.programInstanceId = this.fileOpening.submitExecution(actionService, fileOpeningArgs);
+        this.programInstanceId = this.fileOpening.call(actionService, fileOpeningArgs);
         this.tempFileManager.markForCleaning(downloadedFile);
     }
 
@@ -92,7 +92,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
         final FileClosingCallable.ActionArgs fileClosingArgs = FileClosingCallable.ActionArgs.of(
                 config.getProgramId(),
                 this.programInstanceId);
-        this.fileClosing.submitExecution(actionService, fileClosingArgs);
+        this.fileClosing.call(actionService, fileClosingArgs);
     }
 
     @Component

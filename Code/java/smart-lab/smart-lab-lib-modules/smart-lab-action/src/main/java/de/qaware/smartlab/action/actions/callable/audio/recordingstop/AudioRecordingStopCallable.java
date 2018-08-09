@@ -38,7 +38,7 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
         this.tempFileManager = tempFileManager;
     }
 
-    public Path submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public Path call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         byte[] recordedAudio = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
         try {

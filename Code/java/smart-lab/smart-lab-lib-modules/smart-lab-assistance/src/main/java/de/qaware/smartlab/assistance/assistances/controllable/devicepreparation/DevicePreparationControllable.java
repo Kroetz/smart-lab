@@ -35,7 +35,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
                 context.getAssistanceConfiguration());
         final DeviceActivationCallable.ActionArgs deviceActivationArgs = DeviceActivationCallable.ActionArgs.of(
                 config.getDeviceId());
-        this.deviceActivation.submitExecution(actionService, deviceActivationArgs);
+        this.deviceActivation.call(actionService, deviceActivationArgs);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
                 context.getAssistanceConfiguration());
         final DeviceDeactivationCallable.ActionArgs deviceDeactivationArgs = DeviceDeactivationCallable.ActionArgs.of(
                 config.getDeviceId());
-        this.deviceDeactivation.submitExecution(actionService, deviceDeactivationArgs);
+        this.deviceDeactivation.call(actionService, deviceDeactivationArgs);
     }
 
     @Component

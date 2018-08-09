@@ -25,7 +25,7 @@ public class SpeechToTextCallable extends AbstractActionCallable<SpeechToTextCal
         super(speechToTextInfo);
     }
 
-    public ITranscript submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public ITranscript call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         return actionResult.getTranscriptValue().orElseThrow(InvalidActionResultException::new);
     }

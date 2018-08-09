@@ -21,7 +21,7 @@ public class DataUploadCallable extends AbstractActionCallable<DataUploadCallabl
         super(dataUploadInfo);
     }
 
-    public Void submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public Void call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         return actionResult.getVoidValue();
     }

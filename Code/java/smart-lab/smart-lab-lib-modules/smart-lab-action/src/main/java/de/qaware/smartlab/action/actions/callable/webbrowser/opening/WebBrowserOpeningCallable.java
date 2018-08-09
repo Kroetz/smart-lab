@@ -26,7 +26,7 @@ public class WebBrowserOpeningCallable extends AbstractActionCallable<WebBrowser
         super(webBrowserOpeningInfo);
     }
 
-    public UUID submitExecution(IActionService actionService, ActionArgs actionArgs) {
+    public UUID call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         return actionResult.getUuidValue().orElseThrow(InvalidActionResultException::new);
     }

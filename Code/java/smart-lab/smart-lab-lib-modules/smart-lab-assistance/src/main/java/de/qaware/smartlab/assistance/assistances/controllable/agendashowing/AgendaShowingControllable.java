@@ -65,7 +65,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                 config.getWebBrowserId(),
                 config.getDisplayId(),
                 asList(eventAgendaUrl));
-        this.webBrowserInstanceId = this.webBrowserOpening.submitExecution(actionService, webBrowserOpeningArgs);
+        this.webBrowserInstanceId = this.webBrowserOpening.call(actionService, webBrowserOpeningArgs);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
         final WebBrowserClosingCallable.ActionArgs webBrowserClosingArgs = WebBrowserClosingCallable.ActionArgs.of(
                 config.getWebBrowserId(),
                 this.webBrowserInstanceId);
-        this.webBrowserClosing.submitExecution(actionService, webBrowserClosingArgs);
+        this.webBrowserClosing.call(actionService, webBrowserClosingArgs);
     }
 
     @Component

@@ -60,7 +60,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final AudioRecordingStartCallable.ActionArgs audioRecordingStartArgs = AudioRecordingStartCallable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
-        this.audioRecordingStart.submitExecution(actionService, audioRecordingStartArgs);
+        this.audioRecordingStart.call(actionService, audioRecordingStartArgs);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final AudioRecordingStopCallable.ActionArgs audioRecordingStopArgs = AudioRecordingStopCallable.ActionArgs.of(
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
                 config.getMicrophoneId());
-        return this.audioRecordingStop.submitExecution(actionService, audioRecordingStopArgs);
+        return this.audioRecordingStop.call(actionService, audioRecordingStopArgs);
     }
 
     private ITranscript speechToText(
@@ -92,7 +92,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final SpeechToTextCallable.ActionArgs speechToTextArgs = SpeechToTextCallable.ActionArgs.of(
                 recordedAudio,
                 config.getSpokenLanguage());
-        return this.speechToText.submitExecution(actionService, speechToTextArgs);
+        return this.speechToText.call(actionService, speechToTextArgs);
     }
 
     private void uploadAudio(
@@ -117,7 +117,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             log.error(errorMessage, e);
             throw new AssistanceFailedException(errorMessage, e);
         }
-        this.dataUpload.submitExecution(actionService, dataUploadArgs);
+        this.dataUpload.call(actionService, dataUploadArgs);
     }
 
     private void uploadTranscript(
@@ -135,7 +135,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 fileName,
                 uploadMessage,
                 transcript.toHumanReadable().getBytes());
-        this.dataUpload.submitExecution(actionService, dataUploadArgs);
+        this.dataUpload.call(actionService, dataUploadArgs);
     }
 
     @Component
