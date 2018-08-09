@@ -125,7 +125,8 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
     public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(WorkgroupManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.workgroupManagementBusinessLogic.extendCurrentEvent(WorkgroupId.of(workgroupId), ofMinutes(extensionInMinutes)).toResponseEntity();
+        this.workgroupManagementBusinessLogic.extendCurrentEvent(WorkgroupId.of(workgroupId), ofMinutes(extensionInMinutes));
+        return ResponseEntity.ok().build();
     }
 
     @RestController

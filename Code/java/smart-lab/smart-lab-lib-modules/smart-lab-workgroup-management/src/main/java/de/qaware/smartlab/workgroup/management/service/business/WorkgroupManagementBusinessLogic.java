@@ -1,10 +1,12 @@
 package de.qaware.smartlab.workgroup.management.service.business;
 
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.result.ExtensionResult;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.NoCurrentEventException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.workgroup.management.service.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -44,20 +46,20 @@ public class WorkgroupManagementBusinessLogic extends AbstractBasicEntityManagem
     }
 
     @Override
-    public ExtensionResult extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
-        return this.workgroupManagementRepository.findOne(workgroupId)
-                .map(workgroup -> {
-                    try {
-                        return getCurrentEvent(workgroup.getId())
-                                .map(event -> {
-                                    this.eventManagementService.extendEvent(event.getId(), extension);
-                                    return ExtensionResult.SUCCESS;})
-                                .orElse(ExtensionResult.NOT_FOUND);
-                    }
-                    catch(Exception e) {
-                        return ExtensionResult.fromException(e);
-                    }
-                })
-                .orElse(ExtensionResult.NOT_FOUND);
+    public void extendCurrentEvent(WorkgroupId workgroupId, Duration extension) {
+        // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<IWorkgroup> workgroupOptional = this.workgroupManagementRepository.findOne(workgroupId);
+        if(workgroupOptional.isPresent()) {
+            Optional<IEvent> currentEventOptional = getCurrentEvent(workgroupOptional.get().getId());
+            if(currentEventOptional.isPresent()) {
+                this.eventManagementService.extendEvent(currentEventOptional.get().getId(), extension);
+                return;
+            }
+            throw new NoCurrentEventException(workgroupId.getIdValue());
+        }
+        throw new EntityNotFoundException(workgroupId.getIdValue());
     }
 }
+
+
+

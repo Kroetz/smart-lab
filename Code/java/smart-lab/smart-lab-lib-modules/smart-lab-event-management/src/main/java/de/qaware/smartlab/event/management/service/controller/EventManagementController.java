@@ -163,9 +163,10 @@ public class EventManagementController extends AbstractSmartLabController implem
     public ResponseEntity<Void> extendEvent(
             @PathVariable(EventManagementApiConstants.PARAMETER_NAME_EVENT_ID) String eventId,
             @RequestParam(EventManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.eventManagementBusinessLogic.extendEvent(
+        this.eventManagementBusinessLogic.extendEvent(
                 EventId.of(eventId),
-                ofMinutes(extensionInMinutes)).toResponseEntity();
+                ofMinutes(extensionInMinutes));
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(EventManagementApiConstants.MAPPING_SHIFT_EVENT)

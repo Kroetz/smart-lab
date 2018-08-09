@@ -4,8 +4,9 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.NoCurrentEventException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
-import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.location.management.service.repository.ILocationManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,20 +45,17 @@ public class LocationManagementBusinessLogic extends AbstractBasicEntityManageme
     }
 
     @Override
-    public ExtensionResult extendCurrentEvent(LocationId locationId, Duration extension) {
-        return this.locationManagementRepository.findOne(locationId)
-                .map(location -> {
-                    try {
-                        return getCurrentEvent(location.getId())
-                                .map(event -> {
-                                    this.eventManagementService.extendEvent(event.getId(), extension);
-                                    return ExtensionResult.SUCCESS;})
-                                .orElse(ExtensionResult.NOT_FOUND);
-                    }
-                    catch(Exception e) {
-                        return ExtensionResult.fromException(e);
-                    }
-                })
-                .orElse(ExtensionResult.NOT_FOUND);
+    public void extendCurrentEvent(LocationId locationId, Duration extension) {
+        // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<ILocation> locationOptional = this.locationManagementRepository.findOne(locationId);
+        if(locationOptional.isPresent()) {
+            Optional<IEvent> currentEventOptional = getCurrentEvent(locationOptional.get().getId());
+            if(currentEventOptional.isPresent()) {
+                this.eventManagementService.extendEvent(currentEventOptional.get().getId(), extension);
+                return;
+            }
+            throw new NoCurrentEventException(locationId.getIdValue());
+        }
+        throw new EntityNotFoundException(locationId.getIdValue());
     }
 }

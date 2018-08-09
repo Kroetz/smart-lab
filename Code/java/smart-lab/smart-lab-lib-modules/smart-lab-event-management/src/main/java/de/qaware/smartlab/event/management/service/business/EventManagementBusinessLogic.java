@@ -5,9 +5,10 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
 import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
+import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
-import de.qaware.smartlab.core.result.*;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,27 +63,35 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
     public void shortenEvent(
             EventId eventId,
             Duration shortening) {
-        findOne(eventId)
-                .ifPresent(event -> {
-                    Duration shortenedDuration = event.getDuration().minus(shortening);
-                    if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
-                        throw new MinimalDurationReachedException(eventId.getIdValue());
-                    }
-                    this.eventManagementRepository.shortenEvent(event, shortening);
-                });
+        // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<IEvent> eventOptional = findOne(eventId);
+        if(eventOptional.isPresent()) {
+            IEvent event = eventOptional.get();
+            Duration shortenedDuration = event.getDuration().minus(shortening);
+            if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
+                throw new MinimalDurationReachedException(eventId.getIdValue());
+            }
+            this.eventManagementRepository.shortenEvent(event, shortening);
+            return;
+        }
         throw new EntityNotFoundException(eventId.getIdValue());
     }
 
     @Override
-    public ExtensionResult extendEvent(
+    public void extendEvent(
             EventId eventId,
             Duration extension) {
-        return findOne(eventId).map(event -> {
+        // TODO: Simpler with "ifPresentOrElse" in Java 9 (See https://stackoverflow.com/questions/23773024/functional-style-of-java-8s-optional-ifpresent-and-if-not-present)
+        Optional<IEvent> eventOptional = findOne(eventId);
+        if(eventOptional.isPresent()) {
+            IEvent event = eventOptional.get();
             if(event.getDuration().plus(extension).compareTo(this.maxEventDuration) > 0) {
-                return ExtensionResult.MAXIMUM_REACHED_REACHED;
+                throw new MaximalDurationReachedException(eventId.getIdValue());
             }
-            return this.eventManagementRepository.extendEvent(event, extension);
-        }).orElse(ExtensionResult.NOT_FOUND);
+            this.eventManagementRepository.extendEvent(event, extension);
+            return;
+        }
+        throw new EntityNotFoundException(eventId.getIdValue());
     }
 
     @Override

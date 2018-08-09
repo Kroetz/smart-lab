@@ -4,7 +4,6 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.business.IBasicEntityManagementBusinessLogic;
 
@@ -22,7 +21,7 @@ public interface IEventManagementBusinessLogic extends IBasicEntityManagementBus
     void shortenEvent(
             EventId eventId,
             Duration shortening);
-    ExtensionResult extendEvent(
+    void extendEvent(
             EventId eventId,
             Duration extension);
     ShiftResult shiftEvent(

@@ -2,6 +2,7 @@ package de.qaware.smartlab.core.exception.handler;
 
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
 import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.CONFLICT, reason = "An entity with the specified ID already exists")
     @ExceptionHandler(EntityConflictException.class)
-    public void handleEntityConflictException(){
+    public void handleEntityConflictException() {
         logConversion(
                 EntityConflictException.class,
                 HttpStatus.CONFLICT.value(),
@@ -26,7 +27,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "An entity with the specified ID does not exist")
     @ExceptionHandler(EntityNotFoundException.class)
-    public void handleEntityNotFoundException(){
+    public void handleEntityNotFoundException() {
         logConversion(
                 EntityNotFoundException.class,
                 HttpStatus.NOT_FOUND.value(),
@@ -35,9 +36,18 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "The specified event already reached its minimal duration")
     @ExceptionHandler(MinimalDurationReachedException.class)
-    public void handleMinimalDurationReachedException(){
+    public void handleMinimalDurationReachedException() {
         logConversion(
                 MinimalDurationReachedException.class,
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                HttpStatus.UNPROCESSABLE_ENTITY.name());
+    }
+
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "The specified event already reached its maximal duration")
+    @ExceptionHandler(MaximalDurationReachedException.class)
+    public void handleMaximalDurationReachedException() {
+        logConversion(
+                MaximalDurationReachedException.class,
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 HttpStatus.UNPROCESSABLE_ENTITY.name());
     }

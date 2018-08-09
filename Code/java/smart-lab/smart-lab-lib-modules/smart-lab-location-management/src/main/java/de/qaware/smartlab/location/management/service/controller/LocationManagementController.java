@@ -124,7 +124,8 @@ public class LocationManagementController extends AbstractSmartLabController imp
     public ResponseEntity<Void> extendCurrentEvent(
             @PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(LocationManagementApiConstants.PARAMETER_NAME_EXTENSION_IN_MINUTES) long extensionInMinutes) {
-        return this.locationManagementBusinessLogic.extendCurrentEvent(LocationId.of(locationId), ofMinutes(extensionInMinutes)).toResponseEntity();
+        this.locationManagementBusinessLogic.extendCurrentEvent(LocationId.of(locationId), ofMinutes(extensionInMinutes));
+        return ResponseEntity.ok().build();
     }
 
     @RestController

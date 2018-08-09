@@ -8,7 +8,6 @@ import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -140,21 +139,10 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     }
 
     @Override
-    public synchronized ExtensionResult extendEvent(@NonNull IEvent event, Duration extension) {
+    public synchronized void extendEvent(@NonNull IEvent event, Duration extension) {
         IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
         delete(event.getId());
-        try {
-            create(extendedEvent);
-            return ExtensionResult.SUCCESS;
-        }
-        catch(EntityConflictException e) {
-            create(event);
-            return ExtensionResult.CONFLICT;
-        }
-        catch(Exception e) {
-            create(event);
-            return ExtensionResult.ERROR;
-        }
+        create(extendedEvent);
     }
 
     @Override

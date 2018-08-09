@@ -19,7 +19,6 @@ import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.InvalidSyntaxException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -352,9 +351,9 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public ExtensionResult extendEvent(IEvent event, Duration extension) {
+    public void extendEvent(IEvent event, Duration extension) {
         IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
-        if(isCollidingWithOtherEvents(extendedEvent)) return ExtensionResult.CONFLICT;
+        if(isCollidingWithOtherEvents(extendedEvent)) throw new EntityConflictException(event.getId().getIdValue());
         String calendarId = resolveCalendarId(extendedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
@@ -362,10 +361,10 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     extendedEvent.getId().getNameIdPart(),
                     smartLabEventToGoolgeCalEvent(extendedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while extending event \"{}\"", event, e);
-            return ExtensionResult.ERROR;
+            String errorMessage = format("I/O error while extending event \"%s\"", event);
+            log.error(errorMessage, e);
+            throw new EntityException(errorMessage, e);
         }
-        return ExtensionResult.SUCCESS;
     }
 
     @Override
