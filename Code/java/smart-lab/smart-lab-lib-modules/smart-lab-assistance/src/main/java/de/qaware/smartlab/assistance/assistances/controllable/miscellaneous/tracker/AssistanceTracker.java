@@ -75,14 +75,20 @@ public class AssistanceTracker implements IAssistanceTracker {
 
     private void requireTracked(IAssistanceContext context) throws AssistanceTrackingException {
         AssistanceTrackingId trackingId = AssistanceTrackingId.of(context);
-        if(!this.trackedAssistances.containsKey(trackingId)) throw new AssistanceTrackingException(
-                format("The assistance with the tracking ID %s and context %s is not tracked", trackingId, context));
+        if(!this.trackedAssistances.containsKey(trackingId)) {
+            String errorMessage = format("The assistance with the tracking ID %s and context %s is not tracked", trackingId, context);
+            log.error(errorMessage);
+            throw new AssistanceTrackingException(errorMessage);
+        }
     }
 
     private void requireNotTracked(IAssistanceContext context) throws AssistanceTrackingException {
         AssistanceTrackingId trackingId = AssistanceTrackingId.of(context);
-        if(this.trackedAssistances.containsKey(trackingId)) throw new AssistanceTrackingException(
-                format("The assistance with the trackingId %s and context %s is already tracked", trackingId, context));
+        if(this.trackedAssistances.containsKey(trackingId)) {
+            String errorMessage = format("The assistance with the trackingId %s and context %s is already tracked", trackingId, context);
+            log.error(errorMessage);
+            throw new AssistanceTrackingException(errorMessage);
+        }
     }
 
     /**

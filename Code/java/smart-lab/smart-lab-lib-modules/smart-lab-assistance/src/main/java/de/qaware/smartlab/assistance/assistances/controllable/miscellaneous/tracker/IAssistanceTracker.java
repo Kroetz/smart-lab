@@ -2,11 +2,12 @@ package de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.tra
 
 import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanceControllable;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.AssistanceTrackingException;
 
 public interface IAssistanceTracker {
 
-    IAssistanceControllable track(IAssistanceContext context);
-    void stopTracking(IAssistanceContext context);
-    IAssistanceControllable getTracked(IAssistanceContext context);
-    IAssistanceControllable updateTracked(IAssistanceContext context, IAssistanceControllable assistance);
+    IAssistanceControllable track(IAssistanceContext context) throws AssistanceTrackingException;
+    void stopTracking(IAssistanceContext context) throws AssistanceTrackingException;
+    IAssistanceControllable getTracked(IAssistanceContext context) throws AssistanceTrackingException;
+    IAssistanceControllable updateTracked(IAssistanceContext context, IAssistanceControllable assistance) throws AssistanceTrackingException;
 }
