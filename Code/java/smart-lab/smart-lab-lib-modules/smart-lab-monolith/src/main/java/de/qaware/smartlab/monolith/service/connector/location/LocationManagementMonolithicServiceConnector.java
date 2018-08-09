@@ -26,6 +26,7 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.*;
 
 @Component
 @ConditionalOnProperty(
@@ -49,29 +50,29 @@ public class LocationManagementMonolithicServiceConnector extends AbstractBasicE
     @Override
     public Set<IEvent> getEventsAtLocation(LocationId locationId) {
         ResponseEntity<Set<EventDto>> response = this.locationManagementController.getEventsAtLocation(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
+        if(response.getStatusCode() == OK) return requireNonNull(response.getBody()).stream().map(this.eventConverter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
     public IEvent getCurrentEvent(LocationId locationId) {
         ResponseEntity<EventDto> response = this.locationManagementController.getCurrentEvent(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.eventConverter.toEntity(requireNonNull(response.getBody()));
+        if(response.getStatusCode() == OK) return this.eventConverter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
     public void extendCurrentEvent(LocationId locationId, Duration extension) {
         ResponseEntity<Void> response = this.locationManagementController.extendCurrentEvent(locationId.getIdValue(), extension.toMinutes());
-        if(response.getStatusCode() == HttpStatus.OK) return;
+        if(response.getStatusCode() == OK) return;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
-        if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
         throw new UnknownErrorException();
     }
 

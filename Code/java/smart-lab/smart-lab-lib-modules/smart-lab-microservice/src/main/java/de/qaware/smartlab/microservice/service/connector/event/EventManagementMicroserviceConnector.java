@@ -26,6 +26,9 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Component
 @ConditionalOnProperty(
@@ -87,7 +90,7 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
             return this.converter.toEntity(currentEvent);
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();
@@ -102,7 +105,7 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
             return this.converter.toEntity(currentEvent);
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();
@@ -118,10 +121,10 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     shortening.toMinutes());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
-            if(e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
+            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
                 throw new MinimalDurationReachedException();
             }
             throw new UnknownErrorException();
@@ -136,14 +139,14 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     extension.toMinutes());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
-            if(e.status() == HttpStatus.CONFLICT.value()) {
+            if(e.status() == CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
                 throw new EntityConflictException();
             }
-            if(e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
+            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
                 throw new MaximalDurationReachedException();
             }
             throw new UnknownErrorException();
@@ -158,10 +161,10 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
                     shift.toMinutes());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
-            if(e.status() == HttpStatus.CONFLICT.value()) {
+            if(e.status() == CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
                 throw new EntityConflictException();
             }

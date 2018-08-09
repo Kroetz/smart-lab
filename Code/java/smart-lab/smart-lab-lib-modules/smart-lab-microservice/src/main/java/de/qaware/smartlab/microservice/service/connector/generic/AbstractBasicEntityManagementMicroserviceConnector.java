@@ -17,6 +17,8 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 public abstract class AbstractBasicEntityManagementMicroserviceConnector<
         EntityT extends IEntity<IdentifierT>,
@@ -53,7 +55,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
             return this.converter.toEntity(foundEntity);
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();
@@ -72,7 +74,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
                     .collect(toSet());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 // TODO: Incorporate the IDs of the entities that were not found
                 throw new EntityNotFoundException();
             }
@@ -88,7 +90,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
             return this.converter.toEntity(createdEntity);
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.CONFLICT.value()) {
+            if(e.status() == CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
                 throw new EntityConflictException();
             }
@@ -107,7 +109,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
                     .collect(toSet());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.CONFLICT.value()) {
+            if(e.status() == CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
                 throw new EntityConflictException();
             }
@@ -121,7 +123,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
             this.entityManagementApiClient.delete(entityId.getIdValue());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();

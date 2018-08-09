@@ -17,6 +17,9 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
 
 public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier, DtoT extends IDto> implements IBasicEntityManagementService<EntityT, IdentifierT, DtoT> {
 
@@ -40,9 +43,9 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
     @Override
     public EntityT findOne(IdentifierT entityId) {
         ResponseEntity<DtoT> response = this.entityManagementController.findOne(entityId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
+        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
@@ -52,18 +55,18 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
                 .findMultiple(stream(entityIds)
                 .map(IIdentifier::getIdValue)
                 .toArray(String[]::new));
-        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());
+        if(response.getStatusCode() == OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
     public EntityT create(EntityT entity) {
         ResponseEntity<DtoT> response = this.entityManagementController.create(this.converter.toDto(entity));
-        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
+        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();
     }
 
@@ -72,18 +75,18 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
         ResponseEntity<Set<DtoT>> response = this.entityManagementController.create(entities.stream()
                 .map(this.converter::toDto)
                 .collect(toSet()));
-        if(response.getStatusCode() == HttpStatus.OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());;
+        if(response.getStatusCode() == OK) return requireNonNull(response.getBody()).stream().map(this.converter::toEntity).collect(toSet());;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();
     }
 
     @Override
     public void delete(IdentifierT entityId) {
         ResponseEntity<Void> response = this.entityManagementController.delete(entityId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return;
+        if(response.getStatusCode() == OK) return;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 }

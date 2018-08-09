@@ -1,11 +1,11 @@
 package de.qaware.smartlab.monolith.service.connector.event;
 
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
+import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.event.EventId;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventId;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.*;
 import de.qaware.smartlab.core.miscellaneous.Property;
@@ -14,7 +14,6 @@ import de.qaware.smartlab.event.management.service.controller.EventManagementCon
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +22,7 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.*;
 
 @Component
 @ConditionalOnProperty(
@@ -64,18 +64,18 @@ public class EventManagementMonolithicServiceConnector extends AbstractBasicEnti
     @Override
     public IEvent findCurrent(LocationId locationId) {
         ResponseEntity<EventDto> response = this.eventManagementController.findCurrentByLocationId(locationId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
+        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
     @Override
     public IEvent findCurrent(WorkgroupId workgroupId) {
         ResponseEntity<EventDto> response = this.eventManagementController.findCurrentByWorkgroupId(workgroupId.getIdValue());
-        if(response.getStatusCode() == HttpStatus.OK) return this.converter.toEntity(requireNonNull(response.getBody()));
+        if(response.getStatusCode() == OK) return this.converter.toEntity(requireNonNull(response.getBody()));
         // TODO: Meaningful exception message
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
         throw new UnknownErrorException();
     }
 
@@ -84,10 +84,10 @@ public class EventManagementMonolithicServiceConnector extends AbstractBasicEnti
         ResponseEntity<Void> response = this.eventManagementController.shortenEvent(
                 eventId.getIdValue(),
                 shortening.toMinutes());
-        if(response.getStatusCode() == HttpStatus.OK) return;
+        if(response.getStatusCode() == OK) return;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MinimalDurationReachedException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MinimalDurationReachedException();
         throw new UnknownErrorException();
     }
 
@@ -96,11 +96,11 @@ public class EventManagementMonolithicServiceConnector extends AbstractBasicEnti
         ResponseEntity<Void> response = this.eventManagementController.extendEvent(
                 eventId.getIdValue(),
                 extension.toMinutes());
-        if(response.getStatusCode() == HttpStatus.OK) return;
+        if(response.getStatusCode() == OK) return;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
-        if(response.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == UNPROCESSABLE_ENTITY) throw new MaximalDurationReachedException();
         throw new UnknownErrorException();
     }
 
@@ -109,10 +109,10 @@ public class EventManagementMonolithicServiceConnector extends AbstractBasicEnti
         ResponseEntity<Void> response = this.eventManagementController.shiftEvent(
                 eventId.getIdValue(),
                 shift.toMinutes());
-        if(response.getStatusCode() == HttpStatus.OK) return;
+        if(response.getStatusCode() == OK) return;
         // TODO: Meaningful exception messages
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND) throw new EntityNotFoundException();
-        if(response.getStatusCode() == HttpStatus.CONFLICT) throw new EntityConflictException();
+        if(response.getStatusCode() == NOT_FOUND) throw new EntityNotFoundException();
+        if(response.getStatusCode() == CONFLICT) throw new EntityConflictException();
         throw new UnknownErrorException();
     }
 

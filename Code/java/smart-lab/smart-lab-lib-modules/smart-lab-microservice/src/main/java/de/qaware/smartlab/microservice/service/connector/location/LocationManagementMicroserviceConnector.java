@@ -29,6 +29,9 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Component
 @ConditionalOnProperty(
@@ -57,7 +60,7 @@ public class LocationManagementMicroserviceConnector extends AbstractBasicEntity
                     .collect(toSet());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();
@@ -72,7 +75,7 @@ public class LocationManagementMicroserviceConnector extends AbstractBasicEntity
             return this.eventConverter.toEntity(currentEvent);
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
             throw new UnknownErrorException();
@@ -85,14 +88,14 @@ public class LocationManagementMicroserviceConnector extends AbstractBasicEntity
             this.locationManagementApiClient.extendCurrentEvent(locationId.getIdValue(), extension.toMinutes());
         }
         catch(FeignException e) {
-            if(e.status() == HttpStatus.NOT_FOUND.value()) {
+            if(e.status() == NOT_FOUND.value()) {
                 throw new EntityNotFoundException();
             }
-            if(e.status() == HttpStatus.CONFLICT.value()) {
+            if(e.status() == CONFLICT.value()) {
                 // TODO: Incorporate information about the conflict
                 throw new EntityConflictException();
             }
-            if(e.status() == HttpStatus.UNPROCESSABLE_ENTITY.value()) {
+            if(e.status() == UNPROCESSABLE_ENTITY.value()) {
                 throw new MaximalDurationReachedException();
             }
             throw new UnknownErrorException();
