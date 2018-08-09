@@ -5,7 +5,7 @@ import de.qaware.smartlab.core.data.generic.IIdentifier;
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +60,7 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
         if(this.entities.add(entity)) {
             return entity;
         }
-        throw new UnknownErrorException();
+        throw new SmartLabException();
     }
 
     @Override

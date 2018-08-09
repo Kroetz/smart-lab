@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.exception.ConnectionFailedException;
-import de.qaware.smartlab.core.exception.UnknownErrorException;
+import de.qaware.smartlab.core.exception.SmartLabException;
 import feign.Client;
 import feign.FeignException;
 import feign.RetryableException;
@@ -54,7 +54,7 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
             throw e;
         }
         catch(Exception e) {
-            throw new UnknownErrorException(e);
+            throw new SmartLabException(e);
         }
     }
 
