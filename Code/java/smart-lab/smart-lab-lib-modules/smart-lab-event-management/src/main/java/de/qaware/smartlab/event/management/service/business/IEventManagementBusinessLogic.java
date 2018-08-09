@@ -6,7 +6,6 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
-import de.qaware.smartlab.core.result.ShorteningResult;
 import de.qaware.smartlab.core.service.business.IBasicEntityManagementBusinessLogic;
 
 import java.time.Duration;
@@ -20,7 +19,7 @@ public interface IEventManagementBusinessLogic extends IBasicEntityManagementBus
     Set<IEvent> findAllCurrent();
     Optional<IEvent> findCurrent(LocationId locationId);
     Optional<IEvent> findCurrent(WorkgroupId workgroupId);
-    ShorteningResult shortenEvent(
+    void shortenEvent(
             EventId eventId,
             Duration shortening);
     ExtensionResult extendEvent(

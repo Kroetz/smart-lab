@@ -6,7 +6,6 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
-import de.qaware.smartlab.core.result.ShorteningResult;
 import de.qaware.smartlab.core.service.repository.IBasicEntityManagementRepository;
 import lombok.NonNull;
 
@@ -21,7 +20,7 @@ public interface IEventManagementRepository extends IBasicEntityManagementReposi
     Set<IEvent> findAllCurrent();
     Optional<IEvent> findCurrent(LocationId locationId);
     Optional<IEvent> findCurrent(WorkgroupId workgroupId);
-    ShorteningResult shortenEvent(
+    void shortenEvent(
             @NonNull IEvent event,
             Duration shortening);
     ExtensionResult extendEvent(

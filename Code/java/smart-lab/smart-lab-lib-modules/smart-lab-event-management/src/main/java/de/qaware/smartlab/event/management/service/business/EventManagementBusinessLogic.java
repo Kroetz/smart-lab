@@ -4,6 +4,8 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.core.result.*;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -57,16 +59,18 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
     }
 
     @Override
-    public ShorteningResult shortenEvent(
+    public void shortenEvent(
             EventId eventId,
             Duration shortening) {
-        return findOne(eventId).map(event -> {
-            Duration shortenedDuration = event.getDuration().minus(shortening);
-            if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
-                return ShorteningResult.MINIMUM_REACHED;
-            }
-            return this.eventManagementRepository.shortenEvent(event, shortening);
-        }).orElse(ShorteningResult.NOT_FOUND);
+        findOne(eventId)
+                .ifPresent(event -> {
+                    Duration shortenedDuration = event.getDuration().minus(shortening);
+                    if(shortenedDuration.isNegative() || shortenedDuration.isZero()) {
+                        throw new MinimalDurationReachedException(eventId.getIdValue());
+                    }
+                    this.eventManagementRepository.shortenEvent(event, shortening);
+                });
+        throw new EntityNotFoundException(eventId.getIdValue());
     }
 
     @Override

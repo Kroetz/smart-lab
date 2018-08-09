@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.exception;
 
-public class MinimalDurationReachedException extends SmartLabException {
+public class MinimalDurationReachedException extends EntityException {
 
     public MinimalDurationReachedException() {
     }

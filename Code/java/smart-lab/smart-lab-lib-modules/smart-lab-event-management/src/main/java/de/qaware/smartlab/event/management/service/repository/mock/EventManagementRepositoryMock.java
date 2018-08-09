@@ -10,7 +10,6 @@ import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
-import de.qaware.smartlab.core.result.ShorteningResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.NonNull;
@@ -134,16 +133,10 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     }
 
     @Override
-    public synchronized ShorteningResult shortenEvent(@NonNull IEvent event, Duration shortening) {
+    public synchronized void shortenEvent(@NonNull IEvent event, Duration shortening) {
         delete(event.getId());
         IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
-        try {
-            create(shortenedEvent);
-            return ShorteningResult.SUCCESS;
-        }
-        catch(Exception e) {
-            return ShorteningResult.ERROR;
-        }
+        create(shortenedEvent);
     }
 
     @Override

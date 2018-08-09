@@ -21,7 +21,6 @@ import de.qaware.smartlab.core.exception.InvalidSyntaxException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
-import de.qaware.smartlab.core.result.ShorteningResult;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
@@ -337,7 +336,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public ShorteningResult shortenEvent(IEvent event, Duration shortening) {
+    public void shortenEvent(IEvent event, Duration shortening) {
         IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
         String calendarId = resolveCalendarId(shortenedEvent.getId().getLocationIdPart());
         try {
@@ -346,10 +345,10 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     shortenedEvent.getId().getNameIdPart(),
                     smartLabEventToGoolgeCalEvent(shortenedEvent)).execute();
         } catch (IOException e) {
-            log.error("I/O error while shortening event \"{}\"", event, e);
-            return ShorteningResult.ERROR;
+            String errorMessage = format("I/O error while shortening event \"%s\"", event);
+            log.error(errorMessage, e);
+            throw new EntityException(errorMessage, e);
         }
-        return ShorteningResult.SUCCESS;
     }
 
     @Override
