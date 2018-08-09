@@ -15,10 +15,10 @@ import de.qaware.smartlab.core.data.event.Event;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityCreationException;
+import de.qaware.smartlab.core.exception.EntityException;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.InvalidSyntaxException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.DeletionResult;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.result.ShorteningResult;
@@ -274,17 +274,17 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     this.service.events().insert(calendarId, smartLabEventToGoolgeCalEvent(event)).execute();
             log.info("Created event \"{}\"", event);
             // TODO: Meaningful exception message
-            return googleCalEventToSmartLabEvent(createdEvent).orElseThrow(EntityCreationException::new);
+            return googleCalEventToSmartLabEvent(createdEvent).orElseThrow(EntityException::new);
         }
         catch(IllegalArgumentException e) {
             log.error("Cannot create event \"{}\" at location \"{}\" since it has no mapped calendar ID", event, event.getLocationId());
             // TODO: Meaningful exception message
-            throw new EntityCreationException(e);
+            throw new EntityException(e);
         }
         catch(IOException e) {
             log.error("I/O error while creating event \"{}\"", event);
             // TODO: Meaningful exception message
-            throw new EntityCreationException(e);
+            throw new EntityException(e);
         }
     }
 
@@ -307,24 +307,32 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     }
 
     @Override
-    public DeletionResult delete(EventId eventId) {
+    public void delete(EventId eventId) {
         try {
             String calendarId = resolveCalendarId(eventId.getLocationIdPart());
             this.service.events().delete(calendarId, eventId.getNameIdPart()).execute();
             log.info("Deleted event \"{}\"", eventId);
-            return DeletionResult.SUCCESS;
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot delete event \"{}\" at location \"{}\" since it has no mapped calendar ID", eventId, eventId.getLocationIdPart(), e);
-            return DeletionResult.ERROR;
+            String errorMessage = format(
+                    "Cannot delete event \"%s\" at location \"%s\" since it has no mapped calendar ID",
+                    eventId,
+                    eventId.getLocationIdPart());
+            log.error(errorMessage, e);
+            throw new EntityException(errorMessage, e);
         }
         catch(GoogleJsonResponseException e) {
-            log.error("Cannot delete event \"{}\" at location \"{}\" since it does not exist", eventId, eventId.getLocationIdPart(), e);
-            return DeletionResult.ERROR;
+            String errorMessage = format(
+                    "Cannot delete event \"%s\" at location \"%s\" since it does not exist",
+                    eventId,
+                    eventId.getLocationIdPart());
+            log.error(errorMessage, e);
+            throw new EntityNotFoundException(errorMessage, e);
         }
         catch(IOException e) {
-            log.error("I/O error while deleting event \"{}\"", eventId, e);
-            return DeletionResult.ERROR;
+            String errorMessage = format("I/O error while deleting event \"%s\"", eventId);
+            log.error(errorMessage, e);
+            throw new EntityException(errorMessage, e);
         }
     }
 

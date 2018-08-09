@@ -2,7 +2,7 @@ package de.qaware.smartlab.core.service.repository;
 
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.exception.EntityCreationException;
+import de.qaware.smartlab.core.exception.EntityException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +24,7 @@ public abstract class AbstractBasicEntityManagementRepository<EntityT extends IE
         try {
             create(this.initialData);
         }
-        catch(EntityCreationException e) {
+        catch(EntityException e) {
             log.error("Could not populate repository with initial data", e);
         }
     }

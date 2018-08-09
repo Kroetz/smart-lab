@@ -1,13 +1,13 @@
 package de.qaware.smartlab.event.management.service.repository.mock;
 
 import de.qaware.smartlab.core.data.event.EventId;
-import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityCreationException;
+import de.qaware.smartlab.core.exception.EntityException;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.result.DeletionResult;
 import de.qaware.smartlab.core.result.ExtensionResult;
 import de.qaware.smartlab.core.result.ShiftResult;
 import de.qaware.smartlab.core.result.ShorteningResult;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import java.time.Duration;
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static java.util.Objects.isNull;
@@ -118,58 +119,49 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
         }
         log.error("Cannot create event {} because of unknown reason", event);
         // TODO: Meaningful exception message
-        throw new EntityCreationException();
+        throw new EntityException();
     }
 
     @Override
-    public synchronized DeletionResult delete(EventId eventId) {
+    public synchronized void delete(EventId eventId) {
         Set<IEvent> eventsAtLocation = this.eventsByLocation.get(eventId.getLocationIdPart());
         List<IEvent> eventsToDelete = isNull(eventsAtLocation) ? emptyList() : eventsAtLocation.stream()
                 .filter(event -> event.getId().equals(eventId))
                 .collect(toList());
-        if(isNull(eventsAtLocation) || eventsToDelete.isEmpty()) {
-            return DeletionResult.NOT_FOUND;
-        }
+        if(isNull(eventsAtLocation) || eventsToDelete.isEmpty()) throw new EntityNotFoundException(eventId.getIdValue());
         boolean deleted =  eventsAtLocation.removeAll(eventsToDelete);
-        if(deleted) {
-            return DeletionResult.SUCCESS;
-        }
-        return DeletionResult.ERROR;
+        if(!deleted) throw new EntityException(format("Could not delete event with ID \"%s\"", eventId.getIdValue()));
     }
 
     @Override
     public synchronized ShorteningResult shortenEvent(@NonNull IEvent event, Duration shortening) {
-        if(delete(event.getId()) == DeletionResult.SUCCESS) {
-            IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
-            try {
-                create(shortenedEvent);
-                return ShorteningResult.SUCCESS;
-            }
-            catch(Exception e) {
-                return ShorteningResult.ERROR;
-            }
+        delete(event.getId());
+        IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
+        try {
+            create(shortenedEvent);
+            return ShorteningResult.SUCCESS;
         }
-        return ShorteningResult.ERROR;
+        catch(Exception e) {
+            return ShorteningResult.ERROR;
+        }
     }
 
     @Override
     public synchronized ExtensionResult extendEvent(@NonNull IEvent event, Duration extension) {
         IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
-        if(delete(event.getId()) == DeletionResult.SUCCESS) {
-            try {
-                create(extendedEvent);
-                return ExtensionResult.SUCCESS;
-            }
-            catch(EntityConflictException e) {
-                create(event);
-                return ExtensionResult.CONFLICT;
-            }
-            catch(Exception e) {
-                create(event);
-                return ExtensionResult.ERROR;
-            }
+        delete(event.getId());
+        try {
+            create(extendedEvent);
+            return ExtensionResult.SUCCESS;
         }
-        return ExtensionResult.ERROR;
+        catch(EntityConflictException e) {
+            create(event);
+            return ExtensionResult.CONFLICT;
+        }
+        catch(Exception e) {
+            create(event);
+            return ExtensionResult.ERROR;
+        }
     }
 
     @Override
@@ -177,20 +169,18 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
         IEvent shiftedEvent = event.withStartAndEnd(
                 event.getStart().plus(shift),
                 event.getEnd().plus(shift));
-        if(delete(event.getId()) == DeletionResult.SUCCESS) {
-            try {
-                create(shiftedEvent);
-                return ShiftResult.SUCCESS;
-            }
-            catch(EntityConflictException e) {
-                create(event);
-                return ShiftResult.CONFLICT;
-            }
-            catch(Exception e) {
-                create(event);
-                return ShiftResult.ERROR;
-            }
+        delete(event.getId());
+        try {
+            create(shiftedEvent);
+            return ShiftResult.SUCCESS;
         }
-        return ShiftResult.ERROR;
+        catch(EntityConflictException e) {
+            create(event);
+            return ShiftResult.CONFLICT;
+        }
+        catch(Exception e) {
+            create(event);
+            return ShiftResult.ERROR;
+        }
     }
 }

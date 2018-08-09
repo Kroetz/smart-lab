@@ -1,24 +1,25 @@
 package de.qaware.smartlab.workgroup.management.service.controller;
 
 import de.qaware.smartlab.api.service.constant.workgroup.WorkgroupManagementApiConstants;
-import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
-import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
+import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.workgroup.management.service.business.IWorkgroupManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
-import java.time.Duration;
 import java.util.Set;
 
 import static java.time.Duration.ofMinutes;
@@ -99,7 +100,8 @@ public class WorkgroupManagementController extends AbstractSmartLabController im
     @DeleteMapping(WorkgroupManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(WorkgroupManagementApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId) {
-        return this.workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId)).toResponseEntity();
+        this.workgroupManagementBusinessLogic.delete(WorkgroupId.of(workgroupId));
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_GET_EVENTS_OF_WORKGROUP)

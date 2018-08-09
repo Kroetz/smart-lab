@@ -1,25 +1,26 @@
 package de.qaware.smartlab.location.management.service.controller;
 
 import de.qaware.smartlab.api.service.constant.location.LocationManagementApiConstants;
+import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
-import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.location.LocationId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.location.management.service.business.ILocationManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
-import java.time.Duration;
 import java.util.Set;
 
 import static java.time.Duration.ofMinutes;
@@ -98,7 +99,8 @@ public class LocationManagementController extends AbstractSmartLabController imp
     @DeleteMapping(LocationManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(LocationManagementApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId) {
-        return this.locationManagementBusinessLogic.delete(LocationId.of(locationId)).toResponseEntity();
+        this.locationManagementBusinessLogic.delete(LocationId.of(locationId));
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(LocationManagementApiConstants.MAPPING_GET_EVENTS_AT_LOCATION)

@@ -1,24 +1,25 @@
 package de.qaware.smartlab.event.management.service.controller;
 
 import de.qaware.smartlab.api.service.constant.event.EventManagementApiConstants;
+import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.event.EventId;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.event.management.service.business.IEventManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
-import java.time.Duration;
 import java.util.Set;
 
 import static java.time.Duration.ofMinutes;
@@ -142,7 +143,8 @@ public class EventManagementController extends AbstractSmartLabController implem
     @ResponseBody
     public ResponseEntity<Void> delete(
             @PathVariable(EventManagementApiConstants.PARAMETER_NAME_EVENT_ID) String eventId) {
-        return this.eventManagementBusinessLogic.delete(EventId.of(eventId)).toResponseEntity();
+        this.eventManagementBusinessLogic.delete(EventId.of(eventId));
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(EventManagementApiConstants.MAPPING_SHORTEN_EVENT)

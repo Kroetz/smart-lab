@@ -3,14 +3,16 @@ package de.qaware.smartlab.person.management.service.controller;
 import de.qaware.smartlab.api.service.constant.person.PersonManagementApiConstants;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.person.IPerson;
-import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.person.PersonDto;
+import de.qaware.smartlab.core.data.person.PersonId;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.person.management.service.business.IPersonManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -92,7 +94,8 @@ public class PersonManagementController extends AbstractSmartLabController imple
     @DeleteMapping(PersonManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(PersonManagementApiConstants.PARAMETER_NAME_PERSON_ID) String personId) {
-        return this.personManagementBusinessLogic.delete(PersonId.of(personId)).toResponseEntity();
+        this.personManagementBusinessLogic.delete(PersonId.of(personId));
+        return ResponseEntity.ok().build();
     }
 
     @RestController

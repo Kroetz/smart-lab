@@ -2,7 +2,6 @@ package de.qaware.smartlab.core.service.business;
 
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.result.DeletionResult;
 import de.qaware.smartlab.core.service.repository.IBasicEntityManagementRepository;
 
 import java.util.Map;
@@ -43,7 +42,7 @@ public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends
     }
 
     @Override
-    public DeletionResult delete(IdentifierT entityId) {
-        return this.entityManagementRepository.delete(entityId);
+    public void delete(IdentifierT entityId) {
+        this.entityManagementRepository.delete(entityId);
     }
 }

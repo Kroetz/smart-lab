@@ -3,13 +3,15 @@ package de.qaware.smartlab.core.service.repository;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
 import de.qaware.smartlab.core.exception.EntityConflictException;
+import de.qaware.smartlab.core.exception.EntityException;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.UnknownErrorException;
-import de.qaware.smartlab.core.result.DeletionResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
 @Repository
@@ -71,17 +73,12 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     }
 
     @Override
-    public synchronized DeletionResult delete(IdentifierT entityId) {
+    public synchronized void delete(IdentifierT entityId) {
         List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .collect(toList());
-        if(entitiesToDelete.isEmpty()) {
-            return DeletionResult.NOT_FOUND;
-        }
+        if(entitiesToDelete.isEmpty()) throw new EntityNotFoundException(entityId.getIdValue());
         boolean deleted =  this.entities.removeAll(entitiesToDelete);
-        if(deleted) {
-            return DeletionResult.SUCCESS;
-        }
-        return DeletionResult.ERROR;
+        if(!deleted) throw new EntityException(format("Could not delete entity with ID \"%s\"", entityId.getIdValue()));
     }
 }

@@ -1,16 +1,18 @@
 package de.qaware.smartlab.actuator.management.service.controller;
 
-import de.qaware.smartlab.core.data.actuator.ActuatorId;
+import de.qaware.smartlab.actuator.management.service.business.IActuatorManagementBusinessLogic;
+import de.qaware.smartlab.api.service.constant.actuator.ActuatorManagementApiConstants;
 import de.qaware.smartlab.core.data.actuator.ActuatorDto;
+import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.api.service.constant.actuator.ActuatorManagementApiConstants;
+import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.IBasicEntityManagementController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
-import de.qaware.smartlab.actuator.management.service.business.IActuatorManagementBusinessLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,7 +92,8 @@ public class ActuatorManagementController extends AbstractSmartLabController imp
     @DeleteMapping(ActuatorManagementApiConstants.MAPPING_DELETE)
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable(ActuatorManagementApiConstants.PARAMETER_NAME_ACTUATOR_ID) String actuatorId) {
-        return this.actuatorManagementBusinessLogic.delete(ActuatorId.of(actuatorId)).toResponseEntity();
+        this.actuatorManagementBusinessLogic.delete(ActuatorId.of(actuatorId));
+        return ResponseEntity.ok().build();
     }
 
     @RestController

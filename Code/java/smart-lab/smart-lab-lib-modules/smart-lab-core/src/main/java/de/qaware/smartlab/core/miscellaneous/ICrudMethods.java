@@ -2,7 +2,6 @@ package de.qaware.smartlab.core.miscellaneous;
 
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.result.DeletionResult;
 
 import java.util.Map;
 import java.util.Optional;
@@ -15,5 +14,5 @@ public interface ICrudMethods<EntityT extends IEntity<IdentifierT>, IdentifierT 
     Map<IdentifierT, Optional<EntityT>> findMultiple(Set<IdentifierT> entityIds);
     EntityT create(EntityT entity);
     Set<EntityT> create(Set<EntityT> entities);
-    DeletionResult delete(IdentifierT entityId);
+    void delete(IdentifierT entityId);
 }

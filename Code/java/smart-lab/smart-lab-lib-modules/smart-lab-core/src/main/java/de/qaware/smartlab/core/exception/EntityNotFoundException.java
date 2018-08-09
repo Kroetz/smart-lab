@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.exception;
 
-public class EntityNotFoundException extends SmartLabException {
+public class EntityNotFoundException extends EntityException {
 
     public EntityNotFoundException() {
     }
