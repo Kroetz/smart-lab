@@ -13,7 +13,6 @@ import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.exception.AssistanceFailedException;
 import de.qaware.smartlab.core.exception.InsufficientContextException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
@@ -57,9 +56,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         MinuteTakingInfo.Configuration config = toSpecificConfigType(
                 MinuteTakingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        final AudioRecordingStartCallable.ActionArgs audioRecordingStartArgs = AudioRecordingStartCallable.ActionArgs.of(
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
-                config.getMicrophoneId());
+        final AudioRecordingStartCallable.ActionArgs audioRecordingStartArgs =
+                AudioRecordingStartCallable.ActionArgs.of(config.getMicrophoneId());
         this.audioRecordingStart.call(actionService, audioRecordingStartArgs);
     }
 
@@ -79,9 +77,8 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IActionService actionService,
             IAssistanceContext context,
             MinuteTakingInfo.Configuration config) {
-        final AudioRecordingStopCallable.ActionArgs audioRecordingStopArgs = AudioRecordingStopCallable.ActionArgs.of(
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new),
-                config.getMicrophoneId());
+        final AudioRecordingStopCallable.ActionArgs audioRecordingStopArgs =
+                AudioRecordingStopCallable.ActionArgs.of(config.getMicrophoneId());
         return this.audioRecordingStop.call(actionService, audioRecordingStopArgs);
     }
 

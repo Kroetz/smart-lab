@@ -1,12 +1,11 @@
 package de.qaware.smartlab.action.actions.callable.audio.recordingstop;
 
-import de.qaware.smartlab.action.actions.info.audio.recordingstop.AudioRecordingStopInfo;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.audio.recordingstop.AudioRecordingStopInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
@@ -52,9 +51,6 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
     @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
-
-        @NonNull
-        private LocationId locationId;
 
         @NonNull
         private ActuatorId microphoneId;
