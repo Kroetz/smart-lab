@@ -13,25 +13,25 @@ import org.springframework.context.annotation.Configuration;
         prefix = Property.Prefix.GITHUB,
         name = Property.Name.GITHUB,
         havingValue = Property.Value.TRUE)
-@EnableConfigurationProperties(GithubConfiguration.GithubProperties.class)
+@EnableConfigurationProperties(GithubConfiguration.Properties.class)
 public class GithubConfiguration {
 
-    private final GithubProperties githubProperties;
+    private final Properties properties;
 
-    public GithubConfiguration(GithubProperties githubProperties) {
-        this.githubProperties = githubProperties;
+    public GithubConfiguration(Properties properties) {
+        this.properties = properties;
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("githubApiKey")
     public String githubApiKey() {
-        return this.githubProperties.getApiKey();
+        return this.properties.getApiKey();
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.actuator.github")
-    public static class GithubProperties {
+    public static class Properties {
 
         private String apiKey;
 

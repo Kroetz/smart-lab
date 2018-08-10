@@ -50,26 +50,20 @@ import java.util.Map;
 @EnableSmartLabGui
 @EnableSmartLabSetUpEventTriggerProvider
 @EnableSmartLabCleanUpEventTriggerProvider
-@EnableConfigurationProperties(value = {
-        MonolithModuleConfiguration.DelegateProperties.class,
-        MonolithModuleConfiguration.FallbackBaseUrlProperties.class})
+@EnableConfigurationProperties(value = MonolithModuleConfiguration.Properties.class)
 public class MonolithModuleConfiguration {
 
-    private final DelegateProperties delegateProperties;
-    private final FallbackBaseUrlProperties fallbackBaseUrlProperties;
+    private final Properties properties;
 
-    public MonolithModuleConfiguration(
-            DelegateProperties delegateProperties,
-            FallbackBaseUrlProperties fallbackBaseUrlProperties) {
-        this.delegateProperties = delegateProperties;
-        this.fallbackBaseUrlProperties = fallbackBaseUrlProperties;
+    public MonolithModuleConfiguration(Properties properties) {
+        this.properties = properties;
     }
 
     @Bean
     // TODO: String literal
     @Qualifier("urlsByDelegateName")
     public Map<String, String> urlsByDelegateName() {
-        return this.delegateProperties.getDelegateUrls();
+        return this.properties.getDelegateUrls();
     }
 
     @Bean
@@ -94,17 +88,21 @@ public class MonolithModuleConfiguration {
     // TODO: String literal
     @Qualifier("fallbackBaseUrl")
     public URL fallbackBaseUrl() throws MalformedURLException {
-        return this.fallbackBaseUrlProperties.getFallbackBaseUrl();
+        return this.properties.getFallbackBaseUrl();
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.monolith")
-    public static class DelegateProperties {
+    public static class Properties {
+
+        private final String DEFAULT_FALLBACK_BASE_URL = "http://localhost:8080";
 
         private Map<String, String> delegateUrls;
+        private String fallbackBaseUrl;
 
-        public DelegateProperties() {
+        public Properties() {
             this.delegateUrls = new HashMap<>();
+            this.fallbackBaseUrl = DEFAULT_FALLBACK_BASE_URL;
         }
 
         public Map<String, String> getDelegateUrls() {
@@ -117,19 +115,6 @@ public class MonolithModuleConfiguration {
                 throw new ConfigurationException("The configured delegate URLs must be valid");
             }
             this.delegateUrls = delegateUrls;
-        }
-    }
-
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.monolith")
-    public static class FallbackBaseUrlProperties {
-
-        private final String DEFAULT_FALLBACK_BASE_URL = "http://localhost:8080";
-
-        private String fallbackBaseUrl;
-
-        public FallbackBaseUrlProperties() {
-            this.fallbackBaseUrl = DEFAULT_FALLBACK_BASE_URL;
         }
 
         public URL getFallbackBaseUrl() throws MalformedURLException {

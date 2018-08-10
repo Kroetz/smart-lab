@@ -17,31 +17,31 @@ import static java.time.Duration.ofMinutes;
 @ComponentScan(basePackageClasses = de.qaware.smartlab.gui.service.ComponentScanMarker.class)
 @EnableSmartLabCore
 @EnableSmartLabApi
-@EnableConfigurationProperties(GuiConfiguration.GuiProperties.class)
+@EnableConfigurationProperties(GuiConfiguration.Properties.class)
 public class GuiConfiguration {
 
-    private final GuiProperties guiProperties;
+    private final Properties properties;
 
-    public GuiConfiguration(GuiProperties guiProperties) {
-        this.guiProperties = guiProperties;
+    public GuiConfiguration(Properties properties) {
+        this.properties = properties;
     }
 
     @Bean
     // TODO: String literal
     @Qualifier("locationStatusEventExtension")
     public Duration locationStatusEventExtension() {
-        return this.guiProperties.getCurrentEventExtensionInMinutes();
+        return this.properties.getCurrentEventExtensionInMinutes();
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.gui")
-    public static class GuiProperties {
+    public static class Properties {
 
         private static final int DEFAULT_CURRENT_EVENT_EXTENSION_IN_MINUTES = 1;
 
         private int currentEventExtensionInMinutes;
 
-        public GuiProperties() {
+        public Properties() {
             this.currentEventExtensionInMinutes = DEFAULT_CURRENT_EVENT_EXTENSION_IN_MINUTES;
         }
 

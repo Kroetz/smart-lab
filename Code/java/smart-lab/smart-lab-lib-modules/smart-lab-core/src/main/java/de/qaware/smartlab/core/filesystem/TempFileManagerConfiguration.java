@@ -13,60 +13,60 @@ import static java.nio.file.Paths.get;
 import static java.time.Duration.ofSeconds;
 
 @Configuration
-@EnableConfigurationProperties(TempFileManagerConfiguration.TempFileProperties.class)
+@EnableConfigurationProperties(TempFileManagerConfiguration.Properties.class)
 public class TempFileManagerConfiguration {
 
-    private TempFileProperties tempFileProperties;
+    private Properties properties;
 
-    public TempFileManagerConfiguration(TempFileProperties tempFileProperties) {
-        this.tempFileProperties = tempFileProperties;
+    public TempFileManagerConfiguration(Properties properties) {
+        this.properties = properties;
     }
 
     @Bean
     // TODO: String literal
     @Qualifier("obsoleteFileCleaningInterval")
     public Duration obsoleteFileCleaningInterval() {
-        return this.tempFileProperties.getObsoleteFileCleaningIntervalInSeconds();
+        return this.properties.getObsoleteFileCleaningIntervalInSeconds();
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("tempFileBaseDir")
     public Path tempFileBaseDir() {
-        return this.tempFileProperties.getBaseDir();
+        return this.properties.getBaseDir();
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("tempFileNamePrefix")
     public String tempFileNamePrefix() {
-        return this.tempFileProperties.getFileNamePrefix();
+        return this.properties.getFileNamePrefix();
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("tempFileNameSuffix")
     public String tempFileNameSuffix() {
-        return this.tempFileProperties.getFileNameSuffix();
+        return this.properties.getFileNameSuffix();
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("recordedAudioTempFileSubDir")
     public Path recordedAudioTempFileSubDir() {
-        return this.tempFileProperties.getAudioSubDir();
+        return this.properties.getAudioSubDir();
     }
 
     @Bean
     // TODO: String literals
     @Qualifier("downloadsTempFileSubDir")
     public Path downloadsTempFileSubDir() {
-        return this.tempFileProperties.getDownloadSubDir();
+        return this.properties.getDownloadSubDir();
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.temp")
-    public static class TempFileProperties {
+    public static class Properties {
 
         private static final int DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS = 60;
         private static final Path DEFAULT_BASE_DIR = get(System.getProperty("java.io.tmpdir"), "smart-lab");
@@ -82,7 +82,7 @@ public class TempFileManagerConfiguration {
         private Path audioSubDir;
         private Path downloadSubDir;
 
-        public TempFileProperties() {
+        public Properties() {
             this.obsoleteFileCleaningIntervalInSeconds = DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS;
             this.baseDir = DEFAULT_BASE_DIR;
             this.fileNamePrefix = DEFAULT_FILE_NAME_PREFIX;

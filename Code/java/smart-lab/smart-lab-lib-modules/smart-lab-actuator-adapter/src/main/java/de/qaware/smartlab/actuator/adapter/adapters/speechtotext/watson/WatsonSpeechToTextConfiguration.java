@@ -13,30 +13,30 @@ import org.springframework.context.annotation.Configuration;
         prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
         name = Property.Name.SPEECH_TO_TEXT_SERVICE,
         havingValue = Property.Value.SpeechToTextService.WATSON)
-@EnableConfigurationProperties(WatsonSpeechToTextConfiguration.WatsonSpeechToTextProperties.class)
+@EnableConfigurationProperties(WatsonSpeechToTextConfiguration.Properties.class)
 public class WatsonSpeechToTextConfiguration {
 
-    private final WatsonSpeechToTextProperties watsonSpeechToTextProperties;
+    private final Properties properties;
     private final WatsonSpeechToTextTranscript.Factory transcriptFactory;
 
     public WatsonSpeechToTextConfiguration(
-            WatsonSpeechToTextProperties watsonSpeechToTextProperties,
+            Properties properties,
             WatsonSpeechToTextTranscript.Factory transcriptFactory) {
-        this.watsonSpeechToTextProperties = watsonSpeechToTextProperties;
+        this.properties = properties;
         this.transcriptFactory = transcriptFactory;
     }
 
     @Bean
     public ISpeechToTextAdapter speechToTextAdapter() {
         return new WatsonSpeechToTextAdapter(
-                this.watsonSpeechToTextProperties.getUserName(),
-                this.watsonSpeechToTextProperties.getPassword(),
+                this.properties.getUserName(),
+                this.properties.getPassword(),
                 this.transcriptFactory);
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.actuator.watson-speech-to-text")
-    public static class WatsonSpeechToTextProperties {
+    public static class Properties {
 
         private String userName;
         private String password;

@@ -14,28 +14,28 @@ import org.springframework.context.annotation.Configuration;
         prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
         name = Property.Name.SPEECH_TO_TEXT_SERVICE,
         havingValue = Property.Value.SpeechToTextService.REMEETING)
-@EnableConfigurationProperties(RemeetingConfiguration.RemeetingProperties.class)
+@EnableConfigurationProperties(RemeetingConfiguration.Properties.class)
 @EnableFeignClients(basePackageClasses = IRemeetingApiClient.class)
 public class RemeetingConfiguration {
 
-    private final RemeetingProperties remeetingProperties;
+    private final Properties properties;
     private final IRemeetingApiClient remeetingApiClient;
 
     public RemeetingConfiguration(
-            RemeetingProperties remeetingProperties,
+            Properties properties,
             IRemeetingApiClient remeetingApiClient) {
-        this.remeetingProperties = remeetingProperties;
+        this.properties = properties;
         this.remeetingApiClient = remeetingApiClient;
     }
 
     @Bean
     public ISpeechToTextAdapter speechToTextAdapter() {
-        return new RemeetingAdapter(this.remeetingApiClient, this.remeetingProperties.getApiKey());
+        return new RemeetingAdapter(this.remeetingApiClient, this.properties.getApiKey());
     }
 
     // TODO: String literal
     @ConfigurationProperties(prefix = "smart-lab.actuator.remeeting")
-    public static class RemeetingProperties {
+    public static class Properties {
 
         private String apiKey;
 
