@@ -71,9 +71,15 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
             JsonObject committer = Json.createObjectBuilder()
                     .add(JSON_PROPERTY_NAME, this.githubCommitterName)
                     .add(JSON_PROPERTY_EMAIL, this.githubCommitterEmail).build();
-            // TODO: casting smells
-            // TODO: Check for casting exception and throw illegalstateexception
-            GithubInfo githubInfo = (GithubInfo) projectBaseInfo;
+            GithubInfo githubInfo;
+            try {
+                githubInfo = (GithubInfo) projectBaseInfo;
+            }
+            catch(ClassCastException e) {
+                String errorMessage = String.format("The project base info must be of the type %s", GithubInfo.class.getName());
+                log.error(errorMessage);
+                throw new ServiceFailedException(errorMessage);
+            }
             Repo repository = this.github.repos().get(new Coordinates.Simple(
                     githubInfo.getUser(),
                     githubInfo.getRepository()));
