@@ -185,7 +185,7 @@ public class GenericMicrophone implements AutoCloseable {
         else if(microphoneCache.containsKey(microphoneName) && !microphoneCache.get(microphoneName).getAudioFormat().matches(audioFormat)) {
             throw new RuntimeException("The microphone is already configured with another audio format which needs to be closed first");
         }
-        return Optional.of(microphoneCache.get(microphoneName));
+        return Optional.ofNullable(microphoneCache.get(microphoneName));
     }
 
     @Override
