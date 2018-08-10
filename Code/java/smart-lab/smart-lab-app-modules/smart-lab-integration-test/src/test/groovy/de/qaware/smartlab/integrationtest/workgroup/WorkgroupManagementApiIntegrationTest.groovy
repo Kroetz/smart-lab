@@ -14,6 +14,7 @@ import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.FireFightersSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.ForestRangersSampleDataSetFactory
+import de.qaware.smartlab.event.management.configuration.EventManagementServiceConfiguration
 import de.qaware.smartlab.integrationtest.generic.CrudApiIntegrationTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -47,8 +48,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
     private AstronautsSampleDataSetFactory astronautsDataFactory
 
     @Autowired
-    // TODO: String literal
-    @Qualifier("maxEventDuration")
+    @Qualifier(EventManagementServiceConfiguration.QUALIFIER_MAX_EVENT_DURATION)
     private Duration maxEventDuration;
 
     @Override

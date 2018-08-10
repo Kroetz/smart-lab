@@ -3,6 +3,7 @@ package de.qaware.smartlab.monolith.service.connector.job;
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.job.service.controller.JobManagementController;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -60,8 +61,7 @@ public class JobManagementMonolithicServiceConnector implements IJobManagementSe
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("jobManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_JOB_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

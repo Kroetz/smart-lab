@@ -20,8 +20,7 @@ import java.net.URL;
 public class GuiMicroserviceConnector implements IGuiService {
 
     @Component
-    // TODO: String literal
-    @Qualifier("guiServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_GUI_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

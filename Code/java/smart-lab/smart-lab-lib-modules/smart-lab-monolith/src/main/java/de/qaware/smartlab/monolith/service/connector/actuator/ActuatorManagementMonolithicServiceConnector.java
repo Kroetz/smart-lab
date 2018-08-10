@@ -6,6 +6,7 @@ import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.actuator.management.service.controller.ActuatorManagementController;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
@@ -30,8 +31,7 @@ public class ActuatorManagementMonolithicServiceConnector extends AbstractBasicE
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("actuatorManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ACTUATOR_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

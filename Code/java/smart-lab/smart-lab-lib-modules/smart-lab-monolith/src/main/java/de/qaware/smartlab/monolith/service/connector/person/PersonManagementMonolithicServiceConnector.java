@@ -6,6 +6,7 @@ import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlab.person.management.service.controller.PersonManagementController;
@@ -30,8 +31,7 @@ public class PersonManagementMonolithicServiceConnector extends AbstractBasicEnt
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("personManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_PERSON_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

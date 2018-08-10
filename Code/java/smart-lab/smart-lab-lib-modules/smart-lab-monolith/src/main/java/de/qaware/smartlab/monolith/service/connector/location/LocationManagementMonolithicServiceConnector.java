@@ -8,6 +8,7 @@ import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.location.management.service.controller.LocationManagementController;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
@@ -59,8 +60,7 @@ public class LocationManagementMonolithicServiceConnector extends AbstractBasicE
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("locationManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_LOCATION_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

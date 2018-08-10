@@ -7,6 +7,7 @@ import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
+import de.qaware.smartlab.core.miscellaneous.Constants;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,7 @@ public class SpeechToTextCallable extends AbstractActionCallable<SpeechToTextCal
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 

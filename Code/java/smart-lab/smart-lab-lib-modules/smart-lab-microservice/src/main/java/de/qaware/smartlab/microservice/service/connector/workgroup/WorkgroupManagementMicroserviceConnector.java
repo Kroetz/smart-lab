@@ -87,8 +87,7 @@ public class WorkgroupManagementMicroserviceConnector extends AbstractBasicEntit
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("workgroupManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_WORKGROUP_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

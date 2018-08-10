@@ -18,6 +18,9 @@ import static java.time.Duration.ofSeconds;
 @EnableConfigurationProperties(CommonWindowHandlingConfiguration.Properties.class)
 public class CommonWindowHandlingConfiguration {
 
+    public static final String QUALIFIER_LOCAL_DISPLAYS_BY_SMART_LAB_DISPLAY_IDS = "localDisplaysBySmartLabDisplayIds";
+    public static final String QUALIFIER_FIND_WINDOW_TIMEOUT = "findWindowTimeout";
+
     private final Properties properties;
 
     public CommonWindowHandlingConfiguration(Properties properties) {
@@ -25,15 +28,13 @@ public class CommonWindowHandlingConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("localDisplaysBySmartLabDisplayIds")
+    @Qualifier(QUALIFIER_LOCAL_DISPLAYS_BY_SMART_LAB_DISPLAY_IDS)
     public Map<String, String> localDisplaysBySmartLabDisplayIds() {
         return this.properties.getDisplays();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("findWindowTimeout")
+    @Qualifier(QUALIFIER_FIND_WINDOW_TIMEOUT)
     public Duration findWindowTimeout() {
         return this.properties.getFindWindowTimeoutInSeconds();
     }

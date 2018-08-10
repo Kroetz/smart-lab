@@ -30,7 +30,7 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
     public GuiBusinessLogic(
             ILocationManagementService locationManagementService,
             // TODO: String literal
-            @Qualifier("triggerServiceBaseUrlGetter") IServiceBaseUrlGetter triggerServiceBaseUrlGetter,
+            @Qualifier(IServiceBaseUrlGetter.QUALIFIER_TRIGGER_SERVICE_BASE_URL_GETTER) IServiceBaseUrlGetter triggerServiceBaseUrlGetter,
             @Qualifier("locationStatusEventExtension") Duration locationStatusEventExtension) {
         this.locationManagementService = locationManagementService;
         this.triggerServiceBaseUrlGetter = triggerServiceBaseUrlGetter;

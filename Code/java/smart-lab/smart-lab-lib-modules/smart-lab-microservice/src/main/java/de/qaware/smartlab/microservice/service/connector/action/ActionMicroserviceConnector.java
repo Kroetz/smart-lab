@@ -41,8 +41,7 @@ public class ActionMicroserviceConnector implements IActionService {
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("actionServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ACTION_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

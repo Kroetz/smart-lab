@@ -7,6 +7,7 @@ import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
+import de.qaware.smartlab.core.miscellaneous.Constants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -30,7 +31,7 @@ public class FileOpeningCallable extends AbstractActionCallable<FileOpeningCalla
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 

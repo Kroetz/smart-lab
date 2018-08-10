@@ -148,8 +148,7 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("eventManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_EVENT_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

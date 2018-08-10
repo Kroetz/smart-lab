@@ -1,5 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
+import de.qaware.smartlab.core.configuration.ResourcesConfiguration;
 import de.qaware.smartlab.core.exception.LocalActuatorException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +29,7 @@ public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
     public DummyMicrophoneAdapter(
             ResourceLoader resourceLoader,
             ITempFileManager tempFileManager,
-            // TODO: String literals
-            @Qualifier("resourcesTempFileSubDir") Path resourcesTempFileSubDir) {
+            @Qualifier(ResourcesConfiguration.QUALIFIER_RESOURCES_TEMP_FILE_SUB_DIR) Path resourcesTempFileSubDir) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         this.resourceLoader = resourceLoader;
         this.tempFileManager = tempFileManager;

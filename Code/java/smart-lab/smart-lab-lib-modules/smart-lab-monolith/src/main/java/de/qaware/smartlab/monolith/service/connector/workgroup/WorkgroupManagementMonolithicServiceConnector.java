@@ -8,6 +8,7 @@ import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlab.workgroup.management.service.controller.WorkgroupManagementController;
@@ -59,8 +60,7 @@ public class WorkgroupManagementMonolithicServiceConnector extends AbstractBasic
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("workgroupManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_WORKGROUP_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

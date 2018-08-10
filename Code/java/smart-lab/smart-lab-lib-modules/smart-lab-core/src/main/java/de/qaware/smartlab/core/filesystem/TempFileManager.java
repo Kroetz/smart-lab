@@ -34,11 +34,10 @@ public class TempFileManager implements ITempFileManager, CommandLineRunner {
     private final String tempFileNameSuffix;
 
     public TempFileManager(
-            // TODO: String literal
-            @Qualifier("obsoleteFileCleaningInterval") Duration obsoleteFileCleaningInterval,
-            @Qualifier("tempFileBaseDir") Path tempFileBaseDir,
-            @Qualifier("tempFileNamePrefix") String tempFileNamePrefix,
-            @Qualifier("tempFileNameSuffix") String tempFileNameSuffix) {
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_OBSOLETE_FILE_CLEANING_INTERVAL) Duration obsoleteFileCleaningInterval,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_TEMP_FILE_BASE_DIR) Path tempFileBaseDir,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_TEMP_FILE_NAME_PREFIX) String tempFileNamePrefix,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_TEMP_FILE_NAME_SUFFIX) String tempFileNameSuffix) {
         this.filesToClean = ConcurrentHashMap.newKeySet();  // This creates a concurrent set in Java 8. In more recent versions there may be a more intuitive way.
         this.obsoleteFileCleaningInterval = obsoleteFileCleaningInterval;
         this.tempFileBaseDir = tempFileBaseDir;

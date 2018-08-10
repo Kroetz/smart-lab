@@ -27,7 +27,7 @@ public class AudioRecordingStartCallable extends AbstractActionCallable<AudioRec
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 

@@ -1,7 +1,7 @@
 package de.qaware.smartlab.action.actions.callable.data.upload;
 
-import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -27,7 +27,7 @@ public class DataUploadCallable extends AbstractActionCallable<DataUploadCallabl
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 

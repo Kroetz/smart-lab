@@ -39,8 +39,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 
     public PowerPointAdapter(
             IWindowHandler windowHandler,
-            // TODO: String literals
-            @Qualifier("powerPointExecutable") Path powerPointExecutable) {
+            @Qualifier(PowerPointConfiguration.QUALIFIER_POWER_POINT_EXECUTABLE) Path powerPointExecutable) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API, windowHandler);
         this.powerPointExecutable = powerPointExecutable;
     }

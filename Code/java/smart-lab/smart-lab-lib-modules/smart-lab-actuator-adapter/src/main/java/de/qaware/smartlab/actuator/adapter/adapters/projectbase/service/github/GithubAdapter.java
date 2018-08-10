@@ -11,6 +11,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.generic.
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlab.core.exception.ServiceFailedException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,8 +48,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
             // TODO: String literals
             @Qualifier("githubApiKey") String githubApiKey,
             ITempFileManager tempFileManager,
-            // TODO: String literals
-            @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir) {
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_DOWNLOADS_TEMP_FILE_SUB_DIR) Path downloadsTempFileSubDir) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;

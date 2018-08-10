@@ -26,6 +26,8 @@ import static java.nio.file.Paths.get;
 @EnableConfigurationProperties(PowerPointConfiguration.Properties.class)
 public class PowerPointConfiguration {
 
+    public static final String QUALIFIER_POWER_POINT_EXECUTABLE = "powerPointExecutable";
+
     private final Properties properties;
 
     public PowerPointConfiguration(Properties properties) {
@@ -38,17 +40,16 @@ public class PowerPointConfiguration {
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("powerPointExecutable")
+    @Qualifier(QUALIFIER_POWER_POINT_EXECUTABLE)
     public Path powerPointExecutable() {
         return this.properties.getExecutableFile();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.power-point", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.actuator.power-point";
         private static final Path DEFAULT_EXECUTABLE_FILE = get("C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE");
 
         private Path executableFile;

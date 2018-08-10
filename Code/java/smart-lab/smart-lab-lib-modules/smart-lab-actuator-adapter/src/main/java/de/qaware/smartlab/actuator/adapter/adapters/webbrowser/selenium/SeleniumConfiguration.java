@@ -26,6 +26,9 @@ import static java.nio.file.Paths.get;
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
 public class SeleniumConfiguration {
 
+    public static final String QUALIFIER_SELENIUM_GECKO_DRIVER_FILE = "seleniumGeckoDriverFile";
+    public static final String QUALIFIER_SELENIUM_CHROME_DRIVER_FILE = "seleniumChromeDriverFile";
+
     private final Properties properties;
 
     public SeleniumConfiguration(Properties properties) {
@@ -38,15 +41,13 @@ public class SeleniumConfiguration {
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("seleniumGeckoDriverFile")
+    @Qualifier(QUALIFIER_SELENIUM_GECKO_DRIVER_FILE)
     public Path seleniumGeckoDriverFile() {
         return this.properties.getGeckoDriverFile();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("seleniumChromeDriverFile")
+    @Qualifier(QUALIFIER_SELENIUM_CHROME_DRIVER_FILE)
     public Path seleniumChromeDriverFile() {
         return this.properties.getChromeDriverFile();
     }

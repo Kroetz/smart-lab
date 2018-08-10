@@ -9,6 +9,8 @@ import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
+import de.qaware.smartlab.core.miscellaneous.Constants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,8 +31,7 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
 
     public DataDownloadCallable(
             DataDownloadInfo dataDownloadInfo,
-            // TODO: String literals
-            @Qualifier("downloadsTempFileSubDir") Path downloadsTempFileSubDir,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_DOWNLOADS_TEMP_FILE_SUB_DIR) Path downloadsTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(dataDownloadInfo);
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;
@@ -49,7 +50,7 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 

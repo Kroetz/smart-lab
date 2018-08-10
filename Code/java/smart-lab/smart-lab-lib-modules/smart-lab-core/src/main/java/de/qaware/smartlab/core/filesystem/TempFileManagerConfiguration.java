@@ -16,6 +16,13 @@ import static java.time.Duration.ofSeconds;
 @EnableConfigurationProperties(TempFileManagerConfiguration.Properties.class)
 public class TempFileManagerConfiguration {
 
+    public static final String QUALIFIER_OBSOLETE_FILE_CLEANING_INTERVAL = "obsoleteFileCleaningInterval";
+    public static final String QUALIFIER_TEMP_FILE_BASE_DIR = "tempFileBaseDir";
+    public static final String QUALIFIER_TEMP_FILE_NAME_PREFIX = "tempFileNamePrefix";
+    public static final String QUALIFIER_TEMP_FILE_NAME_SUFFIX = "tempFileNameSuffix";
+    public static final String QUALIFIER_RECORDED_AUDIO_TEMP_FILE_SUB_DIR = "recordedAudioTempFileSubDir";
+    public static final String QUALIFIER_DOWNLOADS_TEMP_FILE_SUB_DIR = "downloadsTempFileSubDir";
+
     private Properties properties;
 
     public TempFileManagerConfiguration(Properties properties) {
@@ -23,43 +30,37 @@ public class TempFileManagerConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("obsoleteFileCleaningInterval")
+    @Qualifier(QUALIFIER_OBSOLETE_FILE_CLEANING_INTERVAL)
     public Duration obsoleteFileCleaningInterval() {
         return this.properties.getObsoleteFileCleaningIntervalInSeconds();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("tempFileBaseDir")
+    @Qualifier(QUALIFIER_TEMP_FILE_BASE_DIR)
     public Path tempFileBaseDir() {
         return this.properties.getBaseDir();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("tempFileNamePrefix")
+    @Qualifier(QUALIFIER_TEMP_FILE_NAME_PREFIX)
     public String tempFileNamePrefix() {
         return this.properties.getFileNamePrefix();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("tempFileNameSuffix")
+    @Qualifier(QUALIFIER_TEMP_FILE_NAME_SUFFIX)
     public String tempFileNameSuffix() {
         return this.properties.getFileNameSuffix();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("recordedAudioTempFileSubDir")
+    @Qualifier(QUALIFIER_RECORDED_AUDIO_TEMP_FILE_SUB_DIR)
     public Path recordedAudioTempFileSubDir() {
         return this.properties.getAudioSubDir();
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("downloadsTempFileSubDir")
+    @Qualifier(QUALIFIER_DOWNLOADS_TEMP_FILE_SUB_DIR)
     public Path downloadsTempFileSubDir() {
         return this.properties.getDownloadSubDir();
     }

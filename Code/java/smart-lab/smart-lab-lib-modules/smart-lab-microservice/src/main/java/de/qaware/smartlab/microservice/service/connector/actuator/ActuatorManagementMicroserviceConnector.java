@@ -34,8 +34,7 @@ public class ActuatorManagementMicroserviceConnector extends AbstractBasicEntity
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("actuatorManagementServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ACTUATOR_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

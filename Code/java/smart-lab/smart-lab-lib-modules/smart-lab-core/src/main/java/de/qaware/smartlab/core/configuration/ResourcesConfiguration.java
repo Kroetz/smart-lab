@@ -14,6 +14,8 @@ import static java.nio.file.Paths.get;
 @EnableConfigurationProperties(ResourcesConfiguration.Properties.class)
 public class ResourcesConfiguration {
 
+    public static final String QUALIFIER_RESOURCES_TEMP_FILE_SUB_DIR = "resourcesTempFileSubDir";
+
     private final Properties properties;
 
     public ResourcesConfiguration(Properties properties) {
@@ -21,8 +23,7 @@ public class ResourcesConfiguration {
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("resourcesTempFileSubDir")
+    @Qualifier(QUALIFIER_RESOURCES_TEMP_FILE_SUB_DIR)
     public Path resourcesTempFileSubDir() {
         return this.properties.getSubDir();
     }

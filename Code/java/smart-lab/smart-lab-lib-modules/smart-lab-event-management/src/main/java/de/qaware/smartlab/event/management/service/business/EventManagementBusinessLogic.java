@@ -8,6 +8,7 @@ import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
 import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
+import de.qaware.smartlab.event.management.configuration.EventManagementServiceConfiguration;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,8 +27,7 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
 
     public EventManagementBusinessLogic(
             IEventManagementRepository eventManagementRepository,
-            // TODO: String literal
-            @Qualifier("maxEventDuration") Duration maxEventDuration) {
+            @Qualifier(EventManagementServiceConfiguration.QUALIFIER_MAX_EVENT_DURATION) Duration maxEventDuration) {
         super(eventManagementRepository);
         this.eventManagementRepository = eventManagementRepository;
         this.maxEventDuration = maxEventDuration;

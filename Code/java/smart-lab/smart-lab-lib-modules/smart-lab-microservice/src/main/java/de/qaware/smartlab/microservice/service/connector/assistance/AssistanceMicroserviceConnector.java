@@ -60,8 +60,7 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("assistanceServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ASSISTANCE_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

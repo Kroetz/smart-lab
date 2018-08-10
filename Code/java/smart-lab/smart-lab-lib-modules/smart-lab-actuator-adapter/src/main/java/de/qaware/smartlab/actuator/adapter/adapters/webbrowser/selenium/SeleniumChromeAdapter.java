@@ -24,6 +24,7 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
 
     public static final String ACTUATOR_TYPE = "chrome";
     private static final boolean HAS_LOCAL_API = true;
+    private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
     private static final IHotkeys newTabHotkeys = new IHotkeys() {
         @Override
         public CharSequence[] getCharSequence() {
@@ -35,11 +36,9 @@ public class SeleniumChromeAdapter extends AbstractSeleniumWebBrowserAdapter {
     };
 
     public SeleniumChromeAdapter(
-            // TODO: String literals
-            @Qualifier("seleniumChromeDriverFile") Path seleniumChromeDriverFile,
+            @Qualifier(SeleniumConfiguration.QUALIFIER_SELENIUM_CHROME_DRIVER_FILE) Path seleniumChromeDriverFile,
             IWindowHandler windowHandler) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API, ChromeDriver::new, newTabHotkeys, windowHandler);
-        // TODO: String literal
-        System.setProperty("webdriver.chrome.driver", seleniumChromeDriverFile.toString());
+        System.setProperty(CHROME_DRIVER_PROPERTY, seleniumChromeDriverFile.toString());
     }
 }

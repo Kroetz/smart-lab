@@ -35,8 +35,7 @@ public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
     };
 
     public SeleniumFirefoxAdapter(
-            // TODO: String literals
-            @Qualifier("seleniumGeckoDriverFile") Path seleniumGeckoDriverFile,
+            @Qualifier(SeleniumConfiguration.QUALIFIER_SELENIUM_GECKO_DRIVER_FILE) Path seleniumGeckoDriverFile,
             IWindowHandler windowHandler) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API, FirefoxDriver::new, newTabHotkeys, windowHandler);
         // TODO: String literal

@@ -91,8 +91,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                 AgendaShowingInfo agendaShowingInfo,
                 IActionCallable<WebBrowserOpeningCallable.ActionArgs, UUID> webBrowserOpening,
                 IActionCallable<WebBrowserClosingCallable.ActionArgs, Void> webBrowserClosing,
-                // TODO: String literal
-                @Qualifier("guiServiceBaseUrlGetter") IServiceBaseUrlGetter guiServiceBaseUrlGetter) {
+                @Qualifier(IServiceBaseUrlGetter.QUALIFIER_GUI_SERVICE_BASE_URL_GETTER) IServiceBaseUrlGetter guiServiceBaseUrlGetter) {
             super(agendaShowingInfo);
             this.webBrowserOpening = webBrowserOpening;
             this.webBrowserClosing = webBrowserClosing;

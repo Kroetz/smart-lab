@@ -26,6 +26,8 @@ import static java.time.Duration.ofMinutes;
 @EnableConfigurationProperties(EventManagementServiceConfiguration.Properties.class)
 public class EventManagementServiceConfiguration {
 
+    public static final String QUALIFIER_MAX_EVENT_DURATION = "maxEventDuration";
+
     private final Properties properties;
 
     public EventManagementServiceConfiguration(Properties properties) {
@@ -33,8 +35,7 @@ public class EventManagementServiceConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("maxEventDuration")
+    @Qualifier(QUALIFIER_MAX_EVENT_DURATION)
     public Duration maxEventDuration() {
         return this.properties.getMaxEventDurationInMinutes();
     }

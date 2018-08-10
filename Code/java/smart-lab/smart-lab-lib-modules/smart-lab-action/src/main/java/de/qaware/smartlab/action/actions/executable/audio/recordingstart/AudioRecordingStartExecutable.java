@@ -10,6 +10,7 @@ import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -29,8 +30,7 @@ public class AudioRecordingStartExecutable extends AbstractActionExecutable<Audi
             AudioRecordingStartInfo audioRecordingStartInfo,
             IResolver<String, IMicrophoneAdapter> microphoneAdapterResolver,
             IActuatorManagementService actuatorManagementService,
-            // TODO: String literals
-            @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_RECORDED_AUDIO_TEMP_FILE_SUB_DIR) Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(
                 audioRecordingStartInfo,

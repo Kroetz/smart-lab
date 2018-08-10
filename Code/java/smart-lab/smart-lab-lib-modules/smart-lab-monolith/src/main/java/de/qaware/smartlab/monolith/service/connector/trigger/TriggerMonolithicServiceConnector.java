@@ -5,6 +5,7 @@ import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.trigger.service.controller.TriggerController;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -107,8 +108,7 @@ public class TriggerMonolithicServiceConnector implements ITriggerService {
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("triggerServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_TRIGGER_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

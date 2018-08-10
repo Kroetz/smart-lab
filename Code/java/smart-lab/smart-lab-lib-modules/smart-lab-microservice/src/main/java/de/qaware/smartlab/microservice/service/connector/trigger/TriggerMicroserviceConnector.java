@@ -205,8 +205,7 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     }
 
     @Component
-    // TODO: String literal
-    @Qualifier("triggerServiceBaseUrlGetter")
+    @Qualifier(IServiceBaseUrlGetter.QUALIFIER_TRIGGER_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
             prefix = Property.Prefix.MODULARITY,
             name = Property.Name.MODULARITY,

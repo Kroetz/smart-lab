@@ -9,6 +9,8 @@ import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
+import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
+import de.qaware.smartlab.core.miscellaneous.Constants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,8 +31,7 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
 
     public AudioRecordingStopCallable(
             AudioRecordingStopInfo audioRecordingStopInfo,
-            // TODO: String literals
-            @Qualifier("recordedAudioTempFileSubDir") Path recordedAudioTempFileSubDir,
+            @Qualifier(TempFileManagerConfiguration.QUALIFIER_RECORDED_AUDIO_TEMP_FILE_SUB_DIR) Path recordedAudioTempFileSubDir,
             ITempFileManager tempFileManager) {
         super(audioRecordingStopInfo);
         this.recordedAudioTempFileSubDir = recordedAudioTempFileSubDir;
@@ -48,7 +49,7 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
     }
 
     @Data
-    @RequiredArgsConstructor(staticName = "of")     // TODO: Eliminate string literal
+    @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
     public static class ActionArgs implements IActionArgs {
 
