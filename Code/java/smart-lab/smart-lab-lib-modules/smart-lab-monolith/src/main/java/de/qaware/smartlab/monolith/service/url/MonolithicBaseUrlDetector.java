@@ -1,7 +1,8 @@
-package de.qaware.smartlab.core.service.url;
+package de.qaware.smartlab.monolith.service.url;
 
 import de.qaware.smartlab.core.concurrency.ThreadContext;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,6 +1,7 @@
-package de.qaware.smartlab.core.service.url;
+package de.qaware.smartlab.monolith.service.url;
 
 import de.qaware.smartlab.core.service.controller.url.IBaseUrlController;
+import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;

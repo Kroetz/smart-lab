@@ -8,7 +8,7 @@ import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.location.management.service.controller.LocationManagementController;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import org.springframework.beans.factory.annotation.Qualifier;

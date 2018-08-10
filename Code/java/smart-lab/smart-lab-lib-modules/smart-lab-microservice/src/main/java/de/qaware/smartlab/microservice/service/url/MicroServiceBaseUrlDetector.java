@@ -1,6 +1,7 @@
-package de.qaware.smartlab.core.service.url;
+package de.qaware.smartlab.microservice.service.url;
 
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;

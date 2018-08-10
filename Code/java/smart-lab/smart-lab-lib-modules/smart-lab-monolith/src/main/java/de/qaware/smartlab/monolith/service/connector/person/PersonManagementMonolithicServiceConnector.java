@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlab.person.management.service.controller.PersonManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;

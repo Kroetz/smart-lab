@@ -8,7 +8,7 @@ import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.miscellaneous.Property;
-import de.qaware.smartlab.core.service.url.AbstractMonolithicBaseUrlGetter;
+import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
 import de.qaware.smartlab.workgroup.management.service.controller.WorkgroupManagementController;
 import org.springframework.beans.factory.annotation.Qualifier;
