@@ -1,16 +1,14 @@
 package de.qaware.smartlab.action.actions.callable.file.closing;
 
-import de.qaware.smartlab.action.actions.info.file.closing.FileClosingInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.file.closing.FileClosingInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.miscellaneous.Constants;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -29,15 +27,26 @@ public class FileClosingCallable extends AbstractActionCallable<FileClosingCalla
         return actionResult.getVoidValue();
     }
 
-    @Data
-    @RequiredArgsConstructor(staticName = "of")
-    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    @Getter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class ActionArgs implements IActionArgs {
 
-        @NonNull
-        private ActuatorId programId;
+        private static final String FIELD_NAME_PROGRAM_ID = "programId";
+        private static final String FIELD_NAME_PROGRAM_INSTANCE_ID = "programInstanceId";
 
         @NonNull
-        private UUID programInstanceId;
+        private final ActuatorId programId;
+
+        @NonNull
+        private final UUID programInstanceId;
+
+        @JsonCreator
+        public static ActionArgs of(
+                @JsonProperty(FIELD_NAME_PROGRAM_ID) ActuatorId programId,
+                @JsonProperty(FIELD_NAME_PROGRAM_INSTANCE_ID) UUID programInstanceId) {
+            return new ActionArgs(programId, programInstanceId);
+        }
     }
 }

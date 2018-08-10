@@ -1,15 +1,14 @@
 package de.qaware.smartlab.action.actions.callable.data.upload;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -26,24 +25,46 @@ public class DataUploadCallable extends AbstractActionCallable<DataUploadCallabl
         return actionResult.getVoidValue();
     }
 
-    @Data
-    @RequiredArgsConstructor(staticName = "of")
-    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    @Getter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class ActionArgs implements IActionArgs {
 
-        @NonNull
-        private IProjectBaseInfo projectBaseInfo;
+        private static final String FIELD_NAME_PROJECT_BASE_INFO = "projectBaseInfo";
+        private static final String FIELD_NAME_DIR = "dir";
+        private static final String FIELD_NAME_FILE_NAME = "fileName";
+        private static final String FIELD_NAME_UPLOAD_MESSAGE = "uploadMessage";
+        private static final String FIELD_NAME_DATA_TO_UPLOAD = "dataToUpload";
 
         @NonNull
-        private String dir;
+        private final IProjectBaseInfo projectBaseInfo;
 
         @NonNull
-        private String fileName;
+        private final String dir;
 
         @NonNull
-        private String uploadMessage;
+        private final String fileName;
 
         @NonNull
-        private byte[] dataToUpload;
+        private final String uploadMessage;
+
+        @NonNull
+        private final byte[] dataToUpload;
+
+        @JsonCreator
+        public static ActionArgs of(
+                @JsonProperty(FIELD_NAME_PROJECT_BASE_INFO) IProjectBaseInfo projectBaseInfo,
+                @JsonProperty(FIELD_NAME_DIR) String dir,
+                @JsonProperty(FIELD_NAME_FILE_NAME) String fileName,
+                @JsonProperty(FIELD_NAME_UPLOAD_MESSAGE) String uploadMessage,
+                @JsonProperty(FIELD_NAME_DATA_TO_UPLOAD) byte[] dataToUpload) {
+            return new ActionArgs(
+                    projectBaseInfo,
+                    dir,
+                    fileName,
+                    uploadMessage,
+                    dataToUpload);
+        }
     }
 }

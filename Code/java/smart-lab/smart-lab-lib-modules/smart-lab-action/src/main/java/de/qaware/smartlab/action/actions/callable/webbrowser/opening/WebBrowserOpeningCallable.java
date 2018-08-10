@@ -1,17 +1,15 @@
 package de.qaware.smartlab.action.actions.callable.webbrowser.opening;
 
-import de.qaware.smartlab.action.actions.info.webbrowser.opening.WebBrowserOpeningInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.webbrowser.opening.WebBrowserOpeningInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
-import de.qaware.smartlab.core.miscellaneous.Constants;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -32,18 +30,31 @@ public class WebBrowserOpeningCallable extends AbstractActionCallable<WebBrowser
         return actionResult.getUuidValue().orElseThrow(InvalidActionResultException::new);
     }
 
-    @Data
-    @RequiredArgsConstructor(staticName = "of")
-    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    @Getter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class ActionArgs implements IActionArgs {
 
-        @NonNull
-        private ActuatorId webBrowserId;
+        private static final String FIELD_NAME_WEB_BROWSER_ID = "webBrowserId";
+        private static final String FIELD_NAME_DISPLAY_ID = "displayId";
+        private static final String FIELD_NAME_URLS_TO_OPEN = "urlsToOpen";
 
         @NonNull
-        private ActuatorId displayId;
+        private final ActuatorId webBrowserId;
 
         @NonNull
-        private List<URL> urlsToOpen;
+        private final ActuatorId displayId;
+
+        @NonNull
+        private final List<URL> urlsToOpen;
+
+        @JsonCreator
+        public static ActionArgs of(
+                @JsonProperty(FIELD_NAME_WEB_BROWSER_ID) ActuatorId webBrowserId,
+                @JsonProperty(FIELD_NAME_DISPLAY_ID) ActuatorId displayId,
+                @JsonProperty(FIELD_NAME_URLS_TO_OPEN) List<URL> urlsToOpen) {
+            return new ActionArgs(webBrowserId, displayId, urlsToOpen);
+        }
     }
 }

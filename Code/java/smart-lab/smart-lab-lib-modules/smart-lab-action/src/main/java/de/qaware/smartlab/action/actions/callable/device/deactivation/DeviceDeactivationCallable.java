@@ -1,16 +1,14 @@
 package de.qaware.smartlab.action.actions.callable.device.deactivation;
 
-import de.qaware.smartlab.action.actions.info.device.deactivation.DeviceDeactivationInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.device.deactivation.DeviceDeactivationInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.miscellaneous.Constants;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,12 +25,20 @@ public class DeviceDeactivationCallable extends AbstractActionCallable<DeviceDea
         return actionResult.getVoidValue();
     }
 
-    @Data
-    @RequiredArgsConstructor(staticName = "of")
-    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    @Getter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class ActionArgs implements IActionArgs {
 
+        private static final String FIELD_NAME_DEVICE_ID = "deviceId";
+
         @NonNull
-        private ActuatorId deviceId;
+        private final ActuatorId deviceId;
+
+        @JsonCreator
+        public static ActionArgs of(@JsonProperty(FIELD_NAME_DEVICE_ID) ActuatorId deviceId) {
+            return new ActionArgs(deviceId);
+        }
     }
 }

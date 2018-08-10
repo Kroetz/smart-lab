@@ -1,7 +1,9 @@
 package de.qaware.smartlab.action.actions.callable.data.download;
 
-import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
+import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -10,11 +12,7 @@ import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
 import de.qaware.smartlab.core.exception.InvalidActionResultException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
-import de.qaware.smartlab.core.miscellaneous.Constants;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -49,15 +47,26 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
         }
     }
 
-    @Data
-    @RequiredArgsConstructor(staticName = "of")
-    @NoArgsConstructor // TODO: Really necessary for objects being able to serialize/deserialize?
+    @Getter
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+    @ToString
+    @EqualsAndHashCode
     public static class ActionArgs implements IActionArgs {
 
-        @NonNull
-        private IProjectBaseInfo projectBaseInfo;
+        private static final String FIELD_NAME_PROJECT_BASE_INFO = "projectBaseInfo";
+        private static final String FIELD_NAME_FILE_PATH = "filePath";
 
         @NonNull
-        private String filePath;
+        private final IProjectBaseInfo projectBaseInfo;
+
+        @NonNull
+        private final String filePath;
+
+        @JsonCreator
+        public static ActionArgs of(
+                @JsonProperty(FIELD_NAME_PROJECT_BASE_INFO) IProjectBaseInfo projectBaseInfo,
+                @JsonProperty(FIELD_NAME_FILE_PATH) String filePath) {
+            return new ActionArgs(projectBaseInfo, filePath);
+        }
     }
 }
