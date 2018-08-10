@@ -31,17 +31,29 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
 
     private static final String REST_ENDPOINT_INVITATIONS = "/user/repository_invitations";
     private static final String JSON_PROPERTY_ID = "id";
+    private static final String JSON_PROPERTY_NAME = "name";
+    private static final String JSON_PROPERTY_EMAIL = "email";
+    private static final String JSON_PROPERTY_MESSAGE = "message";
+    private static final String JSON_PROPERTY_PATH = "path";
+    private static final String JSON_PROPERTY_COMMITTER = "committer";
+    private static final String JSON_PROPERTY_CONTENT = "content";
 
     private final Github github;
+    private final String githubCommitterName;
+    private final String githubCommitterEmail;
     private final ITempFileManager tempFileManager;
     private final Path downloadsTempFileSubDir;
 
     public GithubAdapter(
             String githubApiKey,
+            String githubCommitterName,
+            String githubCommitterEmail,
             ITempFileManager tempFileManager,
             Path downloadsTempFileSubDir) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
+        this.githubCommitterName = githubCommitterName;
+        this.githubCommitterEmail = githubCommitterEmail;
         this.tempFileManager = tempFileManager;
         this.downloadsTempFileSubDir = downloadsTempFileSubDir;
     }
@@ -56,10 +68,9 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         String path = dir + "/" + fileName;
         try {
             acceptPendingRepoInvitations();
-            // TODO: Eliminate String literals (get committer name and email from github configuration)
             JsonObject committer = Json.createObjectBuilder()
-                    .add("name", "Smart-Lab-Test")
-                    .add("email", "hanswurst@byom.de").build();
+                    .add(JSON_PROPERTY_NAME, this.githubCommitterName)
+                    .add(JSON_PROPERTY_EMAIL, this.githubCommitterEmail).build();
             // TODO: casting smells
             // TODO: Check for casting exception and throw illegalstateexception
             GithubInfo githubInfo = (GithubInfo) projectBaseInfo;
@@ -67,10 +78,10 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
                     githubInfo.getUser(),
                     githubInfo.getRepository()));
             JsonObject jsonObject = Json.createObjectBuilder()
-                    .add("message", uploadMessage)
-                    .add("path", path)
-                    .add("committer", committer)
-                    .add("content", Base64.getEncoder().encodeToString(dataToUpload))
+                    .add(JSON_PROPERTY_MESSAGE, uploadMessage)
+                    .add(JSON_PROPERTY_PATH, path)
+                    .add(JSON_PROPERTY_COMMITTER, committer)
+                    .add(JSON_PROPERTY_CONTENT, Base64.getEncoder().encodeToString(dataToUpload))
                     .build();
             repository.contents().create(jsonObject);
         }

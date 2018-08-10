@@ -38,6 +38,8 @@ public class GithubConfiguration {
     public IProjectBaseAdapter githubAdapter() {
         return new GithubAdapter(
                 properties.getApiKey(),
+                properties.getCommitterName(),
+                properties.getCommitterEmail(),
                 this.tempFileManager,
                 this.downloadsTempFileSubDir);
     }
@@ -48,6 +50,8 @@ public class GithubConfiguration {
         private static final String PREFIX = "smart-lab.actuator.github";
 
         private String apiKey;
+        private String committerName;
+        private String committerEmail;
 
         public String getApiKey() {
             return apiKey;
@@ -55,6 +59,22 @@ public class GithubConfiguration {
 
         public void setApiKey(String apiKey) {
             this.apiKey = apiKey;
+        }
+
+        public String getCommitterName() {
+            return committerName;
+        }
+
+        public void setCommitterName(String committerName) {
+            this.committerName = committerName;
+        }
+
+        public String getCommitterEmail() {
+            return committerEmail;
+        }
+
+        public void setCommitterEmail(String committerEmail) {
+            this.committerEmail = committerEmail;
         }
     }
 }
