@@ -13,7 +13,7 @@ public class BeginAssistanceReaction implements ITriggerReaction {
 
     @Override
     public void react(IAssistanceService assistanceService, IAssistanceContext context) {
-        log.info("Trigger begins assistance \"{}\" of event \"{}\"",
+        log.info("Trigger begins assistance \"{}\" for event \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
         assistanceService.beginAssistance(context);

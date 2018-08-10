@@ -36,7 +36,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> setUpCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
-        log.info("Received call to set up the current event at the location with ID \"{}\"", locationId);
+        log.info("Received call to set up the current event at the location \"{}\"", locationId);
         ResponseEntity<IJobInfo> response;
         try {
             if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();

@@ -30,7 +30,7 @@ public class ActionController {
     public ResponseEntity<IActionResult> executeAction(
             @PathVariable(ActionApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
             @RequestBody IActionArgs actionArgs) {
-        log.info("Received call to execute action with ID \"{}\"", actionId);
+        log.info("Received call to execute action \"{}\"", actionId);
         IActionResult actionResult = this.actionBusinessLogic.executeAction(actionId, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());

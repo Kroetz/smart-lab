@@ -27,7 +27,7 @@ public class DelegateController {
             @PathVariable(DelegateApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
             @PathVariable(DelegateApiConstants.PARAMETER_NAME_ACTUATOR_TYPE) String actuatorType,
             @RequestBody IActionArgs actionArgs) {
-        log.info("Received call to execute action with ID \"{}\"", actionId);
+        log.info("Received call to execute action \"{}\"", actionId);
         IActionResult actionResult = this.delegateBusinessLogic.executeAction(actionId, actuatorType, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());

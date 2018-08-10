@@ -63,7 +63,7 @@ public class SyncTriggerHandler implements ITriggerHandler {
                         triggerAssistance(config, event, triggerReaction, jobId);
                     }
                     catch(Exception e) {
-                        log.error("Could not process assistance with ID \"{}\"", config.getAssistanceId(), e);
+                        log.error("Could not process assistance \"{}\"", config.getAssistanceId(), e);
                     }
                     return VOID;
                 }));
@@ -87,14 +87,14 @@ public class SyncTriggerHandler implements ITriggerHandler {
             throw new IllegalStateException("The specified assistance configuration must be part of the specified event");
         }
         String assistanceId = config.getAssistanceId();
-        log.info("Processing assistance with ID \"{}\"", assistanceId);
+        log.info("Processing assistance \"{}\"", assistanceId);
         IAssistanceTriggerable assistance = this.assistanceTriggerableResolver.resolve(assistanceId);
         IAssistanceContext context = this.contextFactory.of(config, event);
-        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
+        log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location \"{}\"",
                 assistance.getAssistanceId(),
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
         triggerReaction.accept(context, assistance);
-        log.info("Called assistance service for the trigger reaction of assistance \"{}\" at location with ID \"{}\"",
+        log.info("Called assistance service for the trigger reaction of assistance \"{}\" at location \"{}\"",
                 assistance.getAssistanceId(),
                 context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
     }

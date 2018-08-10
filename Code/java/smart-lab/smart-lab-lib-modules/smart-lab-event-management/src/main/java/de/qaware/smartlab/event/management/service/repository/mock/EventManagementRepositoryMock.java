@@ -127,7 +127,7 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
                 .collect(toList());
         if(isNull(eventsAtLocation) || eventsToDelete.isEmpty()) throw new EntityNotFoundException(eventId.getIdValue());
         boolean deleted =  eventsAtLocation.removeAll(eventsToDelete);
-        if(!deleted) throw new EntityException(format("Could not delete event with ID \"%s\"", eventId.getIdValue()));
+        if(!deleted) throw new EntityException(format("Could not delete event \"%s\"", eventId.getIdValue()));
     }
 
     @Override

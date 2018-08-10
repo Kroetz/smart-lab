@@ -13,7 +13,7 @@ public class EndAssistanceReaction implements ITriggerReaction {
 
     @Override
     public void react(IAssistanceService assistanceService, IAssistanceContext context) {
-        log.info("Trigger ends assistance \"{}\" of event \"{}\"",
+        log.info("Trigger ends assistance \"{}\" for event \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
         assistanceService.endAssistance(context);

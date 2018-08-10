@@ -43,28 +43,28 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
 
     @Override
     public void reactOnTriggerSetUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring set-up-event trigger for assistance \"{}\" of event with ID \"{}\"",
+        log.info("Ignoring set-up-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public void reactOnTriggerCleanUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring clean-up-event trigger for assistance \"{}\" of event with ID \"{}\"",
+        log.info("Ignoring clean-up-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public void reactOnTriggerStartEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring start-event trigger for assistance \"{}\" of event with ID \"{}\"",
+        log.info("Ignoring start-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public void reactOnTriggerStopEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
-        log.info("Ignoring stop-event trigger for assistance \"{}\" of event with ID \"{}\"",
+        log.info("Ignoring stop-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }

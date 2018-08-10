@@ -79,6 +79,6 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
                 .collect(toList());
         if(entitiesToDelete.isEmpty()) throw new EntityNotFoundException(entityId.getIdValue());
         boolean deleted =  this.entities.removeAll(entitiesToDelete);
-        if(!deleted) throw new EntityException(format("Could not delete entity with ID \"%s\"", entityId.getIdValue()));
+        if(!deleted) throw new EntityException(format("Could not delete entity \"%s\"", entityId.getIdValue()));
     }
 }

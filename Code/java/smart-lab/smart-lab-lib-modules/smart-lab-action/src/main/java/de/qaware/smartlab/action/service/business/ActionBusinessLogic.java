@@ -24,10 +24,10 @@ public class ActionBusinessLogic implements IActionBusinessLogic {
 
     @Override
     public IActionResult executeAction(String actionId, IActionArgs actionArgs) {
-        log.info("Executing action (ID: \"{}\")", actionId);
+        log.info("Executing action \"{}\"", actionId);
         IActionExecutable action = this.actionResolver.resolve(actionId);
         IActionResult actionResult = action.executeRemotely(actionArgs, this.delegateService);
-        log.info("Executed action (ID: \"{}\")", actionId);
+        log.info("Executed action \"{}\"", actionId);
         return actionResult;
     }
 }

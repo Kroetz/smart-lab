@@ -40,7 +40,7 @@ public class JobManagementController extends AbstractSmartLabController {
 
     @GetMapping(JobManagementApiConstants.MAPPING_FIND_ONE)
     public ResponseEntity<IJobInfo> findOne(@PathVariable(JobManagementApiConstants.PARAMETER_NAME_JOB_ID) Long jobId) {
-        log.info("Received call to find the job with ID \"{}\"", jobId);
+        log.info("Received call to find the job \"{}\"", jobId);
         return responseFromOptional(this.jobManagementBusinessLogic.findOne(jobId));
     }
 
@@ -60,14 +60,14 @@ public class JobManagementController extends AbstractSmartLabController {
 
     @PostMapping(JobManagementApiConstants.MAPPING_MARK_JOB_AS_PROCESSING)
     public ResponseEntity<Void> markJobAsProcessing(@PathVariable(JobManagementApiConstants.PARAMETER_NAME_JOB_ID) Long jobId) {
-        log.info("Received call that processing of job with ID \"{}\" has started", jobId);
+        log.info("Received call that processing of job \"{}\" has started", jobId);
         this.jobManagementBusinessLogic.markJobAsProcessing(jobId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(JobManagementApiConstants.MAPPING_MARK_JOB_AS_FINISHED)
     public ResponseEntity<Void> markJobAsFinished(@PathVariable(JobManagementApiConstants.PARAMETER_NAME_JOB_ID) Long jobId) {
-        log.info("Received call that processing of job with ID \"{}\" has finished", jobId);
+        log.info("Received call that processing of job \"{}\" has finished", jobId);
         this.jobManagementBusinessLogic.markJobAsFinished(jobId);
         return ResponseEntity.ok().build();
     }
@@ -76,7 +76,7 @@ public class JobManagementController extends AbstractSmartLabController {
     public ResponseEntity<Void> markJobAsFailed(
             @PathVariable(JobManagementApiConstants.PARAMETER_NAME_JOB_ID) Long jobId,
             @RequestBody String errorMessage) {
-        log.info("Received call that processing of job with ID \"{}\" has failed", jobId);
+        log.info("Received call that processing of job \"{}\" has failed", jobId);
         this.jobManagementBusinessLogic.markJobAsFailed(jobId, errorMessage);
         return ResponseEntity.ok().build();
     }

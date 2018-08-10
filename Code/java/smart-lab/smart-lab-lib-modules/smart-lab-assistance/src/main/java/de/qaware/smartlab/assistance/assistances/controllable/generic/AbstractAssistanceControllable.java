@@ -58,21 +58,21 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
 
     @Override
     public void begin(IActionService actionService, IAssistanceContext context) {
-        log.info("Ignoring stage \"begin\" of assistance \"{}\" of event with ID \"{}\" because it has no functionality",
+        log.info("Ignoring stage \"begin\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) {
-        log.info("Ignoring stage \"end\" of assistance \"{}\" of event with ID \"{}\" because it has no functionality",
+        log.info("Ignoring stage \"end\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
     public void during(IActionService actionService, IAssistanceContext context) {
-        log.info("Ignoring stage \"during\" of assistance \"{}\" of event with ID \"{}\" because it has no functionality",
+        log.info("Ignoring stage \"during\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
