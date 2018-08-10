@@ -50,6 +50,7 @@ public class PowerPointConfiguration {
     public static class Properties {
 
         private static final String PREFIX = "smart-lab.actuator.power-point";
+        private static final String FIELD_NAME_EXECUTABLE_FILE = "executableFile";
         private static final Path DEFAULT_EXECUTABLE_FILE = get("C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE");
 
         private Path executableFile;
@@ -78,11 +79,10 @@ public class PowerPointConfiguration {
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
                 if(!exists(properties.getExecutableFile())) {
-                    // TODO: String literals
                     String errorMessage = "The path of the PowerPoint executable file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "executableFile",
+                            Properties.FIELD_NAME_EXECUTABLE_FILE,
                             errorMessage);
                 }
             }

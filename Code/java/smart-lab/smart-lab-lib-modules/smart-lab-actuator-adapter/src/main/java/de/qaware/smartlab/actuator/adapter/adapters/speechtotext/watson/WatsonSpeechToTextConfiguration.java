@@ -34,9 +34,10 @@ public class WatsonSpeechToTextConfiguration {
                 this.transcriptFactory);
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.watson-speech-to-text")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
+
+        private static final String PREFIX = "smart-lab.actuator.watson-speech-to-text";
 
         private String userName;
         private String password;

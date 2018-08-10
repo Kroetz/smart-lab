@@ -24,6 +24,9 @@ import static java.time.Duration.ofSeconds;
 @EnableConfigurationProperties(SetUpEventTriggerProviderConfiguration.Properties.class)
 public class SetUpEventTriggerProviderConfiguration {
 
+    public static final String QUALIFIER_SET_UP_TRIGGER_PROVIDER_CHECK_INTERVAL = "setUpTriggerProviderCheckInterval";
+    public static final String QUALIFIER_SET_UP_TRIGGER_PROVIDER_CALLBACK_URL = "setUpTriggerProviderCallbackUrl";
+
     private final SetUpEventTriggerProviderConfiguration.Properties properties;
 
     public SetUpEventTriggerProviderConfiguration(SetUpEventTriggerProviderConfiguration.Properties properties) {
@@ -31,23 +34,21 @@ public class SetUpEventTriggerProviderConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("setUpTriggerProviderCheckInterval")
+    @Qualifier(QUALIFIER_SET_UP_TRIGGER_PROVIDER_CHECK_INTERVAL)
     public Duration setUpTriggerProviderCheckInterval() {
         return this.properties.getCheckIntervalInSeconds();
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("setUpTriggerProviderCallbackUrl")
+    @Qualifier(QUALIFIER_SET_UP_TRIGGER_PROVIDER_CALLBACK_URL)
     public URL setUpTriggerProviderCallbackBaseUrl() throws MalformedURLException {
         return of(this.properties.getCallbackBaseUrl(), MAPPING_CALLBACK);
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.trigger-provider.set-up")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.trigger-provider.set-up";
         private static final int DEFAULT_CHECK_INTERVAL_IN_SECONDS = 5;
         private static final String DEFAULT_CALLBACK_BASE_URL = "http://localhost:8080";
 

@@ -7,6 +7,7 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
+import de.qaware.smartlab.gui.configuration.GuiConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -29,9 +30,8 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
 
     public GuiBusinessLogic(
             ILocationManagementService locationManagementService,
-            // TODO: String literal
             @Qualifier(IServiceBaseUrlGetter.QUALIFIER_TRIGGER_SERVICE_BASE_URL_GETTER) IServiceBaseUrlGetter triggerServiceBaseUrlGetter,
-            @Qualifier("locationStatusEventExtension") Duration locationStatusEventExtension) {
+            @Qualifier(GuiConfiguration.QUALIFIER_LOCATION_STATUS_EVENT_EXTENSION) Duration locationStatusEventExtension) {
         this.locationManagementService = locationManagementService;
         this.triggerServiceBaseUrlGetter = triggerServiceBaseUrlGetter;
         this.locationStatusEventExtension = locationStatusEventExtension;
@@ -40,7 +40,6 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
     @Override
     public String getCurrentEventStatusPage(LocationId locationId, Model model) {
         URL triggerServiceBaseUrl = this.triggerServiceBaseUrlGetter.getBaseUrl();
-        // TODO: String literals
         model.addAttribute("locationId", locationId.getIdValue());
         IEvent currentEvent;
         try {
@@ -60,7 +59,6 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
 
     @Override
     public String getCurrentEventAgendaPage(LocationId locationId, Model model) {
-        // TODO: String literals
         IEvent currentEvent;
         try {
             currentEvent = this.locationManagementService.getCurrentEvent(locationId);

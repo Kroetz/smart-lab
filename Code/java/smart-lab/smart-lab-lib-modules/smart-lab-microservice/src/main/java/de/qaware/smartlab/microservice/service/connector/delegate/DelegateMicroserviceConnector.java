@@ -29,10 +29,11 @@ public class DelegateMicroserviceConnector extends AbstractDelegateServiceConnec
 
     @Override
     protected IDelegateApiClient createNewClient(String serviceName) {
+        // TODO: Use HTTPS rather than plain HTTP
         return Feign.builder()
                 .client(this.client)
                 .encoder(this.feignEncoder)
                 .decoder(this.feignDecoder)
-                .target(IDelegateApiClient.class, "http://" + serviceName); // TODO: String literal smells
+                .target(IDelegateApiClient.class, "http://" + serviceName);
     }
 }

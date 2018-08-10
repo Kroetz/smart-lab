@@ -33,9 +33,10 @@ public class RemeetingConfiguration {
         return new RemeetingAdapter(this.remeetingApiClient, this.properties.getApiKey());
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.remeeting")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
+
+        private static final String PREFIX = "smart-lab.actuator.remeeting";
 
         private String apiKey;
 

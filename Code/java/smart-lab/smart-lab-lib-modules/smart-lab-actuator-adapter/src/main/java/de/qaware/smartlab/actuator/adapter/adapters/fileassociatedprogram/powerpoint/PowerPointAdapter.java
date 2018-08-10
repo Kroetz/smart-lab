@@ -32,6 +32,12 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
     public static final String ACTUATOR_TYPE = "powerPoint";
     private static final boolean HAS_LOCAL_API = true;
 
+    /**
+     * This command line switch starts PowerPoint in slide show mode
+     * See https://support.office.com/en-us/article/command-line-switches-for-microsoft-office-products-079164cd-4ef5-4178-b235-441737deb3a6?ocmsassetID=HA010153889&CTT=1&CorrelationId=b9563055-15ea-4339-832d-2d0e76a7f7f1&ui=en-US&rs=en-US&ad=US#ID0EAABAAA=PowerPoint,_PowerPoint_Viewer
+     */
+    private static final String COMMAND_LINE_SWITCH_SLIDE_SHOW_MODE = "/S";
+
     private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_DE_DE = "PowerPoint-Bildschirmpräsentation  -  %s";
     private static final String POWER_POINT_WINDOW_TITLE_TEMPLATE_EN_US = "PowerPoint Slide Show  -  %s";
 
@@ -65,10 +71,9 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
         Process powerPointProcess;
         try {
             powerPointProcess = processBuilder
-                    // TODO: String literals
                     .command(
                             this.powerPointExecutable.toString(),
-                            "/S",   // This command line switch starts PowerPoint in slide show mode (See https://support.office.com/en-us/article/command-line-switches-for-microsoft-office-products-079164cd-4ef5-4178-b235-441737deb3a6?ocmsassetID=HA010153889&CTT=1&CorrelationId=b9563055-15ea-4339-832d-2d0e76a7f7f1&ui=en-US&rs=en-US&ad=US#ID0EAABAAA=PowerPoint,_PowerPoint_Viewer)
+                            COMMAND_LINE_SWITCH_SLIDE_SHOW_MODE,
                             fileToOpen.toString())
                     .start();
         }

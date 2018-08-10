@@ -52,11 +52,13 @@ public class SeleniumConfiguration {
         return this.properties.getChromeDriverFile();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.selenium", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.actuator.selenium";
+        private static final String FIELD_NAME_GECKO_DRIVER_FILE = "geckoDriverFile";
+        private static final String FIELD_NAME_CHROME_DRIVER_FILE = "chromeDriverFile";
         private static final Path DEFAULT_GECKO_DRIVER_FILE = get(System.getProperty("user.home"), "smart-lab", "geckodriver.exe");
         private static final Path DEFAULT_CHROME_DRIVER_FILE = get(System.getProperty("user.home"), "smart-lab", "chromedriver.exe");
 
@@ -96,19 +98,17 @@ public class SeleniumConfiguration {
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
                 if(!exists(properties.getGeckoDriverFile())) {
-                    // TODO: String literals
                     String errorMessage = "The path of the Gecko driver file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "geckoDriverFile",
+                            FIELD_NAME_GECKO_DRIVER_FILE,
                             errorMessage);
                 }
                 if(!exists(properties.getChromeDriverFile())) {
-                    // TODO: String literals
                     String errorMessage = "The path of the Chrome driver file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "chromeDriverFile",
+                            FIELD_NAME_CHROME_DRIVER_FILE,
                             errorMessage);
                 }
             }

@@ -40,10 +40,10 @@ public class EventManagementServiceConfiguration {
         return this.properties.getMaxEventDurationInMinutes();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.event-management")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.event-management";
         private static final int DEFAULT_MAX_EVENT_DURATION_IN_MINUTES = 480;
 
         private int maxEventDurationInMinutes;

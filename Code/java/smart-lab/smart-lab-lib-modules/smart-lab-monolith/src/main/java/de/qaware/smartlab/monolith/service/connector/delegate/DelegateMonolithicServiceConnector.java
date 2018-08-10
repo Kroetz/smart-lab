@@ -4,6 +4,7 @@ import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
 import de.qaware.smartlab.core.exception.UnknownDelegateException;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
 import feign.Client;
 import feign.Feign;
 import feign.codec.Decoder;
@@ -29,8 +30,7 @@ public class DelegateMonolithicServiceConnector extends AbstractDelegateServiceC
     private final Map<String, String> urlsByDelegateName;
 
     public DelegateMonolithicServiceConnector(
-            // TODO: String literal
-            @Qualifier("urlsByDelegateName") Map<String, String> urlsByDelegateName,
+            @Qualifier(MonolithModuleConfiguration.QUALIFIER_URLS_BY_DELEGATE_NAME) Map<String, String> urlsByDelegateName,
             Client client,
             Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
             Decoder feignDecoder) {

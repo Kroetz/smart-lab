@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(SpeechToTextConfiguration.Properties.class)
 public class SpeechToTextConfiguration {
 
+    public static final String QUALIFIER_SPEECH_TO_TEXT_SERVICE_NAME = "speechToTextServiceName";
+
     private final Properties properties;
 
     public SpeechToTextConfiguration(Properties properties) {
@@ -17,15 +19,15 @@ public class SpeechToTextConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("speechToTextServiceName")
+    @Qualifier(QUALIFIER_SPEECH_TO_TEXT_SERVICE_NAME)
     public String speechToTextServiceName() {
         return this.properties.getService();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.speech-to-text")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
+
+        private static final String PREFIX = "smart-lab.actuator.speech-to-text";
 
         private String service;
 

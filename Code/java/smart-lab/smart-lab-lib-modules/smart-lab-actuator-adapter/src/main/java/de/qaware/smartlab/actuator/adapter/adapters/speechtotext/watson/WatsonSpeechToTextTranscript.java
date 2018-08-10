@@ -11,11 +11,15 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 import static de.qaware.smartlab.core.miscellaneous.StartedDuration.ofSeconds;
+import static java.lang.String.format;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
 
 @Slf4j
 public class WatsonSpeechToTextTranscript implements ITranscript {
+
+    private static final String EMPTY_TRANSCRIPT_FILLER = "Talk is silver, silence is golden.";
+    private static final String SPEAKER_NAME_PREFIX = "Speaker";
 
     private final SpeechRecognitionResults speechRecognitionResults;
     private final ITranscriptTextBuilder transcriptTextBuilder;
@@ -35,8 +39,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
         log.info("Converting Watson speech-to-text transcript into human readable form");
         if(this.speechRecognitionResults.getResults().size() < 1 || isNull(this.speechRecognitionResults.getSpeakerLabels())) {
             log.info("Transcript cannot be converted because it is empty");
-            // TODO: String literal
-            return "Talk is silver, silence is golden.";
+            return EMPTY_TRANSCRIPT_FILLER;
         }
         List<SpeakerLabelsResult> speakerLabelsResults = this.speechRecognitionResults.getSpeakerLabels();
         Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(toMap(
@@ -77,8 +80,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
             }
             textPassagesBuilder.addTextPassage(
                     ofSeconds(start, end),
-                    // TODO: Move string literal to constant
-                    "Speaker " + speakerId,
+                    format("%s %d", SPEAKER_NAME_PREFIX, speakerId),
                     timestamp.getWord());
         }
         return textPassagesBuilder.getFinishedTextPassages();

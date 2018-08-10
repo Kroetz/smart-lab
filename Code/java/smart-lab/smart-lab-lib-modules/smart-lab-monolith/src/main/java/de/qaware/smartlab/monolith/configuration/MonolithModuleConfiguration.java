@@ -53,6 +53,9 @@ import java.util.Map;
 @EnableConfigurationProperties(value = MonolithModuleConfiguration.Properties.class)
 public class MonolithModuleConfiguration {
 
+    public static final String QUALIFIER_URLS_BY_DELEGATE_NAME = "urlsByDelegateName";
+    public static final String QUALIFIER_FALLBACK_BASE_URL = "fallbackBaseUrl";
+
     private final Properties properties;
 
     public MonolithModuleConfiguration(Properties properties) {
@@ -60,8 +63,7 @@ public class MonolithModuleConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("urlsByDelegateName")
+    @Qualifier(QUALIFIER_URLS_BY_DELEGATE_NAME)
     public Map<String, String> urlsByDelegateName() {
         return this.properties.getDelegateUrls();
     }
@@ -85,16 +87,15 @@ public class MonolithModuleConfiguration {
      * is being processed (e.g. when there is technically no REST call because a request came from within the system).
      */
     @Bean
-    // TODO: String literal
-    @Qualifier("fallbackBaseUrl")
+    @Qualifier(QUALIFIER_FALLBACK_BASE_URL)
     public URL fallbackBaseUrl() throws MalformedURLException {
         return this.properties.getFallbackBaseUrl();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.monolith")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.monolith";
         private final String DEFAULT_FALLBACK_BASE_URL = "http://localhost:8080";
 
         private Map<String, String> delegateUrls;

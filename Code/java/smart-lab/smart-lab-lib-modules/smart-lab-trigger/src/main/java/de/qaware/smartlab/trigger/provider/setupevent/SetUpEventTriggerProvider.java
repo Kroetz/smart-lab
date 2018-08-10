@@ -3,6 +3,7 @@ package de.qaware.smartlab.trigger.provider.setupevent;
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.trigger.configuration.SetUpEventTriggerProviderConfiguration;
 import de.qaware.smartlab.trigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,10 +24,8 @@ public class SetUpEventTriggerProvider extends AbstractTriggerProvider {
     public SetUpEventTriggerProvider(
             IEventManagementService eventManagementService,
             ITriggerService triggerService,
-            // TODO: String literals
-            @Qualifier("setUpTriggerProviderCheckInterval") Duration checkInterval,
-            // TODO: String literal
-            @Qualifier("setUpTriggerProviderCallbackUrl") URL callbackUrl) {
+            @Qualifier(SetUpEventTriggerProviderConfiguration.QUALIFIER_SET_UP_TRIGGER_PROVIDER_CHECK_INTERVAL) Duration checkInterval,
+            @Qualifier(SetUpEventTriggerProviderConfiguration.QUALIFIER_SET_UP_TRIGGER_PROVIDER_CALLBACK_URL) URL callbackUrl) {
         super(
                 checkInterval,
                 event -> triggerService.setUpCurrentEventByLocationId(event.getLocationId(), callbackUrl),

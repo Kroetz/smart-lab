@@ -23,7 +23,6 @@ public class BasicTranscriptTextBuilder implements ITranscriptTextBuilder {
 
     @Override
     public void addTextPassage(StringBuilder stringBuilder, ITextPassage textPassage) {
-        // TODO: String literals
         stringBuilder
                 .append(textPassage.getSpokenDuration().toString())
                 .append(" ")

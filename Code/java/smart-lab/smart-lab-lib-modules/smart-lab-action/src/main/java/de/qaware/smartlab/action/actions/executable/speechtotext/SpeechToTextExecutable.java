@@ -4,6 +4,7 @@ import de.qaware.smartlab.action.actions.callable.speechtotext.SpeechToTextCalla
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlab.action.result.TranscriptActionResult;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.SpeechToTextConfiguration;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
@@ -21,8 +22,7 @@ public class SpeechToTextExecutable extends AbstractActionExecutable<SpeechToTex
     public SpeechToTextExecutable(
             SpeechToTextInfo speechToTextInfo,
             IResolver<String, ISpeechToTextAdapter> speechToTextAdapterResolver,
-            // TODO: String literal
-            @Qualifier("speechToTextServiceName") String speechToTextServiceName) {
+            @Qualifier(SpeechToTextConfiguration.QUALIFIER_SPEECH_TO_TEXT_SERVICE_NAME) String speechToTextServiceName) {
         super(
                 speechToTextInfo,
                 speechToTextAdapterResolver,

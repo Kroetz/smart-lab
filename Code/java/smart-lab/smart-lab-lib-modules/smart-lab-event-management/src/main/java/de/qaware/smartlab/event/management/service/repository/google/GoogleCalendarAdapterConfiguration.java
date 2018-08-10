@@ -1,17 +1,17 @@
 package de.qaware.smartlab.event.management.service.repository.google;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.exception.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
+import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -37,9 +37,13 @@ import static java.nio.file.Paths.get;
 public class GoogleCalendarAdapterConfiguration {
 
     private final Properties properties;
+    private final IEventParser eventParser;
+    private final Set<IEvent> initialEvents;
 
-    public GoogleCalendarAdapterConfiguration(Properties properties) {
+    public GoogleCalendarAdapterConfiguration(Properties properties, IEventParser eventParser, Set<IEvent> initialEvents) {
         this.properties = properties;
+        this.eventParser = eventParser;
+        this.initialEvents = initialEvents;
     }
 
     @Bean
@@ -48,52 +52,29 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     @Bean
-    // TODO: String literals
-    @Qualifier("googleCalendarCredentialFile")
-    public Path googleCalendarCredentialFile() {
-        return this.properties.getCredentialsFile();
-    }
-
-    @Bean
-    // TODO: String literal
-    @Qualifier("googleCalendarScopes")
-    public Collection<String> googleCalendarScopes() {
-        return this.properties.getScopes();
-    }
-
-    @Bean
-    // TODO: String literals
-    @Qualifier("googleCalendarApplicationName")
-    public String googleCalendarApplicationName() {
-        return this.properties.getApplicationName();
-    }
-
-    @Bean
-    public HttpTransport googleCalendarHttpTransport() {
+    public IEventManagementRepository repo() {
         try {
-            return GoogleNetHttpTransport.newTrustedTransport();
+            return new GoogleCalendarAdapter(
+                    this.properties.getCredentialsFile(),
+                    this.properties.getScopes(),
+                    this.properties.getApplicationName(),
+                    GoogleNetHttpTransport.newTrustedTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    this.properties.getLocationMapping(),
+                    this.eventParser,
+                    this.initialEvents);
         } catch (Exception e) {
+            // TODO: Exception message and logging
             throw new ConfigurationException(e);
         }
     }
 
-    @Bean
-    public JsonFactory googleCalendarJsonFactory() {
-        return JacksonFactory.getDefaultInstance();
-    }
-
-    @Bean
-    // TODO: String literal
-    @Qualifier("googleCalendarLocationMapping")
-    public BiMap<LocationId, String> googleCalendarLocationMapping() {
-        return this.properties.getLocationMapping();
-    }
-
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.event-management.google-calendar", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.event-management.google-calendar";
+        private static final String FIELD_NAME_CREDENTIALS_FILE = "credentialsFile";
         private static final Path DEFAULT_CREDENTIALS_FILE = get(System.getProperty("user.home"), "smart-lab", "google_calendar_credentials.json");
         private static final Collection<String> DEFAULT_SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
         private static final String DEFAULT_APPLICATION_NAME = "Default Google Calendar application name";
@@ -157,11 +138,10 @@ public class GoogleCalendarAdapterConfiguration {
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
                 if(!exists(properties.getCredentialsFile())) {
-                    // TODO: String literals
                     String errorMessage = "The path of the Google calendar credentials file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "credentialsFile",
+                            FIELD_NAME_CREDENTIALS_FILE,
                             errorMessage);
                 }
             }

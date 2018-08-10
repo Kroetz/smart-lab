@@ -24,6 +24,10 @@ import static java.time.Duration.ofSeconds;
 @EnableConfigurationProperties(CleanUpEventTriggerProviderConfiguration.Properties.class)
 public class CleanUpEventTriggerProviderConfiguration {
 
+    public static final String QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CHECK_INTERVAL = "cleanUpTriggerProviderCheckInterval";
+    public static final String QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_TRIGGER_THRESHOLD = "cleanUpTriggerProviderTriggerThreshold";
+    public static final String QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CALLBACK_URL = "cleanUpTriggerProviderCallbackUrl";
+
     private final CleanUpEventTriggerProviderConfiguration.Properties properties;
 
     public CleanUpEventTriggerProviderConfiguration(CleanUpEventTriggerProviderConfiguration.Properties properties) {
@@ -31,30 +35,27 @@ public class CleanUpEventTriggerProviderConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("cleanUpTriggerProviderCheckInterval")
+    @Qualifier(QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CHECK_INTERVAL)
     public Duration cleanUpTriggerProviderCheckInterval() {
         return this.properties.getCheckIntervalInSeconds();
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("cleanUpTriggerProviderTriggerThreshold")
+    @Qualifier(QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_TRIGGER_THRESHOLD)
     public Duration cleanUpTriggerProviderTriggerThreshold() {
         return this.properties.getTriggerThresholdInSeconds();
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("cleanUpTriggerProviderCallbackUrl")
+    @Qualifier(QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CALLBACK_URL)
     public URL cleanUpTriggerProviderCallbackBaseUrl() throws MalformedURLException {
         return of(this.properties.getCallbackBaseUrl(), MAPPING_CALLBACK);
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.trigger-provider.clean-up")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.trigger-provider.clean-up";
         private static final int DEFAULT_CHECK_INTERVAL_IN_SECONDS = 5;
         private static final int DEFAULT_TRIGGER_THRESHOLD_IN_SECONDS = 10;
         private static final String DEFAULT_CALLBACK_BASE_URL = "http://localhost:8080";

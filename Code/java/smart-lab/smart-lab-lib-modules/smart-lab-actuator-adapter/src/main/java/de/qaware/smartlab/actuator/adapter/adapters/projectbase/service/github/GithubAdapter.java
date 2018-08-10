@@ -2,7 +2,6 @@ package de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github;
 
 import com.jcabi.github.*;
 import com.jcabi.http.Request;
-import com.jcabi.http.Response;
 import com.jcabi.http.response.JsonResponse;
 import com.jcabi.http.wire.RetryWire;
 import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
@@ -29,6 +28,9 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
 
     public static final String ACTUATOR_TYPE = "github";
     private static final boolean HAS_LOCAL_API = false;
+
+    private static final String REST_ENDPOINT_INVITATIONS = "/user/repository_invitations";
+    private static final String JSON_PROPERTY_ID = "id";
 
     private final Github github;
     private final ITempFileManager tempFileManager;
@@ -101,9 +103,8 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
     }
 
     private Set<String> getPendingRepoInvitationIds() throws IOException {
-        // TODO: eliminate string literals
         JsonArray invitations = github.entry()
-                .uri().path("/user/repository_invitations").back()
+                .uri().path(REST_ENDPOINT_INVITATIONS).back()
                 .method(Request.GET)
                 .fetch()
                 .as(JsonResponse.class)
@@ -112,7 +113,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         Set<String> invitationIds = new HashSet<>();
         for (int i = 0; i < invitations.size(); i++) {
             JsonObject invitation = invitations.getJsonObject(i);
-            invitationIds.add(String.valueOf(invitation.getInt("id")));
+            invitationIds.add(String.valueOf(invitation.getInt(JSON_PROPERTY_ID)));
         }
         return invitationIds;
     }
@@ -122,9 +123,8 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
     }
 
     private void acceptRepoInvitation(String invitationId) throws IOException {
-        // TODO: eliminate string literals
-        Response response = this.github.entry()
-                .uri().path("/user/repository_invitations/" + invitationId).back()
+        this.github.entry()
+                .uri().path(REST_ENDPOINT_INVITATIONS + invitationId).back()
                 .method(Request.PATCH)
                 .fetch();
     }

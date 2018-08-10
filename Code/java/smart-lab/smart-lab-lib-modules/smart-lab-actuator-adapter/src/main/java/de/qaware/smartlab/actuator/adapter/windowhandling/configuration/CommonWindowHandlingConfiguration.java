@@ -39,10 +39,10 @@ public class CommonWindowHandlingConfiguration {
         return this.properties.getFindWindowTimeoutInSeconds();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.delegate.window-handling", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.delegate.window-handling";
         private static final int DEFAULT_FIND_WINDOW_TIMEOUT_IN_SECONDS = 5;
 
         private Map<String, String> displays;

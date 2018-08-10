@@ -54,18 +54,12 @@ public class WindowsWindowHandlingConfiguration {
                 this.findWindowTimeout);
     }
 
-    @Bean
-    // TODO: String literals
-    @Qualifier("windowHandlingDll")
-    public Path windowHandlingDll() {
-        return this.properties.getWindowHandlingDll();
-    }
-
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.delegate.window-handling", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     @Validated
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.delegate.window-handling";
+        private static final String FIELD_NAME_WINDOW_HANDLING_DLL = "windowHandlingDll";
         private static final Path DEFAULT_WINDOW_HANDLING_DLL = get(System.getProperty("user.home"), "smart-lab", "smart-lab-window-handling.dll");
 
         private Path windowHandlingDll;
@@ -94,11 +88,10 @@ public class WindowsWindowHandlingConfiguration {
             public void validate(Object o, @NonNull Errors errors) {
                 Properties properties = (Properties) o;
                 if(!exists(properties.getWindowHandlingDll())) {
-                    // TODO: String literals
                     String errorMessage = "The path of the window handling .dll file must be valid";
                     log.error(errorMessage);
                     errors.rejectValue(
-                            "windowHandlingDll",
+                            FIELD_NAME_WINDOW_HANDLING_DLL,
                             errorMessage);
                 }
             }

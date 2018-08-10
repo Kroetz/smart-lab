@@ -30,6 +30,12 @@ import static java.nio.file.Files.readAllBytes;
 @Slf4j
 public class MinuteTakingControllable extends AbstractAssistanceControllable {
 
+    private static final String AUDIO_UPLOAD_MESSAGE = "Upload minutes (audio) taken by Smart-Lab";
+    private static final String AUDIO_UPLOAD_FILE_NAME_SUFFIX = "_audio.wav";
+    private static final String TRANSCRIPT_UPLOAD_MESSAGE = "Upload minutes (transcript) taken by Smart-Lab";
+    private static final String TRANSCRIPT_UPLOAD_FILE_NAME_SUFFIX = "_transcript.txt";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+
     private final IActionCallable<AudioRecordingStartCallable.ActionArgs, Void> audioRecordingStart;
     private final IActionCallable<AudioRecordingStopCallable.ActionArgs, Path> audioRecordingStop;
     private final IActionCallable<SpeechToTextCallable.ActionArgs, ITranscript> speechToText;
@@ -97,17 +103,14 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IAssistanceContext context,
             MinuteTakingInfo.Configuration config,
             Path recordedAudio) {
-        // TODO: String literals
-        String uploadMessage = "Upload minutes (audio) taken by Smart-Lab";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-        String fileName = LocalDateTime.now().format(formatter) + "_audio.wav";
+        String fileName = LocalDateTime.now().format(formatter) + AUDIO_UPLOAD_FILE_NAME_SUFFIX;
         final DataUploadCallable.ActionArgs dataUploadArgs;
         try {
             dataUploadArgs = DataUploadCallable.ActionArgs.of(
                     context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                     config.getUploadDir(),
                     fileName,
-                    uploadMessage,
+                    AUDIO_UPLOAD_MESSAGE,
                     readAllBytes(recordedAudio));
         } catch (IOException e) {
             String errorMessage = format("Could not read recorded audio file %s", recordedAudio);
@@ -122,15 +125,12 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             IAssistanceContext context,
             MinuteTakingInfo.Configuration config,
             ITranscript transcript) {
-        // TODO: String literals
-        String uploadMessage = "Upload minutes (transcript) taken by Smart-Lab";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-        String fileName = LocalDateTime.now().format(formatter) + "_transcript.txt";
+        String fileName = LocalDateTime.now().format(formatter) + TRANSCRIPT_UPLOAD_FILE_NAME_SUFFIX;
         final DataUploadCallable.ActionArgs dataUploadArgs = DataUploadCallable.ActionArgs.of(
                 context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
                 config.getUploadDir(),
                 fileName,
-                uploadMessage,
+                TRANSCRIPT_UPLOAD_MESSAGE,
                 transcript.toHumanReadable().getBytes());
         this.dataUpload.call(actionService, dataUploadArgs);
     }

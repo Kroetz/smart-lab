@@ -3,6 +3,7 @@ package de.qaware.smartlab.trigger.provider.cleanupevent;
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.trigger.configuration.CleanUpEventTriggerProviderConfiguration;
 import de.qaware.smartlab.trigger.provider.generic.AbstractTriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,11 +28,9 @@ public class CleanUpEventTriggerProvider extends AbstractTriggerProvider {
     public CleanUpEventTriggerProvider(
             ITriggerService triggerService,
             IEventManagementService eventManagementService,
-            // TODO: String literals
-            @Qualifier("cleanUpTriggerProviderCheckInterval") Duration checkInterval,
-            @Qualifier("cleanUpTriggerProviderTriggerThreshold") Duration triggerThreshold,
-            // TODO: String literal
-            @Qualifier("cleanUpTriggerProviderCallbackUrl") URL callbackUrl) {
+            @Qualifier(CleanUpEventTriggerProviderConfiguration.QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CHECK_INTERVAL) Duration checkInterval,
+            @Qualifier(CleanUpEventTriggerProviderConfiguration.QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_TRIGGER_THRESHOLD) Duration triggerThreshold,
+            @Qualifier(CleanUpEventTriggerProviderConfiguration.QUALIFIER_CLEAN_UP_TRIGGER_PROVIDER_CALLBACK_URL) URL callbackUrl) {
         super(
                 checkInterval,
                 event -> triggerService.cleanUpCurrentEventByLocationId(event.getLocationId(), callbackUrl),

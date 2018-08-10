@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface IDelegateApiClient {
 
-    // TODO: String literals
     @RequestLine("POST " + DelegateApiConstants.MAPPING_BASE + DelegateApiConstants.MAPPING_EXECUTE)
     @Headers("Content-Type: " + MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IActionResult> executeAction(

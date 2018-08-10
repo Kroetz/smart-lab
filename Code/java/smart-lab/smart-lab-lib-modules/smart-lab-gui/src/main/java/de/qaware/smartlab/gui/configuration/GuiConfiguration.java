@@ -20,6 +20,8 @@ import static java.time.Duration.ofMinutes;
 @EnableConfigurationProperties(GuiConfiguration.Properties.class)
 public class GuiConfiguration {
 
+    public static final String QUALIFIER_LOCATION_STATUS_EVENT_EXTENSION = "locationStatusEventExtension";
+
     private final Properties properties;
 
     public GuiConfiguration(Properties properties) {
@@ -27,16 +29,15 @@ public class GuiConfiguration {
     }
 
     @Bean
-    // TODO: String literal
-    @Qualifier("locationStatusEventExtension")
+    @Qualifier(QUALIFIER_LOCATION_STATUS_EVENT_EXTENSION)
     public Duration locationStatusEventExtension() {
         return this.properties.getCurrentEventExtensionInMinutes();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.gui")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.gui";
         private static final int DEFAULT_CURRENT_EVENT_EXTENSION_IN_MINUTES = 1;
 
         private int currentEventExtensionInMinutes;

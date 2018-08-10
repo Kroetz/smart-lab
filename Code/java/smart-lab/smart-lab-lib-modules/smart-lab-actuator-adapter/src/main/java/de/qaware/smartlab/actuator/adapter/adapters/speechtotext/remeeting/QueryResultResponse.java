@@ -12,26 +12,34 @@ import java.util.List;
 // TODO: Better class name?
 public class QueryResultResponse implements ITranscript {
 
-    // TODO: Eliminate string literals
+    private static final String FIELD_NAME_CREATED = "created";
+    private static final String FIELD_NAME_ID = "id";
+    private static final String FIELD_NAME_UPDATED = "updated";
+    private static final String FIELD_NAME_RESULTS = "results";
+    private static final String FIELD_NAME_STATUS = "status";
 
-    @JsonProperty("created")
+    public static final String STATUS_WAITING = "waiting";
+    public static final String STATUS_PROCESSING = "processing";
+    public static final String STATUS_COMPLETED = "completed";
+
+    @JsonProperty(FIELD_NAME_CREATED)
     private String created;
 
-    @JsonProperty("id")
+    @JsonProperty(FIELD_NAME_ID)
     private String id;
 
-    @JsonProperty("updated")
+    @JsonProperty(FIELD_NAME_UPDATED)
     private String updated;
 
-    @JsonProperty("results")
+    @JsonProperty(FIELD_NAME_RESULTS)
     private List<RemeetingResult> results;
 
-    @JsonProperty("status")
+    @JsonProperty(FIELD_NAME_STATUS)
     private String status;
 
     @Override
     public String toHumanReadable() {
-        // TODO: Build a readable string
+        // TODO: Use TranscriptTextBuilder to build a human readable string
         return results.toString();
     }
 
@@ -39,10 +47,13 @@ public class QueryResultResponse implements ITranscript {
     @NoArgsConstructor
     public static class RemeetingResult {
 
-        @JsonProperty("result_index")
+        private static final String FIELD_NAME_RESULT_INDEX = "result_index";
+        private static final String FIELD_NAME_RESULTS = "results";
+
+        @JsonProperty(FIELD_NAME_RESULT_INDEX)
         private String result_index;
 
-        @JsonProperty("results")
+        @JsonProperty(FIELD_NAME_RESULTS)
         private List<RemeetingSubResult> results;
     }
 
@@ -50,10 +61,13 @@ public class QueryResultResponse implements ITranscript {
     @NoArgsConstructor
     public static class RemeetingSubResult {
 
-        @JsonProperty("final")
+        private static final String FIELD_NAME_FINAL = "final";
+        private static final String FIELD_NAME_ALTERNATIVES = "alternatives";
+
+        @JsonProperty(FIELD_NAME_FINAL)
         private boolean final_var;
 
-        @JsonProperty("alternatives")
+        @JsonProperty(FIELD_NAME_ALTERNATIVES)
         private List<Alternative> alternatives;
     }
 
@@ -61,13 +75,17 @@ public class QueryResultResponse implements ITranscript {
     @NoArgsConstructor
     public static class Alternative {
 
-        @JsonProperty("transcript")
+        private static final String FIELD_NAME_TRANSCRIPT = "transcript";
+        private static final String FIELD_NAME_TRANSCRIPT_RAW = "transcript_raw";
+        private static final String FIELD_NAME_CONFIDENCE = "confidence";
+
+        @JsonProperty(FIELD_NAME_TRANSCRIPT)
         private String transcript;
 
-        @JsonProperty("transcript_raw")
+        @JsonProperty(FIELD_NAME_TRANSCRIPT_RAW)
         private String transcript_raw;
 
-        @JsonProperty("confidence")
+        @JsonProperty(FIELD_NAME_CONFIDENCE)
         private String confidence;
     }
 }

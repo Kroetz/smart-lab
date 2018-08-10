@@ -28,10 +28,10 @@ public class ResourcesConfiguration {
         return this.properties.getSubDir();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.temp.resources")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.temp.resources";
         private static final Path DEFAULT_SUB_DIR = get("resources");
         private Path subDir;
 

@@ -42,9 +42,10 @@ public class GithubConfiguration {
                 this.downloadsTempFileSubDir);
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.actuator.github")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
+
+        private static final String PREFIX = "smart-lab.actuator.github";
 
         private String apiKey;
 

@@ -9,23 +9,19 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.common.collect.BiMap;
-import de.qaware.smartlab.core.data.event.EventId;
-import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.Event;
+import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
+import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.EntityConflictException;
 import de.qaware.smartlab.core.exception.EntityException;
 import de.qaware.smartlab.core.exception.EntityNotFoundException;
 import de.qaware.smartlab.core.exception.InvalidSyntaxException;
-import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -45,11 +41,6 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-@Repository
-@ConditionalOnProperty(
-        prefix = Property.Prefix.EVENT_MANAGEMENT_REPOSITORY,
-        name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
-        havingValue = Property.Value.EventManagementRepository.GOOGLE_CALENDAR)
 @Slf4j
 public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IEvent, EventId> implements IEventManagementRepository {
 
@@ -58,15 +49,12 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     private final IEventParser eventParser;
 
     public GoogleCalendarAdapter(
-            // TODO: String literals
-            @Qualifier("googleCalendarCredentialFile") Path googleCalendarCredentialFile,
-            // TODO: String literal
-            @Qualifier("googleCalendarScopes") Collection<String> googleCalendarScopes,
-            // TODO: String literals
-            @Qualifier("googleCalendarApplicationName") String googleCalendarApplicationName,
+            Path googleCalendarCredentialFile,
+            Collection<String> googleCalendarScopes,
+            String googleCalendarApplicationName,
             HttpTransport googleCalendarHttpTransport,
             JsonFactory googleCalendarJsonFactory,
-            @Qualifier("googleCalendarLocationMapping") BiMap<LocationId, String> googleCalendarLocationMapping,
+            BiMap<LocationId, String> googleCalendarLocationMapping,
             IEventParser eventParser,
             Set<IEvent> initialEvents) throws IOException {
         super(initialEvents);

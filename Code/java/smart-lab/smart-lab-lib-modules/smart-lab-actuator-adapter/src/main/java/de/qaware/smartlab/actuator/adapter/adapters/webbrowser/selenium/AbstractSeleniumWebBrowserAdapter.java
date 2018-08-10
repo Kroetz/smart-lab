@@ -25,6 +25,8 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrowserAdapter {
 
+    private static final String CSS_SELECTOR_BODY = "body";
+
     protected final Supplier<WebDriver> webDriverSupplier;
     protected final IHotkeys newTabHotkeys;
     protected final Map<UUID, SeleniumWebBrowserInstance> webBrowserInstancesById;
@@ -81,8 +83,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
 
     private IWebBrowserTab newTab(WebDriver webDriver, UUID webBrowserInstanceId, URL url) {
         log.info("Creating new tab for URL {}", url);
-        // TODO: String literal
-        webDriver.findElement(By.cssSelector("body")).sendKeys(this.newTabHotkeys.getCharSequence());
+        webDriver.findElement(By.cssSelector(CSS_SELECTOR_BODY)).sendKeys(this.newTabHotkeys.getCharSequence());
         webDriver.navigate().to(url);
         IWebBrowserTab newTab = SeleniumWebBrowserTab.of(url, webDriver.getWindowHandle());
         addToAutoOpenedTabs(webBrowserInstanceId, newTab);

@@ -7,12 +7,19 @@ import de.qaware.smartlab.core.exception.ServiceFailedException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
+import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_COMPLETED;
+import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_PROCESSING;
+import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_WAITING;
+import static de.qaware.smartlab.core.miscellaneous.StringUtils.UTF_8_CHARSET_NAME;
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
+import static java.time.Duration.ofSeconds;
 import static java.util.Objects.isNull;
 
 @Slf4j
@@ -20,6 +27,9 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
 
     public static final String ACTUATOR_TYPE = "remeeting";
     private static final boolean HAS_LOCAL_API = false;
+
+    private static final String AUTH_HEADER_TEMPLATE = "Basic %s";
+    private static final Duration POLLING_INTERVAL = ofSeconds(10);
 
     private final IRemeetingApiClient remeetingApiClient;
     private final String remeetingApiKey;
@@ -41,19 +51,16 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
             throw new ServiceFailedException(errorMessage);
         }
         try {
-            // TODO: String literals
-            String authHeader = "Basic " + Base64.getEncoder().encodeToString((this.remeetingApiKey + ":").getBytes("utf-8"));
+            String authHeader = buildAuthHeader(this.remeetingApiKey);
             SubmitJobResponse submitJobResponse = this.remeetingApiClient.submitJob(authHeader, readAllBytes(audioFile));
             String jobId = submitJobResponse.getId();
             QueryResultResponse queryResultResponse;
             do {
-                // TODO: Do not exceed maximal waiting time
-                // TODO: Log progess of job processing
                 log.info("Remeeting is processing the submitted job...");
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(POLLING_INTERVAL.getSeconds());
                 queryResultResponse = this.remeetingApiClient.queryResult(jobId, authHeader);
-            } while(queryResultResponse.getStatus().equals("waiting") || queryResultResponse.getStatus().equals("processing"));
-            if(queryResultResponse.getStatus().equals("completed")) {
+            } while(queryResultResponse.getStatus().equals(STATUS_WAITING) || queryResultResponse.getStatus().equals(STATUS_PROCESSING));
+            if(queryResultResponse.getStatus().equals(STATUS_COMPLETED)) {
                 return queryResultResponse;
             }
         } catch (Exception e) {
@@ -61,5 +68,11 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
         }
         // TODO: exception message
         throw new ServiceFailedException();
+    }
+
+    private String buildAuthHeader(String apiKey) throws UnsupportedEncodingException {
+        return format(
+                AUTH_HEADER_TEMPLATE,
+                Base64.getEncoder().encodeToString((apiKey + ":").getBytes(UTF_8_CHARSET_NAME)));
     }
 }

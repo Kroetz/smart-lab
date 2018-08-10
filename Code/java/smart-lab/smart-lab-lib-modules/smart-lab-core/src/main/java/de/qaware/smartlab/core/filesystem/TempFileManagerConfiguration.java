@@ -65,10 +65,10 @@ public class TempFileManagerConfiguration {
         return this.properties.getDownloadSubDir();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.temp")
+    @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.temp";
         private static final int DEFAULT_OBSOLETE_FILE_CLEANING_INTERVAL_IN_SECONDS = 60;
         private static final Path DEFAULT_BASE_DIR = get(System.getProperty("java.io.tmpdir"), "smart-lab");
         private static final String DEFAULT_FILE_NAME_PREFIX = "file";

@@ -9,17 +9,20 @@ import lombok.NoArgsConstructor;
 // TODO: Better class name?
 public class SubmitJobResponse {
 
-    // TODO: Eliminate string literals
+    private static final String FIELD_NAME_CREATED = "created";
+    private static final String FIELD_NAME_ID = "id";
+    private static final String FIELD_NAME_URL = "url";
+    private static final String FIELD_NAME_STATUS = "status";
 
-    @JsonProperty("created")
+    @JsonProperty(FIELD_NAME_CREATED)
     private String created;
 
-    @JsonProperty("id")
+    @JsonProperty(FIELD_NAME_ID)
     private String id;
 
-    @JsonProperty("url")
+    @JsonProperty(FIELD_NAME_URL)
     private String url;
 
-    @JsonProperty("status")
+    @JsonProperty(FIELD_NAME_STATUS)
     private String status;
 }

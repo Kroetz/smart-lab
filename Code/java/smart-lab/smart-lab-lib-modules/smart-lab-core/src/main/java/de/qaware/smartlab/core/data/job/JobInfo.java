@@ -12,29 +12,35 @@ import java.util.Optional;
 @Entity
 public class JobInfo implements IJobInfo {
 
-    // TODO: String literals
+    private static final String FIELD_NAME_ID = "id";
+    private static final String FIELD_NAME_STATUS = "status";
+    private static final String FIELD_NAME_CALLBACK_URL = "callback_url";
+    private static final String FIELD_NAME_CREATION = "creation";
+    private static final String FIELD_NAME_PROCESSING_START = "processing_start";
+    private static final String FIELD_NAME_PROCESSING_END = "processing_end";
+    private static final String FIELD_NAME_ERROR_MESSAGE = "error_message";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = FIELD_NAME_ID, updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "status")
+    @Column(name = FIELD_NAME_STATUS)
     private JobStatus status;
 
-    @Column(name = "callback_url")
+    @Column(name = FIELD_NAME_CALLBACK_URL)
     private URL callbackUrl;
 
-    @Column(name = "creation")
+    @Column(name = FIELD_NAME_CREATION)
     private Instant creation;
 
-    @Column(name = "processing_start")
+    @Column(name = FIELD_NAME_PROCESSING_START)
     private Instant processingStart;
 
-    @Column(name = "processing_end")
+    @Column(name = FIELD_NAME_PROCESSING_END)
     private Instant processingEnd;
 
-    @Column(name = "error_message")
+    @Column(name = FIELD_NAME_ERROR_MESSAGE)
     @Lob
     private String errorMessage;
 

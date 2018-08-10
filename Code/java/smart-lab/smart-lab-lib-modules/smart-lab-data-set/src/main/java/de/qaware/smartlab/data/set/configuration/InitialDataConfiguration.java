@@ -77,10 +77,10 @@ public class InitialDataConfiguration {
         return this.dataSetProvider.getActuators();
     }
 
-    // TODO: String literal
-    @ConfigurationProperties(prefix = "smart-lab.app.data", ignoreInvalidFields = true)
+    @ConfigurationProperties(prefix = Properties.PREFIX, ignoreInvalidFields = true)
     public static class Properties {
 
+        private static final String PREFIX = "smart-lab.app.data";
         private static final List<String> DEFAULT_INITIAL_EVENTS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_LOCATIONS = Collections.emptyList();
         private static final List<String> DEFAULT_INITIAL_ACTUATORS = Collections.emptyList();

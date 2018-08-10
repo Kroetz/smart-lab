@@ -3,6 +3,7 @@ package de.qaware.smartlab.monolith.service.url;
 import de.qaware.smartlab.core.concurrency.ThreadContext;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
+import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,8 +25,7 @@ public class MonolithicBaseUrlDetector implements IBaseUrlDetector {
     private final URL fallbackBaseUrl;
 
     public MonolithicBaseUrlDetector(
-            // TODO: String literal
-            @Qualifier("fallbackBaseUrl") URL fallbackBaseUrl) {
+            @Qualifier(MonolithModuleConfiguration.QUALIFIER_FALLBACK_BASE_URL) URL fallbackBaseUrl) {
         this.fallbackBaseUrl = fallbackBaseUrl;
     }
 
