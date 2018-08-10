@@ -22,7 +22,7 @@ public class DelegateMicroserviceConnector extends AbstractDelegateServiceConnec
 
     public DelegateMicroserviceConnector(
             Client client,
-            Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
+            Encoder feignEncoder,
             Decoder feignDecoder) {
         super(client, feignEncoder, feignDecoder);
     }

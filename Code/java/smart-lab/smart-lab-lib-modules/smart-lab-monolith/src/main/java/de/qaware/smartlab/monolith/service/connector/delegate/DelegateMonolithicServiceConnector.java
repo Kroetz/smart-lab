@@ -32,7 +32,7 @@ public class DelegateMonolithicServiceConnector extends AbstractDelegateServiceC
     public DelegateMonolithicServiceConnector(
             @Qualifier(MonolithModuleConfiguration.QUALIFIER_URLS_BY_DELEGATE_NAME) Map<String, String> urlsByDelegateName,
             Client client,
-            Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
+            Encoder feignEncoder,
             Decoder feignDecoder) {
         super(client, feignEncoder, feignDecoder);
         this.urlsByDelegateName = urlsByDelegateName;

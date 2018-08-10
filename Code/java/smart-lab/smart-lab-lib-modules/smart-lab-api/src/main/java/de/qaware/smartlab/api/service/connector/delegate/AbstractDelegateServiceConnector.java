@@ -29,7 +29,7 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
 
     protected AbstractDelegateServiceConnector(
             Client client,
-            Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
+            Encoder feignEncoder,
             Decoder feignDecoder) {
         this.clientsByServiceName = new HashMap<>();
         this.client = client;
