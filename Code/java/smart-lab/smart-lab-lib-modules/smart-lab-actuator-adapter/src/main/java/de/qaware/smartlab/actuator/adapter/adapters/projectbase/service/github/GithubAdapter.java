@@ -11,12 +11,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.generic.
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlab.core.exception.ServiceFailedException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
-import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
-import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -29,11 +24,6 @@ import java.util.Set;
 
 import static java.lang.String.format;
 
-@Component
-@ConditionalOnProperty(
-        prefix = Property.Prefix.GITHUB,
-        name = Property.Name.GITHUB,
-        havingValue = Property.Value.TRUE)
 @Slf4j
 public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBaseAdapter {
 
@@ -45,10 +35,9 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
     private final Path downloadsTempFileSubDir;
 
     public GithubAdapter(
-            // TODO: String literals
-            @Qualifier("githubApiKey") String githubApiKey,
+            String githubApiKey,
             ITempFileManager tempFileManager,
-            @Qualifier(TempFileManagerConfiguration.QUALIFIER_DOWNLOADS_TEMP_FILE_SUB_DIR) Path downloadsTempFileSubDir) {
+            Path downloadsTempFileSubDir) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         this.github = new RtGithub(new RtGithub(githubApiKey).entry().through(RetryWire.class));
         this.tempFileManager = tempFileManager;
