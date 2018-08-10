@@ -15,7 +15,7 @@ public abstract class AbstractBasicEntityManagementRepository<EntityT extends IE
 
     protected final Set<EntityT> initialData;
 
-    public AbstractBasicEntityManagementRepository(Set<EntityT> initialData) {
+    protected AbstractBasicEntityManagementRepository(Set<EntityT> initialData) {
         this.initialData = initialData;
     }
 

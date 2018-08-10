@@ -14,7 +14,7 @@ public abstract class AbstractBaseUrlController implements IBaseUrlController {
 
     private final IBaseUrlDetector baseUrlDetector;
 
-    public AbstractBaseUrlController(IBaseUrlDetector baseUrlDetector) {
+    protected AbstractBaseUrlController(IBaseUrlDetector baseUrlDetector) {
         this.baseUrlDetector = baseUrlDetector;
     }
 

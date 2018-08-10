@@ -10,7 +10,7 @@ public abstract class AbstractMonolithicBaseUrlGetter implements IServiceBaseUrl
 
     private final IBaseUrlController baseUrlController;
 
-    public AbstractMonolithicBaseUrlGetter(IBaseUrlController baseUrlController) {
+    protected AbstractMonolithicBaseUrlGetter(IBaseUrlController baseUrlController) {
         this.baseUrlController = baseUrlController;
     }
 

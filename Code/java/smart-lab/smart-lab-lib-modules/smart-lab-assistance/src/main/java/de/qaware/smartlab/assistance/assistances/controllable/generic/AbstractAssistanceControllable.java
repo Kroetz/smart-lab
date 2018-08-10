@@ -16,7 +16,7 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
 
     protected final IAssistanceInfo assistanceInfo;
 
-    public AbstractAssistanceControllable(IAssistanceInfo assistanceInfo) {
+    protected AbstractAssistanceControllable(IAssistanceInfo assistanceInfo) {
         this.assistanceInfo = assistanceInfo;
     }
 

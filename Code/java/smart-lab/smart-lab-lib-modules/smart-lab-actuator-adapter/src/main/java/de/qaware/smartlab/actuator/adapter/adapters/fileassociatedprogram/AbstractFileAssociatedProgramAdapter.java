@@ -19,7 +19,7 @@ public abstract class AbstractFileAssociatedProgramAdapter extends AbstractActua
     protected final Map<UUID, IFileAssociatedProgramInstance> programInstancesByID;
     protected final IWindowHandler windowHandler;
 
-    public AbstractFileAssociatedProgramAdapter(
+    protected AbstractFileAssociatedProgramAdapter(
             String actuatorType,
             boolean hasLocalApi,
             IWindowHandler windowHandler) {

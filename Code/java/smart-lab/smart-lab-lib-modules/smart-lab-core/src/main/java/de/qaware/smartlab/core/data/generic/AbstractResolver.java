@@ -14,7 +14,7 @@ public abstract class AbstractResolver<KeyT, ValueT> implements IResolver<KeyT, 
 
     private final Map<KeyT, ValueT> valuesByKey;
 
-    public AbstractResolver(Set<Map.Entry<KeyT, ValueT>> entries) {
+    protected AbstractResolver(Set<Map.Entry<KeyT, ValueT>> entries) {
         this.valuesByKey = new HashMap<>();
         for(Map.Entry<KeyT, ValueT> entry : entries) {
             if(this.valuesByKey.containsKey(entry.getKey())) throw new IllegalArgumentException(format(

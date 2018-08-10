@@ -7,7 +7,7 @@ public abstract class AbstractProjectBaseInfoFactory implements IProjectBaseInfo
 
     protected final String actuatorType;
 
-    public AbstractProjectBaseInfoFactory(String actuatorType) {
+    protected AbstractProjectBaseInfoFactory(String actuatorType) {
         this.actuatorType = actuatorType;
     }
 

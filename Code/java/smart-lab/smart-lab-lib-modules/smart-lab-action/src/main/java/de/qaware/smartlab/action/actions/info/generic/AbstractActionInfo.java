@@ -7,7 +7,7 @@ public abstract class AbstractActionInfo implements IActionInfo {
 
     protected final String actionId;
 
-    public AbstractActionInfo(String actionId) {
+    protected AbstractActionInfo(String actionId) {
         this.actionId = actionId;
     }
 

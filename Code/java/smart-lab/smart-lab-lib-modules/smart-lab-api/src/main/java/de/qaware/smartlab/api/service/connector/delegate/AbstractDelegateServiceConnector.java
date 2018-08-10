@@ -27,7 +27,7 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
     protected final Encoder feignEncoder;
     protected final Decoder feignDecoder;
 
-    public AbstractDelegateServiceConnector(
+    protected AbstractDelegateServiceConnector(
             Client client,
             Encoder feignEncoder,       // TODO: Suppress compiler warnings about failed autowiring
             Decoder feignDecoder) {

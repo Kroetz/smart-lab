@@ -22,7 +22,7 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
     protected final IBasicEntityManagementApiClient<EntityT, DtoT> entityManagementApiClient;
     protected final IDtoConverter<EntityT, DtoT> converter;
 
-    public AbstractBasicEntityManagementMicroserviceConnector(
+    protected AbstractBasicEntityManagementMicroserviceConnector(
             IBasicEntityManagementApiClient<EntityT, DtoT> entityManagementApiClient,
             IDtoConverter<EntityT, DtoT> converter) {
         this.entityManagementApiClient = entityManagementApiClient;

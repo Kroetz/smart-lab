@@ -12,7 +12,7 @@ public abstract class AbstractBasicEntityManagementBusinessLogic<EntityT extends
 
     protected final IBasicEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository;
 
-    public AbstractBasicEntityManagementBusinessLogic(IBasicEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository) {
+    protected AbstractBasicEntityManagementBusinessLogic(IBasicEntityManagementRepository<EntityT, IdentifierT> entityManagementRepository) {
         this.entityManagementRepository = entityManagementRepository;
     }
 

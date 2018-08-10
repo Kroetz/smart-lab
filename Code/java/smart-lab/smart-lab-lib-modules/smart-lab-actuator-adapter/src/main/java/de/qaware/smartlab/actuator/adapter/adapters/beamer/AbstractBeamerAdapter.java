@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractBeamerAdapter extends AbstractActuatorAdapter implements IBeamerAdapter {
 
-    public AbstractBeamerAdapter(String actuatorType, boolean hasLocalApi) {
+    protected AbstractBeamerAdapter(String actuatorType, boolean hasLocalApi) {
         super(actuatorType, hasLocalApi);
     }
 }

@@ -19,7 +19,7 @@ public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<En
     protected final IBasicEntityManagementController<EntityT, DtoT> entityManagementController;
     protected final IDtoConverter<EntityT, DtoT> converter;
 
-    public AbstractBasicEntityManagementMonolithicServiceConnector(
+    protected AbstractBasicEntityManagementMonolithicServiceConnector(
             IBasicEntityManagementController<EntityT, DtoT> entityManagementController,
             IDtoConverter<EntityT, DtoT> converter) {
         this.entityManagementController = entityManagementController;

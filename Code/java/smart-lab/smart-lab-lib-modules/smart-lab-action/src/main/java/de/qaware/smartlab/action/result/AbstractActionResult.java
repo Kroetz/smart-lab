@@ -19,7 +19,7 @@ public abstract class AbstractActionResult<T> implements IActionResult {
     protected static final String VALUE_FIELD_NAME = "value";
     private T value;
 
-    AbstractActionResult(T value) {
+    protected AbstractActionResult(T value) {
         this.value = value;
     }
 

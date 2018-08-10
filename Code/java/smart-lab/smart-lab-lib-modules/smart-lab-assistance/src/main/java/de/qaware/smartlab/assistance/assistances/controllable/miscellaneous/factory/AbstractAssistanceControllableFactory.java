@@ -10,7 +10,7 @@ public abstract class AbstractAssistanceControllableFactory implements IAssistan
 
     protected final IAssistanceInfo assistanceInfo;
 
-    public AbstractAssistanceControllableFactory(IAssistanceInfo assistanceInfo) {
+    protected AbstractAssistanceControllableFactory(IAssistanceInfo assistanceInfo) {
         this.assistanceInfo = assistanceInfo;
     }
 

@@ -22,7 +22,7 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
     protected final String assistanceCommand;
     protected final Set<String> assistanceCommandAliases;
 
-    public AbstractAssistanceInfo(
+    protected AbstractAssistanceInfo(
             String assistanceId,
             Set<String> assistanceIdAliases,
             String assistanceCommand,

@@ -9,7 +9,7 @@ public abstract class AbstractBiResolver<KeyT, ValueT> implements IBiResolver<Ke
 
     private final BiMap<KeyT, ValueT> valuesByKey;
 
-    public AbstractBiResolver(BiMap<KeyT, ValueT> valuesByKey) {
+    protected AbstractBiResolver(BiMap<KeyT, ValueT> valuesByKey) {
         this.valuesByKey = valuesByKey;
     }
 

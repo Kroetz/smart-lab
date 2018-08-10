@@ -23,7 +23,7 @@ public abstract class AbstractDataSetFactory implements IDataSetFactory {
     private final String id;
     protected final Instant timeBase;
 
-    public AbstractDataSetFactory(String id) {
+    protected AbstractDataSetFactory(String id) {
         this.id = id;
         this.timeBase = Instant.now();
     }

@@ -37,7 +37,7 @@ public abstract class AbstractTriggerProvider implements ITriggerProvider, Comma
     private final Function<IEvent, IJobInfo> triggerCall;
     private final String triggerName;
 
-    public AbstractTriggerProvider(
+    protected AbstractTriggerProvider(
             Duration checkInterval,
             Function<IEvent, IJobInfo> triggerCall,
             String triggerName) {

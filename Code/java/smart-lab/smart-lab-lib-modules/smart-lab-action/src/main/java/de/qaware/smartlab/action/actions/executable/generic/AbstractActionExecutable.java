@@ -21,7 +21,7 @@ public abstract class AbstractActionExecutable<ActionArgsT extends IActionArgs, 
     private final Function<ActionArgsT, String> actuatorTypeGetter;
     private final Function<ActionArgsT, Optional<String>> responsibleDelegateGetter;
 
-    public AbstractActionExecutable(
+    protected AbstractActionExecutable(
             IActionInfo actionInfo,
             IResolver<String, ActuatorAdapterT> actuatorAdapterResolver,
             Function<ActionArgsT, String> actuatorTypeGetter,

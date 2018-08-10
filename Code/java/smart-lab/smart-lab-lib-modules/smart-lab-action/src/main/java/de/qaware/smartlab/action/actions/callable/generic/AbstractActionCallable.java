@@ -9,7 +9,7 @@ public abstract class AbstractActionCallable<ActionArgsT extends IActionArgs, Re
 
     protected final IActionInfo actionInfo;
 
-    public AbstractActionCallable(IActionInfo actionInfo) {
+    protected AbstractActionCallable(IActionInfo actionInfo) {
         this.actionInfo = actionInfo;
     }
 

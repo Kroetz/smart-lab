@@ -16,7 +16,7 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
 
     protected final IAssistanceInfo assistanceInfo;
 
-    public AbstractAssistanceTriggerable(IAssistanceInfo assistanceInfo) {
+    protected AbstractAssistanceTriggerable(IAssistanceInfo assistanceInfo) {
         this.assistanceInfo = assistanceInfo;
     }
 
