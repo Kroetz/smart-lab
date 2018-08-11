@@ -43,6 +43,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 @Slf4j
 public class GoogleCalendarAdapter extends AbstractBasicEntityManagementRepository<IEvent, EventId> implements IEventManagementRepository {
 
+    public static final String REPOSITORY_TYPE = "googleCalendar";
+
     private final Calendar service;
     private final BiMap<LocationId, String> calendarIdsByLocationId;
     private final IEventParser eventParser;

@@ -12,7 +12,6 @@ import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException;
 import de.qaware.smartlab.core.exception.SmartLabException;
-import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.microservice.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
 import lombok.extern.slf4j.Slf4j;

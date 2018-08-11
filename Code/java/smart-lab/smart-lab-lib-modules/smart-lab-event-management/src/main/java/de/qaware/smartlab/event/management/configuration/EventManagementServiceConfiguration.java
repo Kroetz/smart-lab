@@ -43,7 +43,8 @@ public class EventManagementServiceConfiguration {
     @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
-        private static final String PREFIX = "smart-lab.event-management";
+        public static final String PREFIX = "smart-lab.event-management";
+        public static final String REPOSITORY = "repository";
         private static final int DEFAULT_MAX_EVENT_DURATION_IN_MINUTES = 480;
 
         private int maxEventDurationInMinutes;

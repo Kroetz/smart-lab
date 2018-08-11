@@ -4,7 +4,6 @@ import de.qaware.smartlab.api.service.client.gui.IGuiApiClient;
 import de.qaware.smartlab.api.service.connector.gui.IGuiService;
 import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.exception.SmartLabException;
-import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

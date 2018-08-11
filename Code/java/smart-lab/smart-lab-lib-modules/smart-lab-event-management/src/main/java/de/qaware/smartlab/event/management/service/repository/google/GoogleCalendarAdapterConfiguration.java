@@ -8,7 +8,7 @@ import com.google.common.collect.HashBiMap;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
-import de.qaware.smartlab.core.constant.Property;
+import de.qaware.smartlab.event.management.configuration.EventManagementServiceConfiguration;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +30,9 @@ import static java.nio.file.Paths.get;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.EVENT_MANAGEMENT_REPOSITORY,
-        name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
-        havingValue = Property.Value.EventManagementRepository.GOOGLE_CALENDAR)
+        prefix = EventManagementServiceConfiguration.Properties.PREFIX,
+        name = EventManagementServiceConfiguration.Properties.REPOSITORY,
+        havingValue = GoogleCalendarAdapter.REPOSITORY_TYPE)
 @EnableConfigurationProperties(GoogleCalendarAdapterConfiguration.Properties.class)
 @Slf4j
 public class GoogleCalendarAdapterConfiguration {

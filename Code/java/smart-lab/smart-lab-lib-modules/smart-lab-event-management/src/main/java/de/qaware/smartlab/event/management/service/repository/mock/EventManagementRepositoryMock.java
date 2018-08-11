@@ -7,8 +7,8 @@ import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.data.ConflictException;
 import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.exception.data.NotFoundException;
-import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
+import de.qaware.smartlab.event.management.configuration.EventManagementServiceConfiguration;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,13 @@ import static java.util.stream.Collectors.toSet;
 
 @Repository
 @ConditionalOnProperty(
-        prefix = Property.Prefix.EVENT_MANAGEMENT_REPOSITORY,
-        name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
-        havingValue = Property.Value.EventManagementRepository.MOCK)
+        prefix = EventManagementServiceConfiguration.Properties.PREFIX,
+        name = EventManagementServiceConfiguration.Properties.REPOSITORY,
+        havingValue = EventManagementRepositoryMock.REPOSITORY_TYPE)
 @Slf4j
 public class EventManagementRepositoryMock extends AbstractBasicEntityManagementRepositoryMock<IEvent, EventId> implements IEventManagementRepository {
+
+    public static final String REPOSITORY_TYPE = "mock";
 
     private final Map<LocationId, Set<IEvent>> eventsByLocation;
 
