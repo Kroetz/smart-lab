@@ -22,8 +22,8 @@ import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementR
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Duration;
