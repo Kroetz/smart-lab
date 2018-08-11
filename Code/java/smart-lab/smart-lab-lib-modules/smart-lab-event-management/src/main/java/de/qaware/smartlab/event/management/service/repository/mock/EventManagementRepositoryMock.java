@@ -133,21 +133,21 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     }
 
     @Override
-    public synchronized void shortenEvent(@NonNull IEvent event, Duration shortening) {
+    public synchronized void shortenEvent(IEvent event, Duration shortening) {
         delete(event.getId());
         IEvent shortenedEvent = event.withEnd(event.getEnd().minus(shortening));
         create(shortenedEvent);
     }
 
     @Override
-    public synchronized void extendEvent(@NonNull IEvent event, Duration extension) {
+    public synchronized void extendEvent(IEvent event, Duration extension) {
         IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
         delete(event.getId());
         create(extendedEvent);
     }
 
     @Override
-    public synchronized void shiftEvent(@NonNull IEvent event, Duration shift) {
+    public synchronized void shiftEvent(IEvent event, Duration shift) {
         IEvent shiftedEvent = event.withStartAndEnd(
                 event.getStart().plus(shift),
                 event.getEnd().plus(shift));

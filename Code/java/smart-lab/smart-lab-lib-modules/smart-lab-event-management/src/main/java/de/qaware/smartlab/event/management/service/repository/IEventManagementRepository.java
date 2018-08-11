@@ -19,12 +19,12 @@ public interface IEventManagementRepository extends IBasicEntityManagementReposi
     Optional<IEvent> findCurrent(LocationId locationId);
     Optional<IEvent> findCurrent(WorkgroupId workgroupId);
     void shortenEvent(
-            @NonNull IEvent event,
+            IEvent event,
             Duration shortening);
     void extendEvent(
-            @NonNull IEvent event,
+            IEvent event,
             Duration extension);
     void shiftEvent(
-            @NonNull IEvent event,
+            IEvent event,
             Duration shift);
 }
