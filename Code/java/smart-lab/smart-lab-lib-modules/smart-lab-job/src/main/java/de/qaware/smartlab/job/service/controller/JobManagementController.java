@@ -2,6 +2,7 @@ package de.qaware.smartlab.job.service.controller;
 
 import de.qaware.smartlab.api.service.constant.job.JobManagementApiConstants;
 import de.qaware.smartlab.core.data.job.IJobInfo;
+import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.service.controller.AbstractSmartLabController;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
+import static java.lang.String.format;
 import static java.util.Objects.nonNull;
 
 @RestController
@@ -49,12 +51,14 @@ public class JobManagementController extends AbstractSmartLabController {
             @RequestParam(value = JobManagementApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to record a new job");
         try {
-            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException();
+            if(nonNull(callbackUrl) && !this.urlValidator.isValid(callbackUrl)) throw new MalformedURLException(callbackUrl);
             return ResponseEntity.ok().body(this.jobManagementBusinessLogic.recordNewJob(
                     nonNull(callbackUrl) ? new URL(callbackUrl) : null));
-        } catch (MalformedURLException e) {
-            // TODO: Better exception and message
-            throw new RuntimeException(e);
+        }
+        catch(MalformedURLException e) {
+            String errorMessage = format("The callback URL \"%s\" must be valid", callbackUrl);
+            log.error(errorMessage);
+            throw new IllegalArgumentException(errorMessage, e);
         }
     }
 

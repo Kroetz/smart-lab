@@ -4,8 +4,8 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.entity.NoCurrentEventException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
+import de.qaware.smartlab.core.exception.data.NoCurrentEventException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.location.management.service.repository.ILocationManagementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +56,6 @@ public class LocationManagementBusinessLogic extends AbstractBasicEntityManageme
             }
             throw new NoCurrentEventException(locationId.getIdValue());
         }
-        throw new EntityNotFoundException(locationId.getIdValue());
+        throw new NotFoundException(locationId.getIdValue());
     }
 }

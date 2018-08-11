@@ -3,25 +3,28 @@ package de.qaware.smartlab.data.set.provider;
 import de.qaware.smartlab.core.data.IDataSetProvider;
 import de.qaware.smartlab.core.data.actuator.ActuatorDto;
 import de.qaware.smartlab.core.data.actuator.IActuator;
+import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
-import de.qaware.smartlab.core.exception.data.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.exception.resolver.ResolverException;
 import de.qaware.smartlab.data.set.factory.FileSourcedDataSetFactory;
 import de.qaware.smartlab.data.set.factory.IDataSetFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -61,12 +64,12 @@ public class DataSetProvider implements IDataSetProvider {
     }
 
     @Override
-    public Set<IEvent> getEvents() throws DataSetException {
+    public Set<IEvent> getEvents() throws DataException {
         return getEntities(this.eventFactories, IDataSetFactory::createEventSet);
     }
 
     @Override
-    public Map<LocationId, Set<IEvent>> getEventsByLocation() throws DataSetException {
+    public Map<LocationId, Set<IEvent>> getEventsByLocation() throws DataException {
         Set<IEvent> events = getEntities(this.eventFactories, IDataSetFactory::createEventSet);
         return events.stream().collect(groupingBy(
                 IEvent::getLocationId,
@@ -74,22 +77,22 @@ public class DataSetProvider implements IDataSetProvider {
     }
 
     @Override
-    public Set<ILocation> getLocations() throws DataSetException {
+    public Set<ILocation> getLocations() throws DataException {
         return getEntities(this.locationFactories, IDataSetFactory::createLocationSet);
     }
 
     @Override
-    public Set<IActuator> getActuators() throws DataSetException {
+    public Set<IActuator> getActuators() throws DataException {
         return getEntities(this.actuatorFactories, IDataSetFactory::createActuatorSet);
     }
 
     @Override
-    public Set<IWorkgroup> getWorkgroups() throws DataSetException {
+    public Set<IWorkgroup> getWorkgroups() throws DataException {
         return getEntities(this.workgroupFactories, IDataSetFactory::createWorkgroupSet);
     }
 
     @Override
-    public Set<IPerson> getWorkgroupMembers() throws DataSetException {
+    public Set<IPerson> getWorkgroupMembers() throws DataException {
         return getEntities(this.personFactories, IDataSetFactory::createWorkgroupMemberSet);
     }
 

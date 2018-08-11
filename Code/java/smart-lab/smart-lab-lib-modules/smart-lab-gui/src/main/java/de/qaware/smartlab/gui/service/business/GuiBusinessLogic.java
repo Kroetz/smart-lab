@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.gui.configuration.GuiConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,7 +45,7 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         try {
             currentEvent = this.locationManagementService.getCurrentEvent(locationId);
         }
-        catch(EntityNotFoundException e) {
+        catch(NotFoundException e) {
             return "event-status-not-available";
         }
         model.addAttribute("eventTopic", currentEvent.getTitle());
@@ -63,7 +63,7 @@ public class GuiBusinessLogic implements IGuiBusinessLogic {
         try {
             currentEvent = this.locationManagementService.getCurrentEvent(locationId);
         }
-        catch(EntityNotFoundException e) {
+        catch(NotFoundException e) {
             model.addAttribute("locationId", locationId.getIdValue());
             return "event-agenda-not-available";
         }

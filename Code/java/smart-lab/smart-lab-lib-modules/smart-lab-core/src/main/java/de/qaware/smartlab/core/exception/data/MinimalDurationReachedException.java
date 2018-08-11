@@ -1,6 +1,6 @@
-package de.qaware.smartlab.core.exception.entity;
+package de.qaware.smartlab.core.exception.data;
 
-public class MinimalDurationReachedException extends EntityException {
+public class MinimalDurationReachedException extends DataException {
 
     public MinimalDurationReachedException() {
     }

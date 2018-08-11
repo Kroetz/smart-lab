@@ -14,9 +14,9 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.entity.EntityConflictException;
-import de.qaware.smartlab.core.exception.entity.EntityException;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.data.ConflictException;
+import de.qaware.smartlab.core.exception.data.DataException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.core.exception.parser.InvalidSyntaxException;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -29,7 +29,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
@@ -207,7 +206,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     .get(calendarId, eventId)
                     .execute();
             log.info("Found event \"{}\" in calendar \"{}\"", eventId, calendarId);
-            return googleCalEventToSmartLabEvent(event);
+            return Optional.of(googleCalEventToSmartLabEvent(event));
         }
         catch(GoogleJsonResponseException e) {
             log.info("Cannot find event \"{}\" in calendar \"{}\"", eventId, calendarId, e);
@@ -231,7 +230,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     @Override
     public Optional<IEvent> findCurrent(LocationId locationId) {
         return findCurrentGoogleCalEvent(locationId)
-                .map(this::googleCalEventToSmartLabEvent)
+                .map(currentEvent -> Optional.of(googleCalEventToSmartLabEvent(currentEvent)))
                 .orElse(Optional.empty());
     }
 
@@ -252,24 +251,29 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     @Override
     public IEvent create(IEvent event) {
         try {
-            // TODO: Meaningful exception message
-            if(isCollidingWithOtherEvents(event)) throw new EntityConflictException();
+            if(isCollidingWithOtherEvents(event)) {
+                String errorMessage = format("Cannot create event %s because a event with that ID already exists", event);
+                log.error(errorMessage);
+                throw new ConflictException(errorMessage);
+            }
             String calendarId = resolveCalendarId(event.getId().getLocationIdPart());
             com.google.api.services.calendar.model.Event createdEvent =
                     this.service.events().insert(calendarId, smartLabEventToGoolgeCalEvent(event)).execute();
             log.info("Created event \"{}\"", event);
-            // TODO: Meaningful exception message
-            return googleCalEventToSmartLabEvent(createdEvent).orElseThrow(EntityException::new);
+            return googleCalEventToSmartLabEvent(createdEvent);
         }
         catch(IllegalArgumentException e) {
-            log.error("Cannot create event \"{}\" at location \"{}\" since it has no mapped calendar ID", event, event.getLocationId());
-            // TODO: Meaningful exception message
-            throw new EntityException(e);
+            String errorMessage = format(
+                    "Cannot create event \"%s\" at location \"%s\" since it has no mapped calendar ID",
+                    event,
+                    event.getLocationId());
+            log.error(errorMessage);
+            throw new DataException(errorMessage, e);
         }
         catch(IOException e) {
-            log.error("I/O error while creating event \"{}\"", event);
-            // TODO: Meaningful exception message
-            throw new EntityException(e);
+            String errorMessage = format("I/O error while creating event \"%s\"", event);
+            log.error(errorMessage);
+            throw new DataException(errorMessage, e);
         }
     }
 
@@ -304,7 +308,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     eventId,
                     eventId.getLocationIdPart());
             log.error(errorMessage, e);
-            throw new EntityException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
         catch(GoogleJsonResponseException e) {
             String errorMessage = format(
@@ -312,12 +316,12 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
                     eventId,
                     eventId.getLocationIdPart());
             log.error(errorMessage, e);
-            throw new EntityNotFoundException(errorMessage, e);
+            throw new NotFoundException(errorMessage, e);
         }
         catch(IOException e) {
             String errorMessage = format("I/O error while deleting event \"%s\"", eventId);
             log.error(errorMessage, e);
-            throw new EntityException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
     }
 
@@ -333,14 +337,14 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         } catch (IOException e) {
             String errorMessage = format("I/O error while shortening event \"%s\"", event);
             log.error(errorMessage, e);
-            throw new EntityException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
     }
 
     @Override
     public void extendEvent(IEvent event, Duration extension) {
         IEvent extendedEvent = event.withEnd(event.getEnd().plus(extension));
-        if(isCollidingWithOtherEvents(extendedEvent)) throw new EntityConflictException(event.getId().getIdValue());
+        if(isCollidingWithOtherEvents(extendedEvent)) throw new ConflictException(event.getId().getIdValue());
         String calendarId = resolveCalendarId(extendedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
@@ -350,7 +354,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         } catch (IOException e) {
             String errorMessage = format("I/O error while extending event \"%s\"", event);
             log.error(errorMessage, e);
-            throw new EntityException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
     }
 
@@ -359,7 +363,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         IEvent shiftedEvent = event.withStartAndEnd(
                 event.getStart().plus(shift),
                 event.getEnd().plus(shift));
-        if(isCollidingWithOtherEvents(shiftedEvent)) throw new EntityConflictException(event.getId().getIdValue());
+        if(isCollidingWithOtherEvents(shiftedEvent)) throw new ConflictException(event.getId().getIdValue());
         String calendarId = resolveCalendarId(shiftedEvent.getId().getLocationIdPart());
         try {
             this.service.events().update(
@@ -369,7 +373,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         } catch (IOException e) {
             String errorMessage = format("I/O error while shifting event \"%s\"", event);
             log.error(errorMessage, e);
-            throw new EntityException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
     }
 
@@ -391,11 +395,10 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
         return events
                 .stream()
                 .map(this::googleCalEventToSmartLabEvent)
-                .flatMap(optional -> optional.map(Stream::of).orElseGet(Stream::empty)) // Filter out empty optionals
                 .collect(toSet());
     }
 
-    private Optional<IEvent> googleCalEventToSmartLabEvent(com.google.api.services.calendar.model.Event event) {
+    private IEvent googleCalEventToSmartLabEvent(com.google.api.services.calendar.model.Event event) {
         String description = event.getDescription();
         description = isNull(description) ? EMPTY : description;
         IEvent parsedEvent;
@@ -403,16 +406,17 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
             parsedEvent = this.eventParser.parse(description);
         }
         catch(InvalidSyntaxException e) {
-            log.error("Failed to create Smart Lab event from Google calendar event {} because of invalid configuration syntax", event, e);
-            return Optional.empty();
+            String errorMessage = format("Failed to create Smart Lab event from Google calendar event %s because of invalid configuration syntax", event);
+            log.error(errorMessage);
+            throw new DataException(errorMessage, e);
         }
-        return Optional.of(Event.builder()
+        return Event.builder()
                 .id(EventId.of(event.getId(), LocationId.of(event.getLocation())))
                 .title(event.getSummary())
                 .start(eventDateTimeToInstant(event.getStart()))
                 .end(eventDateTimeToInstant(event.getEnd()))
                 .build()
-                .merge(parsedEvent));
+                .merge(parsedEvent);
     }
 
     private com.google.api.services.calendar.model.Event smartLabEventToGoolgeCalEvent(IEvent event) {

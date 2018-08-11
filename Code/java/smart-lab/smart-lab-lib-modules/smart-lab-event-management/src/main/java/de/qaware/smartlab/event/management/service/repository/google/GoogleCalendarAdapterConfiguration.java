@@ -34,6 +34,7 @@ import static java.nio.file.Paths.get;
         name = Property.Name.EVENT_MANAGEMENT_REPOSITORY,
         havingValue = Property.Value.EventManagementRepository.GOOGLE_CALENDAR)
 @EnableConfigurationProperties(GoogleCalendarAdapterConfiguration.Properties.class)
+@Slf4j
 public class GoogleCalendarAdapterConfiguration {
 
     private final Properties properties;
@@ -52,7 +53,7 @@ public class GoogleCalendarAdapterConfiguration {
     }
 
     @Bean
-    public IEventManagementRepository repo() {
+    public IEventManagementRepository eventManagementRepository() {
         try {
             return new GoogleCalendarAdapter(
                     this.properties.getCredentialsFile(),
@@ -64,8 +65,9 @@ public class GoogleCalendarAdapterConfiguration {
                     this.eventParser,
                     this.initialEvents);
         } catch (Exception e) {
-            // TODO: Exception message and logging
-            throw new ConfigurationException(e);
+            String errorMessage = "Could not create Google calendar adapter";
+            log.error(errorMessage);
+            throw new ConfigurationException(errorMessage, e);
         }
     }
 

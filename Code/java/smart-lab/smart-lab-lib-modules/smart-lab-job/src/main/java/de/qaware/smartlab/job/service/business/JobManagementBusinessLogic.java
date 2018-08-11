@@ -3,6 +3,8 @@ package de.qaware.smartlab.job.service.business;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.job.JobStatus;
 import de.qaware.smartlab.core.data.job.JobInfo;
+import de.qaware.smartlab.core.exception.data.DataException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.job.service.repository.IJobManagementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,6 +18,8 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import static java.lang.String.format;
 
 @Service
 @Slf4j
@@ -57,13 +61,12 @@ public class JobManagementBusinessLogic implements IJobManagementBusinessLogic {
     public synchronized void markJobAsProcessing(Long jobId) {
         JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
-                    if(jobInfo.getStatus() != JobStatus.PENDING) throw new RuntimeException();   // TODO: Better exception and message
+                    requirePendingStatus(jobInfo);
                     return jobInfo
                             .withStatus(JobStatus.PROCESSING)
                             .withProcessingStart(Instant.now());
                 })
-                // TODO: Better exception and message
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> onJobNotFound(jobId));
         updateJob(newJobInfo);
     }
 
@@ -71,44 +74,66 @@ public class JobManagementBusinessLogic implements IJobManagementBusinessLogic {
     public synchronized void markJobAsFinished(Long jobId) {
         JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
-                    if(jobInfo.getStatus() != JobStatus.PROCESSING) throw new RuntimeException();   // TODO: Better exception and message
+                    requireProcessingStatus(jobInfo);
                     return jobInfo
                             .withStatus(JobStatus.FINISHED)
                             .withProcessingEnd(Instant.now());
                 })
-                // TODO: Better exception and message
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> onJobNotFound(jobId));
         updateJob(newJobInfo);
         tryExecuteCallback(jobId);
     }
 
     @Override
-    public synchronized void markJobAsFailed(Long jobId, String errorMessage) {
+    public synchronized void markJobAsFailed(Long jobId, String jobErrorMessage) {
         JobInfo newJobInfo = this.jobManagementRepository.findById(jobId)
                 .map(jobInfo -> {
-                    if(jobInfo.getStatus() != JobStatus.PROCESSING) throw new RuntimeException();   // TODO: Better exception and message
+                    requireProcessingStatus(jobInfo);
                     return jobInfo
                             .withStatus(JobStatus.FAILED)
                             .withProcessingEnd(Instant.now())
-                            .withErrorMessage(errorMessage);
+                            .withErrorMessage(jobErrorMessage);
                 })
-                // TODO: Better exception and message
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> onJobNotFound(jobId));
         updateJob(newJobInfo);
         tryExecuteCallback(jobId);
     }
 
-    private synchronized JobInfo updateJob(JobInfo jobInfo) {
-        if(!this.jobManagementRepository.existsById(jobInfo.getId())) {
-            // TODO: Better exception and message
-            throw new RuntimeException();
+    private NotFoundException onJobNotFound(Long jobId) {
+        String errorMessage = format("Could not find job %d", jobId);
+        log.error(errorMessage);
+        return new NotFoundException(errorMessage);
+    }
+
+    private void requirePendingStatus(IJobInfo jobInfo) throws DataException {
+        requireJobStatus(jobInfo, JobStatus.PENDING);
+    }
+
+    private void requireProcessingStatus(IJobInfo jobInfo) throws DataException {
+        requireJobStatus(jobInfo, JobStatus.PROCESSING);
+    }
+
+    private void requireJobStatus(IJobInfo jobInfo, JobStatus jobStatus) throws DataException {
+        if(jobInfo.getStatus() != jobStatus) {
+            String errorMessage = format("The status of the job %s must be %s", jobInfo, jobStatus);
+            log.error(errorMessage);
+            throw new DataException(errorMessage);
         }
+    }
+
+    private synchronized JobInfo updateJob(JobInfo jobInfo) {
+        requireExists(jobInfo.getId());
         return this.jobManagementRepository.save(jobInfo);
     }
 
+    private void requireExists(Long jobId) {
+        if(!this.jobManagementRepository.existsById(jobId)) {
+            throw onJobNotFound(jobId);
+        }
+    }
+
     private boolean tryExecuteCallback(Long jobId) {
-        // TODO: Better exception and message
-        IJobInfo jobInfo = findOne(jobId).orElseThrow(RuntimeException::new);
+        IJobInfo jobInfo = findOne(jobId).orElseThrow(() -> onJobNotFound(jobId));
         return jobInfo.getCallbackUrl()
                 .map(callbackUrl -> {
                     HttpEntity<IJobInfo> request = new HttpEntity<>(jobInfo);

@@ -29,7 +29,7 @@ import de.qaware.smartlab.core.data.person.PersonRole;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.Workgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.data.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -89,7 +89,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+    public Set<IWorkgroup> createWorkgroupSet() throws DataException {
         Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> coastGuardMembers = new HashSet<>();
         coastGuardMembers.add(MEMBER_ID_ALICE);
@@ -108,7 +108,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+    public Set<IPerson> createWorkgroupMemberSet() throws DataException {
         Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.of(
                 MEMBER_ID_ALICE,
@@ -129,7 +129,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IEvent> createEventSet() throws DataSetException {
+    public Set<IEvent> createEventSet() throws DataException {
         Set<IEvent> events = new HashSet<>();
         List<IAgendaItem> whaleEventAgenda = new ArrayList<>();
         whaleEventAgenda.add(AgendaItem.of("Show critical areas"));
@@ -239,7 +239,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<ILocation> createLocationSet() throws DataSetException {
+    public Set<ILocation> createLocationSet() throws DataException {
         Set<ILocation> locations = new HashSet<>();
         Set<ActuatorId> blueLocationActuators = new HashSet<>();
         blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_BIG);
@@ -254,7 +254,7 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IActuator> createActuatorSet() throws DataSetException {
+    public Set<IActuator> createActuatorSet() throws DataException {
         Set<IActuator> actuators = new HashSet<>();
         actuators.add(Actuator.of(
                 ACTUATOR_ID_BLUE_DISPLAY_BIG,

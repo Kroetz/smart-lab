@@ -6,9 +6,9 @@ import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto
-import de.qaware.smartlab.core.exception.entity.EntityConflictException
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
-import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException
+import de.qaware.smartlab.core.exception.data.ConflictException
+import de.qaware.smartlab.core.exception.data.NotFoundException
+import de.qaware.smartlab.core.exception.data.MaximalDurationReachedException
 
 import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory
@@ -202,7 +202,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.getEventsOfWorkgroup(workgroupId)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         for(def event : events) {
@@ -255,7 +255,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.getCurrentEvent(workgroupId)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
@@ -279,7 +279,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.getCurrentEvent(workgroupId)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         for(def event : events) {
@@ -370,7 +370,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
-        thrown(EntityConflictException)
+        thrown(ConflictException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
@@ -400,7 +400,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         workgroupManagementService.delete(workgroupId)
@@ -428,7 +428,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         workgroupManagementService.extendCurrentEvent(workgroupId, extension)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         eventManagementService.delete(eventId1)

@@ -4,8 +4,8 @@ import de.qaware.smartlab.api.service.connector.generic.IBasicEntityManagementSe
 import de.qaware.smartlab.core.data.generic.IDto
 import de.qaware.smartlab.core.data.generic.IEntity
 import de.qaware.smartlab.core.data.generic.IIdentifier
-import de.qaware.smartlab.core.exception.entity.EntityConflictException
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
+import de.qaware.smartlab.core.exception.data.ConflictException
+import de.qaware.smartlab.core.exception.data.NotFoundException
 import spock.lang.Specification
 
 import static java.util.stream.Collectors.toList
@@ -94,7 +94,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT exte
         crudService.findOne(entityIdForFindOne_withoutExisting)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 
     def "Get a set of specific entities when the entities exist (aka findMultiple_withExisting)"() {
@@ -141,7 +141,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT exte
         crudService.findMultiple(requestedEntityIds)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
 
         cleanup:
         for (EntityT entity : createdEntities) {
@@ -180,7 +180,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT exte
         crudService.create(entityForCreate_withConflict)
 
         then: "An exception is thrown"
-        thrown(EntityConflictException)
+        thrown(ConflictException)
 
         cleanup:
         crudService.delete(createdEntity.getId())
@@ -202,7 +202,7 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT exte
         crudService.findOne(createdEntity.getId())
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 
     def "Delete an entity with an ID that does not exist (aka delete_withoutExisting)"() {
@@ -214,6 +214,6 @@ abstract class CrudApiIntegrationTest<IdentifierT extends IIdentifier, DtoT exte
         crudService.delete(entityIdForDelete_withoutExisting)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 }

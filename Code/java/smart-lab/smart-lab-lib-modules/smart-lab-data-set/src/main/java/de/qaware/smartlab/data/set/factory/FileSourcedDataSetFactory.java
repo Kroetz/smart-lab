@@ -5,16 +5,16 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.qaware.smartlab.core.data.actuator.ActuatorDto;
 import de.qaware.smartlab.core.data.actuator.IActuator;
+import de.qaware.smartlab.core.data.event.EventDto;
+import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
-import de.qaware.smartlab.core.exception.data.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataException;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,52 +76,52 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IEvent> createEventSet() throws DataSetException {
+    public Set<IEvent> createEventSet() throws DataException {
         if(isNull(this.eventDataSource)) return new HashSet<>();
         return readEventsFromFile(this.eventDataSource);
     }
 
     @Override
-    public Set<ILocation> createLocationSet() throws DataSetException {
+    public Set<ILocation> createLocationSet() throws DataException {
         if(isNull(this.locationDataSource)) return new HashSet<>();
         return readLocationsFromFile(this.locationDataSource);
     }
 
     @Override
-    public Set<IActuator> createActuatorSet() throws DataSetException {
+    public Set<IActuator> createActuatorSet() throws DataException {
         if(isNull(this.actuatorDataSource)) return new HashSet<>();
         return readActuatorsFromFile(this.actuatorDataSource);
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+    public Set<IWorkgroup> createWorkgroupSet() throws DataException {
         if(isNull(this.workgroupDataSource)) return new HashSet<>();
         return readWorkgroupsFromFile(this.workgroupDataSource);
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+    public Set<IPerson> createWorkgroupMemberSet() throws DataException {
         if(isNull(this.personDataSource)) return new HashSet<>();
         return readPersonsFromFile(this.personDataSource);
     }
 
-    private Set<IEvent> readEventsFromFile(Path path) throws DataSetException {
+    private Set<IEvent> readEventsFromFile(Path path) throws DataException {
         return readEntitiesFromFile(path, EventDto.class, this.eventConverter);
     }
 
-    private Set<ILocation> readLocationsFromFile(Path path) throws DataSetException {
+    private Set<ILocation> readLocationsFromFile(Path path) throws DataException {
         return readEntitiesFromFile(path, LocationDto.class, this.locationConverter);
     }
 
-    private Set<IActuator> readActuatorsFromFile(Path path) throws DataSetException {
+    private Set<IActuator> readActuatorsFromFile(Path path) throws DataException {
         return readEntitiesFromFile(path, ActuatorDto.class, this.actuatorConverter);
     }
 
-    private Set<IWorkgroup> readWorkgroupsFromFile(Path path) throws DataSetException {
+    private Set<IWorkgroup> readWorkgroupsFromFile(Path path) throws DataException {
         return readEntitiesFromFile(path, WorkgroupDto.class, this.workgroupConverter);
     }
 
-    private Set<IPerson> readPersonsFromFile(Path path) throws DataSetException {
+    private Set<IPerson> readPersonsFromFile(Path path) throws DataException {
         return readEntitiesFromFile(path, PersonDto.class, this.personConverter);
     }
 
@@ -143,7 +143,7 @@ public class FileSourcedDataSetFactory extends AbstractDataSetFactory {
                     dtoClass.getName(),
                     path.toString());
             log.error(errorMessage, e);
-            throw new DataSetException(errorMessage, e);
+            throw new DataException(errorMessage, e);
         }
     }
 }

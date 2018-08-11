@@ -4,9 +4,9 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException;
-import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
+import de.qaware.smartlab.core.exception.data.MaximalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.event.management.configuration.EventManagementServiceConfiguration;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -73,7 +73,7 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
             this.eventManagementRepository.shortenEvent(event, shortening);
             return;
         }
-        throw new EntityNotFoundException(eventId.getIdValue());
+        throw new NotFoundException(eventId.getIdValue());
     }
 
     @Override
@@ -90,7 +90,7 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
             this.eventManagementRepository.extendEvent(event, extension);
             return;
         }
-        throw new EntityNotFoundException(eventId.getIdValue());
+        throw new NotFoundException(eventId.getIdValue());
     }
 
     @Override
@@ -104,6 +104,6 @@ public class EventManagementBusinessLogic extends AbstractBasicEntityManagementB
             this.eventManagementRepository.shiftEvent(event, shift);
             return;
         }
-        throw new EntityNotFoundException(eventId.getIdValue());
+        throw new NotFoundException(eventId.getIdValue());
     }
 }

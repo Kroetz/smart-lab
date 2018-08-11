@@ -4,9 +4,9 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.entity.EntityConflictException;
-import de.qaware.smartlab.core.exception.entity.EntityException;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.data.ConflictException;
+import de.qaware.smartlab.core.exception.data.DataException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
@@ -102,9 +102,9 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     public synchronized IEvent create(IEvent event) {
         boolean eventCollision = findAll(event.getLocationId()).stream().anyMatch(m -> m.isColliding(event));
         if(eventCollision || exists(event.getId())) {
-            log.error("Cannot create event {} because a event with that ID already exists", event);
-            // TODO: Meaningful exception message
-            throw new EntityConflictException();
+            String errorMessage = format("Cannot create event %s because a event with that ID already exists", event);
+            log.error(errorMessage);
+            throw new ConflictException(errorMessage);
         }
         Set<IEvent> eventsAtLocation = this.eventsByLocation.get(event.getLocationId());
         if(isNull(eventsAtLocation)) {
@@ -114,9 +114,9 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
         if(eventsAtLocation.add(event)) {
             return event;
         }
-        log.error("Cannot create event {} because of unknown reason", event);
-        // TODO: Meaningful exception message
-        throw new EntityException();
+        String errorMessage = format("Cannot create event %s because of unknown reason", event);
+        log.error(errorMessage);
+        throw new DataException(errorMessage);
     }
 
     @Override
@@ -125,9 +125,9 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
         List<IEvent> eventsToDelete = isNull(eventsAtLocation) ? emptyList() : eventsAtLocation.stream()
                 .filter(event -> event.getId().equals(eventId))
                 .collect(toList());
-        if(isNull(eventsAtLocation) || eventsToDelete.isEmpty()) throw new EntityNotFoundException(eventId.getIdValue());
+        if(isNull(eventsAtLocation) || eventsToDelete.isEmpty()) throw new NotFoundException(eventId.getIdValue());
         boolean deleted =  eventsAtLocation.removeAll(eventsToDelete);
-        if(!deleted) throw new EntityException(format("Could not delete event \"%s\"", eventId.getIdValue()));
+        if(!deleted) throw new DataException(format("Could not delete event \"%s\"", eventId.getIdValue()));
     }
 
     @Override

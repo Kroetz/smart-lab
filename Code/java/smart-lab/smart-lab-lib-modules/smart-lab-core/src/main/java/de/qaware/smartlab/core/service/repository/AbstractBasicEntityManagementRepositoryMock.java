@@ -2,10 +2,9 @@ package de.qaware.smartlab.core.service.repository;
 
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.exception.entity.EntityConflictException;
-import de.qaware.smartlab.core.exception.entity.EntityException;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.SmartLabException;
+import de.qaware.smartlab.core.exception.data.ConflictException;
+import de.qaware.smartlab.core.exception.data.DataException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -55,12 +54,14 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
         if (exists(entity.getId())) {
             String errorMessage = format("Cannot create entity %s because an entity with that ID already exists", entity);
             log.error(errorMessage);
-            throw new EntityConflictException(errorMessage);
+            throw new ConflictException(errorMessage);
         }
         if(this.entities.add(entity)) {
             return entity;
         }
-        throw new SmartLabException();
+        String errorMessage = format("Cannot create entity %s because of unknown reason", entity);
+        log.error(errorMessage);
+        throw new DataException(errorMessage);
     }
 
     @Override
@@ -77,8 +78,8 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
         List<EntityT> entitiesToDelete = this.entities.stream()
                 .filter(entity -> entity.getId().equals(entityId))
                 .collect(toList());
-        if(entitiesToDelete.isEmpty()) throw new EntityNotFoundException(entityId.getIdValue());
+        if(entitiesToDelete.isEmpty()) throw new NotFoundException(entityId.getIdValue());
         boolean deleted =  this.entities.removeAll(entitiesToDelete);
-        if(!deleted) throw new EntityException(format("Could not delete entity \"%s\"", entityId.getIdValue()));
+        if(!deleted) throw new DataException(format("Could not delete entity \"%s\"", entityId.getIdValue()));
     }
 }

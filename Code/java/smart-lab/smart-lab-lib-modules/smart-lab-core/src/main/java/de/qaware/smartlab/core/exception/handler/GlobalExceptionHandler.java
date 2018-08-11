@@ -1,9 +1,9 @@
 package de.qaware.smartlab.core.exception.handler;
 
-import de.qaware.smartlab.core.exception.entity.EntityConflictException;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException;
-import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.ConflictException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
+import de.qaware.smartlab.core.exception.data.MaximalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,19 +17,19 @@ import static org.springframework.http.HttpStatus.*;
 public class GlobalExceptionHandler {
 
     @ResponseStatus(value = CONFLICT, reason = "An entity with the specified ID already exists")
-    @ExceptionHandler(EntityConflictException.class)
+    @ExceptionHandler(ConflictException.class)
     public void handleEntityConflictException() {
         logConversion(
-                EntityConflictException.class,
+                ConflictException.class,
                 CONFLICT.value(),
                 CONFLICT.name());
     }
 
     @ResponseStatus(value = NOT_FOUND, reason = "An entity with the specified ID does not exist")
-    @ExceptionHandler(EntityNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     public void handleEntityNotFoundException() {
         logConversion(
-                EntityNotFoundException.class,
+                NotFoundException.class,
                 NOT_FOUND.value(),
                 NOT_FOUND.name());
     }

@@ -8,8 +8,8 @@ import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
+import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException;
 import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
@@ -109,7 +109,7 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
 
     @Override
     public void shortenEvent(EventId eventId, Duration shortening)
-            throws EntityNotFoundException, MinimalDurationReachedException {
+            throws NotFoundException, MinimalDurationReachedException {
         try {
             this.eventManagementApiClient.shortenEvent(
                     eventId.getIdValue(),
@@ -164,7 +164,6 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
 
         @Override
         public URL getBaseUrl() {
-            // TODO: Exceptions
             try {
                 return this.eventManagementApiClient.getBaseUrl().getBody();
             }

@@ -8,15 +8,15 @@ import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.G
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.actuator.Actuator;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.actuator.IActuator;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.data.event.*;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.Person;
 import de.qaware.smartlab.core.data.person.PersonId;
@@ -24,7 +24,7 @@ import de.qaware.smartlab.core.data.person.PersonRole;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.Workgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.data.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +69,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IWorkgroup> createWorkgroupSet() throws DataSetException {
+    public Set<IWorkgroup> createWorkgroupSet() throws DataException {
         Set<IWorkgroup> workgroups = new HashSet<>();
         Set<PersonId> astronautsMembers = new HashSet<>();
         astronautsMembers.add(MEMBER_ID_ALEX);
@@ -88,7 +88,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IPerson> createWorkgroupMemberSet() throws DataSetException {
+    public Set<IPerson> createWorkgroupMemberSet() throws DataException {
         Set<IPerson> workgroupMembers = new HashSet<>();
         workgroupMembers.add(Person.of(
                 MEMBER_ID_ALEX,
@@ -109,7 +109,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IEvent> createEventSet() throws DataSetException {
+    public Set<IEvent> createEventSet() throws DataException {
         Set<IEvent> events = new HashSet<>();
         List<IAgendaItem> marsEventAgenda = new ArrayList<>();
         marsEventAgenda.add(AgendaItem.of("Calculate journey duration"));
@@ -140,7 +140,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<ILocation> createLocationSet() throws DataSetException {
+    public Set<ILocation> createLocationSet() throws DataException {
         Set<ILocation> locations = new HashSet<>();
         Set<ActuatorId> blackLocationActuators = new HashSet<>();
         blackLocationActuators.add(ACTUATOR_ID_BLACK_DISPLAY_BEAMER);
@@ -152,7 +152,7 @@ public class AstronautsSampleDataSetFactory extends AbstractDataSetFactory {
     }
 
     @Override
-    public Set<IActuator> createActuatorSet() throws DataSetException {
+    public Set<IActuator> createActuatorSet() throws DataException {
         Set<IActuator> actuators = new HashSet<>();
         actuators.add(Actuator.of(
                 ACTUATOR_ID_BLACK_DISPLAY_BEAMER,

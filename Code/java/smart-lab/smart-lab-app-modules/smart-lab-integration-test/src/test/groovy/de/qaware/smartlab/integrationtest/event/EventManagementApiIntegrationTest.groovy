@@ -4,10 +4,10 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService
 import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.data.event.EventId
 import de.qaware.smartlab.core.data.event.EventDto
-import de.qaware.smartlab.core.exception.entity.EntityConflictException
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
-import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException
-import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException
+import de.qaware.smartlab.core.exception.data.ConflictException
+import de.qaware.smartlab.core.exception.data.NotFoundException
+import de.qaware.smartlab.core.exception.data.MaximalDurationReachedException
+import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException
 
 import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory
@@ -165,7 +165,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.shortenEvent(eventId, shortening)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 
     def "Extend an existing event by a valid duration"() {
@@ -220,7 +220,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.extendEvent(eventToExtendId, extension)
 
         then: "An exception is thrown"
-        thrown(EntityConflictException)
+        thrown(ConflictException)
 
         cleanup:
         eventManagementService.delete(eventToExtendId)
@@ -237,7 +237,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.extendEvent(eventId, extension)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 
     def "Shift an existing event by a valid duration"() {
@@ -275,7 +275,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.shiftEvent(eventToShiftId, shift)
 
         then: "An exception is thrown"
-        thrown(EntityConflictException)
+        thrown(ConflictException)
 
         cleanup:
         eventManagementService.delete(eventToShiftId)
@@ -292,6 +292,6 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.shiftEvent(eventId, shift)
 
         then: "An exception is thrown"
-        thrown(EntityNotFoundException)
+        thrown(NotFoundException)
     }
 }

@@ -4,8 +4,8 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.entity.NoCurrentEventException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
+import de.qaware.smartlab.core.exception.data.NoCurrentEventException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.workgroup.management.service.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +56,7 @@ public class WorkgroupManagementBusinessLogic extends AbstractBasicEntityManagem
             }
             throw new NoCurrentEventException(workgroupId.getIdValue());
         }
-        throw new EntityNotFoundException(workgroupId.getIdValue());
+        throw new NotFoundException(workgroupId.getIdValue());
     }
 }
 
