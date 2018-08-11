@@ -30,8 +30,8 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable<Devic
     }
 
     @Override
-    protected IActionResult execute(IDeactivatable deactivatableAdapter, DeviceDeactivationCallable.ActionArgs actionArgs) throws ActionException {
-        deactivatableAdapter.deactivate();
+    protected IActionResult execute(IDeactivatable deactivatable, DeviceDeactivationCallable.ActionArgs actionArgs) throws ActionException {
+        deactivatable.deactivate();
         return VoidActionResult.newInstance();
     }
 }

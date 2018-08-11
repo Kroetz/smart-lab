@@ -30,8 +30,8 @@ public class DeviceActivationExecutable extends AbstractActionExecutable<DeviceA
     }
 
     @Override
-    protected IActionResult execute(IActivatable activatableAdapter, DeviceActivationCallable.ActionArgs actionArgs) throws ActionException {
-        activatableAdapter.activate();
+    protected IActionResult execute(IActivatable activatable, DeviceActivationCallable.ActionArgs actionArgs) throws ActionException {
+        activatable.activate();
         return VoidActionResult.newInstance();
     }
 }
