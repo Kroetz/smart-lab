@@ -5,13 +5,11 @@ public abstract class Property {
     public static abstract class Prefix {
         public static final String MODULARITY = "smart-lab.app.";
         public static final String EVENT_MANAGEMENT_REPOSITORY = "smart-lab.event-management";
-        public static final String GITHUB = "smart-lab.actuator.github";
     }
 
     public static abstract class Name {
         public static final String MODULARITY = "modularity";
         public static final String EVENT_MANAGEMENT_REPOSITORY = "repository";
-        public static final String GITHUB = "enabled";
     }
 
     public static abstract class Value {
