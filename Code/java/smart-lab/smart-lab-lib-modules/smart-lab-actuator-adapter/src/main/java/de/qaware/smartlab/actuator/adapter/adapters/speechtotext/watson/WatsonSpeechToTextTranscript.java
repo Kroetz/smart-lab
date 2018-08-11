@@ -86,8 +86,15 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
     }
 
     private SpeechRecognitionAlternative getMostConfidentAlternative(SpeechRecognitionResult speechRecognitionResult) {
-        final Comparator<SpeechRecognitionAlternative> comp = Comparator.comparingDouble(SpeechRecognitionAlternative::getConfidence);
-        return speechRecognitionResult.getAlternatives().stream().max(comp).orElseThrow(IllegalStateException::new);    // TODO: Better exception
+        final Comparator<SpeechRecognitionAlternative> comparator =
+                Comparator.comparingDouble(SpeechRecognitionAlternative::getConfidence);
+        return speechRecognitionResult.getAlternatives().stream()
+                .max(comparator)
+                .orElseThrow(() -> {
+                    String errorMessage = "There must be a most confident alternative";
+                    log.error(errorMessage);
+                    return new IllegalStateException(errorMessage);
+                });
     }
 
     public static class Timestamp {

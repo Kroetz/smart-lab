@@ -32,7 +32,12 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
 
     public ThinkpadP50InternalMicrophoneAdapter() {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
-        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT).orElseThrow(ActuatorException::new);
+        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT)
+                .orElseThrow(() -> {
+                    String errorMessage = String.format("Could not get microphone with the name \"%s\"", MICROPHONE_NAME);
+                    log.error(errorMessage);
+                    return new ActuatorException(errorMessage);
+                });
     }
 
     @Override
@@ -50,7 +55,12 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
     @Override
     public Path stopRecording() throws ActuatorException {
         try {
-            return this.genericMicrophone.stopRecording().orElseThrow(ActuatorException::new);
+            return this.genericMicrophone.stopRecording()
+                    .orElseThrow(() -> {
+                        String errorMessage = "Could not get recorded audio";
+                        log.error(errorMessage);
+                        return new ActuatorException(errorMessage);
+                    });
         }
         catch(Exception e) {
             String errorMessage = "Could not stop recording audio";
