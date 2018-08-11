@@ -16,11 +16,11 @@ import static java.util.stream.Collectors.toSet;
 
 public abstract class AbstractBasicEntityManagementMonolithicServiceConnector<EntityT extends IEntity<IdentifierT>, IdentifierT extends IIdentifier, DtoT extends IDto> implements IBasicEntityManagementService<EntityT, IdentifierT, DtoT> {
 
-    protected final IBasicEntityManagementController<EntityT, DtoT> entityManagementController;
+    protected final IBasicEntityManagementController<DtoT> entityManagementController;
     protected final IDtoConverter<EntityT, DtoT> converter;
 
     protected AbstractBasicEntityManagementMonolithicServiceConnector(
-            IBasicEntityManagementController<EntityT, DtoT> entityManagementController,
+            IBasicEntityManagementController<DtoT> entityManagementController,
             IDtoConverter<EntityT, DtoT> converter) {
         this.entityManagementController = entityManagementController;
         this.converter = converter;

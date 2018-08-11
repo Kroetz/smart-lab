@@ -19,11 +19,11 @@ public abstract class AbstractBasicEntityManagementMicroserviceConnector<
         IdentifierT extends IIdentifier,
         DtoT extends IDto> implements IBasicEntityManagementService<EntityT, IdentifierT, DtoT> {
 
-    protected final IBasicEntityManagementApiClient<EntityT, DtoT> entityManagementApiClient;
+    protected final IBasicEntityManagementApiClient<DtoT> entityManagementApiClient;
     protected final IDtoConverter<EntityT, DtoT> converter;
 
     protected AbstractBasicEntityManagementMicroserviceConnector(
-            IBasicEntityManagementApiClient<EntityT, DtoT> entityManagementApiClient,
+            IBasicEntityManagementApiClient<DtoT> entityManagementApiClient,
             IDtoConverter<EntityT, DtoT> converter) {
         this.entityManagementApiClient = entityManagementApiClient;
         this.converter = converter;

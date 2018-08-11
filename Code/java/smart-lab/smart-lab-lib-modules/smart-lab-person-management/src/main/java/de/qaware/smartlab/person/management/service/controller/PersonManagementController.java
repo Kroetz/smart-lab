@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toSet;
 @RestController
 @RequestMapping(PersonManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class PersonManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IPerson, PersonDto> {
+public class PersonManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<PersonDto> {
 
     private final IPersonManagementBusinessLogic personManagementBusinessLogic;
     private final IDtoConverter<IPerson, PersonDto> personConverter;

@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = PersonManagementApiConstants.FEIGN_CLIENT_NAME, path = PersonManagementApiConstants.MAPPING_BASE)
-public interface IPersonManagementApiClient extends IBasicEntityManagementApiClient<IPerson, PersonDto> {
+public interface IPersonManagementApiClient extends IBasicEntityManagementApiClient<PersonDto> {
 
     @Override
     @GetMapping(PersonManagementApiConstants.MAPPING_FIND_ALL)

@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = WorkgroupManagementApiConstants.FEIGN_CLIENT_NAME, path = WorkgroupManagementApiConstants.MAPPING_BASE)
-public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApiClient<IWorkgroup, WorkgroupDto> {
+public interface IWorkgroupManagementApiClient extends IBasicEntityManagementApiClient<WorkgroupDto> {
 
     @Override
     @GetMapping(WorkgroupManagementApiConstants.MAPPING_FIND_ALL)

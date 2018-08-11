@@ -1,9 +1,8 @@
 package de.qaware.smartlab.api.service.client.event;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.api.service.constant.event.EventManagementApiConstants;
+import de.qaware.smartlab.core.data.event.EventDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = EventManagementApiConstants.FEIGN_CLIENT_NAME, path = EventManagementApiConstants.MAPPING_BASE)
-public interface IEventManagementApiClient extends IBasicEntityManagementApiClient<IEvent, EventDto> {
+public interface IEventManagementApiClient extends IBasicEntityManagementApiClient<EventDto> {
 
     @Override
     @GetMapping(EventManagementApiConstants.MAPPING_FIND_ALL)

@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = LocationManagementApiConstants.FEIGN_CLIENT_NAME, path = LocationManagementApiConstants.MAPPING_BASE)
-public interface ILocationManagementApiClient extends IBasicEntityManagementApiClient<ILocation, LocationDto> {
+public interface ILocationManagementApiClient extends IBasicEntityManagementApiClient<LocationDto> {
 
     @Override
     @GetMapping(LocationManagementApiConstants.MAPPING_FIND_ALL)

@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toSet;
 @RestController
 @RequestMapping(ActuatorManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class ActuatorManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IActuator, ActuatorDto> {
+public class ActuatorManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<ActuatorDto> {
 
     private final IActuatorManagementBusinessLogic actuatorManagementBusinessLogic;
     private final IDtoConverter<IActuator, ActuatorDto> actuatorConverter;

@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.toSet;
 @RestController
 @RequestMapping(EventManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class EventManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IEvent, EventDto> {
+public class EventManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<EventDto> {
 
     private final IEventManagementBusinessLogic eventManagementBusinessLogic;
     private final IDtoConverter<IEvent, EventDto> eventConverter;

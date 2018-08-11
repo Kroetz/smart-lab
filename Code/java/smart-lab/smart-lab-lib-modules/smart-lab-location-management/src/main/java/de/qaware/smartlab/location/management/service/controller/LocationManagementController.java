@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toSet;
 @Controller
 @RequestMapping(LocationManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class LocationManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<ILocation, LocationDto> {
+public class LocationManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<LocationDto> {
 
     private final ILocationManagementBusinessLogic locationManagementBusinessLogic;
     private final IDtoConverter<ILocation, LocationDto> locationConverter;

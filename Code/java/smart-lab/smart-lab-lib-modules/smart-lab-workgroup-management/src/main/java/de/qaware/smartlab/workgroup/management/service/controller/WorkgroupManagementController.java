@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.toSet;
 @RestController
 @RequestMapping(WorkgroupManagementApiConstants.MAPPING_BASE)
 @Slf4j
-public class WorkgroupManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<IWorkgroup, WorkgroupDto> {
+public class WorkgroupManagementController extends AbstractSmartLabController implements IBasicEntityManagementController<WorkgroupDto> {
 
     private final IWorkgroupManagementBusinessLogic workgroupManagementBusinessLogic;
     private final IDtoConverter<IWorkgroup, WorkgroupDto> workgroupConverter;

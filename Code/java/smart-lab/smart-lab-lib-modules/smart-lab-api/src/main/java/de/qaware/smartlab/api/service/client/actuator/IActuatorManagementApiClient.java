@@ -1,9 +1,8 @@
 package de.qaware.smartlab.api.service.client.actuator;
 
 import de.qaware.smartlab.api.service.client.generic.IBasicEntityManagementApiClient;
-import de.qaware.smartlab.core.data.actuator.ActuatorDto;
-import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.api.service.constant.actuator.ActuatorManagementApiConstants;
+import de.qaware.smartlab.core.data.actuator.ActuatorDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import java.net.URL;
 import java.util.Set;
 
 @FeignClient(name = ActuatorManagementApiConstants.FEIGN_CLIENT_NAME, path = ActuatorManagementApiConstants.MAPPING_BASE)
-public interface IActuatorManagementApiClient extends IBasicEntityManagementApiClient<IActuator, ActuatorDto> {
+public interface IActuatorManagementApiClient extends IBasicEntityManagementApiClient<ActuatorDto> {
 
     @Override
     @GetMapping(ActuatorManagementApiConstants.MAPPING_FIND_ALL)
