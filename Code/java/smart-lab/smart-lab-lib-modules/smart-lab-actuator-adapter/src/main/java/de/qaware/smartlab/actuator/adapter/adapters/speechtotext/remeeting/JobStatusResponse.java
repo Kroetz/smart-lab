@@ -9,8 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-// TODO: Better class name?
-public class QueryResultResponse implements ITranscript {
+public class JobStatusResponse implements ITranscript {
 
     private static final String FIELD_NAME_CREATED = "created";
     private static final String FIELD_NAME_ID = "id";
@@ -32,7 +31,7 @@ public class QueryResultResponse implements ITranscript {
     private String updated;
 
     @JsonProperty(FIELD_NAME_RESULTS)
-    private List<RemeetingResult> results;
+    private List<Result> results;
 
     @JsonProperty(FIELD_NAME_STATUS)
     private String status;
@@ -45,7 +44,7 @@ public class QueryResultResponse implements ITranscript {
 
     @Data
     @NoArgsConstructor
-    public static class RemeetingResult {
+    public static class Result {
 
         private static final String FIELD_NAME_RESULT_INDEX = "result_index";
         private static final String FIELD_NAME_RESULTS = "results";
@@ -54,12 +53,12 @@ public class QueryResultResponse implements ITranscript {
         private String result_index;
 
         @JsonProperty(FIELD_NAME_RESULTS)
-        private List<RemeetingSubResult> results;
+        private List<SubResult> results;
     }
 
     @Data
     @NoArgsConstructor
-    public static class RemeetingSubResult {
+    public static class SubResult {
 
         private static final String FIELD_NAME_FINAL = "final";
         private static final String FIELD_NAME_ALTERNATIVES = "alternatives";

@@ -13,7 +13,7 @@ import java.time.Duration;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
-import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.*;
+import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.JobStatusResponse.*;
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
@@ -50,16 +50,16 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
         }
         try {
             String authHeader = buildAuthHeader(this.remeetingApiKey);
-            SubmitJobResponse submitJobResponse = this.remeetingApiClient.submitJob(authHeader, readAllBytes(audioFile));
-            String jobId = submitJobResponse.getId();
-            QueryResultResponse queryResultResponse;
+            JobSubmissionResponse jobSubmissionResponse = this.remeetingApiClient.submitJob(authHeader, readAllBytes(audioFile));
+            String jobId = jobSubmissionResponse.getId();
+            JobStatusResponse jobStatusResponse;
             do {
                 log.info("Remeeting is processing the submitted job...");
                 TimeUnit.SECONDS.sleep(POLLING_INTERVAL.getSeconds());
-                queryResultResponse = this.remeetingApiClient.queryResult(jobId, authHeader);
-            } while(queryResultResponse.getStatus().equals(STATUS_WAITING) || queryResultResponse.getStatus().equals(STATUS_PROCESSING));
-            if(queryResultResponse.getStatus().equals(STATUS_COMPLETED)) {
-                return queryResultResponse;
+                jobStatusResponse = this.remeetingApiClient.queryResult(jobId, authHeader);
+            } while(jobStatusResponse.getStatus().equals(STATUS_WAITING) || jobStatusResponse.getStatus().equals(STATUS_PROCESSING));
+            if(jobStatusResponse.getStatus().equals(STATUS_COMPLETED)) {
+                return jobStatusResponse;
             }
         }
         catch(Exception e) {

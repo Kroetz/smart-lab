@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-// TODO: Better class name?
-public class SubmitJobResponse {
+public class JobSubmissionResponse {
 
     private static final String FIELD_NAME_CREATED = "created";
     private static final String FIELD_NAME_ID = "id";

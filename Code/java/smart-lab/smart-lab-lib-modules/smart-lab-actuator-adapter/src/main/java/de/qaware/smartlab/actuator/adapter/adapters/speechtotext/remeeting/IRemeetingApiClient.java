@@ -12,14 +12,14 @@ public interface IRemeetingApiClient {
             value = RemeetingApiConstants.MAPPING_SUBMIT_JOB,
             consumes = RemeetingApiConstants.CONSUMES_TYPE_SUBMIT_JOB,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    SubmitJobResponse submitJob(
+    JobSubmissionResponse submitJob(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String credentials,
             @RequestBody byte[] audioFileAsBytes);
 
     @GetMapping(
             value = RemeetingApiConstants.MAPPING_QUERY_RESULT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    QueryResultResponse queryResult(
+    JobStatusResponse queryResult(
             @PathVariable(RemeetingApiConstants.PARAMETER_NAME_JOB_ID) String jobId,
             @RequestHeader(HttpHeaders.AUTHORIZATION) String credentials);
 }
