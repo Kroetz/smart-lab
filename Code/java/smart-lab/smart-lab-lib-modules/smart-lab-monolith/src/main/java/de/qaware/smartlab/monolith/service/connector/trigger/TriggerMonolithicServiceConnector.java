@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.trigger.service.controller.TriggerController;

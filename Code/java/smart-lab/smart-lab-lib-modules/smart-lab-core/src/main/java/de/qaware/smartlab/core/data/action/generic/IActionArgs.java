@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.action.generic;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlab.core.miscellaneous.Constants;
+import de.qaware.smartlab.core.constant.Constants;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,

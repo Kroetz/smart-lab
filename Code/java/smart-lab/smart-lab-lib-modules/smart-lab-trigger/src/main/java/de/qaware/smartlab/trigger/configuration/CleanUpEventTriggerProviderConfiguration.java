@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
-import static de.qaware.smartlab.core.miscellaneous.UrlUtils.of;
+import static de.qaware.smartlab.core.util.UrlUtils.of;
 import static de.qaware.smartlab.trigger.provider.cleanupevent.CleanUpEventCallbackController.MAPPING_CALLBACK;
 import static java.time.Duration.ofSeconds;
 

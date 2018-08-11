@@ -1,6 +1,6 @@
 package de.qaware.smartlab.integrationtest.configuration;
 
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.monolith.annotation.EnableSmartLabMonolith;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

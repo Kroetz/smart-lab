@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.EMPTY;
+import static de.qaware.smartlab.core.util.StringUtils.EMPTY;
 
 public abstract class RequestContextUtils {
 

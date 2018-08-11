@@ -7,7 +7,7 @@ import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.exception.context.InsufficientContextException;
-import de.qaware.smartlab.core.miscellaneous.Constants;
+import de.qaware.smartlab.core.constant.Constants;
 
 import java.util.Set;
 

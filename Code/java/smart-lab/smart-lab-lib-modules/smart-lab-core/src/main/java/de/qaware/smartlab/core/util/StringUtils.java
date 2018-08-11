@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.miscellaneous;
+package de.qaware.smartlab.core.util;
 
 import java.util.Base64;
 

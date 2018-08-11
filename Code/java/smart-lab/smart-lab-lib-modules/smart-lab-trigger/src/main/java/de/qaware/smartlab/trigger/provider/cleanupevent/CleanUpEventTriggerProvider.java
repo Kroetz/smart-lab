@@ -13,7 +13,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.Set;
 
-import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isBetween;
+import static de.qaware.smartlab.core.util.TimeUtils.isBetween;
 import static java.util.stream.Collectors.toSet;
 
 @Component

@@ -3,7 +3,7 @@ package de.qaware.smartlab.monolith.configuration;
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionService;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
 import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabActuatorManagementService;
 import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;

@@ -9,7 +9,7 @@ import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.exception.*;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.microservice.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
 import lombok.extern.slf4j.Slf4j;

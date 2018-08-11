@@ -9,15 +9,12 @@ import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.*;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.microservice.service.connector.generic.AbstractBasicEntityManagementMicroserviceConnector;
-import feign.FeignException;
-import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -26,9 +23,6 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Component
 @ConditionalOnProperty(

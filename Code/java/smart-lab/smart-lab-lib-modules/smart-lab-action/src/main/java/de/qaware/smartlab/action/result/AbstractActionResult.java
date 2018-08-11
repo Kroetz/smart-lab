@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
-import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
+import static de.qaware.smartlab.core.constant.Constants.VOID;
 import static java.lang.String.format;
 
 @Getter

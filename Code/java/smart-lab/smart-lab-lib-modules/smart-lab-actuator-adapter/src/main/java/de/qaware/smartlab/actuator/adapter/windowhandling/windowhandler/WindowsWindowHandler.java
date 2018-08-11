@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.sun.jna.Native.loadLibrary;
 import static de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.powerpoint.PowerPointAdapter.getWindowTitle;
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.utf8ToBase64String;
+import static de.qaware.smartlab.core.util.StringUtils.utf8ToBase64String;
 import static java.lang.String.format;
 import static java.time.Duration.ofMillis;
 import static java.util.Objects.isNull;

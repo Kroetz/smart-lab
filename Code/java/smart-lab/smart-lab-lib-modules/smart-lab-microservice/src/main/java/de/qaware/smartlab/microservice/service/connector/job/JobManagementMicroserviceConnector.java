@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.client.job.IJobManagementApiClient;
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.exception.SmartLabException;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

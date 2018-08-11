@@ -3,7 +3,7 @@ package de.qaware.smartlab.core.data.event;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.*;
+import static de.qaware.smartlab.core.util.StringUtils.*;
 import static java.lang.String.format;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

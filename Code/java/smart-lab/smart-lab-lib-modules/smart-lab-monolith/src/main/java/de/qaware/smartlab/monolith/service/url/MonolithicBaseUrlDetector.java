@@ -1,7 +1,7 @@
 package de.qaware.smartlab.monolith.service.url;
 
 import de.qaware.smartlab.core.concurrency.ThreadContext;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.EMPTY;
+import static de.qaware.smartlab.core.util.StringUtils.EMPTY;
 
 @Component
 @ConditionalOnProperty(

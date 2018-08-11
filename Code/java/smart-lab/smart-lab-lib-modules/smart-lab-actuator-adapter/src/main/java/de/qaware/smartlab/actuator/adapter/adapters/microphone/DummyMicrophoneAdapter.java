@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import static de.qaware.smartlab.core.miscellaneous.ResourcePaths.DUMMY_SPEECH;
+import static de.qaware.smartlab.core.constant.ResourcePaths.DUMMY_SPEECH;
 import static org.apache.commons.io.IOUtils.toByteArray;
 
 @Component

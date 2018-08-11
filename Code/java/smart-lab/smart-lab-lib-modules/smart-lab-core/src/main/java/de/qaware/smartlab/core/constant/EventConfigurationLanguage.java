@@ -1,10 +1,10 @@
-package de.qaware.smartlab.core.miscellaneous;
+package de.qaware.smartlab.core.constant;
 
 import de.qaware.smartlab.core.parser.antlr.generated.EventConfigurationLanguageLexer;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.Vocabulary;
 
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.trimEnclosing;
+import static de.qaware.smartlab.core.util.StringUtils.trimEnclosing;
 
 @Slf4j
 public abstract class EventConfigurationLanguage {

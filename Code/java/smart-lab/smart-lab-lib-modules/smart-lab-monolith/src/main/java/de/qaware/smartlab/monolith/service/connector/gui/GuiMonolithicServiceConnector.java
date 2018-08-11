@@ -1,7 +1,7 @@
 package de.qaware.smartlab.monolith.service.connector.gui;
 
 import de.qaware.smartlab.api.service.connector.gui.IGuiService;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.gui.service.controller.GuiController;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;

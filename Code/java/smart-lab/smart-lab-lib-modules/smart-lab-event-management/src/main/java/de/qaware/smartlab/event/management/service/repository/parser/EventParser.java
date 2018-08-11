@@ -22,9 +22,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static de.qaware.smartlab.core.miscellaneous.EventConfigurationLanguage.CONFIG_TAG_BEGIN;
-import static de.qaware.smartlab.core.miscellaneous.EventConfigurationLanguage.CONFIG_TAG_END;
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.EMPTY;
+import static de.qaware.smartlab.core.constant.EventConfigurationLanguage.CONFIG_TAG_BEGIN;
+import static de.qaware.smartlab.core.constant.EventConfigurationLanguage.CONFIG_TAG_END;
+import static de.qaware.smartlab.core.util.StringUtils.EMPTY;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;

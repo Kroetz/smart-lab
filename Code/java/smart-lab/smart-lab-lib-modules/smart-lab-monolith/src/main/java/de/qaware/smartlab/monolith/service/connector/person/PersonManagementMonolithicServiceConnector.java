@@ -5,7 +5,7 @@ import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.person.PersonDto;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;

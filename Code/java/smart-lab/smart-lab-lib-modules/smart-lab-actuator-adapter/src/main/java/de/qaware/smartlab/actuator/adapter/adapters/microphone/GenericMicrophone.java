@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
-import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
+import static de.qaware.smartlab.core.constant.Constants.VOID;
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.stream;
 import static java.util.Objects.isNull;

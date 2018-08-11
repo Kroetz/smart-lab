@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-import static de.qaware.smartlab.core.miscellaneous.EventConfigurationLanguage.*;
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.*;
-import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isNowInProgress;
+import static de.qaware.smartlab.core.constant.EventConfigurationLanguage.*;
+import static de.qaware.smartlab.core.util.StringUtils.*;
+import static de.qaware.smartlab.core.util.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.time.Duration.between;
 import static java.util.Objects.isNull;

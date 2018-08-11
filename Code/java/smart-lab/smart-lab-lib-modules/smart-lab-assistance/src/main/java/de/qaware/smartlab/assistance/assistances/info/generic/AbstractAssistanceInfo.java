@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.*;
+import static de.qaware.smartlab.core.util.StringUtils.*;
 import static java.lang.String.format;
 
 @Slf4j

@@ -2,7 +2,7 @@ package de.qaware.smartlab.core.data.action.generic.result;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.miscellaneous.Constants;
+import de.qaware.smartlab.core.constant.Constants;
 
 import java.util.UUID;
 

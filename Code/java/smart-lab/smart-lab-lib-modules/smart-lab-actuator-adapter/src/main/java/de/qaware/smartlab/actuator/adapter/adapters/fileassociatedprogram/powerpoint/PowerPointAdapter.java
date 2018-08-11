@@ -7,7 +7,7 @@ import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowH
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

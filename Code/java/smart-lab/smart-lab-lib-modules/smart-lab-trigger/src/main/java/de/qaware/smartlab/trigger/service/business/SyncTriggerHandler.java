@@ -7,8 +7,6 @@ import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.location.ILocation;
-import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
+import static de.qaware.smartlab.core.constant.Constants.VOID;
 import static java.util.concurrent.CompletableFuture.allOf;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 

@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.miscellaneous;
+package de.qaware.smartlab.core.constant;
 
 public abstract class Constants {
 

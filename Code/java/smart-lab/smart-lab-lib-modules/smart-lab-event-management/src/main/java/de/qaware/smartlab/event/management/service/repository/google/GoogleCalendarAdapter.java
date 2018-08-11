@@ -30,7 +30,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
-import static de.qaware.smartlab.core.miscellaneous.TimeUtils.isNowInProgress;
+import static de.qaware.smartlab.core.util.TimeUtils.isNowInProgress;
 import static java.lang.String.format;
 import static java.nio.file.Files.newInputStream;
 import static java.util.Collections.emptyList;

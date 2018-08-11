@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.service.controller.ActionController;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;

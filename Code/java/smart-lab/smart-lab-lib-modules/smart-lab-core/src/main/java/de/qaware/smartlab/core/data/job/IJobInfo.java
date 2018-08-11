@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.job;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlab.core.miscellaneous.Constants;
+import de.qaware.smartlab.core.constant.Constants;
 
 import java.net.URL;
 import java.time.Instant;

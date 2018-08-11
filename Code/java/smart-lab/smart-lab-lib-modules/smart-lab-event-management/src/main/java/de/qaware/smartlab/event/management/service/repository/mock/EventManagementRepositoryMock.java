@@ -7,7 +7,7 @@ import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.data.ConflictException;
 import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.exception.data.NotFoundException;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.repository.AbstractBasicEntityManagementRepositoryMock;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import lombok.NonNull;

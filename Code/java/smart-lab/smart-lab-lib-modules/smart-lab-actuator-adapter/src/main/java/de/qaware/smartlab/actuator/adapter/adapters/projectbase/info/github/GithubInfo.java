@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.AbstractProjectBaseInfoFactory;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubAdapter;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
-import de.qaware.smartlab.core.miscellaneous.Property;
+import de.qaware.smartlab.core.constant.Property;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
