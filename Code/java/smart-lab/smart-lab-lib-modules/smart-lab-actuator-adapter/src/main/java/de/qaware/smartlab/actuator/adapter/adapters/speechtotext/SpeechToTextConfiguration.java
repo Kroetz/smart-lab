@@ -27,7 +27,8 @@ public class SpeechToTextConfiguration {
     @ConfigurationProperties(prefix = Properties.PREFIX)
     public static class Properties {
 
-        private static final String PREFIX = "smart-lab.actuator.speech-to-text";
+        public static final String PREFIX = "smart-lab.actuator.speech-to-text";
+        public static final String PROPERTY_NAME_SERVICE = "service";
 
         private String service;
 

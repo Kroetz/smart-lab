@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.watson;
 
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.SpeechToTextConfiguration;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
-import de.qaware.smartlab.core.constant.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
-        name = Property.Name.SPEECH_TO_TEXT_SERVICE,
-        havingValue = Property.Value.SpeechToTextService.WATSON)
+        prefix = SpeechToTextConfiguration.Properties.PREFIX,
+        name = SpeechToTextConfiguration.Properties.PROPERTY_NAME_SERVICE,
+        havingValue = WatsonSpeechToTextAdapter.ACTUATOR_TYPE)
 @EnableConfigurationProperties(WatsonSpeechToTextConfiguration.Properties.class)
 public class WatsonSpeechToTextConfiguration {
 

@@ -21,7 +21,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implements ISpeechToTextAdapter {
 
-    private static final String ACTUATOR_TYPE = "watson";
+    public static final String ACTUATOR_TYPE = "watson";
     private static final boolean HAS_LOCAL_API = false;
 
     private final SpeechToText service;

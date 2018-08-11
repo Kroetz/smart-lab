@@ -1,5 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.SpeechToTextConfiguration;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.constant.Property;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.SPEECH_TO_TEXT_SERVICE,
-        name = Property.Name.SPEECH_TO_TEXT_SERVICE,
-        havingValue = Property.Value.SpeechToTextService.REMEETING)
+        prefix = SpeechToTextConfiguration.Properties.PREFIX,
+        name = SpeechToTextConfiguration.Properties.PROPERTY_NAME_SERVICE,
+        havingValue = RemeetingAdapter.ACTUATOR_TYPE)
 @EnableConfigurationProperties(RemeetingConfiguration.Properties.class)
 @EnableFeignClients(basePackageClasses = IRemeetingApiClient.class)
 public class RemeetingConfiguration {
