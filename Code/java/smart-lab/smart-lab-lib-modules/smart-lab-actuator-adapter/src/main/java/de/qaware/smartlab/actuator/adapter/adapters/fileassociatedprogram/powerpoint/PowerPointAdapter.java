@@ -5,9 +5,9 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.FileAs
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
+import de.qaware.smartlab.core.constant.Constants;
 import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
-import de.qaware.smartlab.core.constant.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,9 +23,9 @@ import static java.util.UUID.randomUUID;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.POWER_POINT,
-        name = Property.Name.POWER_POINT,
-        havingValue = Property.Value.TRUE)
+        prefix = PowerPointConfiguration.Properties.PREFIX,
+        name = PowerPointConfiguration.Properties.ENABLED,
+        havingValue = Constants.TRUE)
 @Slf4j
 public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
 

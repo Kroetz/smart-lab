@@ -1,5 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
+import de.qaware.smartlab.core.constant.Constants;
 import de.qaware.smartlab.core.constant.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +23,7 @@ import static java.nio.file.Paths.get;
 @ConditionalOnProperty(
         prefix = Property.Prefix.SELENIUM,
         name = Property.Name.SELENIUM,
-        havingValue = Property.Value.TRUE)
+        havingValue = Constants.TRUE)
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
 public class SeleniumConfiguration {
 

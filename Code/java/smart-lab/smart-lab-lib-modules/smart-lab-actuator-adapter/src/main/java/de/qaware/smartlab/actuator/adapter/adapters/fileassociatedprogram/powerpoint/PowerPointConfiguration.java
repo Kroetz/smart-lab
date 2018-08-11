@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.powerpoint;
 
-import de.qaware.smartlab.core.constant.Property;
+import de.qaware.smartlab.core.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,9 +20,9 @@ import static java.nio.file.Paths.get;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.POWER_POINT,
-        name = Property.Name.POWER_POINT,
-        havingValue = Property.Value.TRUE)
+        prefix = PowerPointConfiguration.Properties.PREFIX,
+        name = PowerPointConfiguration.Properties.ENABLED,
+        havingValue = Constants.TRUE)
 @EnableConfigurationProperties(PowerPointConfiguration.Properties.class)
 public class PowerPointConfiguration {
 
@@ -49,7 +49,8 @@ public class PowerPointConfiguration {
     @Validated
     public static class Properties {
 
-        private static final String PREFIX = "smart-lab.actuator.power-point";
+        public static final String PREFIX = "smart-lab.actuator.power-point";
+        public static final String ENABLED = "enabled";
         private static final String FIELD_NAME_EXECUTABLE_FILE = "executableFile";
         private static final Path DEFAULT_EXECUTABLE_FILE = get("C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE");
 
