@@ -1,9 +1,9 @@
 package de.qaware.smartlab.core.exception.handler;
 
 import de.qaware.smartlab.core.exception.data.ConflictException;
-import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.core.exception.data.MaximalDurationReachedException;
 import de.qaware.smartlab.core.exception.data.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.data.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,6 +50,15 @@ public class GlobalExceptionHandler {
                 MaximalDurationReachedException.class,
                 UNPROCESSABLE_ENTITY.value(),
                 UNPROCESSABLE_ENTITY.name());
+    }
+
+    @ResponseStatus(value = BAD_REQUEST, reason = "At least one of the specified arguments is not valid")
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleIllegalArgumentException() {
+        logConversion(
+                IllegalArgumentException.class,
+                BAD_REQUEST.value(),
+                BAD_REQUEST.name());
     }
 
     private void logConversion(Class<? extends Exception> exceptionClass, int httpStatusCode, String httpStatusName) {
