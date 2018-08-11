@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github;
 
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.generic.IProjectBaseAdapter;
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +17,7 @@ import java.nio.file.Path;
 @ConditionalOnProperty(
         prefix = GithubConfiguration.Properties.PREFIX,
         name = GithubConfiguration.Properties.ENABLED,
-        havingValue = Constants.TRUE)
+        havingValue = Miscellaneous.TRUE)
 @EnableConfigurationProperties(GithubConfiguration.Properties.class)
 public class GithubConfiguration {
 

@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.powerpoint;
 
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,7 +22,7 @@ import static java.nio.file.Paths.get;
 @ConditionalOnProperty(
         prefix = PowerPointConfiguration.Properties.PREFIX,
         name = PowerPointConfiguration.Properties.ENABLED,
-        havingValue = Constants.TRUE)
+        havingValue = Miscellaneous.TRUE)
 @EnableConfigurationProperties(PowerPointConfiguration.Properties.class)
 public class PowerPointConfiguration {
 

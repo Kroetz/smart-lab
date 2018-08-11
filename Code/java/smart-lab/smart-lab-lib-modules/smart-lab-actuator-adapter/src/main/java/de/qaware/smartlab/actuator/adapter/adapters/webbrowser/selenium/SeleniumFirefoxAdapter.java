@@ -2,7 +2,7 @@ package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
 import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IHotkeys;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,7 +18,7 @@ import static org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
 @ConditionalOnProperty(
         prefix = SeleniumConfiguration.Properties.PREFIX,
         name = SeleniumConfiguration.Properties.ENABLED,
-        havingValue = Constants.TRUE)
+        havingValue = Miscellaneous.TRUE)
 @Slf4j
 public class SeleniumFirefoxAdapter extends AbstractSeleniumWebBrowserAdapter {
 

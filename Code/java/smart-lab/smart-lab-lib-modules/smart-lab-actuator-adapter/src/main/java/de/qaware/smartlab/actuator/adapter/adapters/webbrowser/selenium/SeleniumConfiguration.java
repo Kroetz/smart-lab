@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,7 +22,7 @@ import static java.nio.file.Paths.get;
 @ConditionalOnProperty(
         prefix = SeleniumConfiguration.Properties.PREFIX,
         name = SeleniumConfiguration.Properties.ENABLED,
-        havingValue = Constants.TRUE)
+        havingValue = Miscellaneous.TRUE)
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
 public class SeleniumConfiguration {
 

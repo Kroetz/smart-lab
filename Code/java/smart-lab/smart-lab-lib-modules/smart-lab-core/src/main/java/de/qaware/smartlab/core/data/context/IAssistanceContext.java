@@ -7,14 +7,14 @@ import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.exception.context.InsufficientContextException;
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 
 import java.util.Set;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
-        property = Constants.JSON_TYPE_PROPERTY_NAME)
+        property = Miscellaneous.JSON_TYPE_PROPERTY_NAME)
 public interface IAssistanceContext {
 
     IAssistanceConfiguration getAssistanceConfiguration();

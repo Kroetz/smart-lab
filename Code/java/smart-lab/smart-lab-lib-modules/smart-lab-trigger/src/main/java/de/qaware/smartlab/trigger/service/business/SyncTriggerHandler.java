@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static de.qaware.smartlab.core.constant.Constants.VOID;
+import static de.qaware.smartlab.core.constant.Miscellaneous.VOID;
 import static java.util.concurrent.CompletableFuture.allOf;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.AbstractProjectBaseInfoFactory;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubAdapter;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.github.GithubConfiguration;
-import de.qaware.smartlab.core.constant.Constants;
+import de.qaware.smartlab.core.constant.Miscellaneous;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,7 +61,7 @@ public class GithubInfo implements IProjectBaseInfo {
     @ConditionalOnProperty(
             prefix = GithubConfiguration.Properties.PREFIX,
             name = GithubConfiguration.Properties.ENABLED,
-            havingValue = Constants.TRUE)
+            havingValue = Miscellaneous.TRUE)
     @Slf4j
     public static class Factory extends AbstractProjectBaseInfoFactory {
 
