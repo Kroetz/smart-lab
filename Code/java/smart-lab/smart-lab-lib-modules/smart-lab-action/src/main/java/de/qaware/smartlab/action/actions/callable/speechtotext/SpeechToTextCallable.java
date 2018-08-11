@@ -8,6 +8,7 @@ import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class SpeechToTextCallable extends AbstractActionCallable<SpeechToTextCal
         super(speechToTextInfo);
     }
 
-    public ITranscript call(IActionService actionService, ActionArgs actionArgs) {
+    public ITranscript call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         return actionResult.getTranscriptValue();
     }

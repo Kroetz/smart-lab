@@ -75,8 +75,7 @@ public class WatsonSpeechToTextTranscript implements ITranscript {
             Double end = timestamp.getEndTime();
             Long speakerId = speakerIdsByTimestamps.get(Timestamp.of(start.floatValue(), end.floatValue()));
             if(isNull(speakerId)) {
-                // TODO: Better exception
-                throw new RuntimeException();
+                throw new NullPointerException("The speaker ID must not be null");
             }
             textPassagesBuilder.addTextPassage(
                     ofSeconds(start, end),

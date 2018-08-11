@@ -35,14 +35,15 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
         this.tempFileManager = tempFileManager;
     }
 
-    public Path call(IActionService actionService, ActionArgs actionArgs) {
+    public Path call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         byte[] downloadedData = actionResult.getByteArrayValue();
         try {
             return this.tempFileManager.saveToTempFile(downloadsTempFileSubDir, downloadedData);
         } catch (IOException e) {
-            // TODO: Exception message
-            throw new ActionException(e);
+            String errorMessage = "Could not save downloaded data to temporary file";
+            log.error(errorMessage);
+            throw new ActionException(errorMessage, e);
         }
     }
 

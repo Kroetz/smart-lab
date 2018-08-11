@@ -13,11 +13,9 @@ import java.time.Duration;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
-import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_COMPLETED;
-import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_PROCESSING;
-import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.STATUS_WAITING;
-import static de.qaware.smartlab.core.miscellaneous.StringUtils.UTF_8_CHARSET_NAME;
+import static de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting.QueryResultResponse.*;
 import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
 import static java.time.Duration.ofSeconds;
 import static java.util.Objects.isNull;
@@ -77,6 +75,6 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
     private String buildAuthHeader(String apiKey) throws UnsupportedEncodingException {
         return format(
                 AUTH_HEADER_TEMPLATE,
-                Base64.getEncoder().encodeToString((apiKey + ":").getBytes(UTF_8_CHARSET_NAME)));
+                Base64.getEncoder().encodeToString((apiKey + ":").getBytes(UTF_8)));
     }
 }

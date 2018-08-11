@@ -53,9 +53,9 @@ public abstract class AbstractBasicEntityManagementRepositoryMock<EntityT extend
     @Override
     public synchronized EntityT create(EntityT entity) {
         if (exists(entity.getId())) {
-            log.error("Cannot create entity {} because an entity with that ID already exists", entity);
-            // TODO: Meaningful exception messages
-            throw new EntityConflictException();
+            String errorMessage = format("Cannot create entity %s because an entity with that ID already exists", entity);
+            log.error(errorMessage);
+            throw new EntityConflictException(errorMessage);
         }
         if(this.entities.add(entity)) {
             return entity;

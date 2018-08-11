@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static java.lang.String.format;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllBytes;
 
 @Slf4j
@@ -131,7 +132,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
                 config.getUploadDir(),
                 fileName,
                 TRANSCRIPT_UPLOAD_MESSAGE,
-                transcript.toHumanReadable().getBytes());
+                transcript.toHumanReadable().getBytes(UTF_8));
         this.dataUpload.call(actionService, dataUploadArgs);
     }
 

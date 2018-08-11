@@ -23,8 +23,9 @@ public class TextPassage implements ITextPassage {
 
     public void extendBy(ITextPassage textPassage) {
         if(!this.speakerName.equals(textPassage.getSpeakerName())) {
-            // TODO: better exception
-            throw new RuntimeException("speaker names muss be equal");
+            String errorMessage = "The speaker names must be equal when extending a text passage";
+            log.error(errorMessage);
+            throw new IllegalStateException(errorMessage);
         }
         appendText(textPassage.getSpokenText());
         extendTo(textPassage.getSpokenDuration().getEndInMillis());

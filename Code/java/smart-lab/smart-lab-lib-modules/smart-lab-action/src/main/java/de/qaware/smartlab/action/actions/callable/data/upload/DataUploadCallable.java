@@ -8,6 +8,7 @@ import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class DataUploadCallable extends AbstractActionCallable<DataUploadCallabl
         super(dataUploadInfo);
     }
 
-    public Void call(IActionService actionService, ActionArgs actionArgs) {
+    public Void call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
         return actionResult.getVoidValue();
     }

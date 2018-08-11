@@ -1,7 +1,8 @@
 package de.qaware.smartlab.core.miscellaneous;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class StringUtils {
 
@@ -18,18 +19,11 @@ public abstract class StringUtils {
     public static final String RPAREN = ")";
     public static final String PARENTHESES_TEMPLATE = LPAREN + "%s" + RPAREN;
 
-    public static final String UTF_8_CHARSET_NAME = "UTF-8";
-
     public static String trimEnclosing(String s) {
         return s.substring(1, s.length() - 1);
     }
 
     public static String utf8ToBase64String(String s) {
-        try {
-            return Base64.getEncoder().encodeToString(s.getBytes(UTF_8_CHARSET_NAME));
-        } catch (UnsupportedEncodingException e) {
-            // TODO: Exception type & message
-            throw new RuntimeException("Base64 failed");
-        }
+        return Base64.getEncoder().encodeToString(s.getBytes(UTF_8));
     }
 }
