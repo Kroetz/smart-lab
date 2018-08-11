@@ -1,17 +1,17 @@
 package de.qaware.smartlab.monolith.service.connector.location;
 
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
-import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import de.qaware.smartlab.location.management.service.controller.LocationManagementController;
 import de.qaware.smartlab.monolith.service.connector.generic.AbstractBasicEntityManagementMonolithicServiceConnector;
+import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +25,9 @@ import static java.util.stream.Collectors.toSet;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MONOLITH)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MONOLITH)
 public class LocationManagementMonolithicServiceConnector extends AbstractBasicEntityManagementMonolithicServiceConnector<ILocation, LocationId, LocationDto> implements ILocationManagementService {
 
     private final LocationManagementController locationManagementController;
@@ -62,9 +62,9 @@ public class LocationManagementMonolithicServiceConnector extends AbstractBasicE
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_LOCATION_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MONOLITH)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MONOLITH)
     public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
         public BaseUrlGetter(LocationManagementController.BaseUrlController baseUrlController) {

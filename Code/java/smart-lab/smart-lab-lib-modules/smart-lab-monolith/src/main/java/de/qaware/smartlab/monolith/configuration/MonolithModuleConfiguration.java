@@ -1,16 +1,16 @@
 package de.qaware.smartlab.monolith.configuration;
 
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionService;
-import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
-import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
-import de.qaware.smartlab.core.constant.Property;
-import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
 import de.qaware.smartlab.actuator.management.annotation.EnableSmartLabActuatorManagementService;
+import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
+import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
+import de.qaware.smartlab.data.conversion.annotation.EnableSmartLabDtoConverters;
+import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventManagementService;
 import de.qaware.smartlab.gui.annotation.EnableSmartLabGui;
 import de.qaware.smartlab.job.annotation.EnableSmartLabJobService;
-import de.qaware.smartlab.event.management.annotation.EnableSmartLabEventManagementService;
-import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonManagementService;
 import de.qaware.smartlab.location.management.annotation.EnableSmartLabLocationManagementService;
+import de.qaware.smartlab.person.management.annotation.EnableSmartLabPersonManagementService;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabCleanUpEventTriggerProvider;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabSetUpEventTriggerProvider;
 import de.qaware.smartlab.trigger.annotation.EnableSmartLabTriggerService;
@@ -33,9 +33,9 @@ import java.util.Map;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MONOLITH)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MONOLITH)
 @ComponentScan(basePackageClasses = de.qaware.smartlab.monolith.ComponentScanMarker.class)
 @EnableSmartLabDtoConverters
 @EnableSmartLabJobService

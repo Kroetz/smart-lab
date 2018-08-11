@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.trigger;
 
 import de.qaware.smartlab.api.service.client.trigger.ITriggerApiClient;
 import de.qaware.smartlab.api.service.connector.trigger.ITriggerService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
@@ -17,9 +18,9 @@ import java.net.URL;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 public class TriggerMicroserviceConnector implements ITriggerService {
 
     private final ITriggerApiClient triggerApiClient;
@@ -207,9 +208,9 @@ public class TriggerMicroserviceConnector implements ITriggerService {
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_TRIGGER_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MICROSERVICE)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MICROSERVICE)
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 

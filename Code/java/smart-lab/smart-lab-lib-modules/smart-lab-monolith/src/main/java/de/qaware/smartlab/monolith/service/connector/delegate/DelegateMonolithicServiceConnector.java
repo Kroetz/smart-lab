@@ -2,6 +2,7 @@ package de.qaware.smartlab.monolith.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.exception.delegate.DelegateException;
 import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
@@ -21,9 +22,9 @@ import static java.lang.String.format;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MONOLITH)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MONOLITH)
 @Import(FeignClientsConfiguration.class)
 public class DelegateMonolithicServiceConnector extends AbstractDelegateServiceConnector {
 

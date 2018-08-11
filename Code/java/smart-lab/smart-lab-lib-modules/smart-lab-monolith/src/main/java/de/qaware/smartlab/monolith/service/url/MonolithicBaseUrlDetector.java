@@ -1,7 +1,7 @@
 package de.qaware.smartlab.monolith.service.url;
 
 import de.qaware.smartlab.core.concurrency.ThreadContext;
-import de.qaware.smartlab.core.constant.Property;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +16,9 @@ import static de.qaware.smartlab.core.util.StringUtils.EMPTY;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MONOLITH)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MONOLITH)
 @Slf4j
 public class MonolithicBaseUrlDetector implements IBaseUrlDetector {
 

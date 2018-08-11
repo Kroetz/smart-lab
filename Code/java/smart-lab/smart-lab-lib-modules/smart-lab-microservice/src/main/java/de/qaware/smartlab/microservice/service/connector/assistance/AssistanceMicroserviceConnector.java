@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.assistance;
 
 import de.qaware.smartlab.api.service.client.assistance.IAssistanceApiClient;
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.constant.Property;
@@ -15,9 +16,9 @@ import java.net.URL;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 public class AssistanceMicroserviceConnector implements IAssistanceService {
 
     private final IAssistanceApiClient assistanceApiClient;
@@ -62,9 +63,9 @@ public class AssistanceMicroserviceConnector implements IAssistanceService {
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ASSISTANCE_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MICROSERVICE)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MICROSERVICE)
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 

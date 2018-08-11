@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.event;
 
 import de.qaware.smartlab.api.service.client.event.IEventManagementApiClient;
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
@@ -28,9 +29,9 @@ import static java.util.stream.Collectors.toSet;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 public class EventManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IEvent, EventId, EventDto> implements IEventManagementService {
 
     private final IEventManagementApiClient eventManagementApiClient;
@@ -150,9 +151,9 @@ public class EventManagementMicroserviceConnector extends AbstractBasicEntityMan
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_EVENT_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MICROSERVICE)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MICROSERVICE)
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 

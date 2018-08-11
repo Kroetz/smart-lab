@@ -2,9 +2,9 @@ package de.qaware.smartlab.monolith.service.connector.action;
 
 import de.qaware.smartlab.action.service.controller.ActionController;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.constant.Property;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import de.qaware.smartlab.monolith.service.url.AbstractMonolithicBaseUrlGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MONOLITH)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MONOLITH)
 public class ActionMonolithicServiceConnector implements IActionService {
 
     private final ActionController actionController;
@@ -34,9 +34,9 @@ public class ActionMonolithicServiceConnector implements IActionService {
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ACTION_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MONOLITH)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MONOLITH)
     public static class BaseUrlGetter extends AbstractMonolithicBaseUrlGetter {
 
         public BaseUrlGetter(ActionController.BaseUrlController baseUrlController) {

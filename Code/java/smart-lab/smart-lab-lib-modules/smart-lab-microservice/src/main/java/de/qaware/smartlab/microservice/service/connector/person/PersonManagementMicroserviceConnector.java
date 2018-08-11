@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.person;
 
 import de.qaware.smartlab.api.service.client.person.IPersonManagementApiClient;
 import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
@@ -19,9 +20,9 @@ import java.net.URL;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 public class PersonManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IPerson, PersonId, PersonDto> implements IPersonManagementService {
 
     private final IPersonManagementApiClient personManagementApiClient;
@@ -36,9 +37,9 @@ public class PersonManagementMicroserviceConnector extends AbstractBasicEntityMa
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_PERSON_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MICROSERVICE)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MICROSERVICE)
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 

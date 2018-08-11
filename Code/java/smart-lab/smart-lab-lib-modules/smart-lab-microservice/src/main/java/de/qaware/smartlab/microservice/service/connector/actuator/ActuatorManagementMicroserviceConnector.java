@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.actuator;
 
 import de.qaware.smartlab.api.service.client.actuator.IActuatorManagementApiClient;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.actuator.ActuatorDto;
 import de.qaware.smartlab.core.data.actuator.IActuator;
@@ -19,9 +20,9 @@ import java.net.URL;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 public class ActuatorManagementMicroserviceConnector extends AbstractBasicEntityManagementMicroserviceConnector<IActuator, ActuatorId, ActuatorDto> implements IActuatorManagementService {
 
     private final IActuatorManagementApiClient actuatorManagementApiClient;
@@ -36,9 +37,9 @@ public class ActuatorManagementMicroserviceConnector extends AbstractBasicEntity
     @Component
     @Qualifier(IServiceBaseUrlGetter.QUALIFIER_ACTUATOR_MANAGEMENT_SERVICE_BASE_URL_GETTER)
     @ConditionalOnProperty(
-            prefix = Property.Prefix.MODULARITY,
-            name = Property.Name.MODULARITY,
-            havingValue = Property.Value.Modularity.MICROSERVICE)
+            prefix = ModularityConfiguration.Properties.PREFIX,
+            name = ModularityConfiguration.Properties.MODULARITY,
+            havingValue = ModularityConfiguration.Properties.MICROSERVICE)
     @Slf4j
     public static class BaseUrlGetter implements IServiceBaseUrlGetter {
 

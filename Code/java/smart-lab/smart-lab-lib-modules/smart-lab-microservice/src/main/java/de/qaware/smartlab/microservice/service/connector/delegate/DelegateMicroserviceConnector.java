@@ -2,6 +2,7 @@ package de.qaware.smartlab.microservice.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
+import de.qaware.smartlab.core.configuration.ModularityConfiguration;
 import de.qaware.smartlab.core.constant.Property;
 import feign.Client;
 import feign.Feign;
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConditionalOnProperty(
-        prefix = Property.Prefix.MODULARITY,
-        name = Property.Name.MODULARITY,
-        havingValue = Property.Value.Modularity.MICROSERVICE)
+        prefix = ModularityConfiguration.Properties.PREFIX,
+        name = ModularityConfiguration.Properties.MODULARITY,
+        havingValue = ModularityConfiguration.Properties.MICROSERVICE)
 @Import(FeignClientsConfiguration.class)
 public class DelegateMicroserviceConnector extends AbstractDelegateServiceConnector {
 
