@@ -10,7 +10,7 @@ import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataSetException;
 
 import java.time.Instant;
 import java.util.Map;

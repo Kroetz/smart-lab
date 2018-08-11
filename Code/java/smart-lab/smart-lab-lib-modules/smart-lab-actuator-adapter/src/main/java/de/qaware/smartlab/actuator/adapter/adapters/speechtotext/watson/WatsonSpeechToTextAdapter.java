@@ -7,7 +7,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.exception.ServiceFailedException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,10 +42,10 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
     }
 
     @Override
-    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ServiceFailedException {
+    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ActuatorException {
         try {
             RecognizeOptions options = new RecognizeOptions.Builder()
-                    // TODO: Get file type from assistance config or determine automatically
+                    // TODO: Determine audio file type automatically rather than using the hardcoded MIME type "audio/wav"
                     .contentType(HttpMediaType.AUDIO_WAV)
                     .speakerLabels(true)
                     .model(toWatsonSpeechToTextLanguage(spokenLanguage))
@@ -56,9 +56,10 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
             SpeechRecognitionResults speechRecognitionResults = this.service.recognize(options).execute();
             return this.transcriptFactory.of(speechRecognitionResults);
         }
-        catch (Exception e) {
-            // TODO: exception message
-            throw new ServiceFailedException(e);
+        catch(Exception e) {
+            String errorMessage = format("Could not convert the audio file %s to text with IBM Watson", audioFile);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
     }
 
@@ -73,7 +74,7 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
             default:
                 String errorMessage = format("The language %s is not supported by IBM Watson speech-to-text", language);
                 log.error(errorMessage);
-                throw new ServiceFailedException(errorMessage);
+                throw new ActuatorException(errorMessage);
         }
     }
 }

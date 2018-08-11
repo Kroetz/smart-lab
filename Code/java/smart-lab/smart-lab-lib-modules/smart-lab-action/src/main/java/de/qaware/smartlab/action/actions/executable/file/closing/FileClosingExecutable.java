@@ -8,6 +8,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileA
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class FileClosingExecutable extends AbstractActionExecutable<FileClosingC
     }
 
     @Override
-    protected IActionResult execute(IFileAssociatedProgramAdapter programAdapter, FileClosingCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IFileAssociatedProgramAdapter programAdapter, FileClosingCallable.ActionArgs actionArgs) throws ActionException {
         Path closedFile = programAdapter.close(actionArgs.getProgramInstanceId());
         this.tempFileManager.markForCleaning(closedFile);
         return VoidActionResult.newInstance();

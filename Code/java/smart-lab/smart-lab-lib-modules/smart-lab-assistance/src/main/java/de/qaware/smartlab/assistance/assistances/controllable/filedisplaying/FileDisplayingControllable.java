@@ -11,8 +11,8 @@ import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.fact
 import de.qaware.smartlab.assistance.assistances.info.filedisplaying.FileDisplayingInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.exception.AssistanceFailedException;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.assistance.AssistanceException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -47,7 +47,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void begin(IActionService actionService, IAssistanceContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         FileDisplayingInfo.Configuration config = toSpecificConfigType(
                 FileDisplayingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
@@ -77,15 +77,15 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
                     readAllBytes(downloadedFile));
         } catch (IOException e) {
             String errorMessage = format("Could not read downloaded file %s", downloadedFile);
-            log.error(errorMessage, e);
-            throw new AssistanceFailedException(errorMessage, e);
+            log.error(errorMessage);
+            throw new AssistanceException(errorMessage, e);
         }
         this.programInstanceId = this.fileOpening.call(actionService, fileOpeningArgs);
         this.tempFileManager.markForCleaning(downloadedFile);
     }
 
     @Override
-    public void end(IActionService actionService, IAssistanceContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         FileDisplayingInfo.Configuration config = toSpecificConfigType(
                 FileDisplayingInfo.Configuration.class,
                 context.getAssistanceConfiguration());

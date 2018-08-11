@@ -5,7 +5,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.FileAs
 import de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram.IFileAssociatedProgramInstance;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
-import de.qaware.smartlab.core.exception.LocalActuatorException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +66,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
     }
 
     @Override
-    public UUID openFile(Path fileToOpen) {
+    public UUID openFile(Path fileToOpen) throws ActuatorException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         Process powerPointProcess;
         try {
@@ -79,8 +79,8 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
         }
         catch(IOException e) {
             String errorMessage = format("I/O error while opening file %s with PowerPoint", fileToOpen);
-            log.error(errorMessage, e);
-            throw new LocalActuatorException(errorMessage, e);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
         UUID powerPointInstanceId = randomUUID();
         IWindowInfo powerPointWindow = this.windowHandler.findPowerPointWindow(fileToOpen);
@@ -94,7 +94,7 @@ public class PowerPointAdapter extends AbstractFileAssociatedProgramAdapter {
     }
 
     @Override
-    public Path close(UUID powerPointInstanceId) {
+    public Path close(UUID powerPointInstanceId) throws ActuatorException {
         IFileAssociatedProgramInstance programInstance = resolveProgramInstance(powerPointInstanceId);
         programInstance.getProcess().destroy();
         this.programInstancesByID.remove(powerPointInstanceId);

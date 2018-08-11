@@ -2,7 +2,7 @@ package de.qaware.smartlab.monolith.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.api.service.connector.delegate.AbstractDelegateServiceConnector;
-import de.qaware.smartlab.core.exception.UnknownDelegateException;
+import de.qaware.smartlab.core.exception.delegate.DelegateException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.monolith.configuration.MonolithModuleConfiguration;
 import feign.Client;
@@ -47,6 +47,6 @@ public class DelegateMonolithicServiceConnector extends AbstractDelegateServiceC
                     .decoder(this.feignDecoder)
                     .target(IDelegateApiClient.class, this.urlsByDelegateName.get(serviceName));
         }
-        throw new UnknownDelegateException(format("There was no URL configured for the delegate with the name \"%s\"", serviceName));
+        throw new DelegateException(format("There was no URL configured for the delegate with the name \"%s\"", serviceName));
     }
 }

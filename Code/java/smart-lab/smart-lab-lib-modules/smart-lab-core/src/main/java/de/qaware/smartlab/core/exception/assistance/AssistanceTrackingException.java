@@ -1,6 +1,8 @@
-package de.qaware.smartlab.core.exception;
+package de.qaware.smartlab.core.exception.assistance;
 
-public class AssistanceTrackingException extends SmartLabException {
+import de.qaware.smartlab.core.exception.SmartLabException;
+
+public class AssistanceTrackingException extends AssistanceException {
 
     public AssistanceTrackingException() {
     }

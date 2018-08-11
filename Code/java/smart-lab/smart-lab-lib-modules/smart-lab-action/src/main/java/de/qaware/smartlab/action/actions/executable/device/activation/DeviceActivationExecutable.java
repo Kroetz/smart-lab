@@ -8,6 +8,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.IActivatable;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class DeviceActivationExecutable extends AbstractActionExecutable<DeviceA
     }
 
     @Override
-    protected IActionResult execute(IActivatable activatableAdapter, DeviceActivationCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IActivatable activatableAdapter, DeviceActivationCallable.ActionArgs actionArgs) throws ActionException {
         activatableAdapter.activate();
         return VoidActionResult.newInstance();
     }

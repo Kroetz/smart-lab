@@ -8,7 +8,7 @@ import de.qaware.smartlab.core.data.event.IAgendaItem;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.InvalidSyntaxException;
+import de.qaware.smartlab.core.exception.parser.InvalidSyntaxException;
 import de.qaware.smartlab.core.parser.antlr.generated.EventConfigurationLanguageBaseVisitor;
 import de.qaware.smartlab.core.parser.antlr.generated.EventConfigurationLanguageLexer;
 import de.qaware.smartlab.core.parser.antlr.generated.EventConfigurationLanguageParser;

@@ -1,12 +1,11 @@
 package de.qaware.smartlab.workgroup.management.service.business;
 
 import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
-import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.NoCurrentEventException;
+import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.entity.NoCurrentEventException;
 import de.qaware.smartlab.core.service.business.AbstractBasicEntityManagementBusinessLogic;
 import de.qaware.smartlab.workgroup.management.service.repository.IWorkgroupManagementRepository;
 import lombok.extern.slf4j.Slf4j;

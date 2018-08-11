@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.filesystem;
 
-import de.qaware.smartlab.core.exception.TempFileManagerException;
+import de.qaware.smartlab.core.exception.filesystem.TempFileManagerException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;

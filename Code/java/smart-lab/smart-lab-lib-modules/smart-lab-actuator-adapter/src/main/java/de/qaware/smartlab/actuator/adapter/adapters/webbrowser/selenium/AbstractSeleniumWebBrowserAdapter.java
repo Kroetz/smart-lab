@@ -6,7 +6,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.webbrowser.IWebBrowserTab;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.exception.LocalActuatorException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchWindowException;
@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.function.Supplier;
 
+import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.Objects.isNull;
 import static java.util.UUID.randomUUID;
@@ -47,8 +48,11 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
 
     private SeleniumWebBrowserInstance resolveWebBrowserInstance(UUID webBrowserInstanceId) {
         SeleniumWebBrowserInstance webBrowserInstance = this.webBrowserInstancesById.get(webBrowserInstanceId);
-        // TODO: Exception message
-        if(isNull(webBrowserInstance)) throw new LocalActuatorException("The specified web browser instance does not exist");
+        if(isNull(webBrowserInstance)) {
+            String errorMessage = format("A web browser instance with the ID %s does not exist", webBrowserInstanceId);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage);
+        }
         return webBrowserInstance;
     }
 
@@ -58,12 +62,12 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public UUID newWebBrowserInstance(URL url) {
+    public UUID newWebBrowserInstance(URL url) throws ActuatorException {
         return newWebBrowserInstance(singletonList(url));
     }
 
     @Override
-    public UUID newWebBrowserInstance(List<URL> urls) {
+    public UUID newWebBrowserInstance(List<URL> urls) throws ActuatorException {
         UUID webBrowserInstanceId = randomUUID();
         WebDriver webDriver = this.webDriverSupplier.get();
         newTabs(webDriver, webBrowserInstanceId, urls);
@@ -77,7 +81,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public IWebBrowserTab newTab(UUID webBrowserInstanceId, URL url) {
+    public IWebBrowserTab newTab(UUID webBrowserInstanceId, URL url) throws ActuatorException {
         return newTab(resolveWebBrowserInstance(webBrowserInstanceId).getWebDriver(), webBrowserInstanceId, url);
     }
 
@@ -91,7 +95,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public List<IWebBrowserTab> newTabs(UUID webBrowserInstanceId, List<URL> urls) {
+    public List<IWebBrowserTab> newTabs(UUID webBrowserInstanceId, List<URL> urls) throws ActuatorException {
         return newTabs(resolveWebBrowserInstance(webBrowserInstanceId).getWebDriver(), webBrowserInstanceId, urls);
     }
 
@@ -103,7 +107,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void closeIfUnchanged(UUID webBrowserInstanceId, IWebBrowserTab tab) {
+    public void closeIfUnchanged(UUID webBrowserInstanceId, IWebBrowserTab tab) throws ActuatorException {
         try {
             log.info("Closing tab {}", tab);
             WebDriver webDriver = resolveWebBrowserInstance(webBrowserInstanceId).getWebDriver();
@@ -125,7 +129,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void closeUnchangedAutoOpenedTabs(UUID webBrowserInstanceId) {
+    public void closeUnchangedAutoOpenedTabs(UUID webBrowserInstanceId) throws ActuatorException {
         log.info("Closing all automatically opened web browser tabs that were not manually changed");
         Set<IWebBrowserTab> autoOpenedTabs = this.autoOpenedTabsByWebBrowserInstanceId.get(webBrowserInstanceId);
         if(isNull(autoOpenedTabs)) {
@@ -140,7 +144,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void closeTab(UUID webBrowserInstanceId, IWebBrowserTab tab) {
+    public void closeTab(UUID webBrowserInstanceId, IWebBrowserTab tab) throws ActuatorException {
         try {
             log.info("Closing tab {}", tab);
             WebDriver webDriver = resolveWebBrowserInstance(webBrowserInstanceId).getWebDriver();
@@ -153,7 +157,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void closeAllTabs(UUID webBrowserInstanceId) {
+    public void closeAllTabs(UUID webBrowserInstanceId) throws ActuatorException {
         log.info("Closing all web browser tabs");
         WebDriver webDriver = resolveWebBrowserInstance(webBrowserInstanceId).getWebDriver();
         webDriver.quit();
@@ -162,7 +166,7 @@ public abstract class AbstractSeleniumWebBrowserAdapter extends AbstractWebBrows
     }
 
     @Override
-    public void maximizeOnDisplay(UUID browserInstanceId, ActuatorId displayId) {
+    public void maximizeOnDisplay(UUID browserInstanceId, ActuatorId displayId) throws ActuatorException {
         SeleniumWebBrowserInstance webBrowserInstance = resolveWebBrowserInstance(browserInstanceId);
         webBrowserInstance.getWindow().maximizeOnDisplay(displayId);
     }

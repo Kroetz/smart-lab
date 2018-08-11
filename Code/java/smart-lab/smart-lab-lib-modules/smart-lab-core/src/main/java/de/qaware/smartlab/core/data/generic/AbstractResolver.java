@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.data.generic;
 
-import de.qaware.smartlab.core.exception.ResolverException;
+import de.qaware.smartlab.core.exception.resolver.ResolverException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

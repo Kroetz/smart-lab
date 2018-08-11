@@ -8,8 +8,7 @@ import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
-import de.qaware.smartlab.core.exception.InvalidActionResultException;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
 import lombok.*;
@@ -38,11 +37,11 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
 
     public Path call(IActionService actionService, ActionArgs actionArgs) {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        byte[] recordedAudio = actionResult.getByteArrayValue().orElseThrow(InvalidActionResultException::new);
+        byte[] recordedAudio = actionResult.getByteArrayValue();
         try {
             return this.tempFileManager.saveToTempFile(recordedAudioTempFileSubDir, recordedAudio);
         } catch (IOException e) {
-            throw new ActionExecutionFailedException(e);
+            throw new ActionException(e);
         }
     }
 

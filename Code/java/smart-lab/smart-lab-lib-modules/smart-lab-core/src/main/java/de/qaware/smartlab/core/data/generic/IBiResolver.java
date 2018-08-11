@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.data.generic;
 
-import de.qaware.smartlab.core.exception.ResolverException;
+import de.qaware.smartlab.core.exception.resolver.ResolverException;
 
 public interface IBiResolver<KeyT, ValueT> extends IResolver<KeyT, ValueT> {
 

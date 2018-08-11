@@ -15,7 +15,7 @@ public class TranscriptActionResult extends AbstractActionResult<ITranscript> {
     }
 
     @JsonCreator
-    public static TranscriptActionResult of(@JsonProperty(VALUE_FIELD_NAME) ITranscript value) {
+    public static TranscriptActionResult of(@JsonProperty(FIELD_NAME_VALUE) ITranscript value) {
         return new TranscriptActionResult(value);
     }
 }

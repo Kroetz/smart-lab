@@ -2,7 +2,7 @@ package de.qaware.smartlab.core.service.repository;
 
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IIdentifier;
-import de.qaware.smartlab.core.exception.EntityException;
+import de.qaware.smartlab.core.exception.entity.EntityException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 

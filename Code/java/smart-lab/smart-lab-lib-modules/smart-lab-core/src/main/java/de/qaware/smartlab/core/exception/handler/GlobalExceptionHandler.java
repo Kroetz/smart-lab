@@ -1,9 +1,9 @@
 package de.qaware.smartlab.core.exception.handler;
 
-import de.qaware.smartlab.core.exception.EntityConflictException;
-import de.qaware.smartlab.core.exception.EntityNotFoundException;
-import de.qaware.smartlab.core.exception.MaximalDurationReachedException;
-import de.qaware.smartlab.core.exception.MinimalDurationReachedException;
+import de.qaware.smartlab.core.exception.entity.EntityConflictException;
+import de.qaware.smartlab.core.exception.entity.EntityNotFoundException;
+import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException;
+import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

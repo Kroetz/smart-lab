@@ -7,7 +7,7 @@ import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataDownloadService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
-import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -37,7 +38,7 @@ public class DataDownloadExecutable extends AbstractActionExecutable<DataDownloa
     }
 
     @Override
-    protected IActionResult execute(IDataDownloadService dataDownloadService, DataDownloadCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IDataDownloadService dataDownloadService, DataDownloadCallable.ActionArgs actionArgs) throws ActionException {
         Path downloadedFile = dataDownloadService.download(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getFilePath());
@@ -46,8 +47,9 @@ public class DataDownloadExecutable extends AbstractActionExecutable<DataDownloa
             actionResult = ByteArrayActionResult.of(readAllBytes(downloadedFile));
             this.tempFileManager.markForCleaning(downloadedFile);
         } catch (IOException e) {
-            // TODO: Exception message
-            throw new ActionExecutionFailedException(e);
+            String errorMessage = format("Could not read data from downloaded file %s", downloadedFile);
+            log.error(errorMessage);
+            throw new ActionException(errorMessage, e);
         }
         return actionResult;
     }

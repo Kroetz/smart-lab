@@ -7,7 +7,7 @@ import de.qaware.smartlab.core.data.event.EventId;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.exception.TriggerProviderException;
+import de.qaware.smartlab.core.exception.trigger.TriggerProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 

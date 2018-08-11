@@ -5,7 +5,7 @@ import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;

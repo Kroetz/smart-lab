@@ -7,7 +7,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.LocationId;
-import de.qaware.smartlab.core.exception.ConfigurationException;
+import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Property;
 import de.qaware.smartlab.event.management.service.repository.IEventManagementRepository;
 import de.qaware.smartlab.event.management.service.repository.parser.IEventParser;

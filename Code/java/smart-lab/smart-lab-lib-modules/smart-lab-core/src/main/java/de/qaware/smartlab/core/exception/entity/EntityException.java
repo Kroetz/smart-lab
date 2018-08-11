@@ -1,4 +1,6 @@
-package de.qaware.smartlab.core.exception;
+package de.qaware.smartlab.core.exception.entity;
+
+import de.qaware.smartlab.core.exception.SmartLabException;
 
 public class EntityException extends SmartLabException {
 

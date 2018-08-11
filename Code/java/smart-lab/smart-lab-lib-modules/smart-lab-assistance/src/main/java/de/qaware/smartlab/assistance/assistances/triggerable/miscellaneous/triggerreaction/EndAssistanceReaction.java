@@ -3,7 +3,7 @@ package de.qaware.smartlab.assistance.assistances.triggerable.miscellaneous.trig
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

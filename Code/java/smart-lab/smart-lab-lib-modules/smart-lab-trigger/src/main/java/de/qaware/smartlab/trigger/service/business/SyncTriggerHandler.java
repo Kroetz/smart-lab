@@ -8,7 +8,7 @@ import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
 import de.qaware.smartlab.core.data.generic.IResolver;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

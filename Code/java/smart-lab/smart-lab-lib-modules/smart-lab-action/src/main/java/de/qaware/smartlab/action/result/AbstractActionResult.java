@@ -5,30 +5,37 @@ import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static de.qaware.smartlab.core.miscellaneous.Constants.VOID;
+import static java.lang.String.format;
 
 @Getter
 @ToString
 @EqualsAndHashCode
-public abstract class AbstractActionResult<T> implements IActionResult {
+@Slf4j
+public abstract class AbstractActionResult<ReturnT> implements IActionResult {
 
-    protected static final String VALUE_FIELD_NAME = "value";
-    private T value;
+    protected static final String FIELD_NAME_VALUE = "value";
+    private ReturnT value;
 
-    protected AbstractActionResult(T value) {
+    protected AbstractActionResult(ReturnT value) {
         this.value = value;
     }
 
-    private <U> Optional<U> getCastedValue(Class<? extends U> castTargetClass) {
+    private <CastT> CastT getCastedValue(Class<? extends CastT> castTargetClass) {
         try {
-            return Optional.ofNullable(castTargetClass.cast(this.value));
+            return castTargetClass.cast(this.value);
         }
         catch(ClassCastException e) {
-            return Optional.empty();
+            String errorMessage = format(
+                    "The value %s of the action result must be of the type %s",
+                    this.value.toString(),
+                    castTargetClass.getName());
+            log.error(errorMessage);
+            throw new IllegalStateException(errorMessage, e);
         }
     }
 
@@ -38,17 +45,17 @@ public abstract class AbstractActionResult<T> implements IActionResult {
     }
 
     @Override
-    public Optional<byte[]> getByteArrayValue() {
+    public byte[] getByteArrayValue() {
         return getCastedValue(byte[].class);
     }
 
     @Override
-    public Optional<ITranscript> getTranscriptValue() {
+    public ITranscript getTranscriptValue() {
         return getCastedValue(ITranscript.class);
     }
 
     @Override
-    public Optional<UUID> getUuidValue() {
+    public UUID getUuidValue() {
         return getCastedValue(UUID.class);
     }
 }

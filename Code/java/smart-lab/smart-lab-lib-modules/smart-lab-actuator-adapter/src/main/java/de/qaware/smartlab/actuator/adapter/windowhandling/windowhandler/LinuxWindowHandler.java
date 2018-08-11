@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler;
 
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.exception.WindowHandlingException;
+import de.qaware.smartlab.core.exception.windowhandling.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.LinuxWindowInfo;
 import lombok.extern.slf4j.Slf4j;

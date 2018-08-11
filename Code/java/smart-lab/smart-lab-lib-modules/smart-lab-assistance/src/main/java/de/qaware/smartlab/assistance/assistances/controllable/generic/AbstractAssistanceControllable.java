@@ -5,7 +5,8 @@ import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.assistance.AssistanceException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -51,27 +52,27 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
                     "The assistance configuration %s must be of the type %s",
                     genericConfig.toString(),
                     targetConfigClass.getName());
-            log.error(errorMessage, e);
+            log.error(errorMessage);
             throw new IllegalStateException(errorMessage, e);
         }
     }
 
     @Override
-    public void begin(IActionService actionService, IAssistanceContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"begin\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
-    public void end(IActionService actionService, IAssistanceContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"end\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
     }
 
     @Override
-    public void during(IActionService actionService, IAssistanceContext context) {
+    public void during(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"during\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
                 context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));

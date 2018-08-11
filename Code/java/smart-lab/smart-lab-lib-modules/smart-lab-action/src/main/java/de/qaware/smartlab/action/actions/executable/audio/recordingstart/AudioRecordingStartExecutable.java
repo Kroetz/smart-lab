@@ -8,7 +8,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapte
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
-import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import de.qaware.smartlab.core.filesystem.TempFileManagerConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +42,14 @@ public class AudioRecordingStartExecutable extends AbstractActionExecutable<Audi
     }
 
     @Override
-    protected IActionResult execute(IMicrophoneAdapter microphoneAdapter, AudioRecordingStartCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IMicrophoneAdapter microphoneAdapter, AudioRecordingStartCallable.ActionArgs actionArgs) throws ActionException {
         Path recordingTargetFile;
         try {
             recordingTargetFile = this.tempFileManager.createEmptyTempFile(this.recordedAudioTempFileSubDir);
         } catch (IOException e) {
-            // TODO: Exception message
-            throw new ActionExecutionFailedException(e);
+            String errorMessage = "Could not create temporary file for audio";
+            log.error(errorMessage);
+            throw new ActionException(errorMessage, e);
         }
         microphoneAdapter.startRecording(recordingTargetFile);
         return VoidActionResult.newInstance();

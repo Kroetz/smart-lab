@@ -4,10 +4,10 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService
 import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.data.event.EventId
 import de.qaware.smartlab.core.data.event.EventDto
-import de.qaware.smartlab.core.exception.EntityConflictException
-import de.qaware.smartlab.core.exception.EntityNotFoundException
-import de.qaware.smartlab.core.exception.MaximalDurationReachedException
-import de.qaware.smartlab.core.exception.MinimalDurationReachedException
+import de.qaware.smartlab.core.exception.entity.EntityConflictException
+import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
+import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException
+import de.qaware.smartlab.core.exception.entity.MinimalDurationReachedException
 
 import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory

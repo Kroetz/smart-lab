@@ -14,7 +14,7 @@ import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonDto;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto;
-import de.qaware.smartlab.core.exception.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataSetException;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 

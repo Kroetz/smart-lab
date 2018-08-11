@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.constant.assistance.AssistanceApiConstants
 import de.qaware.smartlab.assistance.service.business.IAssistanceBusinessLogic;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.location.ILocation;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;

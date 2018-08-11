@@ -5,7 +5,7 @@ import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.fact
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.generic.IResolver;
-import de.qaware.smartlab.core.exception.AssistanceTrackingException;
+import de.qaware.smartlab.core.exception.assistance.AssistanceTrackingException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

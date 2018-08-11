@@ -10,6 +10,8 @@ import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.fact
 import de.qaware.smartlab.assistance.assistances.info.devicepreparation.DevicePreparationInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.assistance.AssistanceException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +31,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
     }
 
     @Override
-    public void begin(IActionService actionService, IAssistanceContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         DevicePreparationInfo.Configuration config = toSpecificConfigType(
                 DevicePreparationInfo.Configuration.class,
                 context.getAssistanceConfiguration());
@@ -39,7 +41,7 @@ public class DevicePreparationControllable extends AbstractAssistanceControllabl
     }
 
     @Override
-    public void end(IActionService actionService, IAssistanceContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         DevicePreparationInfo.Configuration config = toSpecificConfigType(
                 DevicePreparationInfo.Configuration.class,
                 context.getAssistanceConfiguration());

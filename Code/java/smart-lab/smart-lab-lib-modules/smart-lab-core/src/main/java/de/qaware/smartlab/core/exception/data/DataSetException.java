@@ -1,4 +1,6 @@
-package de.qaware.smartlab.core.exception;
+package de.qaware.smartlab.core.exception.data;
+
+import de.qaware.smartlab.core.exception.SmartLabException;
 
 public class DataSetException extends SmartLabException {
 

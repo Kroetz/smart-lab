@@ -2,8 +2,8 @@ package de.qaware.smartlab.actuator.adapter.adapters.fileassociatedprogram;
 
 import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.exception.LocalActuatorException;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowhandler.IWindowHandler;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -30,13 +30,16 @@ public abstract class AbstractFileAssociatedProgramAdapter extends AbstractActua
 
     protected IFileAssociatedProgramInstance resolveProgramInstance(UUID programInstanceId) {
         IFileAssociatedProgramInstance pogramInstance = this.programInstancesByID.get(programInstanceId);
-        if(isNull(pogramInstance)) throw new LocalActuatorException(format(
-                "The specified program instance with the ID %s does not exist", programInstanceId));
+        if(isNull(pogramInstance)) {
+            String errorMessage = format("A program instance with the ID %s does not exist", programInstanceId);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage);
+        }
         return pogramInstance;
     }
 
     @Override
-    public void maximizeOnDisplay(UUID programInstanceId, ActuatorId displayId) {
+    public void maximizeOnDisplay(UUID programInstanceId, ActuatorId displayId) throws ActuatorException {
         IFileAssociatedProgramInstance programInstance = resolveProgramInstance(programInstanceId);
         programInstance.getWindow().maximizeOnDisplay(displayId);
     }

@@ -1,5 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
 
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,43 +15,43 @@ public class WindowsCompatibleInfraredRemoteControl extends AbstractInfraredRemo
     }
 
     @Override
-    public void on(String actuatorType) {
+    public void on(String actuatorType) throws ActuatorException {
         super.on(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void off(String actuatorType) {
+    public void off(String actuatorType) throws ActuatorException {
         super.off(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void ok(String actuatorType) {
+    public void ok(String actuatorType) throws ActuatorException {
         super.ok(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void up(String actuatorType) {
+    public void up(String actuatorType) throws ActuatorException {
         super.up(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void right(String actuatorType) {
+    public void right(String actuatorType) throws ActuatorException {
         super.right(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void down(String actuatorType) {
+    public void down(String actuatorType) throws ActuatorException {
         super.down(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void left(String actuatorType) {
+    public void left(String actuatorType) throws ActuatorException {
         super.left(actuatorType);
         executeCommand(actuatorType);
     }

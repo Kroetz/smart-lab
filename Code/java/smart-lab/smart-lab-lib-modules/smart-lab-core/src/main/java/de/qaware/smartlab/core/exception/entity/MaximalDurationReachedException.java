@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.exception;
+package de.qaware.smartlab.core.exception.entity;
 
 public class MaximalDurationReachedException extends EntityException {
 

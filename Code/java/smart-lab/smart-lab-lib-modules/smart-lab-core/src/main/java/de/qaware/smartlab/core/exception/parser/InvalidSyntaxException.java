@@ -1,4 +1,6 @@
-package de.qaware.smartlab.core.exception;
+package de.qaware.smartlab.core.exception.parser;
+
+import de.qaware.smartlab.core.exception.SmartLabException;
 
 public class InvalidSyntaxException extends SmartLabException {
 

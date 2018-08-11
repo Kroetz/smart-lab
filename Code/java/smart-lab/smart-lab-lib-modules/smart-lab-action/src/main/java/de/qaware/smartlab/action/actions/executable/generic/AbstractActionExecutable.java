@@ -6,6 +6,7 @@ import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.actuator.IActuatorAdapter;
 import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
@@ -37,27 +38,45 @@ public abstract class AbstractActionExecutable<ActionArgsT extends IActionArgs, 
     }
 
     @Override
-    public IActionResult executeLocally(String actuatorType, IActionArgs genericActionArgs) {
-        ActionArgsT actionArgs = toSpecificArgsType(genericActionArgs);
-        ActuatorAdapterT actuatorAdapter = this.actuatorAdapterResolver.resolve(actuatorType);
-        if(!actuatorAdapter.hasLocalApi()) throw new IllegalStateException();     // TODO: Better exception
-        return execute(actuatorAdapter, actionArgs);
+    public IActionResult executeLocally(String actuatorType, IActionArgs genericActionArgs) throws ActionException {
+        try {
+            ActionArgsT actionArgs = toSpecificArgsType(genericActionArgs);
+            ActuatorAdapterT actuatorAdapter = this.actuatorAdapterResolver.resolve(actuatorType);
+            if(!actuatorAdapter.hasLocalApi()) {
+                String errorMessage = format("Actuators of the type \"%s\" cannot be controlled locally", actuatorType);
+                log.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+            }
+            return execute(actuatorAdapter, actionArgs);
+        }
+        catch(Exception e) {
+            throw new ActionException(e);
+        }
     }
 
     @Override
-    public IActionResult executeRemotely(IActionArgs genericActionArgs, IDelegateService delegateService) {
-        ActionArgsT actionArgs = toSpecificArgsType(genericActionArgs);
-        String actuatorType = this.actuatorTypeGetter.apply(actionArgs);
-        ActuatorAdapterT actuatorAdapter = this.actuatorAdapterResolver.resolve(actuatorType);
-        if(actuatorAdapter.hasLocalApi()) return delegateService.executeAction(
-                responsibleDelegateGetter.apply(actionArgs).orElseThrow(IllegalStateException::new),  // TODO: Better exception
-                this.actionInfo.getActionId(),
-                actuatorType,
-                actionArgs);
-        return execute(actuatorAdapter, actionArgs);
+    public IActionResult executeRemotely(IActionArgs genericActionArgs, IDelegateService delegateService) throws ActionException {
+        try {
+            ActionArgsT actionArgs = toSpecificArgsType(genericActionArgs);
+            String actuatorType = this.actuatorTypeGetter.apply(actionArgs);
+            ActuatorAdapterT actuatorAdapter = this.actuatorAdapterResolver.resolve(actuatorType);
+            if(actuatorAdapter.hasLocalApi()) return delegateService.executeAction(
+                    responsibleDelegateGetter.apply(actionArgs).orElseThrow(() -> {
+                        String errorMessage = "There must be a responsible delegate for local execution";
+                        log.error(errorMessage);
+                        return new IllegalStateException(errorMessage);
+                    }),
+                    this.actionInfo.getActionId(),
+                    actuatorType,
+                    actionArgs);
+            return execute(actuatorAdapter, actionArgs);
+        }
+        catch(ActionException e) {
+            throw new ActionException(e);
+        }
     }
 
-    protected abstract IActionResult execute(ActuatorAdapterT actuatorAdapter, ActionArgsT actionArgs);
+    protected abstract IActionResult execute(ActuatorAdapterT actuatorAdapter, ActionArgsT actionArgs) throws ActionException;
 
     protected ActionArgsT toSpecificArgsType(IActionArgs genericArgs) throws IllegalStateException {
         try {
@@ -65,9 +84,9 @@ public abstract class AbstractActionExecutable<ActionArgsT extends IActionArgs, 
         }
         catch(ClassCastException e) {
             String errorMessage = format(
-                    "The action args %s must be of the type %s",
+                    "The action args %s must must have a valid type",
                     genericArgs.toString());
-            log.error(errorMessage, e);
+            log.error(errorMessage);
             throw new IllegalStateException(errorMessage, e);
         }
     }

@@ -47,7 +47,6 @@ public class LocationUnlockingInfo extends AbstractAssistanceInfo {
     public static class Configuration extends AbstractAssistanceInfo.AbstractConfiguration {
 
         private Configuration(LocationUnlockingInfo locationUnlockingInfo, Map<String, String> configProperties) {
-            // TODO: process config properties
             super(locationUnlockingInfo);
         }
 

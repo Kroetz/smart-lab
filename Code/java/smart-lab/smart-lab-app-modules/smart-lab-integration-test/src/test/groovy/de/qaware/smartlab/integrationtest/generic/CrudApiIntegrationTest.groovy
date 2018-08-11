@@ -4,8 +4,8 @@ import de.qaware.smartlab.api.service.connector.generic.IBasicEntityManagementSe
 import de.qaware.smartlab.core.data.generic.IDto
 import de.qaware.smartlab.core.data.generic.IEntity
 import de.qaware.smartlab.core.data.generic.IIdentifier
-import de.qaware.smartlab.core.exception.EntityConflictException
-import de.qaware.smartlab.core.exception.EntityNotFoundException
+import de.qaware.smartlab.core.exception.entity.EntityConflictException
+import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
 import spock.lang.Specification
 
 import static java.util.stream.Collectors.toList

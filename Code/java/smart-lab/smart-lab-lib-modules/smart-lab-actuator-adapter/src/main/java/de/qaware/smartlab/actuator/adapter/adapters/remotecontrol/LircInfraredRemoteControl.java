@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
 
-import de.qaware.smartlab.core.exception.LocalActuatorException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.String.format;
@@ -36,49 +36,49 @@ public class LircInfraredRemoteControl extends AbstractInfraredRemoteControl {
         }
         catch(Exception e) {
             String errorMessage = "Could not execute LIRC command";
-            log.error(errorMessage, e);
-            throw new LocalActuatorException(errorMessage, e);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
     }
 
     @Override
-    public void on(String actuatorType) {
+    public void on(String actuatorType) throws ActuatorException {
         super.on(actuatorType);
         executeLircCommand(KEY_ON, actuatorType);
     }
 
     @Override
-    public void off(String actuatorType) {
+    public void off(String actuatorType) throws ActuatorException {
         super.off(actuatorType);
         executeLircCommand(KEY_OFF, actuatorType);
     }
 
     @Override
-    public void ok(String actuatorType) {
+    public void ok(String actuatorType) throws ActuatorException {
         super.ok(actuatorType);
         executeLircCommand(KEY_OK, actuatorType);
     }
 
     @Override
-    public void up(String actuatorType) {
+    public void up(String actuatorType) throws ActuatorException {
         super.up(actuatorType);
         executeLircCommand(KEY_UP, actuatorType);
     }
 
     @Override
-    public void right(String actuatorType) {
+    public void right(String actuatorType) throws ActuatorException {
         super.right(actuatorType);
         executeLircCommand(KEY_RIGHT, actuatorType);
     }
 
     @Override
-    public void down(String actuatorType) {
+    public void down(String actuatorType) throws ActuatorException {
         super.down(actuatorType);
         executeLircCommand(KEY_DOWN, actuatorType);
     }
 
     @Override
-    public void left(String actuatorType) {
+    public void left(String actuatorType) throws ActuatorException {
         super.left(actuatorType);
         executeLircCommand(KEY_LEFT, actuatorType);
     }

@@ -3,7 +3,7 @@ package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.exception.ServiceFailedException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,11 +44,11 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
     }
 
     @Override
-    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ServiceFailedException {
+    public ITranscript speechToText(Path audioFile, Language spokenLanguage) throws ActuatorException {
         if(spokenLanguage != Language.EN_US) {
             String errorMessage = format("The language %s is not supported by Remeeting speech to text", spokenLanguage);
             log.error(errorMessage);
-            throw new ServiceFailedException(errorMessage);
+            throw new ActuatorException(errorMessage);
         }
         try {
             String authHeader = buildAuthHeader(this.remeetingApiKey);
@@ -63,11 +63,15 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
             if(queryResultResponse.getStatus().equals(STATUS_COMPLETED)) {
                 return queryResultResponse;
             }
-        } catch (Exception e) {
-            throw new ServiceFailedException(e);
         }
-        // TODO: exception message
-        throw new ServiceFailedException();
+        catch(Exception e) {
+            String errorMessage = format("Could not convert the audio file %s to text with Remeeting", audioFile);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
+        }
+        String errorMessage = format("Speech-to-text conversion of audio file %s with Remeeting timed out", audioFile);
+        log.error(errorMessage);
+        throw new ActuatorException(errorMessage);
     }
 
     private String buildAuthHeader(String apiKey) throws UnsupportedEncodingException {

@@ -8,7 +8,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdap
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.github.GithubInfo;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.service.generic.IProjectBaseAdapter;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
-import de.qaware.smartlab.core.exception.ServiceFailedException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +64,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
             String uploadMessage,
             String dir,
             String fileName,
-            byte[] dataToUpload) throws ServiceFailedException {
+            byte[] dataToUpload) throws ActuatorException {
         String path = dir + "/" + fileName;
         try {
             acceptPendingRepoInvitations();
@@ -76,9 +76,12 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
                 githubInfo = (GithubInfo) projectBaseInfo;
             }
             catch(ClassCastException e) {
-                String errorMessage = String.format("The project base info must be of the type %s", GithubInfo.class.getName());
+                String errorMessage = String.format(
+                        "The project base info %s must be of the type %s",
+                        projectBaseInfo.toString(),
+                        GithubInfo.class.getName());
                 log.error(errorMessage);
-                throw new ServiceFailedException(errorMessage);
+                throw new ActuatorException(errorMessage, e);
             }
             Repo repository = this.github.repos().get(new Coordinates.Simple(
                     githubInfo.getUser(),
@@ -93,15 +96,15 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         }
         catch(Exception e) {
             String errorMessage = format("Could not upload data to file %s", path);
-            log.error(errorMessage, e);
-            throw new ServiceFailedException(errorMessage, e);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
     }
 
     @Override
     public Path download(
             IProjectBaseInfo projectBaseInfo,
-            String filePath) throws ServiceFailedException {
+            String filePath) throws ActuatorException {
         try {
             acceptPendingRepoInvitations();
             GithubInfo githubInfo = (GithubInfo) projectBaseInfo;
@@ -114,8 +117,8 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         // Assertion errors are thrown by jcabi when the file to download does not exist
         catch(Exception | AssertionError e) {
             String errorMessage = format("Could not download file %s", filePath);
-            log.error(errorMessage, e);
-            throw new ServiceFailedException(errorMessage, e);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
     }
 

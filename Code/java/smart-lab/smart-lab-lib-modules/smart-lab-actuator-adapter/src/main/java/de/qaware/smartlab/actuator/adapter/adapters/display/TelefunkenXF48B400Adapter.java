@@ -1,6 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.display;
 
 import de.qaware.smartlab.actuator.adapter.adapters.remotecontrol.IInfraredRemoteControl;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +20,12 @@ public class TelefunkenXF48B400Adapter extends AbstractDisplayAdapter {
     }
 
     @Override
-    public void activate() {
+    public void activate() throws ActuatorException {
         this.infraredRemoteControl.on(ACTUATOR_TYPE);
     }
 
     @Override
-    public void deactivate() {
+    public void deactivate() throws ActuatorException {
         this.infraredRemoteControl.off(ACTUATOR_TYPE);
     }
 }

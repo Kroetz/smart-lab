@@ -6,9 +6,9 @@ import de.qaware.smartlab.core.data.event.IEvent
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId
 import de.qaware.smartlab.core.data.workgroup.WorkgroupDto
-import de.qaware.smartlab.core.exception.EntityConflictException
-import de.qaware.smartlab.core.exception.EntityNotFoundException
-import de.qaware.smartlab.core.exception.MaximalDurationReachedException
+import de.qaware.smartlab.core.exception.entity.EntityConflictException
+import de.qaware.smartlab.core.exception.entity.EntityNotFoundException
+import de.qaware.smartlab.core.exception.entity.MaximalDurationReachedException
 
 import de.qaware.smartlab.data.set.factory.AstronautsSampleDataSetFactory
 import de.qaware.smartlab.data.set.factory.CoastGuardSampleDataSetFactory

@@ -3,8 +3,8 @@ package de.qaware.smartlab.api.service.connector.delegate;
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.exception.ConnectionFailedException;
 import de.qaware.smartlab.core.exception.SmartLabException;
+import de.qaware.smartlab.core.exception.delegate.DelegateException;
 import feign.Client;
 import feign.FeignException;
 import feign.RetryableException;
@@ -48,7 +48,7 @@ public abstract class AbstractDelegateServiceConnector implements IDelegateServi
         catch(RetryableException e) {
             String errorMessage = format("Failed to connect to delegate \"%s\" to execute action \"%s\"", serviceName, actionId);
             log.error(errorMessage, e);
-            throw new ConnectionFailedException(errorMessage);
+            throw new DelegateException(errorMessage);
         }
         catch(FeignException e) {
             throw e;

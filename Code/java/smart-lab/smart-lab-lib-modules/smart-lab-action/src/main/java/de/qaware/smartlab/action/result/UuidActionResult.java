@@ -16,7 +16,7 @@ public class UuidActionResult extends AbstractActionResult<UUID> {
     }
 
     @JsonCreator
-    public static UuidActionResult of(@JsonProperty(VALUE_FIELD_NAME) UUID value) {
+    public static UuidActionResult of(@JsonProperty(FIELD_NAME_VALUE) UUID value) {
         return new UuidActionResult(value);
     }
 }

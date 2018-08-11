@@ -16,7 +16,7 @@ public class ByteArrayActionResult extends AbstractActionResult<byte[]> {
     }
 
     @JsonCreator
-    public static ByteArrayActionResult of(@JsonProperty(VALUE_FIELD_NAME) byte[] value) {
+    public static ByteArrayActionResult of(@JsonProperty(FIELD_NAME_VALUE) byte[] value) {
         return new ByteArrayActionResult(value);
     }
 }

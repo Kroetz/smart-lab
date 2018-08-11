@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.generic;
 
 import com.google.common.collect.BiMap;
-import de.qaware.smartlab.core.exception.ResolverException;
+import de.qaware.smartlab.core.exception.resolver.ResolverException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

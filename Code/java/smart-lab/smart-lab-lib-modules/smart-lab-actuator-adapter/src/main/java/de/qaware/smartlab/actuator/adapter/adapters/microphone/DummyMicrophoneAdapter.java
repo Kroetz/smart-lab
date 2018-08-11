@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
 import de.qaware.smartlab.core.configuration.ResourcesConfiguration;
-import de.qaware.smartlab.core.exception.LocalActuatorException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,12 +37,12 @@ public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
     }
 
     @Override
-    public void startRecording(Path recordingTargetFile) {
+    public void startRecording(Path recordingTargetFile) throws ActuatorException {
         log.info("Dummy microphone started recording");
     }
 
     @Override
-    public Path stopRecording() {
+    public Path stopRecording() throws ActuatorException {
         log.info("Dummy microphone stopped recording");
         try {
             Resource dummySpeechResource = resourceLoader.getResource(DUMMY_SPEECH);
@@ -52,7 +52,9 @@ public class DummyMicrophoneAdapter extends AbstractMicrophoneAdapter {
             dummySpeechFile.toFile().deleteOnExit();
             return dummySpeechFile;
         } catch (IOException e) {
-            throw new LocalActuatorException(e);
+            String errorMessage = "Could not read dummy audio from resources";
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
         }
     }
 }

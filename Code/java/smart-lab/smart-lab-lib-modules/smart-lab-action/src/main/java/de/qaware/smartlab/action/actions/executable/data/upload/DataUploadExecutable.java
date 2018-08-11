@@ -7,6 +7,7 @@ import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataUploadService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class DataUploadExecutable extends AbstractActionExecutable<DataUploadCal
     }
 
     @Override
-    protected IActionResult execute(IDataUploadService dataUploadService, DataUploadCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IDataUploadService dataUploadService, DataUploadCallable.ActionArgs actionArgs) throws ActionException {
         dataUploadService.upload(
                 actionArgs.getProjectBaseInfo(),
                 actionArgs.getUploadMessage(),

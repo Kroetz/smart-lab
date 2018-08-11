@@ -11,7 +11,8 @@ import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.fact
 import de.qaware.smartlab.assistance.assistances.info.agendashowing.AgendaShowingInfo;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.exception.InsufficientContextException;
+import de.qaware.smartlab.core.exception.assistance.AssistanceException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import de.qaware.smartlab.core.service.url.IServiceBaseUrlGetter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,11 +45,10 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void begin(IActionService actionService, IAssistanceContext context) {
+    public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         AgendaShowingInfo.Configuration config = toSpecificConfigType(
                 AgendaShowingInfo.Configuration.class,
                 context.getAssistanceConfiguration());
-        // TODO: Exception message
         URL guiServiceBaseUrl = this.guiServiceBaseUrlGetter.getBaseUrl();
         URL eventAgendaUrl;
         try {
@@ -58,8 +58,9 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                     guiServiceBaseUrl.getPort(),
                     format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_EVENT_AGENDA_PAGE, context.getLocation().map(location -> location.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
         } catch (MalformedURLException e) {
-            // TODO: Logging and appropriate exception
-            throw new RuntimeException(e);
+            String errorMessage = format("Could not build URL of agenda website for event %s", context.getEvent().orElseThrow(InsufficientContextException::new));
+            log.error(errorMessage);
+            throw new AssistanceException(errorMessage, e);
         }
         final WebBrowserOpeningCallable.ActionArgs webBrowserOpeningArgs = WebBrowserOpeningCallable.ActionArgs.of(
                 config.getWebBrowserId(),
@@ -69,7 +70,7 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
     }
 
     @Override
-    public void end(IActionService actionService, IAssistanceContext context) {
+    public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         AgendaShowingInfo.Configuration config = toSpecificConfigType(
                 AgendaShowingInfo.Configuration.class,
                 context.getAssistanceConfiguration());

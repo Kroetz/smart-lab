@@ -6,7 +6,7 @@ import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
-import de.qaware.smartlab.core.exception.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataSetException;
 
 import java.util.Map;
 import java.util.Set;

@@ -1,12 +1,14 @@
 package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
-import de.qaware.smartlab.core.exception.LocalActuatorException;
+import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import java.nio.file.Path;
+
+import static java.lang.String.format;
 
 @Component
 @Slf4j
@@ -30,17 +32,30 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
 
     public ThinkpadP50InternalMicrophoneAdapter() {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
-        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT).orElseThrow(LocalActuatorException::new);
+        this.genericMicrophone = GenericMicrophone.getMicrophone(MICROPHONE_NAME, AUDIO_FORMAT).orElseThrow(ActuatorException::new);
     }
 
     @Override
-    public void startRecording(Path recordingTargetFile) {
-        // TODO: Get format from application properties
-        this.genericMicrophone.startRecording(recordingTargetFile, AUDIO_FILE_FORMAT);
+    public void startRecording(Path recordingTargetFile) throws ActuatorException {
+        try {
+            this.genericMicrophone.startRecording(recordingTargetFile, AUDIO_FILE_FORMAT);
+        }
+        catch(Exception e) {
+            String errorMessage = format("Could not start recording audio to file %s", recordingTargetFile);
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
+        }
     }
 
     @Override
-    public Path stopRecording() {
-        return this.genericMicrophone.stopRecording().orElseThrow(LocalActuatorException::new);
+    public Path stopRecording() throws ActuatorException {
+        try {
+            return this.genericMicrophone.stopRecording().orElseThrow(ActuatorException::new);
+        }
+        catch(Exception e) {
+            String errorMessage = "Could not stop recording audio";
+            log.error(errorMessage);
+            throw new ActuatorException(errorMessage, e);
+        }
     }
 }

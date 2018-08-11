@@ -6,6 +6,8 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanc
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
+import de.qaware.smartlab.core.exception.assistance.AssistanceException;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +19,13 @@ public class LocationUnlockingControllable extends AbstractAssistanceControllabl
     }
 
     @Override
-    public void begin(IActionService actionService, IAssistanceContext context) {
-        // TODO: Implementation
+    public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
+        // TODO: Implement the unlocking of a location (e.g. a room with electronic access control) for the specific persons from the assistance context
     }
 
     @Override
-    public void end(IActionService actionService, IAssistanceContext context) {
-        // TODO: Implementation
+    public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
+        // TODO: Implement the locking of a location (e.g. a room with electronic access control) for the specific persons from the assistance context
     }
 
     @Component

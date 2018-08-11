@@ -25,7 +25,7 @@ import de.qaware.smartlab.core.data.person.PersonRole;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
 import de.qaware.smartlab.core.data.workgroup.Workgroup;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
-import de.qaware.smartlab.core.exception.DataSetException;
+import de.qaware.smartlab.core.exception.data.DataSetException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

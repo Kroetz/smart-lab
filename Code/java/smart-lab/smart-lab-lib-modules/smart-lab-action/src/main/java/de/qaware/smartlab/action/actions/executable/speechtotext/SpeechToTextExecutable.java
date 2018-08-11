@@ -9,6 +9,7 @@ import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
 import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class SpeechToTextExecutable extends AbstractActionExecutable<SpeechToTex
     }
 
     @Override
-    protected IActionResult execute(ISpeechToTextAdapter speechToTextAdapter, SpeechToTextCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(ISpeechToTextAdapter speechToTextAdapter, SpeechToTextCallable.ActionArgs actionArgs) throws ActionException {
         ITranscript transcript = speechToTextAdapter.speechToText(
                 actionArgs.getAudioFile(),
                 actionArgs.getSpokenLanguage());

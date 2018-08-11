@@ -8,7 +8,7 @@ import de.qaware.smartlab.actuator.adapter.adapters.microphone.IMicrophoneAdapte
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;
-import de.qaware.smartlab.core.exception.ActionExecutionFailedException;
+import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 @Component
@@ -39,15 +40,16 @@ public class AudioRecordingStopExecutable extends AbstractActionExecutable<Audio
     }
 
     @Override
-    protected IActionResult execute(IMicrophoneAdapter microphoneAdapter, AudioRecordingStopCallable.ActionArgs actionArgs) {
+    protected IActionResult execute(IMicrophoneAdapter microphoneAdapter, AudioRecordingStopCallable.ActionArgs actionArgs) throws ActionException {
         Path recordedAudio = microphoneAdapter.stopRecording();
         IActionResult actionResult;
         try {
             actionResult = ByteArrayActionResult.of(readAllBytes(recordedAudio));
             this.tempFileManager.markForCleaning(recordedAudio);
         } catch (IOException e) {
-            // TODO: Exception message
-            throw new ActionExecutionFailedException(e);
+            String errorMessage = format("Could not read data from audio file %s", recordedAudio);
+            log.error(errorMessage);
+            throw new ActionException(errorMessage, e);
         }
         return actionResult;
     }

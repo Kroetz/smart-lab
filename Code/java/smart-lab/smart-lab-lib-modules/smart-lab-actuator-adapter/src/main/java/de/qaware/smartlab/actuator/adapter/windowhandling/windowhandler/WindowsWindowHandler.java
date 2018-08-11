@@ -4,7 +4,7 @@ import com.sun.jna.platform.win32.WinDef;
 import de.qaware.smartlab.actuator.adapter.windowhandling.nativeapi.WindowsWindowHandlingApi;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.WindowsWindowInfo;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
-import de.qaware.smartlab.core.exception.WindowHandlingException;
+import de.qaware.smartlab.core.exception.windowhandling.WindowHandlingException;
 import de.qaware.smartlab.actuator.adapter.windowhandling.windowinfo.IWindowInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
