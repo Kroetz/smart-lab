@@ -53,7 +53,6 @@ public abstract class AbstractAssistanceInfo implements IAssistanceInfo {
         return this.assistanceCommandAliases;
     }
 
-    // TODO: Possible to force inner class for configuration?
     @ToString
     @EqualsAndHashCode
     @Slf4j
