@@ -38,18 +38,16 @@ public class TriggerController {
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
         log.info("Received call to set up the current event at the location \"{}\"", locationId);
-        ResponseEntity<IJobInfo> response;
-        response = ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentEventByLocationId(
+        return ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentEventByLocationId(
                 LocationId.of(locationId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
-        log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        return response;
     }
 
     @PostMapping(TriggerApiConstants.MAPPING_SET_UP_CURRENT_EVENT_BY_WORKGROUP_ID)
     public ResponseEntity<IJobInfo> setUpCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to set up the current event of the workgroup \"{}\"", workgroupId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.setUpCurrentEventByWorkgroupId(
                 WorkgroupId.of(workgroupId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -59,6 +57,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> cleanUpCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to clean up the current event at the location \"{}\"", locationId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentEventByLocationId(
                 LocationId.of(locationId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -68,6 +67,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> cleanUpCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to clean up the current event of the workgroup \"{}\"", workgroupId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.cleanUpCurrentEventByWorkgroupId(
                 WorkgroupId.of(workgroupId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -77,6 +77,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> startCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to start the current event at the location \"{}\"", locationId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentEventByLocationId(
                 LocationId.of(locationId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -86,6 +87,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> startCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to start the current event of the workgroup \"{}\"", workgroupId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.startCurrentEventByWorkgroupId(
                 WorkgroupId.of(workgroupId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -95,6 +97,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> stopCurrentEventByLocationId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_LOCATION_ID) String locationId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to stop the current event at the location \"{}\"", locationId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentEventByLocationId(
                 LocationId.of(locationId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
@@ -104,6 +107,7 @@ public class TriggerController {
     public ResponseEntity<IJobInfo> stopCurrentEventByWorkgroupId(
             @PathVariable(TriggerApiConstants.PARAMETER_NAME_WORKGROUP_ID) String workgroupId,
             @RequestParam(value = TriggerApiConstants.PARAMETER_NAME_CALLBACK_URL, required = false) String callbackUrl) {
+        log.info("Received call to stop the current event of the workgroup \"{}\"", workgroupId);
         return ResponseEntity.accepted().body(this.triggerBusinessLogic.stopCurrentEventByWorkgroupId(
                 WorkgroupId.of(workgroupId),
                 nonNull(callbackUrl) ? callbackUrlFromString(callbackUrl) : null));
