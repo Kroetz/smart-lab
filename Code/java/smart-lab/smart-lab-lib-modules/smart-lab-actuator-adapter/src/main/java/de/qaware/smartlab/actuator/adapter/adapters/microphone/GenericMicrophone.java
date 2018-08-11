@@ -22,7 +22,6 @@ import static java.util.stream.Collectors.toSet;
 @Slf4j
 public class GenericMicrophone implements AutoCloseable {
 
-    // TODO: Encoding als Param hinzufügen: z.B AudioFormat.Encoding PCM_FLOAT
     public static final AudioFormat DEFAULT_AUDIO_FORMAT = new AudioFormat(16000.0f, 8, 2, true, true);
     private static final Map<String, GenericMicrophone> microphoneCache = new HashMap<>();
 

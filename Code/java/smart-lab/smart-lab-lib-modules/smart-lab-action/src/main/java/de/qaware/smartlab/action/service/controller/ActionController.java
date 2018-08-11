@@ -34,7 +34,6 @@ public class ActionController {
         IActionResult actionResult = this.actionBusinessLogic.executeAction(actionId, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        // TODO: Proper response
         return response;
     }
 

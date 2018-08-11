@@ -31,7 +31,6 @@ public class DelegateController {
         IActionResult actionResult = this.delegateBusinessLogic.executeAction(actionId, actuatorType, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        // TODO: Proper response
         return response;
     }
 }

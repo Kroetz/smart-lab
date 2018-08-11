@@ -62,7 +62,6 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
                 (context, assistance) -> assistance.reactOnTriggerSetUpEvent(this.assistanceService, context),
                 callbackUrl);
         log.info("Processed trigger to set up event {}", event);
-        // TODO: Return type necessary?
         return jobInfo;
     }
 
@@ -94,7 +93,6 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
                 (context, assistance) -> assistance.reactOnTriggerCleanUpEvent(this.assistanceService, context),
                 callbackUrl);
         log.info("Processed trigger to clean up event {}", event);
-        // TODO: Return type necessary?
         return jobInfo;
     }
 
@@ -107,8 +105,6 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
     public IJobInfo cleanUpCurrentEvent(ILocation location, @Nullable URL callbackUrl) {
         return cleanUpCurrentEventByLocationId(location.getId(), callbackUrl);
     }
-
-    // TODO: Introduce "Clean up LAST event" since there is no "current event" after a event has ended
 
     @Override
     public IJobInfo cleanUpCurrentEventByWorkgroupId(WorkgroupId workgroupId, @Nullable URL callbackUrl) {
@@ -128,7 +124,6 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
                 (context, assistance) -> assistance.reactOnTriggerStartEvent(this.assistanceService, context),
                 callbackUrl);
         log.info("Processed trigger to start event {}", event);
-        // TODO: Return type necessary?
         return jobInfo;
     }
 
@@ -160,7 +155,6 @@ public class TriggerBusinessLogic implements ITriggerBusinessLogic {
                 (context, assistance) -> assistance.reactOnTriggerStopEvent(this.assistanceService, context),
                 callbackUrl);
         log.info("Processed trigger to stop event {}", event);
-        // TODO: Return type necessary?
         return jobInfo;
     }
 

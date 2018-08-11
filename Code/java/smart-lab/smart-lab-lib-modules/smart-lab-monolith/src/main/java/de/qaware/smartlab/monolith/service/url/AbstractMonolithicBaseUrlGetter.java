@@ -17,7 +17,6 @@ public abstract class AbstractMonolithicBaseUrlGetter implements IServiceBaseUrl
 
     @Override
     public URL getBaseUrl() {
-        // TODO: Check response code
         return this.baseUrlController.getBaseUrl().getBody();
     }
 }

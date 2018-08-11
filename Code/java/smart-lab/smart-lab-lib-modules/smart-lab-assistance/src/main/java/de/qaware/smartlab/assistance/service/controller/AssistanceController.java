@@ -35,7 +35,6 @@ public class AssistanceController {
         this.assistanceBusinessLogic.beginAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        // TODO
         return response;
     }
 
@@ -49,7 +48,6 @@ public class AssistanceController {
         this.assistanceBusinessLogic.endAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        // TODO
         return response;
     }
 
@@ -63,7 +61,6 @@ public class AssistanceController {
         this.assistanceBusinessLogic.duringAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
-        // TODO
         return response;
     }
 

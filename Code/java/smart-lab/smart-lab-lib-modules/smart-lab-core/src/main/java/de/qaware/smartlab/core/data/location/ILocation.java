@@ -8,5 +8,5 @@ import java.util.Collection;
 public interface ILocation extends IEntity<LocationId> {
 
     String getName();
-    Collection<ActuatorId> getActuatorIds();        // TODO: Set?
+    Collection<ActuatorId> getActuatorIds();
 }

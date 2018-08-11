@@ -16,7 +16,7 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
 
     public static final String ACTUATOR_TYPE = "thinkpad p50 internal microphone";
     private static final boolean HAS_LOCAL_API = true;
-    // TODO: Do not use microphone name for identification but rather something like manufacturer (not affected by localization)
+    // TODO: Do not use microphone name for identification but rather something like the manufacturer that is not affected by localization
     private static final String MICROPHONE_NAME = "Mikrofonarray (Realtek High Def";
     private static final AudioFormat AUDIO_FORMAT = new AudioFormat(
             AudioFormat.Encoding.PCM_SIGNED,

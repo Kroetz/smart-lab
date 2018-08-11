@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Actuator implements IActuator {
 
-    // TODO: Fachliche Datentypen statt String-IDs
     private final ActuatorId id;
     private final String type;
     private final String name;
