@@ -1,7 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.webbrowser.selenium;
 
 import de.qaware.smartlab.core.constant.Constants;
-import de.qaware.smartlab.core.constant.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -21,8 +20,8 @@ import static java.nio.file.Paths.get;
 
 @Configuration
 @ConditionalOnProperty(
-        prefix = Property.Prefix.SELENIUM,
-        name = Property.Name.SELENIUM,
+        prefix = SeleniumConfiguration.Properties.PREFIX,
+        name = SeleniumConfiguration.Properties.ENABLED,
         havingValue = Constants.TRUE)
 @EnableConfigurationProperties(SeleniumConfiguration.Properties.class)
 public class SeleniumConfiguration {
@@ -57,7 +56,8 @@ public class SeleniumConfiguration {
     @Validated
     public static class Properties {
 
-        private static final String PREFIX = "smart-lab.actuator.selenium";
+        public static final String PREFIX = "smart-lab.actuator.selenium";
+        public static final String ENABLED = "enabled";
         private static final String FIELD_NAME_GECKO_DRIVER_FILE = "geckoDriverFile";
         private static final String FIELD_NAME_CHROME_DRIVER_FILE = "chromeDriverFile";
         private static final Path DEFAULT_GECKO_DRIVER_FILE = get(System.getProperty("user.home"), "smart-lab", "geckodriver.exe");
