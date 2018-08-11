@@ -1,11 +1,9 @@
 package de.qaware.smartlab.assistance.assistances.triggerable.generic;
 
 import de.qaware.smartlab.api.service.connector.assistance.IAssistanceService;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
+import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -45,27 +43,27 @@ public abstract class AbstractAssistanceTriggerable implements IAssistanceTrigge
     public void reactOnTriggerSetUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Ignoring set-up-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override
     public void reactOnTriggerCleanUpEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Ignoring clean-up-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override
     public void reactOnTriggerStartEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Ignoring start-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override
     public void reactOnTriggerStopEvent(final IAssistanceService assistanceService, final IAssistanceContext context) {
         log.info("Ignoring stop-event trigger of assistance \"{}\" for event \"{}\"",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 }

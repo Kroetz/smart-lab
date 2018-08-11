@@ -107,7 +107,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
         final DataUploadCallable.ActionArgs dataUploadArgs;
         try {
             dataUploadArgs = DataUploadCallable.ActionArgs.of(
-                    context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
+                    context.getWorkgroup().getProjectBaseInfo(),
                     config.getUploadDir(),
                     fileName,
                     AUDIO_UPLOAD_MESSAGE,
@@ -127,7 +127,7 @@ public class MinuteTakingControllable extends AbstractAssistanceControllable {
             ITranscript transcript) {
         String fileName = LocalDateTime.now().format(formatter) + TRANSCRIPT_UPLOAD_FILE_NAME_SUFFIX;
         final DataUploadCallable.ActionArgs dataUploadArgs = DataUploadCallable.ActionArgs.of(
-                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
+                context.getWorkgroup().getProjectBaseInfo(),
                 config.getUploadDir(),
                 fileName,
                 TRANSCRIPT_UPLOAD_MESSAGE,

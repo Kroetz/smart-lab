@@ -12,11 +12,15 @@ import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.person.PersonId;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.workgroup.IWorkgroup;
+import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import static java.util.Objects.isNull;
 
 @Data
 public class AssistanceContext implements IAssistanceContext {
@@ -30,23 +34,27 @@ public class AssistanceContext implements IAssistanceContext {
     private AssistanceContext() { }
 
     @Override
-    public Optional<IEvent> getEvent() {
-        return Optional.ofNullable(this.event);
+    public IEvent getEvent() throws InsufficientContextException {
+        if(isNull(this.event)) throw new InsufficientContextException("The assistance context must contain an event");
+        return this.event;
     }
 
     @Override
-    public Optional<IWorkgroup> getWorkgroup() {
-        return Optional.ofNullable(this.workgroup);
+    public IWorkgroup getWorkgroup() throws InsufficientContextException {
+        if(isNull(this.workgroup)) throw new InsufficientContextException("The assistance context must contain a workgroup");
+        return this.workgroup;
     }
 
     @Override
-    public Optional<Set<IPerson>> getPersons() {
-        return Optional.ofNullable(this.persons);
+    public Set<IPerson> getPersons() throws InsufficientContextException {
+        if(isNull(this.persons)) throw new InsufficientContextException("The assistance context must contain persons");
+        return this.persons;
     }
 
     @Override
-    public Optional<ILocation> getLocation() {
-        return Optional.ofNullable(this.location);
+    public ILocation getLocation() throws InsufficientContextException {
+        if(isNull(this.location)) throw new InsufficientContextException("The assistance context must contain a location");
+        return this.location;
     }
 
     @Component

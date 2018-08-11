@@ -4,7 +4,6 @@ import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
-import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.exception.assistance.AssistanceException;
 import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.extern.slf4j.Slf4j;
@@ -61,21 +60,21 @@ public abstract class AbstractAssistanceControllable implements IAssistanceContr
     public void begin(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"begin\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override
     public void end(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"end\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override
     public void during(IActionService actionService, IAssistanceContext context) throws AssistanceException, InsufficientContextException {
         log.info("Ignoring stage \"during\" of assistance \"{}\" for event \"{}\" because it has no functionality",
                 this.assistanceInfo.getAssistanceId(),
-                context.getEvent().map(IEvent::getId).orElseThrow(InsufficientContextException::new));
+                context.getEvent().getId());
     }
 
     @Override

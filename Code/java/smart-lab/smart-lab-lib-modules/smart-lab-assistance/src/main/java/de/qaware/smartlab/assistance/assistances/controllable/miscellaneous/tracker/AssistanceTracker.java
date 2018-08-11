@@ -111,13 +111,12 @@ public class AssistanceTracker implements IAssistanceTracker {
         private int calculateIdValue(IAssistanceContext context) {
             return hash(
                     context.getAssistanceConfiguration(),
-                    context.getEvent().map(IEntity::getId).orElse(null),
-                    context.getWorkgroup().map(IEntity::getId).orElse(null),
-                    context.getPersons().map(persons -> persons.stream()
+                    context.getEvent().getId(),
+                    context.getWorkgroup().getId(),
+                    context.getPersons().stream()
                             .map(IEntity::getId)
-                            .collect(toSet())).orElse(null),
-                    context.getLocation().map(IEntity::getId).orElse(null)
-            );
+                            .collect(toSet()),
+                    context.getLocation().getId());
         }
 
         public static AssistanceTrackingId of(IAssistanceContext context) {

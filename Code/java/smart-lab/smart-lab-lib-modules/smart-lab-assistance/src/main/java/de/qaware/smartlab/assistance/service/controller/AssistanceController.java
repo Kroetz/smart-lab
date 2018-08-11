@@ -31,7 +31,7 @@ public class AssistanceController {
     public ResponseEntity<Void> beginAssistance(@RequestBody IAssistanceContext context) {
         log.info("Received call to execute stage \"begin\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         this.assistanceBusinessLogic.beginAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
@@ -45,7 +45,7 @@ public class AssistanceController {
     public ResponseEntity<Void> endAssistance(@RequestBody IAssistanceContext context) {
         log.info("Received call to execute stage \"end\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         this.assistanceBusinessLogic.endAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());
@@ -59,7 +59,7 @@ public class AssistanceController {
     public ResponseEntity<Void> duringAssistance(@RequestBody IAssistanceContext context) {
         log.info("Received call to execute stage \"during\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         this.assistanceBusinessLogic.duringAssistance(context);
         ResponseEntity<Void> response = ResponseEntity.ok().build();
         log.info("Returning response with HTTP status code {}", response.getStatusCodeValue());

@@ -92,10 +92,10 @@ public class SyncTriggerHandler implements ITriggerHandler {
         IAssistanceContext context = this.contextFactory.of(config, event);
         log.info("Calling assistance service for the trigger reaction of assistance \"{}\" at location \"{}\"",
                 assistance.getAssistanceId(),
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         triggerReaction.accept(context, assistance);
         log.info("Called assistance service for the trigger reaction of assistance \"{}\" at location \"{}\"",
                 assistance.getAssistanceId(),
-                context.getLocation().map(ILocation::getId).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
     }
 }

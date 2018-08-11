@@ -60,7 +60,7 @@ public class FileDisplayingControllable extends AbstractAssistanceControllable {
             IAssistanceContext context,
             FileDisplayingInfo.Configuration config) {
         final DataDownloadCallable.ActionArgs dataDownloadArgs = DataDownloadCallable.ActionArgs.of(
-                context.getWorkgroup().orElseThrow(InsufficientContextException::new).getProjectBaseInfo(),
+                context.getWorkgroup().getProjectBaseInfo(),
                 config.getFilePath());
         return this.dataDownload.call(actionService, dataDownloadArgs);
     }

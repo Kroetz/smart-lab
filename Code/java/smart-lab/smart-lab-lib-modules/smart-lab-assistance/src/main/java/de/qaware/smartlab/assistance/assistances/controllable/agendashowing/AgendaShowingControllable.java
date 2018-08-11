@@ -56,9 +56,9 @@ public class AgendaShowingControllable extends AbstractAssistanceControllable {
                     guiServiceBaseUrl.getProtocol(),
                     guiServiceBaseUrl.getHost(),
                     guiServiceBaseUrl.getPort(),
-                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_EVENT_AGENDA_PAGE, context.getLocation().map(location -> location.getId().getIdValue()).orElseThrow(InsufficientContextException::new)));
+                    format(GuiApiConstants.URL_TEMPLATE_GET_CURRENT_EVENT_AGENDA_PAGE, context.getLocation().getId().getIdValue()));
         } catch (MalformedURLException e) {
-            String errorMessage = format("Could not build URL of agenda website for event %s", context.getEvent().orElseThrow(InsufficientContextException::new));
+            String errorMessage = format("Could not build URL of agenda website for event %s", context.getEvent());
             log.error(errorMessage);
             throw new AssistanceException(errorMessage, e);
         }

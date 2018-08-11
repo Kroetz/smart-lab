@@ -27,7 +27,7 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
     public void beginAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"begin\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         try {
             IAssistanceControllable assistance = this.assistanceTracker.track(context);
             assistance.begin(this.actionService, context);
@@ -36,18 +36,18 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         catch(AssistanceTrackingException e) {
             log.warn("Ignoring execution of stage \"begin\" of assistance \"{}\" at location \"{}\" because the assistance is already in progress",
                     context.getAssistanceConfiguration().getAssistanceId(),
-                    context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                    context.getLocation().getId());
             return;
         }
         log.info("Executed stage \"begin\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
     }
 
     public void endAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"end\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         try {
             IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
             assistance.end(this.actionService, context);
@@ -57,18 +57,18 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         catch(AssistanceTrackingException e) {
             log.warn("Ignoring execution of stage \"end\" of assistance \"{}\" at location \"{}\" because the assistance is not in progress",
                     context.getAssistanceConfiguration().getAssistanceId(),
-                    context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                    context.getLocation().getId());
             return;
         }
         log.info("Executed stage \"end\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
     }
 
     public void duringAssistance(final IAssistanceContext context) {
         log.info("Executing stage \"during\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
         try {
             IAssistanceControllable assistance = this.assistanceTracker.getTracked(context);
             assistance.during(this.actionService, context);
@@ -77,11 +77,11 @@ public class AssistanceBusinessLogic implements IAssistanceBusinessLogic {
         catch(AssistanceTrackingException e) {
             log.warn("Ignoring execution of stage \"during\" of assistance \"{}\" at location \"{}\" because the assistance is not in progress",
                     context.getAssistanceConfiguration().getAssistanceId(),
-                    context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                    context.getLocation().getId());
             return;
         }
         log.info("Executed stage \"during\" of assistance \"{}\" at location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
-                context.getLocation().map(ILocation::getName).orElseThrow(InsufficientContextException::new));
+                context.getLocation().getId());
     }
 }
