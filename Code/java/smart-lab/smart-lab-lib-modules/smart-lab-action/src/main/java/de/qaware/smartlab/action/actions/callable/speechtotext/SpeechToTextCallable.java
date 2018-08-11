@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
+import de.qaware.smartlab.action.result.TranscriptActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -26,7 +27,7 @@ public class SpeechToTextCallable extends AbstractActionCallable<SpeechToTextCal
 
     public ITranscript call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        return actionResult.getTranscriptValue();
+        return toSpecificResultType(TranscriptActionResult.class, actionResult).getValue();
     }
 
     @Getter

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.file.opening.FileOpeningInfo;
+import de.qaware.smartlab.action.result.UuidActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -25,7 +26,7 @@ public class FileOpeningCallable extends AbstractActionCallable<FileOpeningCalla
 
     public UUID call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        return actionResult.getUuidValue();
+        return toSpecificResultType(UuidActionResult.class, actionResult).getValue();
     }
 
     @Getter

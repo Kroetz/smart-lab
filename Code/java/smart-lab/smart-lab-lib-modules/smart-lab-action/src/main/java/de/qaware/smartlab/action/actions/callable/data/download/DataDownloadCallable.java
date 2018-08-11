@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
+import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -37,10 +38,11 @@ public class DataDownloadCallable extends AbstractActionCallable<DataDownloadCal
 
     public Path call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        byte[] downloadedData = actionResult.getByteArrayValue();
+        byte[] downloadedData = toSpecificResultType(ByteArrayActionResult.class, actionResult).getValue();
         try {
             return this.tempFileManager.saveToTempFile(downloadsTempFileSubDir, downloadedData);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             String errorMessage = "Could not save downloaded data to temporary file";
             log.error(errorMessage);
             throw new ActionException(errorMessage, e);

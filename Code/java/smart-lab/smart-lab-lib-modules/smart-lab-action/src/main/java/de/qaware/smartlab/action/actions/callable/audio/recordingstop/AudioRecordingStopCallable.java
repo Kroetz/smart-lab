@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.audio.recordingstop.AudioRecordingStopInfo;
+import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -37,11 +38,13 @@ public class AudioRecordingStopCallable extends AbstractActionCallable<AudioReco
 
     public Path call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        byte[] recordedAudio = actionResult.getByteArrayValue();
+        byte[] recordedAudio = toSpecificResultType(ByteArrayActionResult.class, actionResult).getValue();
         try {
             return this.tempFileManager.saveToTempFile(recordedAudioTempFileSubDir, recordedAudio);
         } catch (IOException e) {
-            throw new ActionException(e);
+            String errorMessage = "Could not save recorded audio to temporary file";
+            log.error(errorMessage);
+            throw new ActionException(errorMessage, e);
         }
     }
 

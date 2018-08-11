@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable;
 import de.qaware.smartlab.action.actions.info.device.activation.DeviceActivationInfo;
+import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.core.data.action.generic.IActionArgs;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
@@ -23,7 +24,7 @@ public class DeviceActivationCallable extends AbstractActionCallable<DeviceActiv
 
     public Void call(IActionService actionService, ActionArgs actionArgs) throws ActionException {
         IActionResult actionResult = actionService.executeAction(this.actionInfo.getActionId(), actionArgs);
-        return actionResult.getVoidValue();
+        return toSpecificResultType(VoidActionResult.class, actionResult).getValue();
     }
 
     @Getter
