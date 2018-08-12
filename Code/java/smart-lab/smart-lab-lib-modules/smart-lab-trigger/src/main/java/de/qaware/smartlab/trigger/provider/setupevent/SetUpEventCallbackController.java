@@ -1,6 +1,6 @@
 package de.qaware.smartlab.trigger.provider.setupevent;
 
-import de.qaware.smartlab.core.data.job.JobInfo;
+import de.qaware.smartlab.job.data.JobInfo;
 import de.qaware.smartlab.trigger.provider.generic.ITriggerProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

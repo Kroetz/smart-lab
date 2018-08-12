@@ -2,7 +2,7 @@ package de.qaware.smartlab.job.service.business;
 
 import de.qaware.smartlab.core.data.job.IJobInfo;
 import de.qaware.smartlab.core.data.job.JobStatus;
-import de.qaware.smartlab.core.data.job.JobInfo;
+import de.qaware.smartlab.job.data.JobInfo;
 import de.qaware.smartlab.core.exception.data.DataException;
 import de.qaware.smartlab.core.exception.data.NotFoundException;
 import de.qaware.smartlab.job.service.repository.IJobManagementRepository;
