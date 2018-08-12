@@ -210,14 +210,14 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         }
     }
 
-    def "Get the current event of a specific workgroup when the workgroup currently has a event"() {
+    def "Get the current event of a specific workgroup when the workgroup currently has an event"() {
 
         given: "A workgroup with the requested workgroup ID does exist"
         def workgroupId = coastGuardDataFactory.WORKGROUP_ID_COAST_GUARD
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup and another workgroup currently have a event"
+        and: "The requested workgroup and another workgroup currently have an event"
         def events = new HashSet<IEvent>(asList(
                 coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
                 astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
@@ -246,7 +246,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "Another workgroup currently have a event"
+        and: "Another workgroup currently have an event"
         def eventId = astronautsDataFactory.EVENT_ID_MARS
         def event = astronautsDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
@@ -294,7 +294,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup and another workgroup currently have a event"
+        and: "The requested workgroup and another workgroup currently have an event"
         def eventIdOfWorkgroup = coastGuardDataFactory.EVENT_ID_WHALES
         def eventIdOfOtherWorkgroup = astronautsDataFactory.EVENT_ID_MARS
         def eventOfWorkgroup = coastGuardDataFactory.createEventMap().get(eventIdOfWorkgroup)
@@ -329,7 +329,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup currently has a event"
+        and: "The requested workgroup currently has an event"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
@@ -355,7 +355,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup = coastGuardDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "The requested workgroup currently has a event alongside with a follow up event"
+        and: "The requested workgroup currently has an event alongside with a follow up event"
         def currentEventId = coastGuardDataFactory.EVENT_ID_WHALES
         def followUpEventId = coastGuardDataFactory.EVENT_ID_WHIRLPOOLS
         def currentEvent = coastGuardDataFactory.createEventMap().get(currentEventId)
@@ -385,7 +385,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         def workgroup = forestRangersDataFactory.createWorkgroupMap().get(workgroupId)
         workgroupManagementService.create(workgroup)
 
-        and: "Several other workgroups currently have a event"
+        and: "Several other workgroups currently have an event"
         def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
         def eventId2 = astronautsDataFactory.EVENT_ID_MARS
         def event1 = coastGuardDataFactory.createEventMap().get(eventId1)
@@ -413,7 +413,7 @@ class WorkgroupManagementApiIntegrationTest extends CrudApiIntegrationTest<Workg
         given: "A workgroup with the requested workgroup ID does not exist"
         def workgroupId = forestRangersDataFactory.WORKGROUP_ID_FOREST_RANGERS
 
-        and: "Several other workgroups currently have a event"
+        and: "Several other workgroups currently have an event"
         def eventId1 = coastGuardDataFactory.EVENT_ID_WHALES
         def eventId2 = astronautsDataFactory.EVENT_ID_MARS
         def event1 = coastGuardDataFactory.createEventMap().get(eventId1)

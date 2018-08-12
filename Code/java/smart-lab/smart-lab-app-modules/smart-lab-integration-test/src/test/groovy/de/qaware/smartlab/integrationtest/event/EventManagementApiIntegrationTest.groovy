@@ -119,7 +119,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
 
     def "Shorten an existing event by a valid duration"() {
 
-        given: "A event with the requested event ID does exist"
+        given: "An event with the requested event ID does exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
@@ -154,7 +154,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.delete(eventId)
     }
 
-    def "Shorten a event with an ID that does not exist"() {
+    def "Shorten an event with an ID that does not exist"() {
 
         given: "The event to shorten does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
@@ -227,7 +227,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.delete(followUpEventId)
     }
 
-    def "Extend a event with an ID that does not exist"() {
+    def "Extend an event with an ID that does not exist"() {
 
         given: "The event to extend does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
@@ -282,7 +282,7 @@ class EventManagementApiIntegrationTest extends CrudApiIntegrationTest<EventId, 
         eventManagementService.delete(followUpEventId)
     }
 
-    def "Shift a event with an ID that does not exist"() {
+    def "Shift an event with an ID that does not exist"() {
 
         given: "The event to shift does not exist"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES

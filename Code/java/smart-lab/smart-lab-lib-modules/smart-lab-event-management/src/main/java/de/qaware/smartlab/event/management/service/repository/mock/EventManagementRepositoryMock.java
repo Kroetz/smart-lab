@@ -104,7 +104,7 @@ public class EventManagementRepositoryMock extends AbstractBasicEntityManagement
     public synchronized IEvent create(IEvent event) {
         boolean eventCollision = findAll(event.getLocationId()).stream().anyMatch(m -> m.isColliding(event));
         if(eventCollision || exists(event.getId())) {
-            String errorMessage = format("Cannot create event %s because a event with that ID already exists", event);
+            String errorMessage = format("Cannot create event %s because an event with that ID already exists", event);
             log.error(errorMessage);
             throw new ConflictException(errorMessage);
         }

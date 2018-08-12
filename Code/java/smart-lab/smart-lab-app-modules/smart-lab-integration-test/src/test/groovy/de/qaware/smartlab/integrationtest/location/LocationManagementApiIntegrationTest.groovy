@@ -210,14 +210,14 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         }
     }
 
-    def "Get the current event at a specific location when there is currently a event"() {
+    def "Get the current event at a specific location when there is currently an event"() {
 
         given: "A location with the requested location ID does exist"
         def locationId = coastGuardDataFactory.LOCATION_ID_BLUE
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a event at the requested location and another location"
+        and: "There is currently an event at the requested location and another location"
         def events = new HashSet<IEvent>(asList(
                 coastGuardDataFactory.createEventMap().get(coastGuardDataFactory.EVENT_ID_WHALES),
                 astronautsDataFactory.createEventMap().get(astronautsDataFactory.EVENT_ID_MARS)))
@@ -246,7 +246,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a event at another location"
+        and: "There is currently an event at another location"
         def eventId = astronautsDataFactory.EVENT_ID_MARS
         def event = astronautsDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
@@ -294,7 +294,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a event at the requested location and another location"
+        and: "There is currently an event at the requested location and another location"
         def eventIdAtLocation = coastGuardDataFactory.EVENT_ID_WHALES
         def eventIdAtOtherLocation = astronautsDataFactory.EVENT_ID_MARS
         def eventAtLocation = coastGuardDataFactory.createEventMap().get(eventIdAtLocation)
@@ -329,7 +329,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a event at the requested location"
+        and: "There is currently an event at the requested location"
         def eventId = coastGuardDataFactory.EVENT_ID_WHALES
         def event = coastGuardDataFactory.createEventMap().get(eventId)
         eventManagementService.create(event)
@@ -355,7 +355,7 @@ class LocationManagementApiIntegrationTest extends CrudApiIntegrationTest<Locati
         def location = coastGuardDataFactory.createLocationMap().get(locationId)
         locationManagementService.create(location)
 
-        and: "There is currently a event at the requested location alongside with a follow up event"
+        and: "There is currently an event at the requested location alongside with a follow up event"
         def currentEventId = coastGuardDataFactory.EVENT_ID_WHALES
         def followUpEventId = coastGuardDataFactory.EVENT_ID_WHIRLPOOLS
         def currentEvent = coastGuardDataFactory.createEventMap().get(currentEventId)

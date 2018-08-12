@@ -254,7 +254,7 @@ public class GoogleCalendarAdapter extends AbstractBasicEntityManagementReposito
     public IEvent create(IEvent event) {
         try {
             if(isCollidingWithOtherEvents(event)) {
-                String errorMessage = format("Cannot create event %s because a event with that ID already exists", event);
+                String errorMessage = format("Cannot create event %s because an event with that ID already exists", event);
                 log.error(errorMessage);
                 throw new ConflictException(errorMessage);
             }
