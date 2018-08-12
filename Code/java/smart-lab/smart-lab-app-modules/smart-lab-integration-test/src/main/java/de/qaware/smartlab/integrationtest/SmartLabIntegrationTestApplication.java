@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SmartLabTestApplication {
+public class SmartLabIntegrationTestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SmartLabTestApplication.class, args);
+		SpringApplication.run(SmartLabIntegrationTestApplication.class, args);
 	}
 }

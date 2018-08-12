@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Main-Class: de.qaware.smartlab.trigger.provider.microservice.SmartLabTriggerProviderMicroserviceApplication
