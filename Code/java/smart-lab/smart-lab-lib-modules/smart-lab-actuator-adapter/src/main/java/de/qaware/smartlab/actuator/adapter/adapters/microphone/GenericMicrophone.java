@@ -101,6 +101,26 @@ public class GenericMicrophone implements AutoCloseable {
         return Optional.of(recordedFile);
     }
 
+    public static boolean isMicrophoneAvailable() {
+        return getMicrophone().isPresent();
+    }
+
+    public static boolean isMicrophoneAvailable(String name) {
+        return getMicrophone(name).isPresent();
+    }
+
+    public static boolean isMicrophoneAvailable(AudioFormat audioFormat) {
+        return getMicrophone(audioFormat).isPresent();
+    }
+
+    public static boolean isMicrophoneAvailable(String name, AudioFormat audioFormat) {
+        return getMicrophone(name, audioFormat).isPresent();
+    }
+
+    public static boolean isMicrophoneAvailable(Mixer mixer, AudioFormat audioFormat) {
+        return getMicrophone(mixer, audioFormat).isPresent();
+    }
+
     public synchronized static Optional<GenericMicrophone> getMicrophone() {
         return getMicrophone(DEFAULT_AUDIO_FORMAT);
     }

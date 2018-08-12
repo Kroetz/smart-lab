@@ -2,6 +2,11 @@ package de.qaware.smartlab.actuator.adapter.adapters.microphone;
 
 import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.sound.sampled.AudioFileFormat;
@@ -11,6 +16,7 @@ import java.nio.file.Path;
 import static java.lang.String.format;
 
 @Component
+@Conditional(ThinkpadP50InternalMicrophoneAdapter.ConditionalOnAvailable.class)
 @Slf4j
 public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdapter {
 
@@ -66,6 +72,14 @@ public class ThinkpadP50InternalMicrophoneAdapter extends AbstractMicrophoneAdap
             String errorMessage = "Could not stop recording audio";
             log.error(errorMessage);
             throw new ActuatorException(errorMessage, e);
+        }
+    }
+
+    public static class ConditionalOnAvailable implements Condition {
+
+        @Override
+        public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
+            return GenericMicrophone.isMicrophoneAvailable(ACTUATOR_TYPE, AUDIO_FORMAT);
         }
     }
 }
