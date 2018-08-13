@@ -11,7 +11,7 @@
         "id": {
             "idValue": "demo-beamer"
         },
-        "type": "dummy beamer",
+        "type": "hitachi_CP_WU8461",
         "name": "Beamer at the demo location",
         "responsibleDelegate": "smart-lab-delegate-microservice-b"
     },
