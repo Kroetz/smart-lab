@@ -14,8 +14,8 @@ public class LircInfraredRemoteControl extends AbstractInfraredRemoteControl {
     private static final String IRSEND = "irsend";
     private static final String SEND_ONCE = "SEND_ONCE";
     private static final String KEY_POWER = "KEY_POWER";
-    private static final String KEY_ON = KEY_POWER;
-    private static final String KEY_OFF = KEY_POWER;
+    private static final String KEY_POWER2 = "KEY_POWER2";
+    private static final String KEY_STANDBY = KEY_POWER2;
     private static final String KEY_OK = "KEY_OK";
     private static final String KEY_UP = "KEY_UP";
     private static final String KEY_RIGHT = "KEY_RIGHT";
@@ -42,15 +42,15 @@ public class LircInfraredRemoteControl extends AbstractInfraredRemoteControl {
     }
 
     @Override
-    public void on(String actuatorType) throws ActuatorException {
-        super.on(actuatorType);
-        executeLircCommand(KEY_ON, actuatorType);
+    public void power(String actuatorType) throws ActuatorException {
+        super.power(actuatorType);
+        executeLircCommand(KEY_POWER, actuatorType);
     }
 
     @Override
-    public void off(String actuatorType) throws ActuatorException {
-        super.off(actuatorType);
-        executeLircCommand(KEY_OFF, actuatorType);
+    public void standby(String actuatorType) throws ActuatorException {
+        super.standby(actuatorType);
+        executeLircCommand(KEY_STANDBY, actuatorType);
     }
 
     @Override

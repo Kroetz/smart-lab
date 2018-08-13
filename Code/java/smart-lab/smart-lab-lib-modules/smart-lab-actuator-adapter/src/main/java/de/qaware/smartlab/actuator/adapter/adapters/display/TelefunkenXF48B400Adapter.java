@@ -21,11 +21,11 @@ public class TelefunkenXF48B400Adapter extends AbstractDisplayAdapter {
 
     @Override
     public void activate() throws ActuatorException {
-        this.infraredRemoteControl.on(ACTUATOR_TYPE);
+        this.infraredRemoteControl.power(ACTUATOR_TYPE);
     }
 
     @Override
     public void deactivate() throws ActuatorException {
-        this.infraredRemoteControl.off(ACTUATOR_TYPE);
+        this.infraredRemoteControl.power(ACTUATOR_TYPE);
     }
 }

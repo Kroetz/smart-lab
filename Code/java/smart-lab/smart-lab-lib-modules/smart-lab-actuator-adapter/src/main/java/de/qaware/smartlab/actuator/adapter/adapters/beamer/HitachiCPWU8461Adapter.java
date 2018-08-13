@@ -21,11 +21,12 @@ public class HitachiCPWU8461Adapter extends AbstractBeamerAdapter {
 
     @Override
     public void activate() throws ActuatorException {
-        this.infraredRemoteControl.on(ACTUATOR_TYPE);
+        this.infraredRemoteControl.power(ACTUATOR_TYPE);
     }
 
     @Override
     public void deactivate() throws ActuatorException {
-        this.infraredRemoteControl.off(ACTUATOR_TYPE);
+        this.infraredRemoteControl.standby(ACTUATOR_TYPE);
+        this.infraredRemoteControl.standby(ACTUATOR_TYPE);
     }
 }

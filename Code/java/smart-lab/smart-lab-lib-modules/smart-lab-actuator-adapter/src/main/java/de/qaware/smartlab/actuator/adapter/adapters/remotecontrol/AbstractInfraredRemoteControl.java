@@ -8,13 +8,13 @@ import static java.lang.String.format;
 public abstract class AbstractInfraredRemoteControl implements IInfraredRemoteControl {
 
     @Override
-    public void on(String actuatorType) {
-        log.info(format("Switching on actuator of type \"%s\"", actuatorType));
+    public void power(String actuatorType) {
+        log.info(format("Toggling power on actuator of type \"%s\"", actuatorType));
     }
 
     @Override
-    public void off(String actuatorType) {
-        log.info(format("Switching off actuator of type \"%s\"", actuatorType));
+    public void standby(String actuatorType) {
+        log.info(format("Toggling standby mode on actuator of type \"%s\"", actuatorType));
     }
 
     @Override

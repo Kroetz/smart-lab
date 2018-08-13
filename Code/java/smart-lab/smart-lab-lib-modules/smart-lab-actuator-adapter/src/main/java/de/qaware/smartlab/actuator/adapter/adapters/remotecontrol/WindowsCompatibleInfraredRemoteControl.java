@@ -15,14 +15,14 @@ public class WindowsCompatibleInfraredRemoteControl extends AbstractInfraredRemo
     }
 
     @Override
-    public void on(String actuatorType) throws ActuatorException {
-        super.on(actuatorType);
+    public void power(String actuatorType) throws ActuatorException {
+        super.power(actuatorType);
         executeCommand(actuatorType);
     }
 
     @Override
-    public void off(String actuatorType) throws ActuatorException {
-        super.off(actuatorType);
+    public void standby(String actuatorType) throws ActuatorException {
+        super.standby(actuatorType);
         executeCommand(actuatorType);
     }
 
