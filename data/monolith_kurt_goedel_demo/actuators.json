@@ -1,90 +1,42 @@
 [
     {
         "id": {
-            "idValue": "red-microphone"
-        },
-        "type": "dummy microphone",
-        "name": "Microphone at location \"LocationId(super=AbstractIdentifier(idValue=fire-fighters-workplace))\"",
-        "responsibleDelegate": "smart-lab-red-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "blue-display-big"
+            "idValue": "demo-display"
         },
         "type": "dummy display",
-        "name": "Big main display at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
+        "name": "Display at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
     },
     {
         "id": {
-            "idValue": "red-display-big"
-        },
-        "type": "dummy display",
-        "name": "Big display at location \"LocationId(super=AbstractIdentifier(idValue=fire-fighters-workplace))\"",
-        "responsibleDelegate": "smart-lab-red-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "blue-display-small"
-        },
-        "type": "dummy display",
-        "name": "Small display next to the door at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "blue-web-browser"
-        },
-        "type": "firefox",
-        "name": "Web browser at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "blue-power-point"
-        },
-        "type": "powerPoint",
-        "name": "PowerPoint at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "green-display-big"
-        },
-        "type": "dummy display",
-        "name": "Big main display at location \"LocationId(super=AbstractIdentifier(idValue=forest-rangers-workplace))\"",
-        "responsibleDelegate": "smart-lab-green-delegate-microservice"
-    },
-    {
-        "id": {
-            "idValue": "blue-display-beamer"
+            "idValue": "demo-beamer"
         },
         "type": "dummy beamer",
-        "name": "Beamer at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
+        "name": "Beamer at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-b"
     },
     {
         "id": {
-            "idValue": "green-display-small"
+            "idValue": "demo-web-browser"
         },
-        "type": "dummy display",
-        "name": "Small display next to the door at location \"LocationId(super=AbstractIdentifier(idValue=forest-rangers-workplace))\"",
-        "responsibleDelegate": "smart-lab-green-delegate-microservice"
+        "type": "firefox",
+        "name": "Web browser at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
     },
     {
         "id": {
-            "idValue": "green-web-browser"
+            "idValue": "demo-power-point"
         },
-        "type": "chrome",
-        "name": "Web browser at location \"LocationId(super=AbstractIdentifier(idValue=forest-rangers-workplace))\"",
-        "responsibleDelegate": "smart-lab-green-delegate-microservice"
+        "type": "powerPoint",
+        "name": "PowerPoint at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
     },
     {
         "id": {
-            "idValue": "blue-microphone"
+            "idValue": "demo-microphone"
         },
         "type": "thinkpad p50 internal microphone",
-        "name": "Microphone at location \"LocationId(super=AbstractIdentifier(idValue=coast-guard-workplace))\"",
-        "responsibleDelegate": "smart-lab-blue-delegate-microservice"
+        "name": "Microphone at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
     }
 ]

@@ -1,74 +1,26 @@
 [
     {
         "id": {
-            "idValue": "forest-ranger-barry"
+            "idValue": "demo-person-alice"
         },
-        "name": "Forest Ranger Barry",
-        "email": "barry@forest-rangers.com",
-        "role": null
+        "name": "Alice",
+        "email": "alice@demo.com",
+        "role": "REGULAR_MEMBER"
     },
     {
         "id": {
-            "idValue": "forest-ranger-anna"
+            "idValue": "demo-person-bob"
         },
-        "name": "Forest Ranger Anna",
-        "email": "anna@forest-rangers.com",
-        "role": null
+        "name": "Bob",
+        "email": "bob@demo.com",
+        "role": "REGULAR_MEMBER"
     },
     {
         "id": {
-            "idValue": "coast-guard-alice"
+            "idValue": "demo-person-charlie"
         },
-        "name": "Coast Guard Alice",
-        "email": "alice@coast-guard.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "coast-guard-charlie"
-        },
-        "name": "Coast Guard Charlie",
-        "email": "charlie@coast-guard.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "fire-fighter-bruce"
-        },
-        "name": "Fire Fighter Bruce",
-        "email": "bruce@fire-fighters.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "fire-fighter-anthony"
-        },
-        "name": "Fire Fighter Anthony",
-        "email": "anthony@fire-fighters.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "forest-ranger-caroline"
-        },
-        "name": "Forest Ranger Caroline",
-        "email": "caroline@forest-rangers.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "fire-fighter-carlos"
-        },
-        "name": "Fire Fighter Carlos",
-        "email": "carlos@fire-fighters.com",
-        "role": null
-    },
-    {
-        "id": {
-            "idValue": "coast-guard-ben"
-        },
-        "name": "Coast Guard Ben",
-        "email": "ben@coast-guard.com",
-        "role": null
+        "name": "Charlie",
+        "email": "charlie@demo.com",
+        "role": "TEAM_LEADER"
     }
 ]

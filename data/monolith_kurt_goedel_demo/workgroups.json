@@ -1,73 +1,25 @@
 [
     {
         "id": {
-            "idValue": "forest-rangers"
+            "idValue": "demo-workgroup"
         },
-        "name": "Forest Rangers",
+        "name": "Demo workgroup",
         "memberIds": [
             {
-                "idValue": "forest-ranger-anna"
+                "idValue": "demo-person-alice"
             },
             {
-                "idValue": "forest-ranger-barry"
+                "idValue": "demo-person-bob"
             },
             {
-                "idValue": "forest-ranger-caroline"
+                "idValue": "demo-person-charlie"
             }
         ],
         "projectBaseInfo": {
             "serviceId": "github",
             "projectBaseProperties": {
                 "user": "Kroetz",
-                "repository": "forestRangersRepo"
-            }
-        }
-    },
-    {
-        "id": {
-            "idValue": "coast-guard"
-        },
-        "name": "Coast Guard",
-        "memberIds": [
-            {
-                "idValue": "coast-guard-alice"
-            },
-            {
-                "idValue": "coast-guard-ben"
-            },
-            {
-                "idValue": "coast-guard-charlie"
-            }
-        ],
-        "projectBaseInfo": {
-            "serviceId": "github",
-            "projectBaseProperties": {
-                "user": "Kroetz",
-                "repository": "coastGuardRepo"
-            }
-        }
-    },
-    {
-        "id": {
-            "idValue": "fire-fighters"
-        },
-        "name": "Fire Fighters",
-        "memberIds": [
-            {
-                "idValue": "fire-fighter-carlos"
-            },
-            {
-                "idValue": "fire-fighter-bruce"
-            },
-            {
-                "idValue": "fire-fighter-anthony"
-            }
-        ],
-        "projectBaseInfo": {
-            "serviceId": "github",
-            "projectBaseProperties": {
-                "user": "Kroetz",
-                "repository": "fireFightersRepo"
+                "repository": "demoRepo"
             }
         }
     }
