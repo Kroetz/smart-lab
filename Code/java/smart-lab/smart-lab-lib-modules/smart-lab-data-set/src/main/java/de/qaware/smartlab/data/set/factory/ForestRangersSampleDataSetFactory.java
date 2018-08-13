@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Set;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 @Slf4j
@@ -157,9 +158,9 @@ public class ForestRangersSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataException {
         Set<ILocation> locations = new HashSet<>();
-        Set<ActuatorId> greenLocationActuators = new HashSet<>();
-        greenLocationActuators.add(ACTUATOR_ID_GREEN_DISPLAY_BIG);
-        greenLocationActuators.add(ACTUATOR_ID_GREEN_DISPLAY_SMALL);
+        Set<ActuatorId> greenLocationActuators = createActuatorSet().stream()
+                .map(IActuator::getId)
+                .collect(toSet());
         locations.add(Location.of(
                 LOCATION_ID_GREEN,
                 "Forest rangers workplace",

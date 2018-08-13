@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Set;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 @Slf4j
@@ -241,11 +242,9 @@ public class CoastGuardSampleDataSetFactory extends AbstractDataSetFactory {
     @Override
     public Set<ILocation> createLocationSet() throws DataException {
         Set<ILocation> locations = new HashSet<>();
-        Set<ActuatorId> blueLocationActuators = new HashSet<>();
-        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_BIG);
-        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_SMALL);
-        blueLocationActuators.add(ACTUATOR_ID_BLUE_DISPLAY_BEAMER);
-        blueLocationActuators.add(ACTUATOR_ID_BLUE_MICROPHONE);
+        Set<ActuatorId> blueLocationActuators = createActuatorSet().stream()
+                .map(IActuator::getId)
+                .collect(toSet());
         locations.add(Location.of(
                 LOCATION_ID_BLUE,
                 "Coast guard workplace",
