@@ -25,8 +25,8 @@ public class DeviceDeactivationExecutable extends AbstractActionExecutable<Devic
         super(
                 deviceDeactivationInfo,
                 deactivatableResolver,
-                actionArgs -> actuatorManagementService.findOne(actionArgs.getDeviceId()).getResponsibleDelegate(),
-                actionArgs -> Optional.of(actuatorManagementService.findOne(actionArgs.getDeviceId()).getType()));
+                actionArgs -> actuatorManagementService.findOne(actionArgs.getDeviceId()).getType(),
+                actionArgs -> Optional.of(actuatorManagementService.findOne(actionArgs.getDeviceId()).getResponsibleDelegate()));
     }
 
     @Override
