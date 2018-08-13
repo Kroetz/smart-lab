@@ -169,6 +169,7 @@ public class DataSetProvider implements IDataSetProvider {
                     factories.add(this.dataSetFactoryResolver.resolve(dataSourceToken));
                 }
                 catch(ResolverException e) {
+                    log.info(String.format("Creating new file sourced data set factory for token \"%s\"", dataSourceToken));
                     FileSourcedDataSetFactory.FileSourcedDataSetFactoryBuilder builder =
                             FileSourcedDataSetFactory.builder();
                     dataSourceSetter.accept(builder, dataSourceToken);
