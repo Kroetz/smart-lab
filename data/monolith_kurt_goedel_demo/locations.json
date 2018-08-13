@@ -1,0 +1,47 @@
+[
+    {
+        "id": {
+            "idValue": "coast-guard-workplace"
+        },
+        "name": "Coast guard workplace",
+        "deviceIds": [
+            {
+                "idValue": "blue-display-big"
+            },
+            {
+                "idValue": "blue-display-small"
+            },
+            {
+                "idValue": "blue-microphone"
+            },
+            {
+                "idValue": "blue-display-beamer"
+            }
+        ]
+    },
+    {
+        "id": {
+            "idValue": "fire-fighters-workplace"
+        },
+        "name": "Fire fighters workplace",
+        "deviceIds": [
+            {
+                "idValue": "red-microphone"
+            }
+        ]
+    },
+    {
+        "id": {
+            "idValue": "forest-rangers-workplace"
+        },
+        "name": "Forest rangers workplace",
+        "deviceIds": [
+            {
+                "idValue": "green-display-big"
+            },
+            {
+                "idValue": "green-display-small"
+            }
+        ]
+    }
+]
