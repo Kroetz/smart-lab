@@ -144,7 +144,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
 
     private void acceptRepoInvitation(String invitationId) throws IOException {
         this.github.entry()
-                .uri().path(REST_ENDPOINT_INVITATIONS + invitationId).back()
+                .uri().path(String.format("%s/%s", REST_ENDPOINT_INVITATIONS, invitationId)).back()
                 .method(Request.PATCH)
                 .fetch();
     }
