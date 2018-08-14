@@ -184,6 +184,9 @@ PublishScripts/
 !**/[Pp]ackages/build/
 # except DllExport which is needed to export JNA-compatible .dll files
 !**/[Pp]ackages/DllExport*
+**/[Pp]ackages/DllExport*.deleteme
+**/[Pp]ackages/DllExport*/build_info.txt
+
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/[Pp]ackages/repositories.config
 # NuGet v3's project.json files produces more ignorable files
