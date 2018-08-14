@@ -49,10 +49,17 @@ public class GithubConfiguration {
 
         public static final String PREFIX = "smart-lab.actuator.github";
         public static final String ENABLED = "enabled";
+        private static final String DEFAULT_COMMITTER_NAME = "Default Smart Lab committer name";
+        private static final String DEFAULT_COMMITTER_EMAIL = "default-email@smart-lab.com";
 
         private String apiKey;
         private String committerName;
         private String committerEmail;
+
+        public Properties() {
+            this.committerName = DEFAULT_COMMITTER_NAME;
+            this.committerEmail = DEFAULT_COMMITTER_EMAIL;
+        }
 
         public String getApiKey() {
             return apiKey;
