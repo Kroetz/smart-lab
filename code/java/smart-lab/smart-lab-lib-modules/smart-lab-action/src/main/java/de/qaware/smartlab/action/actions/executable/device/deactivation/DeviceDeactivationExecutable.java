@@ -4,7 +4,7 @@ import de.qaware.smartlab.action.actions.callable.device.deactivation.DeviceDeac
 import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecutable;
 import de.qaware.smartlab.action.actions.info.device.deactivation.DeviceDeactivationInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;
-import de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.IDeactivatable;
+import de.qaware.smartlab.actuator.adapter.adapters.deactivatable.IDeactivatable;
 import de.qaware.smartlab.api.service.connector.actuator.IActuatorManagementService;
 import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
 import de.qaware.smartlab.core.data.generic.IResolver;

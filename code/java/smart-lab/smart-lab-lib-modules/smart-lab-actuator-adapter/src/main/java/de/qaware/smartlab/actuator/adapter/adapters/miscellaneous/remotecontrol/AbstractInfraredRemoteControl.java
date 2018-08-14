@@ -1,4 +1,4 @@
-package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
+package de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.remotecontrol;
 
 import lombok.extern.slf4j.Slf4j;
 

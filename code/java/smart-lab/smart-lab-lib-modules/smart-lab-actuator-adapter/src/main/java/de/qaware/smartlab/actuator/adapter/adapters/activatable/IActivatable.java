@@ -1,4 +1,4 @@
-package de.qaware.smartlab.actuator.adapter.adapters.miscellaneous;
+package de.qaware.smartlab.actuator.adapter.adapters.activatable;
 
 import de.qaware.smartlab.core.data.actuator.IActuatorAdapter;
 import de.qaware.smartlab.core.exception.actuator.ActuatorException;

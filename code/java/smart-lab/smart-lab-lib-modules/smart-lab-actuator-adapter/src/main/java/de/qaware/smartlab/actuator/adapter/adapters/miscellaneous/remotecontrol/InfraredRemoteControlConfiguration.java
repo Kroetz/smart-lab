@@ -1,4 +1,4 @@
-package de.qaware.smartlab.actuator.adapter.adapters.remotecontrol;
+package de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.remotecontrol;
 
 import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +16,8 @@ public class InfraredRemoteControlConfiguration {
     public IInfraredRemoteControl infraredRemoteControl() {
         if(IS_OS_WINDOWS) return new WindowsCompatibleInfraredRemoteControl();
         if(IS_OS_LINUX) return LircInfraredRemoteControl.newInstance();
-        throw new ConfigurationException("The operating system is not supported");
+        String errorMessage = "The operating system is not supported for infrared remote controls";
+        log.error(errorMessage);
+        throw new ConfigurationException(errorMessage);
     }
 }

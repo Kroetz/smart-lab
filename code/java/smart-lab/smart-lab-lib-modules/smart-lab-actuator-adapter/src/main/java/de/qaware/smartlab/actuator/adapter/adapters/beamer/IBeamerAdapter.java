@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.beamer;
 
-import de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.IActivatable;
-import de.qaware.smartlab.actuator.adapter.adapters.miscellaneous.IDeactivatable;
+import de.qaware.smartlab.actuator.adapter.adapters.activatable.IActivatable;
+import de.qaware.smartlab.actuator.adapter.adapters.deactivatable.IDeactivatable;
 
 public interface IBeamerAdapter extends IActivatable, IDeactivatable { }
