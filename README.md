@@ -1,4 +1,5 @@
-# smart_lab
-Masterarbeit von Dennis Schock bei der QAware
+# smart-lab
 
-Die bisherige Doku steht im [Wiki](https://github.com/Kroetz/smart_lab/wiki)
+Master thesis of Dennis Schock the QAware GmbH
+
+The project documentation is only accessible in form of the written master's dissertation
