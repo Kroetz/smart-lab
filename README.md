@@ -1,4 +1,4 @@
-# smart-lab
+# Smart Lab
 
 Master thesis of Dennis Schock at the QAware GmbH
 
