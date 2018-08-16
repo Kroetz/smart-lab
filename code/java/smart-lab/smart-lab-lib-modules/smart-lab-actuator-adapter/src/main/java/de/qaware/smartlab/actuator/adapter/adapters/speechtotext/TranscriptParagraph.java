@@ -75,11 +75,12 @@ public class TranscriptParagraph implements ITranscriptParagraph {
         for(ITranscriptWord word : words) {
             if(!word.getSpeaker().equals(currentSpeaker)) {
                 if(nonNull(currentSpeaker)) paragraphs.add(new TranscriptParagraph(currentParagraphWords));
-                currentParagraphWords.clear();
+                currentParagraphWords = new ArrayList<>();
                 currentSpeaker = word.getSpeaker();
             }
             currentParagraphWords.add(word);
         }
+        paragraphs.add(new TranscriptParagraph(currentParagraphWords));
         return paragraphs;
     }
 }
