@@ -31,14 +31,17 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
 
     private final IRemeetingApiClient remeetingApiClient;
     private final String remeetingApiKey;
+    private final RemeetingTranscript.Factory transcriptFactory;
 
     public RemeetingAdapter(
             IRemeetingApiClient remeetingApiClient,
-            String remeetingApiKey) {
+            String remeetingApiKey,
+            RemeetingTranscript.Factory transcriptFactory) {
         super(ACTUATOR_TYPE, HAS_LOCAL_API);
         if(isNull(remeetingApiKey)) throw new NullPointerException(remeetingApiKey);
         this.remeetingApiClient = remeetingApiClient;
         this.remeetingApiKey = remeetingApiKey;
+        this.transcriptFactory = transcriptFactory;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class RemeetingAdapter extends AbstractActuatorAdapter implements ISpeech
                 jobStatusResponse = this.remeetingApiClient.queryResult(jobId, authHeader);
             } while(jobStatusResponse.getStatus().equals(STATUS_WAITING) || jobStatusResponse.getStatus().equals(STATUS_PROCESSING));
             if(jobStatusResponse.getStatus().equals(STATUS_COMPLETED)) {
-                return jobStatusResponse;
+                return this.transcriptFactory.of(jobStatusResponse);
             }
         }
         catch(Exception e) {

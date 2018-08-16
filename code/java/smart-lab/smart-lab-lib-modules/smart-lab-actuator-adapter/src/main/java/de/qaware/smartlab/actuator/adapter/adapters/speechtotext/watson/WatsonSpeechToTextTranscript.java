@@ -1,150 +1,130 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.watson;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITextPassage;
-import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITextPassagesBuilder;
-import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.ITranscriptTextBuilder;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.AbstractSpeechToTextTranscript;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.TranscriptParagraph;
+import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.TranscriptWord;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptParagraph;
+import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptWord;
+import de.qaware.smartlab.core.miscellaneous.DurationTimestamp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static de.qaware.smartlab.core.miscellaneous.StartedDuration.ofSeconds;
 import static java.lang.String.format;
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 @Slf4j
-public class WatsonSpeechToTextTranscript implements ITranscript {
-
-    private static final String EMPTY_TRANSCRIPT_FILLER = "Talk is silver, silence is golden.";
-    private static final String SPEAKER_NAME_PREFIX = "Speaker";
-
-    private final SpeechRecognitionResults speechRecognitionResults;
-    private final ITranscriptTextBuilder transcriptTextBuilder;
-    private final ITextPassagesBuilder textPassagesBuilder;
+public class WatsonSpeechToTextTranscript extends AbstractSpeechToTextTranscript {
 
     private WatsonSpeechToTextTranscript(
-            SpeechRecognitionResults speechRecognitionResults,
-            ITranscriptTextBuilder transcriptTextBuilder,
-            ITextPassagesBuilder textPassagesBuilder) {
-        this.speechRecognitionResults = speechRecognitionResults;
-        this.transcriptTextBuilder = transcriptTextBuilder;
-        this.textPassagesBuilder = textPassagesBuilder;
-    }
-
-    @Override
-    public String toHumanReadable() {
-        log.info("Converting Watson speech-to-text transcript into human readable form");
-        if(this.speechRecognitionResults.getResults().size() < 1 || isNull(this.speechRecognitionResults.getSpeakerLabels())) {
-            log.info("Transcript cannot be converted because it is empty");
-            return EMPTY_TRANSCRIPT_FILLER;
-        }
-        List<SpeakerLabelsResult> speakerLabelsResults = this.speechRecognitionResults.getSpeakerLabels();
-        Map<Timestamp, Long> speakerIdsByTimestamps = speakerLabelsResults.stream().collect(toMap(
-                speakerLabelsResult -> Timestamp.of(speakerLabelsResult.getFrom(), speakerLabelsResult.getTo()),
-                SpeakerLabelsResult::getSpeaker));
-        List<ITextPassage> textPassages = resolveTextPassages(
-                textPassagesBuilder,
-                this.speechRecognitionResults.getResults(),
-                speakerIdsByTimestamps);
-        return transcriptTextBuilder.buildText(textPassages);
-    }
-
-    private List<ITextPassage> resolveTextPassages(
-            ITextPassagesBuilder textPassagesBuilder,
-            List<SpeechRecognitionResult> speechRecognitionResults,
-            Map<Timestamp, Long> speakerIdsByTimestamps) {
-        List<ITextPassage> textPassages = new ArrayList<>();
-        for(SpeechRecognitionResult speechRecognitionResult : speechRecognitionResults){
-            if(speechRecognitionResult.isFinalResults()) {
-                SpeechRecognitionAlternative alternative = getMostConfidentAlternative(speechRecognitionResult);
-                textPassages.addAll(resolveTextPassages(textPassagesBuilder, alternative, speakerIdsByTimestamps));
-            }
-        }
-        return textPassages;
-    }
-
-    private List<ITextPassage> resolveTextPassages(
-            ITextPassagesBuilder textPassagesBuilder,
-            SpeechRecognitionAlternative alternative,
-            Map<Timestamp, Long> speakerIdsByTimestamps) {
-        for(SpeechTimestamp timestamp : alternative.getTimestamps()) {
-            Double start = timestamp.getStartTime();
-            Double end = timestamp.getEndTime();
-            Long speakerId = speakerIdsByTimestamps.get(Timestamp.of(start.floatValue(), end.floatValue()));
-            if(isNull(speakerId)) {
-                throw new NullPointerException("The speaker ID must not be null");
-            }
-            textPassagesBuilder.addTextPassage(
-                    ofSeconds(start, end),
-                    format("%s %d", SPEAKER_NAME_PREFIX, speakerId),
-                    timestamp.getWord());
-        }
-        return textPassagesBuilder.getFinishedTextPassages();
-    }
-
-    private SpeechRecognitionAlternative getMostConfidentAlternative(SpeechRecognitionResult speechRecognitionResult) {
-        final Comparator<SpeechRecognitionAlternative> comparator =
-                Comparator.comparingDouble(SpeechRecognitionAlternative::getConfidence);
-        return speechRecognitionResult.getAlternatives().stream()
-                .max(comparator)
-                .orElseThrow(() -> {
-                    String errorMessage = "There must be a most confident alternative";
-                    log.error(errorMessage);
-                    return new IllegalStateException(errorMessage);
-                });
-    }
-
-    public static class Timestamp {
-
-        private final Float start;
-        private final Float end;
-
-        private Timestamp(Float start, Float end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        public static Timestamp of(Float start, Float end) {
-            return new Timestamp(start, end);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Timestamp)) return false;
-            Timestamp timestamp = (Timestamp) o;
-            return Objects.equals(start, timestamp.start) &&
-                    Objects.equals(end, timestamp.end);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(start, end);
-        }
+            Map<DurationTimestamp, Long> speakerIdsByTimestamp,
+            List<ITranscriptParagraph> paragraphs,
+            Set<String> speakers,
+            DurationTimestamp timestamp) {
+        super(
+                speakerIdsByTimestamp,
+                paragraphs,
+                speakers,
+                timestamp);
     }
 
     @Component
     @Slf4j
     public static class Factory {
 
-        private final ITranscriptTextBuilder transcriptTextBuilder;
-        private final ITextPassagesBuilder textPassagesBuilder;
-
-        public Factory(
-                ITranscriptTextBuilder transcriptTextBuilder,
-                ITextPassagesBuilder textPassagesBuilder) {
-            this.transcriptTextBuilder = transcriptTextBuilder;
-            this.textPassagesBuilder = textPassagesBuilder;
-        }
+        private static final String SPEAKER_NAME_PREFIX = "Speaker";
 
         public WatsonSpeechToTextTranscript of(SpeechRecognitionResults speechRecognitionResults) {
+            Map<DurationTimestamp, Long> speakerIdsByTimestamp = extractSpeakerIdsByTimestamp(speechRecognitionResults);
+            List<ITranscriptParagraph> paragraphs = extractParagraphs(speechRecognitionResults, speakerIdsByTimestamp);
+            Set<String> speakers = extractSpeakers(paragraphs);
+            DurationTimestamp timestamp = extractTimestamp(paragraphs);
             return new WatsonSpeechToTextTranscript(
-                    speechRecognitionResults,
-                    this.transcriptTextBuilder,
-                    this.textPassagesBuilder);
+                    speakerIdsByTimestamp,
+                    paragraphs,
+                    speakers,
+                    timestamp);
+        }
+
+        private Map<DurationTimestamp, Long> extractSpeakerIdsByTimestamp(SpeechRecognitionResults speechRecognitionResults) {
+            List<SpeakerLabelsResult> speakerLabels = speechRecognitionResults.getSpeakerLabels();
+            if(nonNull(speakerLabels)) {
+                return speakerLabels.stream()
+                        .collect(toMap(
+                                speakerLabelsResult -> DurationTimestamp.ofSeconds(speakerLabelsResult.getFrom(), speakerLabelsResult.getTo()),
+                                SpeakerLabelsResult::getSpeaker));
+            }
+            return new HashMap<>();
+        }
+
+        private List<ITranscriptParagraph> extractParagraphs(
+                SpeechRecognitionResults speechRecognitionResults,
+                Map<DurationTimestamp, Long> speakerIdsByTimestamp) {
+            List<ITranscriptParagraph> paragraphs = new ArrayList<>();
+            List<SpeechRecognitionResult> results = speechRecognitionResults.getResults();
+            for(SpeechRecognitionResult result : results){
+                paragraphs.addAll(extractParagraphs(result, speakerIdsByTimestamp));
+            }
+            return paragraphs;
+        }
+
+        private List<ITranscriptParagraph> extractParagraphs(
+                SpeechRecognitionResult speechRecognitionResult,
+                Map<DurationTimestamp, Long> speakerIdsByTimestamp) {
+            List<ITranscriptParagraph> paragraphs = new ArrayList<>();
+            if(speechRecognitionResult.isFinalResults()) {
+                SpeechRecognitionAlternative alternative = getMostConfidentAlternative(speechRecognitionResult);
+                paragraphs.addAll(extractParagraphs(alternative, speakerIdsByTimestamp));
+            }
+            return paragraphs;
+        }
+
+        private List<ITranscriptParagraph> extractParagraphs(
+                SpeechRecognitionAlternative speechRecognitionAlternative,
+                Map<DurationTimestamp, Long> speakerIdsByTimestamp) {
+            List<ITranscriptWord> words = new ArrayList<>();
+            for(SpeechTimestamp timestamp : speechRecognitionAlternative.getTimestamps()) {
+                Double start = timestamp.getStartTime();
+                Double end = timestamp.getEndTime();
+                Long speakerId = speakerIdsByTimestamp.get(
+                        DurationTimestamp.ofSeconds(start.floatValue(), end.floatValue()));
+                if(isNull(speakerId)) throw new NullPointerException("The speaker ID must not be null");
+                words.add(TranscriptWord.of(
+                        timestamp.getWord(),
+                        format("%s %d", SPEAKER_NAME_PREFIX, speakerId),
+                        DurationTimestamp.ofSeconds(timestamp.getStartTime(), timestamp.getEndTime())));
+            }
+            return new ArrayList<>(TranscriptParagraph.of(words));
+        }
+
+        private SpeechRecognitionAlternative getMostConfidentAlternative(SpeechRecognitionResult speechRecognitionResult) {
+            final Comparator<SpeechRecognitionAlternative> comparator =
+                    Comparator.comparingDouble(SpeechRecognitionAlternative::getConfidence);
+            return speechRecognitionResult.getAlternatives().stream()
+                    .max(comparator)
+                    .orElseThrow(() -> {
+                        String errorMessage = "There must be a most confident alternative";
+                        log.error(errorMessage);
+                        return new IllegalStateException(errorMessage);
+                    });
+        }
+
+        private Set<String> extractSpeakers(List<ITranscriptParagraph> paragraphs) {
+            return paragraphs.stream()
+                    .map(ITranscriptParagraph::getSpeaker)
+                    .collect(toSet());
+
+        }
+
+        private DurationTimestamp extractTimestamp(List<ITranscriptParagraph> paragraphs) {
+            return DurationTimestamp.enclosingTimestamp(paragraphs.stream()
+                    .map(ITranscriptParagraph::getTimestamp)
+                    .collect(toSet()));
         }
     }
 }

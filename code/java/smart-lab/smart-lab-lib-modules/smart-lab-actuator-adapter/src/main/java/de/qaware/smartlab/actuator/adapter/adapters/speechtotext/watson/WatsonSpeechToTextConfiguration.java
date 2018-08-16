@@ -19,9 +19,7 @@ public class WatsonSpeechToTextConfiguration {
     private final Properties properties;
     private final WatsonSpeechToTextTranscript.Factory transcriptFactory;
 
-    public WatsonSpeechToTextConfiguration(
-            Properties properties,
-            WatsonSpeechToTextTranscript.Factory transcriptFactory) {
+    public WatsonSpeechToTextConfiguration(Properties properties, WatsonSpeechToTextTranscript.Factory transcriptFactory) {
         this.properties = properties;
         this.transcriptFactory = transcriptFactory;
     }

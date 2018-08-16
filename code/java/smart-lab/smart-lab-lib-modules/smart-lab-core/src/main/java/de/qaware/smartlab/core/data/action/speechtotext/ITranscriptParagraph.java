@@ -3,12 +3,11 @@ package de.qaware.smartlab.core.data.action.speechtotext;
 import de.qaware.smartlab.core.miscellaneous.DurationTimestamp;
 
 import java.util.List;
-import java.util.Set;
 
-public interface ITranscript {
+public interface ITranscriptParagraph {
 
-    List<ITranscriptParagraph> getParagraphs();
-    Set<String> getSpeakers();
+    List<ITranscriptWord> getWords();
+    String getSpeaker();
     DurationTimestamp getTimestamp();
     String toHumanReadable();
 }

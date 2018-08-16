@@ -1,15 +1,15 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-public class JobStatusResponse implements ITranscript {
+@AllArgsConstructor
+public class JobStatusResponse {
 
     private static final String FIELD_NAME_CREATED = "created";
     private static final String FIELD_NAME_ID = "id";
@@ -35,12 +35,6 @@ public class JobStatusResponse implements ITranscript {
 
     @JsonProperty(FIELD_NAME_STATUS)
     private String status;
-
-    @Override
-    public String toHumanReadable() {
-        // TODO: Use TranscriptTextBuilder to build a human readable string
-        return results.toString();
-    }
 
     @Data
     @NoArgsConstructor

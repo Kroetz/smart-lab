@@ -20,17 +20,20 @@ public class RemeetingConfiguration {
 
     private final Properties properties;
     private final IRemeetingApiClient remeetingApiClient;
+    private final RemeetingTranscript.Factory transcriptFactory;
 
     public RemeetingConfiguration(
             Properties properties,
-            IRemeetingApiClient remeetingApiClient) {
+            IRemeetingApiClient remeetingApiClient,
+            RemeetingTranscript.Factory transcriptFactory) {
         this.properties = properties;
         this.remeetingApiClient = remeetingApiClient;
+        this.transcriptFactory = transcriptFactory;
     }
 
     @Bean
     public ISpeechToTextAdapter speechToTextAdapter() {
-        return new RemeetingAdapter(this.remeetingApiClient, this.properties.getApiKey());
+        return new RemeetingAdapter(this.remeetingApiClient, this.properties.getApiKey(), this.transcriptFactory);
     }
 
     @ConfigurationProperties(prefix = Properties.PREFIX)
