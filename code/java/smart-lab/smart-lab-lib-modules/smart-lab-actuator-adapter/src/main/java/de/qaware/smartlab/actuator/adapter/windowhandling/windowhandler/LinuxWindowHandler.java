@@ -31,7 +31,7 @@ public class LinuxWindowHandler extends AbstractWindowHandler<LinuxWindowInfo> {
     }
 
     @Override
-    public IWindowInfo findPowerPointWindow(Path openedFile) throws WindowHandlingException {
+    public IWindowInfo findPowerPointWindow(Path openedFile) throws IllegalArgumentException, WindowHandlingException {
         // TODO: Implement finding windows on Linux operating systems
         log.warn("Finding windows is not yet implemented for Linux");
         return LinuxWindowInfo.of(this);

@@ -10,6 +10,6 @@ import java.nio.file.Path;
 public interface IWindowHandler {
 
     IWindowInfo findWebBrowserWindow(WebDriver webDriver) throws IllegalArgumentException, WindowHandlingException;
-    IWindowInfo findPowerPointWindow(Path openedFile) throws WindowHandlingException;
+    IWindowInfo findPowerPointWindow(Path openedFile) throws IllegalArgumentException, WindowHandlingException;
     void maximizeOnDisplay(IWindowInfo window, ActuatorId displayId) throws WindowHandlingException;
 }

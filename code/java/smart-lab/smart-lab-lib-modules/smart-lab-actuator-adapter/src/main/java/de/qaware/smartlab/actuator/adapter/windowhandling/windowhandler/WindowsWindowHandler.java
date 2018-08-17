@@ -59,7 +59,7 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
     }
 
     @Override
-    public IWindowInfo findPowerPointWindow(Path openedFile) throws WindowHandlingException {
+    public IWindowInfo findPowerPointWindow(Path openedFile) throws IllegalArgumentException, WindowHandlingException {
         String windowTitle;
         try {
             windowTitle = getWindowTitle(openedFile);
@@ -84,7 +84,12 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
         WinDef.HWND windowHandle = null;
         Instant start = Instant.now();
         while(isNull(windowHandle) && Instant.now().isBefore(start.plus(this.findWindowTimeout))) {
-            windowHandle = this.windowHandlingApi.FindWindowByTitle(windowTitleAsBase64);
+            try {
+                windowHandle = this.windowHandlingApi.FindWindowByTitle(windowTitleAsBase64);
+            }
+            catch(Throwable t) {
+                throw new WindowHandlingException(t);
+            }
             waitFindWindowRetryInterval(windowTitle);
         }
         if(isNull(windowHandle)) {
@@ -96,7 +101,7 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
         return WindowsWindowInfo.of(this, windowHandle);
     }
 
-    private void waitFindWindowRetryInterval(String windowTitle) {
+    private void waitFindWindowRetryInterval(String windowTitle) throws WindowHandlingException {
         try {
             TimeUnit.MILLISECONDS.sleep(FIND_WINDOW_RETRY_INTERVAL.toMillis());
         } catch (InterruptedException e) {
@@ -112,7 +117,7 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
      * them will result in their application to crash because they are not fully functional yet. This method adds a
      * delay between finding a window and actually using it (e.g. moving) to mitigate this problem.
      */
-    private void waitWindowCreationDelay(String windowTitle) {
+    private void waitWindowCreationDelay(String windowTitle) throws WindowHandlingException {
         try {
             TimeUnit.MILLISECONDS.sleep(WINDOW_CREATION_DELAY.toMillis());
         } catch (InterruptedException e) {
@@ -123,8 +128,13 @@ public class WindowsWindowHandler extends AbstractWindowHandler<WindowsWindowInf
     }
 
     @Override
-    public void maximizeOnDisplay(IWindowInfo window, ActuatorId displayId) {
-        WindowsWindowInfo windowsWindow = castWindow(window, WindowsWindowInfo.class);
-        this.windowHandlingApi.MoveToFullScreen(windowsWindow.getWindowHandle(), resolveLocalDisplay(displayId));
+    public void maximizeOnDisplay(IWindowInfo window, ActuatorId displayId) throws WindowHandlingException {
+        try {
+            WindowsWindowInfo windowsWindow = castWindow(window, WindowsWindowInfo.class);
+            this.windowHandlingApi.MoveToFullScreen(windowsWindow.getWindowHandle(), resolveLocalDisplay(displayId));
+        }
+        catch(Throwable t) {
+            throw new WindowHandlingException(t);
+        }
     }
 }
