@@ -65,12 +65,24 @@ public class WatsonSpeechToTextAdapter extends AbstractActuatorAdapter implement
 
     private String toWatsonSpeechToTextLanguage(Language language) {
         switch (language) {
-            case EN_US:
-                return "en-US_BroadbandModel";
+            case AR_AR:
+                return "ar-AR_BroadbandModel";
             case EN_GB:
                 return "en-GB_BroadbandModel";
+            case EN_US:
+                return "en-US_BroadbandModel";
+            case ES_ES:
+                return "es-ES_BroadbandModel";
             case FR_FR:
                 return "fr-FR_BroadbandModel";
+            case JA_JP:
+                return "ja-JP_BroadbandModel";
+            case KO_KR:
+                return "ko-KR_BroadbandModel";
+            case PT_BR:
+                return "pt-BR_BroadbandModel";
+            case ZH_CN:
+                return "zh-CN_BroadbandModel";
             default:
                 String errorMessage = format("The language %s is not supported by IBM Watson speech-to-text", language);
                 log.error(errorMessage);
