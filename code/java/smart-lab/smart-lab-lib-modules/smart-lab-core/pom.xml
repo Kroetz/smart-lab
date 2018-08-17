@@ -20,6 +20,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>de.qaware</groupId>
+			<artifactId>smart-lab-springfox-dependencies</artifactId>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
