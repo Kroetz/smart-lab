@@ -126,7 +126,7 @@ public class EventManagementController extends AbstractSmartLabController implem
     @Override
     @PostMapping(value = EventManagementApiConstants.MAPPING_CREATE_MULTIPLE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Set<EventDto>> create(Set<EventDto> events) {
+    public ResponseEntity<Set<EventDto>> create(@RequestBody Set<EventDto> events) {
         return ResponseEntity.ok(this.eventManagementBusinessLogic.create(events
                 .stream()
                 .map(this.eventConverter::toEntity)
