@@ -29,6 +29,7 @@ public class AssistanceController {
             value = AssistanceApiConstants.MAPPING_BEGIN,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> beginAssistance(@RequestBody IAssistanceContext context) {
+        // TODO: A DTO for the assistance context must be introduced in order to make this this REST endpoint work when called from outside the system (either when the system was started as monolith or as microservices)
         log.info("Received call to execute stage \"begin\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().getId());
@@ -42,6 +43,7 @@ public class AssistanceController {
             value = AssistanceApiConstants.MAPPING_END,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> endAssistance(@RequestBody IAssistanceContext context) {
+        // TODO: A DTO for the assistance context must be introduced in order to make this this REST endpoint work when called from outside the system (either when the system was started as monolith or as microservices)
         log.info("Received call to execute stage \"end\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().getId());
@@ -55,6 +57,7 @@ public class AssistanceController {
             value = AssistanceApiConstants.MAPPING_DURING,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> duringAssistance(@RequestBody IAssistanceContext context) {
+        // TODO: A DTO for the assistance context must be introduced in order to make this this REST endpoint work when called from outside the system (either when the system was started as monolith or as microservices)
         log.info("Received call to execute stage \"during\" of assistance \"{}\" at the location \"{}\"",
                 context.getAssistanceConfiguration().getAssistanceId(),
                 context.getLocation().getId());
