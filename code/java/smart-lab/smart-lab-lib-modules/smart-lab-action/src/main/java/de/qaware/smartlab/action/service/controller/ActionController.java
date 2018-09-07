@@ -30,6 +30,7 @@ public class ActionController {
     public ResponseEntity<IActionResult> executeAction(
             @PathVariable(ActionApiConstants.PARAMETER_NAME_ACTION_ID) String actionId,
             @RequestBody IActionArgs actionArgs) {
+        // TODO: A DTO for the action args must be introduced in order to make this this REST endpoint work when called from outside the system (either when the system was started as monolith or as microservices)
         log.info("Received call to execute action \"{}\"", actionId);
         IActionResult actionResult = this.actionBusinessLogic.executeAction(actionId, actionArgs);
         ResponseEntity<IActionResult> response = ResponseEntity.ok(actionResult);
