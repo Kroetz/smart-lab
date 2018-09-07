@@ -15,7 +15,7 @@ public abstract class TriggerApiConstants {
     public static final String MAPPING_SET_UP_CURRENT_EVENT_BY_LOCATION_ID = "/set-up-current-event/location/{" + PARAMETER_NAME_LOCATION_ID + "}";
     public static final String MAPPING_SET_UP_CURRENT_EVENT_BY_WORKGROUP_ID = "/set-up-current-event/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_CLEAN_UP_CURRENT_EVENT_BY_LOCATION_ID = "/clean-up-current-event/location/{" + PARAMETER_NAME_LOCATION_ID + "}";
-    public static final String MAPPING_CLEAN_UP_CURRENT_EVENT_BY_WORKGROUP_ID = "/clean-up-current-event/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}/";
+    public static final String MAPPING_CLEAN_UP_CURRENT_EVENT_BY_WORKGROUP_ID = "/clean-up-current-event/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_START_CURRENT_EVENT_BY_LOCATION_ID = PATH_FRAGMENT_START_CURRENT_EVENT_BY_LOCATION_ID + "{" + PARAMETER_NAME_LOCATION_ID + "}";
     public static final String MAPPING_START_CURRENT_EVENT_BY_WORKGROUP_ID = "/start-current-event/workgroup/{" + PARAMETER_NAME_WORKGROUP_ID + "}";
     public static final String MAPPING_STOP_CURRENT_EVENT_BY_LOCATION_ID = PATH_FRAGMENT_STOP_CURRENT_EVENT_BY_LOCATION_ID + "{" + PARAMETER_NAME_LOCATION_ID + "}";
