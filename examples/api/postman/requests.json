@@ -1,0 +1,2015 @@
+{
+	"info": {
+		"_postman_id": "5bf1bb84-b7a9-4343-b0b4-7d5d8ee660f9",
+		"name": "Smart Lab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GUI service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/gui/location/<ID>/current-event-status-page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/gui/location/example-location/current-event-status-page",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"gui",
+								"location",
+								"example-location",
+								"current-event-status-page"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/gui/location/<ID>/current-event-agenda-page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/gui/location/example-location/current-event-agenda-page",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"gui",
+								"location",
+								"example-location",
+								"current-event-agenda-page"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trigger service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/trigger/set-up-current-event/location/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/set-up-current-event/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"set-up-current-event",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/set-up-current-event/workgroup/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/set-up-current-event/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"set-up-current-event",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/clean-up-current-event/location/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/clean-up-current-event/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"clean-up-current-event",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/clean-up-current-event/workgroup/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/clean-up-current-event/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"clean-up-current-event",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/start-current-event/location/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/start-current-event/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"start-current-event",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/start-current-event/workgroup/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/start-current-event/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"start-current-event",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/stop-current-event/location/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/stop-current-event/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"stop-current-event",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/trigger/stop-current-event/workgroup/<ID>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/trigger/stop-current-event/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"trigger",
+								"stop-current-event",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/job/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/jobs/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/jobs/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"jobs",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/job (with callback)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job?callback-url=http://localhost:9876/ping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job"
+							],
+							"query": [
+								{
+									"key": "callback-url",
+									"value": "http://localhost:9876/ping"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/job/<ID>/processing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job/1/processing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job",
+								"1",
+								"processing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/job/<ID>/finished",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job/1/finished",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job",
+								"1",
+								"finished"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/job/<ID>/failed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Something bad happened\""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/job/1/failed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"job",
+								"1",
+								"failed"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actuator management service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/actuator/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuator/example-microphone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuator",
+								"example-microphone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/actuators",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuators?actuatorIds=example-microphone,example-display",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuators"
+							],
+							"query": [
+								{
+									"key": "actuatorIds",
+									"value": "example-microphone,example-display"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/actuators/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuators/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuators",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/actuator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {\n        \"idValue\": \"example-microphone\"\n    },\n    \"type\": \"dummy microphone\",\n    \"name\": \"Example microphone\",\n    \"responsibleDelegate\": \"example-delegate-microservice\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/actuators",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"id\": {\n        \t\"idValue\": \"example-microphone\"\n\t    },\n\t    \"type\": \"dummy microphone\",\n\t    \"name\": \"Example microphone\",\n\t    \"responsibleDelegate\": \"example-delegate-microservice\"\n\t},\n\t{\n\t\t\"id\": {\n        \t\"idValue\": \"example-display\"\n\t    },\n\t    \"type\": \"dummy display\",\n\t    \"name\": \"Example display\",\n\t    \"responsibleDelegate\": \"example-delegate-microservice\"\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuators",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/actuator/<ID>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/actuator/example-microphone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"actuator",
+								"example-microphone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location management service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/location/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/locations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/locations?locationIds=example-location1,example-location2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "locationIds",
+									"value": "example-location1,example-location2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/locations/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/locations/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"locations",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {\n        \"idValue\": \"example-location\"\n    },\n    \"name\": \"Example location\",\n    \"actuatorIds\": [\n        {\n            \"idValue\": \"example-microphone\"\n        },\n        {\n            \"idValue\": \"example-display\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/locations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-location1\"\n\t    },\n\t    \"name\": \"Example location 1\",\n\t    \"actuatorIds\": [\n\t        {\n\t            \"idValue\": \"example-microphone\"\n\t        },\n\t        {\n\t            \"idValue\": \"example-display\"\n\t        }\n\t    ]\n\t},\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-location2\"\n\t    },\n\t    \"name\": \"Example location 2\",\n\t    \"actuatorIds\": [ ]\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/location/<ID>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/location/<ID>/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location/example-location/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location",
+								"example-location",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/location/<ID>/current-event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location/example-location/current-event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location",
+								"example-location",
+								"current-event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/location/<ID>/extend-current-event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/location/example-location/extend-current-event?extension-in-minutes=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"location",
+								"example-location",
+								"extend-current-event"
+							],
+							"query": [
+								{
+									"key": "extension-in-minutes",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Person management service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/person/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/person/example-person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"person",
+								"example-person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/persons?personIds=example-person1,example-person2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"persons"
+							],
+							"query": [
+								{
+									"key": "personIds",
+									"value": "example-person1,example-person2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/persons/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/persons/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"persons",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/person",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {\n        \"idValue\": \"example-person\"\n    },\n    \"name\": \"John Doe\",\n    \"email\": \"john@doe.com\",\n    \"role\": \"TEAM_LEADER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/persons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-person1\"\n\t    },\n\t    \"name\": \"John Doe\",\n\t    \"email\": \"john@doe.com\",\n\t    \"role\": \"TEAM_LEADER\"\n\t},\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-person2\"\n\t    },\n\t    \"name\": \"Jane Doe\",\n\t    \"email\": \"jane@doe.com\",\n\t    \"role\": \"REGULAR_MEMBER\"\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/person/<ID>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/person/example-person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"person",
+								"example-person"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workgroup management service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/workgroup/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroups?workgroupIds=example-workgroup1,example-workgroup2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroups"
+							],
+							"query": [
+								{
+									"key": "workgroupIds",
+									"value": "example-workgroup1,example-workgroup2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroups/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroups/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroups",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {\n        \"idValue\": \"example-workgroup\"\n    },\n    \"name\": \"Example workgroup\",\n    \"memberIds\": [\n        {\n            \"idValue\": \"example-person\"\n        }\n    ],\n    \"projectBaseInfo\": {\n        \"serviceId\": \"github\",\n        \"projectBaseProperties\": {\n            \"user\": \"exampleUser\",\n            \"repository\": \"exampleRepo\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroups",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-workgroup1\"\n\t    },\n\t    \"name\": \"Example workgroup 1\",\n\t    \"memberIds\": [\n\t        {\n\t            \"idValue\": \"example-person1\"\n\t        }\n\t    ],\n\t    \"projectBaseInfo\": {\n\t        \"serviceId\": \"github\",\n\t        \"projectBaseProperties\": {\n\t            \"user\": \"exampleUser\",\n\t            \"repository\": \"exampleRepo\"\n\t        }\n\t    }\n\t},\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-workgroup2\"\n\t    },\n\t    \"name\": \"Example workgroup 2\",\n\t    \"memberIds\": [\n\t        {\n\t            \"idValue\": \"example-person2\"\n\t        }\n\t    ],\n\t    \"projectBaseInfo\": {\n\t        \"serviceId\": \"github\",\n\t        \"projectBaseProperties\": {\n\t            \"user\": \"exampleUser\",\n\t            \"repository\": \"exampleRepo\"\n\t        }\n\t    }\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroup/<ID>",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroup/<ID>/events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup/example-workgroup/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup",
+								"example-workgroup",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroup/<ID>/current-event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup/example-workgroup/current-event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup",
+								"example-workgroup",
+								"current-event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/workgroup/<ID>/extend-current-event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/workgroup/example-workgroup/extend-current-event?extension-in-minutes=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"workgroup",
+								"example-workgroup",
+								"extend-current-event"
+							],
+							"query": [
+								{
+									"key": "extension-in-minutes",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event management service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/event/<ID>",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/example-event_example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"example-event_example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/current/at/location/<ID>",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/current/at/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"current",
+								"at",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/current/of/workgroup/<ID>",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/current/of/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"current",
+								"of",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events?eventIds=example-event1_example-location,example-event2_example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "eventIds",
+									"value": "example-event1_example-location,example-event2_example-location"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events/all/current",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events/all/current",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events",
+								"all",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events/all/at/location/<ID>",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events/all/at/location/example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events",
+								"all",
+								"at",
+								"location",
+								"example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events/all/of/workgroup/<ID>",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events/all/of/workgroup/example-workgroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events",
+								"all",
+								"of",
+								"workgroup",
+								"example-workgroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events/all",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Meeting 4\",\n        \"workgroup\": {\n            \"name\": \"Workgroup 4\",\n            \"members\": null,\n            \"knowledgeBase\": null,\n            \"codeRepository\": null\n        },\n        \"room\": {\n            \"id\": 0,\n            \"name\": \"Room 4\",\n            \"devices\": null\n        },\n        \"start\": \"2018-03-22T13:50:37.073Z\",\n        \"end\": \"2018-03-22T13:55:37.073Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {\n        \"idValue\": \"example-event_example-location\",\n        \"nameIdPart\": \"example-event\",\n        \"locationIdPart\": {\n            \"idValue\": \"example-location\"\n        }\n    },\n    \"title\": \"This is an example meeting\",\n    \"workgroupId\": {\n        \"idValue\": \"example-workgroup\"\n    },\n    \"agenda\": [\n        {\n            \"content\": \"Drink coffee\"\n        },\n        {\n            \"content\": \"Tell jokes\"\n        },\n        {\n            \"content\": \"Take a nap\"\n        }\n    ],\n    \"assistanceConfigurations\": [\n        {\n            \"assistanceId\": \"minuteTaking\",\n            \"configProperties\": {\n                \"spokenLanguage\": \"EN_US\",\n                \"uploadDir\": \"/minutes\",\n                \"microphoneId\": \"example-microphone\"\n            }\n        },\n        {\n            \"assistanceId\": \"agendaShowing\",\n            \"configProperties\": {\n                \"webBrowserId\": \"example-web-browser\",\n                \"displayId\": \"example-display\"\n            }\n        }\n    ],\n    \"start\": \"2018-09-07T12:00:00Z\",\n    \"end\": \"2018-09-07T18:00:00Z\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/events",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-event1_example-location\",\n\t        \"nameIdPart\": \"example-event1\",\n\t        \"locationIdPart\": {\n\t            \"idValue\": \"example-location\"\n\t        }\n\t    },\n\t    \"title\": \"This is example meeting 1\",\n\t    \"workgroupId\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"agenda\": [\n\t        {\n\t            \"content\": \"Drink coffee\"\n\t        },\n\t        {\n\t            \"content\": \"Tell jokes\"\n\t        },\n\t        {\n\t            \"content\": \"Take a nap\"\n\t        }\n\t    ],\n\t    \"assistanceConfigurations\": [\n\t        {\n\t            \"assistanceId\": \"minuteTaking\",\n\t            \"configProperties\": {\n\t                \"spokenLanguage\": \"EN_US\",\n\t                \"uploadDir\": \"/minutes\",\n\t                \"microphoneId\": \"example-microphone\"\n\t            }\n\t        },\n\t        {\n\t            \"assistanceId\": \"agendaShowing\",\n\t            \"configProperties\": {\n\t                \"webBrowserId\": \"example-web-browser\",\n\t                \"displayId\": \"example-display\"\n\t            }\n\t        }\n\t    ],\n\t    \"start\": \"2018-09-06T23:00:00Z\",\n\t    \"end\": \"2018-09-07T06:00:00Z\"\n\t},\n\t{\n\t    \"id\": {\n\t        \"idValue\": \"example-event2_example-location\",\n\t        \"nameIdPart\": \"example-event2\",\n\t        \"locationIdPart\": {\n\t            \"idValue\": \"example-location\"\n\t        }\n\t    },\n\t    \"title\": \"This is example meeting 2\",\n\t    \"workgroupId\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"agenda\": [\n\t        {\n\t            \"content\": \"Drink coffee\"\n\t        },\n\t        {\n\t            \"content\": \"Tell jokes\"\n\t        },\n\t        {\n\t            \"content\": \"Take a nap\"\n\t        }\n\t    ],\n\t    \"assistanceConfigurations\": [\n\t        {\n\t            \"assistanceId\": \"minuteTaking\",\n\t            \"configProperties\": {\n\t                \"spokenLanguage\": \"EN_US\",\n\t                \"uploadDir\": \"/minutes\",\n\t                \"microphoneId\": \"example-microphone\"\n\t            }\n\t        },\n\t        {\n\t            \"assistanceId\": \"agendaShowing\",\n\t            \"configProperties\": {\n\t                \"webBrowserId\": \"example-web-browser\",\n\t                \"displayId\": \"example-display\"\n\t            }\n\t        }\n\t    ],\n\t    \"start\": \"2018-09-07T08:00:00Z\",\n\t    \"end\": \"2018-09-07T10:00:00Z\"\n\t}\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/<ID>",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/example-event_example-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"example-event_example-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/<ID>/shorten",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/example-event_example-location/shorten?shortening-in-minutes=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"example-event_example-location",
+								"shorten"
+							],
+							"query": [
+								{
+									"key": "shortening-in-minutes",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/<ID>/extend",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/example-event_example-location/extend?extension-in-minutes=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"example-event_example-location",
+								"extend"
+							],
+							"query": [
+								{
+									"key": "extension-in-minutes",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/event/<ID>/shift",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/event/example-event_example-location/shift?shift-in-minutes=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"event",
+								"example-event_example-location",
+								"shift"
+							],
+							"query": [
+								{
+									"key": "shift-in-minutes",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assistance service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/assistance/begin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"de.qaware.smartlab.assistance.context.AssistanceContext\",\n\t\"assistanceConfiguration\": {\n        \"assistanceId\": \"minuteTaking\",\n        \"configProperties\": {\n            \"spokenLanguage\": \"EN_US\",\n            \"uploadDir\": \"/minutes\",\n            \"microphoneId\": \"example-microphone\"\n        }\n    },\n\t\"event\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-event_example-location\",\n\t        \"nameIdPart\": \"example-event\",\n\t        \"locationIdPart\": {\n\t            \"idValue\": \"example-location\"\n\t        }\n\t    },\n\t    \"title\": \"This is an example meeting\",\n\t    \"workgroupId\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"agenda\": [\n\t        {\n\t            \"content\": \"Drink coffee\"\n\t        },\n\t        {\n\t            \"content\": \"Tell jokes\"\n\t        },\n\t        {\n\t            \"content\": \"Take a nap\"\n\t        }\n\t    ],\n\t    \"assistanceConfigurations\": [\n\t        {\n\t            \"assistanceId\": \"minuteTaking\",\n\t            \"configProperties\": {\n\t                \"spokenLanguage\": \"EN_US\",\n\t                \"uploadDir\": \"/minutes\",\n\t                \"microphoneId\": \"example-microphone\"\n\t            }\n\t        },\n\t        {\n\t            \"assistanceId\": \"agendaShowing\",\n\t            \"configProperties\": {\n\t                \"webBrowserId\": \"example-web-browser\",\n\t                \"displayId\": \"example-display\"\n\t            }\n\t        }\n\t    ],\n\t    \"start\": \"2018-09-07T12:00:00Z\",\n\t    \"end\": \"2018-09-07T18:00:00Z\"\n\t},\n\t\"workgroup\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"name\": \"Example workgroup\",\n\t    \"memberIds\": [\n\t        {\n\t            \"idValue\": \"example-person\"\n\t        }\n\t    ],\n\t    \"projectBaseInfo\": {\n\t        \"serviceId\": \"github\",\n\t        \"projectBaseProperties\": {\n\t            \"user\": \"exampleUser\",\n\t            \"repository\": \"exampleRepo\"\n\t        }\n\t    }\n\t},\n\t\"persons\": [\n\t\t{\n\t\t    \"id\": {\n\t\t        \"idValue\": \"example-person\"\n\t\t    },\n\t\t    \"name\": \"John Doe\",\n\t\t    \"email\": \"john@doe.com\",\n\t\t    \"role\": \"TEAM_LEADER\"\n\t\t}\n\t],\n\t\"location\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-location\"\n\t    },\n\t    \"name\": \"Example location\",\n\t    \"actuatorIds\": [\n\t        {\n\t            \"idValue\": \"example-microphone\"\n\t        },\n\t        {\n\t            \"idValue\": \"example-display\"\n\t        }\n\t    ]\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/assistance/begin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"assistance",
+								"begin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/assistance/end",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"de.qaware.smartlab.assistance.context.AssistanceContext\",\n\t\"assistanceConfiguration\": {\n        \"assistanceId\": \"minuteTaking\",\n        \"configProperties\": {\n            \"spokenLanguage\": \"EN_US\",\n            \"uploadDir\": \"/minutes\",\n            \"microphoneId\": \"example-microphone\"\n        }\n    },\n\t\"event\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-event_example-location\",\n\t        \"nameIdPart\": \"example-event\",\n\t        \"locationIdPart\": {\n\t            \"idValue\": \"example-location\"\n\t        }\n\t    },\n\t    \"title\": \"This is an example meeting\",\n\t    \"workgroupId\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"agenda\": [\n\t        {\n\t            \"content\": \"Drink coffee\"\n\t        },\n\t        {\n\t            \"content\": \"Tell jokes\"\n\t        },\n\t        {\n\t            \"content\": \"Take a nap\"\n\t        }\n\t    ],\n\t    \"assistanceConfigurations\": [\n\t        {\n\t            \"assistanceId\": \"minuteTaking\",\n\t            \"configProperties\": {\n\t                \"spokenLanguage\": \"EN_US\",\n\t                \"uploadDir\": \"/minutes\",\n\t                \"microphoneId\": \"example-microphone\"\n\t            }\n\t        },\n\t        {\n\t            \"assistanceId\": \"agendaShowing\",\n\t            \"configProperties\": {\n\t                \"webBrowserId\": \"example-web-browser\",\n\t                \"displayId\": \"example-display\"\n\t            }\n\t        }\n\t    ],\n\t    \"start\": \"2018-09-07T12:00:00Z\",\n\t    \"end\": \"2018-09-07T18:00:00Z\"\n\t},\n\t\"workgroup\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"name\": \"Example workgroup\",\n\t    \"memberIds\": [\n\t        {\n\t            \"idValue\": \"example-person\"\n\t        }\n\t    ],\n\t    \"projectBaseInfo\": {\n\t        \"serviceId\": \"github\",\n\t        \"projectBaseProperties\": {\n\t            \"user\": \"exampleUser\",\n\t            \"repository\": \"exampleRepo\"\n\t        }\n\t    }\n\t},\n\t\"persons\": [\n\t\t{\n\t\t    \"id\": {\n\t\t        \"idValue\": \"example-person\"\n\t\t    },\n\t\t    \"name\": \"John Doe\",\n\t\t    \"email\": \"john@doe.com\",\n\t\t    \"role\": \"TEAM_LEADER\"\n\t\t}\n\t],\n\t\"location\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-location\"\n\t    },\n\t    \"name\": \"Example location\",\n\t    \"actuatorIds\": [\n\t        {\n\t            \"idValue\": \"example-microphone\"\n\t        },\n\t        {\n\t            \"idValue\": \"example-display\"\n\t        }\n\t    ]\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/assistance/end",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"assistance",
+								"end"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "smart-lab/api/assistance/during",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"de.qaware.smartlab.assistance.context.AssistanceContext\",\n\t\"assistanceConfiguration\": {\n        \"assistanceId\": \"minuteTaking\",\n        \"configProperties\": {\n            \"spokenLanguage\": \"EN_US\",\n            \"uploadDir\": \"/minutes\",\n            \"microphoneId\": \"example-microphone\"\n        }\n    },\n\t\"event\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-event_example-location\",\n\t        \"nameIdPart\": \"example-event\",\n\t        \"locationIdPart\": {\n\t            \"idValue\": \"example-location\"\n\t        }\n\t    },\n\t    \"title\": \"This is an example meeting\",\n\t    \"workgroupId\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"agenda\": [\n\t        {\n\t            \"content\": \"Drink coffee\"\n\t        },\n\t        {\n\t            \"content\": \"Tell jokes\"\n\t        },\n\t        {\n\t            \"content\": \"Take a nap\"\n\t        }\n\t    ],\n\t    \"assistanceConfigurations\": [\n\t        {\n\t            \"assistanceId\": \"minuteTaking\",\n\t            \"configProperties\": {\n\t                \"spokenLanguage\": \"EN_US\",\n\t                \"uploadDir\": \"/minutes\",\n\t                \"microphoneId\": \"example-microphone\"\n\t            }\n\t        },\n\t        {\n\t            \"assistanceId\": \"agendaShowing\",\n\t            \"configProperties\": {\n\t                \"webBrowserId\": \"example-web-browser\",\n\t                \"displayId\": \"example-display\"\n\t            }\n\t        }\n\t    ],\n\t    \"start\": \"2018-09-07T12:00:00Z\",\n\t    \"end\": \"2018-09-07T18:00:00Z\"\n\t},\n\t\"workgroup\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-workgroup\"\n\t    },\n\t    \"name\": \"Example workgroup\",\n\t    \"memberIds\": [\n\t        {\n\t            \"idValue\": \"example-person\"\n\t        }\n\t    ],\n\t    \"projectBaseInfo\": {\n\t        \"serviceId\": \"github\",\n\t        \"projectBaseProperties\": {\n\t            \"user\": \"exampleUser\",\n\t            \"repository\": \"exampleRepo\"\n\t        }\n\t    }\n\t},\n\t\"persons\": [\n\t\t{\n\t\t    \"id\": {\n\t\t        \"idValue\": \"example-person\"\n\t\t    },\n\t\t    \"name\": \"John Doe\",\n\t\t    \"email\": \"john@doe.com\",\n\t\t    \"role\": \"TEAM_LEADER\"\n\t\t}\n\t],\n\t\"location\": {\n\t    \"id\": {\n\t        \"idValue\": \"example-location\"\n\t    },\n\t    \"name\": \"Example location\",\n\t    \"actuatorIds\": [\n\t        {\n\t            \"idValue\": \"example-microphone\"\n\t        },\n\t        {\n\t            \"idValue\": \"example-display\"\n\t        }\n\t    ]\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/assistance/during",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"assistance",
+								"during"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Action service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/action/<ID>/execute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"de.qaware.smartlab.action.actions.callable.audio.recordingstart.AudioRecordingStartCallable.ActionArgs\",\n\t\"microphoneId\": \"example-microphone\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/action/audio%20recording%20start/execute",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"action",
+								"audio%20recording%20start",
+								"execute"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delegate service",
+			"description": "",
+			"item": [
+				{
+					"name": "smart-lab/api/delegate/execute/action/<ID>/with/actuator/<Typ>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\": \"de.qaware.smartlab.action.actions.callable.audio.recordingstart.AudioRecordingStartCallable.ActionArgs\",\n\t\"microphoneId\": \"example-microphone\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/smart-lab/api/delegate/execute/action/audio%20recording%20start/with/actuator/dummy%20microphone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"smart-lab",
+								"api",
+								"delegate",
+								"execute",
+								"action",
+								"audio%20recording%20start",
+								"with",
+								"actuator",
+								"dummy%20microphone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
