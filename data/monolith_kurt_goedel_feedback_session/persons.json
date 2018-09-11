@@ -1,0 +1,26 @@
+[
+    {
+        "id": {
+            "idValue": "demo-person-alice"
+        },
+        "name": "Alice",
+        "email": "alice@demo.com",
+        "role": "REGULAR_MEMBER"
+    },
+    {
+        "id": {
+            "idValue": "demo-person-bob"
+        },
+        "name": "Bob",
+        "email": "bob@demo.com",
+        "role": "REGULAR_MEMBER"
+    },
+    {
+        "id": {
+            "idValue": "demo-person-charlie"
+        },
+        "name": "Charlie",
+        "email": "charlie@demo.com",
+        "role": "TEAM_LEADER"
+    }
+]

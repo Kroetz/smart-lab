@@ -1,0 +1,50 @@
+[
+    {
+        "id": {
+            "idValue": "notebook-display"
+        },
+        "type": "dummy display",
+        "name": "Display of the notebook Smart Lab is running on",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
+    },
+    {
+        "id": {
+            "idValue": "demo-display"
+        },
+        "type": "dummy display",
+        "name": "Display at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
+    },
+    {
+        "id": {
+            "idValue": "demo-beamer"
+        },
+        "type": "hitachi_CP_WU8461",
+        "name": "Beamer at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-b"
+    },
+    {
+        "id": {
+            "idValue": "demo-web-browser"
+        },
+        "type": "firefox",
+        "name": "Web browser at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
+    },
+    {
+        "id": {
+            "idValue": "demo-power-point"
+        },
+        "type": "powerPoint",
+        "name": "PowerPoint at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
+    },
+    {
+        "id": {
+            "idValue": "demo-microphone"
+        },
+        "type": "thinkpad p50 internal microphone",
+        "name": "Microphone at the demo location",
+        "responsibleDelegate": "smart-lab-delegate-microservice-a"
+    }
+]

@@ -1,0 +1,2 @@
+@echo off
+java -jar ../../code/java/smart-lab/smart-lab-app-modules/smart-lab-delegate-microservice/target/smart-lab-delegate-microservice-1.0.0-SNAPSHOT.jar --spring.application.name=smart-lab-delegate-microservice-a --spring.cloud.config.uri=http://localhost:8888

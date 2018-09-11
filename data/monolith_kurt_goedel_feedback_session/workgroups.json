@@ -1,0 +1,26 @@
+[
+    {
+        "id": {
+            "idValue": "demo-workgroup"
+        },
+        "name": "Demo workgroup",
+        "memberIds": [
+            {
+                "idValue": "demo-person-alice"
+            },
+            {
+                "idValue": "demo-person-bob"
+            },
+            {
+                "idValue": "demo-person-charlie"
+            }
+        ],
+        "projectBaseInfo": {
+            "serviceId": "github",
+            "projectBaseProperties": {
+                "user": "Kroetz",
+                "repository": "demoRepo"
+            }
+        }
+    }
+]

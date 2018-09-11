@@ -1,0 +1,25 @@
+[
+    {
+        "id": {
+            "idValue": "demo-location"
+        },
+        "name": "Demo location",
+        "actuatorIds": [
+            {
+                "idValue": "demo-display"
+            },
+            {
+                "idValue": "demo-beamer"
+            },
+            {
+                "idValue": "demo-microphone"
+            },
+            {
+                "idValue": "demo-web-browser"
+            },
+            {
+                "idValue": "demo-power-point"
+            }
+        ]
+    }
+]
