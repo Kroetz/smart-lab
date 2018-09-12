@@ -19,6 +19,10 @@ public abstract class StringUtils {
     public static final String RPAREN = ")";
     public static final String PARENTHESES_TEMPLATE = LPAREN + "%s" + RPAREN;
 
+    public static String removeLineBreaks(String s) {
+        return s.replace(NEW_LINE, EMPTY);
+    }
+
     public static String trimEnclosing(String s) {
         return s.substring(1, s.length() - 1);
     }

@@ -17,10 +17,12 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
+import static de.qaware.smartlab.core.util.StringUtils.removeLineBreaks;
 import static java.lang.String.format;
 
 @Slf4j
@@ -29,6 +31,9 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
     public static final String ACTUATOR_TYPE = "github";
     private static final boolean HAS_LOCAL_API = false;
 
+    private static final String REST_ENDPOINT_TEMPLATE_CONTENTS = "/repos/%s/%s/contents/%s";
+    private static final String REST_ENDPOINT_TEMPLATE_BLOBS = "/repos/%s/%s/git/blobs/%s";
+    private static final String REST_ENDPOINT_TEMPLATE_INVITATIONS = "/user/repository_invitations/%s";
     private static final String REST_ENDPOINT_INVITATIONS = "/user/repository_invitations";
     private static final String JSON_PROPERTY_ID = "id";
     private static final String JSON_PROPERTY_NAME = "name";
@@ -37,6 +42,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
     private static final String JSON_PROPERTY_PATH = "path";
     private static final String JSON_PROPERTY_COMMITTER = "committer";
     private static final String JSON_PROPERTY_CONTENT = "content";
+    private static final String JSON_PROPERTY_SHA = "sha";
 
     private final Github github;
     private final String githubCommitterName;
@@ -76,7 +82,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
                 githubInfo = (GithubInfo) projectBaseInfo;
             }
             catch(ClassCastException e) {
-                String errorMessage = String.format(
+                String errorMessage = format(
                         "The project base info %s must be of the type %s",
                         projectBaseInfo.toString(),
                         GithubInfo.class.getName());
@@ -101,6 +107,14 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         }
     }
 
+    /**
+     * This method uses the blobs API rather than the contents API since the latter only supports downloading files
+     * up to a size of 1MB. The caveat is that the blobs API requires a SHA code to identify a file.
+     * See:
+     * https://medium.com/@caludio/how-to-download-large-files-from-github-4863a2dbba3b
+     * https://developer.github.com/v3/git/blobs/#get-a-blob
+     * https://developer.github.com/v3/repos/contents/#get-contents
+     */
     @Override
     public Path download(
             IProjectBaseInfo projectBaseInfo,
@@ -108,11 +122,17 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
         try {
             acceptPendingRepoInvitations();
             GithubInfo githubInfo = (GithubInfo) projectBaseInfo;
-            Repo repository = this.github.repos().get(new Coordinates.Simple(
-                    githubInfo.getUser(),
-                    githubInfo.getRepository()));
-            Content file = repository.contents().get(filePath);
-            return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, file.raw());
+            String sha = getFileSha(githubInfo, Paths.get(filePath));
+            String requestUrl = format(REST_ENDPOINT_TEMPLATE_BLOBS, githubInfo.getUser(), githubInfo.getRepository(), sha);
+            JsonObject response = this.github.entry()
+                    .uri().path(requestUrl).back()
+                    .method(Request.GET)
+                    .fetch()
+                    .as(JsonResponse.class)
+                    .json()
+                    .readObject();
+            byte[] data = Base64.getDecoder().decode(removeLineBreaks(response.getString(JSON_PROPERTY_CONTENT)));
+            return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, data);
         }
         // Assertion errors are thrown by jcabi when the file to download does not exist
         catch(Exception | AssertionError e) {
@@ -120,6 +140,28 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
             log.error(errorMessage);
             throw new ActuatorException(errorMessage, e);
         }
+    }
+
+    private String getFileSha(GithubInfo githubInfo, Path filePath) throws IllegalArgumentException, IOException {
+        String fileName = filePath.getFileName().toString();
+        String folderPath = filePath.getParent().toString();
+        String requestUrl = format(REST_ENDPOINT_TEMPLATE_CONTENTS, githubInfo.getUser(), githubInfo.getRepository(), folderPath);
+        JsonArray fileInfos = this.github.entry()
+                .uri().path(requestUrl).back()
+                .method(Request.GET)
+                .fetch()
+                .as(JsonResponse.class)
+                .json()
+                .readArray();
+        for (int i = 0; i < fileInfos.size(); i++) {
+            JsonObject fileInfo = fileInfos.getJsonObject(i);
+            if(fileInfo.getString(JSON_PROPERTY_NAME).equals(fileName)) return fileInfo.getString(JSON_PROPERTY_SHA);
+        }
+        throw new IllegalArgumentException(format(
+                "The file \"%s\" in the Github repository \"%s\" of user \"%s\" does not exist",
+                filePath,
+                githubInfo.getRepository(),
+                githubInfo.getUser()));
     }
 
     private Set<String> getPendingRepoInvitationIds() throws IOException {
@@ -144,7 +186,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
 
     private void acceptRepoInvitation(String invitationId) throws IOException {
         this.github.entry()
-                .uri().path(String.format("%s/%s", REST_ENDPOINT_INVITATIONS, invitationId)).back()
+                .uri().path(format(REST_ENDPOINT_TEMPLATE_INVITATIONS, invitationId)).back()
                 .method(Request.PATCH)
                 .fetch();
     }
