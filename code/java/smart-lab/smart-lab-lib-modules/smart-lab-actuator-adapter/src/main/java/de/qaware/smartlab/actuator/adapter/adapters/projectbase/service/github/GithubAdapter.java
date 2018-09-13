@@ -131,6 +131,7 @@ public class GithubAdapter extends AbstractActuatorAdapter implements IProjectBa
                     .as(JsonResponse.class)
                     .json()
                     .readObject();
+            // For some reason the Base64 data returned from jcabi-github contains line breaks that must be removed before decoding the string.
             byte[] data = Base64.getDecoder().decode(removeLineBreaks(response.getString(JSON_PROPERTY_CONTENT)));
             return this.tempFileManager.saveToTempFile(this.downloadsTempFileSubDir, data);
         }
