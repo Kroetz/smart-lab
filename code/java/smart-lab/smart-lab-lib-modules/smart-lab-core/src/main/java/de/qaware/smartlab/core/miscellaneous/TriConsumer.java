@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.generic;
+package de.qaware.smartlab.core.miscellaneous;
 
 import java.util.Objects;
 import java.util.function.Consumer;

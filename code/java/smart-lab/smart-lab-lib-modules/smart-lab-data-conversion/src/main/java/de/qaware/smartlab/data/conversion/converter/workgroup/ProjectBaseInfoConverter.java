@@ -2,7 +2,7 @@ package de.qaware.smartlab.data.conversion.converter.workgroup;
 
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.info.generic.IProjectBaseInfoFactory;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.data.workgroup.IProjectBaseInfo;
 import de.qaware.smartlab.core.data.workgroup.ProjectBaseInfoDto;
 import lombok.extern.slf4j.Slf4j;

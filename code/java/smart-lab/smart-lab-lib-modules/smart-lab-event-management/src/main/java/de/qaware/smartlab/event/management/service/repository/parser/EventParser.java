@@ -1,12 +1,12 @@
 package de.qaware.smartlab.event.management.service.repository.parser;
 
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.event.AgendaItem;
 import de.qaware.smartlab.core.data.event.Event;
 import de.qaware.smartlab.core.data.event.IAgendaItem;
 import de.qaware.smartlab.core.data.event.IEvent;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;
 import de.qaware.smartlab.core.exception.parser.InvalidSyntaxException;
 import de.qaware.smartlab.core.parser.antlr.generated.EventConfigurationLanguageBaseVisitor;

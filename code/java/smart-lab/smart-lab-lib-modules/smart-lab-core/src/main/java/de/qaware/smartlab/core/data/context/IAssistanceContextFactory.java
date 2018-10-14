@@ -1,6 +1,6 @@
 package de.qaware.smartlab.core.data.context;
 
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.person.IPerson;
 import de.qaware.smartlab.core.data.location.ILocation;

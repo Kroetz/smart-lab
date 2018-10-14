@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.context;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.person.IPerson;

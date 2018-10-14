@@ -1,6 +1,6 @@
 package de.qaware.smartlab.data.conversion.converter.event;
 
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
 import de.qaware.smartlab.core.data.event.*;
 import lombok.extern.slf4j.Slf4j;

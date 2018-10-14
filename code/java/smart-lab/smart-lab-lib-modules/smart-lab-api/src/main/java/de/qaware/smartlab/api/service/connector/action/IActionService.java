@@ -1,7 +1,7 @@
 package de.qaware.smartlab.api.service.connector.action;
 
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 
 public interface IActionService {
 

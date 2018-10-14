@@ -1,6 +1,6 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext;
 
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptWord;
+import de.qaware.smartlab.core.action.speechtotext.ITranscriptWord;
 import de.qaware.smartlab.core.miscellaneous.DurationTimestamp;
 import lombok.extern.slf4j.Slf4j;
 

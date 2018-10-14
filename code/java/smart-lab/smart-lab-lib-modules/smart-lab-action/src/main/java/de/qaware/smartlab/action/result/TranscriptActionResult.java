@@ -2,7 +2,7 @@ package de.qaware.smartlab.action.result;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.action.speechtotext.ITranscript;
 import lombok.*;
 
 @Getter

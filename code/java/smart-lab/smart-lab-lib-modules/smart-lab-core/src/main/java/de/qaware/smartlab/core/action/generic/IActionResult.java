@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.action.generic.result;
+package de.qaware.smartlab.core.action.generic;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.qaware.smartlab.core.constant.Miscellaneous;

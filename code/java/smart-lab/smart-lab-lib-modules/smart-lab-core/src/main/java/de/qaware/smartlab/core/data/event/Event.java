@@ -1,7 +1,7 @@
 package de.qaware.smartlab.core.data.event;
 
 
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.generic.IEntity;
 import de.qaware.smartlab.core.data.location.LocationId;
 import de.qaware.smartlab.core.data.workgroup.WorkgroupId;

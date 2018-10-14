@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.action.speechtotext;
+package de.qaware.smartlab.core.action.speechtotext;
 
 import de.qaware.smartlab.core.miscellaneous.DurationTimestamp;
 

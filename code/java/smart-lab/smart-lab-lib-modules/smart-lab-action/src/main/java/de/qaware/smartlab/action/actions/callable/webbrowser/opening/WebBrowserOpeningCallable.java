@@ -6,8 +6,8 @@ import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable
 import de.qaware.smartlab.action.actions.info.webbrowser.opening.WebBrowserOpeningInfo;
 import de.qaware.smartlab.action.result.UuidActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.*;

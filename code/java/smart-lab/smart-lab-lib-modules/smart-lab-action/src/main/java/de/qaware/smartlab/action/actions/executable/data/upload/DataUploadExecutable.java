@@ -5,8 +5,8 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.actions.info.data.upload.DataUploadInfo;
 import de.qaware.smartlab.action.result.VoidActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataUploadService;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.action.generic.IActionResult;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

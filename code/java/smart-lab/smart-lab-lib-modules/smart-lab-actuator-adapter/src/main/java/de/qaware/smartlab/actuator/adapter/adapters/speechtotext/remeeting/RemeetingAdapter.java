@@ -1,8 +1,8 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
 import de.qaware.smartlab.actuator.adapter.adapters.generic.AbstractActuatorAdapter;
-import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.action.speechtotext.ISpeechToTextAdapter;
+import de.qaware.smartlab.core.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.exception.actuator.ActuatorException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.extern.slf4j.Slf4j;

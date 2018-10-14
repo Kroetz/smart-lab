@@ -1,6 +1,6 @@
 package de.qaware.smartlab.action.result;
 
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

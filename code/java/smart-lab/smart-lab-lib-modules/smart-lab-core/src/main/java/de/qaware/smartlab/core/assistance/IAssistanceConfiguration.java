@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.assistance;
+package de.qaware.smartlab.core.assistance;
 
 import java.util.Map;
 

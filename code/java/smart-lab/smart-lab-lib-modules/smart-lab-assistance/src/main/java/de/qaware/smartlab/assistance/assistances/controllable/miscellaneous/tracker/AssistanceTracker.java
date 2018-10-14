@@ -4,7 +4,7 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanc
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.IAssistanceControllableFactory;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.generic.IEntity;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.exception.assistance.AssistanceTrackingException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

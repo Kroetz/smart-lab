@@ -11,7 +11,7 @@ import de.qaware.smartlab.assistance.assistances.controllable.generic.IAssistanc
 import de.qaware.smartlab.assistance.assistances.controllable.miscellaneous.factory.AbstractAssistanceControllableFactory;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
 import de.qaware.smartlab.assistance.assistances.info.minutetaking.MinuteTakingInfo;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.exception.assistance.AssistanceException;
 import de.qaware.smartlab.core.exception.context.InsufficientContextException;

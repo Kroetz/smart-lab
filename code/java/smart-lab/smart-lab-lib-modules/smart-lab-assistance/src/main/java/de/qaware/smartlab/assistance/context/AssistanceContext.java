@@ -4,7 +4,7 @@ import de.qaware.smartlab.api.service.connector.event.IEventManagementService;
 import de.qaware.smartlab.api.service.connector.person.IPersonManagementService;
 import de.qaware.smartlab.api.service.connector.location.ILocationManagementService;
 import de.qaware.smartlab.api.service.connector.workgroup.IWorkgroupManagementService;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
 import de.qaware.smartlab.core.data.event.IEvent;
@@ -16,8 +16,6 @@ import de.qaware.smartlab.core.exception.context.InsufficientContextException;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Objects.isNull;

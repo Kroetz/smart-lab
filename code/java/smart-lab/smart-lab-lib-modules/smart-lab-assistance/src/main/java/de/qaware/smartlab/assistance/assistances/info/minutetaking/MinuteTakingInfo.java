@@ -2,7 +2,7 @@ package de.qaware.smartlab.assistance.assistances.info.minutetaking;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.exception.configuration.ConfigurationException;
 import de.qaware.smartlab.core.miscellaneous.Language;

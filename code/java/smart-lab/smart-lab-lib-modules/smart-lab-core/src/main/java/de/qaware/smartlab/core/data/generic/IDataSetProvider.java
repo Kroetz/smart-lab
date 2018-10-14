@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data;
+package de.qaware.smartlab.core.data.generic;
 
 import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.event.IEvent;

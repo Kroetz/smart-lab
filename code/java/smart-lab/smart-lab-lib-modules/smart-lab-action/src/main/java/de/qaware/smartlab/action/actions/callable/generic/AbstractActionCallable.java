@@ -1,8 +1,8 @@
 package de.qaware.smartlab.action.actions.callable.generic;
 
 import de.qaware.smartlab.action.actions.info.generic.IActionInfo;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 

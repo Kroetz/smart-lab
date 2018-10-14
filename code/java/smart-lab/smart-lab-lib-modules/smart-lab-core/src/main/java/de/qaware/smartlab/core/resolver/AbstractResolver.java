@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.generic;
+package de.qaware.smartlab.core.resolver;
 
 import de.qaware.smartlab.core.exception.resolver.ResolverException;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package de.qaware.smartlab.data.set.configuration;
 import de.qaware.smartlab.action.annotation.EnableSmartLabActionInfos;
 import de.qaware.smartlab.assistance.annotation.EnableSmartLabAssistanceInfos;
 import de.qaware.smartlab.core.annotation.EnableSmartLabCore;
-import de.qaware.smartlab.core.data.IDataSetProvider;
+import de.qaware.smartlab.core.data.generic.IDataSetProvider;
 import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.event.IEvent;

@@ -26,7 +26,7 @@ import static java.lang.String.format;
 public class JobManagementBusinessLogic implements IJobManagementBusinessLogic {
 
     // TODO: Currently there is no mechanism that cleans old jobs. So this service will eventually run out of storage space.
-    
+
     private final IJobManagementRepository jobManagementRepository;
     private final RestTemplate restTemplate;
 

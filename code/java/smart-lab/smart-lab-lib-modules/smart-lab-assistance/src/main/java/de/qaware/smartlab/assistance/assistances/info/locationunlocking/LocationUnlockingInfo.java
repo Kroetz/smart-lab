@@ -2,7 +2,7 @@ package de.qaware.smartlab.assistance.assistances.info.locationunlocking;
 
 import com.google.common.collect.ImmutableMap;
 import de.qaware.smartlab.assistance.assistances.info.generic.AbstractAssistanceInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-package de.qaware.smartlab.core.data.generic;
+package de.qaware.smartlab.core.resolver;
 
 import com.google.common.collect.BiMap;
 import de.qaware.smartlab.core.exception.resolver.ResolverException;

@@ -1,12 +1,12 @@
 package de.qaware.smartlab.data.set.provider;
 
-import de.qaware.smartlab.core.data.IDataSetProvider;
+import de.qaware.smartlab.core.data.generic.IDataSetProvider;
 import de.qaware.smartlab.core.data.actuator.ActuatorDto;
 import de.qaware.smartlab.core.data.actuator.IActuator;
 import de.qaware.smartlab.core.data.event.EventDto;
 import de.qaware.smartlab.core.data.event.IEvent;
 import de.qaware.smartlab.core.data.generic.IDtoConverter;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.LocationDto;
 import de.qaware.smartlab.core.data.location.LocationId;

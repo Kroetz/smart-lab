@@ -16,9 +16,9 @@ import de.qaware.smartlab.assistance.assistances.info.websitedisplaying.WebsiteD
 import de.qaware.smartlab.core.data.actuator.Actuator;
 import de.qaware.smartlab.core.data.actuator.ActuatorId;
 import de.qaware.smartlab.core.data.actuator.IActuator;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.event.*;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.data.location.ILocation;
 import de.qaware.smartlab.core.data.location.Location;
 import de.qaware.smartlab.core.data.location.LocationId;

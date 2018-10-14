@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.remeeting;
 
 import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.AbstractSpeechToTextTranscript;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscriptParagraph;
+import de.qaware.smartlab.core.action.speechtotext.ITranscriptParagraph;
 import de.qaware.smartlab.core.miscellaneous.DurationTimestamp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

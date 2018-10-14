@@ -2,7 +2,7 @@ package de.qaware.smartlab.assistance.assistances.controllable.generic;
 
 import de.qaware.smartlab.api.service.connector.action.IActionService;
 import de.qaware.smartlab.assistance.assistances.info.generic.IAssistanceInfo;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.exception.assistance.AssistanceException;
 import de.qaware.smartlab.core.exception.context.InsufficientContextException;

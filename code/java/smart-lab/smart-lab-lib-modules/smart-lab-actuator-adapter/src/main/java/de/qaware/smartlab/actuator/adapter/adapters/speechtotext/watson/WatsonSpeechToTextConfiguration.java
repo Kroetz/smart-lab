@@ -1,7 +1,7 @@
 package de.qaware.smartlab.actuator.adapter.adapters.speechtotext.watson;
 
 import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.SpeechToTextConfiguration;
-import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
+import de.qaware.smartlab.core.action.speechtotext.ISpeechToTextAdapter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

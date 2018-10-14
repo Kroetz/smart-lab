@@ -5,8 +5,8 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.actions.info.data.download.DataDownloadInfo;
 import de.qaware.smartlab.action.result.ByteArrayActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.projectbase.IDataDownloadService;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.action.generic.IActionResult;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.filesystem.ITempFileManager;
 import lombok.extern.slf4j.Slf4j;

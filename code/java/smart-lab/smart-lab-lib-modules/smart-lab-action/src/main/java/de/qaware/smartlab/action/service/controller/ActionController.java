@@ -2,8 +2,8 @@ package de.qaware.smartlab.action.service.controller;
 
 import de.qaware.smartlab.action.service.business.IActionBusinessLogic;
 import de.qaware.smartlab.api.service.constant.action.ActionApiConstants;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 import de.qaware.smartlab.core.service.controller.url.AbstractBaseUrlController;
 import de.qaware.smartlab.core.service.url.IBaseUrlDetector;
 import lombok.extern.slf4j.Slf4j;

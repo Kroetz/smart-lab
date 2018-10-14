@@ -5,10 +5,10 @@ import de.qaware.smartlab.action.actions.executable.generic.AbstractActionExecut
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlab.action.result.TranscriptActionResult;
 import de.qaware.smartlab.actuator.adapter.adapters.speechtotext.SpeechToTextConfiguration;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.action.speechtotext.ISpeechToTextAdapter;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.action.generic.IActionResult;
+import de.qaware.smartlab.core.action.speechtotext.ISpeechToTextAdapter;
+import de.qaware.smartlab.core.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

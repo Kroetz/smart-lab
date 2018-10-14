@@ -2,10 +2,10 @@ package de.qaware.smartlab.trigger.service.business;
 
 import de.qaware.smartlab.api.service.connector.job.IJobManagementService;
 import de.qaware.smartlab.assistance.assistances.triggerable.generic.IAssistanceTriggerable;
-import de.qaware.smartlab.core.data.assistance.IAssistanceConfiguration;
+import de.qaware.smartlab.core.assistance.IAssistanceConfiguration;
 import de.qaware.smartlab.core.data.context.IAssistanceContext;
 import de.qaware.smartlab.core.data.context.IAssistanceContextFactory;
-import de.qaware.smartlab.core.data.generic.IResolver;
+import de.qaware.smartlab.core.resolver.IResolver;
 import de.qaware.smartlab.core.data.event.IEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package de.qaware.smartlab.api.service.connector.delegate;
 
 import de.qaware.smartlab.api.service.client.delegate.IDelegateApiClient;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
 import de.qaware.smartlab.core.exception.SmartLabException;
 import de.qaware.smartlab.core.exception.delegate.DelegateException;
 import feign.Client;

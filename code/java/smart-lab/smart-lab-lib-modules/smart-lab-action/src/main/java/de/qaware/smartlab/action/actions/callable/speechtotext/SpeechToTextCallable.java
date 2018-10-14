@@ -6,9 +6,9 @@ import de.qaware.smartlab.action.actions.callable.generic.AbstractActionCallable
 import de.qaware.smartlab.action.actions.info.speechtotext.SpeechToTextInfo;
 import de.qaware.smartlab.action.result.TranscriptActionResult;
 import de.qaware.smartlab.api.service.connector.action.IActionService;
-import de.qaware.smartlab.core.data.action.generic.IActionArgs;
-import de.qaware.smartlab.core.data.action.generic.result.IActionResult;
-import de.qaware.smartlab.core.data.action.speechtotext.ITranscript;
+import de.qaware.smartlab.core.action.generic.IActionArgs;
+import de.qaware.smartlab.core.action.generic.IActionResult;
+import de.qaware.smartlab.core.action.speechtotext.ITranscript;
 import de.qaware.smartlab.core.exception.action.ActionException;
 import de.qaware.smartlab.core.miscellaneous.Language;
 import lombok.*;
