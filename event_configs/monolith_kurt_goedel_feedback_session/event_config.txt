@@ -1,0 +1,27 @@
+@smart-lab-config-begin
+    @workgroup="demo-workgroup"
+    @agenda-begin
+        "Tell jokes"
+        "Take a nap"
+        "Drink coffee"
+    @agenda-end
+    @assistances-begin
+        showAgenda(
+            webBrowserId: "demo-web-browser",
+            displayId: "demo-display")
+        displayFile(
+            file: "slides/smart_lab.pptx",
+            programId: "demo-power-point",
+            displayId: "demo-beamer")
+        prepareDevice(
+            deviceId: "demo-beamer")
+        takeMinutes(
+            spokenLanguage: "EN_US",
+            uploadDir: "/minutes",
+            microphoneId: "demo-microphone")
+        displayWebsite(
+            url: "https://www.qaware.de/",
+            webBrowserId: "demo-web-browser",
+            displayId: "demo-display")
+    @assistances-end
+@smart-lab-config-end
